@@ -10,7 +10,7 @@ struct LCA {
         V = v;
         logV = 0;
         while (v > (1LL << logV)) logV++;
-		data = vector<vector<int64_t>>(V);
+	data = vector<vector<int64_t>>(V);
         depth = vector<int64_t>(V);
         parent = vector<vector<int64_t>>(logV, vector<int64_t>(V));
     }
