@@ -6,17 +6,17 @@ struct math_mod {
     using mint = ModInt<mod>;
     vector<mint> fac, finv;
 
-    math_mod() {
-        _init(3000000);
-    }
+    math_mod() { _init(4194304); }
 
-    void _init(const int64_t n) {
+    void _init(int64_t n) {
         if (fac.size() > n) return;
-        const int m = fac.size();
+        int m = fac.size();
         fac.resize(n + 1);
         for (int64_t i = m; i <= n; ++i) {
-            if (i == 0) fac[i] = 1;
-            else fac[i] = fac[i - 1] * i;
+            if (i == 0)
+                fac[i] = 1;
+            else
+                fac[i] = fac[i - 1] * i;
         }
         finv.resize(n + 1);
         finv[n] = fac[n].inverse();
@@ -24,7 +24,8 @@ struct math_mod {
     }
 
     mint fact(int64_t x) {
-        assert(x >= 0 && x < fac.size());
+        assert(x >= 0);
+        _init(x);
         return fac[x];
     }
 
@@ -34,7 +35,7 @@ struct math_mod {
         return fac[n] * finv[k] * finv[n - k];
     }
 
-    mint combi_naive(int64_t n, int64_t k) {
+    mint combi_naive(int64_t n, int64_t k) const {
         if (n - k < k) n = n - k;
         if (n < k || n < 0 || k < 0) return 0;
         mint res = 1;

@@ -11,24 +11,24 @@ struct ModInt {
     ModInt(int64_t y) : x(y >= 0 ? y % mod : (mod - (-y) % mod) % mod) {}
 
     ModInt &operator+=(const ModInt &rhs) {
-        if((x += rhs.x) >= mod) x -= mod;
+        if ((x += rhs.x) >= mod) x -= mod;
         return *this;
     }
     ModInt &operator-=(const ModInt &rhs) {
-        if((x += mod - rhs.x) >= mod) x -= mod;
+        if ((x += mod - rhs.x) >= mod) x -= mod;
         return *this;
     }
     ModInt &operator*=(const ModInt &rhs) {
-        x = (int) (1LL * x * rhs.x % mod);
+        x = (int)(1LL * x * rhs.x % mod);
         return *this;
     }
     ModInt &operator/=(const ModInt &rhs) {
         *this *= rhs.inverse();
         return *this;
     }
-    
+
     ModInt &operator++() {
-        if((++x) >= mod) x -= mod;
+        if ((++x) >= mod) x -= mod;
         return *this;
     }
     ModInt operator++(int) {
@@ -37,7 +37,7 @@ struct ModInt {
         return tmp;
     }
     ModInt &operator--() {
-        if((x += mod - 1) >= mod) x -= mod;
+        if ((x += mod - 1) >= mod) x -= mod;
         return *this;
     }
     ModInt operator--(int) {
@@ -67,10 +67,9 @@ struct ModInt {
 
     ModInt pow(int64_t n) const {
         ModInt res(1), mul(x);
-        while (n > 0) {
-            if(n & 1) res *= mul;
+        for (; n > 0; n >>= 1) {
+            if (n & 1) res *= mul;
             mul *= mul;
-            n >>= 1;
         }
         return res;
     }
@@ -87,7 +86,7 @@ struct ModInt {
     friend istream &operator>>(istream &is, ModInt &rhs) {
         int64_t t;
         is >> t;
-        rhs = ModInt< mod >(t);
+        rhs = ModInt<mod>(t);
         return (is);
     }
 

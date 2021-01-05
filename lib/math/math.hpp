@@ -8,17 +8,16 @@ int64_t gcd(int64_t a, int64_t b) {
     return a;
 }
 
-int64_t gcd(vector<int64_t> v) {
-    int64_t res = 1;
+int64_t gcd(const vector<int64_t> &v) {
+    if (v.empty()) return 1;
+    int64_t res = v[0];
     for (auto i : v) res = gcd(res, i);
     return res;
 }
 
-int64_t lcm(int64_t a, int64_t b) {
-    return a / gcd(a, b) * b;
-}
+int64_t lcm(int64_t a, int64_t b) { return a / gcd(a, b) * b; }
 
-int64_t lcm(vector<int64_t> v) {
+int64_t lcm(const vector<int64_t> &v) {
     int64_t res = 1;
     for (auto i : v) res = lcm(res, i);
     return res;

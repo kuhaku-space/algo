@@ -3,9 +3,7 @@
 struct prime_number {
     vector<int64_t> data;
 
-    prime_number() {
-        init();
-    }
+    prime_number() { init(); }
 
     void init() {
         constexpr int sz = 4194304;
@@ -35,8 +33,7 @@ struct prime_number {
 
         for (auto i : data) {
             int64_t cnt = 0;
-            while (n % i == 0) {
-                n /= i;
+            for (; n % i == 0; n /= i) {
                 cnt++;
             }
             if (cnt) res.push_back({i, cnt});
@@ -69,7 +66,8 @@ struct prime_number {
             for (int64_t k = 1; k <= p.second; ++k) {
                 int64_t t = pow_int(p.first, k);
                 for (int64_t i = 0; i < a.size(); ++i) a[i] = cp[i] * t;
-                merge(res.begin(), res.end(), a.begin(), a.end(), back_inserter(b));
+                merge(res.begin(), res.end(), a.begin(), a.end(),
+                      back_inserter(b));
                 swap(res, b);
                 b.clear();
             }
@@ -77,16 +75,16 @@ struct prime_number {
 
         return res;
     }
-    
+
     vector<vector<int64_t>> factorization(int64_t n) {
         vector<vector<int64_t>> res;
 
-        auto f = [&](auto g, vector<int64_t> v, int64_t a) -> void {
+        auto f = [&](auto self, vector<int64_t> v, int64_t a) -> void {
             if (a == 1) res.push_back(v);
             for (auto i : divisors(a)) {
                 if (i == 1 || (!v.empty() && v.back() > i)) continue;
                 v.push_back(i);
-                g(g, v, a / i);
+                self(self, v, a / i);
                 v.pop_back();
             }
         };

@@ -1,7 +1,9 @@
 #include "_base.hpp"
 
 template <class T1, class T2>
-inline bool eq(T1 a, T2 b){ return abs(a - b) < EPS; }
+inline bool eq(T1 a, T2 b) {
+    return abs(a - b) < EPS;
+}
 template <class T>
 using Point = complex<T>;
 template <class T>
@@ -9,13 +11,13 @@ using Points = vector<Point<T>>;
 
 // 内積
 template <class T>
-T dot(Point<T> a, Point<T> b){
+T dot(Point<T> a, Point<T> b) {
     return (conj(a) * b).real();
 }
 
 // 外積
 template <class T>
-T cross(Point<T> a, Point<T> b){
+T cross(Point<T> a, Point<T> b) {
     return (conj(a) * b).imag();
 }
 
@@ -25,24 +27,20 @@ struct Line {
 
     Line(Point<T> _a, Point<T> _b) : a(_a), b(_b) {}
 
-    bool in_line(Point<T> p){
-        return eq(cross(p - a, p - b), 0);
-    }
+    bool in_line(Point<T> p) { return eq(cross(p - a, p - b), 0); }
 
-    Point<T> proj(Point<T> p){
+    Point<T> proj(Point<T> p) {
         return a + dot(b - a, p - a) / norm(b - a) * (b - a);
     }
 
-    T dist(Point<T> p){
-        return abs(p - proj(p));
-    }
+    T dist(Point<T> p) { return abs(p - proj(p)); }
 };
 
-constexpr Point<ld> PINF = Point<ld>(INF, INF);
+constexpr Point<ld> PINF = Point<ld>(LINF, LINF);
 const Line<ld> LINF = Line<ld>(PINF, PINF);
 
 template <class T>
-Point<T> cross_point(Line<T> l1, Line<T> l2){
+Point<T> cross_point(Line<T> l1, Line<T> l2) {
     T d1 = cross(l2.b - l1.b, l1.b - l1.a);
     T d2 = cross(l2.b - l1.b, l2.a - l1.a);
     if (eq(d1, 0) && eq(d2, 0)) return l1.a;
@@ -52,26 +50,26 @@ Point<T> cross_point(Line<T> l1, Line<T> l2){
 
 // 垂直二等分線
 template <class T>
-Line<T> perpendicular_bisector(Point<T> p1, Point<T> p2){
-    if(eq(p1, p2)) return LINF;
+Line<T> perpendicular_bisector(Point<T> p1, Point<T> p2) {
+    if (eq(p1, p2)) return LINF;
     Point<T> m = (p1 + p2) / 2.0L, d = p2 - p1;
     return Line<T>(m, m + d * Point<T>(cos(PI / 2), sin(PI / 2)));
 }
 
 template <class T>
-Line<T> vertical_line(Point<T> p, Line<T> l){
+Line<T> vertical_line(Point<T> p, Line<T> l) {
     if (l.in_line(p)) return LINF;
     return Line<T>(p, l.proj(p));
 }
 
 template <class T>
-Point<T> rotate(const Point<T> p, const Point<T> center, const ld theta){
+Point<T> rotate(const Point<T> p, const Point<T> center, const ld theta) {
     const Point<T> d = p - center;
     return center + d * Point<T>(cos(theta), sin(theta));
 }
 
 template <class T>
-T triangle_area(Point<T> p1, Point<T> p2, Point<T> p3){
+T triangle_area(Point<T> p1, Point<T> p2, Point<T> p3) {
     p1 -= p3;
     p2 -= p3;
     return abs(p1.real() * p2.imag() + p1.imag() * p2.real()) / 2;
@@ -82,30 +80,30 @@ struct Circle2 {
     Point<T> p;
     T r;
 
-    Circle2() : p(INF), r(0){}
+    Circle2() : p(INF), r(0) {}
 
-    Circle2(Point<T> _p, T _r) : p(_p), r(_r){}
+    Circle2(Point<T> _p, T _r) : p(_p), r(_r) {}
 };
 
 template <class T>
-ll checker(Circle2<T> c1, Circle2<T> c2){
-    if(c1.r < c2.r) swap(c1, c2);
+ll checker(Circle2<T> c1, Circle2<T> c2) {
+    if (c1.r < c2.r) swap(c1, c2);
     T d = abs(c1.p - c2.p);
-    if(c1.r + c2.r < d) return 4;
-    if(eq(c1.r + c2.r, d)) return 3;
-    if(c1.r - c2.r < d) return 2;
-    if(eq(c1.r - c2.r, d)) return 1;
+    if (c1.r + c2.r < d) return 4;
+    if (eq(c1.r + c2.r, d)) return 3;
+    if (c1.r - c2.r < d) return 2;
+    if (eq(c1.r - c2.r, d)) return 1;
     return 0;
 }
 
 template <class T>
-bool intersect(Circle2<T> c1, Circle2<T> c2){
+bool intersect(Circle2<T> c1, Circle2<T> c2) {
     ll tmp = checker(c1, c2);
     return tmp >= 1 && tmp <= 3;
 }
 
 template <class T>
-Points<T> cross_point(const Circle2<T> c1, const Circle2<T> c2){
+Points<T> cross_point(const Circle2<T> c1, const Circle2<T> c2) {
     T d = abs(c1.p - c2.p);
     ll tmp = checker(c1, c2);
     Points<T> res;
@@ -121,16 +119,17 @@ Points<T> cross_point(const Circle2<T> c1, const Circle2<T> c2){
 
 // 最小包含円
 template <class T>
-Circle2<T> min_ball(Points<T> &ps, Point<T> p = Point<T>(0.0, 0.0)){
+Circle2<T> min_ball(Points<T> &ps, Point<T> p = Point<T>(0.0, 0.0)) {
     T r = 0.0, move = 0.5;
     Point<T> k(0.0, 0.0);
     while (move > EPS * EPS) {
         r = 0.0;
-        for (auto i : ps) if(chmax(r, abs(p - i))) k = i;
+        for (auto i : ps)
+            if (chmax(r, abs(p - i))) k = i;
         p += (k - p) * move;
         move *= 0.999;
     }
-    
+
     return Circle2<T>(p, r);
 }
 
@@ -138,19 +137,19 @@ using point = Point<ld>;
 using points = Points<ld>;
 using circle = Circle2<ld>;
 
-struct Pos{
+struct Pos {
     ld x, y, z;
-    Pos(ld x, ld y, ld z) : x(x), y(y), z(z){}
+    Pos(ld x, ld y, ld z) : x(x), y(y), z(z) {}
 };
 
-struct Circle3{
+struct Circle3 {
     Pos p;
     ld r;
-    Circle3(Pos p, ld r) : p(p), r(r){}
+    Circle3(Pos p, ld r) : p(p), r(r) {}
 };
 
-Circle3 min_ball(vector<Pos> &ps, Pos p = {0.0, 0.0, 0.0}){
-    auto dist = [](const Pos &a, const Pos &b) -> ld{
+Circle3 min_ball(vector<Pos> &ps, Pos p = {0.0, 0.0, 0.0}) {
+    auto dist = [](const Pos &a, const Pos &b) -> ld {
         ld dx = a.x - b.x;
         ld dy = a.y - b.y;
         ld dz = a.z - b.z;
@@ -159,9 +158,10 @@ Circle3 min_ball(vector<Pos> &ps, Pos p = {0.0, 0.0, 0.0}){
 
     ld r = 0.0, move = 0.5;
     Pos k = {0.0, 0.0, 0.0};
-    while(move > EPS*EPS){
+    while (move > EPS * EPS) {
         r = 0.0;
-        for(Pos i : ps) if(chmax(r, dist(p, i))) k = i;
+        for (Pos i : ps)
+            if (chmax(r, dist(p, i))) k = i;
         p.x += (k.x - p.x) * move;
         p.y += (k.y - p.y) * move;
         p.x += (k.z - p.z) * move;

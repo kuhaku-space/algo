@@ -14,20 +14,12 @@ struct segment_tree {
     F f;
     vector<T> data;
 
-    segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) {
-        init(_n);
-    }
+    segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
 
-    const T &operator[](const int64_t i) const {
-        return data[i + N];
-    }
-    T &operator[](const int64_t i) {
-        return data[i + N];
-    }
+    const T &operator[](const int64_t i) const { return data[i + N]; }
+    T &operator[](const int64_t i) { return data[i + N]; }
 
-    T at(int64_t k) const {
-        return data[k + N];
-    }
+    T at(int64_t k) const { return data[k + N]; }
 
     void init(int64_t n) {
         N = 1;
@@ -37,7 +29,8 @@ struct segment_tree {
 
     void build(vector<T> v) {
         for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
-        for (int64_t i = N - 1; i >= 1; --i) data[i] = f(data[i * 2], data[i * 2 + 1]);
+        for (int64_t i = N - 1; i >= 1; --i)
+            data[i] = f(data[i * 2], data[i * 2 + 1]);
     }
 
     void update(int64_t k, const T x) {
@@ -61,7 +54,7 @@ struct segment_tree {
     T query(int64_t a, int64_t b) {
         T res = d;
         for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
-            if (a & 1) res = f(res, data[a++]);
+            if (a & 1) res = f(data[a++], res);
             if (b & 1) res = f(res, data[--b]);
         }
         return res;

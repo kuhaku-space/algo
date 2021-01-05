@@ -2,11 +2,11 @@
 
 /*
 Usage:
-    lazy_segment_tree<ll> lst(n, LINF, [](ll a, ll b){return min(a, b);});
-    lazy_segment_tree<ll> lst(n, 0, [](ll a, ll b){return max(a, b);});
+    lazy_segment_tree<ll> RAQ&RmQ(n, LINF, [](ll a, ll b){return min(a, b);});
+    lazy_segment_tree<ll> RAQ&RMQ(n, 0, [](ll a, ll b){return max(a, b);});
 */
 template <class T>
-struct lazy_segment_tree{
+struct lazy_segment_tree {
     using F = function<T(T, T)>;
     int64_t N;
     T d;
@@ -14,20 +14,19 @@ struct lazy_segment_tree{
     vector<T> data;
     vector<T> lazy;
 
-    lazy_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) {
-        init(_n);
-    }
+    lazy_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
 
-    void init(int64_t n){
+    void init(int64_t n) {
         N = 1;
-        while(N < n) N <<= 1;
+        while (N < n) N <<= 1;
         data.assign(N * 2, d);
         lazy.assign(N * 2, 0);
     }
 
-    void build(vector<T> v){
+    void build(const vector<T> &v) {
         for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
-        for (int64_t i = N - 1; i >= 1; --i) data[i] = f(data[i * 2], data[i * 2 + 1]);
+        for (int64_t i = N - 1; i >= 1; --i)
+            data[i] = f(data[i * 2], data[i * 2 + 1]);
     }
 
     void eval(int64_t k) {
@@ -40,16 +39,12 @@ struct lazy_segment_tree{
         lazy[k] = 0;
     }
 
-    T add(int64_t a, T x) {
-        return add(a, a + 1, x, 1, 0, N);
-    }
-    T add(int64_t a, int64_t b, T x) {
-        return add(a, b, x, 1, 0, N);
-    }
+    T add(int64_t a, T x) { return add(a, a + 1, x, 1, 0, N); }
+    T add(int64_t a, int64_t b, T x) { return add(a, b, x, 1, 0, N); }
     T add(int64_t a, int64_t b, T x, int64_t k, int64_t l, int64_t r) {
         eval(k);
-        if(r <= a || b <= l) return data[k];
-        if(a <= l && r <= b){
+        if (r <= a || b <= l) return data[k];
+        if (a <= l && r <= b) {
             lazy[k] += x;
             return data[k] + lazy[k];
         }
@@ -58,13 +53,11 @@ struct lazy_segment_tree{
                    f(add(a, b, x, k * 2, l, m), add(a, b, x, k * 2 + 1, m, r));
     }
 
-    T query(int64_t a, int64_t b){
-        return query(a, b, 1, 0, N);
-    }
-    T query(int64_t a, int64_t b, int64_t k, int64_t l, int64_t r){
+    T query(int64_t a, int64_t b) { return query(a, b, 1, 0, N); }
+    T query(int64_t a, int64_t b, int64_t k, int64_t l, int64_t r) {
         eval(k);
-        if(r <= a || b <= l) return d;
-        if(a <= l && r <= b) return data[k];
+        if (r <= a || b <= l) return d;
+        if (a <= l && r <= b) return data[k];
         int64_t m = (l + r) / 2;
         return f(query(a, b, k * 2, l, m), query(a, b, k * 2 + 1, m, r));
     }

@@ -3,27 +3,27 @@
 template <class T>
 struct binary_tree {
     struct node {
-        T key;
-        int64_t left, right;
+        T k;
+        int64_t l, r;
 
-        node() : key(numeric_limits<T>::max()) {}
+        node() : k(numeric_limits<T>::max()) {}
 
-        node(T _key, int64_t _left, int64_t _right) : key(_key), left(_left), right(_right) {}
+        node(T _k, int64_t _l, int64_t _r) : k(_k), l(_l), r(_r) {}
     };
 
-    int64_t sz;
+    int64_t size;
     vector<node> nodes;
 
     binary_tree() {
-        sz = 1;
-        nodes.resize(sz, node());
+        size = 1;
+        nodes.resize(size, node());
     }
 
     bool operator<(const binary_tree &rhs) const {
         return dfs() < rhs.dfs();
     }
 
-    int64_t find(T key) {
+    const int64_t find(T key) const {
         int64_t it = 0;
         while (nodes[it].key != numeric_limits<T>::max() && nodes[it].key != key) {
             if (key < nodes[it].key) it = nodes[it].left;
@@ -32,16 +32,16 @@ struct binary_tree {
         return it;
     }
 
-    bool exist(T key) {
+    bool exist(T key) const {
         return nodes[find(key)].key == key;
     }
 
     void insert(T key) {
         int64_t it = find(key);
         if (nodes[it].key == key) return;
-        nodes.resize(sz + 2, node());
-        nodes[it] = node(key, sz, sz + 1);
-        sz += 2;
+        nodes.resize(size + 2, node());
+        nodes[it] = node(key, size, size + 1);
+        size += 2;
     }
 
     vector<int64_t> dfs() const {

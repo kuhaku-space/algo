@@ -2,64 +2,55 @@
 
 /*
 Usage:
-    lazy_segment_tree<ll> lst(n, LINF, [](ll a, ll b){return min(a, b);});
-    lazy_segment_tree<ll> lst(n, 0, [](ll a, ll b){return max(a, b);});
+    dual_segment_tree<ll> RAQ(n, LINF, [](ll a, ll x){return a + x;});
+    dual_segment_tree<ll> RUQ(n, 0, [](ll a, ll x){return x;});
 */
 template <class T>
-struct dual_segment_tree{
+struct dual_segment_tree {
     using F = function<T(T, T)>;
     int64_t N;
     T d;
     F f;
     vector<T> data;
-    vector<T> lazy;
 
-    dual_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) {
-        init(_n);
-    }
+    dual_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
 
-    void init(int64_t n){
+    void init(int64_t n) {
         N = 1;
-        while(N < n) N <<= 1;
+        while (N < n) N <<= 1;
         data.assign(N * 2, d);
-        lazy.assign(N * 2, 0);
     }
 
-    void build(vector<T> v){
+    void build(const vector<T> &v) {
         for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
-        for (int64_t i = N - 1; i >= 1; --i) data[i] = f(data[i * 2], data[i * 2 + 1]);
     }
 
-    void eval(int64_t k) {
-        if (lazy[k] == 0) return;
-        if (k < N) {
-            lazy[k * 2] += lazy[k];
-            lazy[k * 2 + 1] += lazy[k];
+    void update(int64_t a, T x) {
+        int k = 0;
+        while (a >> k > 1) ++k;
+        for (; k > 0; --k) {
+            int64_t t = a >> k;
+            if (data[t] == d) continue;
+            data[t * 2] = f(data[t * 2], data[t]);
+            data[t * 2 + 1] = f(data[t * 2 + 1], data[t]);
+            data[t] = d;
         }
-        data[k] += lazy[k];
-        lazy[k] = 0;
+        data[a] = f(data[a], x);
     }
 
-    T add(int64_t a, T x) {
-        return add(a, a + 1, x, 1, 0, N);
-    }
-    T add(int64_t a, int64_t b, T x) {
-        return add(a, b, x, 1, 0, N);
-    }
-    T add(int64_t a, int64_t b, T x, int64_t k, int64_t l, int64_t r) {
-        eval(k);
-        if(r <= a || b <= l) return data[k];
-        if(a <= l && r <= b){
-            lazy[k] += x;
-            return data[k] + lazy[k];
+    void query(int64_t a, T x) { query(a, a + 1, 1, 0, N, x); }
+    void query(int64_t a, int64_t b, T x) {
+        for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
+            if (a & 1) update(a++, x);
+            if (b & 1) update(--b, x);
         }
-        int64_t m = (l + r) / 2;
-        return data[k] =
-                   f(add(a, b, x, k * 2, l, m), add(a, b, x, k * 2 + 1, m, r));
     }
 
-    T at(int64_t k) {
-        eval(k);
-        return data[k + N];
+    const T at(int64_t k) const {
+        T res = d;
+        for (k += N; k >= 1; k >>= 1) {
+            if (data[k] != d) res = f(res, data[k]);
+        }
+        return res;
     }
 };

@@ -1,5 +1,4 @@
 #include "_base.hpp"
-#include "graph/union_find.hpp"
 
 template <class T>
 struct Graph {
@@ -7,22 +6,16 @@ struct Graph {
         int64_t from, to;
         T dist;
 
-        bool operator<(const edge &rhs) const {
-            return dist < rhs.dist;
-        }
-        
-        bool operator>(const edge &rhs) const {
-            return dist > rhs.dist;
-        }
+        bool operator<(const edge &rhs) const { return dist < rhs.dist; }
+
+        bool operator>(const edge &rhs) const { return dist > rhs.dist; }
 
         edge &operator+=(const edge &rhs) {
             to = rhs.to;
             dist += rhs.dist;
             return *this;
         }
-        edge operator+(const edge &rhs) {
-            return edge(*this) += rhs;
-        }
+        edge operator+(const edge &rhs) { return edge(*this) += rhs; }
     };
 
     int64_t V;
@@ -31,13 +24,13 @@ struct Graph {
     bitset<1048576> negative_cycle;
 
     Graph(int64_t v) : V(v) {
-        edges.resize(v);
-        dist.assign(v, numeric_limits<T>::max());
+        edges = vector<vector<edge>>(V);
+        dist = vector<T>(V, numeric_limits<T>::max());
     }
 
-    void add_edge(int64_t a, int64_t b, T d = 1) {
+    void add_edge(int64_t a, int64_t b, T d = 1, bool is_dual = false) {
         edges[a].push_back(edge{a, b, d});
-        // edges[b].push_back(edge{b, a, d});
+        if (is_dual) edges[b].push_back(edge{b, a, d});
     }
 
     void dijkstra(int64_t s) {
@@ -45,14 +38,15 @@ struct Graph {
         priority_queue<edge, vector<edge>, greater<edge>> p_que;
         p_que.push(edge{s, s, T()});
         while (!p_que.empty()) {
-            edge e = p_que.top(); p_que.pop();
+            edge e = p_que.top();
+            p_que.pop();
             if (e.dist >= dist[e.to]) continue;
             dist[e.to] = e.dist;
             for (auto i : edges[e.to]) p_que.push(e + i);
         }
     }
 
-    void bellman_ford(int64_t s){
+    void bellman_ford(int64_t s) {
         dist.assign(V, numeric_limits<T>::max());
         dist[s] = T();
         negative_cycle = bitset<1048576>();
@@ -74,34 +68,13 @@ struct Graph {
         }
     }
 
-    T get_dist(int64_t a) {
-        return dist[a];
-    }
+    const T get_dist(int64_t a) const { return dist[a]; }
 
-    bool is_visit(int64_t a) {
+    bool is_visit(int64_t a) const {
         return dist[a] != numeric_limits<T>::max();
     }
 
-    bool is_negative_cycle(int64_t a) {
-        return negative_cycle[a];
-    }/*
-
-    T kruskal() {
-        union_find uf(V);
-        T res = T();
-        vector<edge> edge_list;
-        for (auto v : edges) {
-            for (auto e : v) edge_list.push_back(e);
-        }
-        sort(edge_list.begin(), edge_list.end());
-        for (edge e : edge_list) {
-            if (!uf.is_same(e.from, e.to)) {
-                uf.unite(e.from, e.to);
-                res += e.dist;
-            }
-        }
-        return res;
-    }*/
+    bool is_negative_cycle(int64_t a) const { return negative_cycle[a]; }
 
     vector<int64_t> topological_sort() {
         vector<int64_t> res;

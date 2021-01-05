@@ -1,7 +1,7 @@
 #include "_base.hpp"
 
-//O(|S|)
-//A[i] := S[0:A[i]-1] == S[i-A[i]:i-1]
+// O(|S|)
+// A[i] := S[0:A[i]-1] == S[i-A[i]:i-1]
 template <typename Type>
 struct KMP {
     Type S;
@@ -12,34 +12,37 @@ struct KMP {
         A[0] = -1;
         int64_t j = -1;
         for (size_t i = 0; i < S.size(); ++i) {
-            while(j >= 0 && S[i] != S[j]) j = A[j];
+            while (j >= 0 && S[i] != S[j]) j = A[j];
             ++j;
             // if(S[i + 1] == S[j]) A[i + 1] = A[j];
-            // else 
+            // else
             A[i + 1] = j;
         }
     }
 
-    ll search(Type T){
+    ll search(Type T) {
         int64_t i = 0, j = 0;
-        while(i < S.size()) {
-            if(S[i] == T[j]) ++i, ++j;
-            else if(!j) ++i;
-            else j = A[j];
+        while (i < S.size()) {
+            if (S[i] == T[j])
+                ++i, ++j;
+            else if (!j)
+                ++i;
+            else
+                j = A[j];
         }
         if (j == T.size()) return i - j;
         return -1;
     }
 };
 
-//O(|S|)
-//R[i] := S[i-(R[i]-1):i] == S[i:i+(R[i]-1)]
+// O(|S|)
+// R[i] := S[i-(R[i]-1):i] == S[i:i+(R[i]-1)]
 template <typename Type>
 struct Manacher {
     Type S;
     vector<int64_t> R;
 
-    Manacher(Type S) : S(S){
+    Manacher(Type S) : S(S) {
         R.resize(S.size());
         int64_t i = 0, j = 0;
         while (i < S.size()) {
@@ -53,8 +56,8 @@ struct Manacher {
     }
 };
 
-//O(|S|)
-//A[i] := S[i:A[i]-1] == S[0:A[i]-1]
+// O(|S|)
+// A[i] := S[i:A[i]-1] == S[0:A[i]-1]
 template <typename Type>
 struct Z_algorithm {
     Type S;
@@ -67,7 +70,10 @@ struct Z_algorithm {
         while (i < S.size()) {
             while (i + j < S.size() && S[j] == S[i + j]) ++j;
             A[i] = j;
-            if(!j){++i; continue;}
+            if (!j) {
+                ++i;
+                continue;
+            }
             int64_t k = 1;
             while (i + k < S.size() && k + A[k] < j) A[i + k] = A[k], ++k;
             i += k, j -= k;

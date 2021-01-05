@@ -8,28 +8,22 @@ struct BIT {
 
     BIT() {}
 
-    BIT(int64_t n) {
-        init(n);
-    }
+    BIT(int64_t n) { init(n); }
 
-    const T &operator[](const int64_t i) const {
-        return at(i);
-    }
+    const T &operator[](int64_t i) const { return at(i); }
 
-    T at(int64_t k) const { return sum(k + 1) - sum(k); }
+    const T at(int64_t k) const { return sum(k + 1) - sum(k); }
 
-    void init() {
-        data.assign(N + 1, 0);
-    }
+    void init() { data = vector<T>(N + 1); }
 
     void init(int64_t n) {
         N = 1;
         while (N < n) N <<= 1;
-        data.assign(N + 1, 0);
+        data = vector<T>(N + 1);
     }
 
-    void build(vector<T> v) {
-        init(N);
+    void build(const vector<T> &v) {
+        init(v.size());
         for (int i = 0; i < v.size(); ++i) {
             add(i, v[i]);
         }
@@ -43,9 +37,7 @@ struct BIT {
     }
 
     // v[k] = x
-    void update(int64_t k, T x) {
-        add(k, x - at(k));
-    }
+    void update(int64_t k, T x) { add(k, x - at(k)); }
 
     // v[0] + ... + v[k - 1]
     T sum(int64_t k) const {
@@ -59,7 +51,7 @@ struct BIT {
     // v[a] + ... + v[b - 1]
     T sum(int64_t a, int64_t b) const { return sum(b) - sum(a); }
 
-    int64_t lower_bound(T x) {
+    int64_t lower_bound(T x) const {
         if (x <= 0) return 0;
         int64_t res = 0;
         for (int64_t k = N; k > 0; k >>= 1) {

@@ -6,13 +6,11 @@ struct Matrix {
     vector<vector<T>> v;
 
     Matrix(int64_t x) {
-        v.resize(x);
-        for (int64_t i = 0; i < x; ++i) v[i].resize(x);
+        v = vector<vector<T>>(x, vector<T>(x));
     }
 
     Matrix(int64_t x, int64_t y) {
-        v.resize(x);
-        for (int64_t i = 0; i < x; ++i) v[i].resize(y);
+        v = vector<vector<T>>(x, vector<T>(y));
     }
 
     Matrix(vector<vector<T>> _v) : v(_v) {}
@@ -50,7 +48,8 @@ struct Matrix {
         vector<vector<T>> tmp(x, vector<T>(y));
         for (int64_t i = 0; i < x; ++i) {
             for (int64_t j = 0; j < y; ++j) {
-                for (int64_t k = 0; k < z; ++k) tmp[i][j] += v[i][k] * rhs.v[k][j];
+                for (int64_t k = 0; k < z; ++k)
+                    tmp[i][j] += v[i][k] * rhs.v[k][j];
             }
         }
         swap(v, tmp);
@@ -59,8 +58,8 @@ struct Matrix {
 
     Matrix operator-() const {
         vector<vector<T>> tmp = v;
-        for (auto& i : tmp)
-            for (auto& j : i) j *= T(-1);
+        for (auto &i : tmp)
+            for (auto &j : i) j = -j;
         return Matrix(tmp);
     }
 
@@ -71,10 +70,9 @@ struct Matrix {
     Matrix pow(int64_t n) const {
         Matrix res(v), mul(v);
         res.unit_matrix();
-        while (n > 0) {
+        for (; n > 0; n >>= 1) {
             if (n & 1) res *= mul;
             mul *= mul;
-            n >>= 1;
         }
         return res;
     }
@@ -100,7 +98,7 @@ struct Matrix {
     }
 
     void debug_print() const {
-        for(auto i : v) {
+        for (auto i : v) {
             cerr << "[";
             for (auto j : i) cerr << j << ", ";
             cerr << "]" << endl;

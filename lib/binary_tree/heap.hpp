@@ -17,26 +17,20 @@ struct heap {
         }
     }
 
-    T top() const {
-        return data[1];
-    }
+    T top() const { return data[1]; }
 
     void pop() {
         data[1] = data[sz];
         data[sz--] = -LINF;
         for (int64_t it = 1;
-             data[it] < data[it * 2] || data[it] < data[it * 2 + 1]; ) {
+             data[it] < data[it * 2] || data[it] < data[it * 2 + 1];) {
             it <<= 1;
             if (data[it] < data[it + 1]) ++it;
             swap(data[it], data[it / 2]);
         }
     }
 
-    int64_t size() const {
-        return sz;
-    }
+    int64_t size() const { return sz; }
 
-    int64_t empty() const {
-        return sz == 0;
-    }
+    int64_t empty() const { return sz == 0; }
 };

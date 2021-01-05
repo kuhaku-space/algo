@@ -6,9 +6,7 @@ struct Fraction {
 
     Fraction() : x(0), y(1) {}
 
-    Fraction(int64_t _x, int64_t _y = 1) : x(_x), y(_y) {
-        common();
-    }
+    Fraction(int64_t _x, int64_t _y = 1) : x(_x), y(_y) { common(); }
 
     void common() {
         int64_t g = gcd(x, y);
@@ -74,13 +72,25 @@ struct Fraction {
 
     Fraction operator-() const { return Fraction(-x, y); }
 
-    Fraction operator+(const Fraction &rhs) const { return Fraction(*this) += rhs; }
-    Fraction operator-(const Fraction &rhs) const { return Fraction(*this) -= rhs; }
-    Fraction operator*(const Fraction &rhs) const { return Fraction(*this) *= rhs; }
-    Fraction operator/(const Fraction &rhs) const { return Fraction(*this) /= rhs; }
+    Fraction operator+(const Fraction &rhs) const {
+        return Fraction(*this) += rhs;
+    }
+    Fraction operator-(const Fraction &rhs) const {
+        return Fraction(*this) -= rhs;
+    }
+    Fraction operator*(const Fraction &rhs) const {
+        return Fraction(*this) *= rhs;
+    }
+    Fraction operator/(const Fraction &rhs) const {
+        return Fraction(*this) /= rhs;
+    }
 
-    bool operator==(const Fraction &rhs) const { return x == rhs.x && y == rhs.y; }
-    bool operator!=(const Fraction &rhs) const { return x != rhs.x || y != rhs.y; }
+    bool operator==(const Fraction &rhs) const {
+        return x == rhs.x && y == rhs.y;
+    }
+    bool operator!=(const Fraction &rhs) const {
+        return x != rhs.x || y != rhs.y;
+    }
     bool operator<(const Fraction &rhs) const { return x * rhs.y < rhs.x * y; }
     bool operator>(const Fraction &rhs) const { return x * rhs.y > rhs.x * y; }
 

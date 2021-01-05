@@ -9,16 +9,13 @@ struct Trie {
         vector<int> accept;
         int c;
         int common;
-        Node(int _c) : c(_c), common(0) {
-            next_node.assign(char_size, -1);
-        }
+        Node(int _c) : c(_c), common(0) { next_node.assign(char_size, -1); }
     };
     vector<Node> nodes;
     int root;
-    Trie() : root(0) {
-        nodes.push_back(Node(root));
-    }
+    Trie() : root(0) { nodes.push_back(Node(root)); }
 
+    void insert(const string &word) { insert(word, nodes[0].common); }
     void insert(const string &word, int word_id) {
         int node_id = 0;
         for (size_t i = 0; i < word.size(); ++i) {
@@ -33,9 +30,6 @@ struct Trie {
         }
         ++nodes[node_id].common;
         nodes[node_id].accept.push_back(word_id);
-    }
-    void insert(const string &word) {
-        insert(word, nodes[0].common);
     }
 
     bool search(const string &word, bool prefix = false) {
