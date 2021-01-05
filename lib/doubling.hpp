@@ -6,10 +6,7 @@ struct Doubling {
     vector<vector<int64_t>> data;
 
     Doubling(int64_t _n) : n(_n) {
-        data.resize(size);
-        for (size_t i = 0; i < size; ++i) {
-            data[i].resize(n);
-        }
+        data = vector<vector<int64_t>>(size, vector<int64_t>(n));
     }
 
     void build(const vector<int64_t> &v) {
