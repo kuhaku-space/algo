@@ -55,8 +55,8 @@ struct BIT {
         if (x <= 0) return 0;
         int64_t res = 0;
         for (int64_t k = N; k > 0; k >>= 1) {
-            if (res + k <= N && bit[res + k] < x) {
-                x -= bit[res + k];
+            if (res + k <= N && data[res + k] < x) {
+                x -= data[res + k];
                 res += k;
             }
         }
