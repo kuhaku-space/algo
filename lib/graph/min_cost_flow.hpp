@@ -1,7 +1,8 @@
 #include "_base.hpp"
 
-template <class Cap, class Cost> struct mcf_graph {
-  public:
+template <class Cap, class Cost>
+struct mcf_graph {
+   public:
     mcf_graph() {}
     mcf_graph(int n) : _n(n), g(n) {}
 
@@ -33,9 +34,8 @@ template <class Cap, class Cost> struct mcf_graph {
     vector<edge> edges() {
         int m = int(pos.size());
         vector<edge> result(m);
-        for (int i = 0; i < m; i++) {
-            result[i] = get_edge(i);
-        }
+        for (int i = 0; i < m; i++) result[i] = get_edge(i);
+
         return result;
     }
 
@@ -56,8 +56,7 @@ template <class Cap, class Cost> struct mcf_graph {
         vector<int> pv(_n), pe(_n);
         vector<bool> vis(_n);
         auto dual_ref = [&]() {
-            fill(dist.begin(), dist.end(),
-                      numeric_limits<Cost>::max());
+            fill(dist.begin(), dist.end(), numeric_limits<Cost>::max());
             fill(pv.begin(), pv.end(), -1);
             fill(pe.begin(), pe.end(), -1);
             fill(vis.begin(), vis.end(), false);
@@ -87,9 +86,7 @@ template <class Cap, class Cost> struct mcf_graph {
                     }
                 }
             }
-            if (!vis[t]) {
-                return false;
-            }
+            if (!vis[t]) return false;
 
             for (int v = 0; v < _n; v++) {
                 if (!vis[v]) continue;
@@ -124,7 +121,7 @@ template <class Cap, class Cost> struct mcf_graph {
         return result;
     }
 
-  private:
+   private:
     int _n;
 
     struct _edge {
