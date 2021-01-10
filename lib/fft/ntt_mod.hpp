@@ -1,7 +1,7 @@
 #include "_base.hpp"
+#include "algo/modint.hpp"
 #include "fft/garner.hpp"
 #include "fft/ntt.hpp"
-#include "modint.hpp"
 
 using NTT_1 = NTT<167772161, 3>;   // 2^25 * 5 + 1
 using NTT_2 = NTT<469762049, 3>;   // 2^26 * 7 + 1

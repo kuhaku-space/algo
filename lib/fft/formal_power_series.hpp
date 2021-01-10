@@ -1,6 +1,6 @@
 #include "_base.hpp"
+#include "algo/modint.hpp"
 #include "fft/ntt.hpp"
-#include "modint.hpp"
 
 template <class T>
 struct formal_power_series {
