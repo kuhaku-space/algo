@@ -59,7 +59,7 @@ template <class Cap> struct mf_graph {
         auto bfs = [&]() {
             fill(level.begin(), level.end(), -1);
             level[s] = 0;
-            que.clear();
+            while (!que.empty()) que.pop();
             que.push(s);
             while (!que.empty()) {
                 int v = que.front();
