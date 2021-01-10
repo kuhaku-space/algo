@@ -45,12 +45,8 @@ struct FFT {
         while (N < n) N <<= 1;
 
         vector<CP> va(N), vb(N);
-        for (int64_t i = 0; i < a.size(); ++i) {
-            va[i] = CP(a[i]);
-        }
-        for (int64_t i = 0; i < b.size(); ++i) {
-            vb[i] = CP(b[i]);
-        }
+        for (int64_t i = 0; i < a.size(); ++i) va[i] = CP(a[i]);
+        for (int64_t i = 0; i < b.size(); ++i) vb[i] = CP(b[i]);
 
         _fft(va, false);
         _fft(vb, false);
@@ -71,12 +67,9 @@ struct FFT {
         while (N < n) N <<= 1;
 
         vector<CP> va(N), vb(N);
-        for (int64_t i = 0; i < a.size(); ++i) {
-            va[i] = CP(a[i]);
-        }
-        for (int64_t i = 0; i < b.size(); ++i) {
-            vb[i] = CP(b[i]);
-        }
+        for (int64_t i = 0; i < a.size(); ++i) va[i] = CP(a[i]);
+
+        for (int64_t i = 0; i < b.size(); ++i) vb[i] = CP(b[i]);
 
         _fft(va, false);
         _fft(vb, false);
