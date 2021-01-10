@@ -44,27 +44,19 @@ struct formal_power_series {
 
     // data * (1 - x^n)
     void mul(int64_t n) {
-        for (int64_t i = size() - 1; i >= n; --i) {
-            data[i] -= data[i - n];
-        }
+        for (int64_t i = size() - 1; i >= n; --i) data[i] -= data[i - n];
     }
 
     // data / (1 - x^n)
     void div(int64_t n) {
-        for (int64_t i = n; i < size(); ++i) {
-            data[i] += data[i - n];
-        }
+        for (int64_t i = n; i < size(); ++i) data[i] += data[i - n];
     }
 
     void cumsum() {
-        for (int64_t i = 1; i < size(); ++i) {
-            data[i] += data[i - 1];
-        }
+        for (int64_t i = 1; i < size(); ++i) data[i] += data[i - 1];
     }
 
     void cumsum_inv() {
-        for (int64_t i = size() - 1; i > 0; --i) {
-            data[i] -= data[i - 1];
-        }
+        for (int64_t i = size() - 1; i > 0; --i) data[i] -= data[i - 1];
     }
 };
