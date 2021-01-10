@@ -5,9 +5,9 @@ struct union_find {
     vector<int64_t> size;
 
     union_find(int64_t _n) {
-        par.resize(_n);
-        size.assign(_n, 1);
+        par = vector<int64_t>(_n);
         for (int64_t i = 0; i < _n; ++i) par[i] = i;
+        size = vector<int64_t>(_n, 1);
     }
 
     int64_t root(int64_t x) {
