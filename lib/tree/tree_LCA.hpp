@@ -13,26 +13,26 @@ struct Tree {
         parent = vector<vector<int64_t>>(logV, vector<int64_t>(V));
     }
 
-    void init(int64_t v) {
+    void init(int64_t r) {
         struct node {
-            int64_t v, par, d;
+            int64_t v, p, d;
         };
         stack<node> st;
-        st.push(node{v, -1, 0});
+        st.push(node{r, -1, 0});
         while (!st.empty()) {
-            auto t = st.top();
+            auto [v, p, d] = st.top();
             st.pop();
-            depth[t.v] = t.d;
-            parent[0][t.v] = t.par;
-            for (auto i : data[t.v]) {
-                if (i == t.par) continue;
-                st.push(node{i, t.v, t.d + 1});
+            depth[v] = d;
+            parent[0][v] = p;
+            for (auto i : data[v]) {
+                if (i == p) continue;
+                st.push(node{i, v, d + 1});
             }
         }
     }
 
-    void build() {
-        init(0);
+    void build(int64_t r = 0) {
+        init(r);
         for (int64_t k = 0; k < logV - 1; ++k) {
             for (int64_t v = 0; v < V; ++v) {
                 if (parent[k][v] < 0)
