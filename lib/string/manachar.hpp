@@ -7,7 +7,7 @@ struct Manacher {
     Type s;
     vector<int64_t> data;
 
-    Manacher(Type _s) : s(_s), data(_s.size()) {
+    Manacher(const Type &_s) : s(_s), data(_s.size()) {
         int64_t i = 0, j = 0;
         while (i < s.size()) {
             while (i - j >= 0 && i + j < s.size() && s[i - j] == s[i + j]) ++j;
