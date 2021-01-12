@@ -1,13 +1,13 @@
 #include "_base.hpp"
 
 // O(|S|)
-// A[i] := S[i:A[i]-1] == S[0:A[i]-1]
+// A[i] := S[i:A[i]-1] == S[0:A[i]-1-i]
 template <typename Type>
 struct Z_algorithm {
     Type s;
     vector<int64_t> data;
 
-    Z_algorithm(Type _s) : s(_s), data(_s.size()) {
+    Z_algorithm(const Type &_s) : s(_s), data(_s.size()) {
         data[0] = s.size();
         int64_t i = 1, j = 0;
         while (i < s.size()) {
