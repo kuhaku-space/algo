@@ -1,5 +1,7 @@
 #include "_base.hpp"
 
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
+
 // O(|S|)
 // A[i] := S[0:A[i]-1] == S[i-A[i]:i-1]
 template <class Type>
