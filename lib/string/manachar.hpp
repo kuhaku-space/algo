@@ -1,5 +1,7 @@
 #include "_base.hpp"
 
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/2934
+
 // O(|S|)
 // R[i] := S[i-(R[i]-1):i] == S[i:i+(R[i]-1)]
 template <typename Type>
@@ -18,4 +20,6 @@ struct Manacher {
             i += k, j -= k;
         }
     }
+
+    const int64_t &operator[](int64_t i) const { return data[i]; }
 };
