@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = int64_t;
-using ld = long double;
-using P = pair<ll, ll>;
-using Vec = vector<ll>;
 template <class T1, class T2>
-bool chmax(T1 &a, const T2 b) { if (a < b) { a = b; return true; } return false; }
+bool chmax(T1 &a, const T2 b) {
+    return a < b ? a = b, true : false;
+}
 template <class T1, class T2>
-bool chmin(T1 &a, const T2 b) { if (a > b) { a = b; return true; } return false; }
-constexpr ll LINF = 1000000000000000001;
-constexpr ll MOD = 1000000007;
-constexpr ll MOD_N = 998244353;
-constexpr ld EPS = 1e-11;
+bool chmin(T1 &a, const T2 b) {
+    return a > b ? a = b, true : false;
+}
+constexpr int64_t LINF = 1000000000000000001;
+constexpr int64_t MOD = 1000000007;
+constexpr int64_t MOD_N = 998244353;
+constexpr double EPS = 1e-11;
 const double PI = acos(-1.0);
