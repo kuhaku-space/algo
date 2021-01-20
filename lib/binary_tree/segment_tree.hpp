@@ -36,19 +36,13 @@ struct segment_tree {
     void update(int64_t k, const T x) {
         k += N;
         data[k] = x;
-        while (k > 1) {
-            k >>= 1;
-            data[k] = f(data[k * 2], data[k * 2 + 1]);
-        }
+        for (k >>= 1; k > 1; k >>= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
     }
 
     void add(int64_t k, const T x) {
         k += N;
         data[k] += x;
-        while (k > 1) {
-            k >>= 1;
-            data[k] = f(data[k * 2], data[k * 2 + 1]);
-        }
+        for (k >>= 1; k > 1; k >>= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
     }
 
     T query(int64_t a, int64_t b) {
