@@ -53,31 +53,29 @@ struct HLD {
         }
     }
 
-    vector<pair<int64_t, int64_t>> for_each(int64_t u, int64_t v) {
-        vector<pair<int64_t, int64_t>> res;
+    template <class F>
+    void for_each(int64_t u, int64_t v, const F &f) {
         while (true) {
             if (vid[u] > vid[v]) swap(u, v);
-            res.emplace_back(max(vid[nxt[v]], vid[u]), vid[v] + 1);
+            f(max(vid[nxt[v]], vid[u]), vid[v] + 1);
             if (nxt[u] != nxt[v])
                 v = par[nxt[v]];
             else
                 break;
         }
-        return res;
     }
 
-    vector<pair<int64_t, int64_t>> for_each_edge(int64_t u, int64_t v) {
-        vector<pair<int64_t, int64_t>> res;
+    template <class F>
+    void for_each_edge(int64_t u, int64_t v, const F &f) {
         while (true) {
             if (vid[u] > vid[v]) swap(u, v);
             if (nxt[u] != nxt[v]) {
-                res.emplace_back(vid[nxt[v]], vid[v] + 1);
+                f(vid[nxt[v]], vid[v] + 1);
                 v = par[nxt[v]];
             } else {
-                res.emplace_back(vid[u] + 1, vid[v] + 1);
+                if (u != v) f(vid[u] + 1, vid[v] + 1);
                 break;
             }
         }
-        return res;
     }
 };
