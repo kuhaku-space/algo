@@ -19,22 +19,21 @@ struct binary_tree {
         nodes.resize(size, node());
     }
 
-    bool operator<(const binary_tree &rhs) const {
-        return dfs() < rhs.dfs();
-    }
+    bool operator<(const binary_tree &rhs) const { return dfs() < rhs.dfs(); }
 
     const int64_t find(T key) const {
         int64_t it = 0;
-        while (nodes[it].key != numeric_limits<T>::max() && nodes[it].key != key) {
-            if (key < nodes[it].key) it = nodes[it].left;
-            else it = nodes[it].right;
+        while (nodes[it].key != numeric_limits<T>::max() &&
+               nodes[it].key != key) {
+            if (key < nodes[it].key)
+                it = nodes[it].left;
+            else
+                it = nodes[it].right;
         }
         return it;
     }
 
-    bool exist(T key) const {
-        return nodes[find(key)].key == key;
-    }
+    bool exist(T key) const { return nodes[find(key)].key == key; }
 
     void insert(T key) {
         int64_t it = find(key);
