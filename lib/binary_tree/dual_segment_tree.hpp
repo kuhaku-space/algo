@@ -16,8 +16,8 @@ struct dual_segment_tree {
     dual_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
 
     void init(int64_t n) {
-        N = 1;
-        while (N < n) N <<= 1;
+        for (N = 1; N < n; N <<= 1)
+            ;
         data.assign(N * 2, d);
     }
 
