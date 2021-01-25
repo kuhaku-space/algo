@@ -10,7 +10,7 @@ T power(T a, int64_t n) {
     return res;
 }
 
-int64_t pow_int(int64_t a, int64_t n, int64_t mod) {
+int64_t pow_int(int64_t a, int64_t n) {
     assert(n >= 0);
     int64_t res = 1, mul = a;
     for (; n > 0; n >>= 1) {
