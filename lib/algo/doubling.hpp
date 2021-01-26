@@ -10,9 +10,7 @@ struct Doubling {
     }
 
     void build(const vector<int64_t> &v) {
-        for (int64_t i = 0; i < n; ++i) {
-            data[0][i] = v[i];
-        }
+        for (int64_t i = 0; i < n; ++i) data[0][i] = v[i];
 
         for (int64_t i = 0; i < size - 1; ++i) {
             for (int64_t j = 0; j < n; ++j) {
