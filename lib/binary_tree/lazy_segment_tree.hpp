@@ -2,8 +2,8 @@
 
 /*
 Usage:
-    lazy_segment_tree<ll> RAQ&RmQ(n, LINF, [](ll a, ll b){return min(a, b);});
-    lazy_segment_tree<ll> RAQ&RMQ(n, 0, [](ll a, ll b){return max(a, b);});
+    lazy_segment_tree<ll> RAQ_RmQ(n, LINF, [](ll a, ll b){ return min(a, b); });
+    lazy_segment_tree<ll> RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
 */
 template <class T>
 struct lazy_segment_tree {
