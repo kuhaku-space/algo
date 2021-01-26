@@ -1,5 +1,6 @@
 #include "_base.hpp"
 
+// 座標圧縮ライブラリ
 struct Compress {
     vector<int64_t> data;
     Compress() {}
@@ -20,7 +21,9 @@ struct Compress {
         data.erase(unique(data.begin(), data.end()), data.end());
     }
     int64_t get(int64_t x) {
-        return lower_bound(data.begin(), data.end(), data) - data.begin();
+        auto it = lower_bound(data.begin(), data.end(), x);
+        assert(*it == x);
+        return it - data.begin();
     }
 
     size_t size() { return data.size(); }
