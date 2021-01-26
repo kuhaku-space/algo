@@ -1,6 +1,6 @@
 #include "_base.hpp"
 
-// 一転加算、区間総和
+// 一点加算、区間総和
 template <class T>
 struct BIT {
     int64_t N;
