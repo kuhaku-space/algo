@@ -22,7 +22,8 @@ x = r + M * k (k in N) と表すことができる
 pair<int64_t, int64_t> chinese_rem(const vector<int64_t> &b,
                                    const vector<int64_t> &m) {
     int64_t r = 0, M = 1;
-    for (int64_t i = 0; i < b.size(); ++i) {
+    int64_t n = b.size();
+    for (int64_t i = 0; i < n; ++i) {
         int64_t p, q;
         int64_t d = extGCD(M, m[i], p, q);
         if ((b[i] - r) % d != 0) return {0, -1};
