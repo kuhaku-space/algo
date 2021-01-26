@@ -6,7 +6,7 @@ struct prime_number {
     prime_number() { init(); }
 
     void init() {
-        constexpr int sz = 4194304;
+        constexpr int sz = 1 << 22;
         bitset<sz> is_not_prime;
         is_not_prime[0] = is_not_prime[1] = true;
         for (int64_t i = 2; i < sz; ++i) {
@@ -28,14 +28,13 @@ struct prime_number {
         return true;
     }
 
+    // 素因数分解
     vector<pair<int64_t, int64_t>> prime_factorization(int64_t n) {
         vector<pair<int64_t, int64_t>> res;
 
         for (auto i : data) {
             int64_t cnt = 0;
-            for (; n % i == 0; n /= i) {
-                cnt++;
-            }
+            for (; n % i == 0; n /= i) cnt++;
             if (cnt) res.push_back({i, cnt});
             if (n < i * i) break;
         }
@@ -45,6 +44,7 @@ struct prime_number {
     }
 
     int64_t pow_int(int64_t x, int64_t n) {
+        assert(n >= 0);
         int64_t res = 1;
         while (n) {
             if (n & 1) res *= x;
