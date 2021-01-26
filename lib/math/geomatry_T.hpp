@@ -1,5 +1,7 @@
 #include "_base.hpp"
 
+using ld = long double;
+
 template <class T1, class T2>
 inline bool eq(T1 a, T2 b) {
     return abs(a - b) < EPS;
@@ -86,7 +88,7 @@ struct Circle2 {
 };
 
 template <class T>
-ll checker(Circle2<T> c1, Circle2<T> c2) {
+int64_t checker(Circle2<T> c1, Circle2<T> c2) {
     if (c1.r < c2.r) swap(c1, c2);
     T d = abs(c1.p - c2.p);
     if (c1.r + c2.r < d) return 4;
