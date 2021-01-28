@@ -1,7 +1,7 @@
 #include "_base.hpp"
 
 template <class T>
-struct extended_priority_queue {
+struct PQueue {
     priority_queue<T> a, b;
 
     bool empty() const { return a.empty(); }
