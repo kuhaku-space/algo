@@ -25,16 +25,24 @@ struct Graph {
 
     Graph(int64_t v) : V(v) {
         edges = vector<vector<edge>>(V);
-        dist = vector<T>(V, numeric_limits<T>::max());
+        dist = vector<T>(V);
     }
 
-    void add_edge(int64_t a, int64_t b, T d = 1, bool is_dual = false) {
+    const T &operator[](int64_t i) const { return dist[i]; }
+    T &operator[](int64_t i) { return dist[i]; }
+
+    void add_edge(int64_t a, int64_t b, T d = T(1), bool is_dual = false) {
         edges[a].push_back(edge{a, b, d});
         if (is_dual) edges[b].push_back(edge{b, a, d});
     }
 
-    void bellman_ford(int64_t s) {
-        dist.assign(V, numeric_limits<T>::max());
+    void add_edges(int64_t a, int64_t b, T d = T(1)) {
+        edges[a].push_back(edge{a, b, d});
+        edges[b].push_back(edge{b, a, d});
+    }
+
+    void bellman_ford(int64_t s, T inf = numeric_limits<T>::max()) {
+        dist.assign(V, inf);
         dist[s] = T();
         negative_cycle = bitset<1 << 20>();
 
@@ -55,10 +63,8 @@ struct Graph {
         }
     }
 
-    const T get_dist(int64_t a) const { return dist[a]; }
-
-    bool is_visit(int64_t a) const {
-        return dist[a] != numeric_limits<T>::max();
+    bool is_visit(int64_t a, T inf = numeric_limits<T>::max()) const {
+        return dist[a] != inf;
     }
 
     bool is_negative_cycle(int64_t a) const { return negative_cycle[a]; }
