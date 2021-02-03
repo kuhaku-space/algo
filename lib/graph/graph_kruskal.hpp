@@ -7,22 +7,16 @@ struct Graph {
         int64_t from, to;
         T dist;
 
-        bool operator<(const edge &rhs) const {
-            return dist < rhs.dist;
-        }
+        bool operator<(const edge &rhs) const { return dist < rhs.dist; }
 
-        bool operator>(const edge &rhs) const {
-            return dist > rhs.dist;
-        }
+        bool operator>(const edge &rhs) const { return dist > rhs.dist; }
 
         edge &operator+=(const edge &rhs) {
             to = rhs.to;
             dist += rhs.dist;
             return *this;
         }
-        edge operator+(const edge &rhs) {
-            return edge(*this) += rhs;
-        }
+        edge operator+(const edge &rhs) { return edge(*this) += rhs; }
     };
 
     int64_t V;
@@ -34,11 +28,17 @@ struct Graph {
         dist = vector<T>(V, numeric_limits<T>::max());
     }
 
-    void add_edge(int64_t a, int64_t b, T d = 1, bool is_dual = false) {
+    void add_edge(int64_t a, int64_t b, T d = T(1), bool is_dual = false) {
         edges[a].push_back(edge{a, b, d});
         if (is_dual) edges[b].push_back(edge{b, a, d});
     }
 
+    void add_edge(int64_t a, int64_t b, T d = T(1)) {
+        edges[a].push_back(edge{a, b, d});
+        edges[b].push_back(edge{b, a, d});
+    }
+
+    // 最小全域木
     T kruskal() {
         union_find uf(V);
         T res = T();
