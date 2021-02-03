@@ -4,7 +4,7 @@ template <typename T>
 struct geomatry {
     inline bool eq(T a, T b = T(0)) { return a == b; }
     using Point = complex<T>;
-    const Point PINF = Point(LINF, LINF);
+    const Point PINF = Point(INF, INF);
     using Points = vector<Point>;
 
     struct Line {
@@ -60,7 +60,7 @@ struct geomatry {
     }
 
     Line drow_vertical_line(Point p, Line l) {
-        if (l.in_line(p)) return Line(Point(LINF, LINF), LINF);
+        if (l.in_line(p)) return Line(Point(INF, INF), INF);
         return Line(p, p + Point(l.a, l.b));
     }
 };
