@@ -2,12 +2,11 @@
 
 /*
 Usage:
-    dual_segment_tree<ll> RAQ(n, LINF, [](ll a, ll x){return a + x;});
-    dual_segment_tree<ll> RUQ(n, 0, [](ll a, ll x){return x;});
+    dual_segment_tree RAQ(n, INF, [](ll a, ll x){ return a + x; }; );
+    dual_segment_tree RUQ(n, 0, [](ll a, ll x){ return x; }; );
 */
-template <class T>
+template <class T, class F>
 struct dual_segment_tree {
-    using F = function<T(T, T)>;
     int64_t N;
     T d;
     F f;
