@@ -3,12 +3,11 @@
 /*
 一点更新、区間取得
 Usage:
-    segment_tree<ll> st(n, LINF, [](ll a, ll b) { return min(a, b); });
-    segment_tree<ll> st(n, 0, [](ll a, ll b) { return max(a, b); });
+    segment_tree st(n, INF, [](ll a, ll b) { return min(a, b); });
+    segment_tree st(n, 0, [](ll a, ll b) { return max(a, b); });
 */
-template <class T>
+template <class T, class F>
 struct segment_tree {
-    using F = function<T(T, T)>;
     int64_t N;
     T e;
     F f;
@@ -18,14 +17,16 @@ struct segment_tree {
     segment_tree(int64_t _n, string _s) {
         switch (_s) {
             case "min":
-                e = LINF;
-                f = [](int64_t a, int64_t b) { return min(a, b) };
+                e = INF;
+                f = [](int64_t a, int64_t b) { return min(a, b); };
                 break;
             case "max":
-                e = -LINF;
-                f = [](int64_t a, int64_t b) { return max(a, b) };
-            default:
+                e = -INF;
+                f = [](int64_t a, int64_t b) { return max(a, b); };
                 break;
+            default:
+                e = 0;
+                f = [](int64_t a, int64_t b) { return a + b; };
         }
         init(_n);
     }
@@ -51,19 +52,19 @@ struct segment_tree {
         assert(k >= 0 && k < N);
         k += N;
         data[k] = x;
-        for (k >>= 1; k > 1; k >>= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
+        while ((k >>= 1) >= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
     }
 
     void add(int64_t k, const T x) {
         assert(k >= 0 && k < N);
         k += N;
         data[k] += x;
-        for (k >>= 1; k > 1; k >>= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
+        while ((k >>= 1) >= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
     }
 
     T query(int64_t a, int64_t b) {
-        assert(a >= 0 && a < N);
-        assert(b >= 0 && b < N);
+        assert(a >= 0 && a <= N);
+        assert(b >= 0 && b <= N);
         T res = e;
         for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
             if (a & 1) res = f(data[a++], res);
