@@ -10,11 +10,25 @@ template <class T>
 struct segment_tree {
     using F = function<T(T, T)>;
     int64_t N;
-    T d;
+    T e;
     F f;
     vector<T> data;
 
-    segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
+    segment_tree(int64_t _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
+    segment_tree(int64_t _n, string _s) {
+        switch (_s) {
+            case "min":
+                e = LINF;
+                f = [](int64_t a, int64_t b) { return min(a, b) };
+                break;
+            case "max":
+                e = -LINF;
+                f = [](int64_t a, int64_t b) { return max(a, b) };
+            default:
+                break;
+        }
+        init(_n);
+    }
 
     const T &operator[](const int64_t i) const { return data[i + N]; }
     T &operator[](const int64_t i) { return data[i + N]; }
@@ -24,7 +38,7 @@ struct segment_tree {
     void init(int64_t n) {
         N = 1;
         while (N < n) N <<= 1;
-        data.assign(N * 2, d);
+        data.assign(N * 2, e);
     }
 
     void build(vector<T> v) {
@@ -50,7 +64,7 @@ struct segment_tree {
     T query(int64_t a, int64_t b) {
         assert(a >= 0 && a < N);
         assert(b >= 0 && b < N);
-        T res = d;
+        T res = e;
         for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
             if (a & 1) res = f(data[a++], res);
             if (b & 1) res = f(res, data[--b]);
