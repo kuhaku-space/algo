@@ -34,7 +34,7 @@ struct Graph {
 
     vector<int64_t> topological_sort() {
         vector<int64_t> res;
-        bitset<1048576> is_seen;
+        bitset<1 << 20> is_seen;
         for (int64_t i = 0; i < V; ++i) {
             if (is_seen[i]) continue;
             stack<int64_t> st;
