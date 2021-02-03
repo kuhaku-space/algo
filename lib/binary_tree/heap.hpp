@@ -5,10 +5,7 @@ struct heap {
     vector<T> data;
     int64_t sz;
 
-    heap() {
-        data.assign(1 << 20, numeric_limits<T>::min());
-        sz = 0;
-    }
+    heap() : data(1 << 20, numeric_limit<T>::min()), sz(0) {}
 
     void push(T x) {
         data[++sz] = x;
@@ -21,7 +18,7 @@ struct heap {
 
     void pop() {
         data[1] = data[sz];
-        data[sz--] = -LINF;
+        data[sz--] = numeric_limits<T>::min();
         for (int64_t it = 1;
              data[it] < data[it * 2] || data[it] < data[it * 2 + 1];) {
             it <<= 1;
