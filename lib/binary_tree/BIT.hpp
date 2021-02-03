@@ -7,8 +7,8 @@ struct BIT {
     vector<T> data;
 
     BIT() {}
-
     BIT(int64_t n) { init(n); }
+    BIT(const vector<T> &v) { build(v); }
 
     const T &operator[](int64_t i) const { return at(i); }
 
@@ -17,23 +17,20 @@ struct BIT {
     void init() { data = vector<T>(N + 1); }
 
     void init(int64_t n) {
-        N = 1;
-        while (N < n) N <<= 1;
+        for (N = 1; N < n; N <<= 1)
+            ;
         data = vector<T>(N + 1);
     }
 
     void build(const vector<T> &v) {
-        init(v.size());
-        for (int i = 0; i < v.size(); ++i) {
-            add(i, v[i]);
-        }
+        int n = v.size();
+        init(n);
+        for (int i = 0; i < n; ++i) add(i, v[i]);
     }
 
     // v[k] += w
     void add(int64_t k, T w) {
-        for (++k; k <= N; k += k & -k) {
-            data[k] += w;
-        }
+        for (++k; k <= N; k += k & -k) data[k] += w;
     }
 
     // v[k] = x
@@ -42,9 +39,7 @@ struct BIT {
     // v[0] + ... + v[k - 1]
     T sum(int64_t k) const {
         T res = 0;
-        for (; k > 0; k -= k & -k) {
-            res += data[k];
-        }
+        for (; k > 0; k -= k & -k) res += data[k];
         return res;
     }
 
@@ -55,10 +50,7 @@ struct BIT {
         if (x <= 0) return 0;
         int64_t res = 0;
         for (int64_t k = N; k > 0; k >>= 1) {
-            if (res + k <= N && data[res + k] < x) {
-                x -= data[res + k];
-                res += k;
-            }
+            if (res + k <= N && data[res + k] < x) x -= data[res += k];
         }
         return res;
     }
