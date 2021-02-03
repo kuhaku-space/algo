@@ -2,24 +2,25 @@
 
 /*
 Usage:
-    lazy_segment_tree<ll> RAQ_RmQ(n, LINF, [](ll a, ll b){ return min(a, b); });
+    lazy_segment_tree<ll> RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
     lazy_segment_tree<ll> RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
 */
 template <class T>
 struct lazy_segment_tree {
     using F = function<T(T, T)>;
     int64_t N;
-    T d;
+    T e;
     F f;
     vector<T> data;
     vector<T> lazy;
 
-    lazy_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
+    lazy_segment_tree(int64_t _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
 
     void init(int64_t n) {
         N = 1;
-        while (N < n) N <<= 1;
-        data.assign(N * 2, d);
+        for (N = 1; N < n; N <<= 1)
+            ;
+        data.assign(N * 2, e);
         lazy.assign(N * 2, 0);
     }
 
@@ -56,7 +57,7 @@ struct lazy_segment_tree {
     T query(int64_t a, int64_t b) { return query(a, b, 1, 0, N); }
     T query(int64_t a, int64_t b, int64_t k, int64_t l, int64_t r) {
         eval(k);
-        if (r <= a || b <= l) return d;
+        if (r <= a || b <= l) return e;
         if (a <= l && r <= b) return data[k];
         int64_t m = (l + r) / 2;
         return f(query(a, b, k * 2, l, m), query(a, b, k * 2 + 1, m, r));
