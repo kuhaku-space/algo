@@ -38,7 +38,7 @@ struct Line {
     T dist(Point<T> p) { return abs(p - proj(p)); }
 };
 
-constexpr Point<ld> PINF = Point<ld>(LINF, LINF);
+constexpr Point<ld> PINF = Point<ld>(INF, INF);
 const Line<ld> LINF = Line<ld>(PINF, PINF);
 
 template <class T>
