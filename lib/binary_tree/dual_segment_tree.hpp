@@ -8,16 +8,16 @@ Usage:
 template <class T, class F>
 struct dual_segment_tree {
     int64_t N;
-    T d;
+    T e;
     F f;
     vector<T> data;
 
-    dual_segment_tree(int64_t _n, T _d, F _f) : f(_f), d(_d) { init(_n); }
+    dual_segment_tree(int64_t _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
 
     void init(int64_t n) {
         for (N = 1; N < n; N <<= 1)
             ;
-        data.assign(N * 2, d);
+        data.assign(N * 2, e);
     }
 
     void build(const vector<T> &v) {
@@ -29,10 +29,10 @@ struct dual_segment_tree {
         while (a >> k > 1) ++k;
         for (; k > 0; --k) {
             int64_t t = a >> k;
-            if (data[t] == d) continue;
+            if (data[t] == e) continue;
             data[t * 2] = f(data[t * 2], data[t]);
             data[t * 2 + 1] = f(data[t * 2 + 1], data[t]);
-            data[t] = d;
+            data[t] = e;
         }
         data[a] = f(data[a], x);
     }
@@ -46,9 +46,9 @@ struct dual_segment_tree {
     }
 
     const T at(int64_t k) const {
-        T res = d;
+        T res = e;
         for (k += N; k >= 1; k >>= 1) {
-            if (data[k] != d) res = f(res, data[k]);
+            if (data[k] != e) res = f(res, data[k]);
         }
         return res;
     }
