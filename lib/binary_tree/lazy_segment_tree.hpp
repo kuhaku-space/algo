@@ -2,12 +2,11 @@
 
 /*
 Usage:
-    lazy_segment_tree<ll> RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
-    lazy_segment_tree<ll> RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
+    lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
+    lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
 */
-template <class T>
+template <class T, class F>
 struct lazy_segment_tree {
-    using F = function<T(T, T)>;
     int64_t N;
     T e;
     F f;
