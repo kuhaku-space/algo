@@ -34,3 +34,15 @@ int64_t ceil_div(int64_t p, int64_t q) {
     if (q * res < p) ++res;
     return res;
 }
+
+int64_t round_ll(double d) {
+    if (d < 0)
+        return -round_ll(-d);
+    return int64_t(d + 0.5);
+}
+
+int64_t round_ll(long double d) {
+    if (d < 0)
+        return -round_ll(-d);
+    return int64_t(d + 0.5);
+}
