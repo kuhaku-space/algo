@@ -28,16 +28,18 @@ struct lazy_segment_tree {
             data[i] = f(data[i * 2], data[i * 2 + 1]);
     }
 
-    void update(int64_t k, T x) {
+    void update(int64_t k, T x = T()) {
+        assert(k > 0 && k < N * 2);
         lazy[k] += x;
 
-        while ((k >>= 1) >= 1) {
+        if ((k >>= 1) >= 1) {
             data[k] =
                 f(data[k * 2] + lazy[k * 2], data[k * 2 + 1] + lazy[k * 2 + 1]);
         }
     }
 
     T eval(int64_t k) {
+        assert(k > 0 && k < N * 2);
         if (lazy[k] == 0) return data[k];
         if (k < N) {
             lazy[k * 2] += lazy[k];
@@ -52,19 +54,20 @@ struct lazy_segment_tree {
     void add(int64_t a, int64_t b, T x) {
         assert(a >= 0 && a <= N);
         assert(b >= 0 && b <= N);
-        a += N, b += N;
-        for (int64_t i = logN; i >= 0; --i) eval(a >> i), eval(b >> i);
-        for (; a < b; a >>= 1, b >>= 1) {
+        int64_t l = a + N, r = b + N - 1;
+        for (int64_t i = logN; i >= 0; --i) eval(l >> i), eval(r >> i);
+        for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
             if (a & 1) eval(a), update(a++, x);
             if (b & 1) eval(--b), update(b, x);
         }
+        for (int64_t i = 0; i <= logN; ++i) update(l >> i), update(r >> i);
     }
 
     T query(int64_t a, int64_t b) {
         assert(a >= 0 && a <= N);
         assert(b >= 0 && b <= N);
         a += N, b += N;
-        for (int64_t i = logN; i >= 0; --i) eval(a >> i), eval(b >> i);
+        for (int64_t i = logN; i >= 0; --i) eval(a >> i), eval((b - 1) >> i);
         T res = e;
         for (; a < b; a >>= 1, b >>= 1) {
             if (a & 1) res = f(eval(a++), res);
