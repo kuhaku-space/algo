@@ -1,10 +1,10 @@
 #include "_base.hpp"
 
 /*
-Usage:
-    lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
-    lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
-*/
+ * Usage:
+ * lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
+ * lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
+ */
 template <class T, class F>
 struct lazy_segment_tree {
     int64_t N;
