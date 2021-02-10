@@ -21,7 +21,7 @@ struct Graph {
     int64_t V;
     vector<T> dist;
     vector<vector<edge>> edges;
-    bitset<1048576> negative_cycle;
+    bitset<1 << 20> negative_cycle;
 
     Graph(int64_t v) : V(v) {
         edges = vector<vector<edge>>(V);
@@ -31,11 +31,9 @@ struct Graph {
     const T &operator[](int64_t i) const { return dist[i]; }
     T &operator[](int64_t i) { return dist[i]; }
 
-    void add_edge(int64_t a, int64_t b, T d = T(1), bool is_dual = false) {
+    void add_edge(int64_t a, int64_t b, T d = T(1)) {
         edges[a].push_back(edge{a, b, d});
-        if (is_dual) edges[b].push_back(edge{b, a, d});
     }
-
     void add_edges(int64_t a, int64_t b, T d = T(1)) {
         edges[a].push_back(edge{a, b, d});
         edges[b].push_back(edge{b, a, d});
@@ -57,14 +55,14 @@ struct Graph {
     void bellman_ford(int64_t s, T inf = numeric_limits<T>::max()) {
         dist.assign(V, inf);
         dist[s] = T();
-        negative_cycle = bitset<1048576>();
+        negative_cycle = bitset<1 << 20>();
 
         bool flg = true;
         int64_t cnt = 0;
         while (flg && cnt <= V * 2) {
             flg = false;
             for (int64_t i = 0; i < V; ++i) {
-                if (dist[i] == numeric_limits<T>::max()) continue;
+                if (dist[i] == inf) continue;
                 for (auto j : edges[i]) {
                     if (chmin(dist[j.to], dist[i] + j.dist)) {
                         flg = true;
@@ -84,7 +82,7 @@ struct Graph {
 
     vector<int64_t> topological_sort() {
         vector<int64_t> res;
-        bitset<1048576> is_seen;
+        bitset<1 << 20> is_seen;
         for (int64_t i = 0; i < V; ++i) {
             if (is_seen[i]) continue;
             stack<int64_t> st;
