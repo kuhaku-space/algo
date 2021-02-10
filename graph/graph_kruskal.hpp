@@ -8,9 +8,7 @@ struct Graph {
         T dist;
 
         bool operator<(const edge &rhs) const { return dist < rhs.dist; }
-
         bool operator>(const edge &rhs) const { return dist > rhs.dist; }
-
         edge &operator+=(const edge &rhs) {
             to = rhs.to;
             dist += rhs.dist;
