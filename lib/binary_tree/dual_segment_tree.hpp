@@ -22,6 +22,8 @@ struct dual_segment_tree {
 
     void build(const vector<T> &v) {
         for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
+        for (int64_t i = N - 1; i >= 1; --i)
+            data[i] = f(data[i * 2], data[i * 2 + 1]);
     }
 
     void update(int64_t a, T x) {
