@@ -16,7 +16,6 @@ struct lazy_segment_tree {
     lazy_segment_tree(int64_t _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
 
     void init(int64_t n) {
-        N = 1;
         for (N = 1; N < n; N <<= 1)
             ;
         data.assign(N * 2, e);
