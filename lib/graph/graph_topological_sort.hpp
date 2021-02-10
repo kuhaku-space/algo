@@ -27,9 +27,8 @@ struct Graph {
         dist = vector<T>(V, numeric_limits<T>::max());
     }
 
-    void add_edge(int64_t a, int64_t b, T d = 1, bool is_dual = false) {
+    void add_edge(int64_t a, int64_t b, T d = T(1)) {
         edges[a].push_back(edge{a, b, d});
-        if (is_dual) edges[b].push_back(edge{b, a, d});
     }
 
     vector<int64_t> topological_sort() {
