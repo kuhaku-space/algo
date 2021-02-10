@@ -1,7 +1,9 @@
 #include "_base.hpp"
 
-// O(|S|)
-// A[i] := S[i:A[i]-1] == S[0:A[i]-1-i]
+/*
+ * O(|S|)
+ * A[i] := S[i:A[i]-1] == S[0:A[i]-1-i]
+ */
 template <typename Type>
 struct Z_algorithm {
     Type s;
