@@ -1,10 +1,11 @@
 #include "_base.hpp"
 
 /*
-Usage:
-    dual_segment_tree RAQ(n, INF, [](ll a, ll x){ return a + x; }; );
-    dual_segment_tree RUQ(n, 0, [](ll a, ll x){ return x; }; );
-*/
+ * 双対セグ木
+ * Usage:
+ * dual_segment_tree RAQ(n, INF, [](ll a, ll x){ return a + x; }; );
+ * dual_segment_tree RUQ(n, 0, [](ll a, ll x){ return x; }; );
+ */
 template <class T, class F>
 struct dual_segment_tree {
     int64_t N;
