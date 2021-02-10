@@ -3,12 +3,13 @@
 template <class T>
 struct binary_tree {
     struct node {
-        T k;
-        int64_t l, r;
+        T key;
+        int64_t left, right;
 
-        node() : k(numeric_limits<T>::max()) {}
+        node() : key(numeric_limits<T>::max()) {}
 
-        node(T _k, int64_t _l, int64_t _r) : k(_k), l(_l), r(_r) {}
+        node(T _key, int64_t _left, int64_t _right)
+            : key(_key), left(_left), right(_right) {}
     };
 
     int64_t size;
