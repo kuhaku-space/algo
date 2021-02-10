@@ -28,20 +28,17 @@ struct Fraction {
         common();
         return *this;
     }
-
     Fraction &operator-=(const Fraction &rhs) {
         x = x * rhs.y - y * rhs.x;
         y *= rhs.y;
         common();
         return *this;
     }
-
     Fraction &operator*=(const Fraction &rhs) {
         x *= rhs.x, y *= rhs.y;
         common();
         return *this;
     }
-
     Fraction &operator/=(const Fraction &rhs) {
         x *= rhs.y, y *= rhs.x;
         common();
@@ -52,18 +49,15 @@ struct Fraction {
         x += y;
         return *this;
     }
-
     Fraction operator++(int) {
         Fraction tmp(*this);
         operator++();
         return tmp;
     }
-
     Fraction &operator--() {
         x -= y;
         return *this;
     }
-
     Fraction operator--(int) {
         Fraction tmp(*this);
         operator--();
@@ -99,10 +93,21 @@ struct Fraction {
     }
 
     friend istream &operator>>(istream &is, Fraction &a) {
-        int64_t t;
-        is >> t;
-        a = Fraction(t);
-        return (is);
+        string s;
+        is >> s;
+        bool f = false;
+        int64_t x = 0, y = 1;
+        for (auto c : s) {
+            if (c == '.') {
+                f = true;
+                continue;
+            }
+
+            x *= 10, x += c - '0';
+            if (f) y *= 10;
+        }
+        a = Fraction(x, y);
+        return is;
     }
 
     double to_double() const { return (double)x / y; }
