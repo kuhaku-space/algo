@@ -2,8 +2,10 @@
 
 // verify : https://onlinejudge.u-aizu.ac.jp/problems/2934
 
-// O(|S|)
-// R[i] := S[i-(R[i]-1):i] == S[i:i+(R[i]-1)]
+/*
+ * O(|S|)
+ * R[i] := S[i-(R[i]-1):i] == S[i:i+(R[i]-1)]
+ */
 template <typename Type>
 struct Manacher {
     Type s;
