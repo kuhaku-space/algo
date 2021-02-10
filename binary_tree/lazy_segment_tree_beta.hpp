@@ -1,10 +1,13 @@
 #include "_base.hpp"
 
+// verify : https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H
+
 /*
-Usage:
-    lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
-    lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
-*/
+ * 非再帰遅延セグ木
+ * Usage :
+ * lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
+ * lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
+ */
 template <class T, class F>
 struct lazy_segment_tree {
     int64_t N, logN;
