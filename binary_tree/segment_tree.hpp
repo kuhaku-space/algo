@@ -37,8 +37,8 @@ struct segment_tree {
     T at(int64_t k) const { return data[k + N]; }
 
     void init(int64_t n) {
-        N = 1;
-        while (N < n) N <<= 1;
+        for (N = 1; N < n; N <<= 1)
+            ;
         data.assign(N * 2, e);
     }
 
