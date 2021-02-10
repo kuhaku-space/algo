@@ -5,13 +5,9 @@ template <class T>
 struct Matrix {
     vector<vector<T>> v;
 
-    Matrix(int64_t x) {
-        v = vector<vector<T>>(x, vector<T>(x));
-    }
+    Matrix(int64_t x) { v = vector<vector<T>>(x, vector<T>(x)); }
 
-    Matrix(int64_t x, int64_t y) {
-        v = vector<vector<T>>(x, vector<T>(y));
-    }
+    Matrix(int64_t x, int64_t y) { v = vector<vector<T>>(x, vector<T>(y)); }
 
     Matrix(vector<vector<T>> _v) : v(_v) {}
 
@@ -32,7 +28,6 @@ struct Matrix {
         }
         return *this;
     }
-
     Matrix &operator-=(const Matrix &rhs) {
         assert(v.size() == rhs.v.size());
         assert(v[0].size() == rhs.v[0].size());
@@ -41,7 +36,6 @@ struct Matrix {
         }
         return *this;
     }
-
     Matrix &operator*=(const Matrix &rhs) {
         assert(v[0].size() == rhs.v.size());
         int64_t x = v.size(), y = rhs.v[0].size(), z = rhs.v.size();
@@ -97,7 +91,7 @@ struct Matrix {
         return Matrix(res);
     }
 
-    void debug_print() const {
+    void print_debug() const {
         for (auto i : v) {
             cerr << "[";
             for (auto j : i) cerr << j << ", ";
