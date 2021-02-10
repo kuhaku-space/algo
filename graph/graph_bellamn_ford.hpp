@@ -7,9 +7,7 @@ struct Graph {
         T dist;
 
         bool operator<(const edge &rhs) const { return dist < rhs.dist; }
-
         bool operator>(const edge &rhs) const { return dist > rhs.dist; }
-
         edge &operator+=(const edge &rhs) {
             to = rhs.to;
             dist += rhs.dist;
@@ -31,11 +29,9 @@ struct Graph {
     const T &operator[](int64_t i) const { return dist[i]; }
     T &operator[](int64_t i) { return dist[i]; }
 
-    void add_edge(int64_t a, int64_t b, T d = T(1), bool is_dual = false) {
+    void add_edge(int64_t a, int64_t b, T d = T(1)) {
         edges[a].push_back(edge{a, b, d});
-        if (is_dual) edges[b].push_back(edge{b, a, d});
     }
-
     void add_edges(int64_t a, int64_t b, T d = T(1)) {
         edges[a].push_back(edge{a, b, d});
         edges[b].push_back(edge{b, a, d});
@@ -51,7 +47,7 @@ struct Graph {
         while (flg && cnt <= V * 2) {
             flg = false;
             for (int64_t i = 0; i < V; ++i) {
-                if (dist[i] == numeric_limits<T>::max()) continue;
+                if (dist[i] == inf) continue;
                 for (auto j : edges[i]) {
                     if (chmin(dist[j.to], dist[i] + j.dist)) {
                         flg = true;
