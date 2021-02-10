@@ -1,9 +1,9 @@
 #include "_base.hpp"
 
 /*
-a * x + b * y = gcd(a, b) の答えを一つ求める
-戻り値は gcd(a, b)
-*/
+ * a * x + b * y = gcd(a, b) の答えを一つ求める
+ * 戻り値は gcd(a, b)
+ */
 int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
     if (b == 0) {
         x = 1, y = 0;
@@ -16,9 +16,9 @@ int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
 }
 
 /*
-任意の i において、x % b_i = m_i となる x を求める
-x = r + M * k (k in N) と表すことができる
-*/
+ * 任意の i において、x % b_i = m_i となる x を求める
+ * x = r + M * k (k in N) と表すことができる
+ */
 pair<int64_t, int64_t> chinese_rem(const vector<int64_t> &b,
                                    const vector<int64_t> &m) {
     int64_t r = 0, M = 1;
