@@ -10,15 +10,13 @@
 template <int char_size, int base>
 struct Trie {
     struct Node {
-        vector<int> next_node;
-        vector<int> accept;
-        int c;
-        int common;
+        vector<int> next_node, accept;
+        int c, common;
         Node(int _c) : c(_c), common(0) { next_node.assign(char_size, -1); }
     };
     vector<Node> nodes;
     int root;
-    Trie() : root(0) { nodes.push_back(Node(root)); }
+    Trie() : root(0) { nodes.emplace_back(Node(root)); }
 
     void insert(const string &word) { insert(word, nodes[0].common); }
     void insert(const string &word, int word_id) {
@@ -28,13 +26,13 @@ struct Trie {
             int &next_id = nodes[node_id].next_node[c];
             if (next_id == -1) {
                 next_id = nodes.size();
-                nodes.push_back(Node(c));
+                nodes.emplace_back(Node(c));
             }
             ++nodes[node_id].common;
             node_id = next_id;
         }
         ++nodes[node_id].common;
-        nodes[node_id].accept.push_back(word_id);
+        nodes[node_id].accept.emplace_back(word_id);
     }
 
     bool search(const string &word, bool prefix = false) {
@@ -42,9 +40,7 @@ struct Trie {
         for (size_t i = 0; i < word.size(); i++) {
             int c = word[i] - base;
             int &next_id = nodes[node_id].next_node[c];
-            if (next_id == -1) {
-                return false;
-            }
+            if (next_id == -1) return false;
             node_id = next_id;
         }
         return (prefix) ? true : nodes[node_id].accept.size() > 0;
@@ -55,9 +51,7 @@ struct Trie {
         for (size_t i = 0; i < word.size(); i++) {
             int c = word[i] - base;
             int &next_id = nodes[node_id].next_node[c];
-            if (next_id == -1) {
-                return -1;
-            }
+            if (next_id == -1) return -1;
             node_id = next_id;
         }
         return node_id;
