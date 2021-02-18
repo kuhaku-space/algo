@@ -1,6 +1,6 @@
 #include "_base.hpp"
 
-// https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
+// reference : https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
 
 template <int mod>
 struct ModInt {
