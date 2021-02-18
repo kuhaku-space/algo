@@ -3,9 +3,9 @@
 #include "_base.hpp"
 
 struct rolling_hash {
-    const uint64_t mod = (1UL << 61) - 1;
-    const uint64_t mask30 = (1UL << 30) - 1;
-    const uint64_t mask31 = (1UL << 31) - 1;
+    const uint64_t mod = (1ui64 << 61) - 1;
+    const uint64_t mask30 = (1ui64 << 30) - 1;
+    const uint64_t mask31 = (1ui64 << 31) - 1;
     int64_t base, len;
     vector<uint64_t> data, p;
 
@@ -56,7 +56,7 @@ struct rolling_hash {
         }
         for (int64_t i = n; i < len; ++i) {
             if (_mod(data[i] + mod * 4 - _mul(data[i - n], p[n])) == x)
-                res.push_back(i - n);
+                res.emplace_back(i - n);
             x = _mod(_mul(x, base));
         }
         return res;
