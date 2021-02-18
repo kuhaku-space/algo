@@ -1,17 +1,17 @@
 #include "_base.hpp"
 
 struct prime_number {
+    const int sz = 1 << 22;
+    bitset<1 << 22> is_not_prime;
     vector<int64_t> data;
 
     prime_number() { init(); }
 
     void init() {
-        constexpr int sz = 1 << 22;
-        bitset<sz> is_not_prime;
         is_not_prime[0] = is_not_prime[1] = true;
         for (int64_t i = 2; i < sz; ++i) {
             if (!is_not_prime[i]) {
-                data.push_back(i);
+                data.emplace_back(i);
                 for (int64_t j = 2; i * j < sz; ++j) {
                     is_not_prime[i * j] = true;
                 }
@@ -20,7 +20,8 @@ struct prime_number {
     }
 
     bool is_prime(int64_t n) {
-        if (n == 1) return false;
+        assert(n >= 0);
+        if (n < sz) return !is_not_prime[n];
         for (auto i : data) {
             if (i * i > n) break;
             if (n % i == 0) return false;
@@ -35,10 +36,10 @@ struct prime_number {
         for (auto i : data) {
             int64_t cnt = 0;
             for (; n % i == 0; n /= i) cnt++;
-            if (cnt) res.push_back({i, cnt});
+            if (cnt) res.emplace_back(i, cnt);
             if (n < i * i) break;
         }
-        if (n != 1) res.push_back({n, 1});
+        if (n != 1) res.emplace_back(n, 1);
 
         return res;
     }
@@ -46,19 +47,19 @@ struct prime_number {
     int64_t pow_int(int64_t x, int64_t n) {
         assert(n >= 0);
         int64_t res = 1;
-        while (n) {
+        for (; n > 0; n >>= 1) {
             if (n & 1) res *= x;
             x *= x;
-            n >>= 1;
         }
         return res;
     }
 
+    // 約数列挙
     vector<int64_t> divisors(int64_t n) {
         auto v = prime_factorization(n);
 
         vector<int64_t> res, a, b, cp;
-        res.push_back(1);
+        res.emplace_back(1);
         for (auto p : v) {
             cp.resize(res.size());
             copy(res.begin(), res.end(), cp.begin());
@@ -76,14 +77,15 @@ struct prime_number {
         return res;
     }
 
+    // 因数分解列挙
     vector<vector<int64_t>> factorization(int64_t n) {
         vector<vector<int64_t>> res;
 
         auto f = [&](auto self, vector<int64_t> v, int64_t a) -> void {
-            if (a == 1) res.push_back(v);
+            if (a == 1) res.emplace_back(v);
             for (auto i : divisors(a)) {
                 if (i == 1 || (!v.empty() && v.back() > i)) continue;
-                v.push_back(i);
+                v.emplace_back(i);
                 self(self, v, a / i);
                 v.pop_back();
             }
