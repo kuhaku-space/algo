@@ -1,5 +1,6 @@
 #include "_base.hpp"
 
+// reference : http://www.prefield.com/algorithm/geometry/convex_hull.html
 // verify : https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A
 
 template <class T>
