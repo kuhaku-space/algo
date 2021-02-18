@@ -1,5 +1,7 @@
 #include "_base.hpp"
 
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A
+
 template <class T>
 pair<T, T> &operator-=(pair<T, T> &a, const pair<T, T> &b) {
     a.first -= b.first, a.second -= b.second;
