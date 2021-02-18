@@ -29,7 +29,7 @@ struct KMP {
         while (i + j < t.size()) {
             if (s[j] == t[i + j]) {
                 if (++j != s.size()) continue;
-                res.push_back(i);
+                res.emplace_back(i);
             }
             i += j - data[j];
             j = max(data[j], int64_t(0));
