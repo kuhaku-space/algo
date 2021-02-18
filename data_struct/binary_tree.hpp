@@ -52,7 +52,7 @@ struct binary_tree {
             int64_t t = st.top();
             st.pop();
             if (nodes[t].key == numeric_limits<T>::max()) continue;
-            res.push_back(nodes[t].key);
+            res.emplace_back(nodes[t].key);
             st.push(nodes[t].right);
             st.push(nodes[t].left);
         }
