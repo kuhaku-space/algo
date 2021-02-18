@@ -36,8 +36,8 @@ struct math_mod {
     }
 
     mint combi_naive(int64_t n, int64_t k) const {
-        if (n - k < k) k = n - k;
         if (n < k || n < 0 || k < 0) return 0;
+        if (n - k < k) k = n - k;
         mint res = 1;
         for (int64_t i = 0; i < k; ++i) {
             res *= n - i;
