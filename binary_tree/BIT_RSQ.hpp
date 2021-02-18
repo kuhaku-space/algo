@@ -18,7 +18,8 @@ struct BIT_RSQ {
     // v[k]
     const T at(int64_t k) const { return sum(k + 1) - sum(k); }
 
-    void build(const vector<T> &v) {
+    template <class U>
+    void build(const vector<U> &v) {
         for (int64_t i = 0; i < v.size(); ++i) {
             p.add(i, v[i]);
             p.add(i + 1, -v[i]);

@@ -22,7 +22,8 @@ struct BIT {
         data = vector<T>(N + 1);
     }
 
-    void build(const vector<T> &v) {
+    template <class U>
+    void build(const vector<U> &v) {
         int n = v.size();
         init(n);
         for (int i = 0; i < n; ++i) add(i, v[i]);

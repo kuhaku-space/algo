@@ -14,22 +14,6 @@ struct segment_tree {
     vector<T> data;
 
     segment_tree(int64_t _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
-    segment_tree(int64_t _n, string _s) {
-        switch (_s) {
-            case "min":
-                e = INF;
-                f = [](int64_t a, int64_t b) { return min(a, b); };
-                break;
-            case "max":
-                e = -INF;
-                f = [](int64_t a, int64_t b) { return max(a, b); };
-                break;
-            default:
-                e = 0;
-                f = [](int64_t a, int64_t b) { return a + b; };
-        }
-        init(_n);
-    }
 
     const T &operator[](const int64_t i) const { return data[i + N]; }
     T &operator[](const int64_t i) { return data[i + N]; }
@@ -42,7 +26,8 @@ struct segment_tree {
         data.assign(N * 2, e);
     }
 
-    void build(vector<T> v) {
+    template <class U>
+    void build(vector<U> v) {
         for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
         for (int64_t i = N - 1; i >= 1; --i)
             data[i] = f(data[i * 2], data[i * 2 + 1]);

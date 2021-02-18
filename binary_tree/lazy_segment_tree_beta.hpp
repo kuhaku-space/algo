@@ -25,7 +25,8 @@ struct lazy_segment_tree {
         lazy.assign(N * 2, 0);
     }
 
-    void build(const vector<T> &v) {
+    template <class U>
+    void build(const vector<U> &v) {
         for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
         for (int64_t i = N - 1; i >= 1; --i)
             data[i] = f(data[i * 2], data[i * 2 + 1]);
