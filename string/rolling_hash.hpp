@@ -23,19 +23,15 @@ struct rolling_hash {
     }
 
     uint64_t _mul(uint64_t a, uint64_t b) {
-        uint64_t au = a >> 31;
-        uint64_t ad = a & mask31;
-        uint64_t bu = b >> 31;
-        uint64_t bd = b & mask31;
+        uint64_t au = a >> 31, ad = a & mask31;
+        uint64_t bu = b >> 31, bd = b & mask31;
         uint64_t mid = ad * bu + au * bd;
-        uint64_t midu = mid >> 30;
-        uint64_t midd = mid & mask30;
+        uint64_t midu = mid >> 30, midd = mid & mask30;
         return au * bu * 2 + midu + (midd << 31) + ad * bd;
     }
 
     uint64_t _mod(uint64_t x) {
-        uint64_t xu = x >> 61;
-        uint64_t xd = x & mod;
+        uint64_t xu = x >> 61, xd = x & mod;
         uint64_t res = xu + xd;
         if (res >= mod) res -= mod;
         return res;
