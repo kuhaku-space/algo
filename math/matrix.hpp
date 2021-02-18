@@ -6,10 +6,8 @@ struct Matrix {
     vector<vector<T>> v;
 
     Matrix(int64_t x) { v = vector<vector<T>>(x, vector<T>(x)); }
-
     Matrix(int64_t x, int64_t y) { v = vector<vector<T>>(x, vector<T>(y)); }
-
-    Matrix(vector<vector<T>> _v) : v(_v) {}
+    Matrix(const vector<vector<T>> &_v) : v(_v) {}
 
     const vector<T> &operator[](const int64_t i) const {
         assert(i >= 0 && i < v.size());
