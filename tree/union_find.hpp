@@ -5,7 +5,7 @@ struct union_find {
     vector<int64_t> sz;
 
     union_find(int64_t _n) : par(_n), sz(_n, 1) {
-        for (int64_t i = 0; i < _n; ++i) par[i] = i;
+        iota(par.begin(), par.end(), 0);
     }
 
     int64_t root(int64_t x) {
