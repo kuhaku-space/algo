@@ -38,7 +38,7 @@ struct rolling_hash {
     }
 
     uint64_t _pow(uint64_t x, uint64_t k) {
-        int64_t res = 1;
+        uint64_t res = 1;
         for (; k; k >>= 1) {
             if (k & 1) res = _mod(_mul(res, x));
             x = _mod(_mul(x, x));
