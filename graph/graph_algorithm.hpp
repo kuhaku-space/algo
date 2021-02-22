@@ -7,9 +7,7 @@ struct Graph {
         T dist;
 
         bool operator<(const edge &rhs) const { return dist < rhs.dist; }
-
         bool operator>(const edge &rhs) const { return dist > rhs.dist; }
-
         edge &operator+=(const edge &rhs) {
             to = rhs.to;
             dist += rhs.dist;
@@ -46,9 +44,8 @@ struct Graph {
         while (!p_que.empty()) {
             edge e = p_que.top();
             p_que.pop();
-            if (e.dist >= dist[e.to]) continue;
-            dist[e.to] = e.dist;
-            for (auto i : edges[e.to]) p_que.push(e + i);
+            if (chmin(dist[e.to], e.dist))
+                for (auto i : edges[e.to]) p_que.push(e + i);
         }
     }
 
