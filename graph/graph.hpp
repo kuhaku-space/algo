@@ -16,17 +16,12 @@ struct Graph {
         edge operator+(const edge &rhs) { return edge(*this) += rhs; }
     };
 
-    int64_t V;
-    vector<T> dist;
+    int V;
     vector<vector<edge>> edges;
 
-    Graph(int64_t v) : V(v) {
-        edges = vector<vector<edge>>(V);
-        dist = vector<T>(V, numeric_limits<T>::max());
-    }
+    Graph(int64_t v) : V(v) { edges = vector<vector<edge>>(V); }
 
-    const T &operator[](int64_t i) const { return dist[i]; }
-    T &operator[](int64_t i) { return dist[i]; }
+    int size() const { return V; }
 
     void add_edge(int64_t a, int64_t b, T d = T(1)) {
         edges[a].push_back(edge{a, b, d});
