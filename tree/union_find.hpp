@@ -1,19 +1,17 @@
 #include "_base.hpp"
 
 struct union_find {
-    vector<int64_t> par;
-    vector<int64_t> sz;
+    vector<int> par;
+    vector<int> sz;
 
-    union_find(int64_t _n) : par(_n), sz(_n, 1) {
-        iota(par.begin(), par.end(), 0);
-    }
+    union_find(int _n) : par(_n), sz(_n, 1) { iota(par.begin(), par.end(), 0); }
 
-    int64_t root(int64_t x) {
+    int root(int x) {
         if (par[x] == x) return x;
         return par[x] = root(par[x]);
     }
 
-    void unite(int64_t x, int64_t y) {
+    void unite(int x, int y) {
         x = root(x), y = root(y);
         if (x != y) {
             if (sz[x] < sz[y]) swap(x, y);
@@ -22,7 +20,7 @@ struct union_find {
         }
     }
 
-    int64_t size(int64_t x) { return sz[root(x)]; }
+    int size(int x) { return sz[root(x)]; }
 
-    bool is_same(int64_t x, int64_t y) { return root(x) == root(y); }
+    bool is_same(int x, int y) { return root(x) == root(y); }
 };
