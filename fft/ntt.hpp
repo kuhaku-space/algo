@@ -44,44 +44,26 @@ struct NTT {
     }
 
     template <class T>
-    vector<T> convolution(vector<T> a, vector<T> b) {
-        int n = a.size() + b.size() - 1;
-        int N = 1;
-        while (N < n) N <<= 1;
-        a.resize(N);
-        b.resize(N);
-
-        _ntt(a, false);
-        _ntt(b, false);
-
-        vector<T> res(N);
-        for (int i = 0; i < N; ++i) {
-            res[i] = T(1LL * a[i] * b[i] % mod);
-        }
-
-        _ntt(res, true);
-        res.resize(n);
-        return res;
-    }
-
-    template <class T>
     void convolution_self(vector<T> &a, vector<T> b) {
         int n = a.size() + b.size() - 1;
         int N = 1;
         while (N < n) N <<= 1;
-        a.resize(N);
-        b.resize(N);
+        a.resize(N), b.resize(N);
 
-        _ntt(a, false);
-        _ntt(b, false);
+        _ntt(a, false), _ntt(b, false);
 
-        for (int i = 0; i < N; ++i) {
-            a[i] = T(1LL * a[i] * b[i] % mod);
-        }
+        for (int i = 0; i < N; ++i) a[i] = T(1LL * a[i] * b[i] % mod);
 
         _ntt(a, true);
         a.resize(n);
     }
+
+    template <class T>
+    vector<T> convolution(const vector<T> &a, const vector<T> &b) {
+        vector<T> res = a;
+        convolution_self(res, b);
+        return res;
+    }
 };
 
-using Ntt = NTT<MOD_N, 3>;
+using NTT_N = NTT<MOD_N, 3>;
