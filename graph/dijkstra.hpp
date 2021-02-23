@@ -1,7 +1,7 @@
 #include "_base.hpp"
 #include "graph/graph.hpp"
 
-// verify : https://atcoder.jp/contests/abc192/tasks/abc192_e 21/02/23
+// verify : https://atcoder.jp/contests/abc192/tasks/abc192_e 21/02/24
 // verify : https://atcoder.jp/contests/abc191/tasks/abc191_e 21/02/23
 // verify : https://atcoder.jp/contests/abc190/tasks/abc190_e 21/02/23
 
@@ -21,8 +21,7 @@ vector<T> dijkstra(const Graph<T> &g, int s = 0,
         _edge e = p_que.top();
         p_que.pop();
         if (chmin(dist[e.to], e.dist))
-            for (auto i : g.edges[e.to])
-                p_que.push(_edge{i.to, e.dist + i.dist});
+            for (auto &i : g[e.to]) p_que.push(_edge{i.to, e.dist + i.dist});
     }
     return dist;
 }
@@ -44,7 +43,7 @@ vector<T> dijkstra_fast(const Graph<T> &g, int s = 0,
         _edge e = p_que.top();
         p_que.pop();
         if (dist[e.to] < e.dist) continue;
-        for (auto &i : g.edges[e.to]) {
+        for (auto &i : g[e.to]) {
             if (chmin(dist[i.to], e.dist + i.dist))
                 p_que.push(_edge{i.to, e.dist + i.dist});
         }
