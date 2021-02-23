@@ -9,11 +9,11 @@
 template <class Type>
 struct KMP {
     Type s;
-    vector<int64_t> data;
+    vector<int> data;
 
     KMP(const Type &_s) : s(_s), data(_s.size() + 1) {
         data[0] = -1;
-        int64_t j = -1;
+        int j = -1;
         for (size_t i = 0; i < s.size(); ++i) {
             while (j >= 0 && s[i] != s[j]) j = data[j];
             if (s[i + 1] == s[++j])
@@ -23,16 +23,16 @@ struct KMP {
         }
     }
 
-    vector<int64_t> search(const Type &t) {
-        vector<int64_t> res;
-        int64_t i = 0, j = 0;
+    vector<int> search(const Type &t) {
+        vector<int> res;
+        int i = 0, j = 0;
         while (i + j < t.size()) {
             if (s[j] == t[i + j]) {
                 if (++j != s.size()) continue;
                 res.emplace_back(i);
             }
             i += j - data[j];
-            j = max(data[j], int64_t(0));
+            j = max(data[j], int(0));
         }
         return res;
     }
