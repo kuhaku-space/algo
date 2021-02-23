@@ -9,7 +9,6 @@ vector<T> bellman_ford(const Graph<T> &g, int s = 0,
                        T inf = numeric_limits<T>::max()) {
     int n = g.size();
     vector<T> dist(n, inf);
-    bitset<1 << 17> negative_cycle;
     dist[s] = T();
     bool flg = true;
     for (int cnt = 0; flg && cnt <= n * 2; ++cnt) {
@@ -17,17 +16,13 @@ vector<T> bellman_ford(const Graph<T> &g, int s = 0,
         for (int i = 0; i < n; ++i) {
             if (dist[i] == inf) continue;
             for (auto &j : g[i]) {
-                if (chmin(dist[j.to], dist[i] + j.dist) ||
-                    negative_cycle[i] && !negative_cycle[j.to]) {
+                if (dist[i] == -inf || chmin(dist[j.to], dist[i] + j.dist)) {
+                    if (dist[j.to] == -inf) continue;
                     flg = true;
-                    if (cnt >= n) negative_cycle.set(j.to);
+                    if (cnt >= n) dist[j.to] = -inf;
                 }
             }
         }
-    }
-
-    for (int i = 0; i < n; ++i) {
-        if (negative_cycle[i]) dist[i] = -inf;
     }
     return dist;
 }
