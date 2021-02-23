@@ -1,20 +1,20 @@
 #include "_base.hpp"
 
 struct Tree {
-    int64_t V;
-    vector<vector<int64_t>> data;
-    vector<int64_t> depth;
-    vector<int64_t> parent;
+    int V;
+    vector<vector<int>> data;
+    vector<int> depth;
+    vector<int> parent;
 
-    Tree(int64_t v) : V(v) {
-        data = vector<vector<int64_t>>(V);
-        depth = vector<int64_t>(V);
-        parent = vector<int64_t>(V);
+    Tree(int v) : V(v) {
+        data = vector<vector<int>>(V);
+        depth = vector<int>(V);
+        parent = vector<int>(V);
     }
 
-    void init(int64_t r) {
+    void init(int r = 0) {
         struct node {
-            int64_t v, p, d;
+            int v, p, d;
         };
         stack<node> st;
         st.push(node{r, -1, 0});
@@ -30,16 +30,16 @@ struct Tree {
         }
     }
 
-    void build(int64_t r = 0) { init(r); }
+    void build(int r = 0) { init(r); }
 
-    void add_edge(int64_t a, int64_t b) {
+    void add_edge(int a, int b) {
         data[a].emplace_back(b);
         data[b].emplace_back(a);
     }
 
-    void bfs(int64_t s) {
+    void bfs(int s) {
         struct node {
-            int64_t v, p;
+            int v, p;
         };
         stack<node> st;
         st.push(node{s, -1});
@@ -54,7 +54,7 @@ struct Tree {
         }
     }
 
-    void dfs(int64_t v, int64_t p) {
+    void dfs(int v, int p) {
         for (auto i : data[v]) {
             if (i == p) continue;
             dfs(i, v);
