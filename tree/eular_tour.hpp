@@ -1,5 +1,6 @@
 #include "_base.hpp"
 
+// reference :
 // https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp
 
 struct eular_tour {
