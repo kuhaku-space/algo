@@ -12,7 +12,7 @@ struct Trie {
     struct Node {
         vector<int> next_node, accept;
         int c, common;
-        Node(int _c) : c(_c), common(0) { next_node.assign(char_size, -1); }
+        Node(int _c) : c(_c), common(0), next_node(char_size, -1) {}
     };
     vector<Node> nodes;
     int root;
