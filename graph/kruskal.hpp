@@ -2,7 +2,7 @@
 #include "graph/graph.hpp"
 #include "tree/union_find.hpp"
 
-// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A 21/02/23
 
 // 最小全域木
 template <class T>
