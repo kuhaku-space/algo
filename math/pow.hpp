@@ -31,7 +31,7 @@ int64_t inv_mod(int64_t a, int64_t mod) {
 }
 
 int64_t pow_mod(int64_t a, int64_t n, int64_t mod) {
-    if (n < 0) return inv_mod(pow_mod(a, -n, mod), mod);
+    // if (n < 0) return inv_mod(pow_mod(a, -n, mod), mod);
     int64_t res = 1, mul = a;
     for (; n > 0; n >>= 1) {
         if (n & 1) (res *= mul) %= mod;
