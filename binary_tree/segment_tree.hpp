@@ -8,19 +8,19 @@
  */
 template <class T, class F>
 struct segment_tree {
-    int64_t N;
+    int N;
     T e;
     F f;
     vector<T> data;
 
-    segment_tree(int64_t _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
+    segment_tree(int _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
 
-    const T &operator[](const int64_t i) const { return data[i + N]; }
-    T &operator[](const int64_t i) { return data[i + N]; }
+    const T &operator[](int i) const { return data[i + N]; }
+    T &operator[](int i) { return data[i + N]; }
 
-    T at(int64_t k) const { return data[k + N]; }
+    T at(int k) const { return data[k + N]; }
 
-    void init(int64_t n) {
+    void init(int n) {
         for (N = 1; N < n; N <<= 1)
             ;
         data.assign(N * 2, e);
@@ -28,26 +28,26 @@ struct segment_tree {
 
     template <class U>
     void build(vector<U> v) {
-        for (int64_t i = 0; i < v.size(); ++i) data[N + i] = v[i];
-        for (int64_t i = N - 1; i >= 1; --i)
+        for (int i = 0; i < v.size(); ++i) data[N + i] = v[i];
+        for (int i = N - 1; i >= 1; --i)
             data[i] = f(data[i * 2], data[i * 2 + 1]);
     }
 
-    void update(int64_t k, const T x) {
+    void update(int k, T x) {
         assert(k >= 0 && k < N);
         k += N;
         data[k] = x;
         while ((k >>= 1) >= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
     }
 
-    void add(int64_t k, const T x) {
+    void add(int k, T x) {
         assert(k >= 0 && k < N);
         k += N;
         data[k] += x;
         while ((k >>= 1) >= 1) data[k] = f(data[k * 2], data[k * 2 + 1]);
     }
 
-    T query(int64_t a, int64_t b) {
+    T query(int a, int b) {
         assert(a >= 0 && a <= N);
         assert(b >= 0 && b <= N);
         T res = e;
