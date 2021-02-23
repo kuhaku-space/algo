@@ -3,15 +3,15 @@
 // https://github.com/beet-aizu/library/blob/master/tree/heavylightdecomposition.cpp
 
 struct HLD {
-    vector<vector<int64_t>> G;
+    vector<vector<int>> G;
 
     // vid: vertex -> idx
     // inv: idx -> vertex
-    vector<int64_t> vid, nxt, sub, par, inv;
+    vector<int> vid, nxt, sub, par, inv;
 
-    HLD(int64_t n) : G(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
+    HLD(int n) : G(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
 
-    void dfs_sz(int64_t v) {
+    void dfs_sz(int v) {
         auto &es = G[v];
         if (~par[v]) es.erase(find(es.begin(), es.end(), par[v]));
 
@@ -23,7 +23,7 @@ struct HLD {
         }
     }
 
-    void dfs_hld(int64_t v, int64_t &pos) {
+    void dfs_hld(int v, int &pos) {
         vid[v] = pos++;
         inv[vid[v]] = v;
         for (auto u : G[v]) {
@@ -33,19 +33,19 @@ struct HLD {
         }
     }
 
-    void add_edge(int64_t u, int64_t v) {
+    void add_edge(int u, int v) {
         G[u].emplace_back(v);
         G[v].emplace_back(u);
     }
 
-    void build(int64_t r = 0) {
-        int64_t pos = 0;
+    void build(int r = 0) {
+        int pos = 0;
         dfs_sz(r);
         nxt[r] = r;
         dfs_hld(r, pos);
     }
 
-    int64_t lca(int64_t u, int64_t v) {
+    int lca(int u, int v) {
         while (true) {
             if (vid[u] > vid[v]) swap(u, v);
             if (nxt[u] == nxt[v]) return u;
@@ -54,7 +54,7 @@ struct HLD {
     }
 
     template <class F>
-    void for_each(int64_t u, int64_t v, const F &f) {
+    void for_each(int u, int v, const F &f) {
         while (true) {
             if (vid[u] > vid[v]) swap(u, v);
             f(max(vid[nxt[v]], vid[u]), vid[v] + 1);
@@ -66,7 +66,7 @@ struct HLD {
     }
 
     template <class F>
-    void for_each_edge(int64_t u, int64_t v, const F &f) {
+    void for_each_edge(int u, int v, const F &f) {
         while (true) {
             if (vid[u] > vid[v]) swap(u, v);
             if (nxt[u] != nxt[v]) {
