@@ -1,6 +1,8 @@
 #include "_base.hpp"
 #include "graph/graph.hpp"
 
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B
+
 template <class T>
 vector<int> topological_sort(const Graph<T> &g) {
     int n = g.size();
