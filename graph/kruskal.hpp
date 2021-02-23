@@ -2,6 +2,8 @@
 #include "graph/graph.hpp"
 #include "tree/union_find.hpp"
 
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
+
 // 最小全域木
 template <class T>
 vector<Graph<T>::edge> kruskal(const Graph<T> &g) {
