@@ -2,18 +2,20 @@
 
 #include "_base.hpp"
 
+// verify : https://atcoder.jp/contests/abc141/tasks/abc141_e 21/02/24
+
 struct rolling_hash {
-    const uint64_t mod = (1ui64 << 61) - 1;
-    const uint64_t mask30 = (1ui64 << 30) - 1;
-    const uint64_t mask31 = (1ui64 << 31) - 1;
-    int64_t base, len;
+    const uint64_t mod = (1ul << 61) - 1;
+    const uint64_t mask30 = (1ul << 30) - 1;
+    const uint64_t mask31 = (1ul << 31) - 1;
+    uint64_t base, len;
     vector<uint64_t> data, p;
 
     rolling_hash(const string &_s) : data(1), p(1, 1), len(_s.size() + 1) {
         random_device seed;
         mt19937 mt(seed());
         base = mt() + 2;
-        int64_t x = 0, t = 1;
+        uint64_t x = 0, t = 1;
         for (const auto c : _s) {
             x = _mod(_mul(x, base) + c);
             data.emplace_back(x);
@@ -46,23 +48,20 @@ struct rolling_hash {
         return res;
     }
 
-    vector<int64_t> search(const string &s) {
-        vector<int64_t> res;
-        int64_t n = s.size();
+    inline uint64_t get(int l, int r) {
+        return _mod(data[r] + mod * 4 - _mul(data[l], p[r - l]));
+    }
+
+    vector<int> search(const string &s) {
+        vector<int> res;
+        int n = s.size();
         if (n >= len) return res;
         uint64_t x = 0;
-        for (const auto c : s) {
-            x = _mod(_mul(x, base) + c);
-        }
-        for (int64_t i = n; i < len; ++i) {
-            if (_mod(data[i] + mod * 4 - _mul(data[i - n], p[n])) == x)
-                res.emplace_back(i - n);
+        for (const auto c : s) x = _mod(_mul(x, base) + c);
+        for (int i = n; i < len; ++i) {
+            if (get(i - n, i) == x) res.emplace_back(i - n);
             x = _mod(_mul(x, base));
         }
         return res;
-    }
-
-    uint64_t get(int64_t l, int64_t r) {
-        return _mod(data[r] + mod * 4 - _mul(data[l], p[r - l]));
     }
 };
