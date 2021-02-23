@@ -1,7 +1,7 @@
 #include "_base.hpp"
 #include "graph/graph.hpp"
 
-// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B
+// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B 21/02/23
 
 template <class T>
 vector<int> topological_sort(const Graph<T> &g) {
