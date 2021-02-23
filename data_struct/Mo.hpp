@@ -2,7 +2,7 @@
 
 template <class F, class G>
 struct Mo {
-    vector<int64_t> left, right, order;
+    vector<int> left, right, order;
     bitset<1 << 20> v;
     int width, nl, nr, ptr;
     F add;
