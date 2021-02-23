@@ -1,7 +1,6 @@
 #include "_base.hpp"
 #include "binary_tree/BIT.hpp"
 
-// 区間加算、区間取得
 template <class T>
 struct BIT_RSQ {
     BIT<T> p, q;

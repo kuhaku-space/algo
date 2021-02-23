@@ -1,6 +1,7 @@
 #include "_base.hpp"
 
 /*
+ * 再帰遅延セグメント木
  * Usage:
  * lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
  * lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });

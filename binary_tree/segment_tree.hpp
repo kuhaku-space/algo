@@ -1,7 +1,7 @@
 #include "_base.hpp"
 
 /*
- * 一点更新、区間取得
+ * セグメント木
  * Usage:
  * segment_tree st(n, INF, [](ll a, ll b) { return min(a, b); });
  * segment_tree st(n, 0, [](ll a, ll b) { return max(a, b); });

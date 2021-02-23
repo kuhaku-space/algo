@@ -1,7 +1,7 @@
 #include "_base.hpp"
 
 /*
- * 双対セグ木
+ * 双対セグメント木
  * Usage:
  * dual_segment_tree RAQ(n, INF, [](ll a, ll x){ return a + x; }; );
  * dual_segment_tree RUQ(n, 0, [](ll a, ll x){ return x; }; );
