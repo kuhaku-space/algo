@@ -21,8 +21,8 @@ struct lazy_segment_tree {
     void init(int n) {
         for (N = 1, logN = 0; N < n; N <<= 1, ++logN)
             ;
-        data.assign(N * 2, e);
-        lazy.assign(N * 2, 0);
+        data.assign(N << 1, e);
+        lazy.assign(N << 1, 0);
     }
 
     template <class U>
@@ -33,7 +33,7 @@ struct lazy_segment_tree {
     }
 
     void update(int k, T x = T()) {
-        assert(k > 0 && k < N * 2);
+        assert(k > 0 && k < N << 1);
         lazy[k] += x;
 
         if ((k >>= 1) >= 1) {
@@ -43,7 +43,7 @@ struct lazy_segment_tree {
     }
 
     T eval(int k) {
-        assert(k > 0 && k < N * 2);
+        assert(k > 0 && k < N << 1);
         if (lazy[k] == 0) return data[k];
         if (k < N) {
             lazy[k * 2] += lazy[k];
