@@ -11,7 +11,7 @@ vector<T> bellman_ford(const Graph<T> &g, int s = 0,
     vector<T> dist(n, inf);
     dist[s] = T();
     bool flg = true;
-    for (int cnt = 0; flg && cnt <= n * 2; ++cnt) {
+    for (int cnt = 0; flg && cnt <= n << 1; ++cnt) {
         flg = false;
         for (int i = 0; i < n; ++i) {
             if (dist[i] == inf) continue;
