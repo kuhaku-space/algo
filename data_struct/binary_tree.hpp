@@ -7,7 +7,6 @@ struct binary_tree {
         int64_t left, right;
 
         node() : key(numeric_limits<T>::max()) {}
-
         node(T _key, int64_t _left, int64_t _right)
             : key(_key), left(_left), right(_right) {}
     };
