@@ -15,7 +15,7 @@ vector<pair<T, T>> convex_hull(vector<pair<T, T>> ps) {
         return a.first != b.first ? a.first < b.first : a.second < b.second;
     };
     sort(ps.begin(), ps.end(), asc);
-    vector<pair<T, T>> ch(n * 2);
+    vector<pair<T, T>> ch(n << 1);
     auto cross = [](pair<T, T> a, pair<T, T> b, const pair<T, T> &c) {
         a -= c, b -= c;
         return a.first * b.second - a.second * b.first;
