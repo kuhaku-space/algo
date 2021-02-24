@@ -2,6 +2,8 @@
 #include "graph/graph.hpp"
 #include "graph/scc.hpp"
 
+// verify : https://atcoder.jp/contests/practice2/tasks/practice2_h
+
 struct two_sat {
     int n;
     Graph<int> G;
@@ -14,11 +16,24 @@ struct two_sat {
         G.add_edge(j + (g ? 0 : 1), i + (f ? 1 : 0));
     }
 
-    bool solve() {
-        auto v = scc(G);
+    vector<int> solve() {
+        auto res = scc(G);
+        return res;
+    }
+
+    bool is_satisfy(const vector<int> &v) {
         for (int i = 0; i < n; ++i) {
-            if (v[i * 2] == v[i * 2 + 1]) return false;
+            if (v[i * 2] == v[i * 2 + 1])
+                return false;
         }
         return true;
+    }
+
+    vector<bool> build(const vector<int> &v) {
+        vector<bool> res(n);
+        for (int i = 0; i < n; ++i) {
+            res[i] = v[i * 2] < v[i * 2 + 1];
+        }
+        return res;
     }
 };
