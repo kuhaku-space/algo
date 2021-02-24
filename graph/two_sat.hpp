@@ -23,17 +23,14 @@ struct two_sat {
 
     bool is_satisfy(const vector<int> &v) {
         for (int i = 0; i < n; ++i) {
-            if (v[i * 2] == v[i * 2 + 1])
-                return false;
+            if (v[i * 2] == v[i * 2 + 1]) return false;
         }
         return true;
     }
 
     vector<bool> build(const vector<int> &v) {
         vector<bool> res(n);
-        for (int i = 0; i < n; ++i) {
-            res[i] = v[i * 2] < v[i * 2 + 1];
-        }
+        for (int i = 0; i < n; ++i) res[i] = v[i * 2] < v[i * 2 + 1];
         return res;
     }
 };
