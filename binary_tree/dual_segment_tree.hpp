@@ -18,7 +18,7 @@ struct dual_segment_tree {
     void init(int n) {
         for (N = 1; N < n; N <<= 1)
             ;
-        data.assign(N * 2, e);
+        data.assign(N << 1, e);
     }
 
     template <class U>
