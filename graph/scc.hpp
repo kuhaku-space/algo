@@ -4,7 +4,7 @@
 // verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_C 21/02/24
 
 template <class T>
-vector<int> SCC(const Graph<T> &g) {
+vector<int> scc(const Graph<T> &g) {
     int n = g.size();
     Graph<T> rg(n);
     vector<int> comp(n, -1), order;
