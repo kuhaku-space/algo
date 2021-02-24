@@ -10,7 +10,7 @@ pair<T, T> &operator-=(pair<T, T> &a, const pair<T, T> &b) {
 }
 template <class T>
 vector<pair<T, T>> convex_hull(vector<pair<T, T>> ps) {
-    int64_t n = ps.size(), k = 0;
+    int n = ps.size(), k = 0;
     auto asc = [](pair<T, T> a, pair<T, T> b) {
         return a.first != b.first ? a.first < b.first : a.second < b.second;
     };
@@ -20,11 +20,11 @@ vector<pair<T, T>> convex_hull(vector<pair<T, T>> ps) {
         a -= c, b -= c;
         return a.first * b.second - a.second * b.first;
     };
-    for (int64_t i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         while (k > 1 && cross(ps[i], ch[k - 2], ch[k - 1]) < 0) --k;
         ch[k++] = ps[i];
     }
-    for (int64_t i = n - 2, t = k; i >= 0; --i) {
+    for (int i = n - 2, t = k; i >= 0; --i) {
         while (k > t && cross(ps[i], ch[k - 2], ch[k - 1]) < 0) --k;
         ch[k++] = ps[i];
     }
