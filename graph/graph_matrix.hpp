@@ -5,7 +5,9 @@ struct Graph {
     int V;
     vector<vector<T>> m;
 
-    Graph(int v, T _e = T()) : V(v) { m = vector<vector<T>>(V, vector<T>(V, _e)); }
+    Graph(int v, T _e = T()) : V(v) {
+        m = vector<vector<T>>(V, vector<T>(V, _e));
+    }
 
     const auto &operator[](int i) const { return m[i]; }
     auto &operator[](int i) { return m[i]; }
@@ -16,9 +18,7 @@ struct Graph {
 
     int size() const { return V; }
 
-    void add_edge(int a, int b, T d = T(1)) {
-        m[a][b] = d;
-    }
+    void add_edge(int a, int b, T d = T(1)) { m[a][b] = d; }
     void add_edges(int a, int b, T d = T(1)) {
         m[a][b] = d;
         m[b][a] = d;
