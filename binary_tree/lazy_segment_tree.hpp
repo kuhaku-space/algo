@@ -19,8 +19,8 @@ struct lazy_segment_tree {
     void init(int n) {
         for (N = 1; N < n; N <<= 1)
             ;
-        data.assign(N * 2, e);
-        lazy.assign(N * 2, 0);
+        data.assign(N << 1, e);
+        lazy.assign(N << 1, 0);
     }
 
     template <class U>
@@ -59,7 +59,7 @@ struct lazy_segment_tree {
         eval(k);
         if (r <= a || b <= l) return e;
         if (a <= l && r <= b) return data[k];
-        int m = (l + r) / 2;
+        int m = (l + r) >> 1;
         return f(query(a, b, k * 2, l, m), query(a, b, k * 2 + 1, m, r));
     }
 };
