@@ -56,7 +56,7 @@ struct Graph {
 
         bool flg = true;
         int64_t cnt = 0;
-        while (flg && cnt <= V * 2) {
+        while (flg && cnt <= V << 1) {
             flg = false;
             for (int64_t i = 0; i < V; ++i) {
                 if (dist[i] == inf) continue;
