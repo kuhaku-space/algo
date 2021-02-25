@@ -9,7 +9,7 @@ bool chmin(T &a, const U &b) {
     return b < a ? a = b, true : false;
 }
 constexpr int64_t INF = 1000000000000000003;
-constexpr int64_t MOD = 1000000007;
-constexpr int64_t MOD_N = 998244353;
-constexpr double EPS = 1e-11;
+constexpr int MOD = 1000000007;
+constexpr int MOD_N = 998244353;
+constexpr double EPS = 1e-7;
 const double PI = acos(-1.0);
