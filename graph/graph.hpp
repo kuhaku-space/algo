@@ -13,7 +13,7 @@ struct Graph {
     int V;
     vector<vector<edge>> edges;
 
-    Graph(int v) : V(v) { edges = vector<vector<edge>>(V); }
+    Graph(int v) : V(v), edges(v) {}
 
     const auto &operator[](int i) const { return edges[i]; }
     auto &operator[](int i) { return edges[i]; }
