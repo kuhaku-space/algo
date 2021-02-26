@@ -31,5 +31,5 @@ pair<int64_t, int64_t> chinese_rem(const vector<int64_t> &b,
         r += M * tmp;
         M *= m[i] / d;
     }
-    return {(r % M + M) % M, M};
+    return {r >= 0 ? r % M : M - 1 - (-r - 1) % M, M};
 }
