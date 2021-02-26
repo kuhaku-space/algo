@@ -1,30 +1,31 @@
 #include "_base.hpp"
 
 // 座標圧縮ライブラリ
+template <class T>
 struct Compress {
-    vector<int64_t> data;
+    vector<T> data;
     Compress() {}
-    Compress(vector<int64_t> _data) : data(_data) { build(); }
+    Compress(const vector<T>& _data) : data(_data) { build(); }
 
-    const int64_t& operator[](int64_t i) const { return data[i]; }
-    int64_t& operator[](int64_t i) { return data[i]; }
+    const T& operator[](int i) const { return data[i]; }
+    T& operator[](int i) { return data[i]; }
 
-    void add(int64_t x) { data.emplace_back(x); }
+    void add(T x) { data.emplace_back(x); }
 
     void build() {
         sort(data.begin(), data.end());
         data.erase(unique(data.begin(), data.end()), data.end());
     }
-    void build(vector<int64_t> _data) {
+    void build(const vector<T>& _data) {
         data = _data;
         sort(data.begin(), data.end());
         data.erase(unique(data.begin(), data.end()), data.end());
     }
-    int64_t get(int64_t x) {
+    int get(T x) {
         auto it = lower_bound(data.begin(), data.end(), x);
         assert(*it == x);
         return it - data.begin();
     }
 
-    size_t size() { return data.size(); }
+    int size() { return data.size(); }
 };
