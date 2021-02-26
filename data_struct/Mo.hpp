@@ -5,10 +5,10 @@ struct Mo {
     vector<int> left, right, order;
     bitset<1 << 20> v;
     int width, nl, nr, ptr;
-    F add;
-    G del;
+    const F add;
+    const G del;
 
-    Mo(int n, F f, F g)
+    Mo(int n, const F &f, const F &g)
         : add(f), del(g), width((int)sqrt(n)), nl(0), nr(0), ptr(0), v() {}
 
     void insert(int l, int r) {
