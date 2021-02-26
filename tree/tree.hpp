@@ -6,11 +6,7 @@ struct Tree {
     vector<int> depth;
     vector<int> parent;
 
-    Tree(int v) : V(v) {
-        data = vector<vector<int>>(V);
-        depth = vector<int>(V);
-        parent = vector<int>(V);
-    }
+    Tree(int v) : V(v), data(v), depth(v), parent(v) {}
 
     void init(int r = 0) {
         struct node {
