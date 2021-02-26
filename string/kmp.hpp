@@ -14,7 +14,7 @@ struct KMP {
     KMP(const Type &_s) : s(_s), data(_s.size() + 1) {
         data[0] = -1;
         int j = -1;
-        for (size_t i = 0; i < s.size(); ++i) {
+        for (int i = 0; i < s.size(); ++i) {
             while (j >= 0 && s[i] != s[j]) j = data[j];
             if (s[i + 1] == s[++j])
                 data[i + 1] = data[j];
