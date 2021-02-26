@@ -10,7 +10,7 @@ struct eular_tour {
 
     eular_tour(int n) : G(n), ls(n), rs(n) {}
 
-    const int &operator[](int i) const { return ls[i]; }
+    const pair<int, int> &operator[](int i) const { return {ls[i], rs[i]}; }
 
     void add_edge(int a, int b) {
         G[a].emplace_back(b);
@@ -34,7 +34,7 @@ struct eular_tour {
     const int &get_r(int i) const { return rs[i]; }
 
     template <class F>
-    void query(int v, F f) {
+    void query(int v, const F &f) {
         f(ls[v], rs[v]);
     }
 };
