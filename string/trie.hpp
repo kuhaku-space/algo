@@ -21,7 +21,7 @@ struct Trie {
     void insert(const string &word) { insert(word, nodes[0].common); }
     void insert(const string &word, int word_id) {
         int node_id = 0;
-        for (size_t i = 0; i < word.size(); ++i) {
+        for (int i = 0; i < word.size(); ++i) {
             int c = word[i] - base;
             int &next_id = nodes[node_id].next_node[c];
             if (next_id == -1) {
@@ -37,7 +37,7 @@ struct Trie {
 
     bool search(const string &word, bool prefix = false) {
         int node_id = 0;
-        for (size_t i = 0; i < word.size(); i++) {
+        for (int i = 0; i < word.size(); i++) {
             int c = word[i] - base;
             int &next_id = nodes[node_id].next_node[c];
             if (next_id == -1) return false;
@@ -48,7 +48,7 @@ struct Trie {
 
     int search_id(const string &word) {
         int node_id = 0;
-        for (size_t i = 0; i < word.size(); i++) {
+        for (int i = 0; i < word.size(); i++) {
             int c = word[i] - base;
             int &next_id = nodes[node_id].next_node[c];
             if (next_id == -1) return -1;
