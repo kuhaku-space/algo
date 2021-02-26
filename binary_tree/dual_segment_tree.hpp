@@ -10,10 +10,10 @@ template <class T, class F>
 struct dual_segment_tree {
     int N;
     T e;
-    F f;
+    F op;
     vector<T> data;
 
-    dual_segment_tree(int _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
+    dual_segment_tree(int _n, T _e, F _op) : e(_e), op(_op) { init(_n); }
 
     void init(int n) {
         for (N = 1; N < n; N <<= 1)
@@ -25,7 +25,7 @@ struct dual_segment_tree {
     void build(const vector<U> &v) {
         for (int i = 0; i < v.size(); ++i) data[N + i] = v[i];
         for (int i = N - 1; i >= 1; --i)
-            data[i] = f(data[i * 2], data[i * 2 + 1]);
+            data[i] = op(data[i * 2], data[i * 2 + 1]);
     }
 
     void update(int a, T x) {
@@ -34,11 +34,11 @@ struct dual_segment_tree {
         for (; k > 0; --k) {
             int t = a >> k;
             if (data[t] == e) continue;
-            data[t * 2] = f(data[t * 2], data[t]);
-            data[t * 2 + 1] = f(data[t * 2 + 1], data[t]);
+            data[t * 2] = op(data[t * 2], data[t]);
+            data[t * 2 + 1] = op(data[t * 2 + 1], data[t]);
             data[t] = e;
         }
-        data[a] = f(data[a], x);
+        data[a] = op(data[a], x);
     }
 
     void query(int a, T x) { query(a, a + 1, 1, 0, N, x); }
@@ -52,7 +52,7 @@ struct dual_segment_tree {
     const T at(int k) const {
         T res = e;
         for (k += N; k >= 1; k >>= 1) {
-            if (data[k] != e) res = f(res, data[k]);
+            if (data[k] != e) res = op(res, data[k]);
         }
         return res;
     }
