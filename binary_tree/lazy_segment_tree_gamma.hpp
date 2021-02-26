@@ -1,16 +1,18 @@
+#include "_base.hpp"
 
 template <class T, class U, class F, class G, class H>
 struct lazy_segment_tree {
     int N, logN;
-    T e;
-    U id;
-    F op;    // (T, T) -> T
-    G mapp;  // (U, T) -> T
-    H comp;  // (U, U) -> U
+    const T e;
+    const U id;
+    const F op;    // (T, T) -> T
+    const G mapp;  // (U, T) -> T
+    const H comp;  // (U, U) -> U
     vector<T> data;
     vector<U> lazy;
 
-    lazy_segment_tree(int _n, T _e, U _id, F _op, G _mapp, H _comp)
+    lazy_segment_tree(int _n, const T &_e, const U &_id, const F &_op,
+                      const G &_mapp, const H &_comp)
         : e(_e), id(_id), op(_op), mapp(_mapp), comp(_comp) {
         init(_n);
     }
@@ -29,7 +31,7 @@ struct lazy_segment_tree {
             data[i] = op(data[i * 2], data[i * 2 + 1]);
     }
 
-    void apply(int k, U x) {
+    void apply(int k, const U &x) {
         assert(k > 0 && k < N << 1);
         lazy[k] = comp(x, lazy[k]);
 
@@ -41,8 +43,7 @@ struct lazy_segment_tree {
 
     T eval(int k) {
         assert(k > 0 && k < N << 1);
-        if (lazy[k] == id)
-            return data[k];
+        if (lazy[k] == id) return data[k];
         if (k < N) {
             lazy[k * 2] = comp(lazy[k], lazy[k * 2]);
             lazy[k * 2 + 1] = comp(lazy[k], lazy[k * 2 + 1]);
@@ -52,19 +53,15 @@ struct lazy_segment_tree {
         return data[k];
     }
 
-    void update(int a, U x) {
-        return add(a, a + 1, x);
-    }
-    void update(int a, int b, U x) {
+    void update(int a, const U &x) { return add(a, a + 1, x); }
+    void update(int a, int b, const U &x) {
         assert(a >= 0 && a <= N);
         assert(b >= 0 && b <= N);
         int l = a + N, r = b + N - 1;
         for (int i = logN; i >= 0; --i) eval(l >> i), eval(r >> i);
         for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
-            if (a & 1)
-                eval(a), apply(a++, x);
-            if (b & 1)
-                eval(--b), apply(b, x);
+            if (a & 1) eval(a), apply(a++, x);
+            if (b & 1) eval(--b), apply(b, x);
         }
         for (int i = 0; i <= logN; ++i) apply(l >> i, id), apply(r >> i, id);
     }
@@ -76,10 +73,8 @@ struct lazy_segment_tree {
         for (int i = logN; i >= 0; --i) eval(a >> i), eval((b - 1) >> i);
         T l = e, r = e;
         for (; a < b; a >>= 1, b >>= 1) {
-            if (a & 1)
-                l = op(l, eval(a++));
-            if (b & 1)
-                r = op(eval(--b), r);
+            if (a & 1) l = op(l, eval(a++));
+            if (b & 1) r = op(eval(--b), r);
         }
         return op(l, r);
     }
