@@ -8,7 +8,7 @@ using NTT_2 = NTT<469762049, 3>;   // 2^26 * 7 + 1
 using NTT_3 = NTT<1224736769, 3>;  // 2^24 * 73 + 1
 
 vector<int64_t> convolution(vector<int64_t> a, vector<int64_t> b, int mod) {
-    const int64_t n = a.size() + b.size() - 1;
+    const int n = a.size() + b.size() - 1;
     for (auto& i : a) i %= mod;
     for (auto& i : b) i %= mod;
     NTT_1 ntt1;
@@ -20,7 +20,7 @@ vector<int64_t> convolution(vector<int64_t> a, vector<int64_t> b, int mod) {
 
     vector<int64_t> res(n);
     vector<int64_t> r(3), m(3);
-    for (int64_t i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         r[0] = x[i], m[0] = ntt1.get_mod();
         r[1] = y[i], m[1] = ntt2.get_mod();
         r[2] = z[i], m[2] = ntt3.get_mod();
