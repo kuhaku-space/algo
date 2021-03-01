@@ -1,6 +1,13 @@
 #include "_base.hpp"
 #include "fft/ntt.hpp"
 
+/*
+ * verify:
+ * https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A 21/03/02
+ * https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_B 21/03/02
+ * https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F 21/03/02
+ */
+
 struct BigInt {
     vector<int> data;
     bool is_negative;
