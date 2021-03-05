@@ -29,9 +29,9 @@ struct annealing {
             double t = (double)clock() / CLOCKS_PER_SEC;
             double temp = temperature(t);
             for (size_t i = 0; i < 100; ++i) {
-                if (xor128.rand() % 2) {  // １点変更
-                    int d = xor128.rand() % D;
-                    char e = xor128.rand() % SZ;
+                if (xor128() % 2) {  // １点変更
+                    int d = xor128() % D;
+                    char e = xor128() % SZ;
                     swap(arr[d], e);
                     int new_score = calc_score(arr);
                     if (!is_update(new_score - score, temp))
@@ -39,8 +39,8 @@ struct annealing {
                     else
                         score = new_score;
                 } else {  // ２点スワップ
-                    int d1 = xor128.rand() % (D - 1);
-                    int d2 = min((int)(d1 + 1 + xor128.rand() % 20), D - 1);
+                    int d1 = xor128() % (D - 1);
+                    int d2 = min((int)(d1 + 1 + xor128() % 20), D - 1);
                     swap(arr[d1], arr[d2]);
                     int new_score = calc_score(arr);
                     if (!is_update(new_score - score, temp))

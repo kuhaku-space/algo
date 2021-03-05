@@ -8,26 +8,28 @@ constexpr int BEAM_SIZE = 100;
 
 struct beam_search {
     struct State {
-        array<array<int, H>, W> board;
         int score;
 
-        State() : board(), score() {}
+        State() : score() {}
 
-        void update_score(int row) {}
+        bool operator<(const State &rhs) const { return eval() < rhs.eval(); }
+        bool operator>(const State &rhs) const { return rhs < *this; }
 
         int eval() const { return score; }
 
-        State place(int t, int col) { State res(*this); }
+        void update_score(int row) {}
 
-        array<int, N> answer() {}
+        State place(int t, int col) {
+            State res(*this);
+            return res;
+        }
 
-        bool operator<(const State &rhs) const { return eval() < rhs.eval(); }
+        array<int, N> answer() const {}
     };
 
     array<int, N> solve() {
-        State initial_state;
         priority_queue<State> cur, nxt;
-        cur.push(initial_state);
+        cur.push(State());
         for (int t = 0; t < N; ++t) {
             while (!nxt.empty()) nxt.pop();
             while (!cur.empty()) {
@@ -43,12 +45,9 @@ struct beam_search {
             swap(cur, nxt);
         }
 
-        State res;
-        while (!cur.empty()) {
-            if (cur.size() == 1) res = cur.top();
-            cur.pop();
-        }
-        cerr << res.eval() << endl;
-        return res.answer();
+        while (cur.size() > 1) cur.pop();
+
+        cerr << cur.top().eval() << endl;
+        return cur.top().answer();
     }
 };
