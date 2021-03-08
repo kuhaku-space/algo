@@ -89,15 +89,15 @@ struct ModInt {
         swap(*this, tmp);
     }
 
-    friend ostream &operator<<(ostream &os, const ModInt &rhs) {
-        return os << rhs.x;
-    }
-
     friend istream &operator>>(istream &is, ModInt &rhs) {
         int64_t t;
         is >> t;
         rhs = ModInt<mod>(t);
         return (is);
+    }
+
+    friend ostream &operator<<(ostream &os, const ModInt &rhs) {
+        return os << rhs.x;
     }
 
     int to_int() const noexcept { return x; }
