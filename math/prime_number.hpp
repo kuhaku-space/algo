@@ -29,6 +29,15 @@ struct prime_number {
         return true;
     }
 
+    vector<int64_t> prime_numbers(int64_t n) {
+        vector<int64_t> res;
+        for (int i = 2; i <= n; ++i) {
+            if (!is_not_prime[i])
+                res.emplace_back(i);
+        }
+        return res;
+    }
+
     // 素因数分解
     vector<pair<int64_t, int64_t>> prime_factorization(int64_t n) {
         vector<pair<int64_t, int64_t>> res;
