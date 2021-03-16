@@ -24,7 +24,7 @@ struct Timer {
     void print() {
         cerr << "timer:[";
         for (int i = 0; i < at.size(); ++i) {
-            cerr << (int)(sum[i] / CLOCKS_PER_SEC * 1000) << ", ";
+            cerr << sum[i] << ", ";
             if (i % 10 == 9) cerr << endl;
         }
         cerr << "]" << endl;
