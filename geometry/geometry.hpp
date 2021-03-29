@@ -1,7 +1,7 @@
 #include "_base.hpp"
 
 template <typename T>
-struct geomatry {
+struct geometry {
     inline bool eq(T a, T b = T(0)) { return a == b; }
     using Point = complex<T>;
     const Point PINF = Point(INF, INF);
@@ -25,7 +25,7 @@ struct geomatry {
             c = a * p1.real() + b * p1.imag();
         }
 
-        T dist_2(Point p) {
+        T dist(Point p) {
             T res = a * p.real() + b * p.imag() - c;
             if (res < T(0)) res *= T(-1);
             res /= a * a + b * b;
@@ -37,9 +37,10 @@ struct geomatry {
         bool in_line(Point p) { return eq(a * p.real() + b * p.imag(), c); }
     };
 
-    Point rotate(const Point p, const Point center, const ld theta) {
+    Point rotate(const Point p, const Point center, const double theta) {
         const Point d = p - center;
         return center + d * Point(cos(theta), sin(theta));
+        // return center + d * Point(cosl(theta), sinl(theta));
     }
 
     Point intersection(Line l1, Line l2) {
