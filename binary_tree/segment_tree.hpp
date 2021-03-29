@@ -3,8 +3,8 @@
 /*
  * セグメント木
  * Usage:
- * segment_tree st(n, INF, [](ll a, ll b) { return min(a, b); });
- * segment_tree st(n, 0, [](ll a, ll b) { return max(a, b); });
+ * segment_tree st(n, Inf, [](auto a, auto b) { return min(a, b); });
+ * segment_tree st(n, 0, [](auto a, auto b) { return max(a, b); });
  */
 template <class T, class F>
 struct segment_tree {
