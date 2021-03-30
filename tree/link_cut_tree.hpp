@@ -8,10 +8,10 @@ struct link_cut_tree {
 
         void rotr() {
             node_t *q = pp, *r = q->pp;
-            if ((q->lp = rp)) rp->pp = q;
+            if (q->lp = rp) rp->pp = q;
             rp = q;
             q->pp = this;
-            if ((pp = r)) {
+            if (pp = r) {
                 if (r->lp == q) r->lp = this;
                 if (r->rp == q) r->rp = this;
             }
@@ -19,10 +19,10 @@ struct link_cut_tree {
 
         void rotl() {
             node_t *q = pp, *r = q->pp;
-            if ((q->rp = lp)) lp->pp = q;
+            if (q->rp = lp) lp->pp = q;
             lp = q;
             q->pp = this;
-            if ((pp = r)) {
+            if (pp = r) {
                 if (r->lp == q) r->lp = this;
                 if (r->rp == q) r->rp = this;
             }
