@@ -1,9 +1,12 @@
 #include "_base.hpp"
 #include "graph/graph.hpp"
 
-// verify : https://atcoder.jp/contests/abc192/tasks/abc192_e 21/02/24
-// verify : https://atcoder.jp/contests/abc191/tasks/abc191_e 21/02/23
-// verify : https://atcoder.jp/contests/abc190/tasks/abc190_e 21/02/23
+/* 
+ * verify : 
+ * https://atcoder.jp/contests/abc192/tasks/abc192_e 21/02/24
+ * https://atcoder.jp/contests/abc191/tasks/abc191_e 21/02/23
+ * https://atcoder.jp/contests/abc190/tasks/abc190_e 21/02/23
+ */
 
 template <class T>
 vector<T> dijkstra(const Graph<T> &g, int s = 0,
