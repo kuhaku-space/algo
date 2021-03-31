@@ -3,10 +3,9 @@
 struct Tree {
     int V;
     vector<vector<int>> data;
-    vector<int> depth;
     vector<int> parent;
 
-    Tree(int v) : V(v), data(v), depth(v), parent(v) {}
+    Tree(int v) : V(v), data(v), parent(v) {}
 
     void init(int r = 0) {
         struct node {
@@ -17,7 +16,6 @@ struct Tree {
         while (!st.empty()) {
             auto [v, p, d] = st.top();
             st.pop();
-            depth[v] = d;
             parent[v] = p;
             for (auto i : data[v]) {
                 if (i == p) continue;
