@@ -12,20 +12,21 @@ struct BIT_RSQ {
         q.init(n + 1);
     }
 
-    const T &operator[](int i) const { return at(i); }
+    auto operator[](int i) const { return at(i); }
 
     // v[k]
-    const T at(int k) const { return sum(k + 1) - sum(k); }
+    auto at(int k) const { return sum(k + 1) - sum(k); }
 
     template <class U>
     void build(const vector<U> &v) {
-        for (int i = 0; i < v.size(); ++i) {
+        int n = v.size();
+        for (int i = 0; i < n; ++i) {
             p.add(i, v[i]);
             p.add(i + 1, -v[i]);
         }
     }
 
-    void update(int k, cosnt T x) { add(k, k + 1, x - at(k)); }
+    void update(int k, T x) { add(k, k + 1, x - at(k)); }
 
     // v[k] += w
     void add(int k, T w) { add(k, k + 1, w); }
@@ -38,8 +39,8 @@ struct BIT_RSQ {
     }
 
     // v[0] + ... + v[k - 1]
-    const T sum(int k) const { return p.sum(k) + q.sum(k) * k; }
+    auto sum(int k) const { return p.sum(k) + q.sum(k) * k; }
 
     // v[a] + ... + v[b - 1]
-    const T sum(int a, int b) const { return sum(b) - sum(a); }
+    auto T sum(int a, int b) const { return sum(b) - sum(a); }
 };
