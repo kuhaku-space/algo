@@ -12,8 +12,8 @@ struct Mo {
         : add(f), del(g), width((int)sqrt(n)), nl(0), nr(0), ptr(0), v() {}
 
     void insert(int l, int r) {
-        left.push_back(l);
-        right.push_back(r);
+        left.emplace_back(l);
+        right.emplace_back(r);
     }
 
     void build() {
