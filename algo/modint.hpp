@@ -75,18 +75,14 @@ struct ModInt {
         return ModInt(u);
     }
 
-    ModInt pow(int64_t n) const noexcept {
-        ModInt res(1), mul(x);
-        for (; n > 0; n >>= 1) {
-            if (n & 1) res *= mul;
-            mul *= mul;
-        }
-        return res;
-    }
-
+    ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n); }
     void pow_self(int64_t n) noexcept {
-        ModInt tmp = pow(n);
-        swap(*this, tmp);
+        ModInt res(1);
+        for (; n > 0; n >>= 1) {
+            if (n & 1) res *= *this;
+            *this *= *this;
+        }
+        *this = res;
     }
 
     friend istream &operator>>(istream &is, ModInt &rhs) {
@@ -95,7 +91,6 @@ struct ModInt {
         rhs = ModInt<mod>(t);
         return (is);
     }
-
     friend ostream &operator<<(ostream &os, const ModInt &rhs) {
         return os << rhs.x;
     }
