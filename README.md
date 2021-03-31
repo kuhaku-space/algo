@@ -13,12 +13,12 @@
 - BIT_RSQ.hpp
 - BIT.hpp
 - dual_segment_tree.hpp
-- lasy_segment_tree_beta.hpp
-- lasy_segment_tree_gamma.hpp
-- lasy_segment_tree.hpp
+- lazy_segment_tree_beta.hpp
+- lazy_segment_tree_gamma.hpp
+- lazy_segment_tree.hpp
 - segment_tree.hpp
 
-## data_sruct
+## data_struct
 
 - bigint_beta.hpp
 - bigint.hpp
