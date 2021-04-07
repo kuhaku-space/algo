@@ -5,7 +5,7 @@
 
 template <int mod>
 struct ModInt {
-    int64_t x;
+    int x;
 
     ModInt() : x(0) {}
 
