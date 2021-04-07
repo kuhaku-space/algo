@@ -42,5 +42,5 @@ struct BIT_RSQ {
     auto sum(int k) const { return p.sum(k) + q.sum(k) * k; }
 
     // v[a] + ... + v[b - 1]
-    auto T sum(int a, int b) const { return sum(b) - sum(a); }
+    auto sum(int a, int b) const { return sum(b) - sum(a); }
 };
