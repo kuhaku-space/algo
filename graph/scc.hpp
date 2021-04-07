@@ -8,7 +8,7 @@ vector<int> scc(const Graph<T> &g) {
     int n = g.size();
     Graph<T> rg(n);
     vector<int> comp(n, -1), order;
-    bitset<1 << 20> used;
+    vector<bool> used(n);
 
     for (auto &es : g) {
         for (auto &e : es) rg.add_edge(e.to, e.from);
@@ -16,7 +16,7 @@ vector<int> scc(const Graph<T> &g) {
 
     auto dfs = [&](auto self, int idx) {
         if (used[idx]) return;
-        used.set(idx);
+        used[idx] = true;
         for (auto &e : g[idx]) self(self, e.to);
         order.emplace_back(idx);
     };
@@ -44,6 +44,18 @@ Graph<T> make_DAG(const Graph<T> &g, const vector<int> &v) {
         for (auto &e : es) {
             int x = v[e.from], y = v[e.to];
             if (x != y) res.add_edge(x, y, e.dist);
+        }
+    }
+    return res;
+}
+
+Graph<void> make_DAG(const Graph<void> &g, const vector<int> &v) {
+    int n = *max_element(v.begin(), v.end()) + 1;
+    Graph<void> res(n);
+    for (int i = 0; i < g.size(); ++i) {
+        for (auto &e : g[i]) {
+            int x = v[i], y = v[e];
+            if (x != y) res.add_edge(x, y);
         }
     }
     return res;
