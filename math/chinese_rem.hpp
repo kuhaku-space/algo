@@ -19,8 +19,8 @@ int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
  * 任意の i において、x % b_i = m_i となる x を求める
  * x = r + M * k (k in N) と表すことができる
  */
-pair<int64_t, int64_t> chinese_rem(const vector<int64_t> &b,
-                                   const vector<int64_t> &m) {
+template <class T, class U>
+pair<int64_t, int64_t> chinese_rem(const vector<T> &b, const vector<U> &m) {
     int64_t r = 0, M = 1;
     int64_t n = b.size();
     for (int64_t i = 0; i < n; ++i) {
