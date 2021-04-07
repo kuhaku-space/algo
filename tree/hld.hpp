@@ -1,7 +1,11 @@
 #include "_base.hpp"
 
-// reference :
-// https://github.com/beet-aizu/library/blob/master/tree/heavylightdecomposition.cpp
+/* 
+ * reference :
+ * https://github.com/beet-aizu/library/blob/master/tree/heavylightdecomposition.cpp
+ * verify :
+ * https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E 21/04/08
+ */
 
 struct HLD {
     vector<vector<int>> G;
