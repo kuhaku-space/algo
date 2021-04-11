@@ -41,7 +41,7 @@ struct prime_number {
     // 素因数分解
     template <class T>
     vector<pair<T, int>> prime_factorization(T x) {
-        if (x == 1) return vector<T>(1, {1, 1});
+        if (x == 1) return vector<pair<T, int>>(1, {1, 1});
         vector<pair<T, int>> res;
         for (auto i : data) {
             int cnt = 0;
