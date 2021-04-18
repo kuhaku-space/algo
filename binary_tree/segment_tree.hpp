@@ -30,26 +30,27 @@ struct segment_tree {
 
     template <class U>
     void build(const vector<U> &v) {
-        for (int i = 0; i < v.size(); ++i) data[N + i] = T(v[i]);
+        int n = v.size();
+        for (int i = 0; i < n; ++i) data[N + i] = T(v[i]);
         for (int i = N - 1; i >= 1; --i)
             data[i] = op(data[i * 2], data[i * 2 + 1]);
     }
 
     void update(int k, const T &x) {
-        assert(k >= 0 && k < N);
+        assert(0 <= k && k < N);
         data[k += N] = x;
         while ((k >>= 1) >= 1) data[k] = op(data[k * 2], data[k * 2 + 1]);
     }
 
     void add(int k, const T &x) {
-        assert(k >= 0 && k < N);
+        assert(0 <= k && k < N);
         data[k += N] += x;
         while ((k >>= 1) >= 1) data[k] = op(data[k * 2], data[k * 2 + 1]);
     }
 
     T query(int a, int b) {
-        assert(a >= 0 && a <= N);
-        assert(b >= 0 && b <= N);
+        assert(0 <= a && a <= N);
+        assert(0 <= b && b <= N);
         T l = e, r = e;
         for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
             if (a & 1) l = op(l, data[a++]);
