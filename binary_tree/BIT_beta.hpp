@@ -21,6 +21,7 @@ struct BIT {
 
     // v[k] += w
     void add(int k, T w) {
+        assert(0 <= k && k < N);
         for (++k; k < N; k += k & -k) data[k] += w;
     }
 
@@ -29,6 +30,7 @@ struct BIT {
 
     // v[0] + ... + v[k - 1]
     T sum(int k) const {
+        assert(0 <= k && k <= N);
         T res = 0;
         for (; k > 0; k -= k & -k) res += data[k];
         return res;
