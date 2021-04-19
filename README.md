@@ -50,7 +50,6 @@
 - bellman_ford.hpp
 - chromatic_number.hpp
 - dijkstra.hpp
-- graph_algorithm.hpp
 - graph_matrix.hpp
 - graph_segment.hpp
 - graph.hpp
@@ -62,16 +61,6 @@
 - topological_sort.hpp
 - two_sat.hpp
 - warshall_floyd.hpp
-
-## marathon
-
-- _base.hpp
-- annealing.hpp
-- beam_search.hpp
-- chokudai_search.hpp
-- debug.hpp
-- timer.hpp
-- xorshift.hpp
 
 ## math
 
@@ -97,8 +86,8 @@
 
 - eular_tour.hpp
 - hld.hpp
+- lca.hpp
 - link_cut_tree.hpp
 - partially_persistent_union_find.hpp
-- tree_LCA.hpp
 - tree.hpp
 - union_find.hpp
