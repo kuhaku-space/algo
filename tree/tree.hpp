@@ -1,13 +1,14 @@
 #include "_base.hpp"
+#include "graph/graph.hpp"
 
+template <class T>
 struct Tree {
-    int V;
-    vector<vector<int>> data;
+    Graph<T> g;
     vector<int> parent;
 
-    Tree(int v) : V(v), data(v), parent(v) {}
+    Tree(const Graph<T> &_g, int r = 0) : g(_g), parent(_g.size()) { build(r) }
 
-    void init(int r = 0) {
+    void build(int r = 0) {
         struct node {
             int v, p, d;
         };
@@ -22,13 +23,6 @@ struct Tree {
                 st.push(node{i, v, d + 1});
             }
         }
-    }
-
-    void build(int r = 0) { init(r); }
-
-    void add_edge(int a, int b) {
-        data[a].emplace_back(b);
-        data[b].emplace_back(a);
     }
 
     void bfs(int s) {
