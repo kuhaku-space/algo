@@ -2,17 +2,23 @@
 #include "algo/modint.hpp"
 
 template <int mod>
-struct math_mod {
+struct Combination {
     using mint = ModInt<mod>;
     vector<mint> fac, finv;
 
-    math_mod() { _init(1 << 22); }
+    Combination() {}
 
-    void _init(int64_t n) {
+    mint operator()(int n, int k) {
+        if (n < k || n < 0 || k < 0) return 0;
+        _init(n);
+        return fac[n] * finv[k] * finv[n - k];
+    }
+
+    void _init(int n) {
         if (fac.size() > n) return;
         int m = fac.size();
         fac.resize(n + 1);
-        for (int64_t i = m; i <= n; ++i) {
+        for (int i = m; i <= n; ++i) {
             if (i == 0)
                 fac[i] = 1;
             else
@@ -20,36 +26,56 @@ struct math_mod {
         }
         finv.resize(n + 1);
         finv[n] = fac[n].inverse();
-        for (int64_t i = n - 1; i >= m; --i) finv[i] = finv[i + 1] * (i + 1);
+        for (int i = n - 1; i >= m; --i) finv[i] = finv[i + 1] * (i + 1);
     }
 
-    mint fact(int64_t x) {
+    mint fact(int x) {
         assert(x >= 0);
         _init(x);
         return fac[x];
     }
 
-    mint combi(int64_t n, int64_t k) {
-        if (n < k || n < 0 || k < 0) return 0;
-        _init(n);
-        return fac[n] * finv[k] * finv[n - k];
-    }
-
-    mint combi_naive(int64_t n, int64_t k) const {
+    mint naive(int n, int k) const {
         if (n < k || n < 0 || k < 0) return 0;
         if (n - k < k) k = n - k;
         mint res = 1;
-        for (int64_t i = 0; i < k; ++i) {
+        for (int i = 0; i < k; ++i) {
             res *= n - i;
             res /= i + 1;
         }
         return res;
     }
 
-    mint permu(int64_t n, int64_t k) {
+    mint lucas(int n, int k) {
+        if (n < k || n < 0 || k < 0) return 0;
+        if (n - k < k) k = n - k;
+        static vector<vector<mint>> v;
+        if (v.empty()) {
+            v = vector<vector<mint>>(mod, vector<mint>(mod));
+            for (int i = 0; i < mod; ++i) v[i][0] = 1;
+            for (int i = 0; i < mod; ++i) {
+                for (int j = 1; j < mod; ++j) {
+                    if (i < j)
+                        v[i][j] = 0;
+                    else if (i - j < j)
+                        v[i][j] = v[i][i - j];
+                    else
+                        v[i][j] = v[i][j - 1] * mint(i + 1 - j) / mint(j);
+                }
+            }
+        }
+        mint res = 1;
+        while (n || k) {
+            res *= v[n % mod][k % mod];
+            n /= mod, k /= mod;
+        }
+        return res;
+    }
+
+    mint permu(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
         _init(n);
         return fac[n] * finv[n - k];
     }
 };
-math_mod<MOD> math;
+Combination<MOD> combi;
