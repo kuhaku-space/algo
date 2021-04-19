@@ -95,7 +95,7 @@ struct radix_heap_dijkstra {
     unsigned int sz;
     bool is_top;
 
-    radix_heap() : last(), sz(), is_top() {}
+    radix_heap_dijkstra() : last(), sz(), is_top() {}
 
     int bsr(unsigned int x) {
         if (x == 0) return -1;
