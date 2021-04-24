@@ -9,7 +9,6 @@ struct Graph {
         bool operator<(const edge &rhs) const { return dist < rhs.dist; }
         bool operator>(const edge &rhs) const { return rhs < *this; }
     };
-
     vector<vector<edge>> edges;
 
     Graph(int v) : edges(v) {}
