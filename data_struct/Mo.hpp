@@ -8,7 +8,7 @@ struct Mo {
     const F add;
     const G del;
 
-    Mo(int n, const F &f, const F &g)
+    Mo(int n, const F &f, const G &g)
         : add(f), del(g), width((int)sqrt(n)), nl(0), nr(0), ptr(0), v() {}
 
     void insert(int l, int r) {
