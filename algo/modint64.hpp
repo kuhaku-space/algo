@@ -76,13 +76,14 @@ struct ModInt {
     }
 
     ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n); }
-    void pow_self(int64_t n) noexcept {
+    ModInt &pow_self(int64_t n) noexcept {
         ModInt res(1);
         for (; n > 0; n >>= 1) {
             if (n & 1) res *= *this;
             *this *= *this;
         }
         *this = res;
+        return *this;
     }
 
     friend istream &operator>>(istream &is, ModInt &rhs) {
