@@ -8,7 +8,6 @@ struct ModInt {
     int x;
 
     ModInt() : x(0) {}
-
     ModInt(int64_t y) noexcept
         : x(y >= 0 ? y % mod : (mod - 1 - (-y - 1) % mod)) {}
 
