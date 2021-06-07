@@ -15,7 +15,9 @@ int64_t gcd(const vector<int64_t> &v) {
     return res;
 }
 
-int64_t lcm(int64_t a, int64_t b) { return a / gcd(a, b) * b; }
+int64_t lcm(int64_t a, int64_t b) {
+    return a / gcd(a, b) * b;
+}
 
 int64_t lcm(const vector<int64_t> &v) {
     int64_t res = 1;
@@ -36,21 +38,18 @@ int64_t ceil_div(int64_t p, int64_t q) {
 }
 
 int64_t round_ll(double d) {
-    if (d < 0)
-        return -round_ll(-d);
+    if (d < 0) return -round_ll(-d);
     return int64_t(d + 0.5);
 }
 
 int64_t round_ll(long double d) {
-    if (d < 0)
-        return -round_ll(-d);
+    if (d < 0) return -round_ll(-d);
     return int64_t(d + 0.5);
 }
 
 bool is_prime(int n) {
     for (int i = 2; i * i <= n; ++i) {
-        if (n % i == 0)
-            return false;
+        if (n % i == 0) return false;
     }
     return true;
 }
