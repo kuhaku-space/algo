@@ -40,7 +40,7 @@ struct Matrix {
         vector<vector<T>> tmp(x, vector<T>(y));
         for (int64_t i = 0; i < x; ++i) {
             for (int64_t k = 0; k < z; ++k) {
-                for (int64_t j = 0; j < y; ++j) 
+                for (int64_t j = 0; j < y; ++j)
                     tmp[i][j] += v[i][k] * rhs.v[k][j];
             }
         }
