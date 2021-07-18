@@ -10,8 +10,7 @@ int64_t inv_mod(int64_t a, int64_t mod) {
     return u >= 0 ? u % mod : (mod - (-u) % mod) % mod;
 }
 
-int64_t garner(vector<int64_t> r, vector<int64_t> m,
-               const int mod) {
+int64_t garner(vector<int64_t> r, vector<int64_t> m, const int mod) {
     int64_t n = r.size();
     r.emplace_back(0);
     m.emplace_back(mod);
