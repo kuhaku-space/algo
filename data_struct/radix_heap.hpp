@@ -9,7 +9,7 @@ struct radix_heap {
 
     int bsr(unsigned int x) {
         if (x == 0) return -1;
-        return 31-__builtin_clz(x);
+        return 31 - __builtin_clz(x);
     }
 
     void push(unsigned int x) {
@@ -54,7 +54,7 @@ struct radix_heap_64 {
 
     int bsr(uint64_t x) {
         if (x == 0) return -1;
-        return 63-__builtin_clz(x);
+        return 63 - __builtin_clz(x);
     }
 
     void push(uint64_t x) {
@@ -99,15 +99,11 @@ struct radix_heap_dijkstra {
 
     int bsr(unsigned int x) {
         if (x == 0) return -1;
-        return 31-__builtin_clz(x);
+        return 31 - __builtin_clz(x);
     }
 
-    bool empty() const {
-        return sz == 0;
-    }
-    auto size() const {
-        return sz;
-    }
+    bool empty() const { return sz == 0; }
+    auto size() const { return sz; }
 
     void push(T x) {
         assert(x.dist >= last.dist);
