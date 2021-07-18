@@ -6,7 +6,7 @@
 
 struct two_sat {
     int n;
-    Graph<int> G;
+    Graph<void> G;
 
     two_sat(int _n) : n(_n), G(_n * 2) {}
 
