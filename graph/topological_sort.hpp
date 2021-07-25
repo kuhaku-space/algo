@@ -33,7 +33,7 @@ template <class T>
 vector<int> topological_sort(const Graph<T> &g) {
     int n = g.size();
     vector<int> res;
-    vector<bool> is_seen;
+    vector<bool> is_seen(n);
     auto dfs = [&](auto self, int v) {
         if (is_seen[v]) return;
         is_seen[v] = true;
