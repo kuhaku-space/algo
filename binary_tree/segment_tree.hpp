@@ -13,6 +13,7 @@ struct segment_tree {
     const F op;
     vector<T> data;
 
+    segment_tree() {}
     segment_tree(int _n, const T &_e, const F &_op) : e(_e), op(_op) {
         init(_n);
     }
