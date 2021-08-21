@@ -8,6 +8,7 @@ struct prime_number {
 
     void init() {
         factor.resize(sz);
+        iota(factor.begin(), factor.end(), 0);
         for (int i = 2; i < sz; ++i) {
             if (factor[i] < i) continue;
             if ((int64_t)i * i > sz) continue;
