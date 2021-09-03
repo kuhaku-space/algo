@@ -28,10 +28,10 @@ struct Mo {
     int process() {
         if (ptr == order.size()) return -1;
         const auto id = order[ptr];
-        while (nl > left[id]) distribute(--nl);
-        while (nr < right[id]) distribute(nr++);
-        while (nl < left[id]) distribute(nl++);
-        while (nr > right[id]) distribute(--nr);
+        while (nl > left[id]) this->distribute(--nl);
+        while (nr < right[id]) this->distribute(nr++);
+        while (nl < left[id]) this->distribute(nl++);
+        while (nr > right[id]) this->distribute(--nr);
         return order[ptr++];
     }
 
