@@ -5,17 +5,17 @@ template <class T>
 struct BIT_RSQ {
     BIT<T> p, q;
 
-    BIT_RSQ(int n) { init(n); }
+    BIT_RSQ(int n) : p(n), q(n) {}
 
     void init(int n) {
-        p.init(n + 1);
-        q.init(n + 1);
+        p = BIT<T>(n);
+        q = BIT<T>(n);
     }
 
-    auto operator[](int i) const { return at(i); }
+    auto operator[](int i) const { return this->at(i); }
 
     // v[k]
-    auto at(int k) const { return sum(k + 1) - sum(k); }
+    auto at(int k) const { return this->sum(k + 1) - this->sum(k); }
 
     template <class U>
     void build(const vector<U> &v) {
@@ -26,10 +26,10 @@ struct BIT_RSQ {
         }
     }
 
-    void update(int k, T x) { add(k, k + 1, x - at(k)); }
+    void update(int k, T x) { this->add(k, k + 1, x - this->at(k)); }
 
     // v[k] += w
-    void add(int k, T w) { add(k, k + 1, w); }
+    void add(int k, T w) { this->add(k, k + 1, w); }
     // v[a ... b - 1] += w
     void add(int a, int b, T w) {
         p.add(a, -w * a);
@@ -42,5 +42,5 @@ struct BIT_RSQ {
     auto sum(int k) const { return p.sum(k) + q.sum(k) * k; }
 
     // v[a] + ... + v[b - 1]
-    auto sum(int a, int b) const { return sum(b) - sum(a); }
+    auto sum(int a, int b) const { return this->sum(b) - this->sum(a); }
 };

@@ -32,8 +32,9 @@ struct prime_number {
 
     vector<int> prime_numbers(int x) {
         vector<int> res;
-        for (int i = 2; i <= x; ++i) {
-            if (is_prime(i)) res.emplace_back(i);
+        for (auto i : data) {
+            if (i > x) break;
+            res.emplace_back(i);
         }
         return res;
     }
@@ -45,7 +46,7 @@ struct prime_number {
         vector<pair<T, int>> res;
         for (auto i : data) {
             int cnt = 0;
-            for (; x % i == 0; x /= i) cnt++;
+            for (; x % i == 0; x /= i) ++cnt;
             if (cnt) res.emplace_back(i, cnt);
             if ((int64_t)i * i > x) break;
         }
@@ -56,7 +57,7 @@ struct prime_number {
     // 約数列挙
     template <class T>
     vector<T> divisors(T x) {
-        auto v = prime_factorization(x);
+        auto v = this->prime_factorization(x);
         vector<T> res, a, b, cp;
         res.emplace_back(1);
         for (auto p : v) {

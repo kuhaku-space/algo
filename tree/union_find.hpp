@@ -10,24 +10,20 @@ struct union_find {
 
     union_find(int _n) : data(_n, -1) {}
 
-    int root(int x) {
-        return data[x] < 0 ? x : data[x] = root(data[x]);
-    }
+    int root(int x) { return data[x] < 0 ? x : data[x] = this->root(data[x]); }
 
-    bool is_root(int x) {
-        return data[x] < 0;
-    }
+    bool is_root(int x) { return data[x] < 0; }
 
     void unite(int x, int y) {
-        x = root(x), y = root(y);
+        x = this->root(x), y = this->root(y);
         if (x != y) {
-            if (data[y] < data[x]) swap(x, y);
+            if (data[x] > data[y]) swap(x, y);
             data[x] += data[y];
             data[y] = x;
         }
     }
 
-    int size(int x) { return -data[root(x)]; }
+    int size(int x) { return -data[this->root(x)]; }
 
-    bool same(int x, int y) { return root(x) == root(y); }
+    bool same(int x, int y) { return this->root(x) == this->root(y); }
 };
