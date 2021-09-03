@@ -32,7 +32,7 @@ struct Tree {
     }
 
     void build(int64_t r = 0) {
-        init(r);
+        this->init(r);
         for (int64_t k = 0; k < logV - 1; ++k) {
             for (int64_t v = 0; v < V; ++v) {
                 if (parent[k][v] < 0)
