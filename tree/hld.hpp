@@ -22,7 +22,7 @@ struct HLD {
 
         for (auto &u : es) {
             par[u] = v;
-            dfs_sz(u);
+            this->dfs_sz(u);
             sub[v] += sub[u];
             if (sub[u] > sub[es[0]]) swap(u, es[0]);
         }
@@ -34,7 +34,7 @@ struct HLD {
         for (auto u : G[v]) {
             if (u == par[v]) continue;
             nxt[u] = (u == G[v][0] ? nxt[v] : u);
-            dfs_hld(u, pos);
+            this->dfs_hld(u, pos);
         }
     }
 
@@ -45,9 +45,9 @@ struct HLD {
 
     void build(int r = 0) {
         int pos = 0;
-        dfs_sz(r);
+        this->dfs_sz(r);
         nxt[r] = r;
-        dfs_hld(r, pos);
+        this->dfs_hld(r, pos);
     }
 
     int lca(int u, int v) {
