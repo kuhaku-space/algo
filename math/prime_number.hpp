@@ -14,13 +14,11 @@ struct prime_number {
                 data.emplace_back(i);
                 if ((int64_t)i * i >= sz) continue;
                 if (i == 2) {
-                    for (int j = i * i; j < sz; j += i) {
-                        is_not_prime[j] = true;
-                    }
+                    for (int j = i * i; j < sz; j += i) is_not_prime[j] = true;
+
                 } else {
-                    for (int j = i * i; j < sz; j += i << 1) {
+                    for (int j = i * i; j < sz; j += i << 1)
                         is_not_prime[j] = true;
-                    }
                 }
             }
         }
