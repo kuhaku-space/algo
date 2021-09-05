@@ -13,8 +13,14 @@ struct prime_number {
             if (!is_not_prime[i]) {
                 data.emplace_back(i);
                 if ((int64_t)i * i >= sz) continue;
-                for (int j = i * i; j < sz; j += i) {
-                    is_not_prime[j] = true;
+                if (i == 2) {
+                    for (int j = i * i; j < sz; j += i) {
+                        is_not_prime[j] = true;
+                    }
+                } else {
+                    for (int j = i * i; j < sz; j += i << 1) {
+                        is_not_prime[j] = true;
+                    }
                 }
             }
         }
@@ -58,21 +64,17 @@ struct prime_number {
     template <class T>
     vector<T> divisors(T x) {
         auto v = this->prime_factorization(x);
-        vector<T> res, a, b, cp;
+        vector<T> res;
         res.emplace_back(1);
         for (auto p : v) {
             int n = res.size();
-            cp.resize(n);
-            copy(res.begin(), res.end(), cp.begin());
-            a.resize(n);
-            T t = 1;
-            for (int k = 0; k < p.second; ++k) {
-                t *= p.first;
-                for (int i = 0; i < n; ++i) a[i] = cp[i] * t;
-                merge(res.begin(), res.end(), a.begin(), a.end(),
-                      back_inserter(b));
-                swap(res, b);
-                b.clear();
+            res.resize(n * (p.second + 1));
+            for (int i = 0; i < n * p.second; ++i) {
+                res[n + i] = res[i] * p.first;
+            }
+            for (int i = 1; i <= p.second; ++i) {
+                inplace_merge(res.begin(), res.begin() + n * i,
+                              res.begin() + n * (i + 1));
             }
         }
         return res;
