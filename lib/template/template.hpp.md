@@ -237,6 +237,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/sample/many_a+b.test.cpp
+    title: test/yosupo/sample/many_a+b.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -340,6 +343,7 @@ data:
   timestamp: '2021-09-18 19:45:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
 documentation_of: lib/template/template.hpp
 layout: document

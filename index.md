@@ -323,5 +323,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/sample/a+b.test.cpp
       title: test/yosupo/sample/a+b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/sample/many_a+b.test.cpp
+      title: test/yosupo/sample/many_a+b.test.cpp
 layout: toppage
 ---
