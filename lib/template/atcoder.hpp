@@ -1,6 +1,4 @@
-// clang-format off
 #include "template/template.hpp"
-
 using ll = int64_t;
 using ld = long double;
 #define FOR(i, m, n) for(int i = (m); i < (n); ++i)
@@ -30,5 +28,3 @@ auto make_vector(T x, int arg, Args ...args) {
 }
 void sonic() { ios::sync_with_stdio(false); cin.tie(nullptr); }
 void setp(const int n) { cout << fixed << setprecision(n); }
-
-// clang-format on
