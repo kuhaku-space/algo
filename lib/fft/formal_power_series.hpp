@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "algo/modint.hpp"
 #include "fft/ntt.hpp"
 

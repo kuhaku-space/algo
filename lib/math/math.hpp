@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 int64_t gcd(int64_t a, int64_t b) {
     while (b) {

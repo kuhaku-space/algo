@@ -1,6 +1,6 @@
 #include <random>
 
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 // verify : https://atcoder.jp/contests/abc141/tasks/abc141_e 21/02/24
 

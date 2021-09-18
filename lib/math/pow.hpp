@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 template <class T>
 T power(T a, int64_t n) {

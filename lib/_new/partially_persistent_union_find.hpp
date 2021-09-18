@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 struct union_find {
     int64_t now;

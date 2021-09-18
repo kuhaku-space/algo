@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 /*
  * a * x + b * y = gcd(a, b) の答えを一つ求める

@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "graph/graph_matrix.hpp"
 
 template <class T>

@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 template <class T, class U, class F, class G, class H>
 struct lazy_segment_tree {

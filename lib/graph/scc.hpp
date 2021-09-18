@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "graph/graph.hpp"
 
 // verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_C 21/02/24
