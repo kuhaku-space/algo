@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 // i * j = g^(x + y) としてFFTに帰着
 // verify : https://atcoder.jp/contests/agc047/tasks/agc047_c 21/02/24

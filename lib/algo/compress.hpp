@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 // 座標圧縮ライブラリ
 template <class T>

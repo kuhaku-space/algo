@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 // reference : http://www.prefield.com/algorithm/geometry/convex_hull.html
 // verify : https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A

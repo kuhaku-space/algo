@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 // reference :
 // https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp

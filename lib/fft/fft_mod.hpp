@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 namespace FFT_MOD {
 using CP = complex<double>;
