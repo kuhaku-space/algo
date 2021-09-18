@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "math/pow.hpp"
 
 int get_primitive_root(const int mod) {

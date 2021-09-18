@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 vector<int> make_permutation_one_bit(int n, int a, int b) {
     if (n == 1) {

@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 // verify : https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H
 

@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "graph/graph.hpp"
 
 vector<int> tree_dist(const Graph<void> &g, int r = 0) {

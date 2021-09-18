@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 // reference :
 // https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp

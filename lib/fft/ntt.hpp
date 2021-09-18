@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "algo/modint.hpp"
 
 template <int mod, int primitive_root>

@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 template <class Cap, class Cost>
 struct mcf_graph {

@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 int64_t inv_mod(int64_t a, int64_t mod) {
     int64_t b = mod, u = 1, v = 0, t;

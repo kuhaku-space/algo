@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 #include "graph/graph.hpp"
 #include "tree/union_find.hpp"
 

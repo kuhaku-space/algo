@@ -1,4 +1,4 @@
-#include "_base.hpp"
+#include "lib/template/template.hpp"
 
 template <class T>
 struct cumulative_sum_2d {
