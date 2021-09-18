@@ -1,0 +1,79 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: lib/template/template.hpp
+    title: lib/template/template.hpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
+  _pathExtension: hpp
+  _verificationStatusIcon: ':warning:'
+  attributes:
+    links: []
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
+    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
+    \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    \ line -1: no such header\n"
+  code: "#include \"template/template.hpp\"\r\n\r\n// \u884C\u5217\u30E9\u30A4\u30D6\
+    \u30E9\u30EA\r\ntemplate <class T>\r\nstruct Matrix {\r\n    vector<vector<T>>\
+    \ v;\r\n\r\n    Matrix(int64_t x) { v = vector<vector<T>>(x, vector<T>(x)); }\r\
+    \n    Matrix(int64_t x, int64_t y) { v = vector<vector<T>>(x, vector<T>(y)); }\r\
+    \n    Matrix(const vector<vector<T>> &_v) : v(_v) {}\r\n\r\n    const vector<T>\
+    \ &operator[](const int64_t i) const {\r\n        assert(i >= 0 && i < v.size());\r\
+    \n        return v[i];\r\n    }\r\n    vector<T> &operator[](const int64_t i)\
+    \ {\r\n        assert(i >= 0 && i < v.size());\r\n        return v[i];\r\n   \
+    \ }\r\n\r\n    Matrix &operator+=(const Matrix &rhs) {\r\n        assert(v.size()\
+    \ == rhs.v.size());\r\n        assert(v[0].size() == rhs.v[0].size());\r\n   \
+    \     for (int64_t i = 0; i < v.size(); ++i) {\r\n            for (int64_t j =\
+    \ 0; j < v[0].size(); ++j) v[i][j] += rhs.v[i][j];\r\n        }\r\n        return\
+    \ *this;\r\n    }\r\n    Matrix &operator-=(const Matrix &rhs) {\r\n        assert(v.size()\
+    \ == rhs.v.size());\r\n        assert(v[0].size() == rhs.v[0].size());\r\n   \
+    \     for (int64_t i = 0; i < v.size(); ++i) {\r\n            for (int64_t j =\
+    \ 0; j < v[0].size(); ++j) v[i][j] -= rhs.v[i][j];\r\n        }\r\n        return\
+    \ *this;\r\n    }\r\n    Matrix &operator*=(const Matrix &rhs) {\r\n        assert(v[0].size()\
+    \ == rhs.v.size());\r\n        int64_t x = v.size(), y = rhs.v[0].size(), z =\
+    \ rhs.v.size();\r\n        vector<vector<T>> tmp(x, vector<T>(y));\r\n       \
+    \ for (int64_t i = 0; i < x; ++i) {\r\n            for (int64_t k = 0; k < z;\
+    \ ++k) {\r\n                for (int64_t j = 0; j < y; ++j)\r\n              \
+    \      tmp[i][j] += v[i][k] * rhs.v[k][j];\r\n            }\r\n        }\r\n \
+    \       swap(v, tmp);\r\n        return *this;\r\n    }\r\n\r\n    Matrix operator-()\
+    \ const {\r\n        vector<vector<T>> tmp = v;\r\n        for (auto &i : tmp)\r\
+    \n            for (auto &j : i) j = -j;\r\n        return Matrix(tmp);\r\n   \
+    \ }\r\n\r\n    Matrix operator+(const Matrix &rhs) const { return Matrix(*this)\
+    \ += rhs; }\r\n    Matrix operator-(const Matrix &rhs) const { return Matrix(*this)\
+    \ -= rhs; }\r\n    Matrix operator*(const Matrix &rhs) const { return Matrix(*this)\
+    \ *= rhs; }\r\n\r\n    Matrix pow(int64_t n) const {\r\n        Matrix res(v),\
+    \ mul(v);\r\n        res.unit_matrix();\r\n        for (; n > 0; n >>= 1) {\r\n\
+    \            if (n & 1) res *= mul;\r\n            mul *= mul;\r\n        }\r\n\
+    \        return res;\r\n    }\r\n\r\n    void unit_matrix() {\r\n        assert(v.size()\
+    \ == v[0].size());\r\n        int64_t n = v.size();\r\n        for (int64_t i\
+    \ = 0; i < n; ++i) {\r\n            v[i].assign(n, T(0));\r\n            v[i][i]\
+    \ = T(1);\r\n        }\r\n    }\r\n\r\n    Matrix transposed() const {\r\n   \
+    \     int64_t x = v[0].size(), y = v.size();\r\n        vector<vector<T>> res(x,\
+    \ vector<T>(y));\r\n        for (int64_t i = 0; i < x; ++i) {\r\n            for\
+    \ (int64_t j = 0; j < y; ++j) {\r\n                res[i][j] = v[j][i];\r\n  \
+    \          }\r\n        }\r\n        return Matrix(res);\r\n    }\r\n\r\n    void\
+    \ print_debug() const {\r\n        for (auto i : v) {\r\n            cerr << \"\
+    [\";\r\n            for (auto j : i) cerr << j << \", \";\r\n            cerr\
+    \ << \"]\" << endl;\r\n        }\r\n    }\r\n};\r\n"
+  dependsOn:
+  - lib/template/template.hpp
+  isVerificationFile: false
+  path: lib/math/matrix.hpp
+  requiredBy: []
+  timestamp: '2021-09-18 19:45:05+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: lib/math/matrix.hpp
+layout: document
+redirect_from:
+- /library/lib/math/matrix.hpp
+- /library/lib/math/matrix.hpp.html
+title: lib/math/matrix.hpp
+---
