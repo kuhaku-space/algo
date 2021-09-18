@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 // verify : https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
 

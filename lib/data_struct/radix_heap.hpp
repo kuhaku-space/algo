@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 struct radix_heap {
     vector<unsigned int> v[33];

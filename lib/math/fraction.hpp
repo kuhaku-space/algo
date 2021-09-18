@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 
 // 分数ライブラリ
 struct Fraction {

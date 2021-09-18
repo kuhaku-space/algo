@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 #include "graph/graph_matrix.hpp"
 
 // 彩色数を求める

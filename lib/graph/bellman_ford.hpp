@@ -1,4 +1,4 @@
-#include "lib/template/template.hpp"
+#include "template/template.hpp"
 #include "graph/graph.hpp"
 
 // verify : https://atcoder.jp/contests/abc137/tasks/abc137_e 21/02/24
