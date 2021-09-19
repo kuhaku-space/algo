@@ -14,6 +14,7 @@ struct BIT {
 
     const T &operator[](int i) const { return this->at(i); }
     const T at(int k) const { return this->sum(k + 1) - this->sum(k); }
+    const T get(int k) const { return this->sum(k + 1) - this->sum(k); }
 
     template <class U>
     void build(const vector<U> &v) {
@@ -21,14 +22,25 @@ struct BIT {
         for (int i = 0; i < n; ++i) this->add(i, v[i]);
     }
 
-    // v[k] += w
-    void add(int k, T w) {
-        assert(0 <= k && k < N);
-        for (++k; k < N; k += k & -k) data[k] += w;
-    }
-
     // v[k] = x
     void update(int k, T x) { this->add(k, x - this->at(k)); }
+    // v[k] += x
+    void add(int x, T x) {
+        assert(0 <= k && k < N);
+        for (++k; k < N; k += k & -k) data[k] += x;
+    }
+    // chmax(v[k], x)
+    bool chmax(int k, T x) {
+        if (this->at(k) >= x) return false;
+        this->update(k, x);
+        return true;
+    }
+    // chmin(v[k], x)
+    bool chmin(int k, T x) {
+        if (this->at(k) <= x) return false;
+        this->update(k, x);
+        return true;
+    }
 
     // v[0] + ... + v[k - 1]
     T sum(int k) const {
