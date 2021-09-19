@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/static_range_sum
@@ -28,7 +28,7 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_sum\"\n#include\
     \ \"template/atcoder.hpp\"\n\nint main(void) {\n    sonic();\n    int n, q;\n\
-    \    cin >> n >> q;\n    vector<int> a(n);\n    cin >> a;\n    a.emplace_back(0);\n\
+    \    cin >> n >> q;\n    vector<ll> a(n);\n    cin >> a;\n    a.emplace_back(0);\n\
     \    repr(i, n) a[i] += a[i + 1];\n    rep(i, q) {\n        int l, r;\n      \
     \  cin >> l >> r;\n        co(a[l] - a[r]);\n    }\n\n    return 0;\n}\n"
   dependsOn:
@@ -37,8 +37,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/static_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2021-09-20 05:14:09+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-09-20 05:26:46+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_range_sum.test.cpp
 layout: document
