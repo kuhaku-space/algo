@@ -1,65 +1,80 @@
 #include "template/template.hpp"
 
-/*
- * 再帰遅延セグメント木
- * Usage:
- * lazy_segment_tree RAQ_RmQ(n, INF, [](ll a, ll b){ return min(a, b); });
- * lazy_segment_tree RAQ_RMQ(n, 0, [](ll a, ll b){ return max(a, b); });
- */
-template <class T, class F>
+template <class T, class U, class F, class G, class H>
 struct lazy_segment_tree {
-    int N;
-    T e;
-    F f;
+    int N, logN;
+    const T e;
+    const U id;
+    const F op;    // (T, T) -> T
+    const G mapp;  // (U, T) -> T
+    const H comp;  // (U, U) -> U
     vector<T> data;
-    vector<T> lazy;
+    vector<U> lazy;
 
-    lazy_segment_tree(int _n, T _e, F _f) : f(_f), e(_e) { init(_n); }
+    lazy_segment_tree(int _n, T &&_e, U &&_id, F &&_op, G &&_mapp, H &&_comp)
+        : e(_e), id(_id), op(_op), mapp(_mapp), comp(_comp) {
+        init(_n);
+    }
 
     void init(int n) {
-        for (N = 1; N < n; N <<= 1)
+        for (N = 1, logN = 0; N < n; N <<= 1, ++logN)
             ;
         data.assign(N << 1, e);
-        lazy.assign(N << 1, 0);
+        lazy.assign(N << 1, id);
     }
 
-    template <class U>
-    void build(const vector<U> &v) {
+    template <class V>
+    void build(const vector<V> &v) {
         for (int i = 0; i < v.size(); ++i) data[N + i] = v[i];
         for (int i = N - 1; i >= 1; --i)
-            data[i] = f(data[i * 2], data[i * 2 + 1]);
+            data[i] = op(data[i * 2], data[i * 2 + 1]);
     }
 
-    void eval(int k) {
-        if (lazy[k] == 0) return;
+    void apply(int k, const U &x) {
+        assert(k > 0 && k < N << 1);
+        lazy[k] = comp(x, lazy[k]);
+
+        if ((k >>= 1) >= 1) {
+            data[k] = op(mapp(lazy[k * 2], data[k * 2]),
+                         mapp(lazy[k * 2 + 1], data[k * 2 + 1]));
+        }
+    }
+
+    T eval(int k) {
+        assert(k > 0 && k < N << 1);
+        if (lazy[k] == id) return data[k];
         if (k < N) {
-            lazy[k * 2] += lazy[k];
-            lazy[k * 2 + 1] += lazy[k];
+            lazy[k * 2] = comp(lazy[k], lazy[k * 2]);
+            lazy[k * 2 + 1] = comp(lazy[k], lazy[k * 2 + 1]);
         }
-        data[k] += lazy[k];
-        lazy[k] = 0;
+        data[k] = mapp(lazy[k], data[k]);
+        lazy[k] = id;
+        return data[k];
     }
 
-    T add(int a, T x) { return add(a, a + 1, x, 1, 0, N); }
-    T add(int a, int b, T x) { return add(a, b, x, 1, 0, N); }
-    T add(int a, int b, T x, int k, int l, int r) {
-        eval(k);
-        if (r <= a || b <= l) return data[k];
-        if (a <= l && r <= b) {
-            lazy[k] += x;
-            return data[k] + lazy[k];
+    void update(int a, const U &x) { return add(a, a + 1, x); }
+    void update(int a, int b, const U &x) {
+        assert(a >= 0 && a <= N);
+        assert(b >= 0 && b <= N);
+        int l = a + N, r = b + N - 1;
+        for (int i = logN; i >= 0; --i) eval(l >> i), eval(r >> i);
+        for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
+            if (a & 1) eval(a), apply(a++, x);
+            if (b & 1) eval(--b), apply(b, x);
         }
-        int m = (l + r) / 2;
-        return data[k] =
-                   f(add(a, b, x, k * 2, l, m), add(a, b, x, k * 2 + 1, m, r));
+        for (int i = 0; i <= logN; ++i) apply(l >> i, id), apply(r >> i, id);
     }
 
-    T query(int a, int b) { return query(a, b, 1, 0, N); }
-    T query(int a, int b, int k, int l, int r) {
-        eval(k);
-        if (r <= a || b <= l) return e;
-        if (a <= l && r <= b) return data[k];
-        int m = (l + r) >> 1;
-        return f(query(a, b, k * 2, l, m), query(a, b, k * 2 + 1, m, r));
+    T query(int a, int b) {
+        assert(a >= 0 && a <= N);
+        assert(b >= 0 && b <= N);
+        a += N, b += N;
+        for (int i = logN; i >= 0; --i) eval(a >> i), eval((b - 1) >> i);
+        T l = e, r = e;
+        for (; a < b; a >>= 1, b >>= 1) {
+            if (a & 1) l = op(l, eval(a++));
+            if (b & 1) r = op(eval(--b), r);
+        }
+        return op(l, r);
     }
 };
