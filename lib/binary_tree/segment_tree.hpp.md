@@ -1,14 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/static_rmq.test.cpp
+    title: test/yosupo/data_structure/static_rmq.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -25,33 +28,38 @@ data:
     \ min(a, b); });\r\n * segment_tree st(n, 0, [](auto a, auto b) { return max(a,\
     \ b); });\r\n */\r\ntemplate <class T, class F>\r\nstruct segment_tree {\r\n \
     \   int N;\r\n    const T e;\r\n    const F op;\r\n    vector<T> data;\r\n\r\n\
-    \    segment_tree() {}\r\n    segment_tree(int _n, const T &_e, const F &_op)\
-    \ : e(_e), op(_op) {\r\n        init(_n);\r\n    }\r\n\r\n    const T &operator[](int\
-    \ i) const { return data[i + N]; }\r\n    T &operator[](int i) { return data[i\
-    \ + N]; }\r\n\r\n    T at(int k) const { return data[k + N]; }\r\n\r\n    void\
-    \ init(int n) {\r\n        for (N = 1; N < n; N <<= 1)\r\n            ;\r\n  \
-    \      data.assign(N << 1, e);\r\n    }\r\n\r\n    template <class U>\r\n    void\
-    \ build(const vector<U> &v) {\r\n        int n = v.size();\r\n        for (int\
-    \ i = 0; i < n; ++i) data[N + i] = T(v[i]);\r\n        for (int i = N - 1; i >=\
-    \ 1; --i)\r\n            data[i] = op(data[i * 2], data[i * 2 + 1]);\r\n    }\r\
-    \n\r\n    void update(int k, const T &x) {\r\n        assert(0 <= k && k < N);\r\
-    \n        data[k += N] = x;\r\n        while ((k >>= 1) >= 1) data[k] = op(data[k\
-    \ * 2], data[k * 2 + 1]);\r\n    }\r\n\r\n    void add(int k, const T &x) {\r\n\
-    \        assert(0 <= k && k < N);\r\n        data[k += N] += x;\r\n        while\
-    \ ((k >>= 1) >= 1) data[k] = op(data[k * 2], data[k * 2 + 1]);\r\n    }\r\n\r\n\
-    \    T query(int a, int b) {\r\n        assert(0 <= a && a <= N);\r\n        assert(0\
-    \ <= b && b <= N);\r\n        T l = e, r = e;\r\n        for (a += N, b += N;\
-    \ a < b; a >>= 1, b >>= 1) {\r\n            if (a & 1) l = op(l, data[a++]);\r\
-    \n            if (b & 1) r = op(data[--b], r);\r\n        }\r\n        return\
-    \ op(l, r);\r\n    }\r\n};\r\n"
+    \    segment_tree() {}\r\n    segment_tree(int _n, T _e, F &&_op) : e(_e), op(_op)\
+    \ { init(_n); }\r\n\r\n    const T &operator[](int i) const { return this->data[i\
+    \ + N]; }\r\n    T at(int k) const {\r\n        assert(0 <= k && k < N);\r\n \
+    \       return this->data[k + N];\r\n    }\r\n    T get(int k) const { return\
+    \ this->at(k); }\r\n\r\n    void init(int n) {\r\n        for (N = 1; N < n; N\
+    \ <<= 1)\r\n            ;\r\n        this->data.assign(N << 1, e);\r\n    }\r\n\
+    \r\n    template <class U>\r\n    void build(const vector<U> &v) {\r\n       \
+    \ int n = v.size();\r\n        for (int i = 0; i < n; ++i) this->data[N + i] =\
+    \ T(v[i]);\r\n        for (int i = N - 1; i >= 1; --i)\r\n            this->data[i]\
+    \ = this->op(data[i * 2], this->data[i * 2 + 1]);\r\n    }\r\n\r\n    void update(int\
+    \ k, T x) {\r\n        assert(0 <= k && k < N);\r\n        this->data[k += N]\
+    \ = x;\r\n        while ((k >>= 1) >= 1)\r\n            this->data[k] = this->op(this->data[k\
+    \ * 2], this->data[k * 2 + 1]);\r\n    }\r\n    void add(int k, T x) { this->update(k,\
+    \ x - this->at(k)); }\r\n\r\n    bool chmax(int k, T x) {\r\n        if (this->at(k)\
+    \ >= x) return false;\r\n        this->update(k, x);\r\n        return true;\r\
+    \n    }\r\n    bool chmin(int k, T x) {\r\n        if (this->at(k) <= x) return\
+    \ false;\r\n        this->update(k, x);\r\n        return true;\r\n    }\r\n\r\
+    \n    T query() const { return this->data[1]; }\r\n    T query(int a, int b) const\
+    \ {\r\n        assert(0 <= a && a <= N);\r\n        assert(0 <= b && b <= N);\r\
+    \n        T l = e, r = e;\r\n        for (a += N, b += N; a < b; a >>= 1, b >>=\
+    \ 1) {\r\n            if (a & 1) l = this->op(l, this->data[a++]);\r\n       \
+    \     if (b & 1) r = this->op(this->data[--b], r);\r\n        }\r\n        return\
+    \ this->op(l, r);\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/binary_tree/segment_tree.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2021-09-20 05:13:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/binary_tree/segment_tree.hpp
 layout: document
 redirect_from:

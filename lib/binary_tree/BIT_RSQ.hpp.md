@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/binary_tree/BIT.hpp
     title: lib/binary_tree/BIT.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/BIT_RSQ.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-09-20 05:13:16+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/binary_tree/BIT_RSQ.hpp

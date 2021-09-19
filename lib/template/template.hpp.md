@@ -36,6 +36,12 @@ data:
     path: lib/_old/graph_algorithm.hpp
     title: lib/_old/graph_algorithm.hpp
   - icon: ':warning:'
+    path: lib/_old/lazy_segment_tree.hpp
+    title: lib/_old/lazy_segment_tree.hpp
+  - icon: ':warning:'
+    path: lib/_old/lazy_segment_tree_beta.hpp
+    title: lib/_old/lazy_segment_tree_beta.hpp
+  - icon: ':warning:'
     path: lib/algo/compress.hpp
     title: lib/algo/compress.hpp
   - icon: ':warning:'
@@ -59,13 +65,7 @@ data:
   - icon: ':warning:'
     path: lib/binary_tree/lazy_segment_tree.hpp
     title: lib/binary_tree/lazy_segment_tree.hpp
-  - icon: ':warning:'
-    path: lib/binary_tree/lazy_segment_tree_beta.hpp
-    title: lib/binary_tree/lazy_segment_tree_beta.hpp
-  - icon: ':warning:'
-    path: lib/binary_tree/lazy_segment_tree_gamma.hpp
-    title: lib/binary_tree/lazy_segment_tree_gamma.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/segment_tree.hpp
     title: lib/binary_tree/segment_tree.hpp
   - icon: ':warning:'
@@ -209,7 +209,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -234,15 +234,21 @@ data:
     path: lib/tree/union_find.hpp
     title: lib/tree/union_find.hpp
   _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/yosupo/data_structure/static_range_sum.test.cpp
+    title: test/yosupo/data_structure/static_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/static_rmq.test.cpp
+    title: test/yosupo/data_structure/static_rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -263,7 +269,9 @@ data:
   isVerificationFile: false
   path: lib/template/template.hpp
   requiredBy:
+  - lib/_old/lazy_segment_tree.hpp
   - lib/_old/graph_algorithm.hpp
+  - lib/_old/lazy_segment_tree_beta.hpp
   - lib/_old/BIT.hpp
   - lib/tree/eular_tour.hpp
   - lib/tree/union_find.hpp
@@ -327,9 +335,7 @@ data:
   - lib/binary_tree/lazy_segment_tree.hpp
   - lib/binary_tree/BIT_RSQ.hpp
   - lib/binary_tree/segment_tree.hpp
-  - lib/binary_tree/lazy_segment_tree_beta.hpp
   - lib/binary_tree/dual_segment_tree.hpp
-  - lib/binary_tree/lazy_segment_tree_gamma.hpp
   - lib/binary_tree/BIT.hpp
   - lib/_new/slope_trick.hpp
   - lib/_new/mex.hpp
@@ -341,10 +347,12 @@ data:
   - lib/_new/make_permutation.hpp
   - lib/_new/partially_persistent_union_find.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/template/template.hpp
 layout: document
 redirect_from:

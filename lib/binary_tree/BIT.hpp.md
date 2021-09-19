@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -29,27 +29,32 @@ data:
     \ + 1), data(n + 1, e) {}\r\n    BIT(const vector<T> &v) : N(v.size() + 1), data(v.size()\
     \ + 1) {\r\n        this->build(v);\r\n    }\r\n\r\n    const T &operator[](int\
     \ i) const { return this->at(i); }\r\n    const T at(int k) const { return this->sum(k\
+    \ + 1) - this->sum(k); }\r\n    const T get(int k) const { return this->sum(k\
     \ + 1) - this->sum(k); }\r\n\r\n    template <class U>\r\n    void build(const\
     \ vector<U> &v) {\r\n        int n = v.size();\r\n        for (int i = 0; i <\
-    \ n; ++i) this->add(i, v[i]);\r\n    }\r\n\r\n    // v[k] += w\r\n    void add(int\
-    \ k, T w) {\r\n        assert(0 <= k && k < N);\r\n        for (++k; k < N; k\
-    \ += k & -k) data[k] += w;\r\n    }\r\n\r\n    // v[k] = x\r\n    void update(int\
-    \ k, T x) { this->add(k, x - this->at(k)); }\r\n\r\n    // v[0] + ... + v[k -\
-    \ 1]\r\n    T sum(int k) const {\r\n        assert(0 <= k && k <= N);\r\n    \
-    \    T res = 0;\r\n        for (; k > 0; k -= k & -k) res += data[k];\r\n    \
-    \    return res;\r\n    }\r\n    // v[a] + ... + v[b - 1]\r\n    T sum(int a,\
-    \ int b) const { return this->sum(b) - this->sum(a); }\r\n\r\n    int lower_bound(T\
-    \ x) const {\r\n        if (x <= 0) return 0;\r\n        int k = 0;\r\n      \
-    \  while (k < N) k <<= 1;\r\n        int res = 0;\r\n        for (; k > 0; k >>=\
-    \ 1) {\r\n            if (res + k < N && data[res + k] < x) x -= data[res += k];\r\
-    \n        }\r\n        return res;\r\n    }\r\n};\r\n"
+    \ n; ++i) this->add(i, v[i]);\r\n    }\r\n\r\n    // v[k] = x\r\n    void update(int\
+    \ k, T x) { this->add(k, x - this->at(k)); }\r\n    // v[k] += x\r\n    void add(int\
+    \ x, T x) {\r\n        assert(0 <= k && k < N);\r\n        for (++k; k < N; k\
+    \ += k & -k) data[k] += x;\r\n    }\r\n    // chmax(v[k], x)\r\n    bool chmax(int\
+    \ k, T x) {\r\n        if (this->at(k) >= x) return false;\r\n        this->update(k,\
+    \ x);\r\n        return true;\r\n    }\r\n    // chmin(v[k], x)\r\n    bool chmin(int\
+    \ k, T x) {\r\n        if (this->at(k) <= x) return false;\r\n        this->update(k,\
+    \ x);\r\n        return true;\r\n    }\r\n\r\n    // v[0] + ... + v[k - 1]\r\n\
+    \    T sum(int k) const {\r\n        assert(0 <= k && k <= N);\r\n        T res\
+    \ = 0;\r\n        for (; k > 0; k -= k & -k) res += data[k];\r\n        return\
+    \ res;\r\n    }\r\n    // v[a] + ... + v[b - 1]\r\n    T sum(int a, int b) const\
+    \ { return this->sum(b) - this->sum(a); }\r\n\r\n    int lower_bound(T x) const\
+    \ {\r\n        if (x <= 0) return 0;\r\n        int k = 0;\r\n        while (k\
+    \ < N) k <<= 1;\r\n        int res = 0;\r\n        for (; k > 0; k >>= 1) {\r\n\
+    \            if (res + k < N && data[res + k] < x) x -= data[res += k];\r\n  \
+    \      }\r\n        return res;\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/binary_tree/BIT.hpp
   requiredBy:
   - lib/binary_tree/BIT_RSQ.hpp
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-09-20 05:13:16+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/binary_tree/BIT.hpp

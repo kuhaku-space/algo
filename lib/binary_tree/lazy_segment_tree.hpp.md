@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -20,39 +20,46 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n/*\r\n * \u518D\u5E30\u9045\u5EF6\
-    \u30BB\u30B0\u30E1\u30F3\u30C8\u6728\r\n * Usage:\r\n * lazy_segment_tree RAQ_RmQ(n,\
-    \ INF, [](ll a, ll b){ return min(a, b); });\r\n * lazy_segment_tree RAQ_RMQ(n,\
-    \ 0, [](ll a, ll b){ return max(a, b); });\r\n */\r\ntemplate <class T, class\
-    \ F>\r\nstruct lazy_segment_tree {\r\n    int N;\r\n    T e;\r\n    F f;\r\n \
-    \   vector<T> data;\r\n    vector<T> lazy;\r\n\r\n    lazy_segment_tree(int _n,\
-    \ T _e, F _f) : f(_f), e(_e) { init(_n); }\r\n\r\n    void init(int n) {\r\n \
-    \       for (N = 1; N < n; N <<= 1)\r\n            ;\r\n        data.assign(N\
-    \ << 1, e);\r\n        lazy.assign(N << 1, 0);\r\n    }\r\n\r\n    template <class\
-    \ U>\r\n    void build(const vector<U> &v) {\r\n        for (int i = 0; i < v.size();\
-    \ ++i) data[N + i] = v[i];\r\n        for (int i = N - 1; i >= 1; --i)\r\n   \
-    \         data[i] = f(data[i * 2], data[i * 2 + 1]);\r\n    }\r\n\r\n    void\
-    \ eval(int k) {\r\n        if (lazy[k] == 0) return;\r\n        if (k < N) {\r\
-    \n            lazy[k * 2] += lazy[k];\r\n            lazy[k * 2 + 1] += lazy[k];\r\
-    \n        }\r\n        data[k] += lazy[k];\r\n        lazy[k] = 0;\r\n    }\r\n\
-    \r\n    T add(int a, T x) { return add(a, a + 1, x, 1, 0, N); }\r\n    T add(int\
-    \ a, int b, T x) { return add(a, b, x, 1, 0, N); }\r\n    T add(int a, int b,\
-    \ T x, int k, int l, int r) {\r\n        eval(k);\r\n        if (r <= a || b <=\
-    \ l) return data[k];\r\n        if (a <= l && r <= b) {\r\n            lazy[k]\
-    \ += x;\r\n            return data[k] + lazy[k];\r\n        }\r\n        int m\
-    \ = (l + r) / 2;\r\n        return data[k] =\r\n                   f(add(a, b,\
-    \ x, k * 2, l, m), add(a, b, x, k * 2 + 1, m, r));\r\n    }\r\n\r\n    T query(int\
-    \ a, int b) { return query(a, b, 1, 0, N); }\r\n    T query(int a, int b, int\
-    \ k, int l, int r) {\r\n        eval(k);\r\n        if (r <= a || b <= l) return\
-    \ e;\r\n        if (a <= l && r <= b) return data[k];\r\n        int m = (l +\
-    \ r) >> 1;\r\n        return f(query(a, b, k * 2, l, m), query(a, b, k * 2 + 1,\
-    \ m, r));\r\n    }\r\n};\r\n"
+  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T, class U, class\
+    \ F, class G, class H>\r\nstruct lazy_segment_tree {\r\n    int N, logN;\r\n \
+    \   const T e;\r\n    const U id;\r\n    const F op;    // (T, T) -> T\r\n   \
+    \ const G mapp;  // (U, T) -> T\r\n    const H comp;  // (U, U) -> U\r\n    vector<T>\
+    \ data;\r\n    vector<U> lazy;\r\n\r\n    lazy_segment_tree(int _n, T &&_e, U\
+    \ &&_id, F &&_op, G &&_mapp, H &&_comp)\r\n        : e(_e), id(_id), op(_op),\
+    \ mapp(_mapp), comp(_comp) {\r\n        init(_n);\r\n    }\r\n\r\n    void init(int\
+    \ n) {\r\n        for (N = 1, logN = 0; N < n; N <<= 1, ++logN)\r\n          \
+    \  ;\r\n        data.assign(N << 1, e);\r\n        lazy.assign(N << 1, id);\r\n\
+    \    }\r\n\r\n    template <class V>\r\n    void build(const vector<V> &v) {\r\
+    \n        for (int i = 0; i < v.size(); ++i) data[N + i] = v[i];\r\n        for\
+    \ (int i = N - 1; i >= 1; --i)\r\n            data[i] = op(data[i * 2], data[i\
+    \ * 2 + 1]);\r\n    }\r\n\r\n    void apply(int k, const U &x) {\r\n        assert(k\
+    \ > 0 && k < N << 1);\r\n        lazy[k] = comp(x, lazy[k]);\r\n\r\n        if\
+    \ ((k >>= 1) >= 1) {\r\n            data[k] = op(mapp(lazy[k * 2], data[k * 2]),\r\
+    \n                         mapp(lazy[k * 2 + 1], data[k * 2 + 1]));\r\n      \
+    \  }\r\n    }\r\n\r\n    T eval(int k) {\r\n        assert(k > 0 && k < N << 1);\r\
+    \n        if (lazy[k] == id) return data[k];\r\n        if (k < N) {\r\n     \
+    \       lazy[k * 2] = comp(lazy[k], lazy[k * 2]);\r\n            lazy[k * 2 +\
+    \ 1] = comp(lazy[k], lazy[k * 2 + 1]);\r\n        }\r\n        data[k] = mapp(lazy[k],\
+    \ data[k]);\r\n        lazy[k] = id;\r\n        return data[k];\r\n    }\r\n\r\
+    \n    void update(int a, const U &x) { return add(a, a + 1, x); }\r\n    void\
+    \ update(int a, int b, const U &x) {\r\n        assert(a >= 0 && a <= N);\r\n\
+    \        assert(b >= 0 && b <= N);\r\n        int l = a + N, r = b + N - 1;\r\n\
+    \        for (int i = logN; i >= 0; --i) eval(l >> i), eval(r >> i);\r\n     \
+    \   for (a += N, b += N; a < b; a >>= 1, b >>= 1) {\r\n            if (a & 1)\
+    \ eval(a), apply(a++, x);\r\n            if (b & 1) eval(--b), apply(b, x);\r\n\
+    \        }\r\n        for (int i = 0; i <= logN; ++i) apply(l >> i, id), apply(r\
+    \ >> i, id);\r\n    }\r\n\r\n    T query(int a, int b) {\r\n        assert(a >=\
+    \ 0 && a <= N);\r\n        assert(b >= 0 && b <= N);\r\n        a += N, b += N;\r\
+    \n        for (int i = logN; i >= 0; --i) eval(a >> i), eval((b - 1) >> i);\r\n\
+    \        T l = e, r = e;\r\n        for (; a < b; a >>= 1, b >>= 1) {\r\n    \
+    \        if (a & 1) l = op(l, eval(a++));\r\n            if (b & 1) r = op(eval(--b),\
+    \ r);\r\n        }\r\n        return op(l, r);\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/binary_tree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-09-20 05:12:48+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/binary_tree/lazy_segment_tree.hpp

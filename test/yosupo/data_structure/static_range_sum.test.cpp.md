@@ -7,19 +7,16 @@ data:
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/union_find.hpp
-    title: lib/tree/union_find.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/unionfind
+    PROBLEM: https://judge.yosupo.jp/problem/static_range_sum
     links:
-    - https://judge.yosupo.jp/problem/unionfind
+    - https://judge.yosupo.jp/problem/static_range_sum
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -29,26 +26,24 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind\"\n#include \"\
-    template/atcoder.hpp\"\n#include \"tree/union_find.hpp\"\n\nint main(void) {\n\
-    \    sonic();\n    int n, q;\n    cin >> n >> q;\n    union_find uf(n);\n    rep(i,\
-    \ q) {\n        int t, u, v;\n        cin >> t >> u >> v;\n        if (t == 0)\n\
-    \            uf.unite(u, v);\n        else\n            cout << uf.same(u, v)\
-    \ << endl;\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_sum\"\n#include\
+    \ \"template/atcoder.hpp\"\n\nint main(void) {\n    sonic();\n    int n, q;\n\
+    \    cin >> n >> q;\n    vector<int> a(n);\n    cin >> a;\n    a.emplace_back(0);\n\
+    \    repr(i, n) a[i] += a[i + 1];\n    rep(i, q) {\n        int l, r;\n      \
+    \  cin >> l >> r;\n        co(a[l] - a[r]);\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/template/atcoder.hpp
   - lib/template/template.hpp
-  - lib/tree/union_find.hpp
   isVerificationFile: true
-  path: test/yosupo/data_structure/unionfind.test.cpp
+  path: test/yosupo/data_structure/static_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2021-09-19 06:26:58+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-09-20 05:14:09+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/yosupo/data_structure/unionfind.test.cpp
+documentation_of: test/yosupo/data_structure/static_range_sum.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/data_structure/unionfind.test.cpp
-- /verify/test/yosupo/data_structure/unionfind.test.cpp.html
-title: test/yosupo/data_structure/unionfind.test.cpp
+- /verify/test/yosupo/data_structure/static_range_sum.test.cpp
+- /verify/test/yosupo/data_structure/static_range_sum.test.cpp.html
+title: test/yosupo/data_structure/static_range_sum.test.cpp
 ---

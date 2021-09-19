@@ -38,6 +38,12 @@ data:
     - icon: ':warning:'
       path: lib/_old/graph_algorithm.hpp
       title: lib/_old/graph_algorithm.hpp
+    - icon: ':warning:'
+      path: lib/_old/lazy_segment_tree.hpp
+      title: lib/_old/lazy_segment_tree.hpp
+    - icon: ':warning:'
+      path: lib/_old/lazy_segment_tree_beta.hpp
+      title: lib/_old/lazy_segment_tree_beta.hpp
   - name: lib/algo
     pages:
     - icon: ':warning:'
@@ -119,13 +125,7 @@ data:
     - icon: ':warning:'
       path: lib/binary_tree/lazy_segment_tree.hpp
       title: lib/binary_tree/lazy_segment_tree.hpp
-    - icon: ':warning:'
-      path: lib/binary_tree/lazy_segment_tree_beta.hpp
-      title: lib/binary_tree/lazy_segment_tree_beta.hpp
-    - icon: ':warning:'
-      path: lib/binary_tree/lazy_segment_tree_gamma.hpp
-      title: lib/binary_tree/lazy_segment_tree_gamma.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/binary_tree/segment_tree.hpp
       title: lib/binary_tree/segment_tree.hpp
   - name: lib/data_struct
@@ -283,10 +283,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -315,6 +315,12 @@ data:
   verificationCategories:
   - name: test/yosupo/data_structure
     pages:
+    - icon: ':x:'
+      path: test/yosupo/data_structure/static_range_sum.test.cpp
+      title: test/yosupo/data_structure/static_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/static_rmq.test.cpp
+      title: test/yosupo/data_structure/static_rmq.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/unionfind.test.cpp
       title: test/yosupo/data_structure/unionfind.test.cpp

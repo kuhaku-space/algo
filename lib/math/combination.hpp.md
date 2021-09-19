@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/algo/modint.hpp
     title: lib/algo/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
