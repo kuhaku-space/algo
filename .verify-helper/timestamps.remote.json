@@ -1,7 +1,9 @@
 {
+"test/yosupo/data_structure/point_add_range_sum.test.cpp": "2021-09-21 04:53:19 +0900",
 "test/yosupo/data_structure/static_range_sum.test.cpp": "2021-09-20 05:26:46 +0900",
-"test/yosupo/data_structure/static_rmq.test.cpp": "2021-09-20 05:14:28 +0900",
+"test/yosupo/data_structure/static_rmq.test.cpp": "2021-09-21 04:53:47 +0900",
 "test/yosupo/data_structure/unionfind.test.cpp": "2021-09-19 06:26:58 +0900",
+"test/yosupo/graph/shortest_path.test.cpp": "2021-09-21 04:53:34 +0900",
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
 "test/yosupo/sample/many_a+b.test.cpp": "2021-09-19 06:49:02 +0900"
 }
