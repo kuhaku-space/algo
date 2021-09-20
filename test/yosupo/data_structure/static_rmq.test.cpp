@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
-#include "template/atcoder.hpp"
 #include "binary_tree/segment_tree.hpp"
+#include "template/atcoder.hpp"
 
 int main(void) {
     sonic();

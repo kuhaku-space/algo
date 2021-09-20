@@ -25,7 +25,7 @@ struct BIT {
     // v[k] = x
     void update(int k, T x) { this->add(k, x - this->at(k)); }
     // v[k] += x
-    void add(int x, T x) {
+    void add(int k, T x) {
         assert(0 <= k && k < N);
         for (++k; k < N; k += k & -k) data[k] += x;
     }
