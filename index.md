@@ -113,7 +113,7 @@ data:
       title: lib/atcoder/twosat.hpp
   - name: lib/binary_tree
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/binary_tree/BIT.hpp
       title: lib/binary_tree/BIT.hpp
     - icon: ':warning:'
@@ -205,7 +205,7 @@ data:
     - icon: ':warning:'
       path: lib/graph/dijkstra.hpp
       title: lib/graph/dijkstra.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/graph.hpp
       title: lib/graph/graph.hpp
     - icon: ':warning:'
@@ -316,6 +316,9 @@ data:
   - name: test/yosupo/data_structure
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/point_add_range_sum.test.cpp
+      title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp
     - icon: ':heavy_check_mark:'
@@ -324,6 +327,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/unionfind.test.cpp
       title: test/yosupo/data_structure/unionfind.test.cpp
+  - name: test/yosupo/graph
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/graph/shortest_path.test.cpp
+      title: test/yosupo/graph/shortest_path.test.cpp
   - name: test/yosupo/sample
     pages:
     - icon: ':heavy_check_mark:'

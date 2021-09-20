@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/data_struct/radix_heap.hpp
     title: lib/data_struct/radix_heap.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
   - icon: ':heavy_check_mark:'

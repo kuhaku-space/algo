@@ -8,10 +8,13 @@ data:
   - icon: ':warning:'
     path: lib/binary_tree/BIT_RSQ.hpp
     title: lib/binary_tree/BIT_RSQ.hpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_add_range_sum.test.cpp
+    title: test/yosupo/data_structure/point_add_range_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -34,7 +37,7 @@ data:
     \ vector<U> &v) {\r\n        int n = v.size();\r\n        for (int i = 0; i <\
     \ n; ++i) this->add(i, v[i]);\r\n    }\r\n\r\n    // v[k] = x\r\n    void update(int\
     \ k, T x) { this->add(k, x - this->at(k)); }\r\n    // v[k] += x\r\n    void add(int\
-    \ x, T x) {\r\n        assert(0 <= k && k < N);\r\n        for (++k; k < N; k\
+    \ k, T x) {\r\n        assert(0 <= k && k < N);\r\n        for (++k; k < N; k\
     \ += k & -k) data[k] += x;\r\n    }\r\n    // chmax(v[k], x)\r\n    bool chmax(int\
     \ k, T x) {\r\n        if (this->at(k) >= x) return false;\r\n        this->update(k,\
     \ x);\r\n        return true;\r\n    }\r\n    // chmin(v[k], x)\r\n    bool chmin(int\
@@ -54,9 +57,10 @@ data:
   path: lib/binary_tree/BIT.hpp
   requiredBy:
   - lib/binary_tree/BIT_RSQ.hpp
-  timestamp: '2021-09-20 05:13:16+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2021-09-21 04:53:02+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document
 redirect_from:

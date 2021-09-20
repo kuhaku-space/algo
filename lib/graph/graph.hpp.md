@@ -32,10 +32,13 @@ data:
   - icon: ':warning:'
     path: lib/tree/tree_dist.hpp
     title: lib/tree/tree_dist.hpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/shortest_path.test.cpp
+    title: test/yosupo/graph/shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -101,8 +104,9 @@ data:
   - lib/graph/kruskal.hpp
   - lib/graph/lowlink.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/graph/shortest_path.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
 redirect_from:

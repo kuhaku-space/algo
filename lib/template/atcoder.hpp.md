@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_add_range_sum.test.cpp
+    title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -15,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/shortest_path.test.cpp
+    title: test/yosupo/graph/shortest_path.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
@@ -58,9 +64,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:
