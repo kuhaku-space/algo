@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/algo/modint.hpp
     title: lib/algo/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -20,10 +20,13 @@ data:
   - icon: ':warning:'
     path: lib/fft/ntt_mod.hpp
     title: lib/fft/ntt_mod.hpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/convolution_mod.test.cpp
+    title: test/yosupo/convolution/convolution_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -74,9 +77,10 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/data_struct/bigint_beta.hpp
   - lib/data_struct/bigint.hpp
-  timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2021-09-21 21:57:09+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document
 redirect_from:

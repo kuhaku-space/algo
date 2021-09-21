@@ -47,13 +47,13 @@ data:
   - icon: ':warning:'
     path: lib/algo/doubling.hpp
     title: lib/algo/doubling.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/algo/modint.hpp
     title: lib/algo/modint.hpp
   - icon: ':warning:'
     path: lib/algo/modint64.hpp
     title: lib/algo/modint64.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/binary_tree/BIT.hpp
     title: lib/binary_tree/BIT.hpp
   - icon: ':warning:'
@@ -107,7 +107,7 @@ data:
   - icon: ':warning:'
     path: lib/fft/garner.hpp
     title: lib/fft/garner.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
   - icon: ':warning:'
@@ -185,7 +185,7 @@ data:
   - icon: ':warning:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/prime_number.hpp
     title: lib/math/prime_number.hpp
   - icon: ':warning:'
@@ -209,7 +209,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -235,6 +235,21 @@ data:
     title: lib/tree/union_find.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/power.test.cpp
+    title: test/aoj/power.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/prime_factorize.test.cpp
+    title: test/aoj/prime_factorize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/prime_numbers.test.cpp
+    title: test/aoj/prime_numbers.test.cpp
+  - icon: ':x:'
+    path: test/aoj/the_number_of_inversions.test.cpp
+    title: test/aoj/the_number_of_inversions.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/convolution_mod.test.cpp
+    title: test/yosupo/convolution/convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -252,9 +267,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -353,14 +368,19 @@ data:
   - lib/_new/make_permutation.hpp
   - lib/_new/partially_persistent_union_find.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/aoj/prime_factorize.test.cpp
+  - test/aoj/power.test.cpp
+  - test/aoj/the_number_of_inversions.test.cpp
+  - test/aoj/prime_numbers.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/template/template.hpp
 layout: document
 redirect_from:

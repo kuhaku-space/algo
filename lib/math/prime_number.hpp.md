@@ -1,14 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/prime_factorize.test.cpp
+    title: test/aoj/prime_factorize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/prime_numbers.test.cpp
+    title: test/aoj/prime_numbers.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -65,8 +71,10 @@ data:
   path: lib/math/prime_number.hpp
   requiredBy: []
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/prime_factorize.test.cpp
+  - test/aoj/prime_numbers.test.cpp
 documentation_of: lib/math/prime_number.hpp
 layout: document
 redirect_from:

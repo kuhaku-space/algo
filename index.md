@@ -52,7 +52,7 @@ data:
     - icon: ':warning:'
       path: lib/algo/doubling.hpp
       title: lib/algo/doubling.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/algo/modint.hpp
       title: lib/algo/modint.hpp
     - icon: ':warning:'
@@ -113,7 +113,7 @@ data:
       title: lib/atcoder/twosat.hpp
   - name: lib/binary_tree
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/binary_tree/BIT.hpp
       title: lib/binary_tree/BIT.hpp
     - icon: ':warning:'
@@ -171,7 +171,7 @@ data:
     - icon: ':warning:'
       path: lib/fft/garner.hpp
       title: lib/fft/garner.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/fft/ntt.hpp
       title: lib/fft/ntt.hpp
     - icon: ':warning:'
@@ -255,7 +255,7 @@ data:
     - icon: ':warning:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/prime_number.hpp
       title: lib/math/prime_number.hpp
     - icon: ':warning:'
@@ -283,10 +283,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -313,6 +313,25 @@ data:
       path: lib/tree/union_find.hpp
       title: lib/tree/union_find.hpp
   verificationCategories:
+  - name: test/aoj
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/power.test.cpp
+      title: test/aoj/power.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/prime_factorize.test.cpp
+      title: test/aoj/prime_factorize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/prime_numbers.test.cpp
+      title: test/aoj/prime_numbers.test.cpp
+    - icon: ':x:'
+      path: test/aoj/the_number_of_inversions.test.cpp
+      title: test/aoj/the_number_of_inversions.test.cpp
+  - name: test/yosupo/convolution
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/convolution/convolution_mod.test.cpp
+      title: test/yosupo/convolution/convolution_mod.test.cpp
   - name: test/yosupo/data_structure
     pages:
     - icon: ':heavy_check_mark:'

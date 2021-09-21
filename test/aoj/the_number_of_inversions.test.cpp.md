@@ -2,24 +2,24 @@
 data:
   _extendedDependsOn:
   - icon: ':question:'
+    path: lib/binary_tree/BIT.hpp
+    title: lib/binary_tree/BIT.hpp
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/union_find.hpp
-    title: lib/tree/union_find.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/unionfind
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C
     links:
-    - https://judge.yosupo.jp/problem/unionfind
+    - https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -27,28 +27,28 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/BIT.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind\"\n#include \"\
-    template/atcoder.hpp\"\n#include \"tree/union_find.hpp\"\n\nint main(void) {\n\
-    \    sonic();\n    int n, q;\n    cin >> n >> q;\n    union_find uf(n);\n    rep(i,\
-    \ q) {\n        int t, u, v;\n        cin >> t >> u >> v;\n        if (t == 0)\n\
-    \            uf.unite(u, v);\n        else\n            cout << uf.same(u, v)\
-    \ << endl;\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C\"\
+    \n#include \"binary_tree/BIT.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    sonic();\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >>\
+    \ a;\n    vector<pair<int, int>> b(n);\n    rep(i, n) b[i] = {a[i], i};\n    sort(all(b));\n\
+    \    BIT<int> bit(n);\n    ll ans = 0;\n    repr(i, n) {\n        ans += bit.sum(b[i].second);\n\
+    \        bit.add(b[i].second, 1);\n    }\n    co(ans);\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/template/atcoder.hpp
+  - lib/binary_tree/BIT.hpp
   - lib/template/template.hpp
-  - lib/tree/union_find.hpp
+  - lib/template/atcoder.hpp
   isVerificationFile: true
-  path: test/yosupo/data_structure/unionfind.test.cpp
+  path: test/aoj/the_number_of_inversions.test.cpp
   requiredBy: []
-  timestamp: '2021-09-19 06:26:58+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-09-22 04:23:32+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/yosupo/data_structure/unionfind.test.cpp
+documentation_of: test/aoj/the_number_of_inversions.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/data_structure/unionfind.test.cpp
-- /verify/test/yosupo/data_structure/unionfind.test.cpp.html
-title: test/yosupo/data_structure/unionfind.test.cpp
+- /verify/test/aoj/the_number_of_inversions.test.cpp
+- /verify/test/aoj/the_number_of_inversions.test.cpp.html
+title: test/aoj/the_number_of_inversions.test.cpp
 ---

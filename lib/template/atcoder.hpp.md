@@ -1,11 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/power.test.cpp
+    title: test/aoj/power.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/prime_factorize.test.cpp
+    title: test/aoj/prime_factorize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/prime_numbers.test.cpp
+    title: test/aoj/prime_numbers.test.cpp
+  - icon: ':x:'
+    path: test/aoj/the_number_of_inversions.test.cpp
+    title: test/aoj/the_number_of_inversions.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/convolution_mod.test.cpp
+    title: test/yosupo/convolution/convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
@@ -24,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -61,14 +76,19 @@ data:
   path: lib/template/atcoder.hpp
   requiredBy: []
   timestamp: '2021-09-19 05:28:53+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/aoj/prime_factorize.test.cpp
+  - test/aoj/power.test.cpp
+  - test/aoj/the_number_of_inversions.test.cpp
+  - test/aoj/prime_numbers.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:

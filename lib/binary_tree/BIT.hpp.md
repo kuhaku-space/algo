@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -9,12 +9,15 @@ data:
     path: lib/binary_tree/BIT_RSQ.hpp
     title: lib/binary_tree/BIT_RSQ.hpp
   _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/aoj/the_number_of_inversions.test.cpp
+    title: test/aoj/the_number_of_inversions.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -58,8 +61,9 @@ data:
   requiredBy:
   - lib/binary_tree/BIT_RSQ.hpp
   timestamp: '2021-09-21 04:53:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/aoj/the_number_of_inversions.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document
