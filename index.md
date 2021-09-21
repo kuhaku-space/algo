@@ -113,7 +113,7 @@ data:
       title: lib/atcoder/twosat.hpp
   - name: lib/binary_tree
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/binary_tree/BIT.hpp
       title: lib/binary_tree/BIT.hpp
     - icon: ':warning:'
@@ -283,10 +283,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -324,7 +324,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/prime_numbers.test.cpp
       title: test/aoj/prime_numbers.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/aoj/the_number_of_inversions.test.cpp
       title: test/aoj/the_number_of_inversions.test.cpp
   - name: test/yosupo/convolution
