@@ -4,7 +4,7 @@
 
 int main(void) {
     sonic();
-    int n,m;
+    int n, m;
     cin >> n >> m;
     co(Mint(n).pow(m));
 
