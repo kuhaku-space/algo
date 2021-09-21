@@ -157,6 +157,11 @@ data:
     - icon: ':warning:'
       path: lib/data_struct/radix_heap.hpp
       title: lib/data_struct/radix_heap.hpp
+  - name: lib/dp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/dp/lis.hpp
+      title: lib/dp/lis.hpp
   - name: lib/fft
     pages:
     - icon: ':warning:'
@@ -315,6 +320,9 @@ data:
   verificationCategories:
   - name: test/aoj
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/longest_increasing_subsequense.test.cpp
+      title: test/aoj/longest_increasing_subsequense.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/power.test.cpp
       title: test/aoj/power.test.cpp

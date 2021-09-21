@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/longest_increasing_subsequense.test.cpp
+    title: test/aoj/longest_increasing_subsequense.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -82,6 +85,7 @@ data:
   - test/aoj/power.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
   - test/aoj/prime_numbers.test.cpp
+  - test/aoj/longest_increasing_subsequense.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp

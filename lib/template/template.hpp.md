@@ -95,6 +95,9 @@ data:
   - icon: ':warning:'
     path: lib/data_struct/radix_heap.hpp
     title: lib/data_struct/radix_heap.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/dp/lis.hpp
+    title: lib/dp/lis.hpp
   - icon: ':warning:'
     path: lib/fft/fft.hpp
     title: lib/fft/fft.hpp
@@ -235,6 +238,9 @@ data:
     title: lib/tree/union_find.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/longest_increasing_subsequense.test.cpp
+    title: test/aoj/longest_increasing_subsequense.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -323,6 +329,7 @@ data:
   - lib/graph/warshall_floyd.hpp
   - lib/graph/lowlink.hpp
   - lib/graph/graph_matrix.hpp
+  - lib/dp/lis.hpp
   - lib/geometry/geometry.hpp
   - lib/geometry/convex_hull.hpp
   - lib/geometry/geometry_T.hpp
@@ -374,6 +381,7 @@ data:
   - test/aoj/power.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
   - test/aoj/prime_numbers.test.cpp
+  - test/aoj/longest_increasing_subsequense.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
