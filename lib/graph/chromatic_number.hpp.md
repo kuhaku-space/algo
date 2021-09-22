@@ -1,12 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':warning:'
-    path: lib/graph/graph_matrix.hpp
-    title: lib/graph/graph_matrix.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -44,13 +38,11 @@ data:
     \ + _pow(_mod, v[s], mid));\r\n        }\r\n        if (g != 0)\r\n          \
     \  high = mid;\r\n        else\r\n            low = mid;\r\n    }\r\n    return\
     \ high;\r\n}\r\n"
-  dependsOn:
-  - lib/template/template.hpp
-  - lib/graph/graph_matrix.hpp
+  dependsOn: []
   isVerificationFile: false
   path: lib/graph/chromatic_number.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '1970-01-01 00:00:00+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/chromatic_number.hpp

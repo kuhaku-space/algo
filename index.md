@@ -190,12 +190,12 @@ data:
     - icon: ':warning:'
       path: lib/geometry/convex_hull.hpp
       title: lib/geometry/convex_hull.hpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: lib/geometry/geometry.hpp
       title: lib/geometry/geometry.hpp
     - icon: ':warning:'
-      path: lib/geometry/geometry_T.hpp
-      title: lib/geometry/geometry_T.hpp
+      path: lib/geometry/geometry3d.hpp
+      title: lib/geometry/geometry3d.hpp
     - icon: ':warning:'
       path: lib/geometry/kdtree.hpp
       title: lib/geometry/kdtree.hpp
@@ -214,14 +214,14 @@ data:
       path: lib/graph/graph.hpp
       title: lib/graph/graph.hpp
     - icon: ':warning:'
-      path: lib/graph/graph_matrix.hpp
-      title: lib/graph/graph_matrix.hpp
-    - icon: ':warning:'
       path: lib/graph/kruskal.hpp
       title: lib/graph/kruskal.hpp
     - icon: ':warning:'
       path: lib/graph/lowlink.hpp
       title: lib/graph/lowlink.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/graph/matrix_graph.hpp
+      title: lib/graph/matrix_graph.hpp
     - icon: ':warning:'
       path: lib/graph/max_flow.hpp
       title: lib/graph/max_flow.hpp
@@ -237,7 +237,7 @@ data:
     - icon: ':warning:'
       path: lib/graph/two_sat.hpp
       title: lib/graph/two_sat.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/warshall_floyd.hpp
       title: lib/graph/warshall_floyd.hpp
   - name: lib/math
@@ -288,10 +288,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -321,6 +321,9 @@ data:
   - name: test/aoj
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/aoj/all_pairs_shortest_path.test.cpp
+      title: test/aoj/all_pairs_shortest_path.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/longest_increasing_subsequense.test.cpp
       title: test/aoj/longest_increasing_subsequense.test.cpp
     - icon: ':heavy_check_mark:'
@@ -335,6 +338,26 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/the_number_of_inversions.test.cpp
       title: test/aoj/the_number_of_inversions.test.cpp
+  - name: test/aoj/geometry
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/geometry/counter-clockwise.test.cpp
+      title: test/aoj/geometry/counter-clockwise.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/geometry/cross_point.test.cpp
+      title: test/aoj/geometry/cross_point.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/geometry/intersection.test.cpp
+      title: test/aoj/geometry/intersection.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/geometry/parallel_orthogonal.test.cpp
+      title: test/aoj/geometry/parallel_orthogonal.test.cpp
+    - icon: ':x:'
+      path: test/aoj/geometry/projection.test.cpp
+      title: test/aoj/geometry/projection.test.cpp
+    - icon: ':x:'
+      path: test/aoj/geometry/reflection.test.cpp
+      title: test/aoj/geometry/reflection.test.cpp
   - name: test/yosupo/convolution
     pages:
     - icon: ':heavy_check_mark:'

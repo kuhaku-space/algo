@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -50,22 +50,22 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct Graph\
-    \ {\r\n    struct edge {\r\n        int from, to;\r\n        T dist;\r\n\r\n \
-    \       bool operator<(const edge &rhs) const { return dist < rhs.dist; }\r\n\
-    \        bool operator>(const edge &rhs) const { return rhs < *this; }\r\n   \
-    \ };\r\n    vector<vector<edge>> edges;\r\n\r\n    Graph(int v) : edges(v) {}\r\
-    \n\r\n    const auto &operator[](int i) const { return edges[i]; }\r\n    auto\
-    \ &operator[](int i) { return edges[i]; }\r\n    const auto begin() const { return\
-    \ edges.begin(); }\r\n    auto begin() { return edges.begin(); }\r\n    const\
-    \ auto end() const { return edges.end(); }\r\n    auto end() { return edges.end();\
-    \ }\r\n    auto size() const { return edges.size(); }\r\n    void add_edge(int\
-    \ a, int b, T d = T(1)) {\r\n        edges[a].emplace_back(edge{a, b, d});\r\n\
-    \    }\r\n    void add_edges(int a, int b, T d = T(1)) {\r\n        edges[a].emplace_back(edge{a,\
-    \ b, d});\r\n        edges[b].emplace_back(edge{b, a, d});\r\n    }\r\n    void\
-    \ input_edge(int m, bool zero_based = false) {\r\n        for (int i = 0; i <\
-    \ m; ++i) {\r\n            int a, b;\r\n            T d;\r\n            cin >>\
-    \ a >> b >> d;\r\n            if (zero_based)\r\n                this->add_edge(a,\
+  code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\ntemplate <class\
+    \ T>\r\nstruct Graph {\r\n    struct edge {\r\n        int from, to;\r\n     \
+    \   T dist;\r\n\r\n        bool operator<(const edge &rhs) const { return this->dist\
+    \ < rhs.dist; }\r\n        bool operator>(const edge &rhs) const { return rhs\
+    \ < *this; }\r\n    };\r\n    vector<vector<edge>> edges;\r\n\r\n    Graph(int\
+    \ v) : edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return this->edges[i];\
+    \ }\r\n    auto &operator[](int i) { return this->edges[i]; }\r\n    const auto\
+    \ begin() const { return this->edges.begin(); }\r\n    auto begin() { return this->edges.begin();\
+    \ }\r\n    const auto end() const { return this->edges.end(); }\r\n    auto end()\
+    \ { return this->edges.end(); }\r\n    auto size() const { return this->edges.size();\
+    \ }\r\n    void add_edge(int a, int b, T d = T(1)) { this->edges[a].emplace_back(edge{a,\
+    \ b, d}); }\r\n    void add_edges(int a, int b, T d = T(1)) {\r\n        this->edges[a].emplace_back(edge{a,\
+    \ b, d});\r\n        this->edges[b].emplace_back(edge{b, a, d});\r\n    }\r\n\
+    \    void input_edge(int m, bool zero_based = false) {\r\n        for (int i =\
+    \ 0; i < m; ++i) {\r\n            int a, b;\r\n            T d;\r\n          \
+    \  cin >> a >> b >> d;\r\n            if (zero_based)\r\n                this->add_edge(a,\
     \ b, d);\r\n            else\r\n                this->add_edge(a - 1, b - 1, d);\r\
     \n        }\r\n    }\r\n    void input_edges(int m, bool zero_based = false) {\r\
     \n        for (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n         \
@@ -73,22 +73,22 @@ data:
     \                this->add_edges(a, b, d);\r\n            else\r\n           \
     \     this->add_edges(a - 1, b - 1, d);\r\n        }\r\n    }\r\n};\r\n\r\ntemplate\
     \ <>\r\nstruct Graph<void> {\r\n    vector<vector<int>> edges;\r\n\r\n    Graph(int\
-    \ v) : edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return edges[i];\
-    \ }\r\n    auto &operator[](int i) { return edges[i]; }\r\n    const auto begin()\
-    \ const { return edges.begin(); }\r\n    auto begin() { return edges.begin();\
-    \ }\r\n    const auto end() const { return edges.end(); }\r\n    auto end() {\
-    \ return edges.end(); }\r\n    auto size() const { return edges.size(); }\r\n\
-    \    void add_edge(int a, int b) { edges[a].emplace_back(b); }\r\n    void add_edges(int\
-    \ a, int b) {\r\n        edges[a].emplace_back(b);\r\n        edges[b].emplace_back(a);\r\
-    \n    }\r\n    void input_edge(int m, bool zero_based = false) {\r\n        for\
-    \ (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n            cin >> a >>\
-    \ b;\r\n            if (zero_based)\r\n                this->add_edge(a, b);\r\
-    \n            else\r\n                this->add_edge(a - 1, b - 1);\r\n      \
-    \  }\r\n    }\r\n    void input_edges(int m, bool zero_based = false) {\r\n  \
-    \      for (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n            cin\
-    \ >> a >> b;\r\n            if (zero_based)\r\n                this->add_edges(a,\
-    \ b);\r\n            else\r\n                this->add_edges(a - 1, b - 1);\r\n\
-    \        }\r\n    }\r\n};\r\n"
+    \ v) : edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return this->edges[i];\
+    \ }\r\n    auto &operator[](int i) { return this->edges[i]; }\r\n    const auto\
+    \ begin() const { return this->edges.begin(); }\r\n    auto begin() { return this->edges.begin();\
+    \ }\r\n    const auto end() const { return this->edges.end(); }\r\n    auto end()\
+    \ { return this->edges.end(); }\r\n    auto size() const { return this->edges.size();\
+    \ }\r\n    void add_edge(int a, int b) { this->edges[a].emplace_back(b); }\r\n\
+    \    void add_edges(int a, int b) {\r\n        this->edges[a].emplace_back(b);\r\
+    \n        this->edges[b].emplace_back(a);\r\n    }\r\n    void input_edge(int\
+    \ m, bool zero_based = false) {\r\n        for (int i = 0; i < m; ++i) {\r\n \
+    \           int a, b;\r\n            cin >> a >> b;\r\n            if (zero_based)\r\
+    \n                this->add_edge(a, b);\r\n            else\r\n              \
+    \  this->add_edge(a - 1, b - 1);\r\n        }\r\n    }\r\n    void input_edges(int\
+    \ m, bool zero_based = false) {\r\n        for (int i = 0; i < m; ++i) {\r\n \
+    \           int a, b;\r\n            cin >> a >> b;\r\n            if (zero_based)\r\
+    \n                this->add_edges(a, b);\r\n            else\r\n             \
+    \   this->add_edges(a - 1, b - 1);\r\n        }\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -103,7 +103,7 @@ data:
   - lib/graph/scc.hpp
   - lib/graph/kruskal.hpp
   - lib/graph/lowlink.hpp
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-09-22 06:52:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp

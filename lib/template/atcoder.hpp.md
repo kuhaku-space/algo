@@ -1,11 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/all_pairs_shortest_path.test.cpp
+    title: test/aoj/all_pairs_shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/counter-clockwise.test.cpp
+    title: test/aoj/geometry/counter-clockwise.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/cross_point.test.cpp
+    title: test/aoj/geometry/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/intersection.test.cpp
+    title: test/aoj/geometry/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/parallel_orthogonal.test.cpp
+    title: test/aoj/geometry/parallel_orthogonal.test.cpp
+  - icon: ':x:'
+    path: test/aoj/geometry/projection.test.cpp
+    title: test/aoj/geometry/projection.test.cpp
+  - icon: ':x:'
+    path: test/aoj/geometry/reflection.test.cpp
+    title: test/aoj/geometry/reflection.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/longest_increasing_subsequense.test.cpp
     title: test/aoj/longest_increasing_subsequense.test.cpp
@@ -42,9 +63,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -56,13 +77,13 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\nusing ll = int64_t;\nusing ld = long\
-    \ double;\n#define FOR(i, m, n) for(int i = (m); i < (n); ++i)\n#define FORR(i,\
-    \ m, n) for(int i = (m)-1; i >= (n); --i)\n#define rep(i, n) FOR(i, 0, n)\n#define\
-    \ repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n) FORR(i, n, 0)\n#define repnr(i,\
-    \ n) FORR(i, n+1, 1)\n#define all(s) (s).begin(), (s).end()\ntemplate <class T>\n\
-    istream &operator>>(istream &is, vector<T> &v) { for (T &i : v) is>>i; return\
-    \ is; }\ntemplate <class T>\nostream &operator<<(ostream &os, const vector<T>\
+  code: "#pragma once\n#include \"template/template.hpp\"\nusing ll = int64_t;\nusing\
+    \ ld = long double;\n#define FOR(i, m, n) for(int i = (m); i < (n); ++i)\n#define\
+    \ FORR(i, m, n) for(int i = (m)-1; i >= (n); --i)\n#define rep(i, n) FOR(i, 0,\
+    \ n)\n#define repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n) FORR(i, n, 0)\n#define\
+    \ repnr(i, n) FORR(i, n+1, 1)\n#define all(s) (s).begin(), (s).end()\ntemplate\
+    \ <class T>\nistream &operator>>(istream &is, vector<T> &v) { for (T &i : v) is>>i;\
+    \ return is; }\ntemplate <class T>\nostream &operator<<(ostream &os, const vector<T>\
     \ &v) {\n    for (auto it=v.begin(); it!=v.end(); ++it) { os<<(it==v.begin()?\"\
     \":\" \")<<*it; } return os;\n}\ntemplate <class Head, class... Tail>\nvoid co(Head&&\
     \ head, Tail&&... tail) {\n    if constexpr(sizeof...(tail)==0) cout<<head<<'\\\
@@ -78,12 +99,19 @@ data:
   isVerificationFile: false
   path: lib/template/atcoder.hpp
   requiredBy: []
-  timestamp: '2021-09-19 05:28:53+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2021-09-22 06:52:07+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
+  - test/aoj/geometry/cross_point.test.cpp
+  - test/aoj/geometry/intersection.test.cpp
+  - test/aoj/geometry/reflection.test.cpp
+  - test/aoj/geometry/parallel_orthogonal.test.cpp
+  - test/aoj/geometry/projection.test.cpp
+  - test/aoj/geometry/counter-clockwise.test.cpp
+  - test/aoj/all_pairs_shortest_path.test.cpp
   - test/aoj/prime_numbers.test.cpp
   - test/aoj/longest_increasing_subsequense.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp

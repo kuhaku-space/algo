@@ -122,12 +122,12 @@ data:
   - icon: ':warning:'
     path: lib/geometry/convex_hull.hpp
     title: lib/geometry/convex_hull.hpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
   - icon: ':warning:'
-    path: lib/geometry/geometry_T.hpp
-    title: lib/geometry/geometry_T.hpp
+    path: lib/geometry/geometry3d.hpp
+    title: lib/geometry/geometry3d.hpp
   - icon: ':warning:'
     path: lib/geometry/kdtree.hpp
     title: lib/geometry/kdtree.hpp
@@ -135,23 +135,20 @@ data:
     path: lib/graph/bellman_ford.hpp
     title: lib/graph/bellman_ford.hpp
   - icon: ':warning:'
-    path: lib/graph/chromatic_number.hpp
-    title: lib/graph/chromatic_number.hpp
-  - icon: ':warning:'
     path: lib/graph/dijkstra.hpp
     title: lib/graph/dijkstra.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
   - icon: ':warning:'
-    path: lib/graph/graph_matrix.hpp
-    title: lib/graph/graph_matrix.hpp
-  - icon: ':warning:'
     path: lib/graph/kruskal.hpp
     title: lib/graph/kruskal.hpp
   - icon: ':warning:'
     path: lib/graph/lowlink.hpp
     title: lib/graph/lowlink.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/graph/matrix_graph.hpp
+    title: lib/graph/matrix_graph.hpp
   - icon: ':warning:'
     path: lib/graph/max_flow.hpp
     title: lib/graph/max_flow.hpp
@@ -167,7 +164,7 @@ data:
   - icon: ':warning:'
     path: lib/graph/two_sat.hpp
     title: lib/graph/two_sat.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
   - icon: ':warning:'
@@ -212,7 +209,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -237,6 +234,27 @@ data:
     path: lib/tree/union_find.hpp
     title: lib/tree/union_find.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/all_pairs_shortest_path.test.cpp
+    title: test/aoj/all_pairs_shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/counter-clockwise.test.cpp
+    title: test/aoj/geometry/counter-clockwise.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/cross_point.test.cpp
+    title: test/aoj/geometry/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/intersection.test.cpp
+    title: test/aoj/geometry/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/geometry/parallel_orthogonal.test.cpp
+    title: test/aoj/geometry/parallel_orthogonal.test.cpp
+  - icon: ':x:'
+    path: test/aoj/geometry/projection.test.cpp
+    title: test/aoj/geometry/projection.test.cpp
+  - icon: ':x:'
+    path: test/aoj/geometry/reflection.test.cpp
+    title: test/aoj/geometry/reflection.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/longest_increasing_subsequense.test.cpp
     title: test/aoj/longest_increasing_subsequense.test.cpp
@@ -273,9 +291,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -319,7 +337,6 @@ data:
   - lib/graph/bellman_ford.hpp
   - lib/graph/two_sat.hpp
   - lib/graph/max_flow.hpp
-  - lib/graph/chromatic_number.hpp
   - lib/graph/topological_sort.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/scc.hpp
@@ -328,11 +345,11 @@ data:
   - lib/graph/kruskal.hpp
   - lib/graph/warshall_floyd.hpp
   - lib/graph/lowlink.hpp
-  - lib/graph/graph_matrix.hpp
+  - lib/graph/matrix_graph.hpp
   - lib/dp/lis.hpp
   - lib/geometry/geometry.hpp
   - lib/geometry/convex_hull.hpp
-  - lib/geometry/geometry_T.hpp
+  - lib/geometry/geometry3d.hpp
   - lib/geometry/cht.hpp
   - lib/geometry/kdtree.hpp
   - lib/fft/ntt_mod.hpp
@@ -375,11 +392,18 @@ data:
   - lib/_new/make_permutation.hpp
   - lib/_new/partially_persistent_union_find.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
+  - test/aoj/geometry/cross_point.test.cpp
+  - test/aoj/geometry/intersection.test.cpp
+  - test/aoj/geometry/reflection.test.cpp
+  - test/aoj/geometry/parallel_orthogonal.test.cpp
+  - test/aoj/geometry/projection.test.cpp
+  - test/aoj/geometry/counter-clockwise.test.cpp
+  - test/aoj/all_pairs_shortest_path.test.cpp
   - test/aoj/prime_numbers.test.cpp
   - test/aoj/longest_increasing_subsequense.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp

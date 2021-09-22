@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/algo/modint.hpp
     title: lib/algo/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -40,7 +40,7 @@ data:
   isVerificationFile: true
   path: test/aoj/power.test.cpp
   requiredBy: []
-  timestamp: '2021-09-22 04:19:30+09:00'
+  timestamp: '2021-09-23 05:56:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/power.test.cpp

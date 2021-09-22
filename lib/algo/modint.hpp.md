@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -63,7 +63,7 @@ data:
     \       if ((x += mod - 1) >= mod) x -= mod;\r\n        return *this;\r\n    }\r\
     \n    constexpr ModInt operator--(int) noexcept {\r\n        ModInt tmp(*this);\r\
     \n        operator--();\r\n        return tmp;\r\n    }\r\n\r\n    constexpr ModInt\
-    \ operator-() const noexcept { return ModInt(-x); }\r\n    ModInt operator+(const\
+    \ operator-() const noexcept { return ModInt(-x); }\r\n    constexpr ModInt operator+(const\
     \ ModInt &rhs) const noexcept {\r\n        return ModInt(*this) += rhs;\r\n  \
     \  }\r\n    constexpr ModInt operator-(const ModInt &rhs) const noexcept {\r\n\
     \        return ModInt(*this) -= rhs;\r\n    }\r\n    constexpr ModInt operator*(const\
@@ -97,7 +97,7 @@ data:
   - lib/math/combination.hpp
   - lib/data_struct/bigint_beta.hpp
   - lib/data_struct/bigint.hpp
-  timestamp: '2021-09-21 21:57:09+09:00'
+  timestamp: '2021-09-23 05:56:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/power.test.cpp

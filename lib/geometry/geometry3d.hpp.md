@@ -4,10 +4,7 @@ data:
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/math/primitive_root.hpp
-    title: lib/math/primitive_root.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -23,33 +20,32 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nT power(T\
-    \ a, int64_t n) {\r\n    T res(1), mul(a);\r\n    for (; n > 0; n >>= 1) {\r\n\
-    \        if (n & 1) res *= mul;\r\n        mul *= mul;\r\n    }\r\n    return\
-    \ res;\r\n}\r\n\r\nint64_t pow_int(int64_t a, int64_t n) {\r\n    assert(n >=\
-    \ 0);\r\n    int64_t res = 1, mul = a;\r\n    for (; n > 0; n >>= 1) {\r\n   \
-    \     if (n & 1) res *= mul;\r\n        mul *= mul;\r\n    }\r\n    return res;\r\
-    \n}\r\n\r\nint64_t inv_mod(int64_t a, int64_t mod) {\r\n    int64_t b = mod, u\
-    \ = 1, v = 0, t;\r\n    while (b > 0) {\r\n        t = a / b;\r\n        swap(a\
-    \ -= t * b, b);\r\n        swap(u -= t * v, v);\r\n    }\r\n    return u >= 0\
-    \ ? u % mod : (mod - (-u) % mod) % mod;\r\n}\r\n\r\nint64_t pow_mod(int64_t a,\
-    \ int64_t n, int64_t mod) {\r\n    // if (n < 0) return inv_mod(pow_mod(a, -n,\
-    \ mod), mod);\r\n    int64_t res = 1, mul = a;\r\n    for (; n > 0; n >>= 1) {\r\
-    \n        if (n & 1) (res *= mul) %= mod;\r\n        (mul *= mul) %= mod;\r\n\
-    \    }\r\n    return res;\r\n}\r\n"
+  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct Pos\
+    \ {\r\n    T x, y, z;\r\n    constexpr Pos() : x(), y(), z() {}\r\n    constexpr\
+    \ Pos(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}\r\n};\r\n\r\ntemplate <class\
+    \ T>\r\nstruct Circle3 {\r\n    Pos<T> p;\r\n    T r;\r\n    constexpr Circle3(Pos<T>\
+    \ _p, T _r) : p(_p), r(_r) {}\r\n};\r\n\r\ntemplate <class T>\r\nCircle3<T> min_ball(vector<Pos<T>>\
+    \ &ps, Pos<T> p = {0.0, 0.0, 0.0}) {\r\n    auto dist = [](const Pos<T> &a, const\
+    \ Pos<T> &b) -> T {\r\n        T dx = a.x - b.x;\r\n        T dy = a.y - b.y;\r\
+    \n        T dz = a.z - b.z;\r\n        return sqrt(dx * dx + dy * dy + dz * dz);\r\
+    \n    };\r\n\r\n    T r = 0.0, move = 0.5;\r\n    Pos<T> k = {0.0, 0.0, 0.0};\r\
+    \n    while (move > EPS * EPS) {\r\n        r = 0.0;\r\n        for (Pos<T> i\
+    \ : ps)\r\n            if (chmax(r, dist(p, i))) k = i;\r\n        p.x += (k.x\
+    \ - p.x) * move;\r\n        p.y += (k.y - p.y) * move;\r\n        p.x += (k.z\
+    \ - p.z) * move;\r\n        move *= 0.999;\r\n    }\r\n\r\n    return Circle3<T>(p,\
+    \ r);\r\n}\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/math/pow.hpp
-  requiredBy:
-  - lib/math/primitive_root.hpp
-  timestamp: '2021-09-18 19:45:05+09:00'
+  path: lib/geometry/geometry3d.hpp
+  requiredBy: []
+  timestamp: '2021-09-23 07:20:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/math/pow.hpp
+documentation_of: lib/geometry/geometry3d.hpp
 layout: document
 redirect_from:
-- /library/lib/math/pow.hpp
-- /library/lib/math/pow.hpp.html
-title: lib/math/pow.hpp
+- /library/lib/geometry/geometry3d.hpp
+- /library/lib/geometry/geometry3d.hpp.html
+title: lib/geometry/geometry3d.hpp
 ---

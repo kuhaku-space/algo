@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: lib/data_struct/bigint_beta.hpp
   requiredBy: []
-  timestamp: '2021-09-21 21:57:09+09:00'
+  timestamp: '2021-09-23 05:56:48+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_struct/bigint_beta.hpp
