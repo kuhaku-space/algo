@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -17,6 +17,7 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
+    ERROR: '0.00000001'
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C
@@ -30,11 +31,11 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C\"\
-    \n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    setp(10);\n    int q;\n    cin >> q;\n    while\
-    \ (q--) {\n        Point<double> a, b, c, d;\n        cin >> a >> b >> c >> d;\n\
-    \        Line l(a, b), m(c, d);\n        co(cross_point(l, m));\n    }\n\n   \
-    \ return 0;\n}\n"
+    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
+    \n\nint main(void) {\n    sonic();\n    setp(10);\n    int q;\n    cin >> q;\n\
+    \    while (q--) {\n        Point<double> a, b, c, d;\n        cin >> a >> b >>\
+    \ c >> d;\n        Line l(a, b), m(c, d);\n        co(cross_point(l, m));\n  \
+    \  }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
@@ -42,7 +43,7 @@ data:
   isVerificationFile: true
   path: test/aoj/geometry/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2021-09-23 07:21:22+09:00'
+  timestamp: '2021-09-23 07:39:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/geometry/cross_point.test.cpp

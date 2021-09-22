@@ -1,22 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
+    ERROR: '0.00000001'
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
@@ -30,10 +31,10 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B\"\
-    \n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n    cin\
-    \ >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--) {\n\
-    \        Point<double> p;\n        cin >> p;\n        auto ans = l.refl(p);\n\
+    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
+    \n\nint main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n \
+    \   cin >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--)\
+    \ {\n        Point<double> p;\n        cin >> p;\n        auto ans = l.refl(p);\n\
     \        co(ans);\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
@@ -42,8 +43,8 @@ data:
   isVerificationFile: true
   path: test/aoj/geometry/reflection.test.cpp
   requiredBy: []
-  timestamp: '2021-09-23 07:21:22+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-09-23 07:39:55+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/geometry/reflection.test.cpp
 layout: document
