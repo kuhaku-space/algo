@@ -1,11 +1,12 @@
+#pragma once
 #include "template/template.hpp"
 
 template <class T>
-struct Graph {
+struct matrix_graph {
     int V;
     vector<vector<T>> m;
 
-    Graph(int v, T _e = T()) : V(v) {
+    matrix_graph(int v, T _e = T()) : V(v) {
         m = vector<vector<T>>(V, vector<T>(V, _e));
     }
 

@@ -48,7 +48,7 @@ struct ModInt {
     }
 
     constexpr ModInt operator-() const noexcept { return ModInt(-x); }
-    ModInt operator+(const ModInt &rhs) const noexcept {
+    constexpr ModInt operator+(const ModInt &rhs) const noexcept {
         return ModInt(*this) += rhs;
     }
     constexpr ModInt operator-(const ModInt &rhs) const noexcept {

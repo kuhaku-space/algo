@@ -1,3 +1,4 @@
+#pragma once
 #include "template/template.hpp"
 using ll = int64_t;
 using ld = long double;
