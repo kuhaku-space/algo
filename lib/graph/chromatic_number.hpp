@@ -1,9 +1,9 @@
+#include "graph/matrix_graph.hpp"
 #include "template/template.hpp"
-#include "graph/graph_matrix.hpp"
 
 // 彩色数を求める
 // O(2^N)
-int chromatic_number(const Graph<bool> &G) {
+int chromatic_number(const matrix_graph<bool> &G) {
     constexpr int64_t _MOD = (1LL << 31) - 1;
     int n = G.size();
     vector<int> neighbor(n, 0);
