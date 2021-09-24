@@ -135,6 +135,9 @@ data:
     path: lib/graph/bellman_ford.hpp
     title: lib/graph/bellman_ford.hpp
   - icon: ':warning:'
+    path: lib/graph/chromatic_number.hpp
+    title: lib/graph/chromatic_number.hpp
+  - icon: ':warning:'
     path: lib/graph/dijkstra.hpp
     title: lib/graph/dijkstra.hpp
   - icon: ':heavy_check_mark:'
@@ -337,6 +340,7 @@ data:
   - lib/graph/bellman_ford.hpp
   - lib/graph/two_sat.hpp
   - lib/graph/max_flow.hpp
+  - lib/graph/chromatic_number.hpp
   - lib/graph/topological_sort.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/scc.hpp

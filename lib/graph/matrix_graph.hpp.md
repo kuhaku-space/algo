@@ -5,6 +5,9 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: lib/graph/chromatic_number.hpp
+    title: lib/graph/chromatic_number.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
@@ -44,6 +47,7 @@ data:
   isVerificationFile: false
   path: lib/graph/matrix_graph.hpp
   requiredBy:
+  - lib/graph/chromatic_number.hpp
   - lib/graph/warshall_floyd.hpp
   timestamp: '2021-09-22 06:33:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
