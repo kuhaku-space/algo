@@ -45,14 +45,15 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n// reference :\r\n// https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp\r\
+  code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n// reference :\r\
+    \n// https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp\r\
     \n\r\ntemplate <int mod>\r\nstruct ModInt {\r\n    int x;\r\n\r\n    constexpr\
-    \ ModInt() : x(0) {}\r\n    constexpr ModInt(int64_t y) noexcept\r\n        :\
-    \ x(y >= 0 ? y % mod : (mod - 1 - (-y - 1) % mod)) {}\r\n\r\n    constexpr ModInt\
-    \ &operator+=(const ModInt &rhs) noexcept {\r\n        if ((x += rhs.x) >= mod)\
-    \ x -= mod;\r\n        return *this;\r\n    }\r\n    constexpr ModInt &operator-=(const\
-    \ ModInt &rhs) noexcept {\r\n        if ((x += mod - rhs.x) >= mod) x -= mod;\r\
-    \n        return *this;\r\n    }\r\n    constexpr ModInt &operator*=(const ModInt\
+    \ ModInt() : x(0) {}\r\n    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ?\
+    \ y % mod : (mod - 1 - (-y - 1) % mod)) {}\r\n\r\n    constexpr ModInt &operator+=(const\
+    \ ModInt &rhs) noexcept {\r\n        if ((x += rhs.x) >= mod) x -= mod;\r\n  \
+    \      return *this;\r\n    }\r\n    constexpr ModInt &operator-=(const ModInt\
+    \ &rhs) noexcept {\r\n        if ((x += mod - rhs.x) >= mod) x -= mod;\r\n   \
+    \     return *this;\r\n    }\r\n    constexpr ModInt &operator*=(const ModInt\
     \ &rhs) noexcept {\r\n        x = (int)(1LL * x * rhs.x % mod);\r\n        return\
     \ *this;\r\n    }\r\n    constexpr ModInt &operator/=(const ModInt &rhs) noexcept\
     \ {\r\n        *this *= rhs.inverse();\r\n        return *this;\r\n    }\r\n\r\
@@ -64,28 +65,27 @@ data:
     \n    constexpr ModInt operator--(int) noexcept {\r\n        ModInt tmp(*this);\r\
     \n        operator--();\r\n        return tmp;\r\n    }\r\n\r\n    constexpr ModInt\
     \ operator-() const noexcept { return ModInt(-x); }\r\n    constexpr ModInt operator+(const\
-    \ ModInt &rhs) const noexcept {\r\n        return ModInt(*this) += rhs;\r\n  \
-    \  }\r\n    constexpr ModInt operator-(const ModInt &rhs) const noexcept {\r\n\
-    \        return ModInt(*this) -= rhs;\r\n    }\r\n    constexpr ModInt operator*(const\
-    \ ModInt &rhs) const noexcept {\r\n        return ModInt(*this) *= rhs;\r\n  \
-    \  }\r\n    constexpr ModInt operator/(const ModInt &rhs) const noexcept {\r\n\
-    \        return ModInt(*this) /= rhs;\r\n    }\r\n\r\n    constexpr bool operator==(const\
-    \ ModInt &rhs) const noexcept {\r\n        return x == rhs.x;\r\n    }\r\n   \
-    \ constexpr bool operator!=(const ModInt &rhs) const noexcept {\r\n        return\
-    \ x != rhs.x;\r\n    }\r\n\r\n    constexpr ModInt inverse() const noexcept {\r\
-    \n        int a = x, b = mod, u = 1, v = 0, t;\r\n        while (b > 0) {\r\n\
-    \            t = a / b;\r\n            swap(a -= t * b, b);\r\n            swap(u\
-    \ -= t * v, v);\r\n        }\r\n        return ModInt(u);\r\n    }\r\n\r\n   \
-    \ constexpr ModInt pow(int64_t n) const noexcept {\r\n        return ModInt(*this).pow_self(n);\r\
-    \n    }\r\n    constexpr ModInt &pow_self(int64_t n) noexcept {\r\n        ModInt\
-    \ res(1);\r\n        for (; n > 0; n >>= 1) {\r\n            if (n & 1) res *=\
-    \ *this;\r\n            *this *= *this;\r\n        }\r\n        *this = res;\r\
-    \n        return *this;\r\n    }\r\n\r\n    friend istream &operator>>(istream\
-    \ &is, ModInt &rhs) {\r\n        int64_t t;\r\n        is >> t;\r\n        rhs\
-    \ = ModInt<mod>(t);\r\n        return (is);\r\n    }\r\n    friend ostream &operator<<(ostream\
-    \ &os, const ModInt &rhs) {\r\n        return os << rhs.x;\r\n    }\r\n\r\n  \
-    \  int to_int() const noexcept { return x; }\r\n\r\n    static int get_mod() noexcept\
-    \ { return mod; }\r\n};\r\nusing Mint = ModInt<MOD>;\r\n"
+    \ ModInt &rhs) const noexcept { return ModInt(*this) += rhs; }\r\n    constexpr\
+    \ ModInt operator-(const ModInt &rhs) const noexcept { return ModInt(*this) -=\
+    \ rhs; }\r\n    constexpr ModInt operator*(const ModInt &rhs) const noexcept {\
+    \ return ModInt(*this) *= rhs; }\r\n    constexpr ModInt operator/(const ModInt\
+    \ &rhs) const noexcept { return ModInt(*this) /= rhs; }\r\n\r\n    constexpr bool\
+    \ operator==(const ModInt &rhs) const noexcept { return x == rhs.x; }\r\n    constexpr\
+    \ bool operator!=(const ModInt &rhs) const noexcept { return x != rhs.x; }\r\n\
+    \r\n    constexpr ModInt inverse() const noexcept {\r\n        int a = x, b =\
+    \ mod, u = 1, v = 0, t;\r\n        while (b > 0) {\r\n            t = a / b;\r\
+    \n            swap(a -= t * b, b);\r\n            swap(u -= t * v, v);\r\n   \
+    \     }\r\n        return ModInt(u);\r\n    }\r\n\r\n    constexpr ModInt pow(int64_t\
+    \ n) const noexcept { return ModInt(*this).pow_self(n); }\r\n    constexpr ModInt\
+    \ &pow_self(int64_t n) noexcept {\r\n        ModInt res(1);\r\n        for (;\
+    \ n > 0; n >>= 1) {\r\n            if (n & 1) res *= *this;\r\n            *this\
+    \ *= *this;\r\n        }\r\n        *this = res;\r\n        return *this;\r\n\
+    \    }\r\n\r\n    friend istream &operator>>(istream &is, ModInt &rhs) {\r\n \
+    \       int64_t t;\r\n        is >> t;\r\n        rhs = ModInt<mod>(t);\r\n  \
+    \      return (is);\r\n    }\r\n    friend ostream &operator<<(ostream &os, const\
+    \ ModInt &rhs) { return os << rhs.x; }\r\n\r\n    int to_int() const noexcept\
+    \ { return x; }\r\n\r\n    static int get_mod() noexcept { return mod; }\r\n};\r\
+    \nusing Mint = ModInt<MOD>;\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -97,7 +97,7 @@ data:
   - lib/math/combination.hpp
   - lib/data_struct/bigint_beta.hpp
   - lib/data_struct/bigint.hpp
-  timestamp: '2021-09-23 05:56:48+09:00'
+  timestamp: '2021-09-25 01:23:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/power.test.cpp

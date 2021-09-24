@@ -9,7 +9,7 @@ data:
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
-    title: lib/tree/union_find.hpp
+    title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: lib/graph/kruskal.hpp
   requiredBy: []
-  timestamp: '2021-09-22 06:52:24+09:00'
+  timestamp: '2021-09-25 01:24:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/kruskal.hpp

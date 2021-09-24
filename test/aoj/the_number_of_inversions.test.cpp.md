@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/BIT.hpp
-    title: lib/binary_tree/BIT.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/aoj/the_number_of_inversions.test.cpp
   requiredBy: []
-  timestamp: '2021-09-23 07:21:46+09:00'
+  timestamp: '2021-09-25 01:24:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/the_number_of_inversions.test.cpp

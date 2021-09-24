@@ -56,7 +56,7 @@ data:
   isVerificationFile: false
   path: lib/fft/formal_power_series.hpp
   requiredBy: []
-  timestamp: '2021-09-23 05:56:48+09:00'
+  timestamp: '2021-09-25 01:23:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/formal_power_series.hpp

@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/BIT.hpp
-    title: lib/binary_tree/BIT.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/BIT_RSQ.hpp
   requiredBy: []
-  timestamp: '2021-09-21 04:53:02+09:00'
+  timestamp: '2021-09-25 01:24:00+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/binary_tree/BIT_RSQ.hpp

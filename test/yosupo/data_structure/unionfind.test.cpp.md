@@ -9,7 +9,7 @@ data:
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
-    title: lib/tree/union_find.hpp
+    title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/unionfind.test.cpp
   requiredBy: []
-  timestamp: '2021-09-22 06:52:07+09:00'
+  timestamp: '2021-09-25 01:24:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/unionfind.test.cpp

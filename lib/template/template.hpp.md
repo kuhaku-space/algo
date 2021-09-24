@@ -55,7 +55,7 @@ data:
     title: lib/algo/modint64.hpp
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/BIT.hpp
-    title: lib/binary_tree/BIT.hpp
+    title: Binary Indexed Tree
   - icon: ':warning:'
     path: lib/binary_tree/BIT_RSQ.hpp
     title: lib/binary_tree/BIT_RSQ.hpp
@@ -232,7 +232,7 @@ data:
     title: lib/tree/tree_dist.hpp
   - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
-    title: lib/tree/union_find.hpp
+    title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
