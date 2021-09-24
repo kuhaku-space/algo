@@ -1,13 +1,13 @@
 #include "template/template.hpp"
 
-/*
- * verify :
- * https://atcoder.jp/contests/abc214/tasks/abc214_d 21/08/15
+/**
+ * @brief 素集合データ構造
+ *
  */
-
 struct union_find {
     vector<int> data;
 
+    union_find() : data() {}
     union_find(int _n) : data(_n, -1) {}
 
     int root(int x) { return data[x] < 0 ? x : data[x] = this->root(data[x]); }
