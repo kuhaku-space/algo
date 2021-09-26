@@ -2,6 +2,8 @@
 #include "algo/modint.hpp"
 #include "template/atcoder.hpp"
 
+using Mint = ModInt<MOD>;
+
 int main(void) {
     sonic();
     int n, m;
