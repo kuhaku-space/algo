@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -33,15 +33,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: modint
     links:
@@ -109,7 +109,7 @@ data:
   - lib/data_struct/bigint_beta.hpp
   - lib/data_struct/bigint.hpp
   timestamp: '2021-09-26 10:08:38+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/power.test.cpp
   - test/aoj/dp/bell.test.cpp

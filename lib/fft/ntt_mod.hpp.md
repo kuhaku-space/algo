@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/algo/modint.hpp
     title: modint
   - icon: ':warning:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

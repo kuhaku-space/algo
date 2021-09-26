@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/algo/modint.hpp
     title: modint
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_B
@@ -30,9 +30,9 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algo/modint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_B\"\
-    \n#include \"algo/modint.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    sonic();\n    int n, m;\n    cin >> n >> m;\n    co(Mint(n).pow(m));\n\
-    \n    return 0;\n}\n"
+    \n#include \"algo/modint.hpp\"\n#include \"template/atcoder.hpp\"\n\nusing Mint\
+    \ = ModInt<MOD>;\n\nint main(void) {\n    sonic();\n    int n, m;\n    cin >>\
+    \ n >> m;\n    co(Mint(n).pow(m));\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algo/modint.hpp
   - lib/template/template.hpp
@@ -40,8 +40,8 @@ data:
   isVerificationFile: true
   path: test/aoj/power.test.cpp
   requiredBy: []
-  timestamp: '2021-09-26 10:08:38+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-09-26 10:26:00+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/power.test.cpp
 layout: document

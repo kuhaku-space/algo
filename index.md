@@ -52,7 +52,7 @@ data:
     - icon: ':warning:'
       path: lib/algo/doubling.hpp
       title: lib/algo/doubling.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/algo/modint.hpp
       title: modint
     - icon: ':warning:'
@@ -291,10 +291,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -329,7 +329,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/longest_increasing_subsequense.test.cpp
       title: test/aoj/longest_increasing_subsequense.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/aoj/power.test.cpp
       title: test/aoj/power.test.cpp
     - icon: ':heavy_check_mark:'
