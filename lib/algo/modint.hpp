@@ -1,8 +1,12 @@
 #pragma once
 #include "template/template.hpp"
 
-// reference :
-// https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
+/**
+ * @brief modint
+ * 
+ * @tparam mod 法
+ * @ref https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp "参考"
+ */
 
 template <int mod>
 struct ModInt {
@@ -89,4 +93,3 @@ struct ModInt {
 
     static int get_mod() noexcept { return mod; }
 };
-using Mint = ModInt<MOD>;
