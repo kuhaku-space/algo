@@ -9,6 +9,7 @@
 "test/aoj/geometry/projection.test.cpp": "2021-09-23 07:39:55 +0900",
 "test/aoj/geometry/reflection.test.cpp": "2021-09-23 07:39:55 +0900",
 "test/aoj/longest_increasing_subsequense.test.cpp": "2021-09-22 06:52:07 +0900",
+"test/aoj/power.test.cpp": "2021-09-26 10:26:00 +0900",
 "test/aoj/prime_factorize.test.cpp": "2021-09-26 10:14:21 +0900",
 "test/aoj/prime_numbers.test.cpp": "2021-09-26 10:14:21 +0900",
 "test/aoj/the_number_of_inversions.test.cpp": "2021-09-26 10:14:57 +0900",
