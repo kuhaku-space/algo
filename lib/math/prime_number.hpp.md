@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -16,6 +16,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: "\u7D20\u56E0\u6570\u5206\u89E3"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -42,22 +43,26 @@ data:
     \n    }\r\n\r\n    vector<int> prime_numbers(int x) {\r\n        vector<int> res;\r\
     \n        for (auto i : data) {\r\n            if (i > x) break;\r\n         \
     \   res.emplace_back(i);\r\n        }\r\n        return res;\r\n    }\r\n\r\n\
-    \    // \u7D20\u56E0\u6570\u5206\u89E3\r\n    template <class T>\r\n    vector<pair<T,\
-    \ int>> prime_factorization(T x) {\r\n        if (x == 1) return vector<pair<T,\
-    \ int>>(1, {1, 1});\r\n        vector<pair<T, int>> res;\r\n        for (auto\
-    \ i : data) {\r\n            int cnt = 0;\r\n            for (; x % i == 0; x\
-    \ /= i) ++cnt;\r\n            if (cnt) res.emplace_back(i, cnt);\r\n         \
-    \   if ((int64_t)i * i > x) break;\r\n        }\r\n        if (x != 1) res.emplace_back(x,\
-    \ 1);\r\n        return res;\r\n    }\r\n\r\n    // \u7D04\u6570\u5217\u6319\r\
-    \n    template <class T>\r\n    vector<T> divisors(T x) {\r\n        auto v =\
-    \ this->prime_factorization(x);\r\n        vector<T> res;\r\n        res.emplace_back(1);\r\
-    \n        for (auto p : v) {\r\n            int n = res.size();\r\n          \
-    \  res.resize(n * (p.second + 1));\r\n            for (int i = 0; i < n * p.second;\
-    \ ++i) {\r\n                res[n + i] = res[i] * p.first;\r\n            }\r\n\
-    \            for (int i = 1; i <= p.second; ++i) {\r\n                inplace_merge(res.begin(),\
-    \ res.begin() + n * i,\r\n                              res.begin() + n * (i +\
-    \ 1));\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n\r\n \
-    \   // \u56E0\u6570\u5206\u89E3\u5217\u6319\r\n    template <class T>\r\n    vector<vector<T>>\
+    \    /**\r\n     * @brief \u7D20\u56E0\u6570\u5206\u89E3\r\n     * \r\n     *\
+    \ @tparam T \r\n     * @param x \r\n     * @return vector<pair<T, int>> \r\n \
+    \    */\r\n    template <class T>\r\n    vector<pair<T, int>> prime_factorization(T\
+    \ x) {\r\n        if (x == 1) return vector<pair<T, int>>(1, {1, 1});\r\n    \
+    \    vector<pair<T, int>> res;\r\n        for (auto i : data) {\r\n          \
+    \  int cnt = 0;\r\n            for (; x % i == 0; x /= i) ++cnt;\r\n         \
+    \   if (cnt) res.emplace_back(i, cnt);\r\n            if ((int64_t)i * i > x)\
+    \ break;\r\n        }\r\n        if (x != 1) res.emplace_back(x, 1);\r\n     \
+    \   return res;\r\n    }\r\n\r\n    /**\r\n     * @brief \u7D04\u6570\u5217\u6319\
+    \r\n     * \r\n     * @tparam T \r\n     * @param x \r\n     * @return vector<T>\
+    \ \r\n     */\r\n    template <class T>\r\n    vector<T> divisors(T x) {\r\n \
+    \       if (x == 1) return vector<T>(1, 1);\r\n        auto v = this->prime_factorization(x);\r\
+    \n        vector<T> res;\r\n        res.emplace_back(1);\r\n        for (auto\
+    \ p : v) {\r\n            int n = res.size();\r\n            res.resize(n * (p.second\
+    \ + 1));\r\n            for (int i = 0; i < n * p.second; ++i) {\r\n         \
+    \       res[n + i] = res[i] * p.first;\r\n            }\r\n            for (int\
+    \ i = 1; i <= p.second; ++i) {\r\n                inplace_merge(res.begin(), res.begin()\
+    \ + n * i,\r\n                              res.begin() + n * (i + 1));\r\n  \
+    \          }\r\n        }\r\n        return res;\r\n    }\r\n\r\n    // \u56E0\
+    \u6570\u5206\u89E3\u5217\u6319\r\n    template <class T>\r\n    vector<vector<T>>\
     \ factorization(T x) {\r\n        vector<vector<T>> res;\r\n        auto f = [&](auto\
     \ self, vector<T> v, T a) -> void {\r\n            if (a == 1) res.emplace_back(v);\r\
     \n            for (auto i : divisors(a)) {\r\n                if (i == 1 || (!v.empty()\
@@ -70,7 +75,7 @@ data:
   isVerificationFile: false
   path: lib/math/prime_number.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-09-26 10:14:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
@@ -80,5 +85,5 @@ layout: document
 redirect_from:
 - /library/lib/math/prime_number.hpp
 - /library/lib/math/prime_number.hpp.html
-title: lib/math/prime_number.hpp
+title: "\u7D20\u56E0\u6570\u5206\u89E3"
 ---

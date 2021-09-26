@@ -52,9 +52,9 @@ data:
     - icon: ':warning:'
       path: lib/algo/doubling.hpp
       title: lib/algo/doubling.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/algo/modint.hpp
-      title: lib/algo/modint.hpp
+      title: modint
     - icon: ':warning:'
       path: lib/algo/modint64.hpp
       title: lib/algo/modint64.hpp
@@ -245,9 +245,12 @@ data:
     - icon: ':warning:'
       path: lib/math/chinese_rem.hpp
       title: lib/math/chinese_rem.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/combination.hpp
       title: lib/math/combination.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/math/enumeration.hpp
+      title: lib/math/enumeration.hpp
     - icon: ':warning:'
       path: lib/math/fraction.hpp
       title: lib/math/fraction.hpp
@@ -262,7 +265,7 @@ data:
       title: lib/math/pow.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/prime_number.hpp
-      title: lib/math/prime_number.hpp
+      title: "\u7D20\u56E0\u6570\u5206\u89E3"
     - icon: ':warning:'
       path: lib/math/prime_number_fast.hpp
       title: lib/math/prime_number_fast.hpp
@@ -288,10 +291,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -326,7 +329,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/longest_increasing_subsequense.test.cpp
       title: test/aoj/longest_increasing_subsequense.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/power.test.cpp
       title: test/aoj/power.test.cpp
     - icon: ':heavy_check_mark:'
@@ -338,6 +341,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/the_number_of_inversions.test.cpp
       title: test/aoj/the_number_of_inversions.test.cpp
+  - name: test/aoj/dp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dp/bell.test.cpp
+      title: test/aoj/dp/bell.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dp/stirling.test.cpp
+      title: test/aoj/dp/stirling.test.cpp
   - name: test/aoj/geometry
     pages:
     - icon: ':heavy_check_mark:'

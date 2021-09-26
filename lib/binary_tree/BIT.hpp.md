@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -44,34 +44,37 @@ data:
     \    void update(int k, T x) { this->add(k, x - this->at(k)); }\r\n    /**\r\n\
     \     * @brief v[k] += x\r\n     *\r\n     * @param k index\r\n     * @param x\
     \ data\r\n     * @return void\r\n     */\r\n    void add(int k, T x) {\r\n   \
-    \     assert(0 <= k && k < N);\r\n        for (++k; k < N; k += k & -k) data[k]\
-    \ += x;\r\n    }\r\n    /**\r\n     * @brief chmax(v[k], x)\r\n     *\r\n    \
-    \ * @param k index\r\n     * @param x data\r\n     * @return bool\r\n     */\r\
-    \n    bool chmax(int k, T x) {\r\n        if (this->at(k) >= x) return false;\r\
-    \n        this->update(k, x);\r\n        return true;\r\n    }\r\n    /**\r\n\
-    \     * @brief chmin(v[k], x)\r\n     *\r\n     * @param k index\r\n     * @param\
-    \ x data\r\n     * @return bool\r\n     */\r\n    bool chmin(int k, T x) {\r\n\
-    \        if (this->at(k) <= x) return false;\r\n        this->update(k, x);\r\n\
-    \        return true;\r\n    }\r\n\r\n    /**\r\n     * @brief v[0] + ... + v[k\
+    \     assert(0 <= k && k < this->N);\r\n        for (++k; k < N; k += k & -k)\
+    \ this->data[k] += x;\r\n    }\r\n    /**\r\n     * @brief chmax(v[k], x)\r\n\
+    \     *\r\n     * @param k index\r\n     * @param x data\r\n     * @return bool\r\
+    \n     */\r\n    bool chmax(int k, T x) {\r\n        if (this->at(k) >= x) return\
+    \ false;\r\n        this->update(k, x);\r\n        return true;\r\n    }\r\n \
+    \   /**\r\n     * @brief chmin(v[k], x)\r\n     *\r\n     * @param k index\r\n\
+    \     * @param x data\r\n     * @return bool\r\n     */\r\n    bool chmin(int\
+    \ k, T x) {\r\n        if (this->at(k) <= x) return false;\r\n        this->update(k,\
+    \ x);\r\n        return true;\r\n    }\r\n\r\n    /**\r\n     * @brief v[0] +\
+    \ ... + v[n - 1]\r\n     *\r\n     * @return T\r\n     */\r\n    T sum() const\
+    \ { return this->sum(this->N); }\r\n    /**\r\n     * @brief v[0] + ... + v[k\
     \ - 1]\r\n     *\r\n     * @param k index\r\n     * @return T\r\n     */\r\n \
-    \   T sum(int k) const {\r\n        assert(0 <= k && k <= N);\r\n        T res\
-    \ = 0;\r\n        for (; k > 0; k -= k & -k) res += data[k];\r\n        return\
-    \ res;\r\n    }\r\n    /**\r\n     * @brief v[a] + ... + v[a - 1]\r\n     *\r\n\
-    \     * @param a first index\r\n     * @param b last index\r\n     * @return T\r\
-    \n     */\r\n    T sum(int a, int b) const { return this->sum(b) - this->sum(a);\
-    \ }\r\n\r\n    /**\r\n     * @brief lower_bound(v.begin(), v.end(), x)\r\n   \
-    \  *\r\n     * @param x data\r\n     * @return int\r\n     */\r\n    int lower_bound(T\
-    \ x) const {\r\n        if (x <= 0) return 0;\r\n        int k = 0;\r\n      \
-    \  while (k < N) k <<= 1;\r\n        int res = 0;\r\n        for (; k > 0; k >>=\
-    \ 1) {\r\n            if (res + k < N && data[res + k] < x) x -= data[res += k];\r\
-    \n        }\r\n        return res;\r\n    }\r\n};\r\n"
+    \   T sum(int k) const {\r\n        assert(0 <= k && k <= this->N);\r\n      \
+    \  T res = 0;\r\n        for (; k > 0; k -= k & -k) res += this->data[k];\r\n\
+    \        return res;\r\n    }\r\n    /**\r\n     * @brief v[a] + ... + v[b - 1]\r\
+    \n     *\r\n     * @param a first index\r\n     * @param b last index\r\n    \
+    \ * @return T\r\n     */\r\n    T sum(int a, int b) const { return this->sum(b)\
+    \ - this->sum(a); }\r\n\r\n    /**\r\n     * @brief BIT\u4E0A\u3067\u4E8C\u5206\
+    \u63A2\u7D22\r\n     *\r\n     * @param x data\r\n     * @return int\r\n     */\r\
+    \n    int lower_bound(T x) const {\r\n        if (x <= 0) return 0;\r\n      \
+    \  int k = 1;\r\n        while (k < this->N) k <<= 1;\r\n        int res = 0;\r\
+    \n        for (; k > 0; k >>= 1) {\r\n            if (res + k < N && this->data[res\
+    \ + k] < x) x -= this->data[res += k];\r\n        }\r\n        return res;\r\n\
+    \    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/binary_tree/BIT.hpp
   requiredBy:
   - lib/binary_tree/BIT_RSQ.hpp
-  timestamp: '2021-09-25 01:24:00+09:00'
+  timestamp: '2021-09-26 10:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/the_number_of_inversions.test.cpp

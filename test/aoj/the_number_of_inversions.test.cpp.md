@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/BIT.hpp
     title: Binary Indexed Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/aoj/the_number_of_inversions.test.cpp
   requiredBy: []
-  timestamp: '2021-09-25 01:24:36+09:00'
+  timestamp: '2021-09-26 10:14:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/the_number_of_inversions.test.cpp

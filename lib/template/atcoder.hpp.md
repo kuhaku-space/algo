@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -9,6 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dp/bell.test.cpp
+    title: test/aoj/dp/bell.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dp/stirling.test.cpp
+    title: test/aoj/dp/stirling.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/counter-clockwise.test.cpp
     title: test/aoj/geometry/counter-clockwise.test.cpp
@@ -30,7 +36,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/longest_increasing_subsequense.test.cpp
     title: test/aoj/longest_increasing_subsequense.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -63,9 +69,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -100,10 +106,12 @@ data:
   path: lib/template/atcoder.hpp
   requiredBy: []
   timestamp: '2021-09-22 06:52:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp
+  - test/aoj/dp/bell.test.cpp
+  - test/aoj/dp/stirling.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
   - test/aoj/geometry/cross_point.test.cpp
   - test/aoj/geometry/intersection.test.cpp

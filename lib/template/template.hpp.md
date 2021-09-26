@@ -47,9 +47,9 @@ data:
   - icon: ':warning:'
     path: lib/algo/doubling.hpp
     title: lib/algo/doubling.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/algo/modint.hpp
-    title: lib/algo/modint.hpp
+    title: modint
   - icon: ':warning:'
     path: lib/algo/modint64.hpp
     title: lib/algo/modint64.hpp
@@ -173,9 +173,12 @@ data:
   - icon: ':warning:'
     path: lib/math/chinese_rem.hpp
     title: lib/math/chinese_rem.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/math/enumeration.hpp
+    title: lib/math/enumeration.hpp
   - icon: ':warning:'
     path: lib/math/fraction.hpp
     title: lib/math/fraction.hpp
@@ -190,7 +193,7 @@ data:
     title: lib/math/pow.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/prime_number.hpp
-    title: lib/math/prime_number.hpp
+    title: "\u7D20\u56E0\u6570\u5206\u89E3"
   - icon: ':warning:'
     path: lib/math/prime_number_fast.hpp
     title: lib/math/prime_number_fast.hpp
@@ -212,7 +215,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -241,6 +244,12 @@ data:
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dp/bell.test.cpp
+    title: test/aoj/dp/bell.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dp/stirling.test.cpp
+    title: test/aoj/dp/stirling.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/counter-clockwise.test.cpp
     title: test/aoj/geometry/counter-clockwise.test.cpp
   - icon: ':heavy_check_mark:'
@@ -261,7 +270,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/longest_increasing_subsequense.test.cpp
     title: test/aoj/longest_increasing_subsequense.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -294,9 +303,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -363,6 +372,7 @@ data:
   - lib/fft/fft.hpp
   - lib/fft/ntt.hpp
   - lib/template/atcoder.hpp
+  - lib/math/enumeration.hpp
   - lib/math/chinese_rem.hpp
   - lib/math/primitive_root.hpp
   - lib/math/fraction.hpp
@@ -396,10 +406,12 @@ data:
   - lib/_new/make_permutation.hpp
   - lib/_new/partially_persistent_union_find.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp
+  - test/aoj/dp/bell.test.cpp
+  - test/aoj/dp/stirling.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
   - test/aoj/geometry/cross_point.test.cpp
   - test/aoj/geometry/intersection.test.cpp

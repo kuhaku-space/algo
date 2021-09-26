@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/algo/modint.hpp
-    title: lib/algo/modint.hpp
-  - icon: ':heavy_check_mark:'
+    title: modint
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -77,7 +77,7 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/data_struct/bigint_beta.hpp
   - lib/data_struct/bigint.hpp
-  timestamp: '2021-09-25 01:23:52+09:00'
+  timestamp: '2021-09-26 10:08:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
