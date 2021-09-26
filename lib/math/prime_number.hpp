@@ -43,7 +43,13 @@ struct prime_number {
         return res;
     }
 
-    // 素因数分解
+    /**
+     * @brief 素因数分解
+     * 
+     * @tparam T 
+     * @param x 
+     * @return vector<pair<T, int>> 
+     */
     template <class T>
     vector<pair<T, int>> prime_factorization(T x) {
         if (x == 1) return vector<pair<T, int>>(1, {1, 1});
@@ -58,9 +64,16 @@ struct prime_number {
         return res;
     }
 
-    // 約数列挙
+    /**
+     * @brief 約数列挙
+     * 
+     * @tparam T 
+     * @param x 
+     * @return vector<T> 
+     */
     template <class T>
     vector<T> divisors(T x) {
+        if (x == 1) return vector<T>(1, 1);
         auto v = this->prime_factorization(x);
         vector<T> res;
         res.emplace_back(1);

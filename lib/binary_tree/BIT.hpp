@@ -38,8 +38,8 @@ struct BIT {
      * @return void
      */
     void add(int k, T x) {
-        assert(0 <= k && k < N);
-        for (++k; k < N; k += k & -k) data[k] += x;
+        assert(0 <= k && k < this->N);
+        for (++k; k < N; k += k & -k) this->data[k] += x;
     }
     /**
      * @brief chmax(v[k], x)
@@ -67,19 +67,25 @@ struct BIT {
     }
 
     /**
+     * @brief v[0] + ... + v[n - 1]
+     *
+     * @return T
+     */
+    T sum() const { return this->sum(this->N); }
+    /**
      * @brief v[0] + ... + v[k - 1]
      *
      * @param k index
      * @return T
      */
     T sum(int k) const {
-        assert(0 <= k && k <= N);
+        assert(0 <= k && k <= this->N);
         T res = 0;
-        for (; k > 0; k -= k & -k) res += data[k];
+        for (; k > 0; k -= k & -k) res += this->data[k];
         return res;
     }
     /**
-     * @brief v[a] + ... + v[a - 1]
+     * @brief v[a] + ... + v[b - 1]
      *
      * @param a first index
      * @param b last index
@@ -88,18 +94,18 @@ struct BIT {
     T sum(int a, int b) const { return this->sum(b) - this->sum(a); }
 
     /**
-     * @brief lower_bound(v.begin(), v.end(), x)
+     * @brief BIT上で二分探索
      *
      * @param x data
      * @return int
      */
     int lower_bound(T x) const {
         if (x <= 0) return 0;
-        int k = 0;
-        while (k < N) k <<= 1;
+        int k = 1;
+        while (k < this->N) k <<= 1;
         int res = 0;
         for (; k > 0; k >>= 1) {
-            if (res + k < N && data[res + k] < x) x -= data[res += k];
+            if (res + k < N && this->data[res + k] < x) x -= this->data[res += k];
         }
         return res;
     }

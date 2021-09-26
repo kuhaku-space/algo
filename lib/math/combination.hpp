@@ -1,38 +1,44 @@
-#include "template/template.hpp"
 #include "algo/modint.hpp"
+#include "template/template.hpp"
 
 template <int mod>
 struct Combination {
     using mint = ModInt<mod>;
-    vector<mint> fac, finv;
+    vector<mint> _fact, _finv;
 
-    Combination() {}
+    Combination() : _fact(), _finv() {}
 
     mint operator()(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
         _init(n);
-        return fac[n] * finv[k] * finv[n - k];
+        return _fact[n] * _finv[k] * _finv[n - k];
     }
 
     void _init(int n) {
-        if (fac.size() > n) return;
-        int m = fac.size();
-        fac.resize(n + 1);
+        if (_fact.size() > n) return;
+        int m = _fact.size();
+        _fact.resize(n + 1);
         for (int i = m; i <= n; ++i) {
             if (i == 0)
-                fac[i] = 1;
+                _fact[i] = 1;
             else
-                fac[i] = fac[i - 1] * i;
+                _fact[i] = _fact[i - 1] * i;
         }
-        finv.resize(n + 1);
-        finv[n] = fac[n].inverse();
-        for (int i = n - 1; i >= m; --i) finv[i] = finv[i + 1] * (i + 1);
+        _finv.resize(n + 1);
+        _finv[n] = _fact[n].inverse();
+        for (int i = n - 1; i >= m; --i) _finv[i] = _finv[i + 1] * (i + 1);
     }
 
     mint fact(int x) {
         assert(x >= 0);
         _init(x);
-        return fac[x];
+        return _fact[x];
+    }
+
+    mint finv(int x) {
+        assert(x >= 0);
+        _init(x);
+        return _finv[x];
     }
 
     mint naive(int n, int k) const {
@@ -75,7 +81,7 @@ struct Combination {
     mint permu(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
         _init(n);
-        return fac[n] * finv[n - k];
+        return _fact[n] * _finv[n - k];
     }
 };
 Combination<MOD> combi;
