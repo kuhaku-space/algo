@@ -15,6 +15,7 @@ struct segment_tree {
 
     segment_tree() {}
     segment_tree(int _n, T _e, F &&_op) : e(_e), op(_op) { init(_n); }
+    segment_tree(int _n, T _e, const F &_op) : e(_e), op(_op) { init(_n); }
 
     const T &operator[](int i) const { return this->data[i + N]; }
     T at(int k) const {
@@ -24,8 +25,7 @@ struct segment_tree {
     T get(int k) const { return this->at(k); }
 
     void init(int n) {
-        for (N = 1; N < n; N <<= 1)
-            ;
+        for (N = 1; N < n; N <<= 1) {}
         this->data.assign(N << 1, e);
     }
 
@@ -40,8 +40,7 @@ struct segment_tree {
     void update(int k, T x) {
         assert(0 <= k && k < N);
         this->data[k += N] = x;
-        while ((k >>= 1) >= 1)
-            this->data[k] = this->op(this->data[k * 2], this->data[k * 2 + 1]);
+        while ((k >>= 1) >= 1) this->data[k] = this->op(this->data[k * 2], this->data[k * 2 + 1]);
     }
     void add(int k, T x) { this->update(k, x - this->at(k)); }
 
