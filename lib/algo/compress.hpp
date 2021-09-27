@@ -1,6 +1,10 @@
 #include "template/template.hpp"
 
-// 座標圧縮ライブラリ
+/**
+ * @brief 座標圧縮
+ *
+ * @tparam T
+ */
 template <class T>
 struct Compress {
     vector<T> data;
