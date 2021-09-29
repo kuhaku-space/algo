@@ -1,4 +1,7 @@
 #pragma once
+#pragma GCC target("avx")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 #include "template/template.hpp"
 using ll = int64_t;
 using ld = long double;
