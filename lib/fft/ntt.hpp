@@ -1,5 +1,5 @@
 #include "template/template.hpp"
-#include "algo/modint.hpp"
+#include "math/modint.hpp"
 
 template <int mod, int primitive_root>
 struct NTT {

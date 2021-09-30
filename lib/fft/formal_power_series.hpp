@@ -1,5 +1,5 @@
 #include "template/template.hpp"
-#include "algo/modint.hpp"
+#include "math/modint.hpp"
 #include "fft/ntt.hpp"
 
 template <class T>
