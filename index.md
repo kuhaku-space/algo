@@ -266,10 +266,10 @@ data:
     - icon: ':warning:'
       path: lib/math/chinese_rem.hpp
       title: lib/math/chinese_rem.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/combination.hpp
       title: lib/math/combination.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/enumeration.hpp
       title: lib/math/enumeration.hpp
     - icon: ':warning:'
@@ -281,7 +281,7 @@ data:
     - icon: ':warning:'
       path: lib/math/matrix.hpp
       title: lib/math/matrix.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: modint
     - icon: ':warning:'
@@ -318,10 +318,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -370,10 +370,10 @@ data:
       title: test/aoj/the_number_of_inversions.test.cpp
   - name: test/aoj/dp
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/aoj/dp/bell.test.cpp
       title: test/aoj/dp/bell.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/aoj/dp/stirling.test.cpp
       title: test/aoj/dp/stirling.test.cpp
   - name: test/aoj/geometry

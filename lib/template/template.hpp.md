@@ -129,6 +129,9 @@ data:
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
   - icon: ':warning:'
+    path: lib/fft/ntt_mod.hpp
+    title: lib/fft/ntt_mod.hpp
+  - icon: ':warning:'
     path: lib/geometry/cht.hpp
     title: lib/geometry/cht.hpp
   - icon: ':warning:'
@@ -149,6 +152,9 @@ data:
   - icon: ':warning:'
     path: lib/graph/chromatic_number.hpp
     title: lib/graph/chromatic_number.hpp
+  - icon: ':warning:'
+    path: lib/graph/dijkstra.hpp
+    title: lib/graph/dijkstra.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
@@ -185,10 +191,10 @@ data:
   - icon: ':warning:'
     path: lib/math/chinese_rem.hpp
     title: lib/math/chinese_rem.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
   - icon: ':warning:'
@@ -200,7 +206,7 @@ data:
   - icon: ':warning:'
     path: lib/math/matrix.hpp
     title: lib/math/matrix.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
   - icon: ':warning:'
@@ -233,7 +239,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -261,10 +267,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
   - icon: ':heavy_check_mark:'
@@ -321,9 +327,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -374,6 +380,7 @@ data:
   - lib/graph/max_flow.hpp
   - lib/graph/chromatic_number.hpp
   - lib/graph/topological_sort.hpp
+  - lib/graph/dijkstra.hpp
   - lib/graph/scc.hpp
   - lib/graph/graph.hpp
   - lib/graph/min_cost_flow.hpp
@@ -387,6 +394,7 @@ data:
   - lib/geometry/geometry3d.hpp
   - lib/geometry/cht.hpp
   - lib/geometry/kdtree.hpp
+  - lib/fft/ntt_mod.hpp
   - lib/fft/fft_mod.hpp
   - lib/fft/garner.hpp
   - lib/fft/formal_power_series.hpp
@@ -430,7 +438,7 @@ data:
   - lib/_new/make_permutation.hpp
   - lib/_new/partially_persistent_union_find.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp

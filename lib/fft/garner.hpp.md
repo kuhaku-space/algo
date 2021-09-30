@@ -1,10 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: lib/fft/ntt_mod.hpp
+    title: lib/fft/ntt_mod.hpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -36,7 +39,8 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/fft/garner.hpp
-  requiredBy: []
+  requiredBy:
+  - lib/fft/ntt_mod.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -33,16 +33,16 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/combination.hpp:\
     \ line -1: no such header\n"
   code: "#include \"math/combination.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/template.hpp\"\n\ntemplate <int mod>\nstruct Enumeration {\n    Enumeration()\
-    \ : combi(), data() {}\n\n    mint stirling(int n, int k) {\n        mint res\
-    \ = 0;\n        for (int i = 0; i < k; ++i) {\n            if (i & 1)\n      \
-    \          res -= this->combi(k, k - i) * mint(k - i).pow(n);\n            else\n\
-    \                res += this->combi(k, k - i) * mint(k - i).pow(n);\n        }\n\
-    \        res *= this->combi.finv(k);\n        return res;\n    }\n\n    mint bell(int\
-    \ n, int k) {\n        this->_init(k);\n        mint res = 0;\n        for (int\
-    \ i = 0; i <= k; ++i) {\n            res += mint(i).pow(n) * this->combi.finv(i)\
-    \ * this->data[k - i];\n        }\n        return res;\n    }\n\n  private:\n\
-    \    using mint = ModInt<mod>;\n    Combination<mod> combi;\n    vector<mint>\
+    \ \"template/template.hpp\"\n\ntemplate <int mod>\nstruct Enumeration {\n    using\
+    \ mint = ModInt<mod>;\n\n    Enumeration() : combi(), data() {}\n\n    mint stirling(int\
+    \ n, int k) {\n        mint res = 0;\n        for (int i = 0; i < k; ++i) {\n\
+    \            if (i & 1)\n                res -= this->combi(k, k - i) * mint(k\
+    \ - i).pow(n);\n            else\n                res += this->combi(k, k - i)\
+    \ * mint(k - i).pow(n);\n        }\n        res *= this->combi.finv(k);\n    \
+    \    return res;\n    }\n\n    mint bell(int n, int k) {\n        this->_init(k);\n\
+    \        mint res = 0;\n        for (int i = 0; i <= k; ++i) {\n            res\
+    \ += mint(i).pow(n) * this->combi.finv(i) * this->data[k - i];\n        }\n  \
+    \      return res;\n    }\n\n  private:\n    Combination<mod> combi;\n    vector<mint>\
     \ data;\n\n    void _init(int n) {\n        if (this->data.size() > n) return;\n\
     \        int m = this->data.size();\n        this->data.resize(n + 1);\n     \
     \   for (int i = m; i <= n; ++i) {\n            if (i == 0)\n                this->data[i]\
@@ -57,8 +57,8 @@ data:
   isVerificationFile: false
   path: lib/math/enumeration.hpp
   requiredBy: []
-  timestamp: '2021-10-01 05:33:18+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2021-10-01 05:46:53+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dp/bell.test.cpp
   - test/aoj/dp/stirling.test.cpp

@@ -1,13 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: lib/graph/bellman_ford.hpp
     title: lib/graph/bellman_ford.hpp
+  - icon: ':warning:'
+    path: lib/graph/dijkstra.hpp
+    title: lib/graph/dijkstra.hpp
   - icon: ':warning:'
     path: lib/graph/kruskal.hpp
     title: lib/graph/kruskal.hpp
@@ -96,6 +99,7 @@ data:
   - lib/graph/bellman_ford.hpp
   - lib/graph/two_sat.hpp
   - lib/graph/topological_sort.hpp
+  - lib/graph/dijkstra.hpp
   - lib/graph/scc.hpp
   - lib/graph/kruskal.hpp
   - lib/graph/lowlink.hpp

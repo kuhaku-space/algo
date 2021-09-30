@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/data_structure/bit_vector.hpp
     title: "\u5B8C\u5099\u8F9E\u66F8"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

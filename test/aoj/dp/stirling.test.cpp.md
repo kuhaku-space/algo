@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I
@@ -48,8 +48,8 @@ data:
   isVerificationFile: true
   path: test/aoj/dp/stirling.test.cpp
   requiredBy: []
-  timestamp: '2021-10-01 05:33:18+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-10-01 05:46:53+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dp/stirling.test.cpp
 layout: document
