@@ -1,6 +1,6 @@
-#include "template/template.hpp"
-#include "data_struct/radix_heap.hpp"
+#include "data_structure/radix_heap.hpp"
 #include "graph/graph.hpp"
+#include "template/template.hpp"
 
 /*
  * verify :
@@ -11,8 +11,7 @@
  */
 
 template <class T>
-vector<T> dijkstra(const Graph<T> &g, int s = 0,
-                   T inf = numeric_limits<T>::max()) {
+vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = numeric_limits<T>::max()) {
     struct _edge {
         int to;
         T dist;
@@ -28,16 +27,14 @@ vector<T> dijkstra(const Graph<T> &g, int s = 0,
         p_que.pop();
         if (dist[e.to] < e.dist) continue;
         for (auto &i : g[e.to]) {
-            if (chmin(dist[i.to], e.dist + i.dist))
-                p_que.push(_edge{i.to, e.dist + i.dist});
+            if (chmin(dist[i.to], e.dist + i.dist)) p_que.push(_edge{i.to, e.dist + i.dist});
         }
     }
     return dist;
 }
 
 template <class T>
-vector<T> dijkstra_late(const Graph<T> &g, int s = 0,
-                        T inf = numeric_limits<T>::max()) {
+vector<T> dijkstra_late(const Graph<T> &g, int s = 0, T inf = numeric_limits<T>::max()) {
     struct _edge {
         int to;
         T dist;
@@ -57,8 +54,7 @@ vector<T> dijkstra_late(const Graph<T> &g, int s = 0,
 }
 
 template <class T>
-vector<T> dijkstra_fast(const Graph<T> &g, int s = 0,
-                        T inf = numeric_limits<T>::max()) {
+vector<T> dijkstra_fast(const Graph<T> &g, int s = 0, T inf = numeric_limits<T>::max()) {
     struct _edge {
         int to;
         T dist;
@@ -74,8 +70,7 @@ vector<T> dijkstra_fast(const Graph<T> &g, int s = 0,
         p_que.pop();
         if (dist[e.to] < e.dist) continue;
         for (auto &i : g[e.to]) {
-            if (chmin(dist[i.to], e.dist + i.dist))
-                p_que.push(_edge{i.to, e.dist + i.dist});
+            if (chmin(dist[i.to], e.dist + i.dist)) p_que.push(_edge{i.to, e.dist + i.dist});
         }
     }
     return dist;
