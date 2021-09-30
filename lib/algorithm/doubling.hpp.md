@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -20,24 +20,27 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct PQueue\
-    \ {\r\n    priority_queue<T> a, b;\r\n\r\n    bool empty() const { return a.empty();\
-    \ }\r\n\r\n    void insert(T x) { a.push(x); }\r\n\r\n    T top() const { a.top();\
-    \ }\r\n\r\n    void pop() { erase(a.top()); }\r\n\r\n    void erase(T x) {\r\n\
-    \        b.push(x);\r\n        while (!a.empty() && a.top() == b.top()) {\r\n\
-    \            a.pop(), b.pop();\r\n        }\r\n    }\r\n};\r\n"
+  code: "#include \"template/template.hpp\"\r\n\r\nstruct Doubling {\r\n    const\
+    \ int size = 64;\r\n    int n;\r\n    vector<vector<int>> data;\r\n\r\n    Doubling(int\
+    \ _n) : n(_n), data(size, vector<int>(_n)) {}\r\n\r\n    void build(const vector<int>\
+    \ &v) {\r\n        for (int i = 0; i < n; ++i) data[0][i] = v[i];\r\n\r\n    \
+    \    for (int i = 0; i < size - 1; ++i) {\r\n            for (int j = 0; j < n;\
+    \ ++j) {\r\n                data[i + 1][j] = data[i][data[i][j]];\r\n        \
+    \    }\r\n        }\r\n    }\r\n\r\n    int solve(int f, int64_t k) {\r\n    \
+    \    for (int cnt = 0; k > 0; k >>= 1, ++cnt) {\r\n            if (k & 1) f =\
+    \ data[cnt][f];\r\n        }\r\n        return f;\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_struct/PQueue.hpp
+  path: lib/algorithm/doubling.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_struct/PQueue.hpp
+documentation_of: lib/algorithm/doubling.hpp
 layout: document
 redirect_from:
-- /library/lib/data_struct/PQueue.hpp
-- /library/lib/data_struct/PQueue.hpp.html
-title: lib/data_struct/PQueue.hpp
+- /library/lib/algorithm/doubling.hpp
+- /library/lib/algorithm/doubling.hpp.html
+title: lib/algorithm/doubling.hpp
 ---

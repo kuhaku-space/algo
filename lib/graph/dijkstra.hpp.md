@@ -1,15 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':warning:'
-    path: lib/data_struct/radix_heap.hpp
-    title: lib/data_struct/radix_heap.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -65,14 +56,11 @@ data:
     \ continue;\r\n        for (auto &i : g[e.to]) {\r\n            if (chmin(dist[i.to],\
     \ e.dist + i.dist))\r\n                p_que.push(_edge{i.to, e.dist + i.dist});\r\
     \n        }\r\n    }\r\n    return dist;\r\n}\r\n"
-  dependsOn:
-  - lib/template/template.hpp
-  - lib/data_struct/radix_heap.hpp
-  - lib/graph/graph.hpp
+  dependsOn: []
   isVerificationFile: false
   path: lib/graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2021-09-22 06:52:24+09:00'
+  timestamp: '1970-01-01 00:00:00+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/dijkstra.hpp

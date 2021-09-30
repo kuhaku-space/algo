@@ -44,20 +44,23 @@ data:
     - icon: ':warning:'
       path: lib/_old/lazy_segment_tree_beta.hpp
       title: lib/_old/lazy_segment_tree_beta.hpp
-  - name: lib/algo
+  - name: lib/algorithm
     pages:
     - icon: ':warning:'
-      path: lib/algo/compress.hpp
-      title: lib/algo/compress.hpp
+      path: lib/algorithm/Mo.hpp
+      title: lib/algorithm/Mo.hpp
     - icon: ':warning:'
-      path: lib/algo/doubling.hpp
-      title: lib/algo/doubling.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/algo/modint.hpp
-      title: modint
+      path: lib/algorithm/compress.hpp
+      title: "\u5EA7\u6A19\u5727\u7E2E"
     - icon: ':warning:'
-      path: lib/algo/modint64.hpp
-      title: lib/algo/modint64.hpp
+      path: lib/algorithm/doubling.hpp
+      title: lib/algorithm/doubling.hpp
+    - icon: ':warning:'
+      path: lib/algorithm/wavelet_matrix.hpp
+      title: lib/algorithm/wavelet_matrix.hpp
+    - icon: ':warning:'
+      path: lib/algorithm/xorshift.hpp
+      title: lib/algorithm/xorshift.hpp
   - name: lib/atcoder
     pages:
     - icon: ':warning:'
@@ -120,43 +123,56 @@ data:
       path: lib/binary_tree/BIT_RSQ.hpp
       title: lib/binary_tree/BIT_RSQ.hpp
     - icon: ':warning:'
+      path: lib/binary_tree/binary_trie.hpp
+      title: "2\u5206\u30C8\u30E9\u30A4\u6728"
+    - icon: ':warning:'
       path: lib/binary_tree/dual_segment_tree.hpp
       title: lib/binary_tree/dual_segment_tree.hpp
     - icon: ':warning:'
+      path: lib/binary_tree/dynamic_segment_tree.hpp
+      title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
       path: lib/binary_tree/lazy_segment_tree.hpp
       title: lib/binary_tree/lazy_segment_tree.hpp
+    - icon: ':warning:'
+      path: lib/binary_tree/multi_binary_trie.hpp
+      title: "2\u5206\u30C8\u30E9\u30A4\u6728(\u91CD\u8907\u3042\u308A)"
+    - icon: ':warning:'
+      path: lib/binary_tree/multi_patricia_binary_trie.hpp
+      title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A\
+        )"
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/segment_tree.hpp
       title: lib/binary_tree/segment_tree.hpp
-  - name: lib/data_struct
+  - name: lib/data_structure
     pages:
     - icon: ':warning:'
-      path: lib/data_struct/Map.hpp
-      title: lib/data_struct/Map.hpp
+      path: lib/data_structure/Map.hpp
+      title: lib/data_structure/Map.hpp
     - icon: ':warning:'
-      path: lib/data_struct/Mo.hpp
-      title: lib/data_struct/Mo.hpp
+      path: lib/data_structure/PQueue.hpp
+      title: lib/data_structure/PQueue.hpp
     - icon: ':warning:'
-      path: lib/data_struct/PQueue.hpp
-      title: lib/data_struct/PQueue.hpp
+      path: lib/data_structure/UMap.hpp
+      title: lib/data_structure/UMap.hpp
     - icon: ':warning:'
-      path: lib/data_struct/UMap.hpp
-      title: lib/data_struct/UMap.hpp
+      path: lib/data_structure/bigint.hpp
+      title: lib/data_structure/bigint.hpp
     - icon: ':warning:'
-      path: lib/data_struct/bigint.hpp
-      title: lib/data_struct/bigint.hpp
+      path: lib/data_structure/bigint_beta.hpp
+      title: lib/data_structure/bigint_beta.hpp
     - icon: ':warning:'
-      path: lib/data_struct/bigint_beta.hpp
-      title: lib/data_struct/bigint_beta.hpp
+      path: lib/data_structure/binary_tree.hpp
+      title: lib/data_structure/binary_tree.hpp
     - icon: ':warning:'
-      path: lib/data_struct/binary_tree.hpp
-      title: lib/data_struct/binary_tree.hpp
+      path: lib/data_structure/bit_vector.hpp
+      title: "\u5B8C\u5099\u8F9E\u66F8"
     - icon: ':warning:'
-      path: lib/data_struct/heap.hpp
-      title: lib/data_struct/heap.hpp
+      path: lib/data_structure/heap.hpp
+      title: lib/data_structure/heap.hpp
     - icon: ':warning:'
-      path: lib/data_struct/radix_heap.hpp
-      title: lib/data_struct/radix_heap.hpp
+      path: lib/data_structure/radix_heap.hpp
+      title: lib/data_structure/radix_heap.hpp
   - name: lib/dp
     pages:
     - icon: ':heavy_check_mark:'
@@ -240,15 +256,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/warshall_floyd.hpp
       title: lib/graph/warshall_floyd.hpp
+  - name: lib/list
+    pages:
+    - icon: ':warning:'
+      path: lib/list/skip_list.hpp
+      title: lib/list/skip_list.hpp
   - name: lib/math
     pages:
     - icon: ':warning:'
       path: lib/math/chinese_rem.hpp
       title: lib/math/chinese_rem.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/math/combination.hpp
       title: lib/math/combination.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/math/enumeration.hpp
       title: lib/math/enumeration.hpp
     - icon: ':warning:'
@@ -260,6 +281,12 @@ data:
     - icon: ':warning:'
       path: lib/math/matrix.hpp
       title: lib/math/matrix.hpp
+    - icon: ':question:'
+      path: lib/math/modint.hpp
+      title: modint
+    - icon: ':warning:'
+      path: lib/math/modint64.hpp
+      title: lib/math/modint64.hpp
     - icon: ':warning:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
@@ -291,10 +318,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -343,10 +370,10 @@ data:
       title: test/aoj/the_number_of_inversions.test.cpp
   - name: test/aoj/dp
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/dp/bell.test.cpp
       title: test/aoj/dp/bell.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/dp/stirling.test.cpp
       title: test/aoj/dp/stirling.test.cpp
   - name: test/aoj/geometry

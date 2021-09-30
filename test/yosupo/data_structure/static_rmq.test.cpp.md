@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/segment_tree.hpp
     title: lib/binary_tree/segment_tree.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/static_rmq.test.cpp
   requiredBy: []
-  timestamp: '2021-09-22 06:52:07+09:00'
+  timestamp: '2021-09-29 10:01:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_rmq.test.cpp

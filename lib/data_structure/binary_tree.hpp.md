@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -44,15 +44,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_struct/binary_tree.hpp
+  path: lib/data_structure/binary_tree.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_struct/binary_tree.hpp
+documentation_of: lib/data_structure/binary_tree.hpp
 layout: document
 redirect_from:
-- /library/lib/data_struct/binary_tree.hpp
-- /library/lib/data_struct/binary_tree.hpp.html
-title: lib/data_struct/binary_tree.hpp
+- /library/lib/data_structure/binary_tree.hpp
+- /library/lib/data_structure/binary_tree.hpp.html
+title: lib/data_structure/binary_tree.hpp
 ---

@@ -7,10 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/aoj/all_pairs_shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2021-09-23 07:21:22+09:00'
+  timestamp: '2021-09-29 10:01:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/all_pairs_shortest_path.test.cpp

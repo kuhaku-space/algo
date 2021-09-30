@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -9,10 +9,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
   - icon: ':heavy_check_mark:'
@@ -69,9 +69,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -83,30 +83,32 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"template/template.hpp\"\nusing ll = int64_t;\nusing\
-    \ ld = long double;\n#define FOR(i, m, n) for(int i = (m); i < (n); ++i)\n#define\
-    \ FORR(i, m, n) for(int i = (m)-1; i >= (n); --i)\n#define rep(i, n) FOR(i, 0,\
-    \ n)\n#define repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n) FORR(i, n, 0)\n#define\
-    \ repnr(i, n) FORR(i, n+1, 1)\n#define all(s) (s).begin(), (s).end()\ntemplate\
-    \ <class T>\nistream &operator>>(istream &is, vector<T> &v) { for (T &i : v) is>>i;\
-    \ return is; }\ntemplate <class T>\nostream &operator<<(ostream &os, const vector<T>\
-    \ &v) {\n    for (auto it=v.begin(); it!=v.end(); ++it) { os<<(it==v.begin()?\"\
-    \":\" \")<<*it; } return os;\n}\ntemplate <class Head, class... Tail>\nvoid co(Head&&\
-    \ head, Tail&&... tail) {\n    if constexpr(sizeof...(tail)==0) cout<<head<<'\\\
-    n'; else cout<<head<<' ',co(forward<Tail>(tail)...);\n}\ntemplate <class Head,\
-    \ class... Tail>\nvoid ce(Head&& head, Tail&&... tail) {\n    if constexpr(sizeof...(tail)==0)\
-    \ cerr<<head<<'\\n'; else cerr<<head<<' ',ce(forward<Tail>(tail)...);\n}\ntemplate<typename\
-    \ T, typename... Args>\nauto make_vector(T x, int arg, Args ...args) {\n    if\
-    \ constexpr(sizeof...(args)==0) return vector<T>(arg, x); else return vector(arg,make_vector<T>(x,\
-    \ args...));\n}\nvoid sonic() { ios::sync_with_stdio(false); cin.tie(nullptr);\
-    \ }\nvoid setp(const int n) { cout << fixed << setprecision(n); }"
+  code: "#pragma once\n#pragma GCC target(\"avx\")\n#pragma GCC optimize(\"O3\")\n\
+    #pragma GCC optimize(\"unroll-loops\")\n#include \"template/template.hpp\"\nusing\
+    \ ll = int64_t;\nusing ld = long double;\n#define FOR(i, m, n) for(int i = (m);\
+    \ i < (n); ++i)\n#define FORR(i, m, n) for(int i = (m)-1; i >= (n); --i)\n#define\
+    \ rep(i, n) FOR(i, 0, n)\n#define repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n)\
+    \ FORR(i, n, 0)\n#define repnr(i, n) FORR(i, n+1, 1)\n#define all(s) (s).begin(),\
+    \ (s).end()\ntemplate <class T>\nistream &operator>>(istream &is, vector<T> &v)\
+    \ { for (T &i : v) is>>i; return is; }\ntemplate <class T>\nostream &operator<<(ostream\
+    \ &os, const vector<T> &v) {\n    for (auto it=v.begin(); it!=v.end(); ++it) {\
+    \ os<<(it==v.begin()?\"\":\" \")<<*it; } return os;\n}\ntemplate <class Head,\
+    \ class... Tail>\nvoid co(Head&& head, Tail&&... tail) {\n    if constexpr(sizeof...(tail)==0)\
+    \ cout<<head<<'\\n'; else cout<<head<<' ',co(forward<Tail>(tail)...);\n}\ntemplate\
+    \ <class Head, class... Tail>\nvoid ce(Head&& head, Tail&&... tail) {\n    if\
+    \ constexpr(sizeof...(tail)==0) cerr<<head<<'\\n'; else cerr<<head<<' ',ce(forward<Tail>(tail)...);\n\
+    }\ntemplate<typename T, typename... Args>\nauto make_vector(T x, int arg, Args\
+    \ ...args) {\n    if constexpr(sizeof...(args)==0) return vector<T>(arg, x); else\
+    \ return vector(arg,make_vector<T>(x, args...));\n}\nvoid sonic() { ios::sync_with_stdio(false);\
+    \ cin.tie(nullptr); }\nvoid setp(const int n) { cout << fixed << setprecision(n);\
+    \ }"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/template/atcoder.hpp
   requiredBy: []
-  timestamp: '2021-09-22 06:52:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2021-09-29 10:01:10+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp

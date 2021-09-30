@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -21,34 +21,37 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class F, class G>\r\n\
-    struct Mo {\r\n    vector<int> left, right, order;\r\n    bitset<1 << 20> v;\r\
+    struct Mo {\r\n    vector<int> left, right, order;\r\n    vector<bool> contains;\r\
     \n    int width, nl, nr, ptr;\r\n    const F add;\r\n    const G del;\r\n\r\n\
     \    Mo(int n, const F &f, const G &g)\r\n        : add(f), del(g), width((int)sqrt(n)),\
-    \ nl(0), nr(0), ptr(0), v() {}\r\n\r\n    void insert(int l, int r) {\r\n    \
-    \    left.emplace_back(l);\r\n        right.emplace_back(r);\r\n    }\r\n\r\n\
-    \    void build() {\r\n        order.resize(left.size());\r\n        iota(order.begin(),\
-    \ order.end(), 0);\r\n        sort(order.begin(), order.end(), [&](int a, int\
-    \ b) {\r\n            if (left[a] / width != left[b] / width) return left[a] <\
-    \ left[b];\r\n            return right[a] < right[b];\r\n        });\r\n    }\r\
-    \n\r\n    int process() {\r\n        if (ptr == order.size()) return -1;\r\n \
-    \       const auto id = order[ptr];\r\n        while (nl > left[id]) this->distribute(--nl);\r\
-    \n        while (nr < right[id]) this->distribute(nr++);\r\n        while (nl\
-    \ < left[id]) this->distribute(nl++);\r\n        while (nr > right[id]) this->distribute(--nr);\r\
-    \n        return order[ptr++];\r\n    }\r\n\r\n    inline void distribute(int\
-    \ idx) {\r\n        v.flip(idx);\r\n        if (v[idx])\r\n            add(idx);\r\
-    \n        else\r\n            del(idx);\r\n    }\r\n};\r\n"
+    \ nl(0), nr(0), ptr(0), contains(n) {}\r\n\r\n    void insert(int l, int r) {\r\
+    \n        this->left.emplace_back(l);\r\n        this->right.emplace_back(r);\r\
+    \n    }\r\n\r\n    void build() {\r\n        this->order.resize(this->left.size());\r\
+    \n        iota(this->order.begin(), this->order.end(), 0);\r\n        sort(this->order.begin(),\
+    \ this->order.end(), [&](int a, int b) {\r\n            if (this->left[a] / this->width\
+    \ != this->left[b] / this->width)\r\n                return this->left[a] < this->left[b];\r\
+    \n            return this->right[a] < this->right[b];\r\n        });\r\n    }\r\
+    \n\r\n    int process() {\r\n        if (this->ptr == this->order.size()) return\
+    \ -1;\r\n        const auto id = this->order[this->ptr];\r\n        while (this->nl\
+    \ > this->left[id]) this->distribute(--this->nl);\r\n        while (this->nr <\
+    \ this->right[id]) this->distribute(this->nr++);\r\n        while (this->nl <\
+    \ this->left[id]) this->distribute(this->nl++);\r\n        while (this->nr > this->right[id])\
+    \ this->distribute(--this->nr);\r\n        return this->order[this->ptr++];\r\n\
+    \    }\r\n\r\n    void distribute(int idx) {\r\n        this->contains[idx] =\
+    \ !this->contains[idx];\r\n        if (this->contains[idx])\r\n            this->add(idx);\r\
+    \n        else\r\n            this->del(idx);\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_struct/Mo.hpp
+  path: lib/algorithm/Mo.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_struct/Mo.hpp
+documentation_of: lib/algorithm/Mo.hpp
 layout: document
 redirect_from:
-- /library/lib/data_struct/Mo.hpp
-- /library/lib/data_struct/Mo.hpp.html
-title: lib/data_struct/Mo.hpp
+- /library/lib/algorithm/Mo.hpp
+- /library/lib/algorithm/Mo.hpp.html
+title: lib/algorithm/Mo.hpp
 ---

@@ -2,12 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/modint.hpp
+    title: modint
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -81,17 +81,17 @@ data:
   dependsOn:
   - lib/template/template.hpp
   - lib/fft/ntt.hpp
-  - lib/algo/modint.hpp
+  - lib/math/modint.hpp
   isVerificationFile: false
-  path: lib/data_struct/bigint.hpp
+  path: lib/data_structure/bigint.hpp
   requiredBy: []
-  timestamp: '2021-09-26 10:08:38+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_struct/bigint.hpp
+documentation_of: lib/data_structure/bigint.hpp
 layout: document
 redirect_from:
-- /library/lib/data_struct/bigint.hpp
-- /library/lib/data_struct/bigint.hpp.html
-title: lib/data_struct/bigint.hpp
+- /library/lib/data_structure/bigint.hpp
+- /library/lib/data_structure/bigint.hpp.html
+title: lib/data_structure/bigint.hpp
 ---

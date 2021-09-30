@@ -2,12 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/modint.hpp
+    title: modint
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -26,7 +26,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n#include \"algo/modint.hpp\"\r\n#include\
+  code: "#include \"template/template.hpp\"\r\n#include \"math/modint.hpp\"\r\n#include\
     \ \"fft/ntt.hpp\"\r\n\r\ntemplate <class T>\r\nstruct formal_power_series {\r\n\
     \    vector<T> data;\r\n\r\n    formal_power_series(vector<T> _v) : data(_v) {}\r\
     \n\r\n    const Mint& operator[](const int64_t x) const { return data[x]; }\r\n\
@@ -51,12 +51,12 @@ data:
     \ i = size() - 1; i > 0; --i) data[i] -= data[i - 1];\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
-  - lib/algo/modint.hpp
+  - lib/math/modint.hpp
   - lib/fft/ntt.hpp
   isVerificationFile: false
   path: lib/fft/formal_power_series.hpp
   requiredBy: []
-  timestamp: '2021-09-26 10:08:38+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/formal_power_series.hpp

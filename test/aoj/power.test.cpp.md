@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
+  - icon: ':question:'
+    path: lib/math/modint.hpp
     title: modint
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -27,20 +27,20 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algo/modint.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_B\"\
-    \n#include \"algo/modint.hpp\"\n#include \"template/atcoder.hpp\"\n\nusing Mint\
+    \n#include \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\n\nusing Mint\
     \ = ModInt<MOD>;\n\nint main(void) {\n    sonic();\n    int n, m;\n    cin >>\
     \ n >> m;\n    co(Mint(n).pow(m));\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/algo/modint.hpp
+  - lib/math/modint.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/aoj/power.test.cpp
   requiredBy: []
-  timestamp: '2021-09-26 10:26:00+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/power.test.cpp

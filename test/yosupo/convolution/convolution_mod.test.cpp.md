@@ -2,15 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/modint.hpp
+    title: modint
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -40,12 +40,12 @@ data:
   dependsOn:
   - lib/fft/ntt.hpp
   - lib/template/template.hpp
-  - lib/algo/modint.hpp
+  - lib/math/modint.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/yosupo/convolution/convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2021-09-26 10:08:38+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/convolution_mod.test.cpp

@@ -1,20 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/fft/ntt_mod.hpp
-    title: lib/fft/ntt_mod.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    links:
-    - https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
+    links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -24,23 +20,22 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n// reference :\r\n// https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp\r\
-    \n\r\ntemplate <int mod>\r\nstruct ModInt {\r\n    int64_t x;\r\n\r\n    ModInt()\
-    \ : x(0) {}\r\n    ModInt(int64_t y) noexcept\r\n        : x(y >= 0 ? y % mod\
-    \ : (mod - 1 - (-y - 1) % mod)) {}\r\n\r\n    ModInt &operator+=(const ModInt\
-    \ &rhs) noexcept {\r\n        if ((x += rhs.x) >= mod) x -= mod;\r\n        return\
-    \ *this;\r\n    }\r\n    ModInt &operator-=(const ModInt &rhs) noexcept {\r\n\
-    \        if ((x += mod - rhs.x) >= mod) x -= mod;\r\n        return *this;\r\n\
-    \    }\r\n    ModInt &operator*=(const ModInt &rhs) noexcept {\r\n        x =\
-    \ (int)(1LL * x * rhs.x % mod);\r\n        return *this;\r\n    }\r\n    ModInt\
-    \ &operator/=(const ModInt &rhs) noexcept {\r\n        *this *= rhs.inverse();\r\
-    \n        return *this;\r\n    }\r\n\r\n    ModInt &operator++() noexcept {\r\n\
-    \        if ((++x) >= mod) x -= mod;\r\n        return *this;\r\n    }\r\n   \
-    \ ModInt operator++(int) noexcept {\r\n        ModInt tmp(*this);\r\n        operator++();\r\
-    \n        return tmp;\r\n    }\r\n    ModInt &operator--() noexcept {\r\n    \
-    \    if ((x += mod - 1) >= mod) x -= mod;\r\n        return *this;\r\n    }\r\n\
-    \    ModInt operator--(int) noexcept {\r\n        ModInt tmp(*this);\r\n     \
-    \   operator--();\r\n        return tmp;\r\n    }\r\n\r\n    ModInt operator-()\
+  code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\ntemplate <int mod>\r\
+    \nstruct ModInt {\r\n    int64_t x;\r\n\r\n    ModInt() : x(0) {}\r\n    ModInt(int64_t\
+    \ y) noexcept\r\n        : x(y >= 0 ? y % mod : (mod - 1 - (-y - 1) % mod)) {}\r\
+    \n\r\n    ModInt &operator+=(const ModInt &rhs) noexcept {\r\n        if ((x +=\
+    \ rhs.x) >= mod) x -= mod;\r\n        return *this;\r\n    }\r\n    ModInt &operator-=(const\
+    \ ModInt &rhs) noexcept {\r\n        if ((x += mod - rhs.x) >= mod) x -= mod;\r\
+    \n        return *this;\r\n    }\r\n    ModInt &operator*=(const ModInt &rhs)\
+    \ noexcept {\r\n        x = (int)(1LL * x * rhs.x % mod);\r\n        return *this;\r\
+    \n    }\r\n    ModInt &operator/=(const ModInt &rhs) noexcept {\r\n        *this\
+    \ *= rhs.inverse();\r\n        return *this;\r\n    }\r\n\r\n    ModInt &operator++()\
+    \ noexcept {\r\n        if ((++x) >= mod) x -= mod;\r\n        return *this;\r\
+    \n    }\r\n    ModInt operator++(int) noexcept {\r\n        ModInt tmp(*this);\r\
+    \n        operator++();\r\n        return tmp;\r\n    }\r\n    ModInt &operator--()\
+    \ noexcept {\r\n        if ((x += mod - 1) >= mod) x -= mod;\r\n        return\
+    \ *this;\r\n    }\r\n    ModInt operator--(int) noexcept {\r\n        ModInt tmp(*this);\r\
+    \n        operator--();\r\n        return tmp;\r\n    }\r\n\r\n    ModInt operator-()\
     \ const noexcept { return ModInt(-x); }\r\n    ModInt operator+(const ModInt &rhs)\
     \ const noexcept {\r\n        return ModInt(*this) += rhs;\r\n    }\r\n    ModInt\
     \ operator-(const ModInt &rhs) const noexcept {\r\n        return ModInt(*this)\
@@ -66,16 +61,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/algo/modint64.hpp
-  requiredBy:
-  - lib/fft/ntt_mod.hpp
-  timestamp: '2021-09-18 19:45:05+09:00'
+  path: lib/math/modint64.hpp
+  requiredBy: []
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/algo/modint64.hpp
+documentation_of: lib/math/modint64.hpp
 layout: document
 redirect_from:
-- /library/lib/algo/modint64.hpp
-- /library/lib/algo/modint64.hpp.html
-title: lib/algo/modint64.hpp
+- /library/lib/math/modint64.hpp
+- /library/lib/math/modint64.hpp.html
+title: lib/math/modint64.hpp
 ---

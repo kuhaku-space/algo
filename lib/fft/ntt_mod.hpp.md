@@ -1,21 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
-    title: modint
-  - icon: ':warning:'
-    path: lib/algo/modint64.hpp
-    title: lib/algo/modint64.hpp
-  - icon: ':warning:'
-    path: lib/fft/garner.hpp
-    title: lib/fft/garner.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/fft/ntt.hpp
-    title: lib/fft/ntt.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -49,16 +34,11 @@ data:
     \ {\r\n        if (x & 1) {\r\n            res = convolution(res, v, MOD);\r\n\
     \            res.resize(n);\r\n        }\r\n        v = convolution(v, v, MOD);\r\
     \n        v.resize(n);\r\n    }\r\n    return res;\r\n}\r\n"
-  dependsOn:
-  - lib/template/template.hpp
-  - lib/algo/modint64.hpp
-  - lib/fft/garner.hpp
-  - lib/fft/ntt.hpp
-  - lib/algo/modint.hpp
+  dependsOn: []
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2021-09-26 10:08:38+09:00'
+  timestamp: '1970-01-01 00:00:00+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/ntt_mod.hpp

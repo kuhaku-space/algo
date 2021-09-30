@@ -1,13 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/graph/dijkstra.hpp
-    title: lib/graph/dijkstra.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -69,16 +66,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_struct/radix_heap.hpp
-  requiredBy:
-  - lib/graph/dijkstra.hpp
-  timestamp: '2021-09-18 19:45:05+09:00'
+  path: lib/data_structure/radix_heap.hpp
+  requiredBy: []
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_struct/radix_heap.hpp
+documentation_of: lib/data_structure/radix_heap.hpp
 layout: document
 redirect_from:
-- /library/lib/data_struct/radix_heap.hpp
-- /library/lib/data_struct/radix_heap.hpp.html
-title: lib/data_struct/radix_heap.hpp
+- /library/lib/data_structure/radix_heap.hpp
+- /library/lib/data_structure/radix_heap.hpp.html
+title: lib/data_structure/radix_heap.hpp
 ---

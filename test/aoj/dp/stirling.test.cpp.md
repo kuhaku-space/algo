@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/modint.hpp
+    title: modint
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I
@@ -41,15 +41,15 @@ data:
     \ k));\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/enumeration.hpp
-  - lib/algo/modint.hpp
-  - lib/template/template.hpp
   - lib/math/combination.hpp
+  - lib/math/modint.hpp
+  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/aoj/dp/stirling.test.cpp
   requiredBy: []
-  timestamp: '2021-09-26 10:14:33+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-10-01 05:33:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/aoj/dp/stirling.test.cpp
 layout: document

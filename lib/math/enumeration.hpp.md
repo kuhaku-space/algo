@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/modint.hpp
+    title: modint
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -30,34 +30,35 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algo/modint.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/combination.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"algo/modint.hpp\"\n#include \"math/combination.hpp\"\n#include\
-    \ \"template/template.hpp\"\n\ntemplate <int mod>\nstruct Enumeration {\n    using\
-    \ mint = ModInt<mod>;\n    Combination<mod> combi;\n    vector<mint> data;\n\n\
-    \    Enumeration() : combi(), data() {}\n\n    void _init(int n) {\n        if\
-    \ (data.size() > n) return;\n        int m = data.size();\n        data.resize(n\
-    \ + 1);\n        for (int i = m; i <= n; ++i) {\n            if (i == 0)\n   \
-    \             data[i] = 1;\n            else if (i & 1)\n                data[i]\
-    \ = data[i - 1] - combi.finv(i);\n            else\n                data[i] =\
-    \ data[i - 1] + combi.finv(i);\n        }\n    }\n\n    mint stirling(int n, int\
-    \ k) {\n        mint res = 0;\n        for (int i = 0; i < k; ++i) {\n       \
-    \     if (i & 1)\n                res -= combi(k, k - i) * mint(k - i).pow(n);\n\
-    \            else\n                res += combi(k, k - i) * mint(k - i).pow(n);\n\
-    \        }\n        res /= combi.fact(k);\n        return res;\n    }\n\n    mint\
-    \ bell(int n, int k) {\n        _init(k);\n        mint res = 0;\n        for\
-    \ (int i = 0; i <= k; ++i) {\n            res += mint(i).pow(n) * combi.finv(i)\
-    \ * data[k - i];\n        }\n        return res;\n    }\n};\nEnumeration<MOD>\
+  code: "#include \"math/combination.hpp\"\n#include \"math/modint.hpp\"\n#include\
+    \ \"template/template.hpp\"\n\ntemplate <int mod>\nstruct Enumeration {\n    Enumeration()\
+    \ : combi(), data() {}\n\n    mint stirling(int n, int k) {\n        mint res\
+    \ = 0;\n        for (int i = 0; i < k; ++i) {\n            if (i & 1)\n      \
+    \          res -= this->combi(k, k - i) * mint(k - i).pow(n);\n            else\n\
+    \                res += this->combi(k, k - i) * mint(k - i).pow(n);\n        }\n\
+    \        res *= this->combi.finv(k);\n        return res;\n    }\n\n    mint bell(int\
+    \ n, int k) {\n        this->_init(k);\n        mint res = 0;\n        for (int\
+    \ i = 0; i <= k; ++i) {\n            res += mint(i).pow(n) * this->combi.finv(i)\
+    \ * this->data[k - i];\n        }\n        return res;\n    }\n\n  private:\n\
+    \    using mint = ModInt<mod>;\n    Combination<mod> combi;\n    vector<mint>\
+    \ data;\n\n    void _init(int n) {\n        if (this->data.size() > n) return;\n\
+    \        int m = this->data.size();\n        this->data.resize(n + 1);\n     \
+    \   for (int i = m; i <= n; ++i) {\n            if (i == 0)\n                this->data[i]\
+    \ = 1;\n            else if (i & 1)\n                this->data[i] = this->data[i\
+    \ - 1] - this->combi.finv(i);\n            else\n                this->data[i]\
+    \ = this->data[i - 1] + this->combi.finv(i);\n        }\n    }\n};\nEnumeration<MOD>\
     \ enume;\n"
   dependsOn:
-  - lib/algo/modint.hpp
-  - lib/template/template.hpp
   - lib/math/combination.hpp
+  - lib/math/modint.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/enumeration.hpp
   requiredBy: []
-  timestamp: '2021-09-26 10:13:59+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2021-10-01 05:33:18+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/aoj/dp/bell.test.cpp
   - test/aoj/dp/stirling.test.cpp

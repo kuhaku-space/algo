@@ -1,25 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/algo/modint.hpp
+  - icon: ':question:'
+    path: lib/math/modint.hpp
     title: modint
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: lib/data_struct/bigint.hpp
-    title: lib/data_struct/bigint.hpp
+    path: lib/data_structure/bigint.hpp
+    title: lib/data_structure/bigint.hpp
   - icon: ':warning:'
-    path: lib/data_struct/bigint_beta.hpp
-    title: lib/data_struct/bigint_beta.hpp
+    path: lib/data_structure/bigint_beta.hpp
+    title: lib/data_structure/bigint_beta.hpp
   - icon: ':warning:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
-  - icon: ':warning:'
-    path: lib/fft/ntt_mod.hpp
-    title: lib/fft/ntt_mod.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
@@ -38,7 +35,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n#include \"algo/modint.hpp\"\r\n\r\n\
+  code: "#include \"template/template.hpp\"\r\n#include \"math/modint.hpp\"\r\n\r\n\
     template <int mod, int primitive_root>\r\nstruct NTT {\r\n    using mint = ModInt<mod>;\r\
     \n    const int get_mod() const { return mod; }\r\n    template <class T>\r\n\
     \    void _ntt(vector<T> &a, bool inv) {\r\n        int N = a.size();\r\n    \
@@ -69,15 +66,14 @@ data:
     };\r\n\r\nusing NTT_N = NTT<MOD_N, 3>;\r\n"
   dependsOn:
   - lib/template/template.hpp
-  - lib/algo/modint.hpp
+  - lib/math/modint.hpp
   isVerificationFile: false
   path: lib/fft/ntt.hpp
   requiredBy:
-  - lib/fft/ntt_mod.hpp
+  - lib/data_structure/bigint_beta.hpp
+  - lib/data_structure/bigint.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/data_struct/bigint_beta.hpp
-  - lib/data_struct/bigint.hpp
-  timestamp: '2021-09-26 10:08:38+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

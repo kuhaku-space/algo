@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -20,30 +20,29 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n// \u5EA7\u6A19\u5727\u7E2E\u30E9\
-    \u30A4\u30D6\u30E9\u30EA\r\ntemplate <class T>\r\nstruct Compress {\r\n    vector<T>\
-    \ data;\r\n    Compress() {}\r\n    Compress(const vector<T>& _data) : data(_data)\
-    \ { build(); }\r\n\r\n    const T& operator[](int i) const { return data[i]; }\r\
-    \n    T& operator[](int i) { return data[i]; }\r\n\r\n    void add(T x) { data.emplace_back(x);\
-    \ }\r\n\r\n    void build() {\r\n        sort(data.begin(), data.end());\r\n \
-    \       data.erase(unique(data.begin(), data.end()), data.end());\r\n    }\r\n\
-    \    void build(const vector<T>& _data) {\r\n        data = _data;\r\n       \
-    \ sort(data.begin(), data.end());\r\n        data.erase(unique(data.begin(), data.end()),\
-    \ data.end());\r\n    }\r\n    int get(T x) {\r\n        auto it = lower_bound(data.begin(),\
-    \ data.end(), x);\r\n        assert(*it == x);\r\n        return it - data.begin();\r\
-    \n    }\r\n\r\n    int size() { return data.size(); }\r\n};\r\n"
+  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct heap\
+    \ {\r\n    vector<T> data;\r\n    int sz;\r\n\r\n    heap() : data(1), sz(0) {}\r\
+    \n\r\n    void push(T x) {\r\n        data.emplace_back(x);\r\n        for (int\
+    \ it = ++sz; it > 1 && data[it] > data[it >> 1]; it >>= 1) {\r\n            swap(data[it],\
+    \ data[it >> 1]);\r\n        }\r\n    }\r\n\r\n    auto top() const { return data[1];\
+    \ }\r\n\r\n    void pop() {\r\n        data[1] = data[sz--];\r\n        data.pop_back();\r\
+    \n        for (int it = 1; data[it] < min(data[it << 1], data[(it << 1) | 1]);)\
+    \ {\r\n            it <<= 1;\r\n            if (data[it] < data[it | 1]) ++it;\r\
+    \n            swap(data[it], data[it >> 1]);\r\n        }\r\n    }\r\n\r\n   \
+    \ int size() const { return sz; }\r\n    bool empty() const { return sz == 0;\
+    \ }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/algo/compress.hpp
+  path: lib/data_structure/heap.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-10-01 05:33:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/algo/compress.hpp
+documentation_of: lib/data_structure/heap.hpp
 layout: document
 redirect_from:
-- /library/lib/algo/compress.hpp
-- /library/lib/algo/compress.hpp.html
-title: lib/algo/compress.hpp
+- /library/lib/data_structure/heap.hpp
+- /library/lib/data_structure/heap.hpp.html
+title: lib/data_structure/heap.hpp
 ---
