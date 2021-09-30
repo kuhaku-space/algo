@@ -3,9 +3,9 @@
 
 /**
  * @brief modint
+ * @ref https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp "参考"
  * 
  * @tparam mod 法
- * @ref https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp "参考"
  */
 
 template <int mod>
