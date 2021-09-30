@@ -3,6 +3,8 @@
 
 template <int mod>
 struct Combination {
+    using mint = ModInt<mod>;
+
     Combination() : _fact(), _finv() {}
 
     mint operator()(int n, int k) {
@@ -67,7 +69,6 @@ struct Combination {
     }
 
   private:
-    using mint = ModInt<mod>;
     vector<mint> _fact, _finv;
 
     void _init(int n) {

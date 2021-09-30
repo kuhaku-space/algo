@@ -4,6 +4,8 @@
 
 template <int mod>
 struct Enumeration {
+    using mint = ModInt<mod>;
+
     Enumeration() : combi(), data() {}
 
     mint stirling(int n, int k) {
@@ -28,7 +30,6 @@ struct Enumeration {
     }
 
   private:
-    using mint = ModInt<mod>;
     Combination<mod> combi;
     vector<mint> data;
 
