@@ -47,9 +47,10 @@ struct multi_patricia_binary_trie {
         for (int i = B - 1; i >= 0; i--) {
             if (!rest) {
                 node = node->ch[val >> i & 1];
+                if (!node) return 0;
                 rest += node->len;
             }
-            if (!node || ((val ^ node->val) >> i & 1)) return 0;
+            if ((val ^ node->val) >> i & 1) return 0;
             --rest;
         }
         return node->count;
