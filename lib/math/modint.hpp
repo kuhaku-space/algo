@@ -4,7 +4,7 @@
 /**
  * @brief modint
  * @ref https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp "参考"
- * 
+ *
  * @tparam mod 法
  */
 
@@ -13,7 +13,7 @@ struct ModInt {
     int x;
 
     constexpr ModInt() : x(0) {}
-    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - (-y - 1) % mod)) {}
+    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
 
     constexpr ModInt &operator+=(const ModInt &rhs) noexcept {
         if ((x += rhs.x) >= mod) x -= mod;

@@ -1,5 +1,5 @@
-#include "template/template.hpp"
 #include "fft/ntt.hpp"
+#include "template/template.hpp"
 
 /*
  * verify:
@@ -39,8 +39,8 @@ struct BigInt {
         return *this;
     }
     BigInt &operator*=(const BigInt &rhs) {
-        const int mod = 469762049;
-        NTT<469762049, 3> ntt;  // 2^26 * 7 + 1
+        static constexpr int mod = 469762049;  // 2^26 * 7 + 1
+        NTT<mod, 3> ntt;
         ntt.convolution_self(data, rhs.data);
         for (int i = 0; i < size(); ++i) {
             if (data[i] >= mod / 2) data[i] -= mod;

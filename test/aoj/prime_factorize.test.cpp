@@ -2,6 +2,8 @@
 #include "math/prime_number.hpp"
 #include "template/atcoder.hpp"
 
+prime_number pn;
+
 int main(void) {
     sonic();
     int n;

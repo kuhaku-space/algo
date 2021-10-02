@@ -1,13 +1,12 @@
 #include "template/template.hpp"
 
 struct prime_number {
-    const int sz = 1 << 22;
-    vector<int> factor;
+    static constexpr int sz = 1 << 22;
+    array<int, sz> factor;
 
     prime_number() { init(); }
 
     void init() {
-        factor.resize(sz);
         iota(factor.begin(), factor.end(), 0);
         for (int i = 2; i < sz; ++i) {
             if (factor[i] < i) continue;
@@ -18,15 +17,16 @@ struct prime_number {
         }
     }
 
-    bool is_prime(int x) {
+    bool is_prime(int x) const {
         assert(0 <= x && x < sz);
-        return factor[x] == x;
+        return this->factor[x] == x;
     }
 
-    vector<int> prime_numbers(int x) {
-        vector<int> res;
-        for (int i = 2; i <= x; ++i) {
-            if (is_prime(i)) res.emplace_back(i);
+    vector<int> prime_numbers(int x) const {
+        if (x < 2) return vector<int>();
+        vector<int> res = {2};
+        for (int i = 3; i <= x; i += 2) {
+            if (this->is_prime(i)) res.emplace_back(i);
         }
         return res;
     }

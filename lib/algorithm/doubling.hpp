@@ -1,7 +1,7 @@
 #include "template/template.hpp"
 
 struct Doubling {
-    const int size = 64;
+    static constexpr int size = 64;
     int n;
     vector<vector<int>> data;
 
@@ -11,9 +11,7 @@ struct Doubling {
         for (int i = 0; i < n; ++i) data[0][i] = v[i];
 
         for (int i = 0; i < size - 1; ++i) {
-            for (int j = 0; j < n; ++j) {
-                data[i + 1][j] = data[i][data[i][j]];
-            }
+            for (int j = 0; j < n; ++j) { data[i + 1][j] = data[i][data[i][j]]; }
         }
     }
 
