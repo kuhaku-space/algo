@@ -15,6 +15,7 @@
 "test/aoj/the_number_of_inversions.test.cpp": "2021-10-01 05:33:40 +0900",
 "test/yosupo/convolution/convolution_mod.test.cpp": "2021-10-02 14:41:27 +0900",
 "test/yosupo/data_structure/point_add_range_sum.test.cpp": "2021-09-29 10:01:10 +0900",
+"test/yosupo/data_structure/set_xor-min.test.cpp": "2021-10-02 20:45:12 +0900",
 "test/yosupo/data_structure/static_range_sum.test.cpp": "2021-10-01 05:33:40 +0900",
 "test/yosupo/data_structure/static_rmq.test.cpp": "2021-09-29 10:01:10 +0900",
 "test/yosupo/data_structure/unionfind.test.cpp": "2021-09-29 10:01:10 +0900",
