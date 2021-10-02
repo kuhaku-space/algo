@@ -1,14 +1,14 @@
 #include "template/template.hpp"
 
 /**
- * @brief 2分パトリシア木(重複あり)
+ * @brief 2分パトリシア木
  * @ref https://kyokkounoite.hatenablog.jp/entry/2021/05/17/170000 "参考"
  *
  * @tparam T
  * @tparam B ビットサイズ
  */
 template <class T, int B = 31>
-struct multi_patricia_binary_trie {
+struct patricia_binary_trie {
     struct Node {
         T val;
         int len, count;
@@ -19,7 +19,7 @@ struct multi_patricia_binary_trie {
 
     Node* root;
 
-    multi_patricia_binary_trie() : root(nullptr) {}
+    patricia_binary_trie() : root(nullptr) {}
 
     T operator[](int k) const {
         assert(0 <= k && k < this->size());
@@ -28,7 +28,9 @@ struct multi_patricia_binary_trie {
 
     int size() const { return this->root ? this->root->count : 0; }
     bool empty() const { return !this->root; }
-    void insert(T val) { this->root = this->add(this->root, val); }
+    void insert(T val) {
+        if (!this->count(val)) this->root = this->add(this->root, val);
+    }
     void erase(T val) {
         if (this->count(val)) this->root = this->sub(this->root, val);
     }
@@ -44,7 +46,7 @@ struct multi_patricia_binary_trie {
         if (!this->root) return 0;
         Node* node = this->root;
         int rest = node->len;
-        for (int i = B - 1; i >= 0; i--) {
+        for (int i = B - 1; i >= 0; --i) {
             if (!rest) {
                 node = node->ch[val >> i & 1];
                 if (!node) return 0;
