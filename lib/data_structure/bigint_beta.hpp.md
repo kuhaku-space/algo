@@ -27,9 +27,9 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
-    \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n#include \"fft/ntt.hpp\"\r\n\r\n/*\r\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: fft/ntt.hpp: line\
+    \ -1: no such header\n"
+  code: "#include \"fft/ntt.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n/*\r\
     \n * verify:\r\n * https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A 21/03/02\r\
     \n * https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_B 21/03/02\r\n * https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F\
     \ 21/03/02\r\n */\r\n\r\nstruct BigInt {\r\n    vector<int> data;\r\n\r\n    BigInt()\
@@ -44,8 +44,8 @@ data:
     \   BigInt &operator-=(const BigInt &rhs) {\r\n        int n = max(size(), rhs.size());\r\
     \n        data.resize(n, 0);\r\n        for (int i = 0; i < rhs.size(); ++i) data[i]\
     \ -= rhs.data[i];\r\n        format();\r\n        return *this;\r\n    }\r\n \
-    \   BigInt &operator*=(const BigInt &rhs) {\r\n        const int mod = 469762049;\r\
-    \n        NTT<469762049, 3> ntt;  // 2^26 * 7 + 1\r\n        ntt.convolution_self(data,\
+    \   BigInt &operator*=(const BigInt &rhs) {\r\n        static constexpr int mod\
+    \ = 469762049;  // 2^26 * 7 + 1\r\n        NTT<mod, 3> ntt;\r\n        ntt.convolution_self(data,\
     \ rhs.data);\r\n        for (int i = 0; i < size(); ++i) {\r\n            if (data[i]\
     \ >= mod / 2) data[i] -= mod;\r\n        }\r\n        format();\r\n        return\
     \ *this;\r\n    }\r\n\r\n    BigInt operator-() const {\r\n        BigInt res(*this);\r\
@@ -78,13 +78,13 @@ data:
     \ data[i] += 10;\r\n        }\r\n        while (size() > 1 && back() == 0) data.pop_back();\r\
     \n    }\r\n};\r\n"
   dependsOn:
-  - lib/template/template.hpp
   - lib/fft/ntt.hpp
+  - lib/template/template.hpp
   - lib/math/modint.hpp
   isVerificationFile: false
   path: lib/data_structure/bigint_beta.hpp
   requiredBy: []
-  timestamp: '2021-10-01 05:33:18+09:00'
+  timestamp: '2021-10-02 14:42:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_structure/bigint_beta.hpp

@@ -20,16 +20,17 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\nstruct prime_number {\r\n    const\
-    \ int sz = 1 << 22;\r\n    vector<int> factor;\r\n\r\n    prime_number() { init();\
-    \ }\r\n\r\n    void init() {\r\n        factor.resize(sz);\r\n        iota(factor.begin(),\
-    \ factor.end(), 0);\r\n        for (int i = 2; i < sz; ++i) {\r\n            if\
-    \ (factor[i] < i) continue;\r\n            if ((int64_t)i * i > sz) continue;\r\
-    \n            for (int j = i * i; j < sz; j += i) {\r\n                if (factor[j]\
-    \ == j) factor[j] = i;\r\n            }\r\n        }\r\n    }\r\n\r\n    bool\
-    \ is_prime(int x) {\r\n        assert(0 <= x && x < sz);\r\n        return factor[x]\
-    \ == x;\r\n    }\r\n\r\n    vector<int> prime_numbers(int x) {\r\n        vector<int>\
-    \ res;\r\n        for (int i = 2; i <= x; ++i) {\r\n            if (is_prime(i))\
+  code: "#include \"template/template.hpp\"\r\n\r\nstruct prime_number {\r\n    static\
+    \ constexpr int sz = 1 << 22;\r\n    array<int, sz> factor;\r\n\r\n    prime_number()\
+    \ { init(); }\r\n\r\n    void init() {\r\n        iota(factor.begin(), factor.end(),\
+    \ 0);\r\n        for (int i = 2; i < sz; ++i) {\r\n            if (factor[i] <\
+    \ i) continue;\r\n            if ((int64_t)i * i > sz) continue;\r\n         \
+    \   for (int j = i * i; j < sz; j += i) {\r\n                if (factor[j] ==\
+    \ j) factor[j] = i;\r\n            }\r\n        }\r\n    }\r\n\r\n    bool is_prime(int\
+    \ x) const {\r\n        assert(0 <= x && x < sz);\r\n        return this->factor[x]\
+    \ == x;\r\n    }\r\n\r\n    vector<int> prime_numbers(int x) const {\r\n     \
+    \   if (x < 2) return vector<int>();\r\n        vector<int> res = {2};\r\n   \
+    \     for (int i = 3; i <= x; i += 2) {\r\n            if (this->is_prime(i))\
     \ res.emplace_back(i);\r\n        }\r\n        return res;\r\n    }\r\n\r\n  \
     \  // \u7D20\u56E0\u6570\u5206\u89E3\r\n    vector<int> prime_factorization(int\
     \ x) {\r\n        vector<int> res;\r\n        while (x > 1) {\r\n            res.emplace_back(factor[x]);\r\
@@ -40,7 +41,7 @@ data:
   isVerificationFile: false
   path: lib/math/prime_number_fast.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-10-02 14:39:53+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/prime_number_fast.hpp

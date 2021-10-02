@@ -85,7 +85,7 @@ data:
   isVerificationFile: false
   path: lib/data_structure/bigint.hpp
   requiredBy: []
-  timestamp: '2021-10-01 05:33:18+09:00'
+  timestamp: '2021-10-02 14:41:27+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_structure/bigint.hpp

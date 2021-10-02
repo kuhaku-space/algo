@@ -57,10 +57,10 @@ data:
     \ line -1: no such header\n"
   code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief\
     \ modint\r\n * @ref https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp\
-    \ \"\u53C2\u8003\"\r\n * \r\n * @tparam mod \u6CD5\r\n */\r\n\r\ntemplate <int\
+    \ \"\u53C2\u8003\"\r\n *\r\n * @tparam mod \u6CD5\r\n */\r\n\r\ntemplate <int\
     \ mod>\r\nstruct ModInt {\r\n    int x;\r\n\r\n    constexpr ModInt() : x(0) {}\r\
-    \n    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - (-y\
-    \ - 1) % mod)) {}\r\n\r\n    constexpr ModInt &operator+=(const ModInt &rhs) noexcept\
+    \n    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y\
+    \ % mod)) {}\r\n\r\n    constexpr ModInt &operator+=(const ModInt &rhs) noexcept\
     \ {\r\n        if ((x += rhs.x) >= mod) x -= mod;\r\n        return *this;\r\n\
     \    }\r\n    constexpr ModInt &operator-=(const ModInt &rhs) noexcept {\r\n \
     \       if ((x += mod - rhs.x) >= mod) x -= mod;\r\n        return *this;\r\n\
@@ -108,7 +108,7 @@ data:
   - lib/fft/ntt.hpp
   - lib/math/enumeration.hpp
   - lib/math/combination.hpp
-  timestamp: '2021-10-01 05:33:18+09:00'
+  timestamp: '2021-10-02 14:41:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/power.test.cpp

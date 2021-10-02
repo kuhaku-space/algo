@@ -73,7 +73,7 @@ data:
   path: lib/math/combination.hpp
   requiredBy:
   - lib/math/enumeration.hpp
-  timestamp: '2021-10-01 05:46:53+09:00'
+  timestamp: '2021-10-02 14:43:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dp/bell.test.cpp

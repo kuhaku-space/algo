@@ -77,7 +77,7 @@ data:
   - lib/data_structure/bigint.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/formal_power_series.hpp
-  timestamp: '2021-10-01 05:33:18+09:00'
+  timestamp: '2021-10-02 14:41:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

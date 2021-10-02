@@ -58,7 +58,7 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2021-10-01 05:46:25+09:00'
+  timestamp: '2021-10-02 14:43:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/ntt_mod.hpp

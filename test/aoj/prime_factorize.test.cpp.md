@@ -30,10 +30,11 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/prime_number.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A\"\
-    \n#include \"math/prime_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int n;\n    cin >> n;\n    auto v = pn.prime_factorization(n);\n\
-    \    cout << n << ':';\n    for (auto p : v) {\n        rep(i, p.second) cout\
-    \ << ' ' << p.first;\n    }\n    cout << '\\n';\n\n    return 0;\n}\n"
+    \n#include \"math/prime_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nprime_number\
+    \ pn;\n\nint main(void) {\n    sonic();\n    int n;\n    cin >> n;\n    auto v\
+    \ = pn.prime_factorization(n);\n    cout << n << ':';\n    for (auto p : v) {\n\
+    \        rep(i, p.second) cout << ' ' << p.first;\n    }\n    cout << '\\n';\n\
+    \n    return 0;\n}\n"
   dependsOn:
   - lib/math/prime_number.hpp
   - lib/template/template.hpp
@@ -41,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/aoj/prime_factorize.test.cpp
   requiredBy: []
-  timestamp: '2021-09-29 10:01:10+09:00'
+  timestamp: '2021-10-02 14:42:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/prime_factorize.test.cpp
