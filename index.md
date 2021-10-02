@@ -141,6 +141,9 @@ data:
       path: lib/binary_tree/multi_patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A\
         )"
+    - icon: ':x:'
+      path: lib/binary_tree/patricia_binary_trie.hpp
+      title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/segment_tree.hpp
       title: lib/binary_tree/segment_tree.hpp
@@ -318,10 +321,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -406,6 +409,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/point_add_range_sum.test.cpp
       title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+    - icon: ':x:'
+      path: test/yosupo/data_structure/set_xor-min.test.cpp
+      title: test/yosupo/data_structure/set_xor-min.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp

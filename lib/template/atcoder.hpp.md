@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -54,6 +54,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/data_structure/set_xor-min.test.cpp
+    title: test/yosupo/data_structure/set_xor-min.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
@@ -69,9 +72,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -108,7 +111,7 @@ data:
   path: lib/template/atcoder.hpp
   requiredBy: []
   timestamp: '2021-09-29 10:01:10+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp
@@ -126,6 +129,7 @@ data:
   - test/aoj/longest_increasing_subsequense.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/set_xor-min.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp

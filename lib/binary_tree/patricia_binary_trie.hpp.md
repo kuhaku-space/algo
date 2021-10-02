@@ -5,13 +5,15 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/yosupo/data_structure/set_xor-min.test.cpp
+    title: test/yosupo/data_structure/set_xor-min.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
-    document_title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\
-      \u308A)"
+    document_title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
     links:
     - https://kyokkounoite.hatenablog.jp/entry/2021/05/17/170000
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -24,26 +26,26 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\n\n/**\n * @brief 2\u5206\u30D1\u30C8\u30EA\
-    \u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A)\n * @ref https://kyokkounoite.hatenablog.jp/entry/2021/05/17/170000\
+    \u30B7\u30A2\u6728\n * @ref https://kyokkounoite.hatenablog.jp/entry/2021/05/17/170000\
     \ \"\u53C2\u8003\"\n *\n * @tparam T\n * @tparam B \u30D3\u30C3\u30C8\u30B5\u30A4\
-    \u30BA\n */\ntemplate <class T, int B = 31>\nstruct multi_patricia_binary_trie\
-    \ {\n    struct Node {\n        T val;\n        int len, count;\n        Node*\
-    \ ch[2];\n        Node(T _val, int _len, int _count = 0)\n            : val(_val),\
-    \ len(_len), count(_count), ch{nullptr, nullptr} {}\n    };\n\n    Node* root;\n\
-    \n    multi_patricia_binary_trie() : root(nullptr) {}\n\n    T operator[](int\
-    \ k) const {\n        assert(0 <= k && k < this->size());\n        return this->get(root,\
-    \ k);\n    }\n\n    int size() const { return this->root ? this->root->count :\
-    \ 0; }\n    bool empty() const { return !this->root; }\n    void insert(T val)\
-    \ { this->root = this->add(this->root, val); }\n    void erase(T val) {\n    \
-    \    if (this->count(val)) this->root = this->sub(this->root, val);\n    }\n \
-    \   T kth_element(int k) const {\n        assert(0 <= k && k < this->size());\n\
+    \u30BA\n */\ntemplate <class T, int B = 31>\nstruct patricia_binary_trie {\n \
+    \   struct Node {\n        T val;\n        int len, count;\n        Node* ch[2];\n\
+    \        Node(T _val, int _len, int _count = 0)\n            : val(_val), len(_len),\
+    \ count(_count), ch{nullptr, nullptr} {}\n    };\n\n    Node* root;\n\n    patricia_binary_trie()\
+    \ : root(nullptr) {}\n\n    T operator[](int k) const {\n        assert(0 <= k\
+    \ && k < this->size());\n        return this->get(root, k);\n    }\n\n    int\
+    \ size() const { return this->root ? this->root->count : 0; }\n    bool empty()\
+    \ const { return !this->root; }\n    void insert(T val) {\n        if (!this->count(val))\
+    \ this->root = this->add(this->root, val);\n    }\n    void erase(T val) {\n \
+    \       if (this->count(val)) this->root = this->sub(this->root, val);\n    }\n\
+    \    T kth_element(int k) const {\n        assert(0 <= k && k < this->size());\n\
     \        return this->get(this->root, k);\n    }\n    T max_element(T bias = 0)\
     \ const { return this->get_min(this->root, ~bias); }\n    T min_element(T bias\
     \ = 0) const { return this->get_min(this->root, bias); }\n    int lower_bound(T\
     \ val) { return this->count_lower(this->root, val); }\n    int upper_bound(T val)\
     \ { return this->count_lower(this->root, val + 1); }\n    int count(T val) const\
     \ {\n        if (!this->root) return 0;\n        Node* node = this->root;\n  \
-    \      int rest = node->len;\n        for (int i = B - 1; i >= 0; i--) {\n   \
+    \      int rest = node->len;\n        for (int i = B - 1; i >= 0; --i) {\n   \
     \         if (!rest) {\n                node = node->ch[val >> i & 1];\n     \
     \           if (!node) return 0;\n                rest += node->len;\n       \
     \     }\n            if ((val ^ node->val) >> i & 1) return 0;\n            --rest;\n\
@@ -75,15 +77,16 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/binary_tree/multi_patricia_binary_trie.hpp
+  path: lib/binary_tree/patricia_binary_trie.hpp
   requiredBy: []
-  timestamp: '2021-10-02 20:25:15+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: lib/binary_tree/multi_patricia_binary_trie.hpp
+  timestamp: '2021-10-02 20:25:31+09:00'
+  verificationStatus: LIBRARY_ALL_WA
+  verifiedWith:
+  - test/yosupo/data_structure/set_xor-min.test.cpp
+documentation_of: lib/binary_tree/patricia_binary_trie.hpp
 layout: document
 redirect_from:
-- /library/lib/binary_tree/multi_patricia_binary_trie.hpp
-- /library/lib/binary_tree/multi_patricia_binary_trie.hpp.html
-title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A)"
+- /library/lib/binary_tree/patricia_binary_trie.hpp
+- /library/lib/binary_tree/patricia_binary_trie.hpp.html
+title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
 ---

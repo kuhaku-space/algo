@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/geometry/geometry.hpp
-    title: lib/geometry/geometry.hpp
+  - icon: ':x:'
+    path: lib/binary_tree/patricia_binary_trie.hpp
+    title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
   - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -12,14 +12,14 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_B
+    PROBLEM: https://judge.yosupo.jp/submissions
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_B
+    - https://judge.yosupo.jp/submissions
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -27,28 +27,29 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/patricia_binary_trie.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_B\"\
-    \n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    setp(10);\n    int q;\n    cin >> q;\n    while\
-    \ (q--) {\n        Point<double> a, b, c, d;\n        cin >> a >> b >> c >> d;\n\
-    \        Line l(a, b), r(c, d);\n        co(intersection(l, r));\n    }\n\n  \
-    \  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/submissions\"\n#include \"binary_tree/patricia_binary_trie.hpp\"\
+    \n#include \"template/atcoder.hpp\"\n\nint main(void) {\n    sonic();\n    int\
+    \ q;\n    cin >> q;\n    patricia_binary_trie<int, 30> bt;\n    while (q--) {\n\
+    \        int t, x;\n        cin >> t >> x;\n        if (t == 0) {\n          \
+    \  bt.insert(x);\n        } else if (t == 1) {\n            bt.erase(x);\n   \
+    \     } else {\n            co(bt.min_element(x) ^ x);\n        }\n    }\n\n \
+    \   return 0;\n}\n"
   dependsOn:
-  - lib/geometry/geometry.hpp
+  - lib/binary_tree/patricia_binary_trie.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
-  path: test/aoj/geometry/intersection.test.cpp
+  path: test/yosupo/data_structure/set_xor-min.test.cpp
   requiredBy: []
-  timestamp: '2021-09-29 10:01:10+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-10-02 20:25:50+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/aoj/geometry/intersection.test.cpp
+documentation_of: test/yosupo/data_structure/set_xor-min.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/geometry/intersection.test.cpp
-- /verify/test/aoj/geometry/intersection.test.cpp.html
-title: test/aoj/geometry/intersection.test.cpp
+- /verify/test/yosupo/data_structure/set_xor-min.test.cpp
+- /verify/test/yosupo/data_structure/set_xor-min.test.cpp.html
+title: test/yosupo/data_structure/set_xor-min.test.cpp
 ---

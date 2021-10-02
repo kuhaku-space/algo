@@ -80,6 +80,9 @@ data:
   - icon: ':warning:'
     path: lib/binary_tree/multi_patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A)"
+  - icon: ':x:'
+    path: lib/binary_tree/patricia_binary_trie.hpp
+    title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/segment_tree.hpp
     title: lib/binary_tree/segment_tree.hpp
@@ -239,7 +242,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -312,6 +315,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/data_structure/set_xor-min.test.cpp
+    title: test/yosupo/data_structure/set_xor-min.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
@@ -327,9 +333,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -426,6 +432,7 @@ data:
   - lib/binary_tree/dynamic_segment_tree.hpp
   - lib/binary_tree/binary_trie.hpp
   - lib/binary_tree/dual_segment_tree.hpp
+  - lib/binary_tree/patricia_binary_trie.hpp
   - lib/binary_tree/multi_patricia_binary_trie.hpp
   - lib/binary_tree/BIT.hpp
   - lib/_new/slope_trick.hpp
@@ -438,7 +445,7 @@ data:
   - lib/_new/make_permutation.hpp
   - lib/_new/partially_persistent_union_find.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/prime_factorize.test.cpp
   - test/aoj/power.test.cpp
@@ -456,6 +463,7 @@ data:
   - test/aoj/longest_increasing_subsequense.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/set_xor-min.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
