@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/submissions
+    PROBLEM: https://judge.yosupo.jp/problem/set_xor_min
     links:
-    - https://judge.yosupo.jp/submissions
+    - https://judge.yosupo.jp/problem/set_xor_min
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -29,13 +29,13 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/patricia_binary_trie.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/submissions\"\n#include \"binary_tree/patricia_binary_trie.hpp\"\
-    \n#include \"template/atcoder.hpp\"\n\nint main(void) {\n    sonic();\n    int\
-    \ q;\n    cin >> q;\n    patricia_binary_trie<int, 30> bt;\n    while (q--) {\n\
-    \        int t, x;\n        cin >> t >> x;\n        if (t == 0) {\n          \
-    \  bt.insert(x);\n        } else if (t == 1) {\n            bt.erase(x);\n   \
-    \     } else {\n            co(bt.min_element(x) ^ x);\n        }\n    }\n\n \
-    \   return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n#include\
+    \ \"binary_tree/patricia_binary_trie.hpp\"\n#include \"template/atcoder.hpp\"\n\
+    \nint main(void) {\n    sonic();\n    int q;\n    cin >> q;\n    patricia_binary_trie<int,\
+    \ 30> bt;\n    while (q--) {\n        int t, x;\n        cin >> t >> x;\n    \
+    \    if (t == 0) {\n            bt.insert(x);\n        } else if (t == 1) {\n\
+    \            bt.erase(x);\n        } else {\n            co(bt.min_element(x)\
+    \ ^ x);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/patricia_binary_trie.hpp
   - lib/template/template.hpp
@@ -43,8 +43,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/set_xor-min.test.cpp
   requiredBy: []
-  timestamp: '2021-10-02 20:25:50+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-10-02 20:45:12+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/set_xor-min.test.cpp
 layout: document
