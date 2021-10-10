@@ -1,5 +1,5 @@
-#include "template/template.hpp"
 #include "math/modint.hpp"
+#include "template/template.hpp"
 
 template <int mod, int primitive_root>
 struct NTT {
@@ -8,13 +8,12 @@ struct NTT {
     template <class T>
     void _ntt(vector<T> &a, bool inv) {
         int N = a.size();
-        int pr = primitive_root;
         static bool is_first = true;
-        static vector<mint> vbw(30), vibw(30);
+        static array<mint, 30> vbw, vibw;
         if (is_first) {
             is_first = false;
             for (int i = 0; i < 30; ++i) {
-                vbw[i] = mint(pr).pow((mod - 1) >> (i + 1));
+                vbw[i] = mint(primitive_root).pow((mod - 1) >> (i + 1));
                 vibw[i] = vbw[i].inverse();
             }
         }
