@@ -6,6 +6,9 @@ struct Xorshift {
 
     Xorshift() { x = 123456789, y = 362436069, z = 521288629, w = 88675123; }
 
+    using result_type = unsigned int;
+    constexpr unsigned int min() { return 0; }
+    constexpr unsigned int max() { return UINT32_MAX; }
     unsigned int operator()() {
         unsigned int t = (x ^ (x << 11));
         x = y, y = z, z = w;
