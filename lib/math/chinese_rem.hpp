@@ -22,8 +22,8 @@ int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
 template <class T, class U>
 pair<int64_t, int64_t> chinese_rem(const vector<T> &b, const vector<U> &m) {
     int64_t r = 0, M = 1;
-    int64_t n = b.size();
-    for (int64_t i = 0; i < n; ++i) {
+    int n = b.size();
+    for (int i = 0; i < n; ++i) {
         int64_t p, q;
         int64_t d = extGCD(M, m[i], p, q);
         if ((b[i] - r) % d != 0) return {0, -1};
