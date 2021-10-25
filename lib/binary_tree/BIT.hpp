@@ -23,46 +23,46 @@ struct BIT {
     }
 
     /**
-     * @brief v[k] = x
+     * @brief v[k] = val
      *
-     * @param k index
-     * @param x data
+     * @param k index of array
+     * @param val new value
      * @return void
      */
-    void update(int k, T x) { this->add(k, x - this->at(k)); }
+    void update(int k, T val) { this->add(k, val - this->at(k)); }
     /**
-     * @brief v[k] += x
+     * @brief v[k] += val
      *
-     * @param k index
-     * @param x data
+     * @param k index of array
+     * @param val new value
      * @return void
      */
-    void add(int k, T x) {
+    void add(int k, T val) {
         assert(0 <= k && k < this->N);
-        for (++k; k < N; k += k & -k) this->data[k] += x;
+        for (++k; k < N; k += k & -k) this->data[k] += val;
     }
     /**
-     * @brief chmax(v[k], x)
+     * @brief chmax(v[k], val)
      *
-     * @param k index
-     * @param x data
+     * @param k index of array
+     * @param val new value
      * @return bool
      */
-    bool chmax(int k, T x) {
-        if (this->at(k) >= x) return false;
-        this->update(k, x);
+    bool chmax(int k, T val) {
+        if (this->at(k) >= val) return false;
+        this->update(k, val);
         return true;
     }
     /**
-     * @brief chmin(v[k], x)
+     * @brief chmin(v[k], val)
      *
-     * @param k index
-     * @param x data
+     * @param k index of value
+     * @param val new value
      * @return bool
      */
-    bool chmin(int k, T x) {
-        if (this->at(k) <= x) return false;
-        this->update(k, x);
+    bool chmin(int k, T val) {
+        if (this->at(k) <= val) return false;
+        this->update(k, val);
         return true;
     }
 
@@ -71,11 +71,11 @@ struct BIT {
      *
      * @return T
      */
-    T sum() const { return this->sum(this->N); }
+    T all_sum() const { return this->sum(this->N); }
     /**
      * @brief v[0] + ... + v[k - 1]
      *
-     * @param k index
+     * @param k index of array
      * @return T
      */
     T sum(int k) const {
@@ -87,25 +87,25 @@ struct BIT {
     /**
      * @brief v[a] + ... + v[b - 1]
      *
-     * @param a first index
-     * @param b last index
+     * @param a first index of array
+     * @param b last index of array
      * @return T
      */
     T sum(int a, int b) const { return this->sum(b) - this->sum(a); }
 
     /**
-     * @brief BIT上で二分探索
+     * @brief binary search on BIT
      *
-     * @param x data
+     * @param val target value
      * @return int
      */
-    int lower_bound(T x) const {
-        if (x <= 0) return 0;
+    int lower_bound(T val) const {
+        if (val <= 0) return 0;
         int k = 1;
         while (k < this->N) k <<= 1;
         int res = 0;
         for (; k > 0; k >>= 1) {
-            if (res + k < N && this->data[res + k] < x) x -= this->data[res += k];
+            if (res + k < N && this->data[res + k] < val) val -= this->data[res += k];
         }
         return res;
     }
