@@ -1,5 +1,5 @@
-#include "template/template.hpp"
 #include "fft/ntt.hpp"
+#include "template/template.hpp"
 
 /*
  * verify:
@@ -12,14 +12,12 @@ struct BigInt {
     vector<int> data;
     bool is_negative;
 
-    BigInt() {}
+    BigInt() : data(1), is_negative() {}
     BigInt(string s) : data(s.size()), is_negative(false) {
         if (s[0] == '-') is_negative = true;
         reverse(s.begin(), s.end());
         if (is_negative) s.pop_back(), data.pop_back();
-        for (int i = 0; i < s.size(); ++i) {
-            data[i] = s[i] - '0';
-        }
+        for (int i = 0; i < s.size(); ++i) { data[i] = s[i] - '0'; }
     }
 
     BigInt &operator+=(const BigInt &rhs) {
@@ -50,15 +48,54 @@ struct BigInt {
         format();
         return *this;
     }
+    BigInt &operator/=(const BigInt &rhs) {
+        assert(!rhs.is_zero());
+        BigInt cp = *this;
+        cp.is_negative = false;
+        bool flg = this->is_negative ^ rhs.is_negative;
+        BigInt x = rhs;
+        this->is_negative = false;
+        x.is_negative = false;
+        if (*this < x) return *this = BigInt();
+        NTT<469762049, 3> ntt;  // 2^26 * 7 + 1
+        int sum = rhs.size();
+        for (int i = 0; i < 20; ++i) {
+            int len = x.size();
+            BigInt a(string("1") + string(len, '0'));
+            BigInt b = a + a - x;
+            ntt.convolution_self(data, b.data);
+            ntt.convolution_self(x.data, b.data);
+            format();
+            x.format();
+            sum += len;
+            int max_len = max(this->size(), x.size());
+            if (max_len > 1 << 15) {
+                max_len -= 1 << 15;
+                *this >>= max_len;
+                x >>= max_len;
+                sum -= max_len;
+            }
+        }
+        *this >>= sum;
+        if ((*this + BigInt("1")) * rhs.abs() <= cp) *this += BigInt("1");
+        this->is_negative = flg;
+        format();
+        return *this;
+    }
+    BigInt &operator>>=(int rhs) {
+        data.erase(data.begin(), data.begin() + rhs);
+        return *this;
+    }
 
     BigInt operator-() const {
-        BigInt res(*this);
-        if (res.size()) res.is_negative = !res.is_negative;
+        BigInt res = *this;
+        if (!res.is_zero()) res.is_negative = !res.is_negative;
         return res;
     }
     BigInt operator+(const BigInt &rhs) const { return BigInt(*this) += rhs; }
     BigInt operator-(const BigInt &rhs) const { return BigInt(*this) -= rhs; }
     BigInt operator*(const BigInt &rhs) const { return BigInt(*this) *= rhs; }
+    BigInt operator/(const BigInt &rhs) const { return BigInt(*this) /= rhs; }
 
     bool operator<(const BigInt &rhs) const {
         if (is_negative ^ rhs.is_negative) return is_negative;
@@ -68,6 +105,9 @@ struct BigInt {
         }
         return false;
     }
+    bool operator>(const BigInt &rhs) const { return rhs < *this; }
+    bool operator<=(const BigInt &rhs) const { return !(*this > rhs); }
+    bool operator>=(const BigInt &rhs) const { return !(*this < rhs); }
 
     friend ostream &operator<<(ostream &os, const BigInt &rhs) {
         string s;
@@ -105,6 +145,10 @@ struct BigInt {
         if (is_zero()) is_negative = false;
     }
 
+    BigInt abs() const {
+        if (!this->is_negative) return *this;
+        return -(*this);
+    }
     bool abs_less(const BigInt &rhs) {
         if (size() ^ rhs.size()) return size() < rhs.size();
         for (int i = size() - 1; i >= 0; --i) {

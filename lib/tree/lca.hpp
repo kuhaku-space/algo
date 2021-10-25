@@ -1,21 +1,21 @@
 #include "template/template.hpp"
 
 struct Tree {
-    int64_t V, logV;
-    vector<vector<int64_t>> data;
-    vector<int64_t> depth;
-    vector<vector<int64_t>> parent;
+    int V, logV;
+    vector<vector<int>> data;
+    vector<int> depth;
+    vector<vector<int>> parent;
 
-    Tree(int64_t v) : V(v), logV(0) {
+    Tree(int v) : V(v), logV(0) {
         while (V > (1LL << logV)) ++logV;
-        data = vector<vector<int64_t>>(V);
-        depth = vector<int64_t>(V);
-        parent = vector<vector<int64_t>>(logV, vector<int64_t>(V));
+        data = vector<vector<int>>(V);
+        depth = vector<int>(V);
+        parent = vector<vector<int>>(logV, vector<int>(V));
     }
 
-    void init(int64_t r) {
+    void init(int r) {
         struct node {
-            int64_t v, p, d;
+            int v, p, d;
         };
         stack<node> st;
         st.push(node{r, -1, 0});
@@ -31,10 +31,10 @@ struct Tree {
         }
     }
 
-    void build(int64_t r = 0) {
+    void build(int r = 0) {
         this->init(r);
-        for (int64_t k = 0; k < logV - 1; ++k) {
-            for (int64_t v = 0; v < V; ++v) {
+        for (int k = 0; k < logV - 1; ++k) {
+            for (int v = 0; v < V; ++v) {
                 if (parent[k][v] < 0)
                     parent[k + 1][v] = -1;
                 else
@@ -43,19 +43,19 @@ struct Tree {
         }
     }
 
-    void add_edge(int64_t a, int64_t b) {
+    void add_edge(int a, int b) {
         data[a].emplace_back(b);
         data[b].emplace_back(a);
     }
 
-    int64_t lca(int64_t u, int64_t v) {
+    int lca(int u, int v) {
         if (depth[u] > depth[v]) swap(u, v);
-        for (int64_t k = 0; k < logV; ++k) {
+        for (int k = 0; k < logV; ++k) {
             if ((depth[v] - depth[u]) >> k & 1) v = parent[k][v];
         }
         if (u == v) return u;
 
-        for (int64_t k = logV - 1; k >= 0; --k) {
+        for (int k = logV - 1; k >= 0; --k) {
             if (parent[k][u] != parent[k][v]) {
                 u = parent[k][u];
                 v = parent[k][v];
@@ -64,11 +64,11 @@ struct Tree {
         return parent[0][u];
     }
 
-    int64_t get_depth(int64_t a) { return depth[a]; }
-    int64_t get_parent(int64_t a) { return parent[0][a]; }
+    int get_depth(int a) { return depth[a]; }
+    int get_parent(int a) { return parent[0][a]; }
 
-    int64_t get_ancestor(int64_t a, int64_t d) {
-        for (int64_t k = 0; d; d >>= 1, ++k) {
+    int get_ancestor(int a, int d) {
+        for (int k = 0; d; d >>= 1, ++k) {
             if (d & 1) a = parent[k][a];
         }
         return a;
