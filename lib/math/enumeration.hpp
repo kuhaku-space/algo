@@ -46,4 +46,3 @@ struct Enumeration {
         }
     }
 };
-Enumeration<MOD> enume;
