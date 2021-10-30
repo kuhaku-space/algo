@@ -21,7 +21,7 @@ struct segment_tree {
      * @param _e identity element
      * @param _op binary operation
      */
-    segment_tree(int _n, T _e, F &&_op) : e(_e), op(_op) { init(_n); }
+    segment_tree(int _n, T _e, F &&_op) : e(_e), op(_op) { init(_n, _e); }
     /**
      * @brief Construct a new segment tree object
      *
@@ -29,13 +29,13 @@ struct segment_tree {
      * @param _e identity element
      * @param _op binary operation
      */
-    segment_tree(int _n, T _e, const F &_op) : e(_e), op(_op) { init(_n); }
+    segment_tree(int _n, T _e, const F &_op) : e(_e), op(_op) { init(_n, _e); }
 
     const T &operator[](int i) const { return this->data[i + N]; }
     T at(int k) const { return this->operator[](k); }
     T get(int k) const { return this->operator[](k); }
 
-    void init(int n, int val = e) {
+    void init(int n, const T val) {
         for (N = 1; N < n; N <<= 1) {}
         this->data.assign(N << 1, val);
     }
@@ -55,7 +55,7 @@ struct segment_tree {
     }
     void add(int k, T val) { this->update(k, val - this->at(k)); }
 
-    bool chmaval(int k, T val) {
+    bool chmax(int k, T val) {
         if (this->at(k) >= val) return false;
         this->update(k, val);
         return true;
