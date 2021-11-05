@@ -60,6 +60,8 @@ struct ModInt {
     constexpr bool operator==(const ModInt &rhs) const noexcept { return x == rhs.x; }
     constexpr bool operator!=(const ModInt &rhs) const noexcept { return x != rhs.x; }
 
+    explicit operator int() const noexcept { return x; }
+
     constexpr ModInt inverse() const noexcept {
         int a = x, b = mod, u = 1, v = 0, t;
         while (b > 0) {
