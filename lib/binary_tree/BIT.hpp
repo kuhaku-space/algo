@@ -12,8 +12,7 @@ struct BIT {
     BIT(int n, T e = T(0)) : N(n + 1), data(n + 1, e) {}
     BIT(const vector<T> &v) : N(v.size() + 1), data(v.size() + 1) { this->build(v); }
 
-    const T &operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
-    const T at(int k) const { return this->operator[](k); }
+    const T at(int k) const { return this->sum(k + 1) - this->sum(k); }
     const T get(int k) const { return this->operator[](k); }
 
     template <class U>
