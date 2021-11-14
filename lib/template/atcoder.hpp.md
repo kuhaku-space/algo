@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -9,10 +9,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
   - icon: ':heavy_check_mark:'
@@ -60,7 +60,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -72,17 +72,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -111,30 +111,30 @@ data:
   path: lib/template/atcoder.hpp
   requiredBy: []
   timestamp: '2021-09-29 10:01:10+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/aoj/prime_factorize.test.cpp
-  - test/aoj/power.test.cpp
   - test/aoj/dp/bell.test.cpp
   - test/aoj/dp/stirling.test.cpp
-  - test/aoj/the_number_of_inversions.test.cpp
-  - test/aoj/geometry/cross_point.test.cpp
-  - test/aoj/geometry/intersection.test.cpp
-  - test/aoj/geometry/reflection.test.cpp
-  - test/aoj/geometry/parallel_orthogonal.test.cpp
-  - test/aoj/geometry/projection.test.cpp
+  - test/aoj/power.test.cpp
+  - test/aoj/prime_factorize.test.cpp
   - test/aoj/geometry/counter-clockwise.test.cpp
-  - test/aoj/all_pairs_shortest_path.test.cpp
+  - test/aoj/geometry/intersection.test.cpp
+  - test/aoj/geometry/projection.test.cpp
+  - test/aoj/geometry/parallel_orthogonal.test.cpp
+  - test/aoj/geometry/cross_point.test.cpp
+  - test/aoj/geometry/reflection.test.cpp
   - test/aoj/prime_numbers.test.cpp
   - test/aoj/longest_increasing_subsequense.test.cpp
+  - test/aoj/the_number_of_inversions.test.cpp
+  - test/aoj/all_pairs_shortest_path.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/set_xor-min.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:

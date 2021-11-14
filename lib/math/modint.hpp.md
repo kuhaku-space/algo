@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -20,17 +20,17 @@ data:
   - icon: ':warning:'
     path: lib/fft/ntt_mod.hpp
     title: lib/fft/ntt_mod.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
   - icon: ':heavy_check_mark:'
@@ -39,19 +39,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: modint
     links:
     - https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -82,38 +82,39 @@ data:
     \ rhs; }\r\n    constexpr ModInt operator/(const ModInt &rhs) const noexcept {\
     \ return ModInt(*this) /= rhs; }\r\n\r\n    constexpr bool operator==(const ModInt\
     \ &rhs) const noexcept { return x == rhs.x; }\r\n    constexpr bool operator!=(const\
-    \ ModInt &rhs) const noexcept { return x != rhs.x; }\r\n\r\n    constexpr ModInt\
-    \ inverse() const noexcept {\r\n        int a = x, b = mod, u = 1, v = 0, t;\r\
-    \n        while (b > 0) {\r\n            t = a / b;\r\n            swap(a -= t\
-    \ * b, b);\r\n            swap(u -= t * v, v);\r\n        }\r\n        return\
-    \ ModInt(u);\r\n    }\r\n\r\n    constexpr ModInt pow(int64_t n) const noexcept\
-    \ { return ModInt(*this).pow_self(n); }\r\n    constexpr ModInt &pow_self(int64_t\
-    \ n) noexcept {\r\n        ModInt res(1);\r\n        for (; n > 0; n >>= 1) {\r\
-    \n            if (n & 1) res *= *this;\r\n            *this *= *this;\r\n    \
-    \    }\r\n        *this = res;\r\n        return *this;\r\n    }\r\n\r\n    friend\
-    \ istream &operator>>(istream &is, ModInt &rhs) {\r\n        int64_t t;\r\n  \
-    \      is >> t;\r\n        rhs = ModInt<mod>(t);\r\n        return (is);\r\n \
-    \   }\r\n    friend ostream &operator<<(ostream &os, const ModInt &rhs) { return\
-    \ os << rhs.x; }\r\n\r\n    int to_int() const noexcept { return x; }\r\n\r\n\
-    \    static int get_mod() noexcept { return mod; }\r\n};\r\n"
+    \ ModInt &rhs) const noexcept { return x != rhs.x; }\r\n\r\n    explicit operator\
+    \ int() const noexcept { return x; }\r\n\r\n    constexpr ModInt inverse() const\
+    \ noexcept {\r\n        int a = x, b = mod, u = 1, v = 0, t;\r\n        while\
+    \ (b > 0) {\r\n            t = a / b;\r\n            swap(a -= t * b, b);\r\n\
+    \            swap(u -= t * v, v);\r\n        }\r\n        return ModInt(u);\r\n\
+    \    }\r\n\r\n    constexpr ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n);\
+    \ }\r\n    constexpr ModInt &pow_self(int64_t n) noexcept {\r\n        ModInt\
+    \ res(1);\r\n        for (; n > 0; n >>= 1) {\r\n            if (n & 1) res *=\
+    \ *this;\r\n            *this *= *this;\r\n        }\r\n        *this = res;\r\
+    \n        return *this;\r\n    }\r\n\r\n    friend istream &operator>>(istream\
+    \ &is, ModInt &rhs) {\r\n        int64_t t;\r\n        is >> t;\r\n        rhs\
+    \ = ModInt<mod>(t);\r\n        return (is);\r\n    }\r\n    friend ostream &operator<<(ostream\
+    \ &os, const ModInt &rhs) { return os << rhs.x; }\r\n\r\n    int to_int() const\
+    \ noexcept { return x; }\r\n\r\n    static int get_mod() noexcept { return mod;\
+    \ }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/modint.hpp
   requiredBy:
-  - lib/data_structure/bigint_beta.hpp
-  - lib/data_structure/bigint.hpp
+  - lib/fft/ntt.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt.hpp
   - lib/math/enumeration.hpp
   - lib/math/combination.hpp
-  timestamp: '2021-10-02 14:41:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  - lib/data_structure/bigint.hpp
+  - lib/data_structure/bigint_beta.hpp
+  timestamp: '2021-11-06 08:05:36+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/aoj/power.test.cpp
   - test/aoj/dp/bell.test.cpp
   - test/aoj/dp/stirling.test.cpp
+  - test/aoj/power.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document

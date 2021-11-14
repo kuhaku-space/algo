@@ -155,8 +155,8 @@ data:
   isVerificationFile: false
   path: lib/atcoder/internal_math.hpp
   requiredBy:
-  - lib/atcoder/math.hpp
   - lib/atcoder/modint.hpp
+  - lib/atcoder/math.hpp
   - lib/atcoder/convolution.hpp
   timestamp: '2021-09-18 16:27:55+09:00'
   verificationStatus: LIBRARY_NO_TESTS

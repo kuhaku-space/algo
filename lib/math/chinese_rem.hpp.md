@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -11,12 +11,12 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -30,17 +30,17 @@ data:
     \u3081\u308B\r\n * x = r + M * k (k in N) \u3068\u8868\u3059\u3053\u3068\u304C\
     \u3067\u304D\u308B\r\n */\r\ntemplate <class T, class U>\r\npair<int64_t, int64_t>\
     \ chinese_rem(const vector<T> &b, const vector<U> &m) {\r\n    int64_t r = 0,\
-    \ M = 1;\r\n    int64_t n = b.size();\r\n    for (int64_t i = 0; i < n; ++i) {\r\
-    \n        int64_t p, q;\r\n        int64_t d = extGCD(M, m[i], p, q);\r\n    \
-    \    if ((b[i] - r) % d != 0) return {0, -1};\r\n        int64_t tmp = (b[i] -\
-    \ r) / d * p % (m[i] / d);\r\n        r += M * tmp;\r\n        M *= m[i] / d;\r\
-    \n    }\r\n    return {r >= 0 ? r % M : M - 1 - (-r - 1) % M, M};\r\n}\r\n"
+    \ M = 1;\r\n    int n = b.size();\r\n    for (int i = 0; i < n; ++i) {\r\n   \
+    \     int64_t p, q;\r\n        int64_t d = extGCD(M, m[i], p, q);\r\n        if\
+    \ ((b[i] - r) % d != 0) return {0, -1};\r\n        int64_t tmp = (b[i] - r) /\
+    \ d * p % (m[i] / d);\r\n        r += M * tmp;\r\n        M *= m[i] / d;\r\n \
+    \   }\r\n    return {r >= 0 ? r % M : M - 1 - (-r - 1) % M, M};\r\n}\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/chinese_rem.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-10-26 00:33:53+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/chinese_rem.hpp

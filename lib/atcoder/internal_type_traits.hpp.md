@@ -112,9 +112,9 @@ data:
   isVerificationFile: false
   path: lib/atcoder/internal_type_traits.hpp
   requiredBy:
-  - lib/atcoder/fenwicktree.hpp
   - lib/atcoder/modint.hpp
   - lib/atcoder/convolution.hpp
+  - lib/atcoder/fenwicktree.hpp
   timestamp: '2021-09-18 16:27:55+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

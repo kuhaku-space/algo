@@ -33,9 +33,6 @@ data:
   - name: lib/_old
     pages:
     - icon: ':warning:'
-      path: lib/_old/BIT.hpp
-      title: lib/_old/BIT.hpp
-    - icon: ':warning:'
       path: lib/_old/graph_algorithm.hpp
       title: lib/_old/graph_algorithm.hpp
     - icon: ':warning:'
@@ -121,7 +118,7 @@ data:
       title: Binary Indexed Tree
     - icon: ':warning:'
       path: lib/binary_tree/BIT_RSQ.hpp
-      title: lib/binary_tree/BIT_RSQ.hpp
+      title: v[k] = val
     - icon: ':warning:'
       path: lib/binary_tree/binary_trie.hpp
       title: "2\u5206\u30C8\u30E9\u30A4\u6728"
@@ -144,9 +141,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/binary_tree/segment_tree.hpp
-      title: lib/binary_tree/segment_tree.hpp
+      title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - name: lib/data_structure
     pages:
     - icon: ':warning:'
@@ -269,10 +266,10 @@ data:
     - icon: ':warning:'
       path: lib/math/chinese_rem.hpp
       title: lib/math/chinese_rem.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/math/combination.hpp
       title: lib/math/combination.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/math/enumeration.hpp
       title: lib/math/enumeration.hpp
     - icon: ':warning:'
@@ -284,7 +281,7 @@ data:
     - icon: ':warning:'
       path: lib/math/matrix.hpp
       title: lib/math/matrix.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/math/modint.hpp
       title: modint
     - icon: ':warning:'
@@ -321,10 +318,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -350,6 +347,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/union_find.hpp
       title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+    - icon: ':warning:'
+      path: lib/tree/union_find_with_edge.hpp
+      title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   verificationCategories:
   - name: test/aoj
     pages:
@@ -373,10 +373,10 @@ data:
       title: test/aoj/the_number_of_inversions.test.cpp
   - name: test/aoj/dp
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/dp/bell.test.cpp
       title: test/aoj/dp/bell.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/dp/stirling.test.cpp
       title: test/aoj/dp/stirling.test.cpp
   - name: test/aoj/geometry
@@ -415,7 +415,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/data_structure/static_rmq.test.cpp
       title: test/yosupo/data_structure/static_rmq.test.cpp
     - icon: ':heavy_check_mark:'

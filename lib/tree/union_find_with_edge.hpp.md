@@ -4,17 +4,11 @@ data:
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/graph/kruskal.hpp
-    title: lib/graph/kruskal.hpp
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/unionfind.test.cpp
-    title: test/yosupo/data_structure/unionfind.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
     links: []
@@ -29,31 +23,31 @@ data:
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u7D20\u96C6\u5408\
     \u30C7\u30FC\u30BF\u69CB\u9020\r\n *\r\n */\r\nstruct union_find {\r\n    vector<int>\
-    \ data;\r\n\r\n    union_find() : data() {}\r\n    union_find(int _n) : data(_n,\
-    \ -1) {}\r\n\r\n    int root(int x) { return this->data[x] < 0 ? x : this->data[x]\
-    \ = this->root(data[x]); }\r\n    int get_root(int x) { return this->root(x);\
+    \ data;\r\n    vector<int> edge;\r\n\r\n    union_find() : data(), edge() {}\r\
+    \n    union_find(int _n) : data(_n, -1), edge(_n, 0) {}\r\n\r\n    int root(int\
+    \ x) { return this->data[x] < 0 ? x : this->data[x] = this->root(this->data[x]);\
     \ }\r\n\r\n    bool is_root(int x) { return this->data[x] < 0; }\r\n\r\n    void\
     \ unite(int x, int y) {\r\n        x = this->root(x), y = this->root(y);\r\n \
     \       if (x != y) {\r\n            if (this->data[x] > this->data[y]) swap(x,\
-    \ y);\r\n            this->data[x] += this->data[y];\r\n            this->data[y]\
-    \ = x;\r\n        }\r\n    }\r\n\r\n    int size(int x) { return -(this->data[this->root(x)]);\
-    \ }\r\n    int get_size(int x) { return this->size(x); }\r\n\r\n    bool same(int\
-    \ x, int y) { return this->root(x) == this->root(y); }\r\n    bool is_same(int\
-    \ x, int y) { return this->same(x, y); }\r\n};\r\n"
+    \ y);\r\n            this->data[x] += this->data[y];\r\n            this->edge[x]\
+    \ += this->edge[y];\r\n            this->data[y] = x;\r\n        }\r\n       \
+    \ ++(this->edge[x]);\r\n    }\r\n\r\n    int size(int x) { return -(this->data[this->root(x)]);\
+    \ }\r\n    int get_size(int x) { return this->size(x); }\r\n    int get_edge_size(int\
+    \ x) { return edge[x]; }\r\n\r\n    bool same(int x, int y) { return this->root(x)\
+    \ == this->root(y); }\r\n    bool is_same(int x, int y) { return this->same(x,\
+    \ y); }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/tree/union_find.hpp
-  requiredBy:
-  - lib/graph/kruskal.hpp
-  timestamp: '2021-11-14 11:20:35+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/data_structure/unionfind.test.cpp
-documentation_of: lib/tree/union_find.hpp
+  path: lib/tree/union_find_with_edge.hpp
+  requiredBy: []
+  timestamp: '2021-11-14 11:17:47+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: lib/tree/union_find_with_edge.hpp
 layout: document
 redirect_from:
-- /library/lib/tree/union_find.hpp
-- /library/lib/tree/union_find.hpp.html
+- /library/lib/tree/union_find_with_edge.hpp
+- /library/lib/tree/union_find_with_edge.hpp.html
 title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
 ---
