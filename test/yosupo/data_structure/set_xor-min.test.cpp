@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/submissions"
+#define PROBLEM "https://judge.yosupo.jp/problem/set_xor_min"
 #include "binary_tree/patricia_binary_trie.hpp"
 #include "template/atcoder.hpp"
 

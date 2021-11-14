@@ -5,7 +5,7 @@ int main(void) {
     sonic();
     int n, q;
     cin >> n >> q;
-    vector<int> a(n);
+    vector<ll> a(n);
     cin >> a;
     a.emplace_back(0);
     repr(i, n) a[i] += a[i + 1];
