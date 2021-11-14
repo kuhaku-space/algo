@@ -6,6 +6,7 @@ int main(void) {
     sonic();
     int n, k;
     cin >> n >> k;
+    Enumeration<MOD> enume;
     co(enume.stirling(n, k));
 
     return 0;
