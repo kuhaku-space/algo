@@ -13,7 +13,7 @@ int main(void) {
     rep(i, q) {
         int l, r;
         cin >> l >> r;
-        co(st.query(l, r));
+        co(st.prod(l, r));
     }
 
     return 0;
