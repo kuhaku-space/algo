@@ -40,8 +40,7 @@ struct Matrix {
         vector<vector<T>> tmp(x, vector<T>(y));
         for (int64_t i = 0; i < x; ++i) {
             for (int64_t k = 0; k < z; ++k) {
-                for (int64_t j = 0; j < y; ++j)
-                    tmp[i][j] += v[i][k] * rhs.v[k][j];
+                for (int64_t j = 0; j < y; ++j) tmp[i][j] += v[i][k] * rhs.v[k][j];
             }
         }
         swap(v, tmp);
@@ -58,6 +57,16 @@ struct Matrix {
     Matrix operator+(const Matrix &rhs) const { return Matrix(*this) += rhs; }
     Matrix operator-(const Matrix &rhs) const { return Matrix(*this) -= rhs; }
     Matrix operator*(const Matrix &rhs) const { return Matrix(*this) *= rhs; }
+
+    vector<T> operator*(const vector<T> &rhs) {
+        assert(v[0].size() == rhs.size());
+        int64_t x = v.size(), y = v[0].size();
+        vector<T> res(x);
+        for (int64_t i = 0; i < x; ++i) {
+            for (int64_t j = 0; j < y; ++j) res[i] += v[i][j] * rhs[j];
+        }
+        return res;
+    }
 
     Matrix pow(int64_t n) const {
         Matrix res(v), mul(v);
@@ -82,9 +91,7 @@ struct Matrix {
         int64_t x = v[0].size(), y = v.size();
         vector<vector<T>> res(x, vector<T>(y));
         for (int64_t i = 0; i < x; ++i) {
-            for (int64_t j = 0; j < y; ++j) {
-                res[i][j] = v[j][i];
-            }
+            for (int64_t j = 0; j < y; ++j) { res[i][j] = v[j][i]; }
         }
         return Matrix(res);
     }
