@@ -32,6 +32,12 @@ data:
   - icon: ':warning:'
     path: lib/tree/tree_dist.hpp
     title: lib/tree/tree_dist.hpp
+  - icon: ':warning:'
+    path: lib/tree/tree_parent.hpp
+    title: lib/tree/tree_parent.hpp
+  - icon: ':warning:'
+    path: lib/tree/tree_subtree.hpp
+    title: lib/tree/tree_subtree.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
@@ -94,15 +100,17 @@ data:
   isVerificationFile: false
   path: lib/graph/graph.hpp
   requiredBy:
-  - lib/tree/tree.hpp
-  - lib/tree/tree_dist.hpp
-  - lib/graph/scc.hpp
-  - lib/graph/lowlink.hpp
-  - lib/graph/topological_sort.hpp
-  - lib/graph/kruskal.hpp
   - lib/graph/dijkstra.hpp
-  - lib/graph/two_sat.hpp
+  - lib/graph/topological_sort.hpp
+  - lib/graph/scc.hpp
   - lib/graph/bellman_ford.hpp
+  - lib/graph/lowlink.hpp
+  - lib/graph/two_sat.hpp
+  - lib/graph/kruskal.hpp
+  - lib/tree/tree.hpp
+  - lib/tree/tree_subtree.hpp
+  - lib/tree/tree_parent.hpp
+  - lib/tree/tree_dist.hpp
   timestamp: '2021-09-22 06:52:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

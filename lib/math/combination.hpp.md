@@ -76,8 +76,8 @@ data:
   timestamp: '2021-11-06 08:06:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dp/bell.test.cpp
   - test/aoj/dp/stirling.test.cpp
+  - test/aoj/dp/bell.test.cpp
 documentation_of: lib/math/combination.hpp
 layout: document
 redirect_from:

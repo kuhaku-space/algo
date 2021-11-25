@@ -25,9 +25,6 @@ data:
       path: lib/_new/partially_persistent_union_find.hpp
       title: lib/_new/partially_persistent_union_find.hpp
     - icon: ':warning:'
-      path: lib/_new/slope_trick.hpp
-      title: lib/_new/slope_trick.hpp
-    - icon: ':warning:'
       path: lib/_new/tree64.hpp
       title: lib/_new/tree64.hpp
   - name: lib/_old
@@ -58,59 +55,6 @@ data:
     - icon: ':warning:'
       path: lib/algorithm/xorshift.hpp
       title: lib/algorithm/xorshift.hpp
-  - name: lib/atcoder
-    pages:
-    - icon: ':warning:'
-      path: lib/atcoder/convolution.hpp
-      title: lib/atcoder/convolution.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/dsu.hpp
-      title: lib/atcoder/dsu.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/fenwicktree.hpp
-      title: lib/atcoder/fenwicktree.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/internal_bit.hpp
-      title: lib/atcoder/internal_bit.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/internal_math.hpp
-      title: lib/atcoder/internal_math.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/internal_queue.hpp
-      title: lib/atcoder/internal_queue.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/internal_scc.hpp
-      title: lib/atcoder/internal_scc.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/internal_type_traits.hpp
-      title: lib/atcoder/internal_type_traits.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/lazysegtree.hpp
-      title: lib/atcoder/lazysegtree.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/math.hpp
-      title: lib/atcoder/math.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/maxflow.hpp
-      title: lib/atcoder/maxflow.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/mincostflow.hpp
-      title: lib/atcoder/mincostflow.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/modint.hpp
-      title: lib/atcoder/modint.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/scc.hpp
-      title: lib/atcoder/scc.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/segtree.hpp
-      title: lib/atcoder/segtree.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/string.hpp
-      title: lib/atcoder/string.hpp
-    - icon: ':warning:'
-      path: lib/atcoder/twosat.hpp
-      title: lib/atcoder/twosat.hpp
   - name: lib/binary_tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -124,7 +68,7 @@ data:
       title: "2\u5206\u30C8\u30E9\u30A4\u6728"
     - icon: ':warning:'
       path: lib/binary_tree/dual_segment_tree.hpp
-      title: lib/binary_tree/dual_segment_tree.hpp
+      title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':warning:'
       path: lib/binary_tree/dynamic_segment_tree.hpp
       title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -299,6 +243,9 @@ data:
     - icon: ':warning:'
       path: lib/math/primitive_root.hpp
       title: lib/math/primitive_root.hpp
+    - icon: ':warning:'
+      path: lib/math/slope_trick.hpp
+      title: Add f(x) = a
   - name: lib/string
     pages:
     - icon: ':warning:'
@@ -344,6 +291,12 @@ data:
     - icon: ':warning:'
       path: lib/tree/tree_dist.hpp
       title: lib/tree/tree_dist.hpp
+    - icon: ':warning:'
+      path: lib/tree/tree_parent.hpp
+      title: lib/tree/tree_parent.hpp
+    - icon: ':warning:'
+      path: lib/tree/tree_subtree.hpp
+      title: lib/tree/tree_subtree.hpp
     - icon: ':heavy_check_mark:'
       path: lib/tree/union_find.hpp
       title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"

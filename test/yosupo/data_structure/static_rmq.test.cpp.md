@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/static_rmq.test.cpp
   requiredBy: []
-  timestamp: '2021-11-14 11:31:43+09:00'
+  timestamp: '2021-11-25 18:19:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_rmq.test.cpp

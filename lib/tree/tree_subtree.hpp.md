@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/graph/graph.hpp
+    title: lib/graph/graph.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -18,33 +21,33 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T, class U>\r\n\
-    struct slope_trick {\r\n    U min_f;\r\n    priority_queue<T> l;\r\n    priority_queue<T,\
-    \ vector<T>, greater> r;\r\n\r\n    slope_trick() : min_f(), l(), r() {}\r\n\r\
-    \n    U get() { return min_f; }\r\n\r\n    // Add f(x) = a\r\n    void add(U a)\
-    \ { min_f += a; }\r\n\r\n    // Add f(x) = max(0, x - a)\r\n    void add_f(T a)\
-    \ {\r\n        min_f += max(U(), l.top() - a);\r\n        l.push(a);\r\n     \
-    \   auto x = l.top();\r\n        l.pop();\r\n        r.push(x);\r\n    }\r\n\r\
-    \n    // Add f(x) = max(0, a - x)\r\n    void add_g(U a) {\r\n        min_f +=\
-    \ max(U(), a - r.top());\r\n        r.push(a);\r\n        auto x = r.top();\r\n\
-    \        r.pop();\r\n        l.push(x);\r\n    }\r\n\r\n    // Add f(x) = abs(x\
-    \ - a)\r\n    void add_abs(U a) {\r\n        add_f(a);\r\n        add_g(a);\r\n\
-    \    }\r\n\r\n    void min_l() { r = priority_queue<T, vector<T>, greater>();\
-    \ }\r\n    void min_r() { l = priority_queue<T>(); }\r\n};\r\n"
+  code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
+    template <class T>\r\nvector<int> tree_subtree(const Graph<T> &g, int r = 0) {\r\
+    \n    vector<int> res(g.size());\r\n    auto dfs = [&g, &res](auto &&self, int\
+    \ idx, int par) {\r\n        res[idx] = 1;\r\n        for (auto i : g[idx]) {\r\
+    \n            if (i.to == par) continue;\r\n            res[idx] += self(self,\
+    \ i.to, idx);\r\n        }\r\n        return res[idx];\r\n    };\r\n    dfs(dfs,\
+    \ 0, -1);\r\n    return res;\r\n}\r\n\r\ntemplate <>\r\nvector<int> tree_subtree(const\
+    \ Graph<void> &g, int r = 0) {\r\n    vector<int> res(g.size());\r\n    auto dfs\
+    \ = [&g, &res](auto &&self, int idx, int par) {\r\n        res[idx] = 1;\r\n \
+    \       for (auto i : g[idx]) {\r\n            if (i == par) continue;\r\n   \
+    \         res[idx] += self(self, i.to, idx);\r\n        }\r\n        return res[idx];\r\
+    \n    };\r\n    dfs(dfs, 0, -1);\r\n    return res;\r\n}\r\n"
   dependsOn:
+  - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/_new/slope_trick.hpp
+  path: lib/tree/tree_subtree.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-11-25 18:07:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/_new/slope_trick.hpp
+documentation_of: lib/tree/tree_subtree.hpp
 layout: document
 redirect_from:
-- /library/lib/_new/slope_trick.hpp
-- /library/lib/_new/slope_trick.hpp.html
-title: lib/_new/slope_trick.hpp
+- /library/lib/tree/tree_subtree.hpp
+- /library/lib/tree/tree_subtree.hpp.html
+title: lib/tree/tree_subtree.hpp
 ---
