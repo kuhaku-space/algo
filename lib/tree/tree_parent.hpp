@@ -21,8 +21,8 @@ vector<int> tree_parent(const Graph<T> &g, int r = 0) {
     return res;
 }
 
-template<>
-vector<int> tree_parent(const Graph<void> &g, int r = 0) {
+template <>
+vector<int> tree_parent(const Graph<void> &g, int r) {
     struct S {
         int idx, p;
     };
