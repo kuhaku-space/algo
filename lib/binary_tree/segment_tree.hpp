@@ -29,7 +29,7 @@ struct segment_tree {
      * @param _e identity element
      * @param _op binary operation
      */
-    segment_tree(int _n, T _e, const F &_op) : e(_e), op(_op) { init(_n, _e); }
+    segment_tree(int _n, T _e, const F &_op) : e(_e), op(_op) { this->init(_n, _e); }
 
     const T &operator[](int i) const { return this->data[i + N]; }
     T at(int k) const { return this->operator[](k); }
@@ -43,9 +43,10 @@ struct segment_tree {
     template <class U>
     void build(const vector<U> &v) {
         int n = v.size();
+        assert(n <= N);
         for (int i = 0; i < n; ++i) this->data[N + i] = T(v[i]);
         for (int i = N - 1; i >= 1; --i)
-            this->data[i] = this->op(data[i * 2], this->data[i * 2 + 1]);
+            this->data[i] = this->op(this->data[i * 2], this->data[i * 2 + 1]);
     }
 
     void update(int k, T val) {
