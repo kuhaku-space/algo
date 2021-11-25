@@ -5,46 +5,45 @@ template <class T>
 struct Matrix {
     vector<vector<T>> v;
 
-    Matrix(int64_t x) { v = vector<vector<T>>(x, vector<T>(x)); }
-    Matrix(int64_t x, int64_t y) { v = vector<vector<T>>(x, vector<T>(y)); }
+    Matrix(int x) { v = vector<vector<T>>(x, vector<T>(x)); }
+    Matrix(int x, int y) { v = vector<vector<T>>(x, vector<T>(y)); }
     Matrix(const vector<vector<T>> &_v) : v(_v) {}
 
-    const vector<T> &operator[](const int64_t i) const {
-        assert(i >= 0 && i < v.size());
-        return v[i];
+    const vector<T> &operator[](int i) const {
+        assert(0 <= i && i < this->v.size());
+        return this->v[i];
     }
-    vector<T> &operator[](const int64_t i) {
-        assert(i >= 0 && i < v.size());
-        return v[i];
+    vector<T> &operator[](int i) {
+        assert(0 <= i && i < this->v.size());
+        return this->v[i];
     }
 
     Matrix &operator+=(const Matrix &rhs) {
-        assert(v.size() == rhs.v.size());
-        assert(v[0].size() == rhs.v[0].size());
-        for (int64_t i = 0; i < v.size(); ++i) {
-            for (int64_t j = 0; j < v[0].size(); ++j) v[i][j] += rhs.v[i][j];
+        assert(this->v.size() == rhs.v.size());
+        assert(this->v[0].size() == rhs.v[0].size());
+        for (int i = 0; i < this->v.size(); ++i) {
+            for (int j = 0; j < this->v[0].size(); ++j) this->v[i][j] += rhs.v[i][j];
         }
         return *this;
     }
     Matrix &operator-=(const Matrix &rhs) {
-        assert(v.size() == rhs.v.size());
-        assert(v[0].size() == rhs.v[0].size());
-        for (int64_t i = 0; i < v.size(); ++i) {
-            for (int64_t j = 0; j < v[0].size(); ++j) v[i][j] -= rhs.v[i][j];
+        assert(this->v.size() == rhs.v.size());
+        assert(this->v[0].size() == rhs.v[0].size());
+        for (int i = 0; i < this->v.size(); ++i) {
+            for (int j = 0; j < this->v[0].size(); ++j) this->v[i][j] -= rhs.v[i][j];
         }
         return *this;
     }
     Matrix &operator*=(const Matrix &rhs) {
-        assert(v[0].size() == rhs.v.size());
-        int64_t x = v.size(), y = rhs.v[0].size(), z = rhs.v.size();
+        assert(this->v[0].size() == rhs.v.size());
+        int x = this->v.size(), y = rhs.v[0].size(), z = rhs.v.size();
         vector<vector<T>> tmp(x, vector<T>(y));
-        for (int64_t i = 0; i < x; ++i) {
-            for (int64_t k = 0; k < z; ++k) {
-                for (int64_t j = 0; j < y; ++j)
-                    tmp[i][j] += v[i][k] * rhs.v[k][j];
+        for (int i = 0; i < x; ++i) {
+            for (int k = 0; k < z; ++k) {
+                for (int j = 0; j < y; ++j) tmp[i][j] += this->v[i][k] * rhs.v[k][j];
             }
         }
-        swap(v, tmp);
+        swap(this->v, tmp);
         return *this;
     }
 
@@ -59,6 +58,16 @@ struct Matrix {
     Matrix operator-(const Matrix &rhs) const { return Matrix(*this) -= rhs; }
     Matrix operator*(const Matrix &rhs) const { return Matrix(*this) *= rhs; }
 
+    vector<T> operator*(const vector<T> &rhs) {
+        assert(this->v[0].size() == rhs.size());
+        int x = this->v.size(), y = this->v[0].size();
+        vector<T> res(x);
+        for (int i = 0; i < x; ++i) {
+            for (int j = 0; j < y; ++j) res[i] += this->v[i][j] * rhs[j];
+        }
+        return res;
+    }
+
     Matrix pow(int64_t n) const {
         Matrix res(v), mul(v);
         res.unit_matrix();
@@ -70,21 +79,19 @@ struct Matrix {
     }
 
     void unit_matrix() {
-        assert(v.size() == v[0].size());
-        int64_t n = v.size();
-        for (int64_t i = 0; i < n; ++i) {
-            v[i].assign(n, T(0));
-            v[i][i] = T(1);
+        assert(this->v.size() == this->v[0].size());
+        int n = this->v.size();
+        for (int i = 0; i < n; ++i) {
+            this->v[i].assign(n, T(0));
+            this->v[i][i] = T(1);
         }
     }
 
     Matrix transposed() const {
-        int64_t x = v[0].size(), y = v.size();
+        int x = this->v[0].size(), y = this->v.size();
         vector<vector<T>> res(x, vector<T>(y));
-        for (int64_t i = 0; i < x; ++i) {
-            for (int64_t j = 0; j < y; ++j) {
-                res[i][j] = v[j][i];
-            }
+        for (int i = 0; i < x; ++i) {
+            for (int j = 0; j < y; ++j) { res[i][j] = v[j][i]; }
         }
         return Matrix(res);
     }
