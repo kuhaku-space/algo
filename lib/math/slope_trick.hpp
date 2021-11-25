@@ -12,10 +12,18 @@ struct slope_trick {
     U get() { return this->min_f; }
     U get_y() { return this->get(); }
 
-    // Add f(x) = a
-    void add(U a) { min_f += a; }
+    /**
+     * @brief Add f(x) = a
+     *
+     * @param a
+     */
+    void add(U a) { this->min_f += a; }
 
-    // Add f(x) = max(0, x - a)
+    /**
+     * @brief Add f(x) = max(0, x - a)
+     *
+     * @param a
+     */
     void add_f(T a) {
         if (!this->l.empty()) this->min_f += max(U(), this->l.top() - a);
         this->l.emplace(a);
@@ -24,7 +32,11 @@ struct slope_trick {
         this->r.emplace(x);
     }
 
-    // Add f(x) = max(0, a - x)
+    /**
+     * @brief Add f(x) = max(0, a - x)
+     *
+     * @param a
+     */
     void add_g(U a) {
         if (!this->r.empty()) this->min_f += max(U(), a - this->r.top());
         this->r.emplace(a);
@@ -33,7 +45,11 @@ struct slope_trick {
         this->l.emplace(x);
     }
 
-    // Add f(x) = abs(x - a)
+    /**
+     * @brief Add f(x) = abs(x - a) = max(0, x - a) + max(0, a - x)
+     *
+     * @param a
+     */
     void add_abs(U a) {
         this->add_f(a);
         this->add_g(a);
