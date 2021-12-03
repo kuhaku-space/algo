@@ -12,21 +12,21 @@ vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
         }
         return res[idx];
     };
-    dfs(dfs, 0, -1);
+    dfs(dfs, r, -1);
     return res;
 }
 
 template <>
-vector<int> tree_subtree(const Graph<void> &g, int r = 0) {
+vector<int> tree_subtree(const Graph<void> &g, int r) {
     vector<int> res(g.size());
-    auto dfs = [&g, &res](auto &&self, int idx, int par) {
+    auto dfs = [&g, &res](auto &&self, int idx, int par) -> int {
         res[idx] = 1;
         for (auto i : g[idx]) {
             if (i == par) continue;
-            res[idx] += self(self, i.to, idx);
+            res[idx] += self(self, i, idx);
         }
         return res[idx];
     };
-    dfs(dfs, 0, -1);
+    dfs(dfs, r, -1);
     return res;
 }
