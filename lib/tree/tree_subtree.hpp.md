@@ -29,19 +29,19 @@ data:
     \ idx, int par) {\r\n        res[idx] = 1;\r\n        for (auto i : g[idx]) {\r\
     \n            if (i.to == par) continue;\r\n            res[idx] += self(self,\
     \ i.to, idx);\r\n        }\r\n        return res[idx];\r\n    };\r\n    dfs(dfs,\
-    \ 0, -1);\r\n    return res;\r\n}\r\n\r\ntemplate <>\r\nvector<int> tree_subtree(const\
-    \ Graph<void> &g, int r = 0) {\r\n    vector<int> res(g.size());\r\n    auto dfs\
-    \ = [&g, &res](auto &&self, int idx, int par) {\r\n        res[idx] = 1;\r\n \
-    \       for (auto i : g[idx]) {\r\n            if (i == par) continue;\r\n   \
-    \         res[idx] += self(self, i.to, idx);\r\n        }\r\n        return res[idx];\r\
-    \n    };\r\n    dfs(dfs, 0, -1);\r\n    return res;\r\n}\r\n"
+    \ r, -1);\r\n    return res;\r\n}\r\n\r\ntemplate <>\r\nvector<int> tree_subtree(const\
+    \ Graph<void> &g, int r) {\r\n    vector<int> res(g.size());\r\n    auto dfs =\
+    \ [&g, &res](auto &&self, int idx, int par) -> int {\r\n        res[idx] = 1;\r\
+    \n        for (auto i : g[idx]) {\r\n            if (i == par) continue;\r\n \
+    \           res[idx] += self(self, i, idx);\r\n        }\r\n        return res[idx];\r\
+    \n    };\r\n    dfs(dfs, r, -1);\r\n    return res;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/tree_subtree.hpp
   requiredBy: []
-  timestamp: '2021-11-25 18:07:11+09:00'
+  timestamp: '2021-11-25 21:03:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/tree_subtree.hpp

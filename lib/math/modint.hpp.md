@@ -102,20 +102,20 @@ data:
   isVerificationFile: false
   path: lib/math/modint.hpp
   requiredBy:
+  - lib/data_structure/bigint.hpp
+  - lib/data_structure/bigint_beta.hpp
+  - lib/math/combination.hpp
+  - lib/math/enumeration.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
-  - lib/math/enumeration.hpp
-  - lib/math/combination.hpp
-  - lib/data_structure/bigint.hpp
-  - lib/data_structure/bigint_beta.hpp
   timestamp: '2021-11-06 08:05:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/power.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
   - test/aoj/dp/stirling.test.cpp
   - test/aoj/dp/bell.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/aoj/power.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document
 redirect_from:

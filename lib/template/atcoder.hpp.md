@@ -90,10 +90,12 @@ data:
     #pragma GCC optimize(\"unroll-loops\")\n#include \"template/template.hpp\"\nusing\
     \ ll = int64_t;\nusing ld = long double;\n#define FOR(i, m, n) for(int i = (m);\
     \ i < (n); ++i)\n#define FORR(i, m, n) for(int i = (m)-1; i >= (n); --i)\n#define\
-    \ rep(i, n) FOR(i, 0, n)\n#define repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n)\
-    \ FORR(i, n, 0)\n#define repnr(i, n) FORR(i, n+1, 1)\n#define all(s) (s).begin(),\
-    \ (s).end()\ntemplate <class T>\nistream &operator>>(istream &is, vector<T> &v)\
-    \ { for (T &i : v) is>>i; return is; }\ntemplate <class T>\nostream &operator<<(ostream\
+    \ FORL(i, m, n) for(ll i = (m); i < (n); ++i)\n#define rep(i, n) FOR(i, 0, n)\n\
+    #define repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n) FORR(i, n, 0)\n#define repnr(i,\
+    \ n) FORR(i, n+1, 1)\n#define all(s) (s).begin(), (s).end()\ntemplate<class T,\
+    \ class U>\nistream &operator>>(istream &is, pair<T, U> &p) { is >> p.first >>\
+    \ p.second; }\ntemplate <class T>\nistream &operator>>(istream &is, vector<T>\
+    \ &v) { for (T &i : v) is>>i; return is; }\ntemplate <class T>\nostream &operator<<(ostream\
     \ &os, const vector<T> &v) {\n    for (auto it=v.begin(); it!=v.end(); ++it) {\
     \ os<<(it==v.begin()?\"\":\" \")<<*it; } return os;\n}\ntemplate <class Head,\
     \ class... Tail>\nvoid co(Head&& head, Tail&&... tail) {\n    if constexpr(sizeof...(tail)==0)\
@@ -110,31 +112,31 @@ data:
   isVerificationFile: false
   path: lib/template/atcoder.hpp
   requiredBy: []
-  timestamp: '2021-09-29 10:01:10+09:00'
+  timestamp: '2021-12-03 23:38:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/data_structure/set_xor-min.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/data_structure/static_range_sum.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
-  - test/aoj/prime_numbers.test.cpp
-  - test/aoj/longest_increasing_subsequense.test.cpp
-  - test/aoj/geometry/projection.test.cpp
-  - test/aoj/geometry/reflection.test.cpp
+  - test/aoj/geometry/counter-clockwise.test.cpp
   - test/aoj/geometry/parallel_orthogonal.test.cpp
+  - test/aoj/geometry/reflection.test.cpp
+  - test/aoj/geometry/projection.test.cpp
   - test/aoj/geometry/intersection.test.cpp
   - test/aoj/geometry/cross_point.test.cpp
-  - test/aoj/geometry/counter-clockwise.test.cpp
-  - test/aoj/prime_factorize.test.cpp
-  - test/aoj/power.test.cpp
   - test/aoj/dp/stirling.test.cpp
   - test/aoj/dp/bell.test.cpp
   - test/aoj/all_pairs_shortest_path.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/yosupo/sample/many_a+b.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
-  - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/set_xor-min.test.cpp
+  - test/aoj/longest_increasing_subsequense.test.cpp
+  - test/aoj/power.test.cpp
+  - test/aoj/prime_numbers.test.cpp
+  - test/aoj/prime_factorize.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:

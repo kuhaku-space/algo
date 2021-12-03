@@ -73,10 +73,10 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt.hpp
   requiredBy:
-  - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt_mod.hpp
   - lib/data_structure/bigint.hpp
   - lib/data_structure/bigint_beta.hpp
+  - lib/fft/formal_power_series.hpp
+  - lib/fft/ntt_mod.hpp
   timestamp: '2021-11-06 08:05:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

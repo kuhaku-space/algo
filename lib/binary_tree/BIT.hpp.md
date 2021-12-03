@@ -77,8 +77,8 @@ data:
   timestamp: '2021-11-06 08:05:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/the_number_of_inversions.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/aoj/the_number_of_inversions.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document
 redirect_from:

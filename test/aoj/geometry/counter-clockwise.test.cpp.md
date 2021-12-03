@@ -46,7 +46,7 @@ data:
   isVerificationFile: true
   path: test/aoj/geometry/counter-clockwise.test.cpp
   requiredBy: []
-  timestamp: '2021-09-29 10:01:10+09:00'
+  timestamp: '2021-12-03 23:38:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/geometry/counter-clockwise.test.cpp

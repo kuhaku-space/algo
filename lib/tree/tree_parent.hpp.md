@@ -30,8 +30,8 @@ data:
     \       auto [idx, p] = st.top();\r\n        st.pop();\r\n        res[idx] = p;\r\
     \n        for (auto i : g[idx]) {\r\n            if (i.to == p) continue;\r\n\
     \            st.emplace(i.to, idx);\r\n        }\r\n    }\r\n    return res;\r\
-    \n}\r\n\r\ntemplate<>\r\nvector<int> tree_parent(const Graph<void> &g, int r =\
-    \ 0) {\r\n    struct S {\r\n        int idx, p;\r\n    };\r\n    vector<int> res(g.size());\r\
+    \n}\r\n\r\ntemplate <>\r\nvector<int> tree_parent(const Graph<void> &g, int r)\
+    \ {\r\n    struct S {\r\n        int idx, p;\r\n    };\r\n    vector<int> res(g.size());\r\
     \n    stack<S> st;\r\n    st.push({r, -1});\r\n    while (!st.empty()) {\r\n \
     \       auto [idx, p] = st.top();\r\n        st.pop();\r\n        res[idx] = p;\r\
     \n        for (auto i : g[idx]) {\r\n            if (i == p) continue;\r\n   \
@@ -42,7 +42,7 @@ data:
   isVerificationFile: false
   path: lib/tree/tree_parent.hpp
   requiredBy: []
-  timestamp: '2021-11-25 18:07:00+09:00'
+  timestamp: '2021-11-25 21:03:07+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/tree_parent.hpp

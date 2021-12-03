@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/aoj/the_number_of_inversions.test.cpp
   requiredBy: []
-  timestamp: '2021-11-06 08:06:01+09:00'
+  timestamp: '2021-12-03 23:38:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/the_number_of_inversions.test.cpp

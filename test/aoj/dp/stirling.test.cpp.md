@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dp/stirling.test.cpp
   requiredBy: []
-  timestamp: '2021-11-14 11:37:27+09:00'
+  timestamp: '2021-12-03 23:38:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dp/stirling.test.cpp
