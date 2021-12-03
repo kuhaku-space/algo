@@ -7,11 +7,14 @@ using ll = int64_t;
 using ld = long double;
 #define FOR(i, m, n) for(int i = (m); i < (n); ++i)
 #define FORR(i, m, n) for(int i = (m)-1; i >= (n); --i)
+#define FORL(i, m, n) for(ll i = (m); i < (n); ++i)
 #define rep(i, n) FOR(i, 0, n)
 #define repn(i, n) FOR(i, 1, n+1)
 #define repr(i, n) FORR(i, n, 0)
 #define repnr(i, n) FORR(i, n+1, 1)
 #define all(s) (s).begin(), (s).end()
+template<class T, class U>
+istream &operator>>(istream &is, pair<T, U> &p) { is >> p.first >> p.second; }
 template <class T>
 istream &operator>>(istream &is, vector<T> &v) { for (T &i : v) is>>i; return is; }
 template <class T>
