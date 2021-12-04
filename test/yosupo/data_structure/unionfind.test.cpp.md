@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/tree/union_find.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/unionfind
@@ -42,8 +42,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/unionfind.test.cpp
   requiredBy: []
-  timestamp: '2021-12-03 23:38:53+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-12-04 19:53:58+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/unionfind.test.cpp
 layout: document

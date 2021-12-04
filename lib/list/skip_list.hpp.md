@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/algorithm/xorshift.hpp
     title: lib/algorithm/xorshift.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

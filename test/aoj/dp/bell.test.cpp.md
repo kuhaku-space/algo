@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/modint.hpp
     title: modint
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I
@@ -48,8 +48,8 @@ data:
   isVerificationFile: true
   path: test/aoj/dp/bell.test.cpp
   requiredBy: []
-  timestamp: '2021-12-03 23:38:53+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-12-04 19:53:58+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/aoj/dp/bell.test.cpp
 layout: document

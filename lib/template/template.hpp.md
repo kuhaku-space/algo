@@ -50,7 +50,7 @@ data:
   - icon: ':warning:'
     path: lib/algorithm/xorshift.hpp
     title: lib/algorithm/xorshift.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/binary_tree/BIT.hpp
     title: Binary Indexed Tree
   - icon: ':warning:'
@@ -74,10 +74,10 @@ data:
   - icon: ':warning:'
     path: lib/binary_tree/multi_patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A)"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/binary_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':warning:'
@@ -107,7 +107,7 @@ data:
   - icon: ':warning:'
     path: lib/data_structure/radix_heap.hpp
     title: lib/data_structure/radix_heap.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/dp/lis.hpp
     title: lib/dp/lis.hpp
   - icon: ':warning:'
@@ -122,7 +122,7 @@ data:
   - icon: ':warning:'
     path: lib/fft/garner.hpp
     title: lib/fft/garner.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
   - icon: ':warning:'
@@ -134,7 +134,7 @@ data:
   - icon: ':warning:'
     path: lib/geometry/convex_hull.hpp
     title: lib/geometry/convex_hull.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
   - icon: ':warning:'
@@ -152,7 +152,7 @@ data:
   - icon: ':warning:'
     path: lib/graph/dijkstra.hpp
     title: lib/graph/dijkstra.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
   - icon: ':warning:'
@@ -161,7 +161,7 @@ data:
   - icon: ':warning:'
     path: lib/graph/lowlink.hpp
     title: lib/graph/lowlink.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/matrix_graph.hpp
     title: lib/graph/matrix_graph.hpp
   - icon: ':warning:'
@@ -179,7 +179,7 @@ data:
   - icon: ':warning:'
     path: lib/graph/two_sat.hpp
     title: lib/graph/two_sat.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
   - icon: ':warning:'
@@ -188,10 +188,10 @@ data:
   - icon: ':warning:'
     path: lib/math/chinese_rem.hpp
     title: lib/math/chinese_rem.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
   - icon: ':warning:'
@@ -203,7 +203,7 @@ data:
   - icon: ':warning:'
     path: lib/math/matrix.hpp
     title: lib/math/matrix.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/modint.hpp
     title: modint
   - icon: ':warning:'
@@ -212,7 +212,7 @@ data:
   - icon: ':warning:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/prime_number.hpp
     title: "\u7D20\u56E0\u6570\u5206\u89E3"
   - icon: ':warning:'
@@ -239,7 +239,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -266,82 +266,82 @@ data:
   - icon: ':warning:'
     path: lib/tree/tree_subtree.hpp
     title: lib/tree/tree_subtree.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/tree/union_find.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   - icon: ':warning:'
     path: lib/tree/union_find_with_edge.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/geometry/counter-clockwise.test.cpp
     title: test/aoj/geometry/counter-clockwise.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/geometry/cross_point.test.cpp
     title: test/aoj/geometry/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/geometry/intersection.test.cpp
     title: test/aoj/geometry/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/geometry/parallel_orthogonal.test.cpp
     title: test/aoj/geometry/parallel_orthogonal.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/geometry/projection.test.cpp
     title: test/aoj/geometry/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/geometry/reflection.test.cpp
     title: test/aoj/geometry/reflection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/longest_increasing_subsequense.test.cpp
     title: test/aoj/longest_increasing_subsequense.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/prime_factorize.test.cpp
     title: test/aoj/prime_factorize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/prime_numbers.test.cpp
     title: test/aoj/prime_numbers.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/the_number_of_inversions.test.cpp
     title: test/aoj/the_number_of_inversions.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/set_xor-min.test.cpp
     title: test/yosupo/data_structure/set_xor-min.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -453,7 +453,7 @@ data:
   - lib/fft/ntt.hpp
   - lib/fft/garner.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/data_structure/set_xor-min.test.cpp

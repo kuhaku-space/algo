@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -14,34 +14,34 @@ data:
   - icon: ':warning:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
   - icon: ':warning:'
     path: lib/fft/ntt_mod.hpp
     title: lib/fft/ntt_mod.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: modint
     links:
@@ -110,7 +110,7 @@ data:
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
   timestamp: '2021-11-06 08:05:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
   - test/aoj/dp/stirling.test.cpp

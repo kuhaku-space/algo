@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/data_structure/set_xor-min.test.cpp
     title: test/yosupo/data_structure/set_xor-min.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
     links:
@@ -80,7 +80,7 @@ data:
   path: lib/binary_tree/patricia_binary_trie.hpp
   requiredBy: []
   timestamp: '2021-10-02 20:25:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/data_structure/set_xor-min.test.cpp
 documentation_of: lib/binary_tree/patricia_binary_trie.hpp
