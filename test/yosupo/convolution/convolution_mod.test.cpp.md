@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/convolution_mod
@@ -45,8 +45,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution/convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2021-12-04 19:53:58+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-12-04 23:09:19+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/convolution_mod.test.cpp
 layout: document

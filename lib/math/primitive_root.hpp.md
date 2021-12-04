@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/dp/lis.hpp
     title: lib/dp/lis.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D
@@ -40,8 +40,8 @@ data:
   isVerificationFile: true
   path: test/aoj/longest_increasing_subsequense.test.cpp
   requiredBy: []
-  timestamp: '2021-12-04 19:53:58+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-12-04 23:09:19+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/longest_increasing_subsequense.test.cpp
 layout: document

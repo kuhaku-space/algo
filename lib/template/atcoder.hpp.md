@@ -1,80 +1,80 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/all_pairs_shortest_path.test.cpp
     title: test/aoj/all_pairs_shortest_path.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dp/bell.test.cpp
     title: test/aoj/dp/bell.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dp/stirling.test.cpp
     title: test/aoj/dp/stirling.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/counter-clockwise.test.cpp
     title: test/aoj/geometry/counter-clockwise.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/cross_point.test.cpp
     title: test/aoj/geometry/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/intersection.test.cpp
     title: test/aoj/geometry/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/parallel_orthogonal.test.cpp
     title: test/aoj/geometry/parallel_orthogonal.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/projection.test.cpp
     title: test/aoj/geometry/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/reflection.test.cpp
     title: test/aoj/geometry/reflection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/longest_increasing_subsequense.test.cpp
     title: test/aoj/longest_increasing_subsequense.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/power.test.cpp
     title: test/aoj/power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/prime_factorize.test.cpp
     title: test/aoj/prime_factorize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/prime_numbers.test.cpp
     title: test/aoj/prime_numbers.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/the_number_of_inversions.test.cpp
     title: test/aoj/the_number_of_inversions.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/set_xor-min.test.cpp
     title: test/yosupo/data_structure/set_xor-min.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -94,7 +94,7 @@ data:
     #define repn(i, n) FOR(i, 1, n+1)\n#define repr(i, n) FORR(i, n, 0)\n#define repnr(i,\
     \ n) FORR(i, n+1, 1)\n#define all(s) (s).begin(), (s).end()\ntemplate<class T,\
     \ class U>\nistream &operator>>(istream &is, pair<T, U> &p) { is >> p.first >>\
-    \ p.second; return is }\ntemplate <class T>\nistream &operator>>(istream &is,\
+    \ p.second; return is; }\ntemplate <class T>\nistream &operator>>(istream &is,\
     \ vector<T> &v) { for (T &i : v) is>>i; return is; }\ntemplate <class T>\nostream\
     \ &operator<<(ostream &os, const vector<T> &v) {\n    for (auto it=v.begin();\
     \ it!=v.end(); ++it) { os<<(it==v.begin()?\"\":\" \")<<*it; } return os;\n}\n\
@@ -112,8 +112,8 @@ data:
   isVerificationFile: false
   path: lib/template/atcoder.hpp
   requiredBy: []
-  timestamp: '2021-12-04 19:53:58+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2021-12-04 23:09:19+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/data_structure/set_xor-min.test.cpp

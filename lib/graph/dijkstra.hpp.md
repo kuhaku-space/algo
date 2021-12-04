@@ -4,10 +4,10 @@ data:
   - icon: ':warning:'
     path: lib/data_structure/radix_heap.hpp
     title: lib/data_structure/radix_heap.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
