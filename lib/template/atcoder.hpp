@@ -14,7 +14,7 @@ using ld = long double;
 #define repnr(i, n) FORR(i, n+1, 1)
 #define all(s) (s).begin(), (s).end()
 template<class T, class U>
-istream &operator>>(istream &is, pair<T, U> &p) { is >> p.first >> p.second; }
+istream &operator>>(istream &is, pair<T, U> &p) { is >> p.first >> p.second; return is }
 template <class T>
 istream &operator>>(istream &is, vector<T> &v) { for (T &i : v) is>>i; return is; }
 template <class T>
