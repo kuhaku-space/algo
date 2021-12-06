@@ -15,7 +15,7 @@ vector<int> tree_parent(const Graph<T> &g, int r = 0) {
         res[idx] = p;
         for (auto i : g[idx]) {
             if (i.to == p) continue;
-            st.emplace(i.to, idx);
+            st.push({i.to, idx});
         }
     }
     return res;
@@ -35,7 +35,7 @@ vector<int> tree_parent(const Graph<void> &g, int r) {
         res[idx] = p;
         for (auto i : g[idx]) {
             if (i == p) continue;
-            st.emplace(i, idx);
+            st.push({i, idx});
         }
     }
     return res;
