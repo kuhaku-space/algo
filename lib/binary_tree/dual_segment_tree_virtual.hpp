@@ -28,7 +28,6 @@ struct dual_segment_tree {
     }
 
     void update(int k, T x) {
-        assert(0 <= k && k < this->N);
         int l = 0;
         while (k >> l > 1) ++l;
         for (; l > 0; --l) {
