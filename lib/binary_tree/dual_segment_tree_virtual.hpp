@@ -13,9 +13,8 @@ struct dual_segment_tree {
     vector<T> data;
 
     dual_segment_tree(int _n, T _e) : e(_e) { this->init(_n); }
-    dual_segment_tree(int _n, T _e) : e(_e) { this->init(_n); }
 
-    virtual T f(T, T) = 0;
+    virtual T f(T, T) const = 0;
 
     void init(int n) {
         for (this->N = 1; this->N < n; this->N <<= 1) {}
@@ -65,11 +64,11 @@ struct dual_segment_tree {
 template <class T>
 struct RAQ : dual_segment_tree<T> {
     RAQ(int _n, T _e) : dual_segment_tree<T>(_n, _e) {}
-    T f(T a, T x) { return a + x; }
+    T f(T a, T x) const { return a + x; }
 };
 
 template <class T>
 struct RUQ : dual_segment_tree<T> {
     RUQ(int _n, T _e) : dual_segment_tree<T>(_n, _e) {}
-    T f(T a, T x) { return a; }
+    T f(T a, T x) const { return a; }
 };
