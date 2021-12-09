@@ -3,22 +3,19 @@
 /**
  * @brief 双対セグメント木
  *
- * @details Usage: @n
- * dual_segment_tree RAQ(n, Inf, [](auto a, auto x){ return a + x; } ); @n
- * dual_segment_tree RUQ(n, Inf, [](auto a, auto x){ return a; } );
- *
  * @tparam T 要素の型
  * @tparam F 関数の型
  */
-template <class T, class F>
+template <class T>
 struct dual_segment_tree {
     int N;
     T e;
-    F f;
     vector<T> data;
 
-    dual_segment_tree(int _n, T _e, const F &_f) : e(_e), f(_f) { this->init(_n); }
-    dual_segment_tree(int _n, T _e, F &&_f) : e(_e), f(_f) { this->init(_n); }
+    dual_segment_tree(int _n, T _e) : e(_e) { this->init(_n); }
+    dual_segment_tree(int _n, T _e) : e(_e) { this->init(_n); }
+
+    virtual T f(T, T) = 0;
 
     void init(int n) {
         for (this->N = 1; this->N < n; this->N <<= 1) {}
@@ -26,7 +23,7 @@ struct dual_segment_tree {
     }
 
     template <class U>
-    void build(const vector<U> &v) {
+    void build(const vector<U>& v) {
         for (int i = 0, n = v.size(); i < n; ++i) this->data[this->N + i] = v[i];
     }
 
@@ -64,4 +61,16 @@ struct dual_segment_tree {
         return res;
     }
     T get(int k) const { return this->at(k); }
+};
+
+template <class T>
+struct RAQ : dual_segment_tree<T> {
+    RAQ(int _n, T _e) : dual_segment_tree<T>(_n, _e) {}
+    T f(T a, T x) { return a + x; }
+};
+
+template <class T>
+struct RUQ : dual_segment_tree<T> {
+    RUQ(int _n, T _e) : dual_segment_tree<T>(_n, _e) {}
+    T f(T a, T x) { return a; }
 };
