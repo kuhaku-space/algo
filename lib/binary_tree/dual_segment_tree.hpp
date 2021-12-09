@@ -27,35 +27,40 @@ struct dual_segment_tree {
 
     template <class U>
     void build(const vector<U> &v) {
-        for (int i = 0; i < v.size(); ++i) this->data[this->N + i] = v[i];
-        for (int i = N - 1; i >= 1; --i)
+        for (int i = 0, n = v.size(); i < n; ++i) this->data[this->N + i] = v[i];
+        for (int i = this->N - 1; i >= 1; --i)
             this->data[i] = this->op(this->data[i * 2], this->data[i * 2 + 1]);
     }
 
-    void update(int a, T x) {
-        int k = 0;
-        while (a >> k > 1) ++k;
-        for (; k > 0; --k) {
-            int t = a >> k;
+    void update(int k, T x) {
+        assert(0 <= k && k < this->N);
+        int l = 0;
+        while (k >> l > 1) ++l;
+        for (; l > 0; --l) {
+            int t = k >> l;
             if (this->data[t] == e) continue;
             this->data[t * 2] = this->op(this->data[t * 2], this->data[t]);
             this->data[t * 2 + 1] = this->op(this->data[t * 2 + 1], this->data[t]);
             this->data[t] = e;
         }
-        this->data[a] = this->op(this->data[a], x);
+        this->data[k] = this->op(this->data[k], x);
     }
+    void set(int k, T x) { this->update(k, x); }
 
-    void query(int a, T x) { query(a, a + 1, x); }
-    void query(int a, int b, T x) {
-        for (a += N, b += N; a < b; a >>= 1, b >>= 1) {
-            if (a & 1) update(a++, x);
-            if (b & 1) update(--b, x);
+    void appry(int k, T x) { this->query(k, k + 1, x); }
+    void appry(int a, int b, T x) {
+        assert(0 <= a && a <= this->N);
+        assert(0 <= b && b <= this->N);
+        for (a += this->N, b += this->N; a < b; a >>= 1, b >>= 1) {
+            if (a & 1) this->update(a++, x);
+            if (b & 1) this->update(--b, x);
         }
     }
 
     T at(int k) const {
+        assert(0 <= k && k < this->N);
         T res = e;
-        for (k += N; k >= 1; k >>= 1) {
+        for (k += this->N; k >= 1; k >>= 1) {
             if (this->data[k] != e) res = this->op(res, this->data[k]);
         }
         return res;
