@@ -14,8 +14,6 @@ struct dual_segment_tree {
 
     dual_segment_tree(int _n, T _e) : e(_e) { this->init(_n); }
 
-    virtual T f(T, T) const = 0;
-
     void init(int n) {
         for (this->N = 1; this->N < n; this->N <<= 1) {}
         this->data.assign(this->N << 1, e);
@@ -58,6 +56,9 @@ struct dual_segment_tree {
         return res;
     }
     T get(int k) const { return this->at(k); }
+
+  protected:
+    virtual T f(T, T) const = 0;
 };
 
 template <class T>
