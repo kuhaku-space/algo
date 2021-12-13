@@ -52,7 +52,11 @@ struct segment_tree {
         this->data[k += this->N] = val;
         while ((k >>= 1) >= 1) this->data[k] = this->op(this->data[k * 2], this->data[k * 2 + 1]);
     }
-    void add(int k, T val) { this->update(k, val - this->at(k)); }
+    void add(int k, T val) {
+        assert(0 <= k && k < this->N);
+        this->data[k += this->N] += val;
+        while ((k >>= 1) >= 1) this->data[k] = this->op(this->data[k * 2], this->data[k * 2 + 1]);
+    }
 
     bool chmax(int k, T val) {
         if (this->at(k) >= val) return false;
