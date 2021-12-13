@@ -44,10 +44,9 @@ struct dual_segment_tree {
     }
     void set(int k, T x) { this->update(k, x); }
 
-    void appry(int k, T x) { this->query(k, k + 1, x); }
-    void appry(int a, int b, T x) {
-        assert(0 <= a && a <= this->N);
-        assert(0 <= b && b <= this->N);
+    void apply(int k, T x) { this->apply(k, k + 1, x); }
+    void apply(int a, int b, T x) {
+        assert(0 <= a && b <= this->N);
         for (a += this->N, b += this->N; a < b; a >>= 1, b >>= 1) {
             if (a & 1) this->update(a++, x);
             if (b & 1) this->update(--b, x);
