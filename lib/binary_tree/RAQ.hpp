@@ -2,7 +2,7 @@
 #include "template/template.hpp"
 
 template <class T>
-struct RSMQ {
+struct RAMQ {
     struct segment_tree_max : segment_tree<pair<T, T>> {
         segment_tree_max(int _n, pair<T, T> _e) : segment_tree<pair<T, T>>(_n, _e) {}
         pair<T, T> op(pair<T, T> a, pair<T, T> b) const {
@@ -16,7 +16,7 @@ struct RSMQ {
 
     segment_tree_max st;
 
-    RSMQ(int _n, T _e) : st(_n + 1, make_pair(_e, T(0))) {}
+    RAMQ(int _n, T _e) : st(_n + 1, make_pair(_e, T(0))) {}
 
     void apply(int k, T val) { this->apply(k, k + 1, val); }
     void apply(int a, int b, T val) {
@@ -33,7 +33,7 @@ struct RSMQ {
 };
 
 template <class T>
-struct RSmQ {
+struct RAmQ {
     struct segment_tree_min : segment_tree<pair<T, T>> {
         segment_tree_min(int _n, pair<T, T> _e) : segment_tree<pair<T, T>>(_n, _e) {}
         pair<T, T> op(pair<T, T> a, pair<T, T> b) const {
@@ -46,7 +46,7 @@ struct RSmQ {
     };
     segment_tree_min st;
 
-    RSmQ(int _n, T _e) : st(_n + 1, make_pair(_e, T(0))) {
+    RAmQ(int _n, T _e) : st(_n + 1, make_pair(_e, T(0))) {
         this->st.init(_n + 1, make_pair(T(0), T(0)));
     }
 
