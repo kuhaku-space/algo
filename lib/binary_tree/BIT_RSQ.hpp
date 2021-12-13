@@ -15,8 +15,7 @@ struct BIT_RSQ {
 
     template <class U>
     void build(const vector<U> &v) {
-        int n = v.size();
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0, n = v.size(); i < n; ++i) {
             p.add(i, v[i]);
             p.add(i + 1, -v[i]);
         }
