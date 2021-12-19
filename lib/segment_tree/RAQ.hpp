@@ -1,4 +1,4 @@
-#include "binary_tree/segment_tree_virtual.hpp"
+#include "segment_tree/segment_tree_virtual.hpp"
 #include "template/template.hpp"
 
 template <class T>
