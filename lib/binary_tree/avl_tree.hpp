@@ -18,7 +18,7 @@ struct avl_tree {
 
     void insert(T val) { this->root = this->insert(this->root, val); }
 
-    void erase(T val) { this->root = this->erase(root, val); }
+    void erase(T val) { this->root = this->erase(this->root, val); }
 
     bool contains(T val) const {
         Node *node = this->root;
@@ -33,7 +33,7 @@ struct avl_tree {
 
     int count(T val) const { return this->count(this->root, val); }
 
-    void dump(int l, int r) const { return this->dump(this->root, l, r); }
+    void dump(T l, T r) const { return this->dump(this->root, l, r); }
 
   private:
     Node *root;
@@ -142,7 +142,7 @@ struct avl_tree {
         return res;
     }
 
-    void dump(Node *node, int l, int r) const {
+    void dump(Node *node, T l, T r) const {
         if (node == nullptr) return;
         if (!(node->val < l)) this->dump(node->left, l, r);
         if (!(node->val < l) && !(r < node->val)) cout << node->val << '\n';
