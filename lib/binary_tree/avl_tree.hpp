@@ -20,7 +20,7 @@ struct avl_tree {
 
     void erase(T val) { this->root = this->erase(root, val); }
 
-    bool find(T val) const {
+    bool contains(T val) const {
         Node *node = this->root;
         while (node && node->val != val) {
             if (val < node->val)
@@ -30,6 +30,10 @@ struct avl_tree {
         }
         return node != nullptr;
     }
+
+    int count(T val) const { return this->count(this->root, val); }
+
+    void dump(int l, int r) const { return this->dump(this->root, l, r); }
 
   private:
     Node *root;
@@ -128,5 +132,20 @@ struct avl_tree {
         if (node->left == nullptr) return node->right;
         node->left = this->erase_min(node->left);
         return this->rotate(node);
+    }
+
+    int count(Node *node, T val) const {
+        if (node == nullptr) return 0;
+        int res = node->val == val;
+        if (!(node->val < val)) res += this->count(node->left, val);
+        if (!(val < node->val)) res += this->count(node->right, val);
+        return res;
+    }
+
+    void dump(Node *node, int l, int r) const {
+        if (node == nullptr) return;
+        if (!(node->val < l)) this->dump(node->left, l, r);
+        if (!(node->val < l) && !(r < node->val)) cout << node->val << '\n';
+        if (!(r < node->val)) this->dump(node->right, l, r);
     }
 };
