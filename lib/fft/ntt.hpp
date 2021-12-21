@@ -30,14 +30,14 @@ struct NTT {
                 for (int j = 0; j < t; ++j) {
                     int l = i + j, r = i + j + t;
                     mint c = a[l], d = w * a[r];
-                    a[l] = (c + d).to_int();
-                    a[r] = (c - d).to_int();
+                    a[l] = int(c + d);
+                    a[r] = int(c - d);
                     w *= bw;
                 }
             }
         }
         if (inv) {
-            int m = mint(N).inverse().to_int();
+            int m = int(mint(N).inverse());
             for (int i = 0; i < N; ++i) a[i] = T(1LL * a[i] * m % mod);
         }
     }
