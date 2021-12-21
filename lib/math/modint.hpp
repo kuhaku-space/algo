@@ -3,28 +3,27 @@
 
 /**
  * @brief modint
- * @ref https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp "参考"
+ * @details [参考](https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp)
  *
  * @tparam mod 法
  */
 
 template <int mod>
 struct ModInt {
-    int x;
-
-    constexpr ModInt() : x(0) {}
+    constexpr ModInt() noexcept : x(0) {}
+    constexpr ModInt(int y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
     constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
 
     constexpr ModInt &operator+=(const ModInt &rhs) noexcept {
-        if ((x += rhs.x) >= mod) x -= mod;
+        if ((this->x += rhs.x) >= mod) this->x -= mod;
         return *this;
     }
     constexpr ModInt &operator-=(const ModInt &rhs) noexcept {
-        if ((x += mod - rhs.x) >= mod) x -= mod;
+        if ((this->x += mod - rhs.x) >= mod) this->x -= mod;
         return *this;
     }
     constexpr ModInt &operator*=(const ModInt &rhs) noexcept {
-        x = (int)(1LL * x * rhs.x % mod);
+        this->x = (int)(1LL * this->x * rhs.x % mod);
         return *this;
     }
     constexpr ModInt &operator/=(const ModInt &rhs) noexcept {
@@ -33,32 +32,32 @@ struct ModInt {
     }
 
     constexpr ModInt &operator++() noexcept {
-        if ((++x) >= mod) x -= mod;
+        if ((++(this->x)) >= mod) this->x -= mod;
         return *this;
     }
     constexpr ModInt operator++(int) noexcept {
         ModInt tmp(*this);
-        operator++();
+        this->operator++();
         return tmp;
     }
     constexpr ModInt &operator--() noexcept {
-        if ((x += mod - 1) >= mod) x -= mod;
+        if ((this->x += mod - 1) >= mod) this->x -= mod;
         return *this;
     }
     constexpr ModInt operator--(int) noexcept {
         ModInt tmp(*this);
-        operator--();
+        this->operator--();
         return tmp;
     }
 
-    constexpr ModInt operator-() const noexcept { return ModInt(-x); }
+    constexpr ModInt operator-() const noexcept { return ModInt(-this->x); }
     constexpr ModInt operator+(const ModInt &rhs) const noexcept { return ModInt(*this) += rhs; }
     constexpr ModInt operator-(const ModInt &rhs) const noexcept { return ModInt(*this) -= rhs; }
     constexpr ModInt operator*(const ModInt &rhs) const noexcept { return ModInt(*this) *= rhs; }
     constexpr ModInt operator/(const ModInt &rhs) const noexcept { return ModInt(*this) /= rhs; }
 
-    constexpr bool operator==(const ModInt &rhs) const noexcept { return x == rhs.x; }
-    constexpr bool operator!=(const ModInt &rhs) const noexcept { return x != rhs.x; }
+    constexpr bool operator==(const ModInt &rhs) const noexcept { return this->x == rhs.x; }
+    constexpr bool operator!=(const ModInt &rhs) const noexcept { return this->x != rhs.x; }
 
     explicit operator int() const noexcept { return x; }
 
@@ -91,7 +90,8 @@ struct ModInt {
     }
     friend ostream &operator<<(ostream &os, const ModInt &rhs) { return os << rhs.x; }
 
-    int to_int() const noexcept { return x; }
-
     static int get_mod() noexcept { return mod; }
+
+  private:
+    int x;
 };
