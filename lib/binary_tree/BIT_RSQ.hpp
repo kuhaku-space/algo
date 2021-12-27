@@ -10,7 +10,7 @@ struct BIT_RSQ {
         q = BIT<T>(n + 1);
     }
 
-    auto operator[](int i) const { this->sum(i + 1) - this->sum(i); }
+    auto operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
     auto at(int k) const { return this->operator[](k); }
 
     template <class U>
