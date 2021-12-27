@@ -51,5 +51,5 @@ struct segment_tree {
 
   protected:
     virtual T op(T a, T b) const = 0;
-    virtual T f(T val, T x) = 0;
+    virtual T f(T val, T x) const = 0;
 };
