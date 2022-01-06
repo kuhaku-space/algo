@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
-#include "binary_tree/segment_tree.hpp"
+#include "segment_tree/segment_tree.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
