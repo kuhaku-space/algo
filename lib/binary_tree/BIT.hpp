@@ -13,12 +13,11 @@ struct BIT {
     BIT(const vector<T> &v) : N(v.size() + 1), data(v.size() + 1) { this->build(v); }
 
     const T at(int k) const { return this->sum(k + 1) - this->sum(k); }
-    const T get(int k) const { return this->operator[](k); }
+    const T get(int k) const { return this->at(k); }
 
     template <class U>
     void build(const vector<U> &v) {
-        int n = v.size();
-        for (int i = 0; i < n; ++i) this->add(i, v[i]);
+        for (int i = 0, n = v.size(); i < n; ++i) this->add(i, v[i]);
     }
 
     /**
@@ -90,7 +89,7 @@ struct BIT {
      * @param b last index of array
      * @return T
      */
-    T sum(int a, int b) const { return this->sum(b) - this->sum(a); }
+    T sum(int a, int b) const { return a < b ? this->sum(b) - this->sum(a) : 0; }
 
     /**
      * @brief binary search on BIT
@@ -104,7 +103,7 @@ struct BIT {
         while (k < this->N) k <<= 1;
         int res = 0;
         for (; k > 0; k >>= 1) {
-            if (res + k < N && this->data[res + k] < val) val -= this->data[res += k];
+            if (res + k < this->N && this->data[res + k] < val) val -= this->data[res += k];
         }
         return res;
     }

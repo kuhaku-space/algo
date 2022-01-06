@@ -1,8 +1,13 @@
 #include "template/template.hpp"
 
-/*
- * a * x + b * y = gcd(a, b) の答えを一つ求める
- * 戻り値は gcd(a, b)
+/**
+ * @brief a * x + b * y = gcd(a, b) の答えを一つ求める
+ *
+ * @param a
+ * @param b
+ * @param x
+ * @param y
+ * @return int64_t gcd(a, b)
  */
 int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
     if (b == 0) {
@@ -15,9 +20,15 @@ int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
     return d;
 }
 
-/*
- * 任意の i において、x % b_i = m_i となる x を求める
- * x = r + M * k (k in N) と表すことができる
+/**
+ * @brief 中国剰余定理
+ * @details 任意の i において、$x % m_i = b_i$ となる x を求める
+ *
+ * @tparam T 配列bの型
+ * @tparam U 配列mの型
+ * @param b 余りの配列
+ * @param m modの配列
+ * @return pair<int64_t, int64_t> (r, M) ($x = r + M * k$ (kは整数))
  */
 template <class T, class U>
 pair<int64_t, int64_t> chinese_rem(const vector<T> &b, const vector<U> &m) {

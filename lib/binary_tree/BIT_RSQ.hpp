@@ -10,13 +10,12 @@ struct BIT_RSQ {
         q = BIT<T>(n + 1);
     }
 
-    auto operator[](int i) const { this->sum(i + 1) - this->sum(i); }
+    auto operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
     auto at(int k) const { return this->operator[](k); }
 
     template <class U>
     void build(const vector<U> &v) {
-        int n = v.size();
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0, n = v.size(); i < n; ++i) {
             p.add(i, v[i]);
             p.add(i + 1, -v[i]);
         }

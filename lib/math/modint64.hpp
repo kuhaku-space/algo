@@ -3,67 +3,60 @@
 
 template <int mod>
 struct ModInt {
-    int64_t x;
+    constexpr ModInt() noexcept : x(0) {}
+    constexpr ModInt(int y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
+    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
 
-    ModInt() : x(0) {}
-    ModInt(int64_t y) noexcept
-        : x(y >= 0 ? y % mod : (mod - 1 - (-y - 1) % mod)) {}
-
-    ModInt &operator+=(const ModInt &rhs) noexcept {
-        if ((x += rhs.x) >= mod) x -= mod;
+    constexpr ModInt &operator+=(const ModInt &rhs) noexcept {
+        if ((this->x += rhs.x) >= mod) this->x -= mod;
         return *this;
     }
-    ModInt &operator-=(const ModInt &rhs) noexcept {
-        if ((x += mod - rhs.x) >= mod) x -= mod;
+    constexpr ModInt &operator-=(const ModInt &rhs) noexcept {
+        if ((this->x += mod - rhs.x) >= mod) this->x -= mod;
         return *this;
     }
-    ModInt &operator*=(const ModInt &rhs) noexcept {
-        x = (int)(1LL * x * rhs.x % mod);
+    constexpr ModInt &operator*=(const ModInt &rhs) noexcept {
+        this->x = (int64_t)(1LL * this->x * rhs.x % mod);
         return *this;
     }
-    ModInt &operator/=(const ModInt &rhs) noexcept {
+    constexpr ModInt &operator/=(const ModInt &rhs) noexcept {
         *this *= rhs.inverse();
         return *this;
     }
 
-    ModInt &operator++() noexcept {
-        if ((++x) >= mod) x -= mod;
+    constexpr ModInt &operator++() noexcept {
+        if ((++(this->x)) >= mod) this->x -= mod;
         return *this;
     }
-    ModInt operator++(int) noexcept {
+    constexpr ModInt operator++(int) noexcept {
         ModInt tmp(*this);
-        operator++();
+        this->operator++();
         return tmp;
     }
-    ModInt &operator--() noexcept {
-        if ((x += mod - 1) >= mod) x -= mod;
+    constexpr ModInt &operator--() noexcept {
+        if ((this->x += mod - 1) >= mod) this->x -= mod;
         return *this;
     }
-    ModInt operator--(int) noexcept {
+    constexpr ModInt operator--(int) noexcept {
         ModInt tmp(*this);
-        operator--();
+        this->operator--();
         return tmp;
     }
 
-    ModInt operator-() const noexcept { return ModInt(-x); }
-    ModInt operator+(const ModInt &rhs) const noexcept {
-        return ModInt(*this) += rhs;
-    }
-    ModInt operator-(const ModInt &rhs) const noexcept {
-        return ModInt(*this) -= rhs;
-    }
-    ModInt operator*(const ModInt &rhs) const noexcept {
-        return ModInt(*this) *= rhs;
-    }
-    ModInt operator/(const ModInt &rhs) const noexcept {
-        return ModInt(*this) /= rhs;
-    }
+    constexpr ModInt operator-() const noexcept { return ModInt(-x); }
+    constexpr ModInt operator+(const ModInt &rhs) const noexcept { return ModInt(*this) += rhs; }
+    constexpr ModInt operator-(const ModInt &rhs) const noexcept { return ModInt(*this) -= rhs; }
+    constexpr ModInt operator*(const ModInt &rhs) const noexcept { return ModInt(*this) *= rhs; }
+    constexpr ModInt operator/(const ModInt &rhs) const noexcept { return ModInt(*this) /= rhs; }
 
-    bool operator==(const ModInt &rhs) const noexcept { return x == rhs.x; }
-    bool operator!=(const ModInt &rhs) const noexcept { return x != rhs.x; }
+    constexpr bool operator==(const ModInt &rhs) const noexcept { return this->x == rhs.x; }
+    constexpr bool operator!=(const ModInt &rhs) const noexcept { return this->x != rhs.x; }
 
-    ModInt inverse() const noexcept {
-        int a = x, b = mod, u = 1, v = 0, t;
+    explicit operator int() const noexcept { return int(x); }
+    explicit operator int64_t() const noexcept { return x; }
+
+    constexpr ModInt inverse() const noexcept {
+        int64_t a = x, b = mod, u = 1, v = 0, t;
         while (b > 0) {
             t = a / b;
             swap(a -= t * b, b);
@@ -72,8 +65,8 @@ struct ModInt {
         return ModInt(u);
     }
 
-    ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n); }
-    ModInt &pow_self(int64_t n) noexcept {
+    constexpr ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n); }
+    constexpr ModInt &pow_self(int64_t n) noexcept {
         ModInt res(1);
         for (; n > 0; n >>= 1) {
             if (n & 1) res *= *this;
@@ -89,12 +82,10 @@ struct ModInt {
         rhs = ModInt<mod>(t);
         return (is);
     }
-    friend ostream &operator<<(ostream &os, const ModInt &rhs) {
-        return os << rhs.x;
-    }
-
-    int to_int() const noexcept { return x; }
+    friend ostream &operator<<(ostream &os, const ModInt &rhs) { return os << rhs.x; }
 
     static int get_mod() noexcept { return mod; }
+
+  private:
+    int64_t x;
 };
-using Mint = ModInt<MOD>;

@@ -1,34 +1,34 @@
 #include "template/template.hpp"
 
-struct union_find {
-    int64_t now;
-    vector<int64_t> parent;
-    vector<int64_t> size;
-    vector<int64_t> time;
+/**
+ * @brief 部分永続Union-Find
+ * 
+ */
+struct partially_persistent_union_find {
+    partially_persistent_union_find(int _n) : now(0), data(_n, -1), time(_n, 0) {}
 
-    union_find(int64_t _n) : now(0), size(_n, 1), time(_n, 0) {
-        for (int64_t i = 0; i < _n; ++i) parent.emplace_back(i);
+    int root(int x, int t) const {
+        if (data[x] < 0 || time[x] > t) return x;
+        return root(data[x], t);
     }
 
-    int64_t root(int64_t x, int64_t t) const {
-        if (time[x] > t) return x;
-        return root(parent[x], t);
-    }
-
-    int64_t unite(int64_t x, int64_t y) {
+    int unite(int x, int y) {
         ++now;
-        x = root(now, x), y = root(now, y);
+        x = root(x, now), y = root(y, now);
         if (x == y) return now;
-        if (size[x] < size[y]) swap(x, y);
-        parent[y] = x;
+        if (data[x] > data[y]) swap(x, y);
         time[y] = now;
-        size[x] += size[y];
+        data[x] += data[y];
+        data[y] = x;
         return now;
     }
 
-    int64_t get_size(int64_t x) const { return size[root(x, now)]; }
+    int size(int x) const { return -data[root(x, now)]; }
 
-    bool is_same(int64_t x, int64_t y, int64_t t) const {
-        return root(x, t) == root(y, t);
-    }
+    bool same(int x, int y, int t) const { return root(x, t) == root(y, t); }
+
+  private:
+    int now;
+    vector<int> data;
+    vector<int> time;
 };
