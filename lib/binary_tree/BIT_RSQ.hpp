@@ -1,24 +1,21 @@
 #include "binary_tree/BIT.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief フェニック木（区間加算、区間総和）
+ * 
+ * @tparam T 
+ */
 template <class T>
 struct BIT_RSQ {
     BIT_RSQ(int n) : p(n + 1), q(n + 1) {}
-
-    void init(int n) {
-        p = BIT<T>(n + 1);
-        q = BIT<T>(n + 1);
-    }
 
     auto operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
     auto at(int k) const { return this->operator[](k); }
 
     template <class U>
     void build(const vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) {
-            p.add(i, v[i]);
-            p.add(i + 1, -v[i]);
-        }
+        for (int i = 0, n = v.size(); i < n; ++i) { this->add(i, v[i]); }
     }
 
     /**
@@ -44,10 +41,10 @@ struct BIT_RSQ {
      * @param val
      */
     void add(int a, int b, T val) {
-        p.add(a, -val * a);
-        p.add(b, val * b);
-        q.add(a, val);
-        q.add(b, -val);
+        this->p.add(a, -val * a);
+        this->p.add(b, val * b);
+        this->q.add(a, val);
+        this->q.add(b, -val);
     }
 
     /**
@@ -56,7 +53,7 @@ struct BIT_RSQ {
      * @param k index of array
      * @return auto
      */
-    auto sum(int k) const { return p.sum(k) + q.sum(k) * k; }
+    auto sum(int k) const { return this->p.sum(k) + this->q.sum(k) * k; }
     /**
      * @brief v[a] + ... + v[b - 1]
      *

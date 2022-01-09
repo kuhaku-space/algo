@@ -1,5 +1,10 @@
 #include "template/template.hpp"
 
+/**
+ * @brief AVL木
+ * 
+ * @tparam T 
+ */
 template <class T>
 struct avl_tree {
     struct Node {
