@@ -1,5 +1,12 @@
 #include "template/template.hpp"
 
+/**
+ * @brief 最長増加部分列
+ * 
+ * @tparam T 配列の型
+ * @param v 配列
+ * @return int 最長増加部分列の長さ
+ */
 template <class T>
 int LIS(const vector<T> &v) {
     int n = v.size();
