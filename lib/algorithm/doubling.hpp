@@ -1,5 +1,10 @@
 #include "template/template.hpp"
 
+/**
+ * @brief ダブリング
+ * 
+ * @tparam L 
+ */
 template <int L>
 struct Doubling {
     Doubling(int _n) : n(_n), data(L, std::vector<int>(_n)) {}

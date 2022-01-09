@@ -1,7 +1,9 @@
 #include "template/template.hpp"
 
 /**
- * @brief Binary Indexed Tree
+ * @brief フェニック木
+ * 
+ * @tparam T 
  */
 template <class T>
 struct BIT {

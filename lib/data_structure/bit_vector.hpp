@@ -2,7 +2,9 @@
 
 /**
  * @brief 完備辞書
- * @ref https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.cpp "参考"
+ *
+ * @details
+ * [参考](https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.cpp)
  */
 struct bit_vector {
     int length, blocks;

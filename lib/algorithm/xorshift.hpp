@@ -1,6 +1,10 @@
 #pragma once
 #include "template/template.hpp"
 
+/**
+ * @brief 擬似乱数生成器
+ * 
+ */
 struct Xorshift {
     unsigned int x, y, z, w;
 
