@@ -23,7 +23,7 @@ data:
       title: lib/_new/mex.hpp
     - icon: ':warning:'
       path: lib/_new/partially_persistent_union_find.hpp
-      title: lib/_new/partially_persistent_union_find.hpp
+      title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
     - icon: ':warning:'
       path: lib/_new/tree64.hpp
       title: lib/_new/tree64.hpp
@@ -48,33 +48,28 @@ data:
       title: "\u5EA7\u6A19\u5727\u7E2E"
     - icon: ':warning:'
       path: lib/algorithm/doubling.hpp
-      title: lib/algorithm/doubling.hpp
+      title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
     - icon: ':warning:'
       path: lib/algorithm/wavelet_matrix.hpp
       title: lib/algorithm/wavelet_matrix.hpp
     - icon: ':warning:'
       path: lib/algorithm/xorshift.hpp
-      title: lib/algorithm/xorshift.hpp
+      title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - name: lib/binary_tree
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/BIT.hpp
-      title: Binary Indexed Tree
+      title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
     - icon: ':warning:'
       path: lib/binary_tree/BIT_RSQ.hpp
-      title: v[k] = val
+      title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
+        \u533A\u9593\u7DCF\u548C\uFF09"
+    - icon: ':warning:'
+      path: lib/binary_tree/avl_tree.hpp
+      title: "AVL\u6728"
     - icon: ':warning:'
       path: lib/binary_tree/binary_trie.hpp
       title: "2\u5206\u30C8\u30E9\u30A4\u6728"
-    - icon: ':warning:'
-      path: lib/binary_tree/dual_segment_tree.hpp
-      title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-    - icon: ':warning:'
-      path: lib/binary_tree/dynamic_segment_tree.hpp
-      title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-    - icon: ':warning:'
-      path: lib/binary_tree/lazy_segment_tree.hpp
-      title: lib/binary_tree/lazy_segment_tree.hpp
     - icon: ':warning:'
       path: lib/binary_tree/multi_binary_trie.hpp
       title: "2\u5206\u30C8\u30E9\u30A4\u6728(\u91CD\u8907\u3042\u308A)"
@@ -85,9 +80,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-    - icon: ':heavy_check_mark:'
-      path: lib/binary_tree/segment_tree.hpp
-      title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
+      path: lib/binary_tree/treap.hpp
+      title: lib/binary_tree/treap.hpp
   - name: lib/data_structure
     pages:
     - icon: ':warning:'
@@ -121,7 +116,7 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/dp/lis.hpp
-      title: lib/dp/lis.hpp
+      title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
   - name: lib/fft
     pages:
     - icon: ':warning:'
@@ -208,8 +203,12 @@ data:
   - name: lib/math
     pages:
     - icon: ':warning:'
+      path: lib/math/ceil_pow2.hpp
+      title: lib/math/ceil_pow2.hpp
+    - icon: ':warning:'
       path: lib/math/chinese_rem.hpp
-      title: lib/math/chinese_rem.hpp
+      title: "a * x + b * y = gcd(a, b) \u306E\u7B54\u3048\u3092\u4E00\u3064\u6C42\
+        \u3081\u308B"
     - icon: ':heavy_check_mark:'
       path: lib/math/combination.hpp
       title: lib/math/combination.hpp
@@ -246,6 +245,29 @@ data:
     - icon: ':warning:'
       path: lib/math/slope_trick.hpp
       title: Add f(x) = a
+  - name: lib/segment_tree
+    pages:
+    - icon: ':warning:'
+      path: lib/segment_tree/RAQ.hpp
+      title: lib/segment_tree/RAQ.hpp
+    - icon: ':warning:'
+      path: lib/segment_tree/dual_segment_tree.hpp
+      title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
+      path: lib/segment_tree/dual_segment_tree_virtual.hpp
+      title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
+      path: lib/segment_tree/dynamic_segment_tree.hpp
+      title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
+      path: lib/segment_tree/lazy_segment_tree.hpp
+      title: lib/segment_tree/lazy_segment_tree.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/segment_tree/segment_tree.hpp
+      title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
+      path: lib/segment_tree/segment_tree_virtual.hpp
+      title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - name: lib/string
     pages:
     - icon: ':warning:'

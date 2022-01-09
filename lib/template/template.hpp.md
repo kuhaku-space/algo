@@ -22,7 +22,7 @@ data:
     title: lib/_new/mex.hpp
   - icon: ':warning:'
     path: lib/_new/partially_persistent_union_find.hpp
-    title: lib/_new/partially_persistent_union_find.hpp
+    title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
   - icon: ':warning:'
     path: lib/_new/tree64.hpp
     title: lib/_new/tree64.hpp
@@ -43,31 +43,26 @@ data:
     title: "\u5EA7\u6A19\u5727\u7E2E"
   - icon: ':warning:'
     path: lib/algorithm/doubling.hpp
-    title: lib/algorithm/doubling.hpp
+    title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
   - icon: ':warning:'
     path: lib/algorithm/wavelet_matrix.hpp
     title: lib/algorithm/wavelet_matrix.hpp
   - icon: ':warning:'
     path: lib/algorithm/xorshift.hpp
-    title: lib/algorithm/xorshift.hpp
+    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/BIT.hpp
-    title: Binary Indexed Tree
+    title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
   - icon: ':warning:'
     path: lib/binary_tree/BIT_RSQ.hpp
-    title: v[k] = val
+    title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
+      \u533A\u9593\u7DCF\u548C\uFF09"
+  - icon: ':warning:'
+    path: lib/binary_tree/avl_tree.hpp
+    title: "AVL\u6728"
   - icon: ':warning:'
     path: lib/binary_tree/binary_trie.hpp
     title: "2\u5206\u30C8\u30E9\u30A4\u6728"
-  - icon: ':warning:'
-    path: lib/binary_tree/dual_segment_tree.hpp
-    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/binary_tree/dynamic_segment_tree.hpp
-    title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/binary_tree/lazy_segment_tree.hpp
-    title: lib/binary_tree/lazy_segment_tree.hpp
   - icon: ':warning:'
     path: lib/binary_tree/multi_binary_trie.hpp
     title: "2\u5206\u30C8\u30E9\u30A4\u6728(\u91CD\u8907\u3042\u308A)"
@@ -77,9 +72,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/segment_tree.hpp
-    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/binary_tree/treap.hpp
+    title: lib/binary_tree/treap.hpp
   - icon: ':warning:'
     path: lib/data_structure/Map.hpp
     title: lib/data_structure/Map.hpp
@@ -109,7 +104,7 @@ data:
     title: lib/data_structure/radix_heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/dp/lis.hpp
-    title: lib/dp/lis.hpp
+    title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
   - icon: ':warning:'
     path: lib/fft/fft.hpp
     title: lib/fft/fft.hpp
@@ -186,8 +181,12 @@ data:
     path: lib/list/skip_list.hpp
     title: lib/list/skip_list.hpp
   - icon: ':warning:'
+    path: lib/math/ceil_pow2.hpp
+    title: lib/math/ceil_pow2.hpp
+  - icon: ':warning:'
     path: lib/math/chinese_rem.hpp
-    title: lib/math/chinese_rem.hpp
+    title: "a * x + b * y = gcd(a, b) \u306E\u7B54\u3048\u3092\u4E00\u3064\u6C42\u3081\
+      \u308B"
   - icon: ':heavy_check_mark:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
@@ -224,6 +223,27 @@ data:
   - icon: ':warning:'
     path: lib/math/slope_trick.hpp
     title: Add f(x) = a
+  - icon: ':warning:'
+    path: lib/segment_tree/RAQ.hpp
+    title: lib/segment_tree/RAQ.hpp
+  - icon: ':warning:'
+    path: lib/segment_tree/dual_segment_tree.hpp
+    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/segment_tree/dual_segment_tree_virtual.hpp
+    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/segment_tree/dynamic_segment_tree.hpp
+    title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/segment_tree/lazy_segment_tree.hpp
+    title: lib/segment_tree/lazy_segment_tree.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/segment_tree.hpp
+    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/segment_tree/segment_tree_virtual.hpp
+    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':warning:'
     path: lib/string/kmp.hpp
     title: lib/string/kmp.hpp
@@ -362,121 +382,127 @@ data:
   isVerificationFile: false
   path: lib/template/template.hpp
   requiredBy:
-  - lib/template/atcoder.hpp
-  - lib/binary_tree/segment_tree.hpp
-  - lib/binary_tree/BIT.hpp
-  - lib/binary_tree/multi_patricia_binary_trie.hpp
-  - lib/binary_tree/lazy_segment_tree.hpp
-  - lib/binary_tree/binary_trie.hpp
-  - lib/binary_tree/patricia_binary_trie.hpp
-  - lib/binary_tree/dual_segment_tree.hpp
-  - lib/binary_tree/dynamic_segment_tree.hpp
-  - lib/binary_tree/BIT_RSQ.hpp
-  - lib/binary_tree/multi_binary_trie.hpp
-  - lib/graph/lowlink.hpp
-  - lib/graph/graph.hpp
-  - lib/graph/bellman_ford.hpp
-  - lib/graph/topological_sort.hpp
   - lib/graph/two_sat.hpp
-  - lib/graph/kruskal.hpp
-  - lib/graph/max_flow.hpp
+  - lib/graph/lowlink.hpp
   - lib/graph/matrix_graph.hpp
   - lib/graph/dijkstra.hpp
-  - lib/graph/chromatic_number.hpp
-  - lib/graph/warshall_floyd.hpp
-  - lib/graph/scc.hpp
+  - lib/graph/graph.hpp
   - lib/graph/min_cost_flow.hpp
-  - lib/_old/lazy_segment_tree.hpp
-  - lib/_old/graph_algorithm.hpp
-  - lib/_old/lazy_segment_tree_beta.hpp
-  - lib/geometry/geometry.hpp
-  - lib/geometry/kdtree.hpp
-  - lib/geometry/cht.hpp
-  - lib/geometry/convex_hull.hpp
-  - lib/geometry/geometry3d.hpp
-  - lib/data_structure/PQueue.hpp
-  - lib/data_structure/bigint.hpp
-  - lib/data_structure/UMap.hpp
-  - lib/data_structure/radix_heap.hpp
-  - lib/data_structure/binary_tree.hpp
-  - lib/data_structure/heap.hpp
-  - lib/data_structure/bigint_beta.hpp
-  - lib/data_structure/bit_vector.hpp
-  - lib/data_structure/Map.hpp
-  - lib/string/trie.hpp
-  - lib/string/manacher.hpp
-  - lib/string/kmp.hpp
-  - lib/string/rolling_hash.hpp
-  - lib/string/z_algorithm.hpp
-  - lib/algorithm/Mo.hpp
-  - lib/algorithm/doubling.hpp
-  - lib/algorithm/wavelet_matrix.hpp
-  - lib/algorithm/xorshift.hpp
-  - lib/algorithm/compress.hpp
-  - lib/math/combination.hpp
-  - lib/math/enumeration.hpp
-  - lib/math/prime_number.hpp
-  - lib/math/modint.hpp
-  - lib/math/math.hpp
-  - lib/math/fraction.hpp
-  - lib/math/slope_trick.hpp
-  - lib/math/pow.hpp
-  - lib/math/prime_number_fast.hpp
-  - lib/math/matrix.hpp
-  - lib/math/primitive_root.hpp
-  - lib/math/modint64.hpp
-  - lib/math/chinese_rem.hpp
-  - lib/dp/lis.hpp
-  - lib/_new/b-tree.hpp
-  - lib/_new/graph_segment.hpp
-  - lib/_new/cumulative_sum_2d.hpp
-  - lib/_new/partially_persistent_union_find.hpp
-  - lib/_new/make_permutation.hpp
+  - lib/graph/bellman_ford.hpp
+  - lib/graph/scc.hpp
+  - lib/graph/warshall_floyd.hpp
+  - lib/graph/chromatic_number.hpp
+  - lib/graph/topological_sort.hpp
+  - lib/graph/max_flow.hpp
+  - lib/graph/kruskal.hpp
+  - lib/segment_tree/segment_tree.hpp
+  - lib/segment_tree/RAQ.hpp
+  - lib/segment_tree/dual_segment_tree_virtual.hpp
+  - lib/segment_tree/segment_tree_virtual.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
+  - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
   - lib/_new/mex.hpp
+  - lib/_new/partially_persistent_union_find.hpp
+  - lib/_new/graph_segment.hpp
   - lib/_new/tree64.hpp
+  - lib/_new/b-tree.hpp
   - lib/_new/dynamic_segment_tree.hpp
-  - lib/tree/lca.hpp
-  - lib/tree/union_find_with_edge.hpp
-  - lib/tree/eular_tour.hpp
-  - lib/tree/union_find.hpp
-  - lib/tree/tree_subtree.hpp
-  - lib/tree/tree_parent.hpp
-  - lib/tree/tree_dist.hpp
-  - lib/tree/link_cut_tree.hpp
-  - lib/tree/hld.hpp
-  - lib/tree/tree.hpp
-  - lib/list/skip_list.hpp
+  - lib/_new/make_permutation.hpp
+  - lib/_new/cumulative_sum_2d.hpp
+  - lib/string/z_algorithm.hpp
+  - lib/string/rolling_hash.hpp
+  - lib/string/trie.hpp
+  - lib/string/kmp.hpp
+  - lib/string/manacher.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/fft/fft.hpp
   - lib/fft/fft_mod.hpp
-  - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
   - lib/fft/garner.hpp
+  - lib/fft/fft.hpp
+  - lib/fft/ntt_mod.hpp
+  - lib/geometry/geometry.hpp
+  - lib/geometry/convex_hull.hpp
+  - lib/geometry/geometry3d.hpp
+  - lib/geometry/kdtree.hpp
+  - lib/geometry/cht.hpp
+  - lib/math/ceil_pow2.hpp
+  - lib/math/prime_number_fast.hpp
+  - lib/math/matrix.hpp
+  - lib/math/chinese_rem.hpp
+  - lib/math/modint.hpp
+  - lib/math/primitive_root.hpp
+  - lib/math/math.hpp
+  - lib/math/fraction.hpp
+  - lib/math/modint64.hpp
+  - lib/math/prime_number.hpp
+  - lib/math/enumeration.hpp
+  - lib/math/pow.hpp
+  - lib/math/combination.hpp
+  - lib/math/slope_trick.hpp
+  - lib/template/atcoder.hpp
+  - lib/algorithm/xorshift.hpp
+  - lib/algorithm/Mo.hpp
+  - lib/algorithm/doubling.hpp
+  - lib/algorithm/compress.hpp
+  - lib/algorithm/wavelet_matrix.hpp
+  - lib/list/skip_list.hpp
+  - lib/tree/hld.hpp
+  - lib/tree/union_find_with_edge.hpp
+  - lib/tree/lca.hpp
+  - lib/tree/union_find.hpp
+  - lib/tree/tree_parent.hpp
+  - lib/tree/link_cut_tree.hpp
+  - lib/tree/eular_tour.hpp
+  - lib/tree/tree_dist.hpp
+  - lib/tree/tree.hpp
+  - lib/tree/tree_subtree.hpp
+  - lib/binary_tree/BIT_RSQ.hpp
+  - lib/binary_tree/BIT.hpp
+  - lib/binary_tree/multi_binary_trie.hpp
+  - lib/binary_tree/binary_trie.hpp
+  - lib/binary_tree/treap.hpp
+  - lib/binary_tree/avl_tree.hpp
+  - lib/binary_tree/patricia_binary_trie.hpp
+  - lib/binary_tree/multi_patricia_binary_trie.hpp
+  - lib/dp/lis.hpp
+  - lib/_old/graph_algorithm.hpp
+  - lib/_old/lazy_segment_tree.hpp
+  - lib/_old/lazy_segment_tree_beta.hpp
+  - lib/data_structure/bigint_beta.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/data_structure/PQueue.hpp
+  - lib/data_structure/Map.hpp
+  - lib/data_structure/radix_heap.hpp
+  - lib/data_structure/heap.hpp
+  - lib/data_structure/bit_vector.hpp
+  - lib/data_structure/binary_tree.hpp
+  - lib/data_structure/UMap.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/yosupo/data_structure/set_xor-min.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
-  - test/yosupo/sample/many_a+b.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/aoj/longest_increasing_subsequense.test.cpp
   - test/aoj/the_number_of_inversions.test.cpp
   - test/aoj/geometry/counter-clockwise.test.cpp
+  - test/aoj/geometry/cross_point.test.cpp
+  - test/aoj/geometry/intersection.test.cpp
+  - test/aoj/geometry/projection.test.cpp
   - test/aoj/geometry/parallel_orthogonal.test.cpp
   - test/aoj/geometry/reflection.test.cpp
-  - test/aoj/geometry/projection.test.cpp
-  - test/aoj/geometry/intersection.test.cpp
-  - test/aoj/geometry/cross_point.test.cpp
-  - test/aoj/dp/stirling.test.cpp
-  - test/aoj/dp/bell.test.cpp
   - test/aoj/all_pairs_shortest_path.test.cpp
-  - test/aoj/longest_increasing_subsequense.test.cpp
-  - test/aoj/power.test.cpp
+  - test/aoj/dp/bell.test.cpp
+  - test/aoj/dp/stirling.test.cpp
   - test/aoj/prime_numbers.test.cpp
   - test/aoj/prime_factorize.test.cpp
+  - test/aoj/power.test.cpp
+  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/data_structure/static_range_sum.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/data_structure/set_xor-min.test.cpp
 documentation_of: lib/template/template.hpp
 layout: document
 redirect_from:

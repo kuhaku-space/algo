@@ -20,30 +20,21 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <int M>\r\nstruct b_tree\
-    \ {\r\n    struct node {\r\n        int sz = 0;\r\n        int data[M + 1];\r\n\
-    \        node* ptr[M + 1];\r\n\r\n        void insert(int x) {\r\n           \
-    \ node* p = ptr[0];\r\n            for (int i = 0; i < M; ++i) {\r\n         \
-    \       if (x < data[i]) break;\r\n                p = ptr[i + 1];\r\n       \
-    \     }\r\n\r\n            if (p != NULL) {\r\n                p->insert(x);\r\
-    \n            } else {\r\n                data[sz++] = x;\r\n                int\
-    \ idx = sz - 1;\r\n                while (idx > 0) {\r\n                    if\
-    \ (data[idx - 1] < data[idx]) break;\r\n                    swap(data[idx - 1],\
-    \ data[idx]);\r\n                    --idx;\r\n                }\r\n         \
-    \   }\r\n        }\r\n    };\r\n    node* root;\r\n\r\n    void insert(int x)\
-    \ { data[] }\r\n};\r\n"
+  code: "#include \"template/template.hpp\"\n\nconstexpr int ceil_pow2(int n) {\n\
+    \    unsigned int x = 1;\n    while (x < (unsigned int)(n)) x <<= 1;\n    return\
+    \ x;\n}\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/_new/b-tree.hpp
+  path: lib/math/ceil_pow2.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2021-12-13 18:57:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/_new/b-tree.hpp
+documentation_of: lib/math/ceil_pow2.hpp
 layout: document
 redirect_from:
-- /library/lib/_new/b-tree.hpp
-- /library/lib/_new/b-tree.hpp.html
-title: lib/_new/b-tree.hpp
+- /library/lib/math/ceil_pow2.hpp
+- /library/lib/math/ceil_pow2.hpp.html
+title: lib/math/ceil_pow2.hpp
 ---
