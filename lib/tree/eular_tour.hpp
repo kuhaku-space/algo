@@ -1,42 +1,46 @@
 #include "template/template.hpp"
 
-// reference :
-// https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp
-
+/**
+ * @brief オイラーツアー
+ * @details [参考](https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp)
+ *
+ */
 struct eular_tour {
-    vector<vector<int>> G;
-    vector<int> ls, rs;
-    int pos;
+    eular_tour(int n) : G(n), ls(n), rs(n), pos() {}
 
-    eular_tour(int n) : G(n), ls(n), rs(n) {}
+    pair<int, int> operator[](int i) const { return make_pair(this->ls[i], this->rs[i]); }
 
-    pair<int, int> operator[](int i) const { return {ls[i], rs[i]}; }
-
-    int size() const { return pos; }
+    int size() const { return this->pos; }
 
     void add_edge(int a, int b) {
-        G[a].emplace_back(b);
-        G[b].emplace_back(a);
+        this->G[a].emplace_back(b);
+        this->G[b].emplace_back(a);
     }
+    void add_edges(int a, int b) { this->add_edge(a, b); }
 
     void dfs(int v, int p) {
-        ls[v] = pos++;
-        for (auto &u : G[v]) {
-            if (u != p) dfs(u, v);
-            rs[v] = pos;
+        this->ls[v] = this->pos++;
+        for (auto &u : this->G[v]) {
+            if (u != p) this->dfs(u, v);
+            this->rs[v] = this->pos;
         }
     }
 
     void build(int r = 0) {
-        pos = 0;
-        dfs(r, -1);
+        this->pos = 0;
+        this->dfs(r, -1);
     }
 
-    int get_l(int i) const { return ls[i]; }
-    int get_r(int i) const { return rs[i]; }
+    int get_l(int i) const { return this->ls[i]; }
+    int get_r(int i) const { return this->rs[i]; }
 
     template <class F>
-    void query(int v, const F &f) {
-        f(ls[v], rs[v]);
+    void query(int v, const F &f) const {
+        f(this->ls[v], this->rs[v]);
     }
+
+  private:
+    vector<vector<int>> G;
+    vector<int> ls, rs;
+    int pos;
 };
