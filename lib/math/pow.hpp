@@ -30,8 +30,8 @@ int64_t pow_mod(int64_t a, int64_t n, int64_t mod) {
     return res;
 }
 
-constexpr int ceil_pow2(int n) {
-    unsigned int x = 1;
-    while (x < (unsigned int)(n)) x <<= 1;
+int ceil_pow2(int n) {
+    int x = 0;
+    while ((1U << x) < (unsigned int)(n)) x++;
     return x;
 }
