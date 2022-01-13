@@ -203,7 +203,7 @@ data:
   - icon: ':warning:'
     path: lib/math/modint64.hpp
     title: lib/math/modint64.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
   - icon: ':heavy_check_mark:'
@@ -233,10 +233,10 @@ data:
   - icon: ':warning:'
     path: lib/segment_tree/lazy_segment_tree.hpp
     title: lib/segment_tree/lazy_segment_tree.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':warning:'
@@ -257,7 +257,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -351,7 +351,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -363,9 +363,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -482,7 +482,7 @@ data:
   - lib/data_structure/bit_vector.hpp
   - lib/dp/lis.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/longest_increasing_subsequense.test.cpp
   - test/aoj/all_pairs_shortest_path.test.cpp

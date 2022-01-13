@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

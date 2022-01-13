@@ -225,7 +225,7 @@ data:
     - icon: ':warning:'
       path: lib/math/modint64.hpp
       title: lib/math/modint64.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
     - icon: ':heavy_check_mark:'
@@ -257,10 +257,10 @@ data:
     - icon: ':warning:'
       path: lib/segment_tree/lazy_segment_tree.hpp
       title: lib/segment_tree/lazy_segment_tree.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/segment_tree/monoid.hpp
       title: lib/segment_tree/monoid.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/segment_tree/segment_tree.hpp
       title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':warning:'
@@ -285,10 +285,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -396,7 +396,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_rmq.test.cpp
       title: test/yosupo/data_structure/static_rmq.test.cpp
     - icon: ':heavy_check_mark:'

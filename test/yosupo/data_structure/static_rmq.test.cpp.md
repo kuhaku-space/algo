@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/staticrmq
@@ -38,9 +38,9 @@ data:
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n#include \"\
     segment_tree/segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
     \ {\n    sonic();\n    int n, q;\n    cin >> n >> q;\n    vector<int> a(n);\n\
-    \    cin >> a;\n    segment_tree st(n, Inf, [](auto a, auto b) { return min(a,\
-    \ b); });\n    st.build(a);\n    rep(i, q) {\n        int l, r;\n        cin >>\
-    \ l >> r;\n        co(st.prod(l, r));\n    }\n\n    return 0;\n}\n"
+    \    cin >> a;\n    segment_tree<Min<int>> st(n);\n    st.build(a);\n    rep(i,\
+    \ q) {\n        int l, r;\n        cin >> l >> r;\n        co(st.prod(l, r));\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
   - lib/math/pow.hpp
@@ -50,8 +50,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/static_rmq.test.cpp
   requiredBy: []
-  timestamp: '2022-01-13 23:29:15+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-01-14 00:50:13+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_rmq.test.cpp
 layout: document
