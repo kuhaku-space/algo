@@ -6,7 +6,7 @@ int main(void) {
     sonic();
     int n, q;
     cin >> n >> q;
-    segment_tree<Min<int>, Update> st(n, (1LL << 31) - 1);
+    segment_tree<Min<int>, Update<int>> st(n, (1LL << 31) - 1);
     rep(i, q) {
         int com, x, y;
         cin >> com >> x >> y;
