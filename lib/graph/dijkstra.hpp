@@ -1,8 +1,17 @@
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief ダイクストラ法
+ *
+ * @tparam T
+ * @param g グラフ
+ * @param s 始点
+ * @param inf
+ * @return vector<T>
+ */
 template <class T>
-vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = numeric_limits<T>::max()) {
+std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
     struct _edge {
         int to;
         T dist;
@@ -11,8 +20,8 @@ vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = numeric_limits<T>::max(
         bool operator<(const _edge &rhs) const { return this->dist < rhs.dist; }
         bool operator>(const _edge &rhs) const { return rhs < *this; }
     };
-    vector<T> dist(g.size(), inf);
-    priority_queue<_edge, vector<_edge>, greater<_edge>> p_que;
+    std::vector<T> dist(g.size(), inf);
+    std::priority_queue<_edge, std::vector<_edge>, std::greater<_edge>> p_que;
     dist[s] = T();
     p_que.emplace(s, T());
     while (!p_que.empty()) {

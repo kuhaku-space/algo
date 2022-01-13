@@ -11,7 +11,7 @@ struct Graph {
         bool operator<(const edge &rhs) const { return this->dist < rhs.dist; }
         bool operator>(const edge &rhs) const { return rhs < *this; }
     };
-    vector<vector<edge>> edges;
+    std::vector<std::vector<edge>> edges;
 
     Graph(int v) : edges(v) {}
 
@@ -53,7 +53,7 @@ struct Graph {
 
 template <>
 struct Graph<void> {
-    vector<vector<int>> edges;
+    std::vector<std::vector<int>> edges;
 
     Graph(int v) : edges(v) {}
 
