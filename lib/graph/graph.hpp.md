@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -100,16 +100,16 @@ data:
   isVerificationFile: false
   path: lib/graph/graph.hpp
   requiredBy:
+  - lib/graph/bellman_ford.hpp
+  - lib/graph/kruskal.hpp
+  - lib/graph/scc.hpp
   - lib/graph/two_sat.hpp
+  - lib/graph/topological_sort.hpp
   - lib/graph/lowlink.hpp
   - lib/graph/dijkstra.hpp
-  - lib/graph/bellman_ford.hpp
-  - lib/graph/scc.hpp
-  - lib/graph/topological_sort.hpp
-  - lib/graph/kruskal.hpp
+  - lib/tree/tree.hpp
   - lib/tree/tree_parent.hpp
   - lib/tree/tree_dist.hpp
-  - lib/tree/tree.hpp
   - lib/tree/tree_subtree.hpp
   timestamp: '2021-09-22 06:52:24+09:00'
   verificationStatus: LIBRARY_ALL_AC

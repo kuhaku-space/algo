@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -10,6 +10,8 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\
+      \u30E5\u30FC"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.1/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -20,18 +22,22 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct PQueue\
-    \ {\r\n    priority_queue<T> a, b;\r\n\r\n    bool empty() const { return a.empty();\
-    \ }\r\n\r\n    void insert(T x) { a.push(x); }\r\n\r\n    T top() const { a.top();\
-    \ }\r\n\r\n    void pop() { erase(a.top()); }\r\n\r\n    void erase(T x) {\r\n\
-    \        b.push(x);\r\n        while (!a.empty() && a.top() == b.top()) {\r\n\
-    \            a.pop(), b.pop();\r\n        }\r\n    }\r\n};\r\n"
+  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u524A\u9664\u4ED8\
+    \u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\u30FC\r\n * \r\n * @tparam\
+    \ T \r\n */\r\ntemplate <class T>\r\nstruct PQueue {\r\n    bool empty() const\
+    \ { return this->a.empty(); }\r\n    auto top() const { return this->a.top();\
+    \ }\r\n\r\n    void emplace(T x) { this->a.emplace(x); }\r\n    void insert(T\
+    \ x) { this->a.emplace(x); }\r\n    void push(T x) { this->a.emplace(x); }\r\n\
+    \r\n    void pop() { this->erase(this->a.top()); }\r\n\r\n    void erase(T x)\
+    \ {\r\n        this->b.emplace(x);\r\n        while (!this->a.empty() && this->a.top()\
+    \ == this->b.top()) { this->a.pop(), this->b.pop(); }\r\n    }\r\n\r\n  private:\r\
+    \n    std::priority_queue<T> a, b;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/PQueue.hpp
   requiredBy: []
-  timestamp: '2021-10-01 05:33:18+09:00'
+  timestamp: '2022-01-13 01:24:41+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_structure/PQueue.hpp
@@ -39,5 +45,5 @@ layout: document
 redirect_from:
 - /library/lib/data_structure/PQueue.hpp
 - /library/lib/data_structure/PQueue.hpp.html
-title: lib/data_structure/PQueue.hpp
+title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\u30FC"
 ---

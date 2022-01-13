@@ -30,9 +30,6 @@ data:
   - name: lib/_old
     pages:
     - icon: ':warning:'
-      path: lib/_old/graph_algorithm.hpp
-      title: lib/_old/graph_algorithm.hpp
-    - icon: ':warning:'
       path: lib/_old/lazy_segment_tree.hpp
       title: lib/_old/lazy_segment_tree.hpp
     - icon: ':warning:'
@@ -90,7 +87,8 @@ data:
       title: lib/data_structure/Map.hpp
     - icon: ':warning:'
       path: lib/data_structure/PQueue.hpp
-      title: lib/data_structure/PQueue.hpp
+      title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\
+        \u30FC"
     - icon: ':warning:'
       path: lib/data_structure/UMap.hpp
       title: lib/data_structure/UMap.hpp
@@ -203,9 +201,6 @@ data:
   - name: lib/math
     pages:
     - icon: ':warning:'
-      path: lib/math/ceil_pow2.hpp
-      title: lib/math/ceil_pow2.hpp
-    - icon: ':warning:'
       path: lib/math/chinese_rem.hpp
       title: "a * x + b * y = gcd(a, b) \u306E\u7B54\u3048\u3092\u4E00\u3064\u6C42\
         \u3081\u308B"
@@ -230,7 +225,7 @@ data:
     - icon: ':warning:'
       path: lib/math/modint64.hpp
       title: lib/math/modint64.hpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
     - icon: ':heavy_check_mark:'
@@ -250,7 +245,7 @@ data:
     - icon: ':warning:'
       path: lib/segment_tree/RAQ.hpp
       title: lib/segment_tree/RAQ.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/segment_tree/dual_segment_tree.hpp
       title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':warning:'
@@ -262,7 +257,10 @@ data:
     - icon: ':warning:'
       path: lib/segment_tree/lazy_segment_tree.hpp
       title: lib/segment_tree/lazy_segment_tree.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
+      path: lib/segment_tree/monoid.hpp
+      title: lib/segment_tree/monoid.hpp
+    - icon: ':question:'
       path: lib/segment_tree/segment_tree.hpp
       title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':warning:'
@@ -287,17 +285,17 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
     pages:
     - icon: ':warning:'
       path: lib/tree/eular_tour.hpp
-      title: lib/tree/eular_tour.hpp
+      title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
     - icon: ':warning:'
       path: lib/tree/hld.hpp
       title: lib/tree/hld.hpp
@@ -354,6 +352,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/dp/stirling.test.cpp
       title: test/aoj/dp/stirling.test.cpp
+  - name: test/aoj/dsl
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/rmq.test.cpp
+      title: test/aoj/dsl/rmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/ruq.test.cpp
+      title: test/aoj/dsl/ruq.test.cpp
   - name: test/aoj/geometry
     pages:
     - icon: ':heavy_check_mark:'
@@ -390,7 +396,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/data_structure/static_rmq.test.cpp
       title: test/yosupo/data_structure/static_rmq.test.cpp
     - icon: ':heavy_check_mark:'

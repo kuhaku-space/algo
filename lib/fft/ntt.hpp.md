@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -75,8 +75,8 @@ data:
   requiredBy:
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
-  - lib/data_structure/bigint_beta.hpp
   - lib/data_structure/bigint.hpp
+  - lib/data_structure/bigint_beta.hpp
   timestamp: '2021-12-22 02:26:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

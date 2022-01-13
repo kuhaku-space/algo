@@ -5,9 +5,6 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/math/primitive_root.hpp
-    title: lib/math/primitive_root.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -38,37 +35,40 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\nint64_t pow_int(int64_t a, int64_t\
-    \ n) {\r\n    assert(n >= 0);\r\n    int64_t res = 1, mul = a;\r\n    for (; n\
-    \ > 0; n >>= 1) {\r\n        if (n & 1) res *= mul;\r\n        mul *= mul;\r\n\
-    \    }\r\n    return res;\r\n}\r\n\r\nint64_t inv_mod(int64_t a, int64_t mod)\
-    \ {\r\n    int64_t b = mod, u = 1, v = 0, t;\r\n    while (b > 0) {\r\n      \
-    \  t = a / b;\r\n        swap(a -= t * b, b);\r\n        swap(u -= t * v, v);\r\
-    \n    }\r\n    return u >= 0 ? u % mod : (mod - (-u) % mod) % mod;\r\n}\r\n\r\n\
-    int64_t pow_mod(int64_t a, int64_t n, int64_t mod) {\r\n    if (n < 0) return\
-    \ inv_mod(pow_mod(a, -n, mod), mod);\r\n    int64_t res = 1, mul = a;\r\n    for\
-    \ (; n > 0; n >>= 1) {\r\n        if (n & 1) (res *= mul) %= mod;\r\n        (mul\
-    \ *= mul) %= mod;\r\n    }\r\n    return res;\r\n}\r\n\r\nint ceil_pow2(int n)\
-    \ {\r\n    int x = 0;\r\n    while ((1U << x) < (unsigned int)(n)) x++;\r\n  \
-    \  return x;\r\n}\r\n"
+  code: "#include \"template/template.hpp\"\n\ntemplate <class T>\nstruct Add {\n\
+    \    using value_type = T;\n    static constexpr T id = T(0);\n    static constexpr\
+    \ T op(const T &lhs, const T &rhs) { return lhs + rhs; }\n\n    template <class\
+    \ U>\n    static constexpr U f(T lhs, U rhs) {\n        return lhs + rhs;\n  \
+    \  }\n};\n\ntemplate <class T>\nstruct Min {\n    using value_type = T;\n    static\
+    \ constexpr T id = numeric_limits<T>::max();\n    static constexpr T op(const\
+    \ T &lhs, const T &rhs) { return min(lhs, rhs); }\n\n    template <class U>\n\
+    \    static constexpr U f(T lhs, U rhs) {\n        return min((U)lhs, rhs);\n\
+    \    }\n};\n\ntemplate <class T>\nstruct Max {\n    using value_type = T;\n  \
+    \  static constexpr T id = numeric_limits<T>::min();\n    static constexpr T op(const\
+    \ T &lhs, const T &rhs) { return max(lhs, rhs); }\n\n    template <class U>\n\
+    \    static constexpr U f(T lhs, U rhs) {\n        return max((U)lhs, rhs);\n\
+    \    }\n};\n\ntemplate <class T>\nstruct Update {\n    using value_type = T;\n\
+    \    static constexpr T id = numeric_limits<T>::max();\n    static constexpr T\
+    \ op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs : lhs; }\n\n\
+    \    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return\
+    \ lhs == Update::id ? rhs : lhs;\n    }\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/math/pow.hpp
+  path: lib/segment_tree/monoid.hpp
   requiredBy:
   - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/segment_tree.hpp
-  - lib/math/primitive_root.hpp
-  timestamp: '2022-01-13 23:29:15+09:00'
+  timestamp: '2022-01-13 22:45:15+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
-documentation_of: lib/math/pow.hpp
+documentation_of: lib/segment_tree/monoid.hpp
 layout: document
 redirect_from:
-- /library/lib/math/pow.hpp
-- /library/lib/math/pow.hpp.html
-title: lib/math/pow.hpp
+- /library/lib/segment_tree/monoid.hpp
+- /library/lib/segment_tree/monoid.hpp.html
+title: lib/segment_tree/monoid.hpp
 ---

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -41,8 +41,8 @@ data:
   isVerificationFile: false
   path: lib/algorithm/xorshift.hpp
   requiredBy:
-  - lib/list/skip_list.hpp
   - lib/binary_tree/treap.hpp
+  - lib/list/skip_list.hpp
   timestamp: '2022-01-09 16:16:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

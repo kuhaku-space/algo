@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -104,18 +104,18 @@ data:
   path: lib/math/modint.hpp
   requiredBy:
   - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt.hpp
   - lib/fft/ntt_mod.hpp
-  - lib/math/enumeration.hpp
+  - lib/fft/ntt.hpp
   - lib/math/combination.hpp
-  - lib/data_structure/bigint_beta.hpp
+  - lib/math/enumeration.hpp
   - lib/data_structure/bigint.hpp
+  - lib/data_structure/bigint_beta.hpp
   timestamp: '2021-12-22 02:25:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/power.test.cpp
   - test/aoj/dp/bell.test.cpp
   - test/aoj/dp/stirling.test.cpp
-  - test/aoj/power.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document

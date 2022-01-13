@@ -1,20 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/pow.hpp
+    title: lib/math/pow.hpp
+  - icon: ':question:'
+    path: lib/segment_tree/monoid.hpp
+    title: lib/segment_tree/monoid.hpp
+  - icon: ':question:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/staticrmq
@@ -37,13 +43,15 @@ data:
     \ l >> r;\n        co(st.prod(l, r));\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
+  - lib/math/pow.hpp
   - lib/template/template.hpp
+  - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/static_rmq.test.cpp
   requiredBy: []
-  timestamp: '2022-01-09 15:37:19+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-01-13 23:29:15+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_rmq.test.cpp
 layout: document

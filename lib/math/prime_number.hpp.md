@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -77,8 +77,8 @@ data:
   timestamp: '2021-10-02 14:40:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/prime_numbers.test.cpp
   - test/aoj/prime_factorize.test.cpp
+  - test/aoj/prime_numbers.test.cpp
 documentation_of: lib/math/prime_number.hpp
 layout: document
 redirect_from:

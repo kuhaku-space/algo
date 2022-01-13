@@ -1,20 +1,30 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: lib/math/pow.hpp
+    title: lib/math/pow.hpp
+  - icon: ':question:'
+    path: lib/segment_tree/monoid.hpp
+    title: lib/segment_tree/monoid.hpp
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq.test.cpp
+    title: test/aoj/dsl/rmq.test.cpp
+  - icon: ':x:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-    links: []
+    links:
+    - https://noshi91.hatenablog.com/entry/2020/04/22/212649)
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.1/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.1/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -22,51 +32,43 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.1/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30BB\u30B0\u30E1\
-    \u30F3\u30C8\u6728\r\n *\r\n * @tparam T \u8981\u7D20\u306E\u578B\r\n * @tparam\
-    \ F \u95A2\u6570\u306E\u578B\r\n */\r\ntemplate <class T, class F>\r\nstruct segment_tree\
-    \ {\r\n    int N;\r\n    const T e;\r\n    const F op;\r\n    vector<T> data;\r\
-    \n\r\n    segment_tree() {}\r\n    /**\r\n     * @brief Construct a new segment\
-    \ tree object\r\n     *\r\n     * @param _n length of array\r\n     * @param _e\
-    \ identity element\r\n     * @param _op binary operation\r\n     */\r\n    segment_tree(int\
-    \ _n, T _e, F &&_op) : e(_e), op(_op) { this->init(_n, _e); }\r\n    /**\r\n \
-    \    * @brief Construct a new segment tree object\r\n     *\r\n     * @param _n\
-    \ length of array\r\n     * @param _e identity element\r\n     * @param _op binary\
-    \ operation\r\n     */\r\n    segment_tree(int _n, T _e, const F &_op) : e(_e),\
-    \ op(_op) { this->init(_n, _e); }\r\n\r\n    const T &operator[](int i) const\
-    \ { return this->data[i + this->N]; }\r\n    T at(int k) const { return this->operator[](k);\
-    \ }\r\n    T get(int k) const { return this->operator[](k); }\r\n\r\n    void\
-    \ init(int n, const T val) {\r\n        for (this->N = 1; this->N < n; this->N\
-    \ <<= 1) {}\r\n        this->data.assign(this->N << 1, val);\r\n    }\r\n\r\n\
-    \    template <class U>\r\n    void build(const vector<U> &v) {\r\n        for\
-    \ (int i = 0, n = v.size(); i < n; ++i) this->data[this->N + i] = T(v[i]);\r\n\
-    \        for (int i = this->N - 1; i >= 1; --i)\r\n            this->data[i] =\
-    \ this->op(this->data[i * 2], this->data[i * 2 + 1]);\r\n    }\r\n\r\n    void\
-    \ update(int k, T val) {\r\n        assert(0 <= k && k < this->N);\r\n       \
-    \ this->data[k += this->N] = val;\r\n        while ((k >>= 1) >= 1) this->data[k]\
-    \ = this->op(this->data[k * 2], this->data[k * 2 + 1]);\r\n    }\r\n    void add(int\
-    \ k, T val) {\r\n        assert(0 <= k && k < this->N);\r\n        this->data[k\
-    \ += this->N] += val;\r\n        while ((k >>= 1) >= 1) this->data[k] = this->op(this->data[k\
-    \ * 2], this->data[k * 2 + 1]);\r\n    }\r\n\r\n    bool chmax(int k, T val) {\r\
-    \n        if (this->at(k) >= val) return false;\r\n        this->update(k, val);\r\
-    \n        return true;\r\n    }\r\n    bool chmin(int k, T val) {\r\n        if\
-    \ (this->at(k) <= val) return false;\r\n        this->update(k, val);\r\n    \
-    \    return true;\r\n    }\r\n\r\n    T all_prod() const { return this->data[1];\
-    \ }\r\n    T prod(int a, int b) const {\r\n        assert(0 <= a && b <= this->N);\r\
-    \n        T l = e, r = e;\r\n        for (a += this->N, b += this->N; a < b; a\
-    \ >>= 1, b >>= 1) {\r\n            if (a & 1) l = this->op(l, this->data[a++]);\r\
-    \n            if (b & 1) r = this->op(this->data[--b], r);\r\n        }\r\n  \
-    \      return this->op(l, r);\r\n    }\r\n};\r\n"
+  code: "#include \"math/pow.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\r\n#include\
+    \ \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30BB\u30B0\u30E1\u30F3\u30C8\
+    \u6728\r\n * @details [\u53C2\u8003](https://noshi91.hatenablog.com/entry/2020/04/22/212649)\r\
+    \n *\r\n * @tparam M\r\n * @tparam F\r\n */\r\ntemplate <class M>\r\nstruct segment_tree\
+    \ {\r\n    using T = typename M::value_type;\r\n\r\n    segment_tree() {}\r\n\
+    \    segment_tree(int n, T e = M::id) { this->init(n, e); }\r\n\r\n    const T\
+    \ &operator[](int i) const { return this->data[i + this->_size]; }\r\n    T at(int\
+    \ k) const { return this->operator[](k); }\r\n    T get(int k) const { return\
+    \ this->operator[](k); }\r\n\r\n    void init(int n, T val) {\r\n        this->_log\
+    \ = ceil_pow2(n);\r\n        this->_size = 1 << this->_log;\r\n        this->data.assign(this->_size\
+    \ << 1, val);\r\n    }\r\n\r\n    template <class U>\r\n    void build(const vector<U>\
+    \ &v) {\r\n        for (int i = 0, n = v.size(); i < n; ++i) this->data[this->_size\
+    \ + i] = T(v[i]);\r\n        for (int i = this->_size - 1; i >= 1; --i) this->update(i);\r\
+    \n    }\r\n\r\n    void set(int k, T val) {\r\n        assert(0 <= k && k < this->_size);\r\
+    \n        k += this->_size;\r\n        this->data[k] = val;\r\n        for (int\
+    \ i = 1; i <= this->_log; i++) this->update(k >> i);\r\n    }\r\n\r\n    T all_prod()\
+    \ const { return this->data[1]; }\r\n    T prod(int a, int b) const {\r\n    \
+    \    assert(0 <= a && b <= this->_size);\r\n        T l = M::id, r = M::id;\r\n\
+    \        for (a += this->_size, b += this->_size; a < b; a >>= 1, b >>= 1) {\r\
+    \n            if (a & 1) l = M::op(l, this->data[a++]);\r\n            if (b &\
+    \ 1) r = M::op(this->data[--b], r);\r\n        }\r\n        return M::op(l, r);\r\
+    \n    }\r\n\r\n  private:\r\n    int _size, _log;\r\n    std::vector<T> data;\r\
+    \n\r\n    void update(int k) { this->data[k] = M::op(this->data[2 * k], this->data[2\
+    \ * k + 1]); }\r\n};\r\n"
   dependsOn:
+  - lib/math/pow.hpp
   - lib/template/template.hpp
+  - lib/segment_tree/monoid.hpp
   isVerificationFile: false
   path: lib/segment_tree/segment_tree.hpp
   requiredBy: []
-  timestamp: '2021-12-20 06:14:21+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-01-13 23:29:15+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/aoj/dsl/rmq.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document

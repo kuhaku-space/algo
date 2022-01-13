@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/dp/lis.hpp
     title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

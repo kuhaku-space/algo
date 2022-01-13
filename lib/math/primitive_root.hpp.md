@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: lib/math/primitive_root.hpp
   requiredBy: []
-  timestamp: '2021-09-18 19:45:05+09:00'
+  timestamp: '2022-01-13 23:29:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/primitive_root.hpp
