@@ -1,3 +1,4 @@
+#include "math/pow.hpp"
 #include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
@@ -13,24 +14,25 @@ struct dual_segment_tree {
     dual_segment_tree(int _n, T _e = M::id) { this->init(_n, _e); }
 
     void init(int n, T e) {
-        for (this->_size = 1, this->log = 0; this->_size < n; this->_size <<= 1, ++(this->log)) {}
-        data.assign(this->_size << 1, e);
+        this->_log = ceil_pow2(n);
+        this->_size = 1 << this->_log;
+        this->data.assign(this->_size << 1, e);
     }
 
-    const T &at(int k) { return this->get(k); }
-    const T &get(int k) {
+    T at(int k) { return this->get(k); }
+    T get(int k) {
         assert(0 <= k && k < this->_size);
         k += this->_size;
-        for (int i = this->log; i >= 1; --i) this->push(k >> i);
+        for (int i = this->_log; i >= 1; --i) this->push(k >> i);
         return this->data[k];
     }
 
-    void apply(int a, const T &val) { this->apply(a, a + 1, val); }
-    void apply(int a, int b, const T &val) {
+    void apply(int a, T val) { this->apply(a, a + 1, val); }
+    void apply(int a, int b, T val) {
         assert(0 <= a && a <= this->_size);
         assert(0 <= b && b <= this->_size);
         a += this->_size, b += this->_size;
-        for (int i = log; i >= 1; --i) {
+        for (int i = _log; i >= 1; --i) {
             if (((a >> i) << i) != a) this->push(a >> i);
             if (((b >> i) << i) != b) this->push((b - 1) >> i);
         }
@@ -42,7 +44,7 @@ struct dual_segment_tree {
     }
 
   private:
-    int _size, log;
+    int _size, _log;
     vector<T> data;
 
     void all_apply(int k, T val) { this->data[k] = M::op(val, this->data[k]); }
