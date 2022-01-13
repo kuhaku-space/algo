@@ -19,6 +19,7 @@
 "test/yosupo/data_structure/point_add_range_sum.test.cpp": "2022-01-09 16:16:11 +0900",
 "test/yosupo/data_structure/set_xor-min.test.cpp": "2022-01-09 15:37:19 +0900",
 "test/yosupo/data_structure/static_range_sum.test.cpp": "2022-01-09 15:37:19 +0900",
+"test/yosupo/data_structure/static_rmq.test.cpp": "2022-01-14 00:50:13 +0900",
 "test/yosupo/data_structure/unionfind.test.cpp": "2022-01-09 15:37:19 +0900",
 "test/yosupo/graph/shortest_path.test.cpp": "2022-01-09 15:37:19 +0900",
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
