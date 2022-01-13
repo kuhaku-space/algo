@@ -6,7 +6,8 @@ struct Graph {
     struct edge {
         int from, to;
         T dist;
-
+        constexpr edge() : from(), to(), dist() {}
+        constexpr edge(int _from, int _to, T _dist) : from(_from), to(_to), dist(_dist) {}
         bool operator<(const edge &rhs) const { return this->dist < rhs.dist; }
         bool operator>(const edge &rhs) const { return rhs < *this; }
     };
@@ -21,10 +22,10 @@ struct Graph {
     const auto end() const { return this->edges.end(); }
     auto end() { return this->edges.end(); }
     auto size() const { return this->edges.size(); }
-    void add_edge(int a, int b, T d = T(1)) { this->edges[a].emplace_back(edge{a, b, d}); }
+    void add_edge(int a, int b, T d = T(1)) { this->edges[a].emplace_back(a, b, d); }
     void add_edges(int a, int b, T d = T(1)) {
-        this->edges[a].emplace_back(edge{a, b, d});
-        this->edges[b].emplace_back(edge{b, a, d});
+        this->edges[a].emplace_back(a, b, d);
+        this->edges[b].emplace_back(b, a, d);
     }
     void input_edge(int m, bool zero_based = false) {
         for (int i = 0; i < m; ++i) {
