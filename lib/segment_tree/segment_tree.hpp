@@ -9,43 +9,34 @@
  * @tparam M
  * @tparam F
  */
-template <class M, class F>
+template <class M>
 struct segment_tree {
     using T = typename M::value_type;
 
     segment_tree() {}
-    segment_tree(int n) { this->init(n, M::id); }
-    segment_tree(int n, T e) { this->init(n, e); }
+    segment_tree(int n, T e = M::id) { this->init(n, e); }
 
     const T &operator[](int i) const { return this->data[i + this->_size]; }
     T at(int k) const { return this->operator[](k); }
     T get(int k) const { return this->operator[](k); }
 
-    void init(int n, const T val) {
-        this->_size = ceil_pow2(n);
+    void init(int n, T val) {
+        this->_log = ceil_pow2(n);
+        this->_size = 1 << this->_log;
         this->data.assign(this->_size << 1, val);
     }
 
     template <class U>
     void build(const vector<U> &v) {
         for (int i = 0, n = v.size(); i < n; ++i) this->data[this->_size + i] = T(v[i]);
-        for (int i = this->_size - 1; i >= 1; --i)
-            this->data[i] = M::op(this->data[i * 2], this->data[i * 2 + 1]);
-    }
-
-    template <class U>
-    void apply(int k, U val) {
-        assert(0 <= k && k < this->_size);
-        k += this->_size;
-        this->data[k] = F::f(val, this->data[k]);
-        while ((k >>= 1) >= 1) this->data[k] = M::op(this->data[k * 2], this->data[k * 2 + 1]);
+        for (int i = this->_size - 1; i >= 1; --i) this->update(i);
     }
 
     void set(int k, T val) {
         assert(0 <= k && k < this->_size);
         k += this->_size;
         this->data[k] = val;
-        while ((k >>= 1) >= 1) this->data[k] = M::op(this->data[k * 2], this->data[k * 2 + 1]);
+        for (int i = 1; i <= this->_log; i++) this->update(k >> i);
     }
 
     T all_prod() const { return this->data[1]; }
@@ -60,6 +51,8 @@ struct segment_tree {
     }
 
   private:
-    int _size;
-    vector<T> data;
+    int _size, _log;
+    std::vector<T> data;
+
+    void update(int k) { this->data[k] = M::op(this->data[2 * k], this->data[2 * k + 1]); }
 };
