@@ -1,50 +1,49 @@
 #include "template/template.hpp"
 
 template <class T>
-struct Sum {
+struct Add {
     using value_type = T;
-    static constexpr T id = 0;
-    static T op(T l, T r) { return l + r; }
+    static constexpr T id = T(0);
+    static constexpr T op(const T &lhs, const T &rhs) { return lhs + rhs; }
+
+    template <class U>
+    static constexpr U f(T lhs, U rhs) {
+        return lhs + rhs;
+    }
 };
 
 template <class T>
 struct Min {
     using value_type = T;
     static constexpr T id = numeric_limits<T>::max();
-    static T op(T l, T r) { return min(l, r); }
+    static constexpr T op(const T &lhs, const T &rhs) { return min(lhs, rhs); }
+
+    template <class U>
+    static constexpr U f(T lhs, U rhs) {
+        return min((U)lhs, rhs);
+    }
 };
 
 template <class T>
 struct Max {
     using value_type = T;
     static constexpr T id = numeric_limits<T>::min();
-    static T op(T l, T r) { return max(l, r); }
-};
+    static constexpr T op(const T &lhs, const T &rhs) { return max(lhs, rhs); }
 
-struct Add {
-    template <class T, class U>
-    static T f(U val, T x) {
-        return val + x;
+    template <class U>
+    static constexpr U f(T lhs, U rhs) {
+        return max((U)lhs, rhs);
     }
 };
 
+template <class T>
 struct Update {
-    template <class T, class U>
-    static T f(U val, T x) {
-        return val;
-    }
-};
+    using value_type = T;
+    static constexpr T id = numeric_limits<T>::max();
+    static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs : lhs; }
 
-struct Chmin {
-    template <class T, class U>
-    static T f(U val, T x) {
-        return min((T)val, x);
-    }
-};
-
-struct Chmax {
-    template <class T, class U>
-    static T f(U val, T x) {
-        return max((T)val, x);
+    template <class U>
+    static constexpr U f(T lhs, U rhs) {
+        return lhs == Update::id ? rhs : lhs;
     }
 };
