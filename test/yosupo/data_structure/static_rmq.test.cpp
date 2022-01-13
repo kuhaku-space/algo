@@ -8,7 +8,7 @@ int main(void) {
     cin >> n >> q;
     vector<int> a(n);
     cin >> a;
-    segment_tree st(n, Inf, [](auto a, auto b) { return min(a, b); });
+    segment_tree<Min<int>> st(n);
     st.build(a);
     rep(i, q) {
         int l, r;
