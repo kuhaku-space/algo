@@ -35,3 +35,5 @@ auto make_vector(T x, int arg, Args ...args) {
 }
 void sonic() { std::ios::sync_with_stdio(false); std::cin.tie(nullptr); }
 void setp(const int n) { std::cout<<std::fixed<<std::setprecision(n); }
+void Yes(bool is_correct) { std::cout<<(is_correct?"Yes":"No")<<std::endl; }
+void YES(bool is_correct) { std::cout<<(is_correct?"YES":"NO")<<std::endl; }

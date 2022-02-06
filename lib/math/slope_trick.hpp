@@ -1,23 +1,28 @@
 #include "template/template.hpp"
 
-template <class T, class U>
+/**
+ * @brief slope trick
+ *
+ * @tparam T
+ */
+template <class T>
 struct slope_trick {
-    U min_f;
+    T min_f;
     priority_queue<T> l;
     priority_queue<T, vector<T>, greater<>> r;
 
     slope_trick() : min_f(), l(), r() {}
 
     T get_x() { return this->l.top(); }
-    U get() { return this->min_f; }
-    U get_y() { return this->get(); }
+    T get() { return this->min_f; }
+    T get_y() { return this->get(); }
 
     /**
      * @brief Add f(x) = a
      *
      * @param a
      */
-    void add(U a) { this->min_f += a; }
+    void add(T a) { this->min_f += a; }
 
     /**
      * @brief Add f(x) = max(0, x - a)
@@ -25,7 +30,7 @@ struct slope_trick {
      * @param a
      */
     void add_f(T a) {
-        if (!this->l.empty()) this->min_f += max(U(), this->l.top() - a);
+        if (!this->l.empty()) this->min_f += max(T(), this->l.top() - a);
         this->l.emplace(a);
         auto x = tihs->l.top();
         this->l.pop();
@@ -37,8 +42,8 @@ struct slope_trick {
      *
      * @param a
      */
-    void add_g(U a) {
-        if (!this->r.empty()) this->min_f += max(U(), a - this->r.top());
+    void add_g(T a) {
+        if (!this->r.empty()) this->min_f += max(T(), a - this->r.top());
         this->r.emplace(a);
         auto x = this->r.top();
         this->r.pop();
@@ -50,7 +55,7 @@ struct slope_trick {
      *
      * @param a
      */
-    void add_abs(U a) {
+    void add_abs(T a) {
         this->add_f(a);
         this->add_g(a);
     }
