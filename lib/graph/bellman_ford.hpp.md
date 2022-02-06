@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
     links: []
@@ -37,7 +37,7 @@ data:
     \ true;\r\n    for (int count = 0; is_updated && count <= n << 1; ++count) {\r\
     \n        is_updated = false;\r\n        for (int i = 0; i < n; ++i) {\r\n   \
     \         if (dists[i] == inf) continue;\r\n            for (auto &j : graph[i])\
-    \ {\r\n                if (dists[i] == -inf || chmin(dists[j.to], dists[i] + j.dists))\
+    \ {\r\n                if (dists[i] == -inf || chmin(dists[j.to], dists[i] + j.dist))\
     \ {\r\n                    if (dists[j.to] == -inf) continue;\r\n            \
     \        is_updated = true;\r\n                    if (count >= n) dists[j.to]\
     \ = -inf;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return\
@@ -48,8 +48,8 @@ data:
   isVerificationFile: false
   path: lib/graph/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2022-02-06 19:57:45+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-02-06 20:19:44+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/bellman_ford.test.cpp
 documentation_of: lib/graph/bellman_ford.hpp

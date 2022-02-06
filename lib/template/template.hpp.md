@@ -100,7 +100,7 @@ data:
   - icon: ':warning:'
     path: lib/data_structure/fast_fibonacci_heap.hpp
     title: lib/data_structure/fast_fibonacci_heap.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/data_structure/fibonacci_heap.hpp
     title: lib/data_structure/fibonacci_heap.hpp
   - icon: ':warning:'
@@ -145,7 +145,7 @@ data:
   - icon: ':warning:'
     path: lib/geometry/kdtree.hpp
     title: lib/geometry/kdtree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
   - icon: ':warning:'
@@ -154,7 +154,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_fibonacci.hpp
     title: lib/graph/dijkstra_fibonacci.hpp
   - icon: ':warning:'
@@ -166,7 +166,7 @@ data:
   - icon: ':warning:'
     path: lib/graph/dijkstra_radix_heap.hpp
     title: lib/graph/dijkstra_radix_heap.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
   - icon: ':warning:'
@@ -278,7 +278,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -345,13 +345,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/geometry/reflection.test.cpp
     title: test/aoj/geometry/reflection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   - icon: ':heavy_check_mark:'
@@ -396,9 +396,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -522,7 +522,7 @@ data:
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp

@@ -1,20 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
+    path: lib/data_structure/fibonacci_heap.hpp
+    title: lib/data_structure/fibonacci_heap.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -26,8 +29,9 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\n#include \"graph/graph.hpp\"\n\ntemplate\
-    \ <class T>\nstd::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max())\
+  code: "#include \"template/template.hpp\"\n#include \"graph/graph.hpp\"\n#include\
+    \ \"data_structure/fibonacci_heap.hpp\"\n\ntemplate <class T>\nstd::vector<T>\
+    \ dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max())\
     \ {\n    struct _edge {\n        int to;\n        T dist;\n        constexpr _edge()\
     \ : to(), dist() {}\n        constexpr _edge(int _to, T _dist) : to(_to), dist(_dist)\
     \ {}\n        bool operator<(const _edge &rhs) const {\n            return this->dist\
@@ -44,11 +48,12 @@ data:
   dependsOn:
   - lib/template/template.hpp
   - lib/graph/graph.hpp
+  - lib/data_structure/fibonacci_heap.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra_fibonacci.hpp
   requiredBy: []
-  timestamp: '2022-02-06 19:58:53+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-02-06 20:20:01+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
 documentation_of: lib/graph/dijkstra_fibonacci.hpp

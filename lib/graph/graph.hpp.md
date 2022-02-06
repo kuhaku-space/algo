@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: lib/_old/dijkstra.hpp
     title: lib/_old/dijkstra.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
   - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_fibonacci.hpp
     title: lib/graph/dijkstra_fibonacci.hpp
   - icon: ':warning:'
@@ -54,21 +54,21 @@ data:
     path: lib/tree/tree_subtree.hpp
     title: lib/tree/tree_subtree.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -144,7 +144,7 @@ data:
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
   timestamp: '2022-01-14 01:42:22+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp

@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B
@@ -48,8 +48,8 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/bellman_ford.test.cpp
   requiredBy: []
-  timestamp: '2022-02-06 19:57:45+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-02-06 20:19:44+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/bellman_ford.test.cpp
 layout: document

@@ -1,14 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/graph/dijkstra_fibonacci.hpp
+    title: lib/graph/dijkstra_fibonacci.hpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_fibonacci.test.cpp
+    title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -81,10 +87,12 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/fibonacci_heap.hpp
-  requiredBy: []
+  requiredBy:
+  - lib/graph/dijkstra_fibonacci.hpp
   timestamp: '2022-02-06 19:58:53+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
 documentation_of: lib/data_structure/fibonacci_heap.hpp
 layout: document
 redirect_from:

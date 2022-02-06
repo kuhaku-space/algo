@@ -1,23 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
+    path: lib/data_structure/fibonacci_heap.hpp
+    title: lib/data_structure/fibonacci_heap.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_fibonacci.hpp
     title: lib/graph/dijkstra_fibonacci.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
@@ -42,12 +45,13 @@ data:
   - lib/graph/dijkstra_fibonacci.hpp
   - lib/template/template.hpp
   - lib/graph/graph.hpp
+  - lib/data_structure/fibonacci_heap.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/aoj/grl/dijkstra_fibonacci.test.cpp
   requiredBy: []
-  timestamp: '2022-02-06 20:03:28+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-02-06 20:20:01+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/dijkstra_fibonacci.test.cpp
 layout: document
