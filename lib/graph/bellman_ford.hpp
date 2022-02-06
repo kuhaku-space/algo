@@ -22,7 +22,7 @@ vector<T> bellman_ford(const Graph<T> &graph, int s = 0,
         for (int i = 0; i < n; ++i) {
             if (dists[i] == inf) continue;
             for (auto &j : graph[i]) {
-                if (dists[i] == -inf || chmin(dists[j.to], dists[i] + j.dists)) {
+                if (dists[i] == -inf || chmin(dists[j.to], dists[i] + j.dist)) {
                     if (dists[j.to] == -inf) continue;
                     is_updated = true;
                     if (count >= n) dists[j.to] = -inf;
