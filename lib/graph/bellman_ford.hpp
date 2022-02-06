@@ -1,37 +1,34 @@
 #include "template/template.hpp"
 #include "graph/graph.hpp"
 
-// verify : https://atcoder.jp/contests/abc137/tasks/abc137_e 21/02/24
-// verify : https://atcoder.jp/contests/abc061/tasks/abc061_d 21/02/24
-
 /**
  * @brief ベルマンフォード法
  * 
  * @tparam T 
- * @param g グラフ
+ * @param graph グラフ
  * @param s 始点
  * @param inf 
  * @return vector<T> 
  */
 template <class T>
-vector<T> bellman_ford(const Graph<T> &g, int s = 0,
+vector<T> bellman_ford(const Graph<T> &graph, int s = 0,
                        T inf = numeric_limits<T>::max()) {
-    int n = g.size();
-    vector<T> dist(n, inf);
-    dist[s] = T();
-    bool flg = true;
-    for (int cnt = 0; flg && cnt <= n << 1; ++cnt) {
-        flg = false;
+    int n = graph.size();
+    vector<T> dists(n, inf);
+    dists[s] = T();
+    bool is_updated = true;
+    for (int count = 0; is_updated && count <= n << 1; ++count) {
+        is_updated = false;
         for (int i = 0; i < n; ++i) {
-            if (dist[i] == inf) continue;
-            for (auto &j : g[i]) {
-                if (dist[i] == -inf || chmin(dist[j.to], dist[i] + j.dist)) {
-                    if (dist[j.to] == -inf) continue;
-                    flg = true;
-                    if (cnt >= n) dist[j.to] = -inf;
+            if (dists[i] == inf) continue;
+            for (auto &j : graph[i]) {
+                if (dists[i] == -inf || chmin(dists[j.to], dists[i] + j.dists)) {
+                    if (dists[j.to] == -inf) continue;
+                    is_updated = true;
+                    if (count >= n) dists[j.to] = -inf;
                 }
             }
         }
     }
-    return dist;
+    return dists;
 }
