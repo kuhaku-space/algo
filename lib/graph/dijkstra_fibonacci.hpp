@@ -1,5 +1,6 @@
 #include "template/template.hpp"
 #include "graph/graph.hpp"
+#include "data_structure/fibonacci_heap.hpp"
 
 template <class T>
 std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
