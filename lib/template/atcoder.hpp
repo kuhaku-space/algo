@@ -17,6 +17,10 @@ template<class T, class U>
 std::istream &operator>>(std::istream &is, std::pair<T, U> &p) { is >> p.first >> p.second; return is; }
 template <class T>
 std::istream &operator>>(std::istream &is, std::vector<T> &v) { for (T &i : v) is>>i; return is; }
+template <class T, class U>
+std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
+    return os<<'('<<p.first<< ','<<p.second<<')';
+}
 template <class T>
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
     for (auto it=v.begin(); it!=v.end(); ++it) { os<<(it==v.begin()?"":" ")<<*it; } return os;
