@@ -1,5 +1,9 @@
 #include "template/template.hpp"
 
+/**
+ * @brief 素数ライブラリ
+ * 
+ */
 struct prime_number {
     static constexpr int sz = 1 << 22;
     bitset<sz> is_not_prime;
