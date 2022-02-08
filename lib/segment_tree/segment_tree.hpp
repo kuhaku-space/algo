@@ -6,8 +6,7 @@
  * @brief セグメント木
  * @details [参考](https://noshi91.hatenablog.com/entry/2020/04/22/212649)
  *
- * @tparam M
- * @tparam F
+ * @tparam M モノイド
  */
 template <class M>
 struct segment_tree {
