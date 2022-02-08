@@ -1,6 +1,9 @@
 #include "template/template.hpp"
 
-// 分数ライブラリ
+/**
+ * @brief 分数ライブラリ
+ * 
+ */
 struct Fraction {
     int64_t x, y;
 
