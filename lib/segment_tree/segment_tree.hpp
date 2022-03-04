@@ -6,8 +6,7 @@
  * @brief セグメント木
  * @details [参考](https://noshi91.hatenablog.com/entry/2020/04/22/212649)
  *
- * @tparam M
- * @tparam F
+ * @tparam M モノイド
  */
 template <class M>
 struct segment_tree {
@@ -38,6 +37,7 @@ struct segment_tree {
         this->data[k] = val;
         for (int i = 1; i <= this->_log; i++) this->update(k >> i);
     }
+    void reset(int k) { this->set(k, M::id); }
 
     T all_prod() const { return this->data[1]; }
     T prod(int a, int b) const {
