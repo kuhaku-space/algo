@@ -30,9 +30,6 @@ data:
   - name: lib/_old
     pages:
     - icon: ':warning:'
-      path: lib/_old/dijkstra.hpp
-      title: lib/_old/dijkstra.hpp
-    - icon: ':warning:'
       path: lib/_old/lazy_segment_tree.hpp
       title: lib/_old/lazy_segment_tree.hpp
     - icon: ':warning:'
@@ -43,12 +40,15 @@ data:
     - icon: ':warning:'
       path: lib/algorithm/Mo.hpp
       title: lib/algorithm/Mo.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/algorithm/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
     - icon: ':warning:'
       path: lib/algorithm/doubling.hpp
       title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
+    - icon: ':heavy_check_mark:'
+      path: lib/algorithm/inversion_number.hpp
+      title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
     - icon: ':warning:'
       path: lib/algorithm/wavelet_matrix.hpp
       title: lib/algorithm/wavelet_matrix.hpp
@@ -233,7 +233,7 @@ data:
       title: lib/math/enumeration.hpp
     - icon: ':warning:'
       path: lib/math/fraction.hpp
-      title: lib/math/fraction.hpp
+      title: "\u5206\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':warning:'
       path: lib/math/math.hpp
       title: lib/math/math.hpp
@@ -251,7 +251,7 @@ data:
       title: lib/math/pow.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/prime_number.hpp
-      title: "\u7D20\u56E0\u6570\u5206\u89E3"
+      title: "\u7D20\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':warning:'
       path: lib/math/prime_number_fast.hpp
       title: lib/math/prime_number_fast.hpp
@@ -261,6 +261,18 @@ data:
     - icon: ':warning:'
       path: lib/math/slope_trick.hpp
       title: slope trick
+  - name: lib/random
+    pages:
+    - icon: ':warning:'
+      path: lib/random/split_mix_64.hpp
+      title: "0.0\u4EE5\u4E0A1.0\u672A\u6E80\u306E\u6D6E\u52D5\u5C0F\u6570\u70B9\u6570\
+        \u3092\u751F\u6210"
+    - icon: ':warning:'
+      path: lib/random/xoroshiro128.hpp
+      title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
+    - icon: ':warning:'
+      path: lib/random/xoshiro128.hpp
+      title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoshiro128++"
   - name: lib/segment_tree
     pages:
     - icon: ':warning:'
@@ -344,35 +356,49 @@ data:
     - icon: ':warning:'
       path: lib/tree/union_find_with_edge.hpp
       title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+    - icon: ':warning:'
+      path: lib/tree/weighted_union_find.hpp
+      title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   verificationCategories:
-  - name: test/aoj
+  - name: test/aoj/alds1
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/aoj/all_pairs_shortest_path.test.cpp
-      title: test/aoj/all_pairs_shortest_path.test.cpp
+      path: test/aoj/alds1/inversion_number.test.cpp
+      title: test/aoj/alds1/inversion_number.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj/longest_increasing_subsequense.test.cpp
-      title: test/aoj/longest_increasing_subsequense.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/power.test.cpp
-      title: test/aoj/power.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/prime_factorize.test.cpp
-      title: test/aoj/prime_factorize.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/prime_numbers.test.cpp
-      title: test/aoj/prime_numbers.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/the_number_of_inversions.test.cpp
-      title: test/aoj/the_number_of_inversions.test.cpp
-  - name: test/aoj/dp
+      path: test/aoj/alds1/prime_numbers.test.cpp
+      title: test/aoj/alds1/prime_numbers.test.cpp
+  - name: test/aoj/cgl
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/aoj/dp/bell.test.cpp
-      title: test/aoj/dp/bell.test.cpp
+      path: test/aoj/cgl/counter-clockwise.test.cpp
+      title: test/aoj/cgl/counter-clockwise.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj/dp/stirling.test.cpp
-      title: test/aoj/dp/stirling.test.cpp
+      path: test/aoj/cgl/cross_point.test.cpp
+      title: test/aoj/cgl/cross_point.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/cgl/intersection.test.cpp
+      title: test/aoj/cgl/intersection.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/cgl/parallel_orthogonal.test.cpp
+      title: test/aoj/cgl/parallel_orthogonal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/cgl/projection.test.cpp
+      title: test/aoj/cgl/projection.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/cgl/reflection.test.cpp
+      title: test/aoj/cgl/reflection.test.cpp
+  - name: test/aoj/dpl
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dpl/bell.test.cpp
+      title: test/aoj/dpl/bell.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+      title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dpl/stirling.test.cpp
+      title: test/aoj/dpl/stirling.test.cpp
   - name: test/aoj/dsl
     pages:
     - icon: ':heavy_check_mark:'
@@ -381,26 +407,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/ruq.test.cpp
       title: test/aoj/dsl/ruq.test.cpp
-  - name: test/aoj/geometry
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/geometry/counter-clockwise.test.cpp
-      title: test/aoj/geometry/counter-clockwise.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/geometry/cross_point.test.cpp
-      title: test/aoj/geometry/cross_point.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/geometry/intersection.test.cpp
-      title: test/aoj/geometry/intersection.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/geometry/parallel_orthogonal.test.cpp
-      title: test/aoj/geometry/parallel_orthogonal.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/geometry/projection.test.cpp
-      title: test/aoj/geometry/projection.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/geometry/reflection.test.cpp
-      title: test/aoj/geometry/reflection.test.cpp
   - name: test/aoj/grl
     pages:
     - icon: ':heavy_check_mark:'
@@ -415,6 +421,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/hld.test.cpp
       title: test/aoj/grl/hld.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/warshall_floyd.test.cpp
+      title: test/aoj/grl/warshall_floyd.test.cpp
+  - name: test/aoj/ntl
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/ntl/power.test.cpp
+      title: test/aoj/ntl/power.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/ntl/prime_factorize.test.cpp
+      title: test/aoj/ntl/prime_factorize.test.cpp
   - name: test/yosupo/convolution
     pages:
     - icon: ':heavy_check_mark:'

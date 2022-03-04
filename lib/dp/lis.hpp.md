@@ -7,8 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/longest_increasing_subsequense.test.cpp
-    title: test/aoj/longest_increasing_subsequense.test.cpp
+    path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+    title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -39,7 +39,7 @@ data:
   timestamp: '2022-01-09 17:09:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/longest_increasing_subsequense.test.cpp
+  - test/aoj/dpl/longest_increasing_subsequense.test.cpp
 documentation_of: lib/dp/lis.hpp
 layout: document
 redirect_from:

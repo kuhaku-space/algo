@@ -28,14 +28,14 @@ data:
     title: lib/math/enumeration.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dp/bell.test.cpp
-    title: test/aoj/dp/bell.test.cpp
+    path: test/aoj/dpl/bell.test.cpp
+    title: test/aoj/dpl/bell.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dp/stirling.test.cpp
-    title: test/aoj/dp/stirling.test.cpp
+    path: test/aoj/dpl/stirling.test.cpp
+    title: test/aoj/dpl/stirling.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/power.test.cpp
-    title: test/aoj/power.test.cpp
+    path: test/aoj/ntl/power.test.cpp
+    title: test/aoj/ntl/power.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
@@ -114,9 +114,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/aoj/power.test.cpp
-  - test/aoj/dp/bell.test.cpp
-  - test/aoj/dp/stirling.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document
 redirect_from:

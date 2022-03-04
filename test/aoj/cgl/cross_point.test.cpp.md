@@ -41,15 +41,15 @@ data:
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
-  path: test/aoj/geometry/cross_point.test.cpp
+  path: test/aoj/cgl/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2022-02-06 19:56:03+09:00'
+  timestamp: '2022-03-05 08:30:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/geometry/cross_point.test.cpp
+documentation_of: test/aoj/cgl/cross_point.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/geometry/cross_point.test.cpp
-- /verify/test/aoj/geometry/cross_point.test.cpp.html
-title: test/aoj/geometry/cross_point.test.cpp
+- /verify/test/aoj/cgl/cross_point.test.cpp
+- /verify/test/aoj/cgl/cross_point.test.cpp.html
+title: test/aoj/cgl/cross_point.test.cpp
 ---

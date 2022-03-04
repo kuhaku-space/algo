@@ -2,20 +2,24 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/matrix_graph.hpp
-    title: lib/graph/matrix_graph.hpp
+    path: lib/algorithm/compress.hpp
+    title: "\u5EA7\u6A19\u5727\u7E2E"
+  - icon: ':heavy_check_mark:'
+    path: lib/binary_tree/BIT.hpp
+    title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/warshall_floyd.test.cpp
-    title: test/aoj/grl/warshall_floyd.test.cpp
+    path: test/aoj/alds1/inversion_number.test.cpp
+    title: test/aoj/alds1/inversion_number.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -24,28 +28,31 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\r\n#include \"template/template.hpp\"\r\n#include \"graph/matrix_graph.hpp\"\
-    \r\n\r\ntemplate <class T>\r\nvoid warshall_floyd(matrix_graph<T> &g) {\r\n  \
-    \  int n = g.size();\r\n    for (int i = 0; i < n; ++i) g[i][i] = 0;\r\n    for\
-    \ (int k = 0; k < n; ++k) {\r\n        for (int i = 0; i < n; ++i) {\r\n     \
-    \       for (int j = 0; j < n; ++j) {\r\n                chmin(g[i][j], g[i][k]\
-    \ + g[k][j]);\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+  code: "#include \"algorithm/compress.hpp\"\n#include \"binary_tree/BIT.hpp\"\n#include\
+    \ \"template/template.hpp\"\n\n/**\n * @brief \u8EE2\u5012\u6570\u3092\u6C42\u3081\
+    \u308B\n * \n * @tparam T \u914D\u5217\u306E\u65B9\n * @param v \u914D\u5217\n\
+    \ * @return int64_t \u8EE2\u5012\u6570\n */\ntemplate <class T>\nint64_t inversion_number(const\
+    \ vector<T> &v) {\n    Compress<T> cps(v);\n    BIT<T> bit(cps.size());\n\n  \
+    \  int64_t res = 0;\n    for (int i = v.size() - 1; i >= 0; --i) {\n        res\
+    \ += bit.sum(cps.get(v[i]));\n        bit.add(cps.get(v[i]), 1);\n    }\n    return\
+    \ res;\n}\n"
   dependsOn:
+  - lib/algorithm/compress.hpp
   - lib/template/template.hpp
-  - lib/graph/matrix_graph.hpp
+  - lib/binary_tree/BIT.hpp
   isVerificationFile: false
-  path: lib/graph/warshall_floyd.hpp
+  path: lib/algorithm/inversion_number.hpp
   requiredBy: []
-  timestamp: '2021-09-22 06:52:45+09:00'
+  timestamp: '2022-03-05 08:19:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/warshall_floyd.test.cpp
-documentation_of: lib/graph/warshall_floyd.hpp
+  - test/aoj/alds1/inversion_number.test.cpp
+documentation_of: lib/algorithm/inversion_number.hpp
 layout: document
 redirect_from:
-- /library/lib/graph/warshall_floyd.hpp
-- /library/lib/graph/warshall_floyd.hpp.html
-title: lib/graph/warshall_floyd.hpp
+- /library/lib/algorithm/inversion_number.hpp
+- /library/lib/algorithm/inversion_number.hpp.html
+title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
 ---

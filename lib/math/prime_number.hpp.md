@@ -7,16 +7,16 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/prime_factorize.test.cpp
-    title: test/aoj/prime_factorize.test.cpp
+    path: test/aoj/alds1/prime_numbers.test.cpp
+    title: test/aoj/alds1/prime_numbers.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/prime_numbers.test.cpp
-    title: test/aoj/prime_numbers.test.cpp
+    path: test/aoj/ntl/prime_factorize.test.cpp
+    title: test/aoj/ntl/prime_factorize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: "\u7D20\u56E0\u6570\u5206\u89E3"
+    document_title: "\u7D20\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -27,7 +27,8 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\nstruct prime_number {\r\n    static\
+  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u7D20\u6570\u30E9\
+    \u30A4\u30D6\u30E9\u30EA\r\n * \r\n */\r\nstruct prime_number {\r\n    static\
     \ constexpr int sz = 1 << 22;\r\n    bitset<sz> is_not_prime;\r\n    vector<int>\
     \ data;\r\n\r\n    prime_number() { init(); }\r\n\r\n    void init() {\r\n   \
     \     is_not_prime[0] = is_not_prime[1] = true;\r\n        for (int i = 2; i <\
@@ -74,15 +75,15 @@ data:
   isVerificationFile: false
   path: lib/math/prime_number.hpp
   requiredBy: []
-  timestamp: '2021-10-02 14:40:13+09:00'
+  timestamp: '2022-02-08 12:46:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/prime_numbers.test.cpp
-  - test/aoj/prime_factorize.test.cpp
+  - test/aoj/ntl/prime_factorize.test.cpp
+  - test/aoj/alds1/prime_numbers.test.cpp
 documentation_of: lib/math/prime_number.hpp
 layout: document
 redirect_from:
 - /library/lib/math/prime_number.hpp
 - /library/lib/math/prime_number.hpp.html
-title: "\u7D20\u56E0\u6570\u5206\u89E3"
+title: "\u7D20\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
 ---

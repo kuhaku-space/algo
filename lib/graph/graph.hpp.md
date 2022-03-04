@@ -5,9 +5,6 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/_old/dijkstra.hpp
-    title: lib/_old/dijkstra.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
@@ -131,7 +128,6 @@ data:
   - lib/tree/tree_subtree.hpp
   - lib/tree/tree_dist.hpp
   - lib/tree/tree_parent.hpp
-  - lib/_old/dijkstra.hpp
   - lib/graph/lowlink.hpp
   - lib/graph/two_sat.hpp
   - lib/graph/topological_sort.hpp

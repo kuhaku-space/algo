@@ -2,14 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/math/combination.hpp
-    title: lib/math/combination.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/math/enumeration.hpp
-    title: lib/math/enumeration.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/math/modint.hpp
-    title: modint
+    path: lib/dp/lis.hpp
+    title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -23,9 +17,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -33,28 +27,26 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/enumeration.hpp:\
-    \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I\"\
-    \n#include \"math/enumeration.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int n, k;\n    cin >> n >> k;\n    Enumeration<MOD>\
-    \ enume;\n    co(enume.stirling(n, k));\n\n    return 0;\n}\n"
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: dp/lis.hpp: line\
+    \ -1: no such header\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D\"\
+    \n#include \"dp/lis.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    sonic();\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >>\
+    \ a;\n    co(LIS(a));\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/math/enumeration.hpp
-  - lib/math/combination.hpp
-  - lib/math/modint.hpp
+  - lib/dp/lis.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
-  path: test/aoj/dp/stirling.test.cpp
+  path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
   requiredBy: []
-  timestamp: '2022-02-06 19:56:03+09:00'
+  timestamp: '2022-03-05 08:30:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/dp/stirling.test.cpp
+documentation_of: test/aoj/dpl/longest_increasing_subsequense.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/dp/stirling.test.cpp
-- /verify/test/aoj/dp/stirling.test.cpp.html
-title: test/aoj/dp/stirling.test.cpp
+- /verify/test/aoj/dpl/longest_increasing_subsequense.test.cpp
+- /verify/test/aoj/dpl/longest_increasing_subsequense.test.cpp.html
+title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
 ---

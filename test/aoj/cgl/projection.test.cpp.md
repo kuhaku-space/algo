@@ -2,11 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/bellman_ford.hpp
-    title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
-  - icon: ':heavy_check_mark:'
-    path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
+    path: lib/geometry/geometry.hpp
+    title: lib/geometry/geometry.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -20,9 +17,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B
+    ERROR: '0.00000001'
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -30,31 +28,28 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/bellman_ford.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B\"\
-    \n#include \"graph/bellman_ford.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n    Graph<int>\
-    \ g(n);\n    g.input_edge(m, true);\n\n    auto dist = bellman_ford(g, r, Inf);\n\
-    \    rep(i, n) {\n        if (dist[i] == -Inf) {\n            co(\"NEGATIVE CYCLE\"\
-    );\n            return 0;\n        }\n    }\n    rep(i, n) {\n        if (dist[i]\
-    \ != Inf)\n            co(dist[i]);\n        else\n            co(\"INF\");\n\
-    \    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A\"\
+    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
+    \n\nint main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n \
+    \   cin >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--)\
+    \ {\n        Point<double> p;\n        cin >> p;\n        auto ans = l.proj(p);\n\
+    \        co(ans);\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/graph/bellman_ford.hpp
+  - lib/geometry/geometry.hpp
   - lib/template/template.hpp
-  - lib/graph/graph.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
-  path: test/aoj/grl/bellman_ford.test.cpp
+  path: test/aoj/cgl/projection.test.cpp
   requiredBy: []
-  timestamp: '2022-02-08 12:58:02+09:00'
+  timestamp: '2022-03-05 08:30:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/grl/bellman_ford.test.cpp
+documentation_of: test/aoj/cgl/projection.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/grl/bellman_ford.test.cpp
-- /verify/test/aoj/grl/bellman_ford.test.cpp.html
-title: test/aoj/grl/bellman_ford.test.cpp
+- /verify/test/aoj/cgl/projection.test.cpp
+- /verify/test/aoj/cgl/projection.test.cpp.html
+title: test/aoj/cgl/projection.test.cpp
 ---

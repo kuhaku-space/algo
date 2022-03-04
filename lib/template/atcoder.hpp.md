@@ -7,38 +7,44 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/all_pairs_shortest_path.test.cpp
-    title: test/aoj/all_pairs_shortest_path.test.cpp
+    path: test/aoj/alds1/inversion_number.test.cpp
+    title: test/aoj/alds1/inversion_number.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dp/bell.test.cpp
-    title: test/aoj/dp/bell.test.cpp
+    path: test/aoj/alds1/prime_numbers.test.cpp
+    title: test/aoj/alds1/prime_numbers.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dp/stirling.test.cpp
-    title: test/aoj/dp/stirling.test.cpp
+    path: test/aoj/cgl/counter-clockwise.test.cpp
+    title: test/aoj/cgl/counter-clockwise.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/cgl/cross_point.test.cpp
+    title: test/aoj/cgl/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/cgl/intersection.test.cpp
+    title: test/aoj/cgl/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/cgl/parallel_orthogonal.test.cpp
+    title: test/aoj/cgl/parallel_orthogonal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/cgl/projection.test.cpp
+    title: test/aoj/cgl/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/cgl/reflection.test.cpp
+    title: test/aoj/cgl/reflection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dpl/bell.test.cpp
+    title: test/aoj/dpl/bell.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+    title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dpl/stirling.test.cpp
+    title: test/aoj/dpl/stirling.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/counter-clockwise.test.cpp
-    title: test/aoj/geometry/counter-clockwise.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/cross_point.test.cpp
-    title: test/aoj/geometry/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/intersection.test.cpp
-    title: test/aoj/geometry/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/parallel_orthogonal.test.cpp
-    title: test/aoj/geometry/parallel_orthogonal.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/projection.test.cpp
-    title: test/aoj/geometry/projection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/reflection.test.cpp
-    title: test/aoj/geometry/reflection.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
@@ -52,20 +58,14 @@ data:
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/longest_increasing_subsequense.test.cpp
-    title: test/aoj/longest_increasing_subsequense.test.cpp
+    path: test/aoj/grl/warshall_floyd.test.cpp
+    title: test/aoj/grl/warshall_floyd.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/power.test.cpp
-    title: test/aoj/power.test.cpp
+    path: test/aoj/ntl/power.test.cpp
+    title: test/aoj/ntl/power.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/prime_factorize.test.cpp
-    title: test/aoj/prime_factorize.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/prime_numbers.test.cpp
-    title: test/aoj/prime_numbers.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/the_number_of_inversions.test.cpp
-    title: test/aoj/the_number_of_inversions.test.cpp
+    path: test/aoj/ntl/prime_factorize.test.cpp
+    title: test/aoj/ntl/prime_factorize.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
@@ -114,8 +114,10 @@ data:
     template<class T, class U>\nstd::istream &operator>>(std::istream &is, std::pair<T,\
     \ U> &p) { is >> p.first >> p.second; return is; }\ntemplate <class T>\nstd::istream\
     \ &operator>>(std::istream &is, std::vector<T> &v) { for (T &i : v) is>>i; return\
-    \ is; }\ntemplate <class T>\nstd::ostream &operator<<(std::ostream &os, const\
-    \ std::vector<T> &v) {\n    for (auto it=v.begin(); it!=v.end(); ++it) { os<<(it==v.begin()?\"\
+    \ is; }\ntemplate <class T, class U>\nstd::ostream &operator<<(std::ostream &os,\
+    \ const std::pair<T, U> &p) {\n    return os<<'('<<p.first<< ','<<p.second<<')';\n\
+    }\ntemplate <class T>\nstd::ostream &operator<<(std::ostream &os, const std::vector<T>\
+    \ &v) {\n    for (auto it=v.begin(); it!=v.end(); ++it) { os<<(it==v.begin()?\"\
     \":\" \")<<*it; } return os;\n}\ntemplate <class Head, class... Tail>\nvoid co(Head&&\
     \ head, Tail&&... tail) {\n    if constexpr(sizeof...(tail)==0) std::cout<<head<<'\\\
     n'; else std::cout<<head<<' ',co(forward<Tail>(tail)...);\n}\ntemplate <class\
@@ -133,7 +135,7 @@ data:
   isVerificationFile: false
   path: lib/template/atcoder.hpp
   requiredBy: []
-  timestamp: '2022-02-06 19:56:03+09:00'
+  timestamp: '2022-02-08 12:58:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
@@ -144,26 +146,26 @@ data:
   - test/yosupo/data_structure/static_range_sum.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
-  - test/aoj/geometry/reflection.test.cpp
-  - test/aoj/geometry/parallel_orthogonal.test.cpp
-  - test/aoj/geometry/projection.test.cpp
-  - test/aoj/geometry/intersection.test.cpp
-  - test/aoj/geometry/cross_point.test.cpp
-  - test/aoj/geometry/counter-clockwise.test.cpp
-  - test/aoj/power.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/prime_factorize.test.cpp
+  - test/aoj/dpl/longest_increasing_subsequense.test.cpp
+  - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/cgl/reflection.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/intersection.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/grl/hld.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/longest_increasing_subsequense.test.cpp
-  - test/aoj/prime_numbers.test.cpp
-  - test/aoj/prime_factorize.test.cpp
+  - test/aoj/alds1/inversion_number.test.cpp
+  - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dp/bell.test.cpp
-  - test/aoj/dp/stirling.test.cpp
-  - test/aoj/all_pairs_shortest_path.test.cpp
-  - test/aoj/the_number_of_inversions.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:

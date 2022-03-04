@@ -13,11 +13,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dp/bell.test.cpp
-    title: test/aoj/dp/bell.test.cpp
+    path: test/aoj/dpl/bell.test.cpp
+    title: test/aoj/dpl/bell.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dp/stirling.test.cpp
-    title: test/aoj/dp/stirling.test.cpp
+    path: test/aoj/dpl/stirling.test.cpp
+    title: test/aoj/dpl/stirling.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -59,8 +59,8 @@ data:
   timestamp: '2021-12-22 02:25:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dp/bell.test.cpp
-  - test/aoj/dp/stirling.test.cpp
+  - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/enumeration.hpp
 layout: document
 redirect_from:

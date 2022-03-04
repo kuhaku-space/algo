@@ -7,23 +7,23 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/counter-clockwise.test.cpp
-    title: test/aoj/geometry/counter-clockwise.test.cpp
+    path: test/aoj/cgl/counter-clockwise.test.cpp
+    title: test/aoj/cgl/counter-clockwise.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/cross_point.test.cpp
-    title: test/aoj/geometry/cross_point.test.cpp
+    path: test/aoj/cgl/cross_point.test.cpp
+    title: test/aoj/cgl/cross_point.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/intersection.test.cpp
-    title: test/aoj/geometry/intersection.test.cpp
+    path: test/aoj/cgl/intersection.test.cpp
+    title: test/aoj/cgl/intersection.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/parallel_orthogonal.test.cpp
-    title: test/aoj/geometry/parallel_orthogonal.test.cpp
+    path: test/aoj/cgl/parallel_orthogonal.test.cpp
+    title: test/aoj/cgl/parallel_orthogonal.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/projection.test.cpp
-    title: test/aoj/geometry/projection.test.cpp
+    path: test/aoj/cgl/projection.test.cpp
+    title: test/aoj/cgl/projection.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/geometry/reflection.test.cpp
-    title: test/aoj/geometry/reflection.test.cpp
+    path: test/aoj/cgl/reflection.test.cpp
+    title: test/aoj/cgl/reflection.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -133,12 +133,12 @@ data:
   timestamp: '2021-09-23 07:20:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/geometry/reflection.test.cpp
-  - test/aoj/geometry/parallel_orthogonal.test.cpp
-  - test/aoj/geometry/projection.test.cpp
-  - test/aoj/geometry/intersection.test.cpp
-  - test/aoj/geometry/cross_point.test.cpp
-  - test/aoj/geometry/counter-clockwise.test.cpp
+  - test/aoj/cgl/reflection.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/intersection.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
 documentation_of: lib/geometry/geometry.hpp
 layout: document
 redirect_from:

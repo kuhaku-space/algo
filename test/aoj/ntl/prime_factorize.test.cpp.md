@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/geometry/geometry.hpp
-    title: lib/geometry/geometry.hpp
+    path: lib/math/prime_number.hpp
+    title: "\u7D20\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -17,10 +17,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    ERROR: '0.00000001'
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -28,28 +27,28 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/prime_number.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B\"\
-    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n \
-    \   cin >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--)\
-    \ {\n        Point<double> p;\n        cin >> p;\n        auto ans = l.refl(p);\n\
-    \        co(ans);\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A\"\
+    \n#include \"math/prime_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nprime_number\
+    \ pn;\n\nint main(void) {\n    sonic();\n    int n;\n    cin >> n;\n    auto v\
+    \ = pn.prime_factorization(n);\n    cout << n << ':';\n    for (auto p : v) {\n\
+    \        rep(i, p.second) cout << ' ' << p.first;\n    }\n    cout << '\\n';\n\
+    \n    return 0;\n}\n"
   dependsOn:
-  - lib/geometry/geometry.hpp
+  - lib/math/prime_number.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
-  path: test/aoj/geometry/reflection.test.cpp
+  path: test/aoj/ntl/prime_factorize.test.cpp
   requiredBy: []
-  timestamp: '2022-02-06 19:56:03+09:00'
+  timestamp: '2022-03-05 08:30:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/geometry/reflection.test.cpp
+documentation_of: test/aoj/ntl/prime_factorize.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/geometry/reflection.test.cpp
-- /verify/test/aoj/geometry/reflection.test.cpp.html
-title: test/aoj/geometry/reflection.test.cpp
+- /verify/test/aoj/ntl/prime_factorize.test.cpp
+- /verify/test/aoj/ntl/prime_factorize.test.cpp.html
+title: test/aoj/ntl/prime_factorize.test.cpp
 ---

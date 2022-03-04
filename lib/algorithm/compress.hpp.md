@@ -4,11 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/algorithm/inversion_number.hpp
+    title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/inversion_number.test.cpp
+    title: test/aoj/alds1/inversion_number.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u5EA7\u6A19\u5727\u7E2E"
     links: []
@@ -22,26 +28,30 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u5EA7\u6A19\u5727\
-    \u7E2E\r\n *\r\n * @tparam T\r\n */\r\ntemplate <class T>\r\nstruct Compress {\r\
-    \n    vector<T> data;\r\n    Compress() {}\r\n    Compress(const vector<T>& _data)\
-    \ : data(_data) { build(); }\r\n\r\n    const T& operator[](int i) const { return\
-    \ data[i]; }\r\n    T& operator[](int i) { return data[i]; }\r\n\r\n    void add(T\
-    \ x) { data.emplace_back(x); }\r\n\r\n    void build() {\r\n        sort(data.begin(),\
-    \ data.end());\r\n        data.erase(unique(data.begin(), data.end()), data.end());\r\
-    \n    }\r\n    void build(const vector<T>& _data) {\r\n        data = _data;\r\
-    \n        sort(data.begin(), data.end());\r\n        data.erase(unique(data.begin(),\
-    \ data.end()), data.end());\r\n    }\r\n    int get(T x) {\r\n        auto it\
-    \ = lower_bound(data.begin(), data.end(), x);\r\n        assert(*it == x);\r\n\
-    \        return it - data.begin();\r\n    }\r\n\r\n    int size() { return data.size();\
-    \ }\r\n};\r\n"
+    \u7E2E\r\n *\r\n * @tparam T \u8981\u7D20\u306E\u578B\r\n */\r\ntemplate <class\
+    \ T>\r\nstruct Compress {\r\n    Compress() {}\r\n    Compress(const vector<T>&\
+    \ _data) : data(_data) { this->build(); }\r\n\r\n    const T& operator[](int i)\
+    \ const { return this->data[i]; }\r\n    T& operator[](int i) { return this->data[i];\
+    \ }\r\n\r\n    void add(T x) { this->data.emplace_back(x); }\r\n\r\n    void build()\
+    \ {\r\n        std::sort(this->data.begin(), this->data.end());\r\n        this->data.erase(std::unique(this->data.begin(),\
+    \ this->data.end()), this->data.end());\r\n    }\r\n    void build(const vector<T>&\
+    \ _data) {\r\n        this->data = _data;\r\n        std::sort(this->data.begin(),\
+    \ this->data.end());\r\n        this->data.erase(std::unique(this->data.begin(),\
+    \ this->data.end()), this->data.end());\r\n    }\r\n\r\n    int get(T x) {\r\n\
+    \        auto it = std::lower_bound(this->data.begin(), this->data.end(), x);\r\
+    \n        assert(*it == x);\r\n        return it - this->data.begin();\r\n   \
+    \ }\r\n\r\n    int size() { return this->data.size(); }\r\n\r\n  private:\r\n\
+    \    std::vector<T> data;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/algorithm/compress.hpp
-  requiredBy: []
-  timestamp: '2021-10-01 05:33:18+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy:
+  - lib/algorithm/inversion_number.hpp
+  timestamp: '2022-03-05 08:08:18+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/alds1/inversion_number.test.cpp
 documentation_of: lib/algorithm/compress.hpp
 layout: document
 redirect_from:

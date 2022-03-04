@@ -13,8 +13,8 @@ data:
     title: lib/graph/warshall_floyd.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/all_pairs_shortest_path.test.cpp
-    title: test/aoj/all_pairs_shortest_path.test.cpp
+    path: test/aoj/grl/warshall_floyd.test.cpp
+    title: test/aoj/grl/warshall_floyd.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -52,7 +52,7 @@ data:
   timestamp: '2021-09-22 06:33:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/all_pairs_shortest_path.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
 documentation_of: lib/graph/matrix_graph.hpp
 layout: document
 redirect_from:

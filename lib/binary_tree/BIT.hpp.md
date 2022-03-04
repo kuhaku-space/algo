@@ -5,14 +5,17 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/algorithm/inversion_number.hpp
+    title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
   - icon: ':warning:'
     path: lib/binary_tree/BIT_RSQ.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
       \u533A\u9593\u7DCF\u548C\uFF09"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/the_number_of_inversions.test.cpp
-    title: test/aoj/the_number_of_inversions.test.cpp
+    path: test/aoj/alds1/inversion_number.test.cpp
+    title: test/aoj/alds1/inversion_number.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
@@ -76,11 +79,12 @@ data:
   path: lib/binary_tree/BIT.hpp
   requiredBy:
   - lib/binary_tree/BIT_RSQ.hpp
+  - lib/algorithm/inversion_number.hpp
   timestamp: '2022-01-09 16:16:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/aoj/the_number_of_inversions.test.cpp
+  - test/aoj/alds1/inversion_number.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document
 redirect_from:

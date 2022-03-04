@@ -39,19 +39,29 @@ data:
     \    using value_type = T;\n    static constexpr T id = T(0);\n    static constexpr\
     \ T op(const T &lhs, const T &rhs) { return lhs + rhs; }\n\n    template <class\
     \ U>\n    static constexpr U f(T lhs, U rhs) {\n        return lhs + rhs;\n  \
-    \  }\n};\n\ntemplate <class T>\nstruct Min {\n    using value_type = T;\n    static\
-    \ constexpr T id = numeric_limits<T>::max();\n    static constexpr T op(const\
-    \ T &lhs, const T &rhs) { return min(lhs, rhs); }\n\n    template <class U>\n\
-    \    static constexpr U f(T lhs, U rhs) {\n        return min((U)lhs, rhs);\n\
-    \    }\n};\n\ntemplate <class T>\nstruct Max {\n    using value_type = T;\n  \
-    \  static constexpr T id = numeric_limits<T>::min();\n    static constexpr T op(const\
-    \ T &lhs, const T &rhs) { return max(lhs, rhs); }\n\n    template <class U>\n\
-    \    static constexpr U f(T lhs, U rhs) {\n        return max((U)lhs, rhs);\n\
-    \    }\n};\n\ntemplate <class T>\nstruct Update {\n    using value_type = T;\n\
-    \    static constexpr T id = numeric_limits<T>::max();\n    static constexpr T\
-    \ op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs : lhs; }\n\n\
+    \  }\n};\n\ntemplate <class T>\nstruct And {\n    using value_type = T;\n    static\
+    \ constexpr T id = T(0);\n    static constexpr T op(const T &lhs, const T &rhs)\
+    \ { return lhs & rhs; }\n\n    template <class U>\n    static constexpr U f(T\
+    \ lhs, U rhs) {\n        return lhs & rhs;\n    }\n};\n\ntemplate <class T>\n\
+    struct Or {\n    using value_type = T;\n    static constexpr T id = T(0);\n  \
+    \  static constexpr T op(const T &lhs, const T &rhs) { return lhs | rhs; }\n\n\
     \    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return\
-    \ lhs == Update::id ? rhs : lhs;\n    }\n};\n"
+    \ lhs | rhs;\n    }\n};\n\ntemplate <class T>\nstruct Xor {\n    using value_type\
+    \ = T;\n    static constexpr T id = T(0);\n    static constexpr T op(const T &lhs,\
+    \ const T &rhs) { return lhs ^ rhs; }\n\n    template <class U>\n    static constexpr\
+    \ U f(T lhs, U rhs) {\n        return lhs ^ rhs;\n    }\n};\n\ntemplate <class\
+    \ T>\nstruct Min {\n    using value_type = T;\n    static constexpr T id = numeric_limits<T>::max();\n\
+    \    static constexpr T op(const T &lhs, const T &rhs) { return min(lhs, rhs);\
+    \ }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n    \
+    \    return min((U)lhs, rhs);\n    }\n};\n\ntemplate <class T>\nstruct Max {\n\
+    \    using value_type = T;\n    static constexpr T id = numeric_limits<T>::min();\n\
+    \    static constexpr T op(const T &lhs, const T &rhs) { return max(lhs, rhs);\
+    \ }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n    \
+    \    return max((U)lhs, rhs);\n    }\n};\n\ntemplate <class T>\nstruct Update\
+    \ {\n    using value_type = T;\n    static constexpr T id = numeric_limits<T>::max();\n\
+    \    static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id\
+    \ ? rhs : lhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U\
+    \ rhs) {\n        return lhs == Update::id ? rhs : lhs;\n    }\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -59,7 +69,7 @@ data:
   requiredBy:
   - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/segment_tree.hpp
-  timestamp: '2022-01-13 22:45:15+09:00'
+  timestamp: '2022-02-08 12:05:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_rmq.test.cpp
