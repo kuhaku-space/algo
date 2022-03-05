@@ -59,6 +59,7 @@ struct Graph {
 
 template <>
 struct Graph<void> {
+    using edge_type = std::pair<int, int>;
     Graph(int v) : edges(v) {}
 
     const auto &operator[](int i) const { return this->edges[i]; }
