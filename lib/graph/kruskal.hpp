@@ -3,15 +3,16 @@
 #include "tree/union_find.hpp"
 
 /**
- * @brief 最小全域木
- *
- * @tparam T
- * @param g
- * @return vector<typename Graph<T>::edge>
+ * @brief クラスカル法
+ * @details 最小全域木を求める
+ * 
+ * @tparam T 
+ * @param g 
+ * @return vector<typename Graph<T>::edge_type> 
  */
 template <class T>
-vector<typename Graph<T>::edge> kruskal(const Graph<T> &g) {
-    using _edge = typename Graph<T>::edge;
+vector<typename Graph<T>::edge_type> kruskal(const Graph<T> &g) {
+    using _edge = typename Graph<T>::edge_type;
     union_find uf(g.size());
     std::vector<_edge> res;
     std::vector<_edge> edge_list;
