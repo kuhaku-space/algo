@@ -1,8 +1,13 @@
-#include "template/template.hpp"
 #include "graph/graph.hpp"
+#include "template/template.hpp"
 
-// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_C 21/02/24
-
+/**
+ * @brief 強連結成分分解
+ *
+ * @tparam T 辺の重みの型
+ * @param g グラフ
+ * @return vector<int> 各頂点が属する強連結成分の番号
+ */
 template <class T>
 vector<int> scc(const Graph<T> &g) {
     int n = g.size();
@@ -27,7 +32,7 @@ vector<int> scc(const Graph<T> &g) {
     };
 
     for (int i = 0; i < n; i++) dfs(dfs, i);
-    reverse(order.begin(), order.end());
+    std::reverse(order.begin(), order.end());
     int ptr = 0;
     for (auto i : order) {
         if (comp[i] == -1) rdfs(rdfs, i, ptr++);
@@ -36,9 +41,17 @@ vector<int> scc(const Graph<T> &g) {
     return comp;
 };
 
+/**
+ * @brief 有向非巡回グラフの構築
+ *
+ * @tparam T 辺の重みの型
+ * @param g グラフ
+ * @param v 各頂点が属する強連結成分の番号
+ * @return Graph<T> 有向非巡回グラフ
+ */
 template <class T>
 Graph<T> make_DAG(const Graph<T> &g, const vector<int> &v) {
-    Graph<T> res(*max_element(v.begin(), v.end()) + 1);
+    Graph<T> res(*std::max_element(v.begin(), v.end()) + 1);
     for (auto &es : g) {
         for (auto &e : es) {
             int x = v[e.from], y = v[e.to];
@@ -71,7 +84,7 @@ vector<int> scc(const Graph<void> &g) {
     };
 
     for (int i = 0; i < n; i++) dfs(dfs, i);
-    reverse(order.begin(), order.end());
+    std::reverse(order.begin(), order.end());
     int ptr = 0;
     for (auto i : order) {
         if (comp[i] == -1) rdfs(rdfs, i, ptr++);
@@ -82,7 +95,7 @@ vector<int> scc(const Graph<void> &g) {
 
 Graph<void> make_DAG(const Graph<void> &g, const vector<int> &v) {
     int n = g.size();
-    Graph<void> res(*max_element(v.begin(), v.end()) + 1);
+    Graph<void> res(*std::max_element(v.begin(), v.end()) + 1);
     for (int i = 0; i < n; ++i) {
         for (auto &e : g[i]) {
             int x = v[i], y = v[e];

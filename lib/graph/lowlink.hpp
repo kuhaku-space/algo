@@ -1,51 +1,111 @@
-#include "template/template.hpp"
 #include "graph/graph.hpp"
+#include "template/template.hpp"
 
-// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_A 21/02/26
-// verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_B 21/02/26
-
+/**
+ * @brief LowLink
+ *
+ * @tparam T
+ */
 template <class T>
 struct LowLink {
-    const Graph<T> &g;
-    vector<int> ord, low;
-    vector<bool> used;
-    vector<int> articulation;                // 関節点
-    vector<typename Graph<T>::edge> bridge;  // 橋
-
-    LowLink(const Graph<T> &_g)
-        : g(_g), ord(_g.size()), low(_g.size()), used(_g.size()) {
-        build();
+    LowLink(const Graph<T> &_graph)
+        : graph(_graph), ord(_graph.size()), low(_graph.size()), used(_graph.size()) {
+        this->build();
     }
 
-    int dfs(int idx, int k, int par) {
-        used[idx] = true;
-        ord[idx] = k++;
-        low[idx] = ord[idx];
-        bool is_articulation = false;
-        int cnt = 0;
-        for (auto &e : g[idx]) {
-            if (!used[e.to]) {
-                ++cnt;
-                k = dfs(e.to, k, idx);
-                chmin(low[idx], low[e.to]);
-                is_articulation |= ~par && low[e.to] >= ord[idx];
-                if (ord[idx] < low[e.to]) bridge.emplace_back(e);
-            } else if (e.to != par) {
-                chmin(low[idx], ord[e.to]);
-            }
-        }
-        is_articulation |= par == -1 && cnt > 1;
-        if (is_articulation) articulation.emplace_back(idx);
-        return k;
-    }
+    /**
+     * @brief Get the articulation points object
+     *
+     * @return std::vector<int>
+     */
+    auto get_articulation_points() { return this->articulation_points; }
+    /**
+     * @brief Get the bridges object
+     *
+     * @return std::vector<typename Graph<T>::edge_type>
+     */
+    auto get_bridges() { return this->bridges; }
+
+  private:
+    const Graph<T> &graph;
+    std::vector<int> ord, low;
+    std::vector<bool> used;
+    std::vector<int> articulation_points;               // 関節点
+    std::vector<typename Graph<T>::edge_type> bridges;  // 橋
 
     void build() {
-        int k = 0;
-        for (int i = 0; i < g.size(); i++) {
-            if (!used[i]) k = dfs(i, k, -1);
+        int number = 0;
+        for (int i = 0; i < this->graph.size(); i++) {
+            if (!this->used[i]) number = this->dfs(i, number, -1);
         }
     }
 
-    auto get_articulation() { return articulation; }
-    auto get_bridge() { return bridge; }
+    int dfs(int index, int number, int parent) {
+        this->used[index] = true;
+        this->ord[index] = number++;
+        this->low[index] = this->ord[index];
+        bool is_articulation_point = false;
+        int count = 0;
+        for (auto &e : this->graph[index]) {
+            if (!this->used[e.to]) {
+                ++count;
+                number = this->dfs(e.to, number, index);
+                chmin(low[index], low[e.to]);
+                is_articulation_point |= ~parent && this->low[e.to] >= this->ord[index];
+                if (this->ord[index] < this->low[e.to]) this->bridges.emplace_back(e);
+            } else if (e.to != parent) {
+                chmin(this->low[index], this->ord[e.to]);
+            }
+        }
+        is_articulation_point |= parent == -1 && count > 1;
+        if (is_articulation_point) this->articulation_points.emplace_back(index);
+        return number;
+    }
+};
+
+template <>
+struct LowLink<void> {
+    LowLink(const Graph<void> &_graph)
+        : graph(_graph), ord(_graph.size()), low(_graph.size()), used(_graph.size()) {
+        this->build();
+    }
+
+    auto get_articulation_points() { return this->articulation_points; }
+    auto get_bridges() { return this->bridges; }
+
+  private:
+    const Graph<void> &graph;
+    std::vector<int> ord, low;
+    std::vector<bool> used;
+    std::vector<int> articulation_points;                  // 関節点
+    std::vector<typename Graph<void>::edge_type> bridges;  // 橋
+
+    void build() {
+        int number = 0;
+        for (int i = 0; i < this->graph.size(); i++) {
+            if (!this->used[i]) number = this->dfs(i, number, -1);
+        }
+    }
+
+    int dfs(int index, int number, int parent) {
+        this->used[index] = true;
+        this->ord[index] = number++;
+        this->low[index] = this->ord[index];
+        bool is_articulation_point = false;
+        int count = 0;
+        for (auto &e : this->graph[index]) {
+            if (!this->used[e]) {
+                ++count;
+                number = this->dfs(e, number, index);
+                chmin(low[index], low[e]);
+                is_articulation_point |= ~parent && this->low[e] >= this->ord[index];
+                if (this->ord[index] < this->low[e]) this->bridges.emplace_back(index, e);
+            } else if (e != parent) {
+                chmin(this->low[index], this->ord[e]);
+            }
+        }
+        is_articulation_point |= parent == -1 && count > 1;
+        if (is_articulation_point) this->articulation_points.emplace_back(index);
+        return number;
+    }
 };

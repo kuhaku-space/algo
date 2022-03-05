@@ -3,6 +3,7 @@
 
 template <class T>
 struct Graph {
+  private:
     struct edge {
         int from, to;
         T dist;
@@ -11,7 +12,9 @@ struct Graph {
         bool operator<(const edge &rhs) const { return this->dist < rhs.dist; }
         bool operator>(const edge &rhs) const { return rhs < *this; }
     };
-    std::vector<std::vector<edge>> edges;
+
+  public:
+    using edge_type = edge;
 
     Graph(int v) : edges(v) {}
 
@@ -49,12 +52,14 @@ struct Graph {
                 this->add_edges(a - 1, b - 1, d);
         }
     }
+
+  private:
+    std::vector<std::vector<edge>> edges;
 };
 
 template <>
 struct Graph<void> {
-    std::vector<std::vector<int>> edges;
-
+    using edge_type = std::pair<int, int>;
     Graph(int v) : edges(v) {}
 
     const auto &operator[](int i) const { return this->edges[i]; }
@@ -89,4 +94,7 @@ struct Graph<void> {
                 this->add_edges(a - 1, b - 1);
         }
     }
+
+  private:
+    std::vector<std::vector<int>> edges;
 };
