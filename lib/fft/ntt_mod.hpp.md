@@ -13,7 +13,7 @@ data:
   - icon: ':warning:'
     path: lib/math/modint64.hpp
     title: lib/math/modint64.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

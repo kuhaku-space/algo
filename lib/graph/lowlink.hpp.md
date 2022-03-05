@@ -1,21 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/articulation_points.test.cpp
+    title: test/aoj/grl/articulation_points.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/bridges.test.cpp
+    title: test/aoj/grl/bridges.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_A
-    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_B
+    document_title: LowLink
+    links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -23,42 +28,72 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n#include \"graph/graph.hpp\"\r\n\r\n\
-    // verify : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_A 21/02/26\r\n// verify\
-    \ : https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_B 21/02/26\r\n\r\ntemplate\
-    \ <class T>\r\nstruct LowLink {\r\n    const Graph<T> &g;\r\n    vector<int> ord,\
-    \ low;\r\n    vector<bool> used;\r\n    vector<int> articulation;            \
-    \    // \u95A2\u7BC0\u70B9\r\n    vector<typename Graph<T>::edge> bridge;  //\
-    \ \u6A4B\r\n\r\n    LowLink(const Graph<T> &_g)\r\n        : g(_g), ord(_g.size()),\
-    \ low(_g.size()), used(_g.size()) {\r\n        build();\r\n    }\r\n\r\n    int\
-    \ dfs(int idx, int k, int par) {\r\n        used[idx] = true;\r\n        ord[idx]\
-    \ = k++;\r\n        low[idx] = ord[idx];\r\n        bool is_articulation = false;\r\
-    \n        int cnt = 0;\r\n        for (auto &e : g[idx]) {\r\n            if (!used[e.to])\
-    \ {\r\n                ++cnt;\r\n                k = dfs(e.to, k, idx);\r\n  \
-    \              chmin(low[idx], low[e.to]);\r\n                is_articulation\
-    \ |= ~par && low[e.to] >= ord[idx];\r\n                if (ord[idx] < low[e.to])\
-    \ bridge.emplace_back(e);\r\n            } else if (e.to != par) {\r\n       \
-    \         chmin(low[idx], ord[e.to]);\r\n            }\r\n        }\r\n      \
-    \  is_articulation |= par == -1 && cnt > 1;\r\n        if (is_articulation) articulation.emplace_back(idx);\r\
-    \n        return k;\r\n    }\r\n\r\n    void build() {\r\n        int k = 0;\r\
-    \n        for (int i = 0; i < g.size(); i++) {\r\n            if (!used[i]) k\
-    \ = dfs(i, k, -1);\r\n        }\r\n    }\r\n\r\n    auto get_articulation() {\
-    \ return articulation; }\r\n    auto get_bridge() { return bridge; }\r\n};\r\n"
+  code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
+    /**\r\n * @brief LowLink\r\n *\r\n * @tparam T\r\n */\r\ntemplate <class T>\r\n\
+    struct LowLink {\r\n    LowLink(const Graph<T> &_graph)\r\n        : graph(_graph),\
+    \ ord(_graph.size()), low(_graph.size()), used(_graph.size()) {\r\n        this->build();\r\
+    \n    }\r\n\r\n    /**\r\n     * @brief Get the articulation points object\r\n\
+    \     *\r\n     * @return std::vector<int>\r\n     */\r\n    auto get_articulation_points()\
+    \ { return this->articulation_points; }\r\n    /**\r\n     * @brief Get the bridges\
+    \ object\r\n     *\r\n     * @return std::vector<typename Graph<T>::edge_type>\r\
+    \n     */\r\n    auto get_bridges() { return this->bridges; }\r\n\r\n  private:\r\
+    \n    const Graph<T> &graph;\r\n    std::vector<int> ord, low;\r\n    std::vector<bool>\
+    \ used;\r\n    std::vector<int> articulation_points;               // \u95A2\u7BC0\
+    \u70B9\r\n    std::vector<typename Graph<T>::edge_type> bridges;  // \u6A4B\r\n\
+    \r\n    void build() {\r\n        int number = 0;\r\n        for (int i = 0; i\
+    \ < this->graph.size(); i++) {\r\n            if (!this->used[i]) number = this->dfs(i,\
+    \ number, -1);\r\n        }\r\n    }\r\n\r\n    int dfs(int index, int number,\
+    \ int parent) {\r\n        this->used[index] = true;\r\n        this->ord[index]\
+    \ = number++;\r\n        this->low[index] = this->ord[index];\r\n        bool\
+    \ is_articulation_point = false;\r\n        int count = 0;\r\n        for (auto\
+    \ &e : this->graph[index]) {\r\n            if (!this->used[e.to]) {\r\n     \
+    \           ++count;\r\n                number = this->dfs(e.to, number, index);\r\
+    \n                chmin(low[index], low[e.to]);\r\n                is_articulation_point\
+    \ |= ~parent && this->low[e.to] >= this->ord[index];\r\n                if (this->ord[index]\
+    \ < this->low[e.to]) this->bridges.emplace_back(e);\r\n            } else if (e.to\
+    \ != parent) {\r\n                chmin(this->low[index], this->ord[e.to]);\r\n\
+    \            }\r\n        }\r\n        is_articulation_point |= parent == -1 &&\
+    \ count > 1;\r\n        if (is_articulation_point) this->articulation_points.emplace_back(index);\r\
+    \n        return number;\r\n    }\r\n};\r\n\r\ntemplate <>\r\nstruct LowLink<void>\
+    \ {\r\n    LowLink(const Graph<void> &_graph)\r\n        : graph(_graph), ord(_graph.size()),\
+    \ low(_graph.size()), used(_graph.size()) {\r\n        this->build();\r\n    }\r\
+    \n\r\n    auto get_articulation_points() { return this->articulation_points; }\r\
+    \n    auto get_bridges() { return this->bridges; }\r\n\r\n  private:\r\n    const\
+    \ Graph<void> &graph;\r\n    std::vector<int> ord, low;\r\n    std::vector<bool>\
+    \ used;\r\n    std::vector<int> articulation_points;                  // \u95A2\
+    \u7BC0\u70B9\r\n    std::vector<typename Graph<void>::edge_type> bridges;  //\
+    \ \u6A4B\r\n\r\n    void build() {\r\n        int number = 0;\r\n        for (int\
+    \ i = 0; i < this->graph.size(); i++) {\r\n            if (!this->used[i]) number\
+    \ = this->dfs(i, number, -1);\r\n        }\r\n    }\r\n\r\n    int dfs(int index,\
+    \ int number, int parent) {\r\n        this->used[index] = true;\r\n        this->ord[index]\
+    \ = number++;\r\n        this->low[index] = this->ord[index];\r\n        bool\
+    \ is_articulation_point = false;\r\n        int count = 0;\r\n        for (auto\
+    \ &e : this->graph[index]) {\r\n            if (!this->used[e]) {\r\n        \
+    \        ++count;\r\n                number = this->dfs(e, number, index);\r\n\
+    \                chmin(low[index], low[e]);\r\n                is_articulation_point\
+    \ |= ~parent && this->low[e] >= this->ord[index];\r\n                if (this->ord[index]\
+    \ < this->low[e]) this->bridges.emplace_back(index, e);\r\n            } else\
+    \ if (e != parent) {\r\n                chmin(this->low[index], this->ord[e]);\r\
+    \n            }\r\n        }\r\n        is_articulation_point |= parent == -1\
+    \ && count > 1;\r\n        if (is_articulation_point) this->articulation_points.emplace_back(index);\r\
+    \n        return number;\r\n    }\r\n};\r\n"
   dependsOn:
-  - lib/template/template.hpp
   - lib/graph/graph.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/lowlink.hpp
   requiredBy: []
-  timestamp: '2022-01-14 01:42:22+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2022-03-05 11:06:17+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/bridges.test.cpp
 documentation_of: lib/graph/lowlink.hpp
 layout: document
 redirect_from:
 - /library/lib/graph/lowlink.hpp
 - /library/lib/graph/lowlink.hpp.html
-title: lib/graph/lowlink.hpp
+title: LowLink
 ---

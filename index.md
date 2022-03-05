@@ -184,15 +184,15 @@ data:
     - icon: ':warning:'
       path: lib/graph/dijkstra_radix_heap.hpp
       title: lib/graph/dijkstra_radix_heap.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/graph/graph.hpp
       title: lib/graph/graph.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/kruskal.hpp
-      title: lib/graph/kruskal.hpp
-    - icon: ':warning:'
+      title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
+    - icon: ':heavy_check_mark:'
       path: lib/graph/lowlink.hpp
-      title: lib/graph/lowlink.hpp
+      title: LowLink
     - icon: ':heavy_check_mark:'
       path: lib/graph/matrix_graph.hpp
       title: lib/graph/matrix_graph.hpp
@@ -202,12 +202,12 @@ data:
     - icon: ':warning:'
       path: lib/graph/min_cost_flow.hpp
       title: lib/graph/min_cost_flow.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/scc.hpp
-      title: lib/graph/scc.hpp
-    - icon: ':warning:'
+      title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
+    - icon: ':x:'
       path: lib/graph/topological_sort.hpp
-      title: lib/graph/topological_sort.hpp
+      title: "\u9589\u8DEF\u691C\u51FA"
     - icon: ':warning:'
       path: lib/graph/two_sat.hpp
       title: lib/graph/two_sat.hpp
@@ -318,10 +318,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -410,8 +410,17 @@ data:
   - name: test/aoj/grl
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/articulation_points.test.cpp
+      title: test/aoj/grl/articulation_points.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/bellman_ford.test.cpp
       title: test/aoj/grl/bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/bridges.test.cpp
+      title: test/aoj/grl/bridges.test.cpp
+    - icon: ':x:'
+      path: test/aoj/grl/cycle.test.cpp
+      title: test/aoj/grl/cycle.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/dijkstra.test.cpp
       title: test/aoj/grl/dijkstra.test.cpp
@@ -421,6 +430,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/hld.test.cpp
       title: test/aoj/grl/hld.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/kruskal.test.cpp
+      title: test/aoj/grl/kruskal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/scc.test.cpp
+      title: test/aoj/grl/scc.test.cpp
+    - icon: ':x:'
+      path: test/aoj/grl/topological_sort.test.cpp
+      title: test/aoj/grl/topological_sort.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/warshall_floyd.test.cpp
       title: test/aoj/grl/warshall_floyd.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -23,18 +23,18 @@ data:
   - icon: ':warning:'
     path: lib/graph/dijkstra_radix_heap.hpp
     title: lib/graph/dijkstra_radix_heap.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/kruskal.hpp
-    title: lib/graph/kruskal.hpp
-  - icon: ':warning:'
+    title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
+  - icon: ':heavy_check_mark:'
     path: lib/graph/lowlink.hpp
-    title: lib/graph/lowlink.hpp
-  - icon: ':warning:'
+    title: LowLink
+  - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
-    title: lib/graph/scc.hpp
-  - icon: ':warning:'
+    title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
+  - icon: ':x:'
     path: lib/graph/topological_sort.hpp
-    title: lib/graph/topological_sort.hpp
+    title: "\u9589\u8DEF\u691C\u51FA"
   - icon: ':warning:'
     path: lib/graph/two_sat.hpp
     title: lib/graph/two_sat.hpp
@@ -52,8 +52,17 @@ data:
     title: lib/tree/tree_subtree.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/articulation_points.test.cpp
+    title: test/aoj/grl/articulation_points.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/bridges.test.cpp
+    title: test/aoj/grl/bridges.test.cpp
+  - icon: ':x:'
+    path: test/aoj/grl/cycle.test.cpp
+    title: test/aoj/grl/cycle.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
@@ -61,11 +70,20 @@ data:
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/kruskal.test.cpp
+    title: test/aoj/grl/kruskal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/scc.test.cpp
+    title: test/aoj/grl/scc.test.cpp
+  - icon: ':x:'
+    path: test/aoj/grl/topological_sort.test.cpp
+    title: test/aoj/grl/topological_sort.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -78,47 +96,49 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\ntemplate <class\
-    \ T>\r\nstruct Graph {\r\n    struct edge {\r\n        int from, to;\r\n     \
-    \   T dist;\r\n        constexpr edge() : from(), to(), dist() {}\r\n        constexpr\
-    \ edge(int _from, int _to, T _dist) : from(_from), to(_to), dist(_dist) {}\r\n\
-    \        bool operator<(const edge &rhs) const { return this->dist < rhs.dist;\
-    \ }\r\n        bool operator>(const edge &rhs) const { return rhs < *this; }\r\
-    \n    };\r\n    std::vector<std::vector<edge>> edges;\r\n\r\n    Graph(int v)\
-    \ : edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return this->edges[i];\
-    \ }\r\n    auto &operator[](int i) { return this->edges[i]; }\r\n    const auto\
-    \ begin() const { return this->edges.begin(); }\r\n    auto begin() { return this->edges.begin();\
-    \ }\r\n    const auto end() const { return this->edges.end(); }\r\n    auto end()\
-    \ { return this->edges.end(); }\r\n    auto size() const { return this->edges.size();\
-    \ }\r\n    void add_edge(int a, int b, T d = T(1)) { this->edges[a].emplace_back(a,\
-    \ b, d); }\r\n    void add_edges(int a, int b, T d = T(1)) {\r\n        this->edges[a].emplace_back(a,\
-    \ b, d);\r\n        this->edges[b].emplace_back(b, a, d);\r\n    }\r\n    void\
-    \ input_edge(int m, bool zero_based = false) {\r\n        for (int i = 0; i <\
-    \ m; ++i) {\r\n            int a, b;\r\n            T d;\r\n            cin >>\
-    \ a >> b >> d;\r\n            if (zero_based)\r\n                this->add_edge(a,\
-    \ b, d);\r\n            else\r\n                this->add_edge(a - 1, b - 1, d);\r\
-    \n        }\r\n    }\r\n    void input_edges(int m, bool zero_based = false) {\r\
-    \n        for (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n         \
-    \   T d;\r\n            cin >> a >> b >> d;\r\n            if (zero_based)\r\n\
-    \                this->add_edges(a, b, d);\r\n            else\r\n           \
-    \     this->add_edges(a - 1, b - 1, d);\r\n        }\r\n    }\r\n};\r\n\r\ntemplate\
-    \ <>\r\nstruct Graph<void> {\r\n    std::vector<std::vector<int>> edges;\r\n\r\
-    \n    Graph(int v) : edges(v) {}\r\n\r\n    const auto &operator[](int i) const\
+    \ T>\r\nstruct Graph {\r\n  private:\r\n    struct edge {\r\n        int from,\
+    \ to;\r\n        T dist;\r\n        constexpr edge() : from(), to(), dist() {}\r\
+    \n        constexpr edge(int _from, int _to, T _dist) : from(_from), to(_to),\
+    \ dist(_dist) {}\r\n        bool operator<(const edge &rhs) const { return this->dist\
+    \ < rhs.dist; }\r\n        bool operator>(const edge &rhs) const { return rhs\
+    \ < *this; }\r\n    };\r\n\r\n  public:\r\n    using edge_type = edge;\r\n\r\n\
+    \    Graph(int v) : edges(v) {}\r\n\r\n    const auto &operator[](int i) const\
     \ { return this->edges[i]; }\r\n    auto &operator[](int i) { return this->edges[i];\
     \ }\r\n    const auto begin() const { return this->edges.begin(); }\r\n    auto\
     \ begin() { return this->edges.begin(); }\r\n    const auto end() const { return\
     \ this->edges.end(); }\r\n    auto end() { return this->edges.end(); }\r\n   \
     \ auto size() const { return this->edges.size(); }\r\n    void add_edge(int a,\
-    \ int b) { this->edges[a].emplace_back(b); }\r\n    void add_edges(int a, int\
-    \ b) {\r\n        this->edges[a].emplace_back(b);\r\n        this->edges[b].emplace_back(a);\r\
-    \n    }\r\n    void input_edge(int m, bool zero_based = false) {\r\n        for\
-    \ (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n            cin >> a >>\
-    \ b;\r\n            if (zero_based)\r\n                this->add_edge(a, b);\r\
-    \n            else\r\n                this->add_edge(a - 1, b - 1);\r\n      \
-    \  }\r\n    }\r\n    void input_edges(int m, bool zero_based = false) {\r\n  \
-    \      for (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n            cin\
-    \ >> a >> b;\r\n            if (zero_based)\r\n                this->add_edges(a,\
-    \ b);\r\n            else\r\n                this->add_edges(a - 1, b - 1);\r\n\
-    \        }\r\n    }\r\n};\r\n"
+    \ int b, T d = T(1)) { this->edges[a].emplace_back(a, b, d); }\r\n    void add_edges(int\
+    \ a, int b, T d = T(1)) {\r\n        this->edges[a].emplace_back(a, b, d);\r\n\
+    \        this->edges[b].emplace_back(b, a, d);\r\n    }\r\n    void input_edge(int\
+    \ m, bool zero_based = false) {\r\n        for (int i = 0; i < m; ++i) {\r\n \
+    \           int a, b;\r\n            T d;\r\n            cin >> a >> b >> d;\r\
+    \n            if (zero_based)\r\n                this->add_edge(a, b, d);\r\n\
+    \            else\r\n                this->add_edge(a - 1, b - 1, d);\r\n    \
+    \    }\r\n    }\r\n    void input_edges(int m, bool zero_based = false) {\r\n\
+    \        for (int i = 0; i < m; ++i) {\r\n            int a, b;\r\n          \
+    \  T d;\r\n            cin >> a >> b >> d;\r\n            if (zero_based)\r\n\
+    \                this->add_edges(a, b, d);\r\n            else\r\n           \
+    \     this->add_edges(a - 1, b - 1, d);\r\n        }\r\n    }\r\n\r\n  private:\r\
+    \n    std::vector<std::vector<edge>> edges;\r\n};\r\n\r\ntemplate <>\r\nstruct\
+    \ Graph<void> {\r\n    using edge_type = std::pair<int, int>;\r\n    Graph(int\
+    \ v) : edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return this->edges[i];\
+    \ }\r\n    auto &operator[](int i) { return this->edges[i]; }\r\n    const auto\
+    \ begin() const { return this->edges.begin(); }\r\n    auto begin() { return this->edges.begin();\
+    \ }\r\n    const auto end() const { return this->edges.end(); }\r\n    auto end()\
+    \ { return this->edges.end(); }\r\n    auto size() const { return this->edges.size();\
+    \ }\r\n    void add_edge(int a, int b) { this->edges[a].emplace_back(b); }\r\n\
+    \    void add_edges(int a, int b) {\r\n        this->edges[a].emplace_back(b);\r\
+    \n        this->edges[b].emplace_back(a);\r\n    }\r\n    void input_edge(int\
+    \ m, bool zero_based = false) {\r\n        for (int i = 0; i < m; ++i) {\r\n \
+    \           int a, b;\r\n            cin >> a >> b;\r\n            if (zero_based)\r\
+    \n                this->add_edge(a, b);\r\n            else\r\n              \
+    \  this->add_edge(a - 1, b - 1);\r\n        }\r\n    }\r\n    void input_edges(int\
+    \ m, bool zero_based = false) {\r\n        for (int i = 0; i < m; ++i) {\r\n \
+    \           int a, b;\r\n            cin >> a >> b;\r\n            if (zero_based)\r\
+    \n                this->add_edges(a, b);\r\n            else\r\n             \
+    \   this->add_edges(a - 1, b - 1);\r\n        }\r\n    }\r\n\r\n  private:\r\n\
+    \    std::vector<std::vector<int>> edges;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -139,13 +159,19 @@ data:
   - lib/graph/scc.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
-  timestamp: '2022-01-14 01:42:22+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-03-05 10:24:51+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/topological_sort.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/bridges.test.cpp
+  - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
+  - test/aoj/grl/scc.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
 redirect_from:

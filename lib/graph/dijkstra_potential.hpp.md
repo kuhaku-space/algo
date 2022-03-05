@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_potential.hpp
   requiredBy: []
-  timestamp: '2022-02-06 19:58:35+09:00'
+  timestamp: '2022-03-05 10:24:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/dijkstra_potential.hpp
