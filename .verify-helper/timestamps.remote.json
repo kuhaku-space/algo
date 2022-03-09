@@ -20,6 +20,7 @@
 "test/aoj/grl/bridges.test.cpp": "2022-03-05 11:06:57 +0900",
 "test/aoj/grl/cycle.test.cpp": "2022-03-05 13:04:10 +0900",
 "test/aoj/grl/dijkstra.test.cpp": "2022-03-09 10:39:03 +0900",
+"test/aoj/grl/dijkstra_fibonacci.test.cpp": "2022-03-09 11:13:32 +0900",
 "test/aoj/grl/dijkstra_heap.test.cpp": "2022-03-09 10:39:17 +0900",
 "test/aoj/grl/hld.test.cpp": "2022-02-08 12:58:02 +0900",
 "test/aoj/grl/kruskal.test.cpp": "2022-03-05 10:24:51 +0900",
