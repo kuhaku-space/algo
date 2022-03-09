@@ -1,21 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_fibonacci.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
       \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
     links: []
@@ -48,8 +48,8 @@ data:
     \ = node;\n            this->left = node;\n        }\n        void insert_right(pointer\
     \ node) {\n            node->left = this;\n            node->right = this->right;\n\
     \            this->right->left = node;\n            this->right = node;\n    \
-    \    }\n\n        auto erase() {\n            this->parent = nullptr;\n      \
-    \      if (this->left == this) return nullptr;\n            this->left->right\
+    \    }\n\n        pointer erase() {\n            this->parent = nullptr;\n   \
+    \         if (this->left == this) return nullptr;\n            this->left->right\
     \ = this->right;\n            this->right->left = this->left;\n            auto\
     \ res = this->left;\n            this->left = this->right = this;\n          \
     \  return res;\n        }\n\n        constexpr auto get_pair() const { return\
@@ -95,8 +95,8 @@ data:
   path: lib/data_structure/fibonacci_heap.hpp
   requiredBy:
   - lib/graph/dijkstra_fibonacci.hpp
-  timestamp: '2022-03-09 10:35:36+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-03-09 11:13:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
 documentation_of: lib/data_structure/fibonacci_heap.hpp

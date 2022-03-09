@@ -113,7 +113,7 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/fast_fibonacci_heap.hpp
       title: lib/data_structure/fast_fibonacci_heap.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: lib/data_structure/fibonacci_heap.hpp
       title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
     - icon: ':warning:'
@@ -175,7 +175,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/dijkstra.hpp
       title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/dijkstra_fibonacci.hpp
       title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
         \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
@@ -189,7 +189,7 @@ data:
     - icon: ':warning:'
       path: lib/graph/dijkstra_radix_heap.hpp
       title: lib/graph/dijkstra_radix_heap.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/graph.hpp
       title: lib/graph/graph.hpp
     - icon: ':heavy_check_mark:'
@@ -323,10 +323,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -438,7 +438,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/dijkstra.test.cpp
       title: test/aoj/grl/dijkstra.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/dijkstra_fibonacci.test.cpp
       title: test/aoj/grl/dijkstra_fibonacci.test.cpp
     - icon: ':heavy_check_mark:'

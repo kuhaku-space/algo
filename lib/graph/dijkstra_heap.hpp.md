@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/binary_heap.hpp
     title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
