@@ -51,7 +51,7 @@ struct fibonacci_heap {
             this->right = node;
         }
 
-        auto erase() {
+        pointer erase() {
             this->parent = nullptr;
             if (this->left == this) return nullptr;
             this->left->right = this->right;
