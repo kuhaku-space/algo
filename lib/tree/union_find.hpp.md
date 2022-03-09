@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -9,6 +9,9 @@ data:
     path: lib/graph/kruskal.hpp
     title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/union_find.test.cpp
+    title: test/aoj/dsl/union_find.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
@@ -55,6 +58,7 @@ data:
   verifiedWith:
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/aoj/grl/kruskal.test.cpp
+  - test/aoj/dsl/union_find.test.cpp
 documentation_of: lib/tree/union_find.hpp
 layout: document
 redirect_from:

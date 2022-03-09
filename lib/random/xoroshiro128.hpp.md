@@ -5,7 +5,7 @@ data:
     path: lib/random/split_mix_64.hpp
     title: "0.0\u4EE5\u4E0A1.0\u672A\u6E80\u306E\u6D6E\u52D5\u5C0F\u6570\u70B9\u6570\
       \u3092\u751F\u6210"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

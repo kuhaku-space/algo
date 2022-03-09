@@ -1,26 +1,27 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/data_structure/fibonacci_heap.hpp
-    title: lib/data_structure/fibonacci_heap.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
+  - icon: ':x:'
     path: lib/graph/dijkstra_fibonacci.hpp
-    title: lib/graph/dijkstra_fibonacci.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
+      \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
@@ -43,15 +44,15 @@ data:
     \        else\n            co(\"INF\");\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/dijkstra_fibonacci.hpp
+  - lib/data_structure/fibonacci_heap.hpp
   - lib/template/template.hpp
   - lib/graph/graph.hpp
-  - lib/data_structure/fibonacci_heap.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/aoj/grl/dijkstra_fibonacci.test.cpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-03-09 10:39:03+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/aoj/grl/dijkstra_fibonacci.test.cpp
 layout: document

@@ -101,6 +101,9 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/bigint_beta.hpp
       title: lib/data_structure/bigint_beta.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/binary_heap.hpp
+      title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
     - icon: ':warning:'
       path: lib/data_structure/binary_tree.hpp
       title: lib/data_structure/binary_tree.hpp
@@ -110,9 +113,9 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/fast_fibonacci_heap.hpp
       title: lib/data_structure/fast_fibonacci_heap.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/data_structure/fibonacci_heap.hpp
-      title: lib/data_structure/fibonacci_heap.hpp
+      title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
     - icon: ':warning:'
       path: lib/data_structure/heap.hpp
       title: lib/data_structure/heap.hpp
@@ -172,19 +175,21 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/dijkstra.hpp
       title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: lib/graph/dijkstra_fibonacci.hpp
-      title: lib/graph/dijkstra_fibonacci.hpp
-    - icon: ':warning:'
+      title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
+        \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
+    - icon: ':heavy_check_mark:'
       path: lib/graph/dijkstra_heap.hpp
-      title: lib/graph/dijkstra_heap.hpp
+      title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\
+        \u30D7\uFF09"
     - icon: ':warning:'
       path: lib/graph/dijkstra_potential.hpp
       title: lib/graph/dijkstra_potential.hpp
     - icon: ':warning:'
       path: lib/graph/dijkstra_radix_heap.hpp
       title: lib/graph/dijkstra_radix_heap.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/graph/graph.hpp
       title: lib/graph/graph.hpp
     - icon: ':heavy_check_mark:'
@@ -307,7 +312,7 @@ data:
     - icon: ':warning:'
       path: lib/string/manacher.hpp
       title: lib/string/manacher.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/string/rolling_hash.hpp
       title: "\u30ED\u30FC\u30EA\u30F3\u30B0\u30CF\u30C3\u30B7\u30E5"
     - icon: ':warning:'
@@ -318,10 +323,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -356,7 +361,7 @@ data:
     - icon: ':warning:'
       path: lib/tree/union_find_with_edge.hpp
       title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   verificationCategories:
@@ -368,6 +373,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/prime_numbers.test.cpp
       title: test/aoj/alds1/prime_numbers.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/rolling_hash.test.cpp
+      title: test/aoj/alds1/rolling_hash.test.cpp
   - name: test/aoj/cgl
     pages:
     - icon: ':heavy_check_mark:'
@@ -407,6 +415,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/ruq.test.cpp
       title: test/aoj/dsl/ruq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/union_find.test.cpp
+      title: test/aoj/dsl/union_find.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/weighted_union_find.test.cpp
+      title: test/aoj/dsl/weighted_union_find.test.cpp
   - name: test/aoj/grl
     pages:
     - icon: ':heavy_check_mark:'
@@ -424,9 +438,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/dijkstra.test.cpp
       title: test/aoj/grl/dijkstra.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/grl/dijkstra_fibonacci.test.cpp
       title: test/aoj/grl/dijkstra_fibonacci.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/dijkstra_heap.test.cpp
+      title: test/aoj/grl/dijkstra_heap.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/hld.test.cpp
       title: test/aoj/grl/hld.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -11,12 +11,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/dijkstra_fibonacci.hpp
-    title: lib/graph/dijkstra_fibonacci.hpp
-  - icon: ':warning:'
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
+      \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_heap.hpp
-    title: lib/graph/dijkstra_heap.hpp
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\
+      \u30D7\uFF09"
   - icon: ':warning:'
     path: lib/graph/dijkstra_potential.hpp
     title: lib/graph/dijkstra_potential.hpp
@@ -66,9 +68,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_heap.test.cpp
+    title: test/aoj/grl/dijkstra_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
@@ -81,9 +86,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -160,7 +165,7 @@ data:
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
   timestamp: '2022-03-05 10:24:51+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
@@ -172,6 +177,7 @@ data:
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
   - test/aoj/grl/scc.test.cpp
+  - test/aoj/grl/dijkstra_heap.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
 redirect_from:

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -30,26 +30,27 @@ data:
   code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
     /**\r\n * @brief \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\r\n *\r\n * @tparam\
     \ T\r\n * @param g \u30B0\u30E9\u30D5\r\n * @param s \u59CB\u70B9\r\n * @param\
-    \ inf\r\n * @return vector<T>\r\n */\r\ntemplate <class T>\r\nstd::vector<T> dijkstra(const\
-    \ Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {\r\n    struct\
-    \ _edge {\r\n        int to;\r\n        T dist;\r\n        constexpr _edge() :\
-    \ to(), dist() {}\r\n        constexpr _edge(int _to, T _dist) : to(_to), dist(_dist)\
-    \ {}\r\n        bool operator<(const _edge &rhs) const { return this->dist < rhs.dist;\
-    \ }\r\n        bool operator>(const _edge &rhs) const { return rhs < *this; }\r\
-    \n    };\r\n    std::vector<T> dist(g.size(), inf);\r\n    std::priority_queue<_edge,\
-    \ std::vector<_edge>, std::greater<_edge>> p_que;\r\n    dist[s] = T();\r\n  \
-    \  p_que.emplace(s, T());\r\n    while (!p_que.empty()) {\r\n        _edge e =\
-    \ p_que.top();\r\n        p_que.pop();\r\n        if (dist[e.to] < e.dist) continue;\r\
-    \n        for (auto &i : g[e.to]) {\r\n            if (chmin(dist[i.to], e.dist\
-    \ + i.dist)) p_que.emplace(i.to, e.dist + i.dist);\r\n        }\r\n    }\r\n \
-    \   return dist;\r\n}\r\n"
+    \ inf \u6B63\u306E\u7121\u9650\u8868\u73FE\r\n * @retval std::vector<T> \u5404\
+    \u9802\u70B9\u307E\u3067\u306E\u6700\u77ED\u8DDD\u96E2\r\n */\r\ntemplate <class\
+    \ T>\r\nstd::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max())\
+    \ {\r\n    struct _edge {\r\n        int to;\r\n        T dist;\r\n        constexpr\
+    \ _edge() : to(), dist() {}\r\n        constexpr _edge(int _to, T _dist) : to(_to),\
+    \ dist(_dist) {}\r\n        bool operator<(const _edge &rhs) const { return this->dist\
+    \ < rhs.dist; }\r\n        bool operator>(const _edge &rhs) const { return rhs\
+    \ < *this; }\r\n    };\r\n    std::vector<T> dist(g.size(), inf);\r\n    std::priority_queue<_edge,\
+    \ std::vector<_edge>, std::greater<>> p_que;\r\n    dist[s] = T();\r\n    p_que.emplace(s,\
+    \ T());\r\n    while (!p_que.empty()) {\r\n        _edge e = p_que.top();\r\n\
+    \        p_que.pop();\r\n        if (dist[e.to] < e.dist) continue;\r\n      \
+    \  for (auto &i : g[e.to]) {\r\n            if (chmin(dist[i.to], e.dist + i.dist))\
+    \ p_que.emplace(i.to, e.dist + i.dist);\r\n        }\r\n    }\r\n    return dist;\r\
+    \n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
+  timestamp: '2022-03-09 10:39:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra.test.cpp

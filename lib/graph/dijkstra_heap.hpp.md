@@ -2,101 +2,67 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/data_structure/binary_heap.hpp
+    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_heap.test.cpp
+    title: test/aoj/grl/dijkstra_heap.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\
+      \u30FC\u30D7\uFF09"
     links: []
-  bundledCode: "#line 1 \"lib/graph/dijkstra_heap.hpp\"\n#include <graph/graph.hpp>\n\
-    #include <template/template.hpp>\n\ntemplate <class T>\nstruct heap {\n    heap(int\
-    \ n) : _size(), v(1), u(n) {}\n\n    auto top() const { return this->v[1]; }\n\
-    \    int size() const { return this->_size; }\n    bool empty() const { return\
-    \ this->_size == 0; }\n\n    void push(int a, T b) {\n        if (this->u[a])\
-    \ {\n            this->update(a, b);\n            return;\n        }\n       \
-    \ this->u[a] = ++(this->_size);\n        this->v.emplace_back(a, b);\n\n     \
-    \   int idx = this->_size;\n        while (idx > 1 && this->v[idx].second < this->v[idx\
-    \ >> 1].second) {\n            swap(this->u[a], this->u[this->v[idx >> 1].first]);\n\
-    \            swap(this->v[idx], this->v[idx >> 1]);\n            idx >>= 1;\n\
-    \        }\n    }\n    void emplace(int a, T b) { this->push(a, b); }\n\n    void\
-    \ pop() {\n        this->u[this->v[this->_size].first] = 1;\n        this->v[1]\
-    \ = this->v[(this->_size)--];\n        this->v.pop_back();\n\n        int idx\
-    \ = 1 << 1;\n        while (idx <= this->_size) {\n            if (idx < this->_size\
-    \ && this->v[idx + 1].second < this->v[idx].second) ++idx;\n            if (this->v[idx\
-    \ >> 1].second < this->v[idx].second) break;\n            swap(this->u[this->v[idx\
-    \ >> 1].first], this->u[this->v[idx].first]);\n            swap(this->v[idx >>\
-    \ 1], this->v[idx]);\n            idx <<= 1;\n        }\n    }\n\n    void update(int\
-    \ a, T b) {\n        if (b < this->v[this->u[a]].second) {\n            this->v[this->u[a]].second\
-    \ = b;\n            int idx = this->u[a];\n            while (idx > 1 && this->v[idx].second\
-    \ < this->v[idx >> 1].second) {\n                swap(this->u[a], this->u[this->v[idx\
-    \ >> 1].first]);\n                swap(this->v[idx], this->v[idx >> 1]);\n   \
-    \             idx >>= 1;\n            }\n        }\n    }\n\n  private:\n    int\
-    \ _size;\n    std::vector<pair<int, T>> v;\n    std::vector<int> u;\n};\n\ntemplate\
-    \ <class T>\nstd::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max())\
-    \ {\n    struct _edge {\n        int to;\n        T dist;\n        constexpr _edge()\
-    \ : to(), dist() {}\n        constexpr _edge(int _to, T _dist) : to(_to), dist(_dist)\
-    \ {}\n        bool operator<(const _edge &rhs) const { return this->dist < rhs.dist;\
-    \ }\n        bool operator>(const _edge &rhs) const { return rhs < *this; }\n\
-    \    };\n    std::vector<T> dists(g.size(), inf);\n    heap<T> p_que(g.size());\n\
-    \    dists[s] = T();\n    p_que.emplace(s, T());\n    while (!p_que.empty()) {\n\
-    \        auto [to, dist] = p_que.top();\n        p_que.pop();\n        if (dists[to]\
-    \ < dist) continue;\n        for (auto &i : g[to]) {\n            if (chmin(dists[i.to],\
-    \ dist + i.dist)) p_que.emplace(i.to, dist + i.dist);\n        }\n    }\n    return\
-    \ dists;\n}\n"
-  code: "#include <graph/graph.hpp>\n#include <template/template.hpp>\n\ntemplate\
-    \ <class T>\nstruct heap {\n    heap(int n) : _size(), v(1), u(n) {}\n\n    auto\
-    \ top() const { return this->v[1]; }\n    int size() const { return this->_size;\
-    \ }\n    bool empty() const { return this->_size == 0; }\n\n    void push(int\
-    \ a, T b) {\n        if (this->u[a]) {\n            this->update(a, b);\n    \
-    \        return;\n        }\n        this->u[a] = ++(this->_size);\n        this->v.emplace_back(a,\
-    \ b);\n\n        int idx = this->_size;\n        while (idx > 1 && this->v[idx].second\
-    \ < this->v[idx >> 1].second) {\n            swap(this->u[a], this->u[this->v[idx\
-    \ >> 1].first]);\n            swap(this->v[idx], this->v[idx >> 1]);\n       \
-    \     idx >>= 1;\n        }\n    }\n    void emplace(int a, T b) { this->push(a,\
-    \ b); }\n\n    void pop() {\n        this->u[this->v[this->_size].first] = 1;\n\
-    \        this->v[1] = this->v[(this->_size)--];\n        this->v.pop_back();\n\
-    \n        int idx = 1 << 1;\n        while (idx <= this->_size) {\n          \
-    \  if (idx < this->_size && this->v[idx + 1].second < this->v[idx].second) ++idx;\n\
-    \            if (this->v[idx >> 1].second < this->v[idx].second) break;\n    \
-    \        swap(this->u[this->v[idx >> 1].first], this->u[this->v[idx].first]);\n\
-    \            swap(this->v[idx >> 1], this->v[idx]);\n            idx <<= 1;\n\
-    \        }\n    }\n\n    void update(int a, T b) {\n        if (b < this->v[this->u[a]].second)\
-    \ {\n            this->v[this->u[a]].second = b;\n            int idx = this->u[a];\n\
-    \            while (idx > 1 && this->v[idx].second < this->v[idx >> 1].second)\
-    \ {\n                swap(this->u[a], this->u[this->v[idx >> 1].first]);\n   \
-    \             swap(this->v[idx], this->v[idx >> 1]);\n                idx >>=\
-    \ 1;\n            }\n        }\n    }\n\n  private:\n    int _size;\n    std::vector<pair<int,\
-    \ T>> v;\n    std::vector<int> u;\n};\n\ntemplate <class T>\nstd::vector<T> dijkstra(const\
-    \ Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {\n    struct\
-    \ _edge {\n        int to;\n        T dist;\n        constexpr _edge() : to(),\
-    \ dist() {}\n        constexpr _edge(int _to, T _dist) : to(_to), dist(_dist)\
-    \ {}\n        bool operator<(const _edge &rhs) const { return this->dist < rhs.dist;\
-    \ }\n        bool operator>(const _edge &rhs) const { return rhs < *this; }\n\
-    \    };\n    std::vector<T> dists(g.size(), inf);\n    heap<T> p_que(g.size());\n\
-    \    dists[s] = T();\n    p_que.emplace(s, T());\n    while (!p_que.empty()) {\n\
-    \        auto [to, dist] = p_que.top();\n        p_que.pop();\n        if (dists[to]\
-    \ < dist) continue;\n        for (auto &i : g[to]) {\n            if (chmin(dists[i.to],\
-    \ dist + i.dist)) p_que.emplace(i.to, dist + i.dist);\n        }\n    }\n    return\
-    \ dists;\n}\n"
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
+    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/binary_heap.hpp:\
+    \ line -1: no such header\n"
+  code: "#include \"data_structure/binary_heap.hpp\"\n#include \"graph/graph.hpp\"\
+    \n#include \"template/template.hpp\"\n\n/**\n * @brief \u30C0\u30A4\u30AF\u30B9\
+    \u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\u30D7\uFF09\n *\n * @tparam T\n\
+    \ * @param g \u30B0\u30E9\u30D5\n * @param s \u59CB\u70B9\n * @param inf \u6B63\
+    \u306E\u7121\u9650\u8868\u73FE\n * @retval std::vector<T> \u5404\u9802\u70B9\u307E\
+    \u3067\u306E\u6700\u77ED\u8DDD\u96E2\n */\ntemplate <class T>\nstd::vector<T>\
+    \ dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max())\
+    \ {\n    std::vector<T> dists(g.size(), inf);\n    using b_heap = binary_heap<int,\
+    \ T, std::greater<>>;\n    b_heap heap;\n    std::vector<typename b_heap::node_pointer>\
+    \ nodes(g.size());\n    dists[s] = T();\n    heap.emplace(s, T());\n    while\
+    \ (!heap.empty()) {\n        auto [to, dist] = heap.top();\n        heap.pop();\n\
+    \        if (dists[to] < dist) continue;\n        for (auto &i : g[to]) {\n  \
+    \          if (chmin(dists[i.to], dist + i.dist)) {\n                if (!nodes[i.to])\n\
+    \                    nodes[i.to] = heap.push(i.to, dist + i.dist);\n         \
+    \       else\n                    heap.update(nodes[i.to], dist + i.dist);\n \
+    \           }\n        }\n    }\n    return dists;\n}\n"
   dependsOn:
-  - lib/graph/graph.hpp
+  - lib/data_structure/binary_heap.hpp
   - lib/template/template.hpp
+  - lib/graph/graph.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra_heap.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2022-03-09 10:39:03+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/grl/dijkstra_heap.test.cpp
 documentation_of: lib/graph/dijkstra_heap.hpp
 layout: document
 redirect_from:
 - /library/lib/graph/dijkstra_heap.hpp
 - /library/lib/graph/dijkstra_heap.hpp.html
-title: lib/graph/dijkstra_heap.hpp
+title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\u30D7\
+  \uFF09"
 ---
