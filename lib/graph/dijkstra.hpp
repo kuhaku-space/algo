@@ -7,8 +7,8 @@
  * @tparam T
  * @param g グラフ
  * @param s 始点
- * @param inf
- * @return vector<T>
+ * @param inf 正の無限表現
+ * @retval std::vector<T> 各頂点までの最短距離
  */
 template <class T>
 std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
@@ -21,7 +21,7 @@ std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limit
         bool operator>(const _edge &rhs) const { return rhs < *this; }
     };
     std::vector<T> dist(g.size(), inf);
-    std::priority_queue<_edge, std::vector<_edge>, std::greater<_edge>> p_que;
+    std::priority_queue<_edge, std::vector<_edge>, std::greater<>> p_que;
     dist[s] = T();
     p_que.emplace(s, T());
     while (!p_que.empty()) {
