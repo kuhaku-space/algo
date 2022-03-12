@@ -2,43 +2,44 @@
 
 /**
  * @brief 素数ライブラリ
- * 
  */
 struct prime_number {
-    static constexpr int sz = 1 << 22;
-    bitset<sz> is_not_prime;
-    vector<int> data;
-
-    prime_number() { init(); }
+    prime_number() { this->init(); }
 
     void init() {
-        is_not_prime[0] = is_not_prime[1] = true;
-        for (int i = 2; i < sz; ++i) {
-            if (!is_not_prime[i]) {
-                data.emplace_back(i);
-                if ((int64_t)i * i >= sz) continue;
+        this->is_not_prime[0] = this->is_not_prime[1] = true;
+        for (int i = 2; i < _size; ++i) {
+            if (!this->is_not_prime[i]) {
+                this->data.emplace_back(i);
+                if ((int64_t)i * i >= _size) continue;
                 if (i == 2) {
-                    for (int j = i * i; j < sz; j += i) is_not_prime[j] = true;
+                    for (int j = i * i; j < _size; j += i) this->is_not_prime[j] = true;
                 } else {
-                    for (int j = i * i; j < sz; j += i << 1) is_not_prime[j] = true;
+                    for (int j = i * i; j < _size; j += i << 1) this->is_not_prime[j] = true;
                 }
             }
         }
     }
 
-    constexpr bool is_prime(int64_t n) const {
+    /**
+     * @brief 素数判定
+     *
+     * @param n
+     * @return bool
+     */
+    bool is_prime(int64_t n) const {
         assert(n >= 0);
-        if (n < sz) return !is_not_prime[n];
-        for (auto i : data) {
+        if (n < _size) return !this->is_not_prime[n];
+        for (auto i : this->data) {
             if ((int64_t)i * i > n) break;
             if (n % i == 0) return false;
         }
         return true;
     }
 
-    vector<int> prime_numbers(int x) const {
-        vector<int> res;
-        for (auto i : data) {
+    std::vector<int> prime_numbers(int x) const {
+        std::vector<int> res;
+        for (auto i : this->data) {
             if (i > x) break;
             res.emplace_back(i);
         }
@@ -50,13 +51,13 @@ struct prime_number {
      *
      * @tparam T
      * @param x
-     * @return vector<pair<T, int>>
+     * @return std::vector<pair<T, int>>
      */
     template <class T>
-    vector<pair<T, int>> prime_factorization(T x) const {
-        if (x == 1) return vector<pair<T, int>>(1, {1, 1});
-        vector<pair<T, int>> res;
-        for (auto i : data) {
+    std::vector<pair<T, int>> prime_factorization(T x) const {
+        if (x == 1) return std::vector<pair<T, int>>(1, {1, 1});
+        std::vector<pair<T, int>> res;
+        for (auto i : this->data) {
             int cnt = 0;
             for (; x % i == 0; x /= i) ++cnt;
             if (cnt) res.emplace_back(i, cnt);
@@ -71,39 +72,50 @@ struct prime_number {
      *
      * @tparam T
      * @param x
-     * @return vector<T>
+     * @return std::vector<T>
      */
     template <class T>
-    vector<T> divisors(T x) const {
-        if (x == 1) return vector<T>(1, 1);
+    std::vector<T> divisors(T x) const {
+        if (x == 1) return std::vector<T>(1, 1);
         auto v = this->prime_factorization(x);
-        vector<T> res;
+        std::vector<T> res;
         res.emplace_back(1);
         for (auto p : v) {
             int n = res.size();
             res.resize(n * (p.second + 1));
             for (int i = 0; i < n * p.second; ++i) { res[n + i] = res[i] * p.first; }
             for (int i = 1; i <= p.second; ++i) {
-                inplace_merge(res.begin(), res.begin() + n * i, res.begin() + n * (i + 1));
+                std::inplace_merge(res.begin(), res.begin() + n * i, res.begin() + n * (i + 1));
             }
         }
         return res;
     }
 
-    // 因数分解列挙
+    /**
+     * @brief 因数分解列挙
+     *
+     * @tparam T
+     * @param x
+     * @return std::vector<std::vector<T>>
+     */
     template <class T>
-    vector<vector<T>> factorization(T x) const {
-        vector<vector<T>> res;
-        auto f = [&](auto self, vector<T> v, T a) -> void {
+    std::vector<std::vector<T>> factorization(T x) const {
+        std::vector<std::vector<T>> res;
+        auto f = [&](auto self, std::vector<T> v, T a) -> void {
             if (a == 1) res.emplace_back(v);
-            for (auto i : divisors(a)) {
+            for (auto i : this->divisors(a)) {
                 if (i == 1 || (!v.empty() && v.back() > i)) continue;
                 v.emplace_back(i);
                 self(self, v, a / i);
                 v.pop_back();
             }
         };
-        f(f, vector<T>(), x);
+        f(f, std::vector<T>(), x);
         return res;
     }
+
+  private:
+    static constexpr int _size = 1 << 22;
+    std::bitset<_size> is_not_prime;
+    std::vector<int> data;
 };
