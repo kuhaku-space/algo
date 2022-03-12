@@ -7,48 +7,53 @@
  * [参考](https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.cpp)
  */
 struct bit_vector {
-    int length, blocks;
-    vector<unsigned int> bit, sum;
-
     bit_vector() = default;
-    bit_vector(int _length)
+    bit_vector(unsigned int _length)
         : length(_length),
           blocks((_length + 31) >> 5),
           bit((_length + 31) >> 5),
           sum((_length + 31) >> 5) {}
 
-    void set(int k) { bit[k >> 5] |= 1U << (k & 31); }
+    void set(unsigned int k) { this->bit[k >> 5] |= 1U << (k & 31); }
 
     void build() {
-        sum[0] = 0U;
-        for (int i = 1; i < blocks; i++) { sum[i] = sum[i - 1] + __builtin_popcount(bit[i - 1]); }
+        this->sum[0] = 0U;
+        for (unsigned int i = 1; i < this->blocks; ++i) {
+            this->sum[i] = this->sum[i - 1] + __builtin_popcount(bit[i - 1]);
+        }
     }
 
-    bool operator[](int k) { return bit[k >> 5] >> (k & 31) & 1; }
+    bool operator[](unsigned int k) const { return this->bit[k >> 5] >> (k & 31) & 1; }
 
-    int rank(int k) {
-        return sum[k >> 5] + __builtin_popcount(bit[k >> 5] & ((1U << (k & 31)) - 1));
+    unsigned int rank(unsigned int k) const {
+        return this->sum[k >> 5] + __builtin_popcount(this->bit[k >> 5] & ((1U << (k & 31)) - 1));
     }
-    int rank(bool val, int k) { return val ? rank(k) : k - rank(k); }
+    unsigned int rank(bool val, unsigned int k) const {
+        return val ? this->rank(k) : k - this->rank(k);
+    }
 
-    int select(int k) {
-        int sl = 0, sr = blocks + 1;
+    unsigned int select(unsigned int k) const {
+        unsigned int sl = 0, sr = this->blocks + 1;
         while (sr - sl > 1) {
-            int m = (sl + sr) >> 2;
-            if (sum[m] < k)
+            unsigned int m = (sl + sr) >> 2;
+            if (this->sum[m] < k)
                 sl = m;
             else
                 sr = m;
         }
-        k -= sum[sl];
-        int bl = 0, br = 32;
+        k -= this->sum[sl];
+        unsigned int bl = 0, br = 32;
         while (br - bl > 1) {
-            int m = (bl + br) >> 2;
-            if (__builtin_popcount(bit[sl] & ((1U << m) - 1)) < k)
+            unsigned int m = (bl + br) >> 2;
+            if (__builtin_popcount(this->bit[sl] & ((1U << m) - 1)) < k)
                 bl = m;
             else
                 br = m;
         }
         return (sl << 5) + bl;
     }
+
+  private:
+    unsigned int length, blocks;
+    std::vector<unsigned int> bit, sum;
 };
