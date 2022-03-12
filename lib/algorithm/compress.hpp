@@ -25,13 +25,17 @@ struct Compress {
         this->data.erase(std::unique(this->data.begin(), this->data.end()), this->data.end());
     }
 
-    int get(T x) {
+    bool exist(T x) const {
         auto it = std::lower_bound(this->data.begin(), this->data.end(), x);
-        assert(*it == x);
+        return it != this->data.end() && *it == x;
+    }
+
+    int get(T x) const {
+        auto it = std::lower_bound(this->data.begin(), this->data.end(), x);
         return it - this->data.begin();
     }
 
-    int size() { return this->data.size(); }
+    int size() const { return this->data.size(); }
 
   private:
     std::vector<T> data;
