@@ -9,7 +9,7 @@ int main(void) {
     Graph<int> g(n);
     g.input_edge(m, true);
 
-    auto dist = dijkstra(g, r, Inf);
+    auto dist = dijkstra<int, r_heap<int>>(g, r, Inf);
     rep(i, n) {
         if (dist[i] != Inf)
             co(dist[i]);
