@@ -1,9 +1,18 @@
 #include "data_structure/binary_heap.hpp"
+#include "data_structure/fibonacci_heap.hpp"
+#include "data_structure/radix_heap.hpp"
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
+template <class T>
+using b_heap = binary_heap<int, T, std::greater<>>;
+template <class T>
+using f_heap = fibonacci_heap<int, T, std::greater<>>;
+template <class T>
+using r_heap = radix_heap<int, T>;
+
 /**
- * @brief ダイクストラ法（二分ヒープ）
+ * @brief ダイクストラ法（ヒープ）
  *
  * @tparam T
  * @param g グラフ
@@ -11,24 +20,23 @@
  * @param inf 正の無限表現
  * @retval std::vector<T> 各頂点までの最短距離
  */
-template <class T>
+template <class T, class Heap>
 std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
+    Heap heap;
+    std::vector<typename Heap::node_pointer> nodes(g.size());
     std::vector<T> dists(g.size(), inf);
-    using b_heap = binary_heap<int, T, std::greater<>>;
-    b_heap heap;
-    std::vector<typename b_heap::node_pointer> nodes(g.size());
     dists[s] = T();
     heap.emplace(s, T());
     while (!heap.empty()) {
         auto [to, dist] = heap.top();
         heap.pop();
         if (dists[to] < dist) continue;
-        for (auto &i : g[to]) {
-            if (chmin(dists[i.to], dist + i.dist)) {
-                if (!nodes[i.to])
-                    nodes[i.to] = heap.push(i.to, dist + i.dist);
+        for (auto &e : g[to]) {
+            if (chmin(dists[e.to], dist + e.dist)) {
+                if (!nodes[e.to])
+                    nodes[e.to] = heap.push(e.to, dist + e.dist);
                 else
-                    heap.update(nodes[i.to], dist + i.dist);
+                    heap.update(nodes[e.to], dist + e.dist);
             }
         }
     }
