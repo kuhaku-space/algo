@@ -1,6 +1,6 @@
-#include "data_structure/binary_heap.hpp"
-#include "data_structure/fibonacci_heap.hpp"
-#include "data_structure/radix_heap.hpp"
+#include "heap/binary_heap.hpp"
+#include "heap/fibonacci_heap.hpp"
+#include "heap/radix_heap.hpp"
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
