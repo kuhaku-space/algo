@@ -11,7 +11,6 @@
 template <class T, int MAXLOG = 20>
 struct wavelet_matrix {
     wavelet_matrix() = default;
-
     wavelet_matrix(std::vector<T> v) : length(v.size()) {
         std::vector<T> l(length), r(length);
         for (int level = MAXLOG - 1; level >= 0; --level) {
