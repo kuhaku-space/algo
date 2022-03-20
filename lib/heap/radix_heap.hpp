@@ -1,6 +1,6 @@
 #include "template/template.hpp"
 
-template <class Key, class Value>
+template <class Key, class Value = void>
 struct radix_heap {
   private:
     struct _node {
@@ -106,7 +106,7 @@ struct radix_heap {
 };
 
 template <class T>
-struct radix_heap<void, T> {
+struct radix_heap<T, void> {
     radix_heap() : v{}, _last(), _size() {}
 
     constexpr int size() const { return this->_size; }
