@@ -1,10 +1,15 @@
 #include "template/template.hpp"
 
-// 行列ライブラリ
+/**
+ * @brief 行列ライブラリ
+ *
+ * @tparam T 要素の型
+ */
 template <class T>
 struct Matrix {
-    Matrix(int x) { v = std::vector<std::vector<T>>(x, std::vector<T>(x)); }
-    Matrix(int x, int y) { v = std::vector<std::vector<T>>(x, std::vector<T>(y)); }
+    Matrix() = default;
+    Matrix(int x) : v(x, std::vector<T>(x)) {}
+    Matrix(int x, int y) : v(x, std::vector<T>(y)) {}
     Matrix(const std::vector<std::vector<T>> &_v) : v(_v) {}
 
     const std::vector<T> &operator[](int i) const {
