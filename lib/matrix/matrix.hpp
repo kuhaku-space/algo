@@ -3,17 +3,15 @@
 // 行列ライブラリ
 template <class T>
 struct Matrix {
-    vector<vector<T>> v;
+    Matrix(int x) { v = std::vector<std::vector<T>>(x, std::vector<T>(x)); }
+    Matrix(int x, int y) { v = std::vector<std::vector<T>>(x, std::vector<T>(y)); }
+    Matrix(const std::vector<std::vector<T>> &_v) : v(_v) {}
 
-    Matrix(int x) { v = vector<vector<T>>(x, vector<T>(x)); }
-    Matrix(int x, int y) { v = vector<vector<T>>(x, vector<T>(y)); }
-    Matrix(const vector<vector<T>> &_v) : v(_v) {}
-
-    const vector<T> &operator[](int i) const {
+    const std::vector<T> &operator[](int i) const {
         assert(0 <= i && i < this->v.size());
         return this->v[i];
     }
-    vector<T> &operator[](int i) {
+    std::vector<T> &operator[](int i) {
         assert(0 <= i && i < this->v.size());
         return this->v[i];
     }
@@ -37,7 +35,7 @@ struct Matrix {
     Matrix &operator*=(const Matrix &rhs) {
         assert(this->v[0].size() == rhs.v.size());
         int x = this->v.size(), y = rhs.v[0].size(), z = rhs.v.size();
-        vector<vector<T>> tmp(x, vector<T>(y));
+        std::vector<std::vector<T>> tmp(x, std::vector<T>(y));
         for (int i = 0; i < x; ++i) {
             for (int k = 0; k < z; ++k) {
                 for (int j = 0; j < y; ++j) tmp[i][j] += this->v[i][k] * rhs.v[k][j];
@@ -48,7 +46,7 @@ struct Matrix {
     }
 
     Matrix operator-() const {
-        vector<vector<T>> tmp = v;
+        std::vector<std::vector<T>> tmp = v;
         for (auto &i : tmp)
             for (auto &j : i) j = -j;
         return Matrix(tmp);
@@ -58,10 +56,10 @@ struct Matrix {
     Matrix operator-(const Matrix &rhs) const { return Matrix(*this) -= rhs; }
     Matrix operator*(const Matrix &rhs) const { return Matrix(*this) *= rhs; }
 
-    vector<T> operator*(const vector<T> &rhs) {
+    std::vector<T> operator*(const std::vector<T> &rhs) {
         assert(this->v[0].size() == rhs.size());
         int x = this->v.size(), y = this->v[0].size();
-        vector<T> res(x);
+        std::vector<T> res(x);
         for (int i = 0; i < x; ++i) {
             for (int j = 0; j < y; ++j) res[i] += this->v[i][j] * rhs[j];
         }
@@ -89,7 +87,7 @@ struct Matrix {
 
     Matrix transposed() const {
         int x = this->v[0].size(), y = this->v.size();
-        vector<vector<T>> res(x, vector<T>(y));
+        std::vector<std::vector<T>> res(x, std::vector<T>(y));
         for (int i = 0; i < x; ++i) {
             for (int j = 0; j < y; ++j) { res[i][j] = v[j][i]; }
         }
@@ -103,4 +101,7 @@ struct Matrix {
             cerr << "]" << endl;
         }
     }
+
+  private:
+    std::vector<std::vector<T>> v;
 };
