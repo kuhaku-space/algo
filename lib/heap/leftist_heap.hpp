@@ -29,7 +29,7 @@ struct leftist_heap {
 
     void push(T val) {
         auto node = new _node(val);
-        this->meld(root, node);
+        this->meld(this->root, node);
     }
 
     void pop() { this->root = this->meld(this->root->l, this->root->r); }
