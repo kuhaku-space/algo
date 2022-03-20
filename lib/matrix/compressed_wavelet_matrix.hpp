@@ -1,13 +1,13 @@
 #include "algorithm/compress.hpp"
-#include "data_structure/wavelet_matrix.hpp"
+#include "matrix/wavelet_matrix.hpp"
 #include "template/template.hpp"
 
 /**
  * @brief ウェーブレット行列
  * @details [参考](https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html)
- * 
- * @tparam T 
- * @tparam MAXLOG 
+ *
+ * @tparam T
+ * @tparam MAXLOG
  */
 template <class T, int MAXLOG = 20>
 struct compressed_wavelet_matrix {
