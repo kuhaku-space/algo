@@ -1,10 +1,10 @@
+#pragma once
 #include "random/split_mix_64.hpp"
 #include "template/template.hpp"
 
 /**
  * @brief 疑似乱数生成器 xoshiro128++
  * @details 周期：$2^128-1$
- *
  */
 struct xoshiro128 {
     using state_type = std::array<std::uint32_t, 4>;
@@ -38,7 +38,14 @@ struct xoshiro128 {
     constexpr state_type serialize() const noexcept { return this->state; }
     constexpr void deserialize(const state_type state) noexcept { this->state = state; }
 
-    result_type rand_range(int a, int b) { return a + this->operator()() % (b - a + 1); }
+    /**
+     * @brief a以上b以下の整数を生成
+     *
+     * @param a
+     * @param b
+     * @return int [a, b]
+     */
+    int rand_range(int a, int b) { return a + this->operator()() % (b - a + 1); }
 
     /**
      * @brief 0.0以上1.0未満の浮動小数点数を生成
