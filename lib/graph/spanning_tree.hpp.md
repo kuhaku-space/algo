@@ -1,9 +1,6 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
-    path: lib/data_structure/radix_heap.hpp
-    title: lib/data_structure/radix_heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
@@ -16,6 +13,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: "\u5168\u57DF\u6728"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -24,34 +22,32 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/radix_heap.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"data_structure/radix_heap.hpp\"\r\n#include \"graph/graph.hpp\"\
-    \r\n#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nvector<T>\
-    \ dijkstra(const Graph<T> &g, int s = 0, T inf = numeric_limits<T>::max()) {\r\
-    \n    struct _edge {\r\n        int to;\r\n        T dist;\r\n        bool operator<(const\
-    \ _edge &rhs) const { return dist < rhs.dist; }\r\n        bool operator>(const\
-    \ _edge &rhs) const { return rhs < *this; }\r\n    };\r\n    vector<T> dist(g.size(),\
-    \ inf);\r\n    radix_heap_dijkstra<_edge> p_que;\r\n    dist[s] = T();\r\n   \
-    \ p_que.push(_edge{s, T()});\r\n    while (!p_que.empty()) {\r\n        _edge\
-    \ e = p_que.top();\r\n        p_que.pop();\r\n        if (dist[e.to] < e.dist)\
-    \ continue;\r\n        for (auto &i : g[e.to]) {\r\n            if (chmin(dist[i.to],\
-    \ e.dist + i.dist)) p_que.push(_edge{i.to, e.dist + i.dist});\r\n        }\r\n\
-    \    }\r\n    return dist;\r\n}\r\n"
+  code: "#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\n\n/**\n\
+    \ * @brief \u5168\u57DF\u6728\n * @details \u5168\u57DF\u6728\u3092\u69CB\u7BC9\
+    \u3059\u308B\n * \n * @tparam T \n * @param g \u30B0\u30E9\u30D5\n * @param r\
+    \ \u59CB\u70B9\n * @return Graph<T> \n */\ntemplate <class T>\nGraph<T> spanning_tree(const\
+    \ Graph<T> &g, int r = 0) {\n    int n = g.size();\n    Graph<void> res(n);\n\
+    \    std::queue<int> que;\n    std::vector<bool> visited(n);\n    que.emplace(r);\n\
+    \    visited[r] = true;\n    while (!que.empty()) {\n        auto x = que.front();\n\
+    \        que.pop();\n        for (auto &e : g[x]) {\n            if (!visited[e])\
+    \ {\n                res.add_edges(x, e);\n                que.emplace(e);\n \
+    \               visited[e] = true;\n            }\n        }\n    }\n    return\
+    \ res;\n}\n"
   dependsOn:
-  - lib/data_structure/radix_heap.hpp
-  - lib/template/template.hpp
   - lib/graph/graph.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/graph/dijkstra_radix_heap.hpp
+  path: lib/graph/spanning_tree.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
+  timestamp: '2022-03-21 16:58:00+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/graph/dijkstra_radix_heap.hpp
+documentation_of: lib/graph/spanning_tree.hpp
 layout: document
 redirect_from:
-- /library/lib/graph/dijkstra_radix_heap.hpp
-- /library/lib/graph/dijkstra_radix_heap.hpp.html
-title: lib/graph/dijkstra_radix_heap.hpp
+- /library/lib/graph/spanning_tree.hpp
+- /library/lib/graph/spanning_tree.hpp.html
+title: "\u5168\u57DF\u6728"
 ---

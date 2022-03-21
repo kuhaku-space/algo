@@ -44,15 +44,15 @@ data:
   - lib/template/template.hpp
   - lib/graph/graph.hpp
   isVerificationFile: false
-  path: lib/tree/tree.hpp
+  path: lib/_old/tree.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
+  timestamp: '2022-03-20 16:22:57+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/tree/tree.hpp
+documentation_of: lib/_old/tree.hpp
 layout: document
 redirect_from:
-- /library/lib/tree/tree.hpp
-- /library/lib/tree/tree.hpp.html
-title: lib/tree/tree.hpp
+- /library/lib/_old/tree.hpp
+- /library/lib/_old/tree.hpp.html
+title: lib/_old/tree.hpp
 ---

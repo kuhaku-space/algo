@@ -4,10 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/segment_tree/RAQ.hpp
-    title: lib/segment_tree/RAQ.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -50,16 +47,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/segment_tree/segment_tree_virtual.hpp
-  requiredBy:
-  - lib/segment_tree/RAQ.hpp
-  timestamp: '2021-12-28 06:14:56+09:00'
+  path: lib/_old/segment_tree_virtual.hpp
+  requiredBy: []
+  timestamp: '2022-03-17 20:01:45+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/segment_tree/segment_tree_virtual.hpp
+documentation_of: lib/_old/segment_tree_virtual.hpp
 layout: document
 redirect_from:
-- /library/lib/segment_tree/segment_tree_virtual.hpp
-- /library/lib/segment_tree/segment_tree_virtual.hpp.html
+- /library/lib/_old/segment_tree_virtual.hpp
+- /library/lib/_old/segment_tree_virtual.hpp.html
 title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
 ---

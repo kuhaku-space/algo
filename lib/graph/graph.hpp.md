@@ -5,6 +5,9 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: lib/_old/tree.hpp
+    title: lib/_old/tree.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
@@ -12,19 +15,11 @@ data:
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
   - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_fibonacci.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
-      \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
-  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_heap.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\
-      \u30D7\uFF09"
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   - icon: ':warning:'
     path: lib/graph/dijkstra_potential.hpp
     title: lib/graph/dijkstra_potential.hpp
-  - icon: ':warning:'
-    path: lib/graph/dijkstra_radix_heap.hpp
-    title: lib/graph/dijkstra_radix_heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/kruskal.hpp
     title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
@@ -32,17 +27,20 @@ data:
     path: lib/graph/lowlink.hpp
     title: LowLink
   - icon: ':heavy_check_mark:'
+    path: lib/graph/prim.hpp
+    title: "\u30D7\u30EA\u30E0\u6CD5"
+  - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
+  - icon: ':warning:'
+    path: lib/graph/spanning_tree.hpp
+    title: "\u5168\u57DF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/graph/topological_sort.hpp
     title: "\u9589\u8DEF\u691C\u51FA"
   - icon: ':warning:'
     path: lib/graph/two_sat.hpp
     title: lib/graph/two_sat.hpp
-  - icon: ':warning:'
-    path: lib/tree/tree.hpp
-    title: lib/tree/tree.hpp
   - icon: ':warning:'
     path: lib/tree/tree_dist.hpp
     title: lib/tree/tree_dist.hpp
@@ -69,14 +67,20 @@ data:
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_binary.test.cpp
+    title: test/aoj/grl/dijkstra_binary.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_heap.test.cpp
-    title: test/aoj/grl/dijkstra_heap.test.cpp
+    path: test/aoj/grl/dijkstra_radix.test.cpp
+    title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/prim.test.cpp
+    title: test/aoj/grl/prim.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
@@ -149,18 +153,18 @@ data:
   isVerificationFile: false
   path: lib/graph/graph.hpp
   requiredBy:
-  - lib/tree/tree.hpp
   - lib/tree/tree_subtree.hpp
   - lib/tree/tree_dist.hpp
   - lib/tree/tree_parent.hpp
+  - lib/_old/tree.hpp
   - lib/graph/lowlink.hpp
   - lib/graph/two_sat.hpp
+  - lib/graph/spanning_tree.hpp
   - lib/graph/topological_sort.hpp
   - lib/graph/dijkstra_potential.hpp
   - lib/graph/kruskal.hpp
-  - lib/graph/dijkstra_fibonacci.hpp
+  - lib/graph/prim.hpp
   - lib/graph/dijkstra_heap.hpp
-  - lib/graph/dijkstra_radix_heap.hpp
   - lib/graph/scc.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
@@ -169,15 +173,17 @@ data:
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/prim.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
   - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/dijkstra_heap.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
 redirect_from:

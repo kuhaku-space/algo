@@ -43,6 +43,9 @@ data:
     path: test/aoj/dpl/stirling.test.cpp
     title: test/aoj/dpl/stirling.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/raq_rmq.test.cpp
+    title: test/aoj/dsl/raq_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -70,17 +73,23 @@ data:
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_binary.test.cpp
+    title: test/aoj/grl/dijkstra_binary.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_heap.test.cpp
-    title: test/aoj/grl/dijkstra_heap.test.cpp
+    path: test/aoj/grl/dijkstra_radix.test.cpp
+    title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/prim.test.cpp
+    title: test/aoj/grl/prim.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
@@ -189,20 +198,23 @@ data:
   - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/prim.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/warshall_floyd.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
   - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/dijkstra_heap.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/dsl/weighted_union_find.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
   - test/aoj/dsl/union_find.test.cpp

@@ -6,13 +6,18 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_fibonacci.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
-      \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
+    path: lib/graph/dijkstra_heap.hpp
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_binary.test.cpp
+    title: test/aoj/grl/dijkstra_binary.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_radix.test.cpp
+    title: test/aoj/grl/dijkstra_radix.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -92,17 +97,19 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_structure/fibonacci_heap.hpp
+  path: lib/heap/fibonacci_heap.hpp
   requiredBy:
-  - lib/graph/dijkstra_fibonacci.hpp
-  timestamp: '2022-03-09 11:13:32+09:00'
+  - lib/graph/dijkstra_heap.hpp
+  timestamp: '2022-03-20 16:24:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
-documentation_of: lib/data_structure/fibonacci_heap.hpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+documentation_of: lib/heap/fibonacci_heap.hpp
 layout: document
 redirect_from:
-- /library/lib/data_structure/fibonacci_heap.hpp
-- /library/lib/data_structure/fibonacci_heap.hpp.html
+- /library/lib/heap/fibonacci_heap.hpp
+- /library/lib/heap/fibonacci_heap.hpp.html
 title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
 ---

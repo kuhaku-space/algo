@@ -10,8 +10,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/segment_tree_raq.hpp
+    title: lib/segment_tree/segment_tree_raq.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/raq_rmq.test.cpp
+    title: test/aoj/dsl/raq_rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
@@ -65,11 +71,13 @@ data:
   - lib/segment_tree/monoid.hpp
   isVerificationFile: false
   path: lib/segment_tree/segment_tree.hpp
-  requiredBy: []
+  requiredBy:
+  - lib/segment_tree/segment_tree_raq.hpp
   timestamp: '2022-02-08 13:56:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document

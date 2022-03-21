@@ -53,15 +53,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/segment_tree/dual_segment_tree_virtual.hpp
+  path: lib/_old/dual_segment_tree_virtual.hpp
   requiredBy: []
-  timestamp: '2021-12-20 06:14:21+09:00'
+  timestamp: '2022-03-17 20:01:45+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/segment_tree/dual_segment_tree_virtual.hpp
+documentation_of: lib/_old/dual_segment_tree_virtual.hpp
 layout: document
 redirect_from:
-- /library/lib/segment_tree/dual_segment_tree_virtual.hpp
-- /library/lib/segment_tree/dual_segment_tree_virtual.hpp.html
+- /library/lib/_old/dual_segment_tree_virtual.hpp
+- /library/lib/_old/dual_segment_tree_virtual.hpp.html
 title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
 ---

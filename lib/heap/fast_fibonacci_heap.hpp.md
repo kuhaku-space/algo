@@ -72,15 +72,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_structure/fast_fibonacci_heap.hpp
+  path: lib/heap/fast_fibonacci_heap.hpp
   requiredBy: []
-  timestamp: '2022-02-06 19:58:53+09:00'
+  timestamp: '2022-03-20 16:24:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_structure/fast_fibonacci_heap.hpp
+documentation_of: lib/heap/fast_fibonacci_heap.hpp
 layout: document
 redirect_from:
-- /library/lib/data_structure/fast_fibonacci_heap.hpp
-- /library/lib/data_structure/fast_fibonacci_heap.hpp.html
-title: lib/data_structure/fast_fibonacci_heap.hpp
+- /library/lib/heap/fast_fibonacci_heap.hpp
+- /library/lib/heap/fast_fibonacci_heap.hpp.html
+title: lib/heap/fast_fibonacci_heap.hpp
 ---

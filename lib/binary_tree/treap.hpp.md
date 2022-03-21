@@ -1,12 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':warning:'
-    path: lib/algorithm/xorshift.hpp
-    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -69,13 +63,11 @@ data:
     \ l, r);\n        if (!(node->val < l) && !(r < node->val)) cout << node->val\
     \ << '\\n';\n        if (!(r < node->val)) this->dump(node->right, l, r);\n  \
     \  }\n};\n"
-  dependsOn:
-  - lib/algorithm/xorshift.hpp
-  - lib/template/template.hpp
+  dependsOn: []
   isVerificationFile: false
   path: lib/binary_tree/treap.hpp
   requiredBy: []
-  timestamp: '2022-01-09 16:16:11+09:00'
+  timestamp: '1970-01-01 00:00:00+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/binary_tree/treap.hpp

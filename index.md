@@ -30,11 +30,23 @@ data:
   - name: lib/_old
     pages:
     - icon: ':warning:'
+      path: lib/_old/dual_segment_tree_virtual.hpp
+      title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
       path: lib/_old/lazy_segment_tree.hpp
       title: lib/_old/lazy_segment_tree.hpp
     - icon: ':warning:'
       path: lib/_old/lazy_segment_tree_beta.hpp
       title: lib/_old/lazy_segment_tree_beta.hpp
+    - icon: ':warning:'
+      path: lib/_old/lca.hpp
+      title: lib/_old/lca.hpp
+    - icon: ':warning:'
+      path: lib/_old/segment_tree_virtual.hpp
+      title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':warning:'
+      path: lib/_old/tree.hpp
+      title: lib/_old/tree.hpp
   - name: lib/algorithm
     pages:
     - icon: ':warning:'
@@ -49,12 +61,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/inversion_number.hpp
       title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
-    - icon: ':warning:'
-      path: lib/algorithm/wavelet_matrix.hpp
-      title: lib/algorithm/wavelet_matrix.hpp
-    - icon: ':warning:'
-      path: lib/algorithm/xorshift.hpp
-      title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - name: lib/binary_tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -101,9 +107,6 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/bigint_beta.hpp
       title: lib/data_structure/bigint_beta.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/data_structure/binary_heap.hpp
-      title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
     - icon: ':warning:'
       path: lib/data_structure/binary_tree.hpp
       title: lib/data_structure/binary_tree.hpp
@@ -111,17 +114,8 @@ data:
       path: lib/data_structure/bit_vector.hpp
       title: "\u5B8C\u5099\u8F9E\u66F8"
     - icon: ':warning:'
-      path: lib/data_structure/fast_fibonacci_heap.hpp
-      title: lib/data_structure/fast_fibonacci_heap.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/data_structure/fibonacci_heap.hpp
-      title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-    - icon: ':warning:'
       path: lib/data_structure/heap.hpp
       title: lib/data_structure/heap.hpp
-    - icon: ':warning:'
-      path: lib/data_structure/radix_heap.hpp
-      title: lib/data_structure/radix_heap.hpp
   - name: lib/dp
     pages:
     - icon: ':heavy_check_mark:'
@@ -176,19 +170,11 @@ data:
       path: lib/graph/dijkstra.hpp
       title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
     - icon: ':heavy_check_mark:'
-      path: lib/graph/dijkstra_fibonacci.hpp
-      title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
-        \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
-    - icon: ':heavy_check_mark:'
       path: lib/graph/dijkstra_heap.hpp
-      title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\
-        \u30D7\uFF09"
+      title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
     - icon: ':warning:'
       path: lib/graph/dijkstra_potential.hpp
       title: lib/graph/dijkstra_potential.hpp
-    - icon: ':warning:'
-      path: lib/graph/dijkstra_radix_heap.hpp
-      title: lib/graph/dijkstra_radix_heap.hpp
     - icon: ':heavy_check_mark:'
       path: lib/graph/graph.hpp
       title: lib/graph/graph.hpp
@@ -208,8 +194,14 @@ data:
       path: lib/graph/min_cost_flow.hpp
       title: lib/graph/min_cost_flow.hpp
     - icon: ':heavy_check_mark:'
+      path: lib/graph/prim.hpp
+      title: "\u30D7\u30EA\u30E0\u6CD5"
+    - icon: ':heavy_check_mark:'
       path: lib/graph/scc.hpp
       title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
+    - icon: ':warning:'
+      path: lib/graph/spanning_tree.hpp
+      title: "\u5168\u57DF\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/graph/topological_sort.hpp
       title: "\u9589\u8DEF\u691C\u51FA"
@@ -219,6 +211,26 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/warshall_floyd.hpp
       title: lib/graph/warshall_floyd.hpp
+  - name: lib/heap
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/heap/binary_heap.hpp
+      title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
+    - icon: ':warning:'
+      path: lib/heap/fast_fibonacci_heap.hpp
+      title: lib/heap/fast_fibonacci_heap.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/heap/fibonacci_heap.hpp
+      title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
+    - icon: ':warning:'
+      path: lib/heap/leftist_heap.hpp
+      title: leftist heap
+    - icon: ':heavy_check_mark:'
+      path: lib/heap/radix_heap.hpp
+      title: lib/heap/radix_heap.hpp
+    - icon: ':warning:'
+      path: lib/heap/skew_heap.hpp
+      title: skew heap
   - name: lib/list
     pages:
     - icon: ':warning:'
@@ -242,9 +254,6 @@ data:
     - icon: ':warning:'
       path: lib/math/math.hpp
       title: lib/math/math.hpp
-    - icon: ':warning:'
-      path: lib/math/matrix.hpp
-      title: lib/math/matrix.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: modint
@@ -266,28 +275,35 @@ data:
     - icon: ':warning:'
       path: lib/math/slope_trick.hpp
       title: slope trick
+  - name: lib/matrix
+    pages:
+    - icon: ':warning:'
+      path: lib/matrix/compressed_wavelet_matrix.hpp
+      title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+    - icon: ':warning:'
+      path: lib/matrix/matrix.hpp
+      title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
+    - icon: ':warning:'
+      path: lib/matrix/wavelet_matrix.hpp
+      title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - name: lib/random
     pages:
     - icon: ':warning:'
       path: lib/random/split_mix_64.hpp
-      title: "0.0\u4EE5\u4E0A1.0\u672A\u6E80\u306E\u6D6E\u52D5\u5C0F\u6570\u70B9\u6570\
-        \u3092\u751F\u6210"
+      title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
     - icon: ':warning:'
       path: lib/random/xoroshiro128.hpp
       title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
+    - icon: ':warning:'
+      path: lib/random/xorshift.hpp
+      title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
     - icon: ':warning:'
       path: lib/random/xoshiro128.hpp
       title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoshiro128++"
   - name: lib/segment_tree
     pages:
-    - icon: ':warning:'
-      path: lib/segment_tree/RAQ.hpp
-      title: lib/segment_tree/RAQ.hpp
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/dual_segment_tree.hpp
-      title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-    - icon: ':warning:'
-      path: lib/segment_tree/dual_segment_tree_virtual.hpp
       title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':warning:'
       path: lib/segment_tree/dynamic_segment_tree.hpp
@@ -301,9 +317,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/segment_tree.hpp
       title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-    - icon: ':warning:'
-      path: lib/segment_tree/segment_tree_virtual.hpp
-      title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    - icon: ':heavy_check_mark:'
+      path: lib/segment_tree/segment_tree_raq.hpp
+      title: lib/segment_tree/segment_tree_raq.hpp
   - name: lib/string
     pages:
     - icon: ':warning:'
@@ -338,14 +354,8 @@ data:
       path: lib/tree/hld.hpp
       title: HLD
     - icon: ':warning:'
-      path: lib/tree/lca.hpp
-      title: lib/tree/lca.hpp
-    - icon: ':warning:'
       path: lib/tree/link_cut_tree.hpp
       title: lib/tree/link_cut_tree.hpp
-    - icon: ':warning:'
-      path: lib/tree/tree.hpp
-      title: lib/tree/tree.hpp
     - icon: ':warning:'
       path: lib/tree/tree_dist.hpp
       title: lib/tree/tree_dist.hpp
@@ -410,6 +420,9 @@ data:
   - name: test/aoj/dsl
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/raq_rmq.test.cpp
+      title: test/aoj/dsl/raq_rmq.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/rmq.test.cpp
       title: test/aoj/dsl/rmq.test.cpp
     - icon: ':heavy_check_mark:'
@@ -439,17 +452,23 @@ data:
       path: test/aoj/grl/dijkstra.test.cpp
       title: test/aoj/grl/dijkstra.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/dijkstra_binary.test.cpp
+      title: test/aoj/grl/dijkstra_binary.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/dijkstra_fibonacci.test.cpp
       title: test/aoj/grl/dijkstra_fibonacci.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/dijkstra_heap.test.cpp
-      title: test/aoj/grl/dijkstra_heap.test.cpp
+      path: test/aoj/grl/dijkstra_radix.test.cpp
+      title: test/aoj/grl/dijkstra_radix.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/hld.test.cpp
       title: test/aoj/grl/hld.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/kruskal.test.cpp
       title: test/aoj/grl/kruskal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/prim.test.cpp
+      title: test/aoj/grl/prim.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/scc.test.cpp
       title: test/aoj/grl/scc.test.cpp

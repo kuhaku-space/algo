@@ -14,7 +14,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/segment_tree_raq.hpp
+    title: lib/segment_tree/segment_tree_raq.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/raq_rmq.test.cpp
+    title: test/aoj/dsl/raq_rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
@@ -58,11 +64,13 @@ data:
   requiredBy:
   - lib/math/primitive_root.hpp
   - lib/segment_tree/dual_segment_tree.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree.hpp
   timestamp: '2022-01-13 23:29:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
 documentation_of: lib/math/pow.hpp

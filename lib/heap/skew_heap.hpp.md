@@ -4,19 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/binary_tree/treap.hpp
-    title: lib/binary_tree/treap.hpp
-  - icon: ':warning:'
-    path: lib/list/skip_list.hpp
-    title: lib/list/skip_list.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
+    document_title: skew heap
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -27,29 +21,31 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"template/template.hpp\"\n\n/**\n * @brief \u64EC\
-    \u4F3C\u4E71\u6570\u751F\u6210\u5668\n * \n */\nstruct Xorshift {\n    unsigned\
-    \ int x, y, z, w;\n\n    Xorshift() { x = 123456789, y = 362436069, z = 521288629,\
-    \ w = 88675123; }\n\n    using result_type = unsigned int;\n    constexpr unsigned\
-    \ int min() { return 0; }\n    constexpr unsigned int max() { return UINT32_MAX;\
-    \ }\n    unsigned int operator()() {\n        unsigned int t = (x ^ (x << 11));\n\
-    \        x = y, y = z, z = w;\n        return w = (w ^ (w >> 19)) ^ (t ^ (t >>\
-    \ 8));\n    }\n\n    double rand_d() { return (double)(*this)() / (1LL << 32);\
-    \ }\n};\n"
+  code: "#include \"template/template.hpp\"\n\n/**\n * @brief skew heap\n * \n * @tparam\
+    \ T \u8981\u7D20\u306E\u578B\n */\ntemplate <class T>\nstruct skew_heap {\n  private:\n\
+    \    struct _node {\n        using pointer = _node *;\n\n        pointer l, r;\n\
+    \        T val;\n\n        constexpr _node() : l(), r(), val() {}\n        constexpr\
+    \ _node(T _val) : l(), r(), val(_val) {}\n    };\n\n  public:\n    using node_pointer\
+    \ = _node::pointer;\n\n    constexpr auto top() const { return this->root->val;\
+    \ }\n    constexpr bool empty() const { return this->root == nullptr; }\n\n  \
+    \  void push(T val) {\n        auto node = new _node(val);\n        this->meld(this->root,\
+    \ node);\n    }\n\n    void pop() { this->root = this->meld(this->root->l, this->root->r);\
+    \ }\n\n    node_pointer meld(node_pointer a, node_pointer b) {\n        if (a\
+    \ == nullptr) return b;\n        if (b == nullptr) return a;\n        if (a.val\
+    \ > b.val) swap(a, b);\n        a.r = this->meld(a.r, b);\n        swap(a.l, a.r);\n\
+    \        return a;\n    }\n\n  private:\n    node_pointer root;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/algorithm/xorshift.hpp
-  requiredBy:
-  - lib/binary_tree/treap.hpp
-  - lib/list/skip_list.hpp
-  timestamp: '2022-01-09 16:16:11+09:00'
+  path: lib/heap/skew_heap.hpp
+  requiredBy: []
+  timestamp: '2022-03-20 17:57:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/algorithm/xorshift.hpp
+documentation_of: lib/heap/skew_heap.hpp
 layout: document
 redirect_from:
-- /library/lib/algorithm/xorshift.hpp
-- /library/lib/algorithm/xorshift.hpp.html
-title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
+- /library/lib/heap/skew_heap.hpp
+- /library/lib/heap/skew_heap.hpp.html
+title: skew heap
 ---

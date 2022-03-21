@@ -7,12 +7,17 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_heap.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\
-      \u30D7\uFF09"
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_heap.test.cpp
-    title: test/aoj/grl/dijkstra_heap.test.cpp
+    path: test/aoj/grl/dijkstra_binary.test.cpp
+    title: test/aoj/grl/dijkstra_binary.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_fibonacci.test.cpp
+    title: test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_radix.test.cpp
+    title: test/aoj/grl/dijkstra_radix.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -46,22 +51,22 @@ data:
     \ push(Key key, Value value) {\n        auto node = new _node(key, value);\n \
     \       this->nodes.emplace_back(node);\n\n        int index = this->increment_size();\n\
     \        while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value))\
-    \ {\n            std::swap(this->nodes[index], this->nodes[index >> 1]);\n   \
-    \         this->nodes[index]->set_index(index);\n            index >>= 1;\n  \
-    \      }\n        this->nodes[index]->set_index(index);\n\n        return node;\n\
-    \    }\n    auto emplace(Key key, Value value) { return this->push(key, value);\
+    \ {\n            swap(this->nodes[index], this->nodes[index >> 1]);\n        \
+    \    this->nodes[index]->set_index(index);\n            index >>= 1;\n       \
+    \ }\n        this->nodes[index]->set_index(index);\n\n        return node;\n \
+    \   }\n    auto emplace(Key key, Value value) { return this->push(key, value);\
     \ }\n\n    void pop() {\n        this->nodes[1] = this->nodes[this->decrement_size()];\n\
     \        this->nodes.pop_back();\n\n        int index = 1 << 1;\n        while\
     \ (index <= this->size()) {\n            if (index < this->size() &&\n       \
     \         comp(this->nodes[index]->value, this->nodes[index + 1]->value))\n  \
     \              ++index;\n            if (comp(this->nodes[index]->value, this->nodes[index\
-    \ >> 1]->value)) break;\n            std::swap(this->nodes[index >> 1], this->nodes[index]);\n\
+    \ >> 1]->value)) break;\n            swap(this->nodes[index >> 1], this->nodes[index]);\n\
     \            this->nodes[index >> 1]->set_index(index >> 1);\n            index\
     \ <<= 1;\n        }\n        this->nodes[index >> 1]->set_index(index >> 1);\n\
     \    }\n\n    void update(node_pointer node, Value value) {\n        if (comp(node->value,\
     \ value))\n            node->value = value;\n        else\n            return;\n\
     \        int index = node->get_index();\n        while (index > 1 && comp(this->nodes[index\
-    \ >> 1]->value, this->nodes[index]->value)) {\n            std::swap(this->nodes[index],\
+    \ >> 1]->value, this->nodes[index]->value)) {\n            swap(this->nodes[index],\
     \ this->nodes[index >> 1]);\n            this->nodes[index]->set_index(index);\n\
     \            index >>= 1;\n        }\n        this->nodes[index]->set_index(index);\n\
     \    }\n\n  private:\n    int _size;\n    std::vector<node_pointer> nodes;\n \
@@ -70,17 +75,19 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_structure/binary_heap.hpp
+  path: lib/heap/binary_heap.hpp
   requiredBy:
   - lib/graph/dijkstra_heap.hpp
-  timestamp: '2022-03-09 10:34:28+09:00'
+  timestamp: '2022-03-20 16:28:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/dijkstra_heap.test.cpp
-documentation_of: lib/data_structure/binary_heap.hpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+documentation_of: lib/heap/binary_heap.hpp
 layout: document
 redirect_from:
-- /library/lib/data_structure/binary_heap.hpp
-- /library/lib/data_structure/binary_heap.hpp.html
+- /library/lib/heap/binary_heap.hpp
+- /library/lib/heap/binary_heap.hpp.html
 title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
 ---

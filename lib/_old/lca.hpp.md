@@ -51,15 +51,15 @@ data:
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/tree/lca.hpp
+  path: lib/_old/lca.hpp
   requiredBy: []
-  timestamp: '2021-10-26 00:18:00+09:00'
+  timestamp: '2022-03-20 16:21:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/tree/lca.hpp
+documentation_of: lib/_old/lca.hpp
 layout: document
 redirect_from:
-- /library/lib/tree/lca.hpp
-- /library/lib/tree/lca.hpp.html
-title: lib/tree/lca.hpp
+- /library/lib/_old/lca.hpp
+- /library/lib/_old/lca.hpp.html
+title: lib/_old/lca.hpp
 ---

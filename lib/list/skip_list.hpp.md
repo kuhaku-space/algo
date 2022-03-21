@@ -1,12 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':warning:'
-    path: lib/algorithm/xorshift.hpp
-    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -47,13 +41,11 @@ data:
     \    }\n\n        int res = 0;\n        while (node->itr[0] && node->itr[0]->val\
     \ == val) {\n            ++res;\n            node = node->itr[0];\n        }\n\
     \        return res;\n    }\n};\n"
-  dependsOn:
-  - lib/template/template.hpp
-  - lib/algorithm/xorshift.hpp
+  dependsOn: []
   isVerificationFile: false
   path: lib/list/skip_list.hpp
   requiredBy: []
-  timestamp: '2022-01-09 16:16:11+09:00'
+  timestamp: '1970-01-01 00:00:00+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/list/skip_list.hpp

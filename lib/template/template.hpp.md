@@ -27,11 +27,23 @@ data:
     path: lib/_new/tree64.hpp
     title: lib/_new/tree64.hpp
   - icon: ':warning:'
+    path: lib/_old/dual_segment_tree_virtual.hpp
+    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
     path: lib/_old/lazy_segment_tree.hpp
     title: lib/_old/lazy_segment_tree.hpp
   - icon: ':warning:'
     path: lib/_old/lazy_segment_tree_beta.hpp
     title: lib/_old/lazy_segment_tree_beta.hpp
+  - icon: ':warning:'
+    path: lib/_old/lca.hpp
+    title: lib/_old/lca.hpp
+  - icon: ':warning:'
+    path: lib/_old/segment_tree_virtual.hpp
+    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/_old/tree.hpp
+    title: lib/_old/tree.hpp
   - icon: ':warning:'
     path: lib/algorithm/Mo.hpp
     title: lib/algorithm/Mo.hpp
@@ -44,12 +56,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/algorithm/inversion_number.hpp
     title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
-  - icon: ':warning:'
-    path: lib/algorithm/wavelet_matrix.hpp
-    title: lib/algorithm/wavelet_matrix.hpp
-  - icon: ':warning:'
-    path: lib/algorithm/xorshift.hpp
-    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/BIT.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
@@ -73,9 +79,6 @@ data:
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
   - icon: ':warning:'
-    path: lib/binary_tree/treap.hpp
-    title: lib/binary_tree/treap.hpp
-  - icon: ':warning:'
     path: lib/data_structure/Map.hpp
     title: lib/data_structure/Map.hpp
   - icon: ':warning:'
@@ -91,9 +94,6 @@ data:
   - icon: ':warning:'
     path: lib/data_structure/bigint_beta.hpp
     title: lib/data_structure/bigint_beta.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/binary_heap.hpp
-    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
   - icon: ':warning:'
     path: lib/data_structure/binary_tree.hpp
     title: lib/data_structure/binary_tree.hpp
@@ -101,17 +101,8 @@ data:
     path: lib/data_structure/bit_vector.hpp
     title: "\u5B8C\u5099\u8F9E\u66F8"
   - icon: ':warning:'
-    path: lib/data_structure/fast_fibonacci_heap.hpp
-    title: lib/data_structure/fast_fibonacci_heap.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/fibonacci_heap.hpp
-    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':warning:'
     path: lib/data_structure/heap.hpp
     title: lib/data_structure/heap.hpp
-  - icon: ':warning:'
-    path: lib/data_structure/radix_heap.hpp
-    title: lib/data_structure/radix_heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/dp/lis.hpp
     title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
@@ -158,19 +149,11 @@ data:
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
   - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_fibonacci.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
-      \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
-  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_heap.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u4E8C\u5206\u30D2\u30FC\
-      \u30D7\uFF09"
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   - icon: ':warning:'
     path: lib/graph/dijkstra_potential.hpp
     title: lib/graph/dijkstra_potential.hpp
-  - icon: ':warning:'
-    path: lib/graph/dijkstra_radix_heap.hpp
-    title: lib/graph/dijkstra_radix_heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
@@ -190,8 +173,14 @@ data:
     path: lib/graph/min_cost_flow.hpp
     title: lib/graph/min_cost_flow.hpp
   - icon: ':heavy_check_mark:'
+    path: lib/graph/prim.hpp
+    title: "\u30D7\u30EA\u30E0\u6CD5"
+  - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
+  - icon: ':warning:'
+    path: lib/graph/spanning_tree.hpp
+    title: "\u5168\u57DF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/graph/topological_sort.hpp
     title: "\u9589\u8DEF\u691C\u51FA"
@@ -201,9 +190,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/heap/binary_heap.hpp
+    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
   - icon: ':warning:'
-    path: lib/list/skip_list.hpp
-    title: lib/list/skip_list.hpp
+    path: lib/heap/fast_fibonacci_heap.hpp
+    title: lib/heap/fast_fibonacci_heap.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/heap/fibonacci_heap.hpp
+    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
+  - icon: ':warning:'
+    path: lib/heap/leftist_heap.hpp
+    title: leftist heap
+  - icon: ':heavy_check_mark:'
+    path: lib/heap/radix_heap.hpp
+    title: lib/heap/radix_heap.hpp
+  - icon: ':warning:'
+    path: lib/heap/skew_heap.hpp
+    title: skew heap
   - icon: ':warning:'
     path: lib/math/chinese_rem.hpp
     title: "a * x + b * y = gcd(a, b) \u306E\u7B54\u3048\u3092\u4E00\u3064\u6C42\u3081\
@@ -220,9 +224,6 @@ data:
   - icon: ':warning:'
     path: lib/math/math.hpp
     title: lib/math/math.hpp
-  - icon: ':warning:'
-    path: lib/math/matrix.hpp
-    title: lib/math/matrix.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
@@ -245,23 +246,28 @@ data:
     path: lib/math/slope_trick.hpp
     title: slope trick
   - icon: ':warning:'
+    path: lib/matrix/compressed_wavelet_matrix.hpp
+    title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+  - icon: ':warning:'
+    path: lib/matrix/matrix.hpp
+    title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
+  - icon: ':warning:'
+    path: lib/matrix/wavelet_matrix.hpp
+    title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+  - icon: ':warning:'
     path: lib/random/split_mix_64.hpp
-    title: "0.0\u4EE5\u4E0A1.0\u672A\u6E80\u306E\u6D6E\u52D5\u5C0F\u6570\u70B9\u6570\
-      \u3092\u751F\u6210"
+    title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
   - icon: ':warning:'
     path: lib/random/xoroshiro128.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
   - icon: ':warning:'
+    path: lib/random/xorshift.hpp
+    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
+  - icon: ':warning:'
     path: lib/random/xoshiro128.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoshiro128++"
-  - icon: ':warning:'
-    path: lib/segment_tree/RAQ.hpp
-    title: lib/segment_tree/RAQ.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
-    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/segment_tree/dual_segment_tree_virtual.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':warning:'
     path: lib/segment_tree/dynamic_segment_tree.hpp
@@ -275,9 +281,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/segment_tree/segment_tree_virtual.hpp
-    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/segment_tree_raq.hpp
+    title: lib/segment_tree/segment_tree_raq.hpp
   - icon: ':warning:'
     path: lib/string/kmp.hpp
     title: lib/string/kmp.hpp
@@ -303,14 +309,8 @@ data:
     path: lib/tree/hld.hpp
     title: HLD
   - icon: ':warning:'
-    path: lib/tree/lca.hpp
-    title: lib/tree/lca.hpp
-  - icon: ':warning:'
     path: lib/tree/link_cut_tree.hpp
     title: lib/tree/link_cut_tree.hpp
-  - icon: ':warning:'
-    path: lib/tree/tree.hpp
-    title: lib/tree/tree.hpp
   - icon: ':warning:'
     path: lib/tree/tree_dist.hpp
     title: lib/tree/tree_dist.hpp
@@ -367,6 +367,9 @@ data:
     path: test/aoj/dpl/stirling.test.cpp
     title: test/aoj/dpl/stirling.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/raq_rmq.test.cpp
+    title: test/aoj/dsl/raq_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -394,17 +397,23 @@ data:
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/dijkstra_binary.test.cpp
+    title: test/aoj/grl/dijkstra_binary.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_heap.test.cpp
-    title: test/aoj/grl/dijkstra_heap.test.cpp
+    path: test/aoj/grl/dijkstra_radix.test.cpp
+    title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/prim.test.cpp
+    title: test/aoj/grl/prim.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
@@ -474,7 +483,6 @@ data:
   - lib/math/enumeration.hpp
   - lib/math/combination.hpp
   - lib/math/modint64.hpp
-  - lib/math/matrix.hpp
   - lib/math/primitive_root.hpp
   - lib/math/slope_trick.hpp
   - lib/math/pow.hpp
@@ -489,13 +497,9 @@ data:
   - lib/data_structure/bigint.hpp
   - lib/data_structure/heap.hpp
   - lib/data_structure/Map.hpp
-  - lib/data_structure/binary_heap.hpp
-  - lib/data_structure/fibonacci_heap.hpp
   - lib/data_structure/UMap.hpp
-  - lib/data_structure/fast_fibonacci_heap.hpp
   - lib/data_structure/bigint_beta.hpp
   - lib/data_structure/binary_tree.hpp
-  - lib/data_structure/radix_heap.hpp
   - lib/data_structure/bit_vector.hpp
   - lib/template/atcoder.hpp
   - lib/_new/tree64.hpp
@@ -506,11 +510,14 @@ data:
   - lib/_new/dynamic_segment_tree.hpp
   - lib/_new/partially_persistent_union_find.hpp
   - lib/_new/mex.hpp
+  - lib/random/xorshift.hpp
   - lib/random/xoshiro128.hpp
   - lib/random/split_mix_64.hpp
   - lib/random/xoroshiro128.hpp
+  - lib/matrix/compressed_wavelet_matrix.hpp
+  - lib/matrix/wavelet_matrix.hpp
+  - lib/matrix/matrix.hpp
   - lib/binary_tree/BIT_RSQ.hpp
-  - lib/binary_tree/treap.hpp
   - lib/binary_tree/avl_tree.hpp
   - lib/binary_tree/patricia_binary_trie.hpp
   - lib/binary_tree/BIT.hpp
@@ -531,45 +538,48 @@ data:
   - lib/tree/link_cut_tree.hpp
   - lib/tree/union_find.hpp
   - lib/tree/hld.hpp
-  - lib/tree/tree.hpp
   - lib/tree/eular_tour.hpp
-  - lib/tree/lca.hpp
   - lib/tree/weighted_union_find.hpp
   - lib/tree/tree_subtree.hpp
   - lib/tree/tree_dist.hpp
   - lib/tree/tree_parent.hpp
   - lib/tree/union_find_with_edge.hpp
+  - lib/_old/tree.hpp
   - lib/_old/lazy_segment_tree_beta.hpp
   - lib/_old/lazy_segment_tree.hpp
-  - lib/algorithm/xorshift.hpp
+  - lib/_old/dual_segment_tree_virtual.hpp
+  - lib/_old/lca.hpp
+  - lib/_old/segment_tree_virtual.hpp
+  - lib/heap/binary_heap.hpp
+  - lib/heap/skew_heap.hpp
+  - lib/heap/fibonacci_heap.hpp
+  - lib/heap/fast_fibonacci_heap.hpp
+  - lib/heap/leftist_heap.hpp
+  - lib/heap/radix_heap.hpp
   - lib/algorithm/doubling.hpp
-  - lib/algorithm/wavelet_matrix.hpp
   - lib/algorithm/Mo.hpp
   - lib/algorithm/compress.hpp
   - lib/algorithm/inversion_number.hpp
-  - lib/list/skip_list.hpp
   - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/RAQ.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree_virtual.hpp
   - lib/segment_tree/monoid.hpp
   - lib/segment_tree/segment_tree.hpp
-  - lib/segment_tree/segment_tree_virtual.hpp
   - lib/dp/lis.hpp
   - lib/graph/lowlink.hpp
   - lib/graph/two_sat.hpp
   - lib/graph/min_cost_flow.hpp
   - lib/graph/matrix_graph.hpp
   - lib/graph/chromatic_number.hpp
+  - lib/graph/spanning_tree.hpp
   - lib/graph/topological_sort.hpp
   - lib/graph/dijkstra_potential.hpp
   - lib/graph/kruskal.hpp
-  - lib/graph/dijkstra_fibonacci.hpp
   - lib/graph/warshall_floyd.hpp
+  - lib/graph/prim.hpp
   - lib/graph/max_flow.hpp
   - lib/graph/dijkstra_heap.hpp
-  - lib/graph/dijkstra_radix_heap.hpp
   - lib/graph/graph.hpp
   - lib/graph/scc.hpp
   - lib/graph/dijkstra.hpp
@@ -598,20 +608,23 @@ data:
   - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/prim.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/warshall_floyd.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
   - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/dijkstra_heap.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/dsl/weighted_union_find.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
   - test/aoj/dsl/union_find.test.cpp

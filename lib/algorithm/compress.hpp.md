@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/algorithm/inversion_number.hpp
     title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
+  - icon: ':warning:'
+    path: lib/matrix/compressed_wavelet_matrix.hpp
+    title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/inversion_number.test.cpp
@@ -37,18 +40,21 @@ data:
     \ this->data.end()), this->data.end());\r\n    }\r\n    void build(const vector<T>&\
     \ _data) {\r\n        this->data = _data;\r\n        std::sort(this->data.begin(),\
     \ this->data.end());\r\n        this->data.erase(std::unique(this->data.begin(),\
-    \ this->data.end()), this->data.end());\r\n    }\r\n\r\n    int get(T x) {\r\n\
-    \        auto it = std::lower_bound(this->data.begin(), this->data.end(), x);\r\
-    \n        assert(*it == x);\r\n        return it - this->data.begin();\r\n   \
-    \ }\r\n\r\n    int size() { return this->data.size(); }\r\n\r\n  private:\r\n\
-    \    std::vector<T> data;\r\n};\r\n"
+    \ this->data.end()), this->data.end());\r\n    }\r\n\r\n    bool exist(T x) const\
+    \ {\r\n        auto it = std::lower_bound(this->data.begin(), this->data.end(),\
+    \ x);\r\n        return it != this->data.end() && *it == x;\r\n    }\r\n\r\n \
+    \   int get(T x) const {\r\n        auto it = std::lower_bound(this->data.begin(),\
+    \ this->data.end(), x);\r\n        return it - this->data.begin();\r\n    }\r\n\
+    \r\n    int size() const { return this->data.size(); }\r\n\r\n  private:\r\n \
+    \   std::vector<T> data;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/algorithm/compress.hpp
   requiredBy:
+  - lib/matrix/compressed_wavelet_matrix.hpp
   - lib/algorithm/inversion_number.hpp
-  timestamp: '2022-03-05 08:08:18+09:00'
+  timestamp: '2022-03-12 20:33:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp

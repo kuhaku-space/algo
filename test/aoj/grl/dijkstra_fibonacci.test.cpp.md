@@ -2,15 +2,20 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/data_structure/fibonacci_heap.hpp
-    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_fibonacci.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D5\u30A3\u30DC\u30CA\
-      \u30C3\u30C1\u30D2\u30FC\u30D7\uFF09"
+    path: lib/graph/dijkstra_heap.hpp
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: lib/graph/graph.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/heap/binary_heap.hpp
+    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
+  - icon: ':heavy_check_mark:'
+    path: lib/heap/fibonacci_heap.hpp
+    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
+  - icon: ':heavy_check_mark:'
+    path: lib/heap/radix_heap.hpp
+    title: lib/heap/radix_heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -34,24 +39,27 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/dijkstra_fibonacci.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/dijkstra_heap.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A\"\
-    \n#include \"graph/dijkstra_fibonacci.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n\
-    \    Graph<int> g(n);\n    g.input_edge(m, true);\n\n    auto dist = dijkstra(g,\
-    \ r, Inf);\n    rep(i, n) {\n        if (dist[i] != Inf)\n            co(dist[i]);\n\
-    \        else\n            co(\"INF\");\n    }\n\n    return 0;\n}\n"
+    \n#include \"graph/dijkstra_heap.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
+    int main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n  \
+    \  Graph<int> g(n);\n    g.input_edge(m, true);\n\n    auto dist = dijkstra<int,\
+    \ f_heap<int>>(g, r, Inf);\n    rep(i, n) {\n        if (dist[i] != Inf)\n   \
+    \         co(dist[i]);\n        else\n            co(\"INF\");\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
-  - lib/graph/dijkstra_fibonacci.hpp
-  - lib/data_structure/fibonacci_heap.hpp
+  - lib/graph/dijkstra_heap.hpp
+  - lib/heap/binary_heap.hpp
   - lib/template/template.hpp
+  - lib/heap/fibonacci_heap.hpp
+  - lib/heap/radix_heap.hpp
   - lib/graph/graph.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/aoj/grl/dijkstra_fibonacci.test.cpp
   requiredBy: []
-  timestamp: '2022-03-09 11:13:32+09:00'
+  timestamp: '2022-03-20 18:02:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/dijkstra_fibonacci.test.cpp
