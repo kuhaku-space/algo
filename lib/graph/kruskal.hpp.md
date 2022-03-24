@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
     links: []
@@ -50,8 +50,8 @@ data:
   isVerificationFile: false
   path: lib/graph/kruskal.hpp
   requiredBy: []
-  timestamp: '2022-03-25 03:25:48+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-03-25 03:44:38+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/kruskal.test.cpp
 documentation_of: lib/graph/kruskal.hpp

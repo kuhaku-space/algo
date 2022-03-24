@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/binary_heap.hpp
     title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/fibonacci_heap.hpp
     title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/radix_heap.hpp
     title: lib/heap/radix_heap.hpp
   - icon: ':question:'
@@ -18,18 +18,18 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_binary.test.cpp
     title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_radix.test.cpp
     title: test/aoj/grl/dijkstra_radix.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\
       \uFF09"
@@ -71,8 +71,8 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_heap.hpp
   requiredBy: []
-  timestamp: '2022-03-25 03:25:48+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-03-25 03:44:38+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp

@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_heap.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/binary_heap.hpp
     title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/fibonacci_heap.hpp
     title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/radix_heap.hpp
     title: lib/heap/radix_heap.hpp
   - icon: ':question:'
@@ -24,9 +24,9 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
@@ -44,7 +44,7 @@ data:
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A\"\
     \n#include \"graph/dijkstra_heap.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
     int main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n  \
-    \  Graph<int> g(n);\n    g.input_edge(m, true);\n\n    auto dist = dijkstra<int,\
+    \  Graph<int> g(n);\n    g.input_edge(m, 0);\n\n    auto dist = dijkstra<int,\
     \ r_heap<int>>(g, r, Inf);\n    rep(i, n) {\n        if (dist[i] != Inf)\n   \
     \         co(dist[i]);\n        else\n            co(\"INF\");\n    }\n\n    return\
     \ 0;\n}\n"
@@ -59,8 +59,8 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/dijkstra_radix.test.cpp
   requiredBy: []
-  timestamp: '2022-03-25 03:25:48+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-03-25 03:45:04+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/dijkstra_radix.test.cpp
 layout: document

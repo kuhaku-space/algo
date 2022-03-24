@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   - icon: ':question:'
@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: lib/graph/two_sat.hpp
   requiredBy: []
-  timestamp: '2022-03-25 03:25:48+09:00'
+  timestamp: '2022-03-25 03:44:38+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/two_sat.hpp

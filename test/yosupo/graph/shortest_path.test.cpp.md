@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':question:'
@@ -57,7 +57,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/graph/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2022-03-25 03:25:48+09:00'
+  timestamp: '2022-03-25 03:44:38+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/graph/shortest_path.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':question:'
@@ -12,12 +12,12 @@ data:
     path: lib/graph/two_sat.hpp
     title: 2-SAT
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
     links: []
@@ -63,8 +63,8 @@ data:
   path: lib/graph/scc.hpp
   requiredBy:
   - lib/graph/two_sat.hpp
-  timestamp: '2022-03-25 03:25:48+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-03-25 03:44:38+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/scc.test.cpp
 documentation_of: lib/graph/scc.hpp

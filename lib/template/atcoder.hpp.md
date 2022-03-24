@@ -57,43 +57,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/weighted_union_find.test.cpp
     title: test/aoj/dsl/weighted_union_find.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/articulation_points.test.cpp
     title: test/aoj/grl/articulation_points.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bridges.test.cpp
     title: test/aoj/grl/bridges.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/cycle.test.cpp
     title: test/aoj/grl/cycle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_binary.test.cpp
     title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_radix.test.cpp
     title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/prim.test.cpp
     title: test/aoj/grl/prim.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
   - icon: ':heavy_check_mark:'

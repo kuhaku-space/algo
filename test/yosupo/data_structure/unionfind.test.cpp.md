@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []

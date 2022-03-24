@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   - icon: ':question:'
@@ -15,9 +15,9 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C
@@ -35,7 +35,7 @@ data:
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C\"\
     \n#include \"graph/scc.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
     \ {\n    sonic();\n    int n, m;\n    cin >> n >> m;\n    Graph<void> g(n);\n\
-    \    g.input_edge(m, true);\n\n    auto v = scc(g);\n    int q;\n    cin >> q;\n\
+    \    g.input_edge(m, 0);\n\n    auto v = scc(g);\n    int q;\n    cin >> q;\n\
     \    while (q--) {\n        int s, t;\n        cin >> s >> t;\n        co(v[s]\
     \ == v[t]);\n    }\n\n    return 0;\n}\n"
   dependsOn:
@@ -46,8 +46,8 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/scc.test.cpp
   requiredBy: []
-  timestamp: '2022-03-25 03:25:48+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-03-25 03:45:04+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/scc.test.cpp
 layout: document

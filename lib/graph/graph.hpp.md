@@ -8,37 +8,37 @@ data:
   - icon: ':warning:'
     path: lib/_old/tree.hpp
     title: lib/_old/tree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/cycle.hpp
     title: "\u9589\u8DEF\u691C\u51FA"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra_heap.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   - icon: ':warning:'
     path: lib/graph/dijkstra_potential.hpp
     title: lib/graph/dijkstra_potential.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/kruskal.hpp
     title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/lowlink.hpp
     title: LowLink
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/prim.hpp
     title: "\u30D7\u30EA\u30E0\u6CD5"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   - icon: ':warning:'
     path: lib/graph/spanning_tree.hpp
     title: "\u5168\u57DF\u6728"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/topological_sort.hpp
     title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
   - icon: ':warning:'
@@ -54,40 +54,40 @@ data:
     path: lib/tree/tree_subtree.hpp
     title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/articulation_points.test.cpp
     title: test/aoj/grl/articulation_points.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bridges.test.cpp
     title: test/aoj/grl/bridges.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/cycle.test.cpp
     title: test/aoj/grl/cycle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_binary.test.cpp
     title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra_radix.test.cpp
     title: test/aoj/grl/dijkstra_radix.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/prim.test.cpp
     title: test/aoj/grl/prim.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
   - icon: ':x:'
@@ -95,7 +95,7 @@ data:
     title: test/yosupo/graph/shortest_path.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
     links: []
@@ -109,7 +109,7 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief\
-    \ \u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5\r\n * \r\n * @tparam T \u8FBA\u306E\
+    \ \u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5\r\n *\r\n * @tparam T \u8FBA\u306E\
     \u91CD\u307F\u306E\u578B\r\n */\r\ntemplate <class T>\r\nstruct Graph {\r\n  private:\r\
     \n    struct _edge {\r\n        constexpr _edge() : _from(), _to(), _weight()\
     \ {}\r\n        constexpr _edge(int from, int to, T weight) : _from(from), _to(to),\
@@ -183,8 +183,8 @@ data:
   - lib/graph/scc.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
-  timestamp: '2022-03-25 03:25:48+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-03-25 03:44:38+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
