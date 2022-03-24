@@ -7,7 +7,7 @@ int main(void) {
     int n, m;
     cin >> n >> m;
     Graph<int> g(n);
-    g.input_edges(m, true);
+    g.input_edges(m, 0);
     auto v = kruskal(g);
 
     int ans = 0;
