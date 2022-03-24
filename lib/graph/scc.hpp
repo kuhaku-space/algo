@@ -6,32 +6,32 @@
  *
  * @tparam T 辺の重みの型
  * @param g グラフ
- * @return vector<int> 各頂点が属する強連結成分の番号
+ * @return std::vector<int> 各頂点が属する強連結成分の番号
  */
 template <class T>
-vector<int> scc(const Graph<T> &g) {
+std::vector<int> scc(const Graph<T> &g) {
     int n = g.size();
-    Graph<T> rg(n);
-    vector<int> comp(n, -1), order;
-    vector<bool> used(n);
+    Graph<void> rg(n);
+    std::vector<int> comp(n, -1), order;
+    std::vector<bool> used(n);
 
     for (auto &es : g) {
-        for (auto &e : es) rg.add_edge(e.to, e.from);
+        for (auto &e : es) rg.add_edge(e.to(), e.from());
     }
 
-    auto dfs = [&](auto self, int idx) {
-        if (used[idx]) return;
-        used[idx] = true;
-        for (auto &e : g[idx]) self(self, e.to);
-        order.emplace_back(idx);
+    auto dfs = [&](auto self, int index) {
+        if (used[index]) return;
+        used[index] = true;
+        for (auto &e : g[index]) self(self, e.to());
+        order.emplace_back(index);
     };
-    auto rdfs = [&](auto self, int idx, int cnt) {
-        if (~comp[idx]) return;
-        comp[idx] = cnt;
-        for (auto &e : rg[idx]) self(self, e.to, cnt);
+    auto rdfs = [&](auto self, int index, int count) {
+        if (~comp[index]) return;
+        comp[index] = count;
+        for (auto &e : rg[index]) self(self, e.to(), count);
     };
 
-    for (int i = 0; i < n; i++) dfs(dfs, i);
+    for (int i = 0; i < n; ++i) dfs(dfs, i);
     std::reverse(order.begin(), order.end());
     int ptr = 0;
     for (auto i : order) {
@@ -50,56 +50,12 @@ vector<int> scc(const Graph<T> &g) {
  * @return Graph<T> 有向非巡回グラフ
  */
 template <class T>
-Graph<T> make_DAG(const Graph<T> &g, const vector<int> &v) {
+Graph<T> make_DAG(const Graph<T> &g, const std::vector<int> &v) {
     Graph<T> res(*std::max_element(v.begin(), v.end()) + 1);
     for (auto &es : g) {
         for (auto &e : es) {
-            int x = v[e.from], y = v[e.to];
-            if (x != y) res.add_edge(x, y, e.dist);
-        }
-    }
-    return res;
-}
-
-vector<int> scc(const Graph<void> &g) {
-    int n = g.size();
-    Graph<void> rg(n);
-    vector<int> comp(n, -1), order;
-    vector<bool> used(n);
-
-    for (int i = 0; i < n; ++i) {
-        for (auto &e : g[i]) rg.add_edge(e, i);
-    }
-
-    auto dfs = [&](auto self, int idx) {
-        if (used[idx]) return;
-        used[idx] = true;
-        for (auto &e : g[idx]) self(self, e);
-        order.emplace_back(idx);
-    };
-    auto rdfs = [&](auto self, int idx, int cnt) {
-        if (~comp[idx]) return;
-        comp[idx] = cnt;
-        for (auto &e : rg[idx]) self(self, e, cnt);
-    };
-
-    for (int i = 0; i < n; i++) dfs(dfs, i);
-    std::reverse(order.begin(), order.end());
-    int ptr = 0;
-    for (auto i : order) {
-        if (comp[i] == -1) rdfs(rdfs, i, ptr++);
-    }
-
-    return comp;
-};
-
-Graph<void> make_DAG(const Graph<void> &g, const vector<int> &v) {
-    int n = g.size();
-    Graph<void> res(*std::max_element(v.begin(), v.end()) + 1);
-    for (int i = 0; i < n; ++i) {
-        for (auto &e : g[i]) {
-            int x = v[i], y = v[e];
-            if (x != y) res.add_edge(x, y);
+            int x = v[e.from()], y = v[e.to()];
+            if (x != y) res.add_edge(x, y, e.weight());
         }
     }
     return res;
