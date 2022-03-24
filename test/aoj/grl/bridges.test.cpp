@@ -11,16 +11,17 @@ int main(void) {
 
     LowLink lowlink(g);
 
-    auto ans = lowlink.get_bridges();
-    for (auto &e : ans) {
-        if (e.first > e.second)
-            swap(e.first, e.second);
+    auto bridges = lowlink.get_bridges();
+    vector<pair<int, int>> ans;
+    for (auto &e : bridges) {
+        if (e.from() < e.to())
+            ans.emplace_back(e.from(), e.to());
+        else
+            ans.emplace_back(e.to(), e.from());
     }
 
     std::sort(all(ans));
-    for (auto e : ans) {
-        co(e.first, e.second);
-    }
+    for (auto e : ans) { co(e.first, e.second); }
 
     return 0;
 }
