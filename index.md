@@ -178,7 +178,7 @@ data:
     - icon: ':warning:'
       path: lib/graph/dijkstra_potential.hpp
       title: lib/graph/dijkstra_potential.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/graph.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
     - icon: ':heavy_check_mark:'
@@ -342,10 +342,10 @@ data:
       title: lib/string/z_algorithm.hpp
   - name: lib/template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -513,7 +513,7 @@ data:
       title: test/yosupo/data_structure/unionfind.test.cpp
   - name: test/yosupo/graph
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/graph/shortest_path.test.cpp
       title: test/yosupo/graph/shortest_path.test.cpp
   - name: test/yosupo/sample

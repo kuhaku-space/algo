@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

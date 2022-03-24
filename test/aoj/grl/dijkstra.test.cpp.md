@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

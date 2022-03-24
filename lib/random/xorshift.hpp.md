@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: lib/random/split_mix_64.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
