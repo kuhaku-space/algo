@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
     links: []
@@ -27,31 +27,35 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
-    /**\r\n * @brief \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\r\n *\r\n * @tparam\
-    \ T\r\n * @param g \u30B0\u30E9\u30D5\r\n * @param s \u59CB\u70B9\r\n * @param\
-    \ inf \u6B63\u306E\u7121\u9650\u8868\u73FE\r\n * @retval std::vector<T> \u5404\
-    \u9802\u70B9\u307E\u3067\u306E\u6700\u77ED\u8DDD\u96E2\r\n */\r\ntemplate <class\
-    \ T>\r\nstd::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max())\
-    \ {\r\n    struct _edge {\r\n        int to;\r\n        T dist;\r\n        constexpr\
-    \ _edge() : to(), dist() {}\r\n        constexpr _edge(int _to, T _dist) : to(_to),\
-    \ dist(_dist) {}\r\n        bool operator<(const _edge &rhs) const { return this->dist\
-    \ < rhs.dist; }\r\n        bool operator>(const _edge &rhs) const { return rhs\
-    \ < *this; }\r\n    };\r\n    std::vector<T> dist(g.size(), inf);\r\n    std::priority_queue<_edge,\
-    \ std::vector<_edge>, std::greater<>> p_que;\r\n    dist[s] = T();\r\n    p_que.emplace(s,\
-    \ T());\r\n    while (!p_que.empty()) {\r\n        _edge e = p_que.top();\r\n\
-    \        p_que.pop();\r\n        if (dist[e.to] < e.dist) continue;\r\n      \
-    \  for (auto &i : g[e.to]) {\r\n            if (chmin(dist[i.to], e.dist + i.dist))\
-    \ p_que.emplace(i.to, e.dist + i.dist);\r\n        }\r\n    }\r\n    return dist;\r\
-    \n}\r\n"
+  code: "#pragma once\r\n#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\
+    \r\n\r\n/**\r\n * @brief \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\r\n *\r\n\
+    \ * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\n * @param g \u30B0\u30E9\
+    \u30D5\r\n * @param s \u59CB\u70B9\r\n * @param inf \u6B63\u306E\u7121\u9650\u8868\
+    \u73FE\r\n * @retval std::vector<T> \u5404\u9802\u70B9\u307E\u3067\u306E\u6700\
+    \u77ED\u8DDD\u96E2\r\n */\r\ntemplate <class T>\r\nstd::vector<T> dijkstra(const\
+    \ Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {\r\n    struct\
+    \ _node {\r\n        constexpr _node() : _to(), _dist() {}\r\n        constexpr\
+    \ _node(int to, T dist) : _to(to), _dist(dist) {}\r\n        constexpr bool operator<(const\
+    \ _node &rhs) const { return this->dist() < rhs.dist(); }\r\n        constexpr\
+    \ bool operator>(const _node &rhs) const { return rhs < *this; }\r\n\r\n     \
+    \   constexpr int to() const { return this->_to; }\r\n        constexpr T dist()\
+    \ const { return this->_dist; }\r\n\r\n      private:\r\n        int _to;\r\n\
+    \        T _dist;\r\n    };\r\n    std::vector<T> dists(g.size(), inf);\r\n  \
+    \  std::priority_queue<_node, std::vector<_node>, std::greater<>> p_que;\r\n \
+    \   dists[s] = T();\r\n    p_que.emplace(s, T());\r\n    while (!p_que.empty())\
+    \ {\r\n        auto node = p_que.top();\r\n        p_que.pop();\r\n        if\
+    \ (dists[node.to()] < node.dist()) continue;\r\n        for (auto &e : g[node.to])\
+    \ {\r\n            if (chmin(dists[e.to()], node.dist() + e.weight()))\r\n   \
+    \             p_que.emplace(e.to(), node.dist() + e.weight());\r\n        }\r\n\
+    \    }\r\n    return dists;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2022-03-09 10:39:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-03-24 17:46:31+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/aoj/grl/dijkstra.test.cpp
 documentation_of: lib/graph/dijkstra.hpp

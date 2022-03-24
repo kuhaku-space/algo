@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -13,6 +13,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -24,16 +25,14 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
   code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
-    template <class T>\r\nvector<int> tree_subtree(const Graph<T> &g, int r = 0) {\r\
-    \n    vector<int> res(g.size());\r\n    auto dfs = [&g, &res](auto &&self, int\
-    \ idx, int par) {\r\n        res[idx] = 1;\r\n        for (auto i : g[idx]) {\r\
-    \n            if (i.to == par) continue;\r\n            res[idx] += self(self,\
-    \ i.to, idx);\r\n        }\r\n        return res[idx];\r\n    };\r\n    dfs(dfs,\
-    \ r, -1);\r\n    return res;\r\n}\r\n\r\ntemplate <>\r\nvector<int> tree_subtree(const\
-    \ Graph<void> &g, int r) {\r\n    vector<int> res(g.size());\r\n    auto dfs =\
-    \ [&g, &res](auto &&self, int idx, int par) -> int {\r\n        res[idx] = 1;\r\
-    \n        for (auto i : g[idx]) {\r\n            if (i == par) continue;\r\n \
-    \           res[idx] += self(self, i, idx);\r\n        }\r\n        return res[idx];\r\
+    /**\r\n * @brief \u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B\
+    \r\n * \r\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\n * @param g \u30B0\
+    \u30E9\u30D5\r\n * @param r \u6839\r\n * @return std::vector<int> \r\n */\r\n\
+    template <class T>\r\nstd::vector<int> tree_subtree(const Graph<T> &g, int r =\
+    \ 0) {\r\n    std::vector<int> res(g.size());\r\n    auto dfs = [&g, &res](auto\
+    \ &&self, int index, int parent) {\r\n        res[index] = 1;\r\n        for (auto\
+    \ &e : g[index]) {\r\n            if (e.to() == parent) continue;\r\n        \
+    \    res[index] += self(self, e.to(), index);\r\n        }\r\n        return res[index];\r\
     \n    };\r\n    dfs(dfs, r, -1);\r\n    return res;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
@@ -41,7 +40,7 @@ data:
   isVerificationFile: false
   path: lib/tree/tree_subtree.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
+  timestamp: '2022-03-24 22:47:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/tree_subtree.hpp
@@ -49,5 +48,5 @@ layout: document
 redirect_from:
 - /library/lib/tree/tree_subtree.hpp
 - /library/lib/tree/tree_subtree.hpp.html
-title: lib/tree/tree_subtree.hpp
+title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
 ---

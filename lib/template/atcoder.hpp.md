@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -57,43 +57,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/weighted_union_find.test.cpp
     title: test/aoj/dsl/weighted_union_find.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/articulation_points.test.cpp
     title: test/aoj/grl/articulation_points.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/bridges.test.cpp
     title: test/aoj/grl/bridges.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/cycle.test.cpp
     title: test/aoj/grl/cycle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_binary.test.cpp
     title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_radix.test.cpp
     title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/prim.test.cpp
     title: test/aoj/grl/prim.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
   - icon: ':heavy_check_mark:'
@@ -123,15 +123,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -175,7 +175,7 @@ data:
   path: lib/template/atcoder.hpp
   requiredBy: []
   timestamp: '2022-02-08 12:58:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp

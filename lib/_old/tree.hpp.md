@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -46,7 +46,7 @@ data:
   isVerificationFile: false
   path: lib/_old/tree.hpp
   requiredBy: []
-  timestamp: '2022-03-20 16:22:57+09:00'
+  timestamp: '2022-03-24 17:43:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/_old/tree.hpp

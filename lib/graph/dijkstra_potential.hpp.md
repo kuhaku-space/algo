@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -23,29 +23,31 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\n\ntemplate\
-    \ <class T, class U>\nstd::vector<T> dijkstra(const Graph<T> &graph, const vector<U>\
-    \ &potentials, int s = 0,\n                        T inf = std::numeric_limits<T>::max())\
-    \ {\n    struct _edge {\n        int to;\n        T dist;\n        constexpr _edge()\
-    \ : to(), dist() {}\n        constexpr _edge(int _to, T _dist) : to(_to), dist(_dist)\
-    \ {}\n        bool operator<(const _edge &rhs) const { return this->dist < rhs.dist;\
-    \ }\n        bool operator>(const _edge &rhs) const { return rhs < *this; }\n\
-    \    };\n    int n = graph.size();\n    std::vector<T> dists(n, inf);\n    std::priority_queue<_edge,\
-    \ std::vector<_edge>, std::greater<_edge>> p_que;\n    dists[s] = T();\n    p_que.emplace(s,\
-    \ T());\n    while (!p_que.empty()) {\n        auto e = p_que.top();\n       \
-    \ p_que.pop();\n        if (dists[e.to] < e.dist) continue;\n        for (auto\
-    \ &next : graph[e.to]) {\n            if (chmin(dists[next.to], e.dist + next.dist\
-    \ + potentials[e.to] - potentials[next.to]))\n                p_que.emplace(next.to,\
-    \ e.dist + next.dist + potentials[e.to] - potentials[next.to]);\n        }\n \
-    \   }\n    for (int i = 0; i < n; ++i) { dists[i] += potentials[i] - potentials[s];\
-    \ }\n    return dists;\n}\n"
+  code: "#pragma once\n#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\
+    \n\ntemplate <class T, class U>\nstd::vector<T> dijkstra(const Graph<T> &g, const\
+    \ vector<U> &potentials, int s = 0,\n                        T inf = std::numeric_limits<T>::max())\
+    \ {\n    struct _node {\n        constexpr _node() : _to(), _dist() {}\n     \
+    \   constexpr _node(int to, T dist) : _to(to), _dist(dist) {}\n        constexpr\
+    \ bool operator<(const _node &rhs) const { return this->dist() < rhs.dist(); }\n\
+    \        constexpr bool operator>(const _node &rhs) const { return rhs < *this;\
+    \ }\n\n        constexpr int to() const { return this->_to; }\n        constexpr\
+    \ T dist() const { return this->_dist; }\n\n      private:\n        int _to;\n\
+    \        T _dist;\n    };\n    int n = g.size();\n    std::vector<T> dists(n,\
+    \ inf);\n    std::priority_queue<_node, std::vector<_node>, std::greater<>> p_que;\n\
+    \    dists[s] = T();\n    p_que.emplace(s, T());\n    while (!p_que.empty()) {\n\
+    \        auto node = p_que.top();\n        p_que.pop();\n        if (dists[node.to()]\
+    \ < node.dist()) continue;\n        for (auto &e : g[node.to()]) {\n         \
+    \   auto next_dist = node.dist() + e.weight() + potentials[node.to()] - potentials[e.to()];\n\
+    \            if (chmin(dists[e.to()], next_dist)) p_que.emplace(e.to(), next_dist);\n\
+    \        }\n    }\n    for (int i = 0; i < n; ++i) { dists[i] += potentials[i]\
+    \ - potentials[s]; }\n    return dists;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra_potential.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
+  timestamp: '2022-03-24 17:46:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/dijkstra_potential.hpp

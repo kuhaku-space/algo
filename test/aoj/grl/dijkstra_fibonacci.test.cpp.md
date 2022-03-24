@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/dijkstra_heap.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':x:'
     path: lib/heap/binary_heap.hpp
     title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/heap/fibonacci_heap.hpp
     title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/heap/radix_heap.hpp
     title: lib/heap/radix_heap.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
@@ -50,17 +50,17 @@ data:
     \ 0;\n}\n"
   dependsOn:
   - lib/graph/dijkstra_heap.hpp
-  - lib/heap/binary_heap.hpp
+  - lib/graph/graph.hpp
   - lib/template/template.hpp
+  - lib/heap/binary_heap.hpp
   - lib/heap/fibonacci_heap.hpp
   - lib/heap/radix_heap.hpp
-  - lib/graph/graph.hpp
   - lib/template/atcoder.hpp
   isVerificationFile: true
   path: test/aoj/grl/dijkstra_fibonacci.test.cpp
   requiredBy: []
-  timestamp: '2022-03-20 18:02:19+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-03-24 17:46:31+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/aoj/grl/dijkstra_fibonacci.test.cpp
 layout: document

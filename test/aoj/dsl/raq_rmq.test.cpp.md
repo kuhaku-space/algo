@@ -13,10 +13,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_raq.hpp
     title: lib/segment_tree/segment_tree_raq.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

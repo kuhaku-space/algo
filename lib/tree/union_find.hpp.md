@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/kruskal.hpp
     title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/union_find.test.cpp
     title: test/aoj/dsl/union_find.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
     links: []
@@ -54,7 +54,7 @@ data:
   requiredBy:
   - lib/graph/kruskal.hpp
   timestamp: '2021-12-13 04:59:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/data_structure/unionfind.test.cpp
   - test/aoj/grl/kruskal.test.cpp

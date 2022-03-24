@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
     links: []
@@ -30,16 +30,16 @@ data:
   code: "#include \"template/template.hpp\"\r\n#include \"graph/graph.hpp\"\r\n\r\n\
     /**\r\n * @brief \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\r\n *\
     \ \r\n * @tparam T \r\n * @param graph \u30B0\u30E9\u30D5\r\n * @param s \u59CB\
-    \u70B9\r\n * @param inf \r\n * @return vector<T> \r\n */\r\ntemplate <class T>\r\
-    \nvector<T> bellman_ford(const Graph<T> &graph, int s = 0,\r\n               \
-    \        T inf = numeric_limits<T>::max()) {\r\n    int n = graph.size();\r\n\
-    \    vector<T> dists(n, inf);\r\n    dists[s] = T();\r\n    bool is_updated =\
-    \ true;\r\n    for (int count = 0; is_updated && count <= n << 1; ++count) {\r\
-    \n        is_updated = false;\r\n        for (int i = 0; i < n; ++i) {\r\n   \
-    \         if (dists[i] == inf) continue;\r\n            for (auto &j : graph[i])\
-    \ {\r\n                if (dists[i] == -inf || chmin(dists[j.to], dists[i] + j.dist))\
-    \ {\r\n                    if (dists[j.to] == -inf) continue;\r\n            \
-    \        is_updated = true;\r\n                    if (count >= n) dists[j.to]\
+    \u70B9\r\n * @param inf \r\n * @return std::vector<T> \r\n */\r\ntemplate <class\
+    \ T>\r\nstd::vector<T> bellman_ford(const Graph<T> &graph, int s = 0,\r\n    \
+    \                   T inf = numeric_limits<T>::max()) {\r\n    int n = graph.size();\r\
+    \n    std::vector<T> dists(n, inf);\r\n    dists[s] = T();\r\n    bool updated\
+    \ = true;\r\n    for (int count = 0; updated && count <= n << 1; ++count) {\r\n\
+    \        updated = false;\r\n        for (int i = 0; i < n; ++i) {\r\n       \
+    \     if (dists[i] == inf) continue;\r\n            for (auto &e : graph[i]) {\r\
+    \n                if (dists[i] == -inf || chmin(dists[e.to()], dists[i] + e.weight()))\
+    \ {\r\n                    if (dists[e.to()] == -inf) continue;\r\n          \
+    \          updated = true;\r\n                    if (count >= n) dists[e.to()]\
     \ = -inf;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return\
     \ dists;\r\n}\r\n"
   dependsOn:
@@ -48,8 +48,8 @@ data:
   isVerificationFile: false
   path: lib/graph/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2022-03-05 10:24:51+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-03-24 22:43:41+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/aoj/grl/bellman_ford.test.cpp
 documentation_of: lib/graph/bellman_ford.hpp

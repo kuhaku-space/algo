@@ -139,28 +139,31 @@ data:
   - icon: ':warning:'
     path: lib/geometry/kdtree.hpp
     title: lib/geometry/kdtree.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
   - icon: ':warning:'
     path: lib/graph/chromatic_number.hpp
     title: lib/graph/chromatic_number.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: lib/graph/cycle.hpp
+    title: "\u9589\u8DEF\u691C\u51FA"
+  - icon: ':x:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/dijkstra_heap.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   - icon: ':warning:'
     path: lib/graph/dijkstra_potential.hpp
     title: lib/graph/dijkstra_potential.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/graph.hpp
-    title: lib/graph/graph.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':x:'
     path: lib/graph/kruskal.hpp
     title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/lowlink.hpp
     title: LowLink
   - icon: ':heavy_check_mark:'
@@ -172,37 +175,37 @@ data:
   - icon: ':warning:'
     path: lib/graph/min_cost_flow.hpp
     title: lib/graph/min_cost_flow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/prim.hpp
     title: "\u30D7\u30EA\u30E0\u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   - icon: ':warning:'
     path: lib/graph/spanning_tree.hpp
     title: "\u5168\u57DF\u6728"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/graph/topological_sort.hpp
-    title: "\u9589\u8DEF\u691C\u51FA"
+    title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
   - icon: ':warning:'
     path: lib/graph/two_sat.hpp
-    title: lib/graph/two_sat.hpp
+    title: 2-SAT
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/heap/binary_heap.hpp
     title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
   - icon: ':warning:'
     path: lib/heap/fast_fibonacci_heap.hpp
     title: lib/heap/fast_fibonacci_heap.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/heap/fibonacci_heap.hpp
     title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
   - icon: ':warning:'
     path: lib/heap/leftist_heap.hpp
     title: leftist heap
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: lib/heap/radix_heap.hpp
     title: lib/heap/radix_heap.hpp
   - icon: ':warning:'
@@ -299,7 +302,7 @@ data:
   - icon: ':warning:'
     path: lib/string/z_algorithm.hpp
     title: lib/string/z_algorithm.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':warning:'
@@ -313,14 +316,14 @@ data:
     title: lib/tree/link_cut_tree.hpp
   - icon: ':warning:'
     path: lib/tree/tree_dist.hpp
-    title: lib/tree/tree_dist.hpp
+    title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
   - icon: ':warning:'
     path: lib/tree/tree_parent.hpp
-    title: lib/tree/tree_parent.hpp
+    title: "\u6728\u306E\u9802\u70B9\u306E\u89AA\u3092\u6C42\u3081\u308B"
   - icon: ':warning:'
     path: lib/tree/tree_subtree.hpp
-    title: lib/tree/tree_subtree.hpp
-  - icon: ':heavy_check_mark:'
+    title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
+  - icon: ':question:'
     path: lib/tree/union_find.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   - icon: ':warning:'
@@ -381,43 +384,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/weighted_union_find.test.cpp
     title: test/aoj/dsl/weighted_union_find.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/articulation_points.test.cpp
     title: test/aoj/grl/articulation_points.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/bellman_ford.test.cpp
     title: test/aoj/grl/bellman_ford.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/bridges.test.cpp
     title: test/aoj/grl/bridges.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/cycle.test.cpp
     title: test/aoj/grl/cycle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_binary.test.cpp
     title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_fibonacci.test.cpp
     title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/dijkstra_radix.test.cpp
     title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/kruskal.test.cpp
     title: test/aoj/grl/kruskal.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/prim.test.cpp
     title: test/aoj/grl/prim.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
   - icon: ':heavy_check_mark:'
@@ -447,15 +450,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#include <bits/stdc++.h>\r\n\
@@ -580,12 +583,13 @@ data:
   - lib/graph/prim.hpp
   - lib/graph/max_flow.hpp
   - lib/graph/dijkstra_heap.hpp
+  - lib/graph/cycle.hpp
   - lib/graph/graph.hpp
   - lib/graph/scc.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
   timestamp: '2021-09-18 19:45:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
