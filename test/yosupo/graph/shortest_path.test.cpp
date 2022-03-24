@@ -5,29 +5,37 @@
 template <class T>
 pair<vector<T>, vector<int>> dijkstra(const Graph<T> &g, int s = 0,
                                       T inf = numeric_limits<T>::max()) {
-    struct _edge {
-        int to;
-        T dist;
-        bool operator<(const _edge &rhs) const { return dist < rhs.dist; }
-        bool operator>(const _edge &rhs) const { return rhs < *this; }
+    struct _node {
+        constexpr _node() : _to(), _dist() {}
+        constexpr _node(int to, T dist) : _to(to), _dist(dist) {}
+
+        constexpr bool operator<(const _node &rhs) const { return this->dist() < rhs.dist(); }
+        constexpr bool operator>(const _node &rhs) const { return rhs < *this; }
+
+        constexpr int to() const { return this->_to; }
+        constexpr T dist() const { return this->_dist; }
+
+      private:
+        int _to;
+        T _dist;
     };
-    vector<T> dist(g.size(), inf);
+    vector<T> dists(g.size(), inf);
     vector<int> v(g.size(), -1);
-    priority_queue<_edge, vector<_edge>, greater<_edge>> p_que;
-    dist[s] = T();
-    p_que.push(_edge{s, T()});
+    priority_queue<_node, vector<_node>, greater<>> p_que;
+    dists[s] = T();
+    p_que.emplace(s, T());
     while (!p_que.empty()) {
-        _edge e = p_que.top();
+        auto node = p_que.top();
         p_que.pop();
-        if (dist[e.to] < e.dist) continue;
-        for (auto &i : g[e.to]) {
-            if (chmin(dist[i.to], e.dist + i.dist)) {
-                v[i.to] = e.to;
-                p_que.push(_edge{i.to, e.dist + i.dist});
+        if (dists[node.to()] < node.dist()) continue;
+        for (auto &e : g[node.to()]) {
+            if (chmin(dists[e.to()], node.dist() + e.weight())) {
+                v[e.to()] = node.to();
+                p_que.emplace(e.to(), node.dist() + e.weight());
             }
         }
     }
-    return {dist, v};
+    return {dists, v};
 }
 
 int main(void) {
@@ -35,7 +43,7 @@ int main(void) {
     int n, m, s, t;
     cin >> n >> m >> s >> t;
     Graph<ll> g(n);
-    g.input_edge(m, true);
+    g.input_edge(m, 0);
     auto [dist, v] = dijkstra(g, s, INF);
 
     if (dist[t] == INF) {
@@ -49,9 +57,7 @@ int main(void) {
         }
         reverse(ans.begin(), ans.end());
         co(dist[t], ans.size());
-        for (auto p : ans) {
-            co(p.first, p.second);
-        }
+        for (auto p : ans) { co(p.first, p.second); }
     }
     return 0;
 }
