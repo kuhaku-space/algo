@@ -1,4 +1,4 @@
-#include "algorithm/xorshift.hpp"
+#include "random/xorshift.hpp"
 #include "template/template.hpp"
 
 template <class T>
