@@ -1,22 +1,33 @@
 #pragma once
 #include "template/template.hpp"
 
+/**
+ * @brief 重み付きグラフ
+ * 
+ * @tparam T 辺の重みの型
+ */
 template <class T>
 struct Graph {
   private:
-    struct edge {
-        int from, to;
-        T dist;
-        constexpr edge() : from(), to(), dist() {}
-        constexpr edge(int _from, int _to, T _dist) : from(_from), to(_to), dist(_dist) {}
-        bool operator<(const edge &rhs) const { return this->dist < rhs.dist; }
+    struct _edge {
+        constexpr _edge() : _from(), _to(), _weight() {}
+        constexpr _edge(int from, int to, T weight) : _from(from), _to(to), _weight(weight) {}
+        bool operator<(const edge &rhs) const { return this->weight() < rhs.weight(); }
         bool operator>(const edge &rhs) const { return rhs < *this; }
+
+        constexpr int from() const { return this->_from; }
+        constexpr int to() const { return this->_to; }
+        constexpr T weight() const { return this->_weight; }
+
+      private:
+        int _from, _to;
+        T _weight;
     };
 
   public:
-    using edge_type = edge;
+    using edge_type = typename Graph<T>::_edge;
 
-    Graph(int v) : edges(v) {}
+    Graph(int v) : _size(v), edges(v) {}
 
     const auto &operator[](int i) const { return this->edges[i]; }
     auto &operator[](int i) { return this->edges[i]; }
@@ -24,43 +35,58 @@ struct Graph {
     auto begin() { return this->edges.begin(); }
     const auto end() const { return this->edges.end(); }
     auto end() { return this->edges.end(); }
-    auto size() const { return this->edges.size(); }
-    void add_edge(int a, int b, T d = T(1)) { this->edges[a].emplace_back(a, b, d); }
-    void add_edges(int a, int b, T d = T(1)) {
-        this->edges[a].emplace_back(a, b, d);
-        this->edges[b].emplace_back(b, a, d);
+    constexpr int size() const { return this->_size; }
+
+    void add_edge(const edge_type &e) { this->edges[e.from()].emplace_back(e); }
+    void add_edge(int from, int to, T weight = T(1)) {
+        this->edges[from].emplace_back(from, to, weight);
     }
-    void input_edge(int m, bool zero_based = false) {
+    void add_edges(int from, int to, T weight = T(1)) {
+        this->edges[from].emplace_back(from, to, weight);
+        this->edges[to].emplace_back(to, from, weight);
+    }
+
+    void input_edge(int m, int base = 1) {
         for (int i = 0; i < m; ++i) {
-            int a, b;
-            T d;
-            cin >> a >> b >> d;
-            if (zero_based)
-                this->add_edge(a, b, d);
-            else
-                this->add_edge(a - 1, b - 1, d);
+            int from, to;
+            T weight;
+            cin >> from >> to >> weight;
+            this->add_edge(from - base, to - base, weight);
         }
     }
-    void input_edges(int m, bool zero_based = false) {
+    void input_edges(int m, int base = 1) {
         for (int i = 0; i < m; ++i) {
-            int a, b;
-            T d;
-            cin >> a >> b >> d;
-            if (zero_based)
-                this->add_edges(a, b, d);
-            else
-                this->add_edges(a - 1, b - 1, d);
+            int from, to;
+            T weight;
+            cin >> from >> to >> weight;
+            this->add_edges(from - base, to - base, weight);
         }
     }
 
   private:
-    std::vector<std::vector<edge>> edges;
+    int _size;
+    std::vector<std::vector<edge_type>> edges;
 };
 
 template <>
 struct Graph<void> {
-    using edge_type = std::pair<int, int>;
-    Graph(int v) : edges(v) {}
+  private:
+    struct _edge {
+        constexpr _edge() : _from(), _to() {}
+        constexpr _edge(int from, int to) : _from(from), _to(to) {}
+
+        constexpr int from() const { return this->_from; }
+        constexpr int to() const { return this->_to; }
+        constexpr int weight() const { return 1; }
+
+      private:
+        int _from, _to;
+    };
+
+  public:
+    using edge_type = typename Graph<void>::_edge;
+
+    Graph(int v) : _size(v), edges(v) {}
 
     const auto &operator[](int i) const { return this->edges[i]; }
     auto &operator[](int i) { return this->edges[i]; }
@@ -68,33 +94,31 @@ struct Graph<void> {
     auto begin() { return this->edges.begin(); }
     const auto end() const { return this->edges.end(); }
     auto end() { return this->edges.end(); }
-    auto size() const { return this->edges.size(); }
-    void add_edge(int a, int b) { this->edges[a].emplace_back(b); }
-    void add_edges(int a, int b) {
-        this->edges[a].emplace_back(b);
-        this->edges[b].emplace_back(a);
+    constexpr int size() const { return this->_size; }
+
+    void add_edge(const edge_type &e) { this->edges[e.from()].emplace_back(e); }
+    void add_edge(int from, int to) { this->edges[from].emplace_back(from, to); }
+    void add_edges(int from, int to) {
+        this->edges[from].emplace_back(from, to);
+        this->edges[to].emplace_back(to, from);
     }
-    void input_edge(int m, bool zero_based = false) {
+
+    void input_edge(int m, int base = 1) {
         for (int i = 0; i < m; ++i) {
-            int a, b;
-            cin >> a >> b;
-            if (zero_based)
-                this->add_edge(a, b);
-            else
-                this->add_edge(a - 1, b - 1);
+            int from, to;
+            cin >> from >> to;
+            this->add_edge(from - base, to - base);
         }
     }
-    void input_edges(int m, bool zero_based = false) {
+    void input_edges(int m, int base = 1) {
         for (int i = 0; i < m; ++i) {
-            int a, b;
-            cin >> a >> b;
-            if (zero_based)
-                this->add_edges(a, b);
-            else
-                this->add_edges(a - 1, b - 1);
+            int from, to;
+            cin >> from >> to;
+            this->add_edges(from - base, to - base);
         }
     }
 
   private:
-    std::vector<std::vector<int>> edges;
+    int _size;
+    std::vector<std::vector<edge_type>> edges;
 };

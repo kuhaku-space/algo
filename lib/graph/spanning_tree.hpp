@@ -4,16 +4,16 @@
 /**
  * @brief 全域木
  * @details 全域木を構築する
- * 
- * @tparam T 
+ *
+ * @tparam T 辺の重みの型
  * @param g グラフ
  * @param r 始点
- * @return Graph<T> 
+ * @return Graph<T>
  */
 template <class T>
 Graph<T> spanning_tree(const Graph<T> &g, int r = 0) {
     int n = g.size();
-    Graph<void> res(n);
+    Graph<T> res(n);
     std::queue<int> que;
     std::vector<bool> visited(n);
     que.emplace(r);
@@ -22,10 +22,10 @@ Graph<T> spanning_tree(const Graph<T> &g, int r = 0) {
         auto x = que.front();
         que.pop();
         for (auto &e : g[x]) {
-            if (!visited[e]) {
-                res.add_edges(x, e);
-                que.emplace(e);
-                visited[e] = true;
+            if (!visited[e.to()]) {
+                res.add_edges(e);
+                que.emplace(e.to());
+                visited[e.to()] = true;
             }
         }
     }

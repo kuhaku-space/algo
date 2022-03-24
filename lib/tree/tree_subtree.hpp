@@ -1,31 +1,24 @@
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief 部分木の大きさを求める
+ * 
+ * @tparam T 辺の重みの型
+ * @param g グラフ
+ * @param r 根
+ * @return std::vector<int> 
+ */
 template <class T>
-vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
-    vector<int> res(g.size());
-    auto dfs = [&g, &res](auto &&self, int idx, int par) {
-        res[idx] = 1;
-        for (auto i : g[idx]) {
-            if (i.to == par) continue;
-            res[idx] += self(self, i.to, idx);
+std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
+    std::vector<int> res(g.size());
+    auto dfs = [&g, &res](auto &&self, int index, int parent) {
+        res[index] = 1;
+        for (auto &e : g[index]) {
+            if (e.to() == parent) continue;
+            res[index] += self(self, e.to(), index);
         }
-        return res[idx];
-    };
-    dfs(dfs, r, -1);
-    return res;
-}
-
-template <>
-vector<int> tree_subtree(const Graph<void> &g, int r) {
-    vector<int> res(g.size());
-    auto dfs = [&g, &res](auto &&self, int idx, int par) -> int {
-        res[idx] = 1;
-        for (auto i : g[idx]) {
-            if (i == par) continue;
-            res[idx] += self(self, i, idx);
-        }
-        return res[idx];
+        return res[index];
     };
     dfs(dfs, r, -1);
     return res;
