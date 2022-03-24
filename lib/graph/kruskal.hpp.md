@@ -50,7 +50,7 @@ data:
   isVerificationFile: false
   path: lib/graph/kruskal.hpp
   requiredBy: []
-  timestamp: '2022-03-24 22:43:41+09:00'
+  timestamp: '2022-03-25 03:25:48+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/aoj/grl/kruskal.test.cpp

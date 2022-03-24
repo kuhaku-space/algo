@@ -41,7 +41,7 @@ data:
   isVerificationFile: false
   path: lib/graph/spanning_tree.hpp
   requiredBy: []
-  timestamp: '2022-03-24 22:43:41+09:00'
+  timestamp: '2022-03-25 03:25:48+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/spanning_tree.hpp

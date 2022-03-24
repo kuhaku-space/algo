@@ -113,8 +113,8 @@ data:
     \u91CD\u307F\u306E\u578B\r\n */\r\ntemplate <class T>\r\nstruct Graph {\r\n  private:\r\
     \n    struct _edge {\r\n        constexpr _edge() : _from(), _to(), _weight()\
     \ {}\r\n        constexpr _edge(int from, int to, T weight) : _from(from), _to(to),\
-    \ _weight(weight) {}\r\n        bool operator<(const edge &rhs) const { return\
-    \ this->weight() < rhs.weight(); }\r\n        bool operator>(const edge &rhs)\
+    \ _weight(weight) {}\r\n        bool operator<(const _edge &rhs) const { return\
+    \ this->weight() < rhs.weight(); }\r\n        bool operator>(const _edge &rhs)\
     \ const { return rhs < *this; }\r\n\r\n        constexpr int from() const { return\
     \ this->_from; }\r\n        constexpr int to() const { return this->_to; }\r\n\
     \        constexpr T weight() const { return this->_weight; }\r\n\r\n      private:\r\
@@ -142,24 +142,25 @@ data:
     \ constexpr _edge(int from, int to) : _from(from), _to(to) {}\r\n\r\n        constexpr\
     \ int from() const { return this->_from; }\r\n        constexpr int to() const\
     \ { return this->_to; }\r\n        constexpr int weight() const { return 1; }\r\
-    \n\r\n      private:\r\n        int _from, _to;\r\n    };\r\n\r\n  public:\r\n\
-    \    using edge_type = typename Graph<void>::_edge;\r\n\r\n    Graph(int v) :\
-    \ _size(v), edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return\
-    \ this->edges[i]; }\r\n    auto &operator[](int i) { return this->edges[i]; }\r\
-    \n    const auto begin() const { return this->edges.begin(); }\r\n    auto begin()\
-    \ { return this->edges.begin(); }\r\n    const auto end() const { return this->edges.end();\
-    \ }\r\n    auto end() { return this->edges.end(); }\r\n    constexpr int size()\
-    \ const { return this->_size; }\r\n\r\n    void add_edge(const edge_type &e) {\
-    \ this->edges[e.from()].emplace_back(e); }\r\n    void add_edge(int from, int\
-    \ to) { this->edges[from].emplace_back(from, to); }\r\n    void add_edges(int\
-    \ from, int to) {\r\n        this->edges[from].emplace_back(from, to);\r\n   \
-    \     this->edges[to].emplace_back(to, from);\r\n    }\r\n\r\n    void input_edge(int\
-    \ m, int base = 1) {\r\n        for (int i = 0; i < m; ++i) {\r\n            int\
-    \ from, to;\r\n            cin >> from >> to;\r\n            this->add_edge(from\
-    \ - base, to - base);\r\n        }\r\n    }\r\n    void input_edges(int m, int\
-    \ base = 1) {\r\n        for (int i = 0; i < m; ++i) {\r\n            int from,\
-    \ to;\r\n            cin >> from >> to;\r\n            this->add_edges(from -\
-    \ base, to - base);\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _size;\r\
+    \n        bool operator<(const _edge &rhs) const { return false; }\r\n       \
+    \ bool operator>(const _edge &rhs) const { return rhs < *this; }\r\n\r\n     \
+    \ private:\r\n        int _from, _to;\r\n    };\r\n\r\n  public:\r\n    using\
+    \ edge_type = typename Graph<void>::_edge;\r\n\r\n    Graph(int v) : _size(v),\
+    \ edges(v) {}\r\n\r\n    const auto &operator[](int i) const { return this->edges[i];\
+    \ }\r\n    auto &operator[](int i) { return this->edges[i]; }\r\n    const auto\
+    \ begin() const { return this->edges.begin(); }\r\n    auto begin() { return this->edges.begin();\
+    \ }\r\n    const auto end() const { return this->edges.end(); }\r\n    auto end()\
+    \ { return this->edges.end(); }\r\n    constexpr int size() const { return this->_size;\
+    \ }\r\n\r\n    void add_edge(const edge_type &e) { this->edges[e.from()].emplace_back(e);\
+    \ }\r\n    void add_edge(int from, int to) { this->edges[from].emplace_back(from,\
+    \ to); }\r\n    void add_edges(int from, int to) {\r\n        this->edges[from].emplace_back(from,\
+    \ to);\r\n        this->edges[to].emplace_back(to, from);\r\n    }\r\n\r\n   \
+    \ void input_edge(int m, int base = 1) {\r\n        for (int i = 0; i < m; ++i)\
+    \ {\r\n            int from, to;\r\n            cin >> from >> to;\r\n       \
+    \     this->add_edge(from - base, to - base);\r\n        }\r\n    }\r\n    void\
+    \ input_edges(int m, int base = 1) {\r\n        for (int i = 0; i < m; ++i) {\r\
+    \n            int from, to;\r\n            cin >> from >> to;\r\n            this->add_edges(from\
+    \ - base, to - base);\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _size;\r\
     \n    std::vector<std::vector<edge_type>> edges;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
@@ -182,7 +183,7 @@ data:
   - lib/graph/scc.hpp
   - lib/graph/dijkstra.hpp
   - lib/graph/bellman_ford.hpp
-  timestamp: '2022-03-24 17:43:24+09:00'
+  timestamp: '2022-03-25 03:25:48+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/graph/shortest_path.test.cpp

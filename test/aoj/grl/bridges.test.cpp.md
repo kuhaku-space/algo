@@ -35,10 +35,12 @@ data:
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_B\"\
     \n#include \"graph/lowlink.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
     \ {\n    sonic();\n    int n, m;\n    cin >> n >> m;\n    Graph<void> g(n);\n\
-    \    g.input_edges(m, true);\n\n    LowLink lowlink(g);\n\n    auto ans = lowlink.get_bridges();\n\
-    \    for (auto &e : ans) {\n        if (e.first > e.second)\n            swap(e.first,\
-    \ e.second);\n    }\n\n    std::sort(all(ans));\n    for (auto e : ans) {\n  \
-    \      co(e.first, e.second);\n    }\n\n    return 0;\n}\n"
+    \    g.input_edges(m, true);\n\n    LowLink lowlink(g);\n\n    auto bridges =\
+    \ lowlink.get_bridges();\n    vector<pair<int, int>> ans;\n    for (auto &e :\
+    \ bridges) {\n        if (e.from() < e.to())\n            ans.emplace_back(e.from(),\
+    \ e.to());\n        else\n            ans.emplace_back(e.to(), e.from());\n  \
+    \  }\n\n    std::sort(all(ans));\n    for (auto e : ans) { co(e.first, e.second);\
+    \ }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/lowlink.hpp
   - lib/graph/graph.hpp
@@ -47,7 +49,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/bridges.test.cpp
   requiredBy: []
-  timestamp: '2022-03-24 22:43:41+09:00'
+  timestamp: '2022-03-25 03:25:48+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/aoj/grl/bridges.test.cpp

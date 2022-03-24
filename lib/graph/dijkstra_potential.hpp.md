@@ -47,7 +47,7 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_potential.hpp
   requiredBy: []
-  timestamp: '2022-03-24 17:46:31+09:00'
+  timestamp: '2022-03-25 03:25:48+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/dijkstra_potential.hpp

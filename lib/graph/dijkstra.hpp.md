@@ -44,7 +44,7 @@ data:
     \  std::priority_queue<_node, std::vector<_node>, std::greater<>> p_que;\r\n \
     \   dists[s] = T();\r\n    p_que.emplace(s, T());\r\n    while (!p_que.empty())\
     \ {\r\n        auto node = p_que.top();\r\n        p_que.pop();\r\n        if\
-    \ (dists[node.to()] < node.dist()) continue;\r\n        for (auto &e : g[node.to])\
+    \ (dists[node.to()] < node.dist()) continue;\r\n        for (auto &e : g[node.to()])\
     \ {\r\n            if (chmin(dists[e.to()], node.dist() + e.weight()))\r\n   \
     \             p_que.emplace(e.to(), node.dist() + e.weight());\r\n        }\r\n\
     \    }\r\n    return dists;\r\n}\r\n"
@@ -54,7 +54,7 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2022-03-24 17:46:31+09:00'
+  timestamp: '2022-03-25 03:25:48+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/aoj/grl/dijkstra.test.cpp
