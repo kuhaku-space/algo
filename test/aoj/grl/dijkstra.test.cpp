@@ -8,7 +8,7 @@ int main(void) {
     int n, m, r;
     cin >> n >> m >> r;
     Graph<int> g(n);
-    g.input_edge(m, true);
+    g.input_edge(m, 0);
 
     auto dist = dijkstra(g, r, Inf);
     rep(i, n) {

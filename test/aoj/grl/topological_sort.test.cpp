@@ -7,10 +7,10 @@ int main(void) {
     int n, m;
     cin >> n >> m;
     Graph<void> g(n);
-    g.input_edge(m, true);
+    g.input_edge(m, 0);
 
     auto v = topological_sort(g);
-    for (auto e : v) co(e);
+    for (auto &e : v) co(e);
 
     return 0;
 }

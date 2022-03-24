@@ -7,7 +7,7 @@ int main(void) {
     int n, m;
     cin >> n >> m;
     Graph<void> g(n);
-    g.input_edges(m, true);
+    g.input_edges(m, 0);
 
     LowLink llink(g);
 
