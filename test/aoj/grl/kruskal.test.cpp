@@ -11,8 +11,8 @@ int main(void) {
     auto v = kruskal(g);
 
     int ans = 0;
-    for (auto e : v) {
-        ans += e.dist;
+    for (auto &e : v) {
+        ans += e.weight();
     }
     co(ans);
 
