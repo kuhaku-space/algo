@@ -3,7 +3,7 @@
 
 /**
  * @brief 重み付きグラフ
- * 
+ *
  * @tparam T 辺の重みの型
  */
 template <class T>
