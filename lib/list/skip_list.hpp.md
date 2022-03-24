@@ -1,6 +1,15 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':warning:'
+    path: lib/random/split_mix_64.hpp
+    title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
+  - icon: ':warning:'
+    path: lib/random/xorshift.hpp
+    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
+  - icon: ':question:'
+    path: lib/template/template.hpp
+    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -15,11 +24,11 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: random/xorshift.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\n#include \"algorithm/xorshift.hpp\"\n\
-    \ntemplate <class T, int B = 20>\nstruct skip_list {\n    struct Node {\n    \
-    \    T val;\n        Node* itr[B];\n\n        Node(T _val = T()) : val(_val) {\n\
+  code: "#include \"random/xorshift.hpp\"\n#include \"template/template.hpp\"\n\n\
+    template <class T, int B = 20>\nstruct skip_list {\n    struct Node {\n      \
+    \  T val;\n        Node* itr[B];\n\n        Node(T _val = T()) : val(_val) {\n\
     \            for (int i = 0; i < B; ++i) itr[i] = nullptr;\n        }\n    };\n\
     \n    Node* head;\n    Xorshift xor128;\n\n    skip_list() : xor128() { head =\
     \ new Node(); }\n\n    void insert(T val) {\n        int height = 0;\n       \
@@ -41,11 +50,14 @@ data:
     \    }\n\n        int res = 0;\n        while (node->itr[0] && node->itr[0]->val\
     \ == val) {\n            ++res;\n            node = node->itr[0];\n        }\n\
     \        return res;\n    }\n};\n"
-  dependsOn: []
+  dependsOn:
+  - lib/random/xorshift.hpp
+  - lib/random/split_mix_64.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/list/skip_list.hpp
   requiredBy: []
-  timestamp: '1970-01-01 00:00:00+00:00'
+  timestamp: '2022-03-25 03:52:57+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/list/skip_list.hpp

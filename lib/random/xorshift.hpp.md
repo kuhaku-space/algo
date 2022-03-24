@@ -7,7 +7,13 @@ data:
   - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: lib/binary_tree/treap.hpp
+    title: lib/binary_tree/treap.hpp
+  - icon: ':warning:'
+    path: lib/list/skip_list.hpp
+    title: lib/list/skip_list.hpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -50,7 +56,9 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/random/xorshift.hpp
-  requiredBy: []
+  requiredBy:
+  - lib/binary_tree/treap.hpp
+  - lib/list/skip_list.hpp
   timestamp: '2022-03-20 20:49:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
