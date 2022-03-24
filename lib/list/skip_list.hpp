@@ -1,5 +1,5 @@
+#include "random/xorshift.hpp"
 #include "template/template.hpp"
-#include "algorithm/xorshift.hpp"
 
 template <class T, int B = 20>
 struct skip_list {
