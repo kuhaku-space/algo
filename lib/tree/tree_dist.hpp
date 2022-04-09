@@ -11,17 +11,17 @@
  */
 template <class T>
 std::vector<int> tree_dist(const Graph<T> &g, int r = 0) {
-    std::vector<int> res(g.size());
-    std::stack<std::pair<int, int>> st;
+    std::vector<int> res(g.size(), -1);
+    std::stack<int> st;
     res[r] = 0;
-    st.emplace(r, -1);
+    st.emplace(r);
     while (!st.empty()) {
-        auto [index, parent] = st.top();
+        auto index = st.top();
         st.pop();
         for (auto &e : g[index]) {
-            if (e.to() == parent) continue;
+            if (res[e.to()] != -1) continue;
             res[e.to()] = res[index] + e.weight();
-            st.emplace(e.to(), index);
+            st.emplace(e.to());
         }
     }
     return res;
