@@ -2,7 +2,7 @@
 
 template <class Cap>
 struct mf_graph {
-   public:
+  public:
     mf_graph() : _n(0) {}
     mf_graph(int n) : _n(n), g(n) {}
 
@@ -11,9 +11,9 @@ struct mf_graph {
         assert(0 <= to && to < _n);
         assert(0 <= cap);
         int m = int(pos.size());
-        pos.push_back({from, int(g[from].size())});
-        g[from].push_back(_edge{to, int(g[to].size()), cap});
-        g[to].push_back(_edge{from, int(g[from].size()) - 1, 0});
+        pos.emplace_back(from, int(g[from].size()));
+        g[from].emplace_back(to, int(g[to].size()), cap);
+        g[to].emplace_back(from, int(g[from].size()) - 1, 0);
         return m;
     }
 
@@ -29,12 +29,10 @@ struct mf_graph {
         auto _re = g[_e.to][_e.rev];
         return edge{pos[i].first, _e.to, _e.cap + _re.cap, _re.cap};
     }
-    vector<edge> edges() {
+    std::vector<edge> edges() {
         int m = int(pos.size());
-        vector<edge> result;
-        for (int i = 0; i < m; i++) {
-            result.push_back(get_edge(i));
-        }
+        std::vector<edge> result;
+        for (int i = 0; i < m; i++) { result.emplace_back(get_edge(i)); }
         return result;
     }
     void change_edge(int i, Cap new_cap, Cap new_flow) {
@@ -47,19 +45,19 @@ struct mf_graph {
         _re.cap = new_flow;
     }
 
-    Cap flow(int s, int t) { return flow(s, t, numeric_limits<Cap>::max()); }
+    Cap flow(int s, int t) { return flow(s, t, std::numeric_limits<Cap>::max()); }
     Cap flow(int s, int t, Cap flow_limit) {
         assert(0 <= s && s < _n);
         assert(0 <= t && t < _n);
 
-        vector<int> level(_n), iter(_n);
-        queue<int> que;
+        std::vector<int> level(_n), iter(_n);
+        std::queue<int> que;
 
         auto bfs = [&]() {
             fill(level.begin(), level.end(), -1);
             level[s] = 0;
             while (!que.empty()) que.pop();
-            que.push(s);
+            que.emplace(s);
             while (!que.empty()) {
                 int v = que.front();
                 que.pop();
@@ -67,7 +65,7 @@ struct mf_graph {
                     if (e.cap == 0 || level[e.to] >= 0) continue;
                     level[e.to] = level[v] + 1;
                     if (e.to == t) return;
-                    que.push(e.to);
+                    que.emplace(e.to);
                 }
             }
         };
@@ -102,10 +100,10 @@ struct mf_graph {
         return flow;
     }
 
-    vector<bool> min_cut(int s) {
-        vector<bool> visited(_n);
-        queue<int> que;
-        que.push(s);
+    std::vector<bool> min_cut(int s) {
+        std::vector<bool> visited(_n);
+        std::queue<int> que;
+        que.emplace(s);
         while (!que.empty()) {
             int p = que.front();
             que.pop();
@@ -113,19 +111,21 @@ struct mf_graph {
             for (auto e : g[p]) {
                 if (e.cap && !visited[e.to]) {
                     visited[e.to] = true;
-                    que.push(e.to);
+                    que.emplace(e.to);
                 }
             }
         }
         return visited;
     }
 
-   private:
+  private:
     int _n;
     struct _edge {
         int to, rev;
         Cap cap;
+
+        constexpr _edge(int _to, int _rev, Cap _cap) : to(_to), rev(_rev), cap(_cap) {}
     };
-    vector<pair<int, int>> pos;
-    vector<vector<_edge>> g;
+    std::vector<pair<int, int>> pos;
+    std::vector<std::vector<_edge>> g;
 };
