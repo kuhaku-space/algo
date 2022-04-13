@@ -6,14 +6,14 @@
  * @details [参考](https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html)
  *
  * @tparam T
- * @tparam MAXLOG
+ * @tparam L
  */
-template <class T, int MAXLOG = 20>
+template <class T, int L = 20>
 struct wavelet_matrix {
     wavelet_matrix() = default;
     wavelet_matrix(std::vector<T> v) : length(v.size()) {
         std::vector<T> l(length), r(length);
-        for (int level = MAXLOG - 1; level >= 0; --level) {
+        for (int level = L - 1; level >= 0; --level) {
             this->matrix[level] = bit_vector(this->length + 1);
             int left = 0, right = 0;
             for (int i = 0; i < this->length; ++i) {
@@ -33,7 +33,7 @@ struct wavelet_matrix {
 
     T access(int k) const {
         T res = 0;
-        for (int level = MAXLOG - 1; level >= 0; --level) {
+        for (int level = L - 1; level >= 0; --level) {
             bool f = this->matrix[level][k];
             if (f) res |= T(1) << level;
             k = this->matrix[level].rank(f, k) + this->mid[level] * f;
@@ -51,7 +51,7 @@ struct wavelet_matrix {
      */
     int rank(int r, T x) const {
         int l = 0;
-        for (int level = MAXLOG - 1; level >= 0; --slevel) {
+        for (int level = L - 1; level >= 0; --level) {
             std::tie(l, r) = this->succ((x >> level) & 1, l, r, level);
         }
         return r - l;
@@ -78,14 +78,14 @@ struct wavelet_matrix {
     T kth_smallest(int l, int r, int k) const {
         assert(0 <= k && k < r - l);
         T res = 0;
-        for (int level = MAXLOG - 1; level >= 0; --level) {
+        for (int level = L - 1; level >= 0; --level) {
             int cnt = this->matrix[level].rank(false, r) - this->matrix[level].rank(false, l);
             bool f = cnt <= k;
             if (f) {
                 res |= T(1) << level;
                 k -= cnt;
             }
-            tie(l, r) = succ(f, l, r, level);
+            std::tie(l, r) = succ(f, l, r, level);
         }
         return res;
     }
@@ -110,7 +110,7 @@ struct wavelet_matrix {
      */
     int range_freq(int l, int r, T upper) const {
         int res = 0;
-        for (int level = MAXLOG - 1; level >= 0; --level) {
+        for (int level = L - 1; level >= 0; --level) {
             bool f = ((upper >> level) & 1);
             if (f) res += this->matrix[level].rank(false, r) - this->matrix[level].rank(false, l);
             tie(l, r) = this->succ(f, l, r, level);
@@ -159,11 +159,11 @@ struct wavelet_matrix {
 
   private:
     int length;
-    bit_vector matrix[MAXLOG];
-    int mid[MAXLOG];
+    bit_vector matrix[L];
+    int mid[L];
 
     std::pair<int, int> succ(bool f, int l, int r, int level) const {
-        return std::make_pair(this->matrix[level].rank(f, l) + this->mid[level] * f,
-                              this->matrix[level].rank(f, r) + this->mid[level] * f);
+        return {this->matrix[level].rank(f, l) + this->mid[level] * f,
+                this->matrix[level].rank(f, r) + this->mid[level] * f};
     }
 };
