@@ -2,20 +2,34 @@
 
 /**
  * @brief AVL木
- * 
- * @tparam T 
+ *
+ * @tparam T 要素の型
  */
 template <class T>
 struct avl_tree {
+  private:
     struct Node {
+        using pointer = Node *;
         T val;
         int height;
-        Node *left, *right;
+        pointer left, right;
 
         constexpr Node(T _val) : val(_val), height(1), left(nullptr), right(nullptr) {}
 
+        static constexpr int get_height(pointer node) { return node == nullptr ? 0 : node->height; }
+        static constexpr int get_balance_factor(pointer node) const {
+            return node == nullptr ? 0
+                                   : this->get_height(node->left) - this->get_height(node->right);
+        }
+
+        constexpr void set_height() {
+            this->height = std::max(Node::get_height(node->left), Node::get_height(node->right)) + 1
+        }
         constexpr bool is_leaf() const { return this->left == nullptr && this->right == nullptr; }
     };
+
+  public:
+    using node_pointer = typename Node::pointer;
 
     constexpr avl_tree() : root(nullptr) {}
 
@@ -26,7 +40,7 @@ struct avl_tree {
     void erase(T val) { this->root = this->erase(this->root, val); }
 
     bool contains(T val) const {
-        Node *node = this->root;
+        node_pointer node = this->root;
         while (node && node->val != val) {
             if (val < node->val)
                 node = node->left;
@@ -38,57 +52,76 @@ struct avl_tree {
 
     int count(T val) const { return this->count(this->root, val); }
 
-    void dump(T l, T r) const { return this->dump(this->root, l, r); }
-
-  private:
-    Node *root;
-
-    constexpr int get_height(Node *node) const { return node == nullptr ? 0 : node->height; }
-    constexpr int get_balance_factor(Node *node) const {
-        return node == nullptr ? 0 : this->get_height(node->left) - this->get_height(node->right);
+    node_pointer lower_bound(T val) const {
+        node_pointer res = nullptr, node = this->root;
+        while (node) {
+            if (!(node->val < val)) {
+                res = node;
+                node = node->left;
+            } else {
+                node = node->right;
+            }
+        }
+        return res;
     }
 
-    constexpr T get_min_val(Node *node) const {
+    node_pointer upper_bound(T val) const {
+        node_pointer res = nullptr, node = this->root;
+        while (node) {
+            if (val < node->val) {
+                res = node;
+                node = node->left;
+            } else {
+                node = node->right;
+            }
+        }
+        return res;
+    }
+
+  private:
+    node_pointer root;
+
+    constexpr T get_min_val(node_pointer node) const {
         assert(node);
         while (node->left) { node = node->left; }
         return node->val;
     }
 
-    constexpr Node *rotl(Node *node) {
+    constexpr node_pointer rotl(node_pointer node) {
         assert(node);
-        Node *pivot = node->right;
+        node_pointer pivot = node->right;
         assert(pivot);
         node->right = pivot->left;
         pivot->left = node;
-        node->height = max(this->get_height(node->left), this->get_height(node->right)) + 1;
-        pivot->height = max(this->get_height(pivot->left), this->get_height(pivot->right)) + 1;
+        node->set_height();
+        pivot->set_height();
         return pivot;
     }
 
-    constexpr Node *rotr(Node *node) {
+    constexpr node_pointer rotr(node_pointer node) {
         assert(node);
-        Node *pivot = node->left;
+        node_pointer pivot = node->left;
         assert(pivot);
         node->left = pivot->right;
         pivot->right = node;
-        node->height = max(this->get_height(node->left), this->get_height(node->right)) + 1;
-        pivot->height = max(this->get_height(pivot->left), this->get_height(pivot->right)) + 1;
+        node->set_height();
+        pivot->set_height();
         return pivot;
     }
 
-    constexpr Node *rotlr(Node *node) {
+    constexpr node_pointer rotlr(node_pointer node) {
         node->left = this->rotl(node->left);
         node = this->rotr(node);
         return node;
     }
 
-    constexpr Node *rotrl(Node *node) {
+    constexpr node_pointer rotrl(node_pointer node) {
         node->right = this->rotr(node->right);
         node = this->rotl(node);
         return node;
     }
 
-    constexpr Node *rotate(Node *node) {
+    constexpr node_pointer rotate(node_pointer node) {
         int bf = this->get_balance_factor(node);
         if (bf < -1) {
             if (this->get_balance_factor(node->right) >= 1)
@@ -101,12 +134,12 @@ struct avl_tree {
             else
                 node = this->rotr(node);
         } else {
-            node->height = max(this->get_height(node->left), this->get_height(node->right)) + 1;
+            node->set_height();
         }
         return node;
     }
 
-    constexpr Node *insert(Node *node, T val) {
+    constexpr node_pointer insert(node_pointer node, T val) {
         if (node == nullptr) return new Node(val);
         if (val < node->val)
             node->left = this->insert(node->left, val);
@@ -116,7 +149,7 @@ struct avl_tree {
         return this->rotate(node);
     }
 
-    constexpr Node *erase(Node *node, T val) {
+    constexpr node_pointer erase(node_pointer node, T val) {
         if (node == nullptr) return nullptr;
         if (val < node->val) {
             node->left = this->erase(node->left, val);
@@ -133,24 +166,17 @@ struct avl_tree {
         return this->rotate(node);
     }
 
-    constexpr Node *erase_min(Node *node) {
+    constexpr node_pointer erase_min(node_pointer node) {
         if (node->left == nullptr) return node->right;
         node->left = this->erase_min(node->left);
         return this->rotate(node);
     }
 
-    int count(Node *node, T val) const {
+    int count(node_pointer node, T val) const {
         if (node == nullptr) return 0;
         int res = node->val == val;
         if (!(node->val < val)) res += this->count(node->left, val);
         if (!(val < node->val)) res += this->count(node->right, val);
         return res;
-    }
-
-    void dump(Node *node, T l, T r) const {
-        if (node == nullptr) return;
-        if (!(node->val < l)) this->dump(node->left, l, r);
-        if (!(node->val < l) && !(r < node->val)) cout << node->val << '\n';
-        if (!(r < node->val)) this->dump(node->right, l, r);
     }
 };
