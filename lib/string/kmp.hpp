@@ -16,10 +16,8 @@ struct KMP {
         int j = -1;
         for (int i = 0; i < s.size(); ++i) {
             while (j >= 0 && s[i] != s[j]) j = data[j];
-            if (s[i + 1] == s[++j])
-                data[i + 1] = data[j];
-            else
-                data[i + 1] = j;
+            if (s[i + 1] == s[++j]) data[i + 1] = data[j];
+            else data[i + 1] = j;
         }
     }
 

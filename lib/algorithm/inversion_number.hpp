@@ -4,7 +4,7 @@
 
 /**
  * @brief 転倒数を求める
- * 
+ *
  * @tparam T 配列の方
  * @param v 配列
  * @return int64_t 転倒数

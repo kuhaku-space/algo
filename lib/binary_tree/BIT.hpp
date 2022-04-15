@@ -2,8 +2,8 @@
 
 /**
  * @brief フェニック木
- * 
- * @tparam T 
+ *
+ * @tparam T
  */
 template <class T>
 struct BIT {

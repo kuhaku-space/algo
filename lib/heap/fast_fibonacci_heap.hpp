@@ -17,10 +17,8 @@ struct fibonacci_heap {
 
         void add_child(pointer node) {
             node->parent = this;
-            if (this->child)
-                this->child->insert_left(node);
-            else
-                this->child = node;
+            if (this->child) this->child->insert_left(node);
+            else this->child = node;
             ++(this->order);
         }
         void insert_left(pointer node) {
@@ -98,10 +96,8 @@ struct fibonacci_heap {
     }
 
     void update(node_pointer node, Value value) {
-        if (Comp()(node->value, value))
-            node->value = value;
-        else
-            return;
+        if (Comp()(node->value, value)) node->value = value;
+        else return;
         if (!node->parent) {
             if (Comp()(this->_root->value, value)) this->_root = node;
             return;

@@ -20,8 +20,7 @@ struct Z_algorithm {
                 continue;
             }
             int k = 1;
-            while (i + k < s.size() && k + data[k] < j)
-                data[i + k] = data[k], ++k;
+            while (i + k < s.size() && k + data[k] < j) data[i + k] = data[k], ++k;
             i += k, j -= k;
         }
     }

@@ -48,10 +48,8 @@ struct radix_heap {
     }
 
     void update(node_pointer node, Value value) {
-        if (value < node->value)
-            node->value = value;
-        else
-            return;
+        if (value < node->value) node->value = value;
+        else return;
         this->v[node->index].erase(node);
         node->index = this->find_bucket(value ^ this->_last);
         this->v[this->find_bucket(value ^ this->_last)].emplace(node);
@@ -71,21 +69,16 @@ struct radix_heap {
         static_assert(std::is_integral_v<U>);
         if constexpr (std::is_signed_v<U>)
             return this->clz_unsigned(std::make_unsigned_t<U>(x)) - 1;
-        else
-            return this->clz_unsigned(x);
+        else return this->clz_unsigned(x);
     }
 
     template <class U>
     int clz_unsigned(U x) const {
         static_assert(std::is_integral_v<U> && std::is_unsigned_v<U>);
-        if constexpr (std::is_same_v<U, unsigned int>)
-            return __builtin_clz(x);
-        else if constexpr (std::is_same_v<U, unsigned long>)
-            return __builtin_clzl(x);
-        else if constexpr (std::is_same_v<U, unsigned long long>)
-            return __builtin_clzll(x);
-        else
-            return -1;
+        if constexpr (std::is_same_v<U, unsigned int>) return __builtin_clz(x);
+        else if constexpr (std::is_same_v<U, unsigned long>) return __builtin_clzl(x);
+        else if constexpr (std::is_same_v<U, unsigned long long>) return __builtin_clzll(x);
+        else return -1;
     }
 
     void relocate() {
@@ -145,21 +138,16 @@ struct radix_heap<T, void> {
         static_assert(std::is_integral_v<U>);
         if constexpr (std::is_signed_v<U>)
             return this->clz_unsigned(std::make_unsigned_t<U>(x)) - 1;
-        else
-            return this->clz_unsigned(x);
+        else return this->clz_unsigned(x);
     }
 
     template <class U>
     int clz_unsigned(U x) const {
         static_assert(std::is_integral_v<U> && std::is_unsigned_v<U>);
-        if constexpr (std::is_same_v<U, unsigned int>)
-            return __builtin_clz(x);
-        else if constexpr (std::is_same_v<U, unsigned long>)
-            return __builtin_clzl(x);
-        else if constexpr (std::is_same_v<U, unsigned long long>)
-            return __builtin_clzll(x);
-        else
-            return -1;
+        if constexpr (std::is_same_v<U, unsigned int>) return __builtin_clz(x);
+        else if constexpr (std::is_same_v<U, unsigned long>) return __builtin_clzl(x);
+        else if constexpr (std::is_same_v<U, unsigned long long>) return __builtin_clzll(x);
+        else return -1;
     }
 
     void relocate() {

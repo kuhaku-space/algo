@@ -22,10 +22,10 @@ struct rolling_hash {
 
     /**
      * @brief get hash of s[l...r]
-     * 
+     *
      * @param l first index
      * @param r last index
-     * @return std::uint64_t 
+     * @return std::uint64_t
      */
     std::uint64_t get(int l, int r) const {
         return this->_mod(this->data[r] + this->mod * 4 -
@@ -34,9 +34,9 @@ struct rolling_hash {
 
     /**
      * @brief search string
-     * 
-     * @param s 
-     * @return std::vector<int> 
+     *
+     * @param s
+     * @return std::vector<int>
      */
     std::vector<int> search(const std::string &s) {
         std::vector<int> res;

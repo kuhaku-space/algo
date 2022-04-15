@@ -6,9 +6,7 @@ struct matrix_graph {
     int V;
     vector<vector<T>> m;
 
-    matrix_graph(int v, T _e = T()) : V(v) {
-        m = vector<vector<T>>(V, vector<T>(V, _e));
-    }
+    matrix_graph(int v, T _e = T()) : V(v) { m = vector<vector<T>>(V, vector<T>(V, _e)); }
 
     const auto &operator[](int i) const { return m[i]; }
     auto &operator[](int i) { return m[i]; }

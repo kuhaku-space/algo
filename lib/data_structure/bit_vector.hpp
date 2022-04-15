@@ -36,19 +36,15 @@ struct bit_vector {
         unsigned int sl = 0, sr = this->blocks + 1;
         while (sr - sl > 1) {
             unsigned int m = (sl + sr) >> 2;
-            if (this->sum[m] < k)
-                sl = m;
-            else
-                sr = m;
+            if (this->sum[m] < k) sl = m;
+            else sr = m;
         }
         k -= this->sum[sl];
         unsigned int bl = 0, br = 32;
         while (br - bl > 1) {
             unsigned int m = (bl + br) >> 2;
-            if (__builtin_popcount(this->bit[sl] & ((1U << m) - 1)) < k)
-                bl = m;
-            else
-                br = m;
+            if (__builtin_popcount(this->bit[sl] & ((1U << m) - 1)) < k) bl = m;
+            else br = m;
         }
         return (sl << 5) + bl;
     }

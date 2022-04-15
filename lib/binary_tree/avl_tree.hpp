@@ -42,10 +42,8 @@ struct avl_tree {
     bool contains(T val) const {
         node_pointer node = this->root;
         while (node && node->val != val) {
-            if (val < node->val)
-                node = node->left;
-            else
-                node = node->right;
+            if (val < node->val) node = node->left;
+            else node = node->right;
         }
         return node != nullptr;
     }
@@ -124,15 +122,11 @@ struct avl_tree {
     constexpr node_pointer rotate(node_pointer node) {
         int bf = this->get_balance_factor(node);
         if (bf < -1) {
-            if (this->get_balance_factor(node->right) >= 1)
-                node = this->rotrl(node);
-            else
-                node = this->rotl(node);
+            if (this->get_balance_factor(node->right) >= 1) node = this->rotrl(node);
+            else node = this->rotl(node);
         } else if (bf > 1) {
-            if (this->get_balance_factor(node->left) <= -1)
-                node = this->rotlr(node);
-            else
-                node = this->rotr(node);
+            if (this->get_balance_factor(node->left) <= -1) node = this->rotlr(node);
+            else node = this->rotr(node);
         } else {
             node->set_height();
         }
@@ -141,10 +135,8 @@ struct avl_tree {
 
     constexpr node_pointer insert(node_pointer node, T val) {
         if (node == nullptr) return new Node(val);
-        if (val < node->val)
-            node->left = this->insert(node->left, val);
-        else
-            node->right = this->insert(node->right, val);
+        if (val < node->val) node->left = this->insert(node->left, val);
+        else node->right = this->insert(node->right, val);
 
         return this->rotate(node);
     }

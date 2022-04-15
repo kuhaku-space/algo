@@ -3,7 +3,7 @@
 
 /**
  * @brief Treap
- * 
+ *
  * @tparam T 要素の型
  * @tparam UniformRandomBitGenerator 疑似乱数生成器
  */
@@ -32,10 +32,8 @@ struct Treap {
     bool contains(T val) const {
         node_pointer node = this->root;
         while (node && node->val != val) {
-            if (val < node->val)
-                node = node->left;
-            else
-                node = node->right;
+            if (val < node->val) node = node->left;
+            else node = node->right;
         }
         return node != nullptr;
     }
@@ -81,10 +79,8 @@ struct Treap {
 
     constexpr node_pointer insert(node_pointer node, T val) {
         if (node == nullptr) return new Node(val, this->gen());
-        if (val < node->val)
-            node->left = this->insert(node->left, val);
-        else
-            node->right = this->insert(node->right, val);
+        if (val < node->val) node->left = this->insert(node->left, val);
+        else node->right = this->insert(node->right, val);
         return this->rotate(node);
     }
 
