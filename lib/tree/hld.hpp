@@ -56,10 +56,8 @@ struct HLD {
         while (true) {
             if (this->vid[u] > this->vid[v]) swap(u, v);
             f(max(this->vid[this->nxt[v]], this->vid[u]), this->vid[v] + 1);
-            if (this->nxt[u] != this->nxt[v])
-                v = this->par[this->nxt[v]];
-            else
-                break;
+            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];
+            else break;
         }
     }
 

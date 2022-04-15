@@ -34,10 +34,8 @@ std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limit
         if (dists[to] < dist) continue;
         for (auto &e : g[to]) {
             if (chmin(dists[e.to()], dist + e.weight())) {
-                if (!nodes[e.to()])
-                    nodes[e.to()] = heap.push(e.to(), dist + e.weight());
-                else
-                    heap.update(nodes[e.to()], dist + e.weight());
+                if (!nodes[e.to()]) nodes[e.to()] = heap.push(e.to(), dist + e.weight());
+                else heap.update(nodes[e.to()], dist + e.weight());
             }
         }
     }

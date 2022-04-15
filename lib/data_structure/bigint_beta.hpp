@@ -17,10 +17,8 @@ struct BigInt {
         reverse(s.begin(), s.end());
         if (flg) s.pop_back(), data.pop_back();
         for (int i = 0; i < s.size(); ++i) {
-            if (flg)
-                data[i] = -(s[i] - '0');
-            else
-                data[i] = s[i] - '0';
+            if (flg) data[i] = -(s[i] - '0');
+            else data[i] = s[i] - '0';
         }
     }
 
@@ -71,10 +69,8 @@ struct BigInt {
         string s;
         bool flg = rhs.is_negative();
         for (auto i : rhs.data) {
-            if (flg)
-                s.push_back(char('0' - i));
-            else
-                s.push_back(char('0' + i));
+            if (flg) s.push_back(char('0' - i));
+            else s.push_back(char('0' + i));
         }
         if (rhs.is_negative()) s.push_back('-');
         reverse(s.begin(), s.end());

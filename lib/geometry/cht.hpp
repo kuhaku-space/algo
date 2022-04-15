@@ -19,9 +19,7 @@ struct CHT {
 
     void add(T a, T b) {
         pair<T, T> line(a, b);
-        while (lines.size() >= 2 &&
-               check(*(lines.end() - 2), lines.back(), line))
-            lines.pop_back();
+        while (lines.size() >= 2 && check(*(lines.end() - 2), lines.back(), line)) lines.pop_back();
         lines.emplace_back(line);
     }
 
@@ -36,10 +34,8 @@ struct CHT {
         int low = -1, high = lines.size() - 1;
         while (high - low > 1) {
             int mid = (high + low) / 2;
-            if (comp(f(mid, x), f(mid + 1, x)))
-                low = mid;
-            else
-                high = mid;
+            if (comp(f(mid, x), f(mid + 1, x))) low = mid;
+            else high = mid;
         }
         return f(high, x);
     }

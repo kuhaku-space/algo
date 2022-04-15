@@ -2,7 +2,7 @@
 
 /**
  * @brief 最長増加部分列
- * 
+ *
  * @tparam T 配列の型
  * @param v 配列
  * @return int 最長増加部分列の長さ
@@ -13,10 +13,8 @@ int LIS(const vector<T> &v) {
     vector<T> dp;
     for (int i = 0; i < n; ++i) {
         auto it = lower_bound(dp.begin(), dp.end(), v[i]);
-        if (it == dp.end())
-            dp.emplace_back(v[i]);
-        else
-            *it = v[i];
+        if (it == dp.end()) dp.emplace_back(v[i]);
+        else *it = v[i];
     }
     return dp.size();
 }

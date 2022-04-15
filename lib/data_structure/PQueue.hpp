@@ -2,8 +2,8 @@
 
 /**
  * @brief 削除付き優先順位付きキュー
- * 
- * @tparam T 
+ *
+ * @tparam T
  */
 template <class T>
 struct PQueue {

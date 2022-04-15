@@ -39,9 +39,7 @@ struct Mo {
 
     void distribute(int idx) {
         this->contains[idx] = !this->contains[idx];
-        if (this->contains[idx])
-            this->add(idx);
-        else
-            this->del(idx);
+        if (this->contains[idx]) this->add(idx);
+        else this->del(idx);
     }
 };

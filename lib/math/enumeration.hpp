@@ -11,10 +11,8 @@ struct Enumeration {
     mint stirling(int n, int k) {
         mint res = 0;
         for (int i = 0; i < k; ++i) {
-            if (i & 1)
-                res -= this->combi(k, k - i) * mint(k - i).pow(n);
-            else
-                res += this->combi(k, k - i) * mint(k - i).pow(n);
+            if (i & 1) res -= this->combi(k, k - i) * mint(k - i).pow(n);
+            else res += this->combi(k, k - i) * mint(k - i).pow(n);
         }
         res *= this->combi.finv(k);
         return res;
@@ -38,12 +36,9 @@ struct Enumeration {
         int m = this->data.size();
         this->data.resize(n + 1);
         for (int i = m; i <= n; ++i) {
-            if (i == 0)
-                this->data[i] = 1;
-            else if (i & 1)
-                this->data[i] = this->data[i - 1] - this->combi.finv(i);
-            else
-                this->data[i] = this->data[i - 1] + this->combi.finv(i);
+            if (i == 0) this->data[i] = 1;
+            else if (i & 1) this->data[i] = this->data[i - 1] - this->combi.finv(i);
+            else this->data[i] = this->data[i - 1] + this->combi.finv(i);
         }
     }
 };
