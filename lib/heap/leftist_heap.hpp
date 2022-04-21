@@ -2,7 +2,7 @@
 
 /**
  * @brief leftist heap
- * 
+ *
  * @tparam T 要素の型
  */
 template <class T>

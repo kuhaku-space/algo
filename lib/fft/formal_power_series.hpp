@@ -1,6 +1,6 @@
-#include "template/template.hpp"
-#include "math/modint.hpp"
 #include "fft/ntt.hpp"
+#include "math/modint.hpp"
+#include "template/template.hpp"
 
 template <class T>
 struct formal_power_series {
@@ -35,9 +35,7 @@ struct formal_power_series {
         vector<T> ans(n);
         for (int64_t i = 0; i < a.size(); ++i) {
             if (a[i] == 0) continue;
-            for (int64_t j = 0; j < size(); ++j) {
-                ans[i + j] += data[j] * a[i];
-            }
+            for (int64_t j = 0; j < size(); ++j) { ans[i + j] += data[j] * a[i]; }
         }
         swap(data, ans);
     }

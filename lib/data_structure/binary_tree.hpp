@@ -7,8 +7,7 @@ struct binary_tree {
         int left, right;
 
         node() : key(numeric_limits<T>::max()), left(), right() {}
-        node(T _key, int64_t _left, int64_t _right)
-            : key(_key), left(_left), right(_right) {}
+        node(T _key, int64_t _left, int64_t _right) : key(_key), left(_left), right(_right) {}
     };
 
     int size;
@@ -20,12 +19,9 @@ struct binary_tree {
 
     const int find(T key) const {
         int it = 0;
-        while (nodes[it].key != numeric_limits<T>::max() &&
-               nodes[it].key != key) {
-            if (key < nodes[it].key)
-                it = nodes[it].left;
-            else
-                it = nodes[it].right;
+        while (nodes[it].key != numeric_limits<T>::max() && nodes[it].key != key) {
+            if (key < nodes[it].key) it = nodes[it].left;
+            else it = nodes[it].right;
         }
         return it;
     }

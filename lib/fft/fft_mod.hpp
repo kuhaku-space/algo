@@ -32,9 +32,7 @@ void _fft(valarray<CP> &a, bool inv) {
             }
         }
     }
-    if (inv) {
-        a /= N;
-    }
+    if (inv) { a /= N; }
 }
 
 template <class T>

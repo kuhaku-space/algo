@@ -2,8 +2,8 @@
 
 /**
  * @brief ダブリング
- * 
- * @tparam L 
+ *
+ * @tparam L
  */
 template <int L>
 struct Doubling {

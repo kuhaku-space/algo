@@ -3,8 +3,8 @@
 
 /**
  * @brief フェニック木（区間加算、区間総和）
- * 
- * @tparam T 
+ *
+ * @tparam T
  */
 template <class T>
 struct BIT_RSQ {

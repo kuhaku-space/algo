@@ -1,7 +1,4 @@
 #pragma once
-#pragma GCC target("avx")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
 #include "template/template.hpp"
 using ll = int64_t;
 using ld = long double;
@@ -39,5 +36,9 @@ auto make_vector(T x, int arg, Args ...args) {
 }
 void sonic() { std::ios::sync_with_stdio(false); std::cin.tie(nullptr); }
 void setp(const int n) { std::cout<<std::fixed<<std::setprecision(n); }
-void Yes(bool is_correct) { std::cout<<(is_correct?"Yes":"No")<<std::endl; }
-void YES(bool is_correct) { std::cout<<(is_correct?"YES":"NO")<<std::endl; }
+void Yes(bool is_correct=true) { std::cout<<(is_correct?"Yes":"No")<<std::endl; }
+void No(bool is_not_correct=true) { Yes(!is_not_correct); }
+void YES(bool is_correct=true) { std::cout<<(is_correct?"YES":"NO")<<std::endl; }
+void NO(bool is_not_correct=true) { YES(!is_not_correct); }
+void Takahashi(bool is_correct=true) { std::cout<<(is_correct?"Takahashi":"Aoki")<<std::endl; }
+void Aoki(bool is_not_correct=true) { Takahashi(!is_not_correct); }

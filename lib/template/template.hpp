@@ -1,4 +1,7 @@
 #pragma once
+#pragma GCC target("avx2,bmi2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
 using namespace std;
 template <class T, class U>
@@ -14,4 +17,4 @@ constexpr int Inf = 1000000003;
 constexpr int MOD = 1000000007;
 constexpr int MOD_N = 998244353;
 constexpr double EPS = 1e-7;
-const double PI = acos(-1.0);
+constexpr double PI = M_PI;

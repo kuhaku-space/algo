@@ -1,18 +1,17 @@
-#include "template/template.hpp"
 #include "graph/graph.hpp"
+#include "template/template.hpp"
 
 /**
  * @brief ベルマンフォード法
- * 
- * @tparam T 
+ *
+ * @tparam T
  * @param graph グラフ
  * @param s 始点
- * @param inf 
- * @return std::vector<T> 
+ * @param inf
+ * @return std::vector<T>
  */
 template <class T>
-std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0,
-                       T inf = numeric_limits<T>::max()) {
+std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = numeric_limits<T>::max()) {
     int n = graph.size();
     std::vector<T> dists(n, inf);
     dists[s] = T();

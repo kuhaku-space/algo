@@ -28,9 +28,7 @@ struct kdtree {
     }
 
     int make(int l, int r, int depth) {
-        if (l == r) {
-            return -1;
-        }
+        if (l == r) { return -1; }
         if (r - l == 1) {
             int res = nodes.size();
             nodes.emplace_back(Node{-1, -1, points[l]});
@@ -38,11 +36,13 @@ struct kdtree {
         }
         int mid = (l + r) >> 1;
         if (depth & 1) {
-            sort(points.begin() + l, points.begin() + r,
-                 [](const Point &a, const Point &b) { return a.x < b.x; });
+            sort(points.begin() + l, points.begin() + r, [](const Point &a, const Point &b) {
+                return a.x < b.x;
+            });
         } else {
-            sort(points.begin() + l, points.begin() + r,
-                 [](const Point &a, const Point &b) { return a.y < b.y; });
+            sort(points.begin() + l, points.begin() + r, [](const Point &a, const Point &b) {
+                return a.y < b.y;
+            });
         }
         int res = nodes.size();
         nodes.emplace_back(Node{});
@@ -82,9 +82,7 @@ struct kdtree {
     vector<int> find(int idx, int sx, int tx, int sy, int ty, int depth) {
         vector<int> res;
         Point &p = nodes[idx].p;
-        if (sx <= p.x && p.x < tx && sy <= p.y && p.y < ty) {
-            res.emplace_back(p.id);
-        }
+        if (sx <= p.x && p.x < tx && sy <= p.y && p.y < ty) { res.emplace_back(p.id); }
 
         if (depth & 1) {
             if (nodes[idx].left != -1 && sx <= p.x) {
@@ -107,7 +105,5 @@ struct kdtree {
         }
         return res;
     }
-    vector<int> find(int sx, int tx, int sy, int ty) {
-        return find(0, sx, tx, sy, ty, 0);
-    }
+    vector<int> find(int sx, int tx, int sy, int ty) { return find(0, sx, tx, sy, ty, 0); }
 };

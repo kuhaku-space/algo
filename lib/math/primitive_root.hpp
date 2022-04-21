@@ -1,5 +1,5 @@
-#include "template/template.hpp"
 #include "math/pow.hpp"
+#include "template/template.hpp"
 
 int get_primitive_root(const int mod) {
     if (mod == 998244353) return 3;

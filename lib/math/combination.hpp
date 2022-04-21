@@ -45,12 +45,9 @@ struct Combination {
             for (int i = 0; i < mod; ++i) v[i][0] = 1;
             for (int i = 0; i < mod; ++i) {
                 for (int j = 1; j < mod; ++j) {
-                    if (i < j)
-                        v[i][j] = 0;
-                    else if (i - j < j)
-                        v[i][j] = v[i][i - j];
-                    else
-                        v[i][j] = v[i][j - 1] * mint(i + 1 - j) / mint(j);
+                    if (i < j) v[i][j] = 0;
+                    else if (i - j < j) v[i][j] = v[i][i - j];
+                    else v[i][j] = v[i][j - 1] * mint(i + 1 - j) / mint(j);
                 }
             }
         }
@@ -76,10 +73,8 @@ struct Combination {
         int m = this->_fact.size();
         this->_fact.resize(n + 1);
         for (int i = m; i <= n; ++i) {
-            if (i == 0)
-                this->_fact[i] = 1;
-            else
-                this->_fact[i] = this->_fact[i - 1] * i;
+            if (i == 0) this->_fact[i] = 1;
+            else this->_fact[i] = this->_fact[i - 1] * i;
         }
         this->_finv.resize(n + 1);
         this->_finv[n] = this->_fact[n].inverse();

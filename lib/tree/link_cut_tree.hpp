@@ -32,23 +32,17 @@ struct link_cut_tree {
             while (!is_root()) {
                 node_t *q = pp;
                 if (q->is_root()) {
-                    if (q->lp == this)
-                        rotr();
-                    else
-                        rotl();
+                    if (q->lp == this) rotr();
+                    else rotl();
                 } else {
                     node_t *r = q->pp;
                     if (r->lp == q) {
-                        if (q->lp == this)
-                            q->rotr(), rotr();
-                        else
-                            rotl(), rotr();
+                        if (q->lp == this) q->rotr(), rotr();
+                        else rotl(), rotr();
 
                     } else {
-                        if (q->rp == this)
-                            q->rotl(), rotl();
-                        else
-                            rotr(), rotl();
+                        if (q->rp == this) q->rotl(), rotl();
+                        else rotr(), rotl();
                     }
                 }
             }

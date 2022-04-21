@@ -40,15 +40,11 @@ int chromatic_number(const matrix_graph<bool> &G) {
         int mid = (low + high) >> 1;
         int64_t g = 0;
         for (int s = 0; s < 1 << n; ++s) {
-            if ((n - __builtin_popcount(s)) & 1)
-                g = _mod(g + _MOD - _pow(_mod, v[s], mid));
-            else
-                g = _mod(g + _pow(_mod, v[s], mid));
+            if ((n - __builtin_popcount(s)) & 1) g = _mod(g + _MOD - _pow(_mod, v[s], mid));
+            else g = _mod(g + _pow(_mod, v[s], mid));
         }
-        if (g != 0)
-            high = mid;
-        else
-            low = mid;
+        if (g != 0) high = mid;
+        else low = mid;
     }
     return high;
 }

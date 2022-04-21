@@ -2,7 +2,7 @@
 
 /**
  * @brief 二分ヒープ
- * 
+ *
  * @tparam Key キーの型
  * @tparam Value 値の型
  * @tparam Comp 比較オブジェクト
@@ -69,10 +69,8 @@ struct binary_heap {
     }
 
     void update(node_pointer node, Value value) {
-        if (comp(node->value, value))
-            node->value = value;
-        else
-            return;
+        if (comp(node->value, value)) node->value = value;
+        else return;
         int index = node->get_index();
         while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value)) {
             swap(this->nodes[index], this->nodes[index >> 1]);
