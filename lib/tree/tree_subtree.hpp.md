@@ -15,32 +15,32 @@ data:
   attributes:
     document_title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
   code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
     /**\r\n * @brief \u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B\
-    \r\n * \r\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\n * @param g \u30B0\
-    \u30E9\u30D5\r\n * @param r \u6839\r\n * @return std::vector<int> \r\n */\r\n\
-    template <class T>\r\nstd::vector<int> tree_subtree(const Graph<T> &g, int r =\
-    \ 0) {\r\n    std::vector<int> res(g.size());\r\n    auto dfs = [&g, &res](auto\
-    \ &&self, int index, int parent) {\r\n        res[index] = 1;\r\n        for (auto\
-    \ &e : g[index]) {\r\n            if (e.to() == parent) continue;\r\n        \
-    \    res[index] += self(self, e.to(), index);\r\n        }\r\n        return res[index];\r\
-    \n    };\r\n    dfs(dfs, r, -1);\r\n    return res;\r\n}\r\n"
+    \r\n *\r\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\n * @param g \u30B0\
+    \u30E9\u30D5\r\n * @param r \u6839\r\n * @return std::vector<int>\r\n */\r\ntemplate\
+    \ <class T>\r\nstd::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {\r\
+    \n    std::vector<int> res(g.size());\r\n    auto dfs = [&g, &res](auto self,\
+    \ int index) {\r\n        res[index] = 1;\r\n        for (auto &e : g[index])\
+    \ {\r\n            if (res[e.to()] != 0) continue;\r\n            res[index] +=\
+    \ self(self, e.to());\r\n        }\r\n        return res[index];\r\n    };\r\n\
+    \    dfs(dfs, r);\r\n    return res;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/tree_subtree.hpp
   requiredBy: []
-  timestamp: '2022-03-25 03:44:38+09:00'
+  timestamp: '2022-04-14 07:10:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/tree_subtree.hpp

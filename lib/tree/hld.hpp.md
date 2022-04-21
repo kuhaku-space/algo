@@ -16,12 +16,12 @@ data:
     document_title: HLD
     links:
     - https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp)
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -47,23 +47,22 @@ data:
     \n        }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each(int u,\
     \ int v, const F &f) {\r\n        while (true) {\r\n            if (this->vid[u]\
     \ > this->vid[v]) swap(u, v);\r\n            f(max(this->vid[this->nxt[v]], this->vid[u]),\
-    \ this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v])\r\n    \
-    \            v = this->par[this->nxt[v]];\r\n            else\r\n            \
-    \    break;\r\n        }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each_edge(int\
-    \ u, int v, const F &f) {\r\n        while (true) {\r\n            if (this->vid[u]\
-    \ > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u] != this->nxt[v])\
-    \ {\r\n                f(this->vid[this->nxt[v]], this->vid[v] + 1);\r\n     \
-    \           v = this->par[this->nxt[v]];\r\n            } else {\r\n         \
-    \       if (u != v) f(this->vid[u] + 1, this->vid[v] + 1);\r\n               \
-    \ break;\r\n            }\r\n        }\r\n    }\r\n\r\n  private:\r\n    vector<vector<int>>\
-    \ g;\r\n\r\n    // vid: vertex -> idx\r\n    // inv: idx -> vertex\r\n    vector<int>\
-    \ vid, nxt, sub, par, inv;\r\n};\r\n"
+    \ this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];\r\
+    \n            else break;\r\n        }\r\n    }\r\n\r\n    template <class F>\r\
+    \n    void for_each_edge(int u, int v, const F &f) {\r\n        while (true) {\r\
+    \n            if (this->vid[u] > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u]\
+    \ != this->nxt[v]) {\r\n                f(this->vid[this->nxt[v]], this->vid[v]\
+    \ + 1);\r\n                v = this->par[this->nxt[v]];\r\n            } else\
+    \ {\r\n                if (u != v) f(this->vid[u] + 1, this->vid[v] + 1);\r\n\
+    \                break;\r\n            }\r\n        }\r\n    }\r\n\r\n  private:\r\
+    \n    vector<vector<int>> g;\r\n\r\n    // vid: vertex -> idx\r\n    // inv: idx\
+    \ -> vertex\r\n    vector<int> vid, nxt, sub, par, inv;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/hld.hpp
   requiredBy: []
-  timestamp: '2022-01-14 02:20:15+09:00'
+  timestamp: '2022-04-16 04:10:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/hld.test.cpp

@@ -34,12 +34,12 @@ data:
     document_title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\
       \uFF09"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
@@ -58,10 +58,9 @@ data:
     \    dists[s] = T();\n    heap.emplace(s, T());\n    while (!heap.empty()) {\n\
     \        auto [to, dist] = heap.top();\n        heap.pop();\n        if (dists[to]\
     \ < dist) continue;\n        for (auto &e : g[to]) {\n            if (chmin(dists[e.to()],\
-    \ dist + e.weight())) {\n                if (!nodes[e.to()])\n               \
-    \     nodes[e.to()] = heap.push(e.to(), dist + e.weight());\n                else\n\
-    \                    heap.update(nodes[e.to()], dist + e.weight());\n        \
-    \    }\n        }\n    }\n    return dists;\n}\n"
+    \ dist + e.weight())) {\n                if (!nodes[e.to()]) nodes[e.to()] = heap.push(e.to(),\
+    \ dist + e.weight());\n                else heap.update(nodes[e.to()], dist +\
+    \ e.weight());\n            }\n        }\n    }\n    return dists;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
@@ -71,12 +70,12 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_heap.hpp
   requiredBy: []
-  timestamp: '2022-03-25 03:44:38+09:00'
+  timestamp: '2022-04-16 04:10:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
 documentation_of: lib/graph/dijkstra_heap.hpp
 layout: document
 redirect_from:

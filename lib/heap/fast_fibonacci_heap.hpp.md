@@ -11,12 +11,12 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -28,22 +28,22 @@ data:
     \ child() {}\n        _node(Key _key, Value _value)\n            : key(_key),\
     \ value(_value), order(), left(this), right(this), parent(), child() {}\n\n  \
     \      void add_child(pointer node) {\n            node->parent = this;\n    \
-    \        if (this->child)\n                this->child->insert_left(node);\n \
-    \           else\n                this->child = node;\n            ++(this->order);\n\
-    \        }\n        void insert_left(pointer node) {\n            node->right\
-    \ = this;\n            node->left = this->left;\n            this->left->right\
-    \ = node;\n            this->left = node;\n        }\n\n        pointer erase()\
-    \ {\n            this->parent = nullptr;\n            if (this->left == this)\
-    \ return nullptr;\n            this->left->right = this->right;\n            this->right->left\
-    \ = this->left;\n            auto res = this->left;\n            this->left =\
-    \ this->right = this;\n            return res;\n        }\n    };\n\n  public:\n\
-    \    using node_pointer = typename _node::pointer;\n\n    fibonacci_heap() : _root(nullptr),\
-    \ _size() {}\n\n    bool empty() const { return this->_size == 0; }\n\n    pair<Key,\
-    \ Value> top() const { return make_pair(this->_root->key, this->_root->value);\
-    \ }\n\n    auto push(Key key, Value value) {\n        ++(this->_size);\n     \
-    \   auto node = new _node(key, value);\n        if (!this->_root) {\n        \
-    \    this->_root = node;\n        } else {\n            this->_root->insert_left(node);\n\
-    \            if (Comp()(this->_root->value, value)) this->_root = this->_root->left;\n\
+    \        if (this->child) this->child->insert_left(node);\n            else this->child\
+    \ = node;\n            ++(this->order);\n        }\n        void insert_left(pointer\
+    \ node) {\n            node->right = this;\n            node->left = this->left;\n\
+    \            this->left->right = node;\n            this->left = node;\n     \
+    \   }\n\n        pointer erase() {\n            this->parent = nullptr;\n    \
+    \        if (this->left == this) return nullptr;\n            this->left->right\
+    \ = this->right;\n            this->right->left = this->left;\n            auto\
+    \ res = this->left;\n            this->left = this->right = this;\n          \
+    \  return res;\n        }\n    };\n\n  public:\n    using node_pointer = typename\
+    \ _node::pointer;\n\n    fibonacci_heap() : _root(nullptr), _size() {}\n\n   \
+    \ bool empty() const { return this->_size == 0; }\n\n    pair<Key, Value> top()\
+    \ const { return make_pair(this->_root->key, this->_root->value); }\n\n    auto\
+    \ push(Key key, Value value) {\n        ++(this->_size);\n        auto node =\
+    \ new _node(key, value);\n        if (!this->_root) {\n            this->_root\
+    \ = node;\n        } else {\n            this->_root->insert_left(node);\n   \
+    \         if (Comp()(this->_root->value, value)) this->_root = this->_root->left;\n\
     \        }\n        return node;\n    }\n\n    void pop() {\n        --(this->_size);\n\
     \        if (this->_root->child) {\n            auto child = this->_root->child,\
     \ left = child->left;\n            this->_root->left->right = child;\n       \
@@ -60,21 +60,21 @@ data:
     \ node->value)))\n                this->_root = node;\n        }\n        for\
     \ (auto node : nodes) {\n            if (node && node != this->_root) { this->_root->insert_left(node);\
     \ }\n        }\n    }\n\n    void update(node_pointer node, Value value) {\n \
-    \       if (Comp()(node->value, value))\n            node->value = value;\n  \
-    \      else\n            return;\n        if (!node->parent) {\n            if\
-    \ (Comp()(this->_root->value, value)) this->_root = node;\n            return;\n\
-    \        } else if (!Comp()(node->parent->value, node->value)) {\n           \
-    \ return;\n        }\n        if (node->parent) {\n            auto parent = node->parent;\n\
-    \            parent->child = node->erase();\n            --(parent->order);\n\
-    \            this->_root->insert_left(node);\n            if (Comp()(this->_root->value,\
-    \ this->_root->left->value))\n                this->_root = this->_root->left;\n\
-    \        }\n    }\n\n  private:\n    node_pointer _root;\n    int _size;\n};\n"
+    \       if (Comp()(node->value, value)) node->value = value;\n        else return;\n\
+    \        if (!node->parent) {\n            if (Comp()(this->_root->value, value))\
+    \ this->_root = node;\n            return;\n        } else if (!Comp()(node->parent->value,\
+    \ node->value)) {\n            return;\n        }\n        if (node->parent) {\n\
+    \            auto parent = node->parent;\n            parent->child = node->erase();\n\
+    \            --(parent->order);\n            this->_root->insert_left(node);\n\
+    \            if (Comp()(this->_root->value, this->_root->left->value))\n     \
+    \           this->_root = this->_root->left;\n        }\n    }\n\n  private:\n\
+    \    node_pointer _root;\n    int _size;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/heap/fast_fibonacci_heap.hpp
   requiredBy: []
-  timestamp: '2022-03-20 16:24:37+09:00'
+  timestamp: '2022-04-16 04:10:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/heap/fast_fibonacci_heap.hpp

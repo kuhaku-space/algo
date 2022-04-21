@@ -21,18 +21,18 @@ data:
   attributes:
     document_title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
     \ line -1: no such header\n"
   code: "#include \"algorithm/compress.hpp\"\n#include \"binary_tree/BIT.hpp\"\n#include\
     \ \"template/template.hpp\"\n\n/**\n * @brief \u8EE2\u5012\u6570\u3092\u6C42\u3081\
-    \u308B\n * \n * @tparam T \u914D\u5217\u306E\u65B9\n * @param v \u914D\u5217\n\
+    \u308B\n *\n * @tparam T \u914D\u5217\u306E\u65B9\n * @param v \u914D\u5217\n\
     \ * @return int64_t \u8EE2\u5012\u6570\n */\ntemplate <class T>\nint64_t inversion_number(const\
     \ vector<T> &v) {\n    Compress<T> cps(v);\n    BIT<T> bit(cps.size());\n\n  \
     \  int64_t res = 0;\n    for (int i = v.size() - 1; i >= 0; --i) {\n        res\
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/inversion_number.hpp
   requiredBy: []
-  timestamp: '2022-03-12 20:33:02+09:00'
+  timestamp: '2022-04-16 04:10:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp

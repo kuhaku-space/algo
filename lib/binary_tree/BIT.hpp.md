@@ -25,17 +25,17 @@ data:
   attributes:
     document_title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30D5\u30A7\u30CB\
-    \u30C3\u30AF\u6728\r\n * \r\n * @tparam T \r\n */\r\ntemplate <class T>\r\nstruct\
+    \u30C3\u30AF\u6728\r\n *\r\n * @tparam T\r\n */\r\ntemplate <class T>\r\nstruct\
     \ BIT {\r\n    int N;\r\n    vector<T> data;\r\n\r\n    BIT() : N(), data() {}\r\
     \n    BIT(int n, T e = T(0)) : N(n + 1), data(n + 1, e) {}\r\n    BIT(const vector<T>\
     \ &v) : N(v.size() + 1), data(v.size() + 1) { this->build(v); }\r\n\r\n    const\
@@ -78,13 +78,13 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/BIT.hpp
   requiredBy:
-  - lib/binary_tree/BIT_RSQ.hpp
   - lib/algorithm/inversion_number.hpp
-  timestamp: '2022-01-09 16:16:11+09:00'
+  - lib/binary_tree/BIT_RSQ.hpp
+  timestamp: '2022-04-16 04:10:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document
 redirect_from:

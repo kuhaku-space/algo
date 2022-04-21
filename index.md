@@ -87,8 +87,11 @@ data:
       path: lib/binary_tree/patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
     - icon: ':warning:'
+      path: lib/binary_tree/scapegoat_tree.hpp
+      title: "\u30B9\u30B1\u30FC\u30D7\u30B4\u30FC\u30C8\u6728"
+    - icon: ':warning:'
       path: lib/binary_tree/treap.hpp
-      title: lib/binary_tree/treap.hpp
+      title: Treap
   - name: lib/data_structure
     pages:
     - icon: ':warning:'
@@ -110,7 +113,7 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/binary_tree.hpp
       title: lib/data_structure/binary_tree.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/data_structure/bit_vector.hpp
       title: "\u5B8C\u5099\u8F9E\u66F8"
     - icon: ':warning:'
@@ -141,6 +144,14 @@ data:
     - icon: ':warning:'
       path: lib/fft/ntt_mod.hpp
       title: lib/fft/ntt_mod.hpp
+  - name: lib/flow
+    pages:
+    - icon: ':warning:'
+      path: lib/flow/max_flow.hpp
+      title: lib/flow/max_flow.hpp
+    - icon: ':warning:'
+      path: lib/flow/min_cost_flow.hpp
+      title: lib/flow/min_cost_flow.hpp
   - name: lib/geometry
     pages:
     - icon: ':warning:'
@@ -190,12 +201,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/matrix_graph.hpp
       title: lib/graph/matrix_graph.hpp
-    - icon: ':warning:'
-      path: lib/graph/max_flow.hpp
-      title: lib/graph/max_flow.hpp
-    - icon: ':warning:'
-      path: lib/graph/min_cost_flow.hpp
-      title: lib/graph/min_cost_flow.hpp
     - icon: ':heavy_check_mark:'
       path: lib/graph/prim.hpp
       title: "\u30D7\u30EA\u30E0\u6CD5"
@@ -203,8 +208,14 @@ data:
       path: lib/graph/scc.hpp
       title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
     - icon: ':warning:'
+      path: lib/graph/shortest_path.hpp
+      title: lib/graph/shortest_path.hpp
+    - icon: ':warning:'
       path: lib/graph/spanning_tree.hpp
       title: "\u5168\u57DF\u6728"
+    - icon: ':warning:'
+      path: lib/graph/spfa.hpp
+      title: "\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF"
     - icon: ':heavy_check_mark:'
       path: lib/graph/topological_sort.hpp
       title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
@@ -280,13 +291,13 @@ data:
       title: slope trick
   - name: lib/matrix
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/matrix/compressed_wavelet_matrix.hpp
       title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
     - icon: ':warning:'
       path: lib/matrix/matrix.hpp
       title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/matrix/wavelet_matrix.hpp
       title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - name: lib/random
@@ -359,6 +370,12 @@ data:
     - icon: ':warning:'
       path: lib/tree/link_cut_tree.hpp
       title: lib/tree/link_cut_tree.hpp
+    - icon: ':warning:'
+      path: lib/tree/tree_bfs.hpp
+      title: lib/tree/tree_bfs.hpp
+    - icon: ':warning:'
+      path: lib/tree/tree_dfs.hpp
+      title: lib/tree/tree_dfs.hpp
     - icon: ':warning:'
       path: lib/tree/tree_dist.hpp
       title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
@@ -499,6 +516,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/point_add_range_sum.test.cpp
       title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/range_kth_smallest.test.cpp
+      title: test/yosupo/data_structure/range_kth_smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+      title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/set_xor-min.test.cpp
       title: test/yosupo/data_structure/set_xor-min.test.cpp

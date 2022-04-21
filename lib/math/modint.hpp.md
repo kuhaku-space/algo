@@ -46,12 +46,12 @@ data:
     document_title: modint
     links:
     - https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp)
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -103,20 +103,20 @@ data:
   isVerificationFile: false
   path: lib/math/modint.hpp
   requiredBy:
-  - lib/math/enumeration.hpp
   - lib/math/combination.hpp
-  - lib/data_structure/bigint.hpp
+  - lib/math/enumeration.hpp
   - lib/data_structure/bigint_beta.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt_mod.hpp
-  timestamp: '2021-12-22 02:25:59+09:00'
+  timestamp: '2022-04-14 07:10:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution_mod.test.cpp
   - test/aoj/ntl/power.test.cpp
   - test/aoj/dpl/bell.test.cpp
   - test/aoj/dpl/stirling.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document
 redirect_from:

@@ -12,17 +12,17 @@ data:
   attributes:
     document_title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.2/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30C0\u30D6\u30EA\
-    \u30F3\u30B0\r\n * \r\n * @tparam L \r\n */\r\ntemplate <int L>\r\nstruct Doubling\
+    \u30F3\u30B0\r\n *\r\n * @tparam L\r\n */\r\ntemplate <int L>\r\nstruct Doubling\
     \ {\r\n    Doubling(int _n) : n(_n), data(L, std::vector<int>(_n)) {}\r\n\r\n\
     \    void build(const std::vector<int> &v) {\r\n        for (int i = 0; i < this->n;\
     \ ++i) this->data[0][i] = v[i];\r\n\r\n        for (int i = 0; i < L - 1; ++i)\
@@ -37,7 +37,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/doubling.hpp
   requiredBy: []
-  timestamp: '2022-01-09 16:16:11+09:00'
+  timestamp: '2022-04-16 04:10:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/algorithm/doubling.hpp
