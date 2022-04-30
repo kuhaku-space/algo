@@ -37,9 +37,9 @@ struct eular_tour {
 
     void dfs(int v, int p) {
         this->ls[v] = this->pos++;
-        for (auto &u : this->g[v]) {
-            if (u != p) this->dfs(u, v);
-            this->rs[v] = this->pos;
+        for (auto &e : this->g[v]) {
+            if (e.to() != p) this->dfs(e.to(), v);
         }
+        this->rs[v] = this->pos;
     }
 };
