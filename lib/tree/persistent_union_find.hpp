@@ -1,4 +1,4 @@
-#include "_new/persistent_array.hpp"
+#include "data_structure/persistent_array.hpp"
 #include "template/template.hpp"
 
 struct persistent_union_find {
