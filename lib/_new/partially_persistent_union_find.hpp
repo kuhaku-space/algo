@@ -2,33 +2,46 @@
 
 /**
  * @brief 部分永続Union-Find
- * 
+ *
  */
 struct partially_persistent_union_find {
-    partially_persistent_union_find(int _n) : now(0), data(_n, -1), time(_n, 0) {}
+    partially_persistent_union_find(int _n)
+        : _now(0), _data(_n, std::vector<std::pair<int, int>>(1, {0, -1})) {}
 
     int root(int x, int t) const {
-        if (data[x] < 0 || time[x] > t) return x;
-        return root(data[x], t);
+        auto p = this->_data[x].back();
+        if (p.first > t || p.second < 0) return x;
+        return this->root(p.second, t);
     }
+    int get_root(int x, int t) const { return this->root(x, t); }
+
+    bool is_root(int x, int t) const {
+        return this->_data[x].back().first > t || this->_data[x].back().second < 0;
+    }
+
+    bool same(int x, int y, int t) const { return this->root(x, t) == this->root(y, t); }
+    bool is_same(int x, int y, int t) const { return this->same(x, y, t); }
+
+    int size(int x, int t) const {
+        x = this->root(x, t);
+        return -std::prev(std::upper_bound(this->_data[x].begin(), this->_data[x].end(),
+                                           std::pair<int, int>{t, this->_data.size()}))
+                    ->second;
+    }
+    int get_size(int x, int t) const { return this->size(x, t); }
 
     int unite(int x, int y) {
-        ++now;
-        x = root(x, now), y = root(y, now);
-        if (x == y) return now;
-        if (data[x] > data[y]) swap(x, y);
-        time[y] = now;
-        data[x] += data[y];
-        data[y] = x;
-        return now;
+        ++_now;
+        x = this->root(x, _now), y = this->root(y, _now);
+        if (x == y) return _now;
+        auto p = this->_data[x].back(), q = this->_data[y].back();
+        if (p.second > q.second) swap(x, y), swap(p, q);
+        this->_data[x].emplace_back(_now, p.second + q.second);
+        this->_data[y].emplace_back(_now, x);
+        return _now;
     }
 
-    int size(int x) const { return -data[root(x, now)]; }
-
-    bool same(int x, int y, int t) const { return root(x, t) == root(y, t); }
-
   private:
-    int now;
-    vector<int> data;
-    vector<int> time;
+    int _now;
+    std::vector<std::vector<std::pair<int, int>>> _data;
 };
