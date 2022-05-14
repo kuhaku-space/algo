@@ -7,10 +7,9 @@
  * @details [参考](https://qiita.com/keymoon/items/11fac5627672a6d6a9f6)
  */
 struct rolling_hash {
-    rolling_hash(const std::string &_s) : data(1), p(1, 1), len(_s.size() + 1) {
-        std::random_device seed;
-        std::mt19937 mt(seed());
-        this->base = mt() + 2;
+    rolling_hash(const std::string &_s) : len(_s.size() + 1), base(), data(1), p(1, 1) {
+        std::mt19937 rnd((std::random_device::result_type)std::random_device()());
+        this->base = rnd() + 2;
         std::uint64_t x = 0, t = 1;
         for (const auto c : _s) {
             x = this->_mod(this->_mul(x, this->base) + c);
