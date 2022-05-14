@@ -10,3 +10,4 @@ AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: Empty
+ForEachMacros: ["FOR", "FORR", "rep", "repn", "repr", "repnr"]
