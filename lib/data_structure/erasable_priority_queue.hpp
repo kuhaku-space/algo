@@ -6,7 +6,7 @@
  * @tparam T
  */
 template <class T>
-struct PQueue {
+struct erasable_priority_queue {
     bool empty() const { return this->a.empty(); }
     auto top() const { return this->a.top(); }
 
