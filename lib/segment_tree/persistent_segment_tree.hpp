@@ -39,14 +39,14 @@ struct persistent_segment_tree {
     T all_prod() const { return this->root->val; }
     T prod(int a, int b) const {
         assert(0 <= a && b <= this->_size);
-        return this->prod(0, this->_size, a, b, root);
+        return this->prod(0, this->_size, a, b, this->root);
     }
 
   private:
     int _size;
     node_pointer root;
 
-    static node_pointer merge(node_pointer left, node_pointer right) const {
+    static node_pointer merge(node_pointer left, node_pointer right) {
         return new Node(M::op(left->val, right->val), left, right);
     }
 
