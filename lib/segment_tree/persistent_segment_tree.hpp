@@ -46,27 +46,27 @@ struct persistent_segment_tree {
     int _size;
     node_pointer root;
 
-    node_pointer update(node_pointer left, node_pointer right) const {
+    static node_pointer merge(node_pointer left, node_pointer right) const {
         return new Node(M::op(left->val, right->val), left, right);
     }
 
     node_pointer build(int l, int r, T val) const {
         if (l + 1 == r) return new Node(val);
         int m = (l + r) >> 1;
-        return this->update(this->build(l, m, val), this->build(m, r, val));
+        return this->merge(this->build(l, m, val), this->build(m, r, val));
     }
     template <class U>
     node_pointer build(int l, int r, const vector<U> &v) const {
         if (l + 1 == r) return new Node(v[l]);
         int m = (l + r) >> 1;
-        return this->update(this->build(l, m, v), this->build(m, r, v));
+        return this->merge(this->build(l, m, v), this->build(m, r, v));
     }
 
     node_pointer set(int l, int r, int k, T val, node_pointer node) const {
         if (l + 1 == r) return new Node(val);
         int m = (l + r) >> 1;
-        if (k < m) return this->update(this->set(l, m, k, val, node->left), node->right);
-        else return this->update(node->left, this->set(m, r, k, val, node->right));
+        if (k < m) return this->merge(this->set(l, m, k, val, node->left), node->right);
+        else return this->merge(node->left, this->set(m, r, k, val, node->right));
     }
 
     T prod(int l, int r, int a, int b, node_pointer node) const {
