@@ -1,5 +1,5 @@
 #pragma once
-#pragma GCC target("avx2,bmi2")
+#pragma GCC target("sse4.2,avx2,bmi2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
