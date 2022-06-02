@@ -8,7 +8,7 @@
  * @tparam mod 法
  */
 
-template <int mod>
+template <int mod = MOD_N>
 struct ModInt {
     constexpr ModInt() noexcept : x(0) {}
     constexpr ModInt(int y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
