@@ -65,7 +65,7 @@ data:
   isVerificationFile: false
   path: lib/math/fraction.hpp
   requiredBy: []
-  timestamp: '2022-04-16 04:10:51+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/fraction.hpp

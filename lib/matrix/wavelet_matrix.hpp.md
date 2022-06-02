@@ -102,11 +102,11 @@ data:
   path: lib/matrix/wavelet_matrix.hpp
   requiredBy:
   - lib/matrix/compressed_wavelet_matrix.hpp
-  timestamp: '2022-04-16 04:10:51+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
 documentation_of: lib/matrix/wavelet_matrix.hpp
 layout: document
 redirect_from:

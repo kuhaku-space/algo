@@ -9,8 +9,8 @@ data:
     path: lib/binary_tree/treap.hpp
     title: Treap
   - icon: ':warning:'
-    path: lib/list/skip_list.hpp
-    title: lib/list/skip_list.hpp
+    path: lib/data_structure/skip_list.hpp
+    title: lib/data_structure/skip_list.hpp
   - icon: ':warning:'
     path: lib/random/xoroshiro128.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
@@ -65,11 +65,11 @@ data:
   path: lib/random/split_mix_64.hpp
   requiredBy:
   - lib/random/xoshiro128.hpp
-  - lib/random/xoroshiro128.hpp
   - lib/random/xorshift.hpp
-  - lib/list/skip_list.hpp
+  - lib/random/xoroshiro128.hpp
+  - lib/data_structure/skip_list.hpp
   - lib/binary_tree/treap.hpp
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/random/split_mix_64.hpp

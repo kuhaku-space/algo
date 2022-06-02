@@ -70,11 +70,11 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_heap.hpp
   requiredBy: []
-  timestamp: '2022-04-16 04:10:51+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
 documentation_of: lib/graph/dijkstra_heap.hpp
 layout: document

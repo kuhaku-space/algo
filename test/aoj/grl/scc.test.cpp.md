@@ -46,7 +46,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/scc.test.cpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/scc.test.cpp

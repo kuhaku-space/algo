@@ -55,15 +55,15 @@ data:
   - lib/random/split_mix_64.hpp
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/list/skip_list.hpp
+  path: lib/data_structure/skip_list.hpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-14 10:50:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/list/skip_list.hpp
+documentation_of: lib/data_structure/skip_list.hpp
 layout: document
 redirect_from:
-- /library/lib/list/skip_list.hpp
-- /library/lib/list/skip_list.hpp.html
-title: lib/list/skip_list.hpp
+- /library/lib/data_structure/skip_list.hpp
+- /library/lib/data_structure/skip_list.hpp.html
+title: lib/data_structure/skip_list.hpp
 ---

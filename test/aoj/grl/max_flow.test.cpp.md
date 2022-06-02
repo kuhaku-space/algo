@@ -2,18 +2,24 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/graph.hpp
-    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+    path: lib/flow/max_flow.hpp
+    title: lib/flow/max_flow.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/atcoder.hpp
+    title: lib/template/atcoder.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _pathExtension: cpp
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -21,27 +27,27 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: flow/max_flow.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\n\ntemplate\
-    \ <class T>\nstd::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {\n    std::vector<int>\
-    \ res;\n    auto dfs = [&g, &res](auto self, int index, int parent) {\n      \
-    \  res.emplace_back(index);\n        for (auto &e : g[index]) {\n            if\
-    \ (e.to() == parent) continue;\n            self(self, e.to(), index);\n     \
-    \   }\n    };\n    dfs(dfs, r, -1);\n    return res;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A\"\
+    \n#include \"flow/max_flow.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    sonic();\n    int n, m;\n    cin >> n >> m;\n\n    mf_graph<int> mf(n);\n\
+    \    rep(i, m) {\n        int a, b, c;\n        cin >> a >> b >> c;\n        mf.add_edge(a,\
+    \ b, c);\n    }\n\n    co(mf.flow(0, n - 1));\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/graph/graph.hpp
+  - lib/flow/max_flow.hpp
   - lib/template/template.hpp
-  isVerificationFile: false
-  path: lib/tree/tree_dfs.hpp
+  - lib/template/atcoder.hpp
+  isVerificationFile: true
+  path: test/aoj/grl/max_flow.test.cpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2022-05-13 04:24:18+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: lib/tree/tree_dfs.hpp
+documentation_of: test/aoj/grl/max_flow.test.cpp
 layout: document
 redirect_from:
-- /library/lib/tree/tree_dfs.hpp
-- /library/lib/tree/tree_dfs.hpp.html
-title: lib/tree/tree_dfs.hpp
+- /verify/test/aoj/grl/max_flow.test.cpp
+- /verify/test/aoj/grl/max_flow.test.cpp.html
+title: test/aoj/grl/max_flow.test.cpp
 ---

@@ -39,16 +39,16 @@ data:
     \n  private:\r\n    const Graph<T> &g;\r\n    std::vector<int> ls, rs;\r\n   \
     \ int pos;\r\n\r\n    void build(int r = 0) {\r\n        this->pos = 0;\r\n  \
     \      this->dfs(r, -1);\r\n    }\r\n\r\n    void dfs(int v, int p) {\r\n    \
-    \    this->ls[v] = this->pos++;\r\n        for (auto &u : this->g[v]) {\r\n  \
-    \          if (u != p) this->dfs(u, v);\r\n            this->rs[v] = this->pos;\r\
-    \n        }\r\n    }\r\n};\r\n"
+    \    this->ls[v] = this->pos++;\r\n        for (auto &e : this->g[v]) {\r\n  \
+    \          if (e.to() != p) this->dfs(e.to(), v);\r\n        }\r\n        this->rs[v]\
+    \ = this->pos;\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/eular_tour.hpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/eular_tour.hpp

@@ -105,12 +105,12 @@ data:
   requiredBy:
   - lib/math/combination.hpp
   - lib/math/enumeration.hpp
-  - lib/data_structure/bigint_beta.hpp
   - lib/data_structure/bigint.hpp
+  - lib/data_structure/bigint_beta.hpp
+  - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
-  - lib/fft/formal_power_series.hpp
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ntl/power.test.cpp

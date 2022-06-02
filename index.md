@@ -22,9 +22,6 @@ data:
       path: lib/_new/mex.hpp
       title: lib/_new/mex.hpp
     - icon: ':warning:'
-      path: lib/_new/partially_persistent_union_find.hpp
-      title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
-    - icon: ':warning:'
       path: lib/_new/tree64.hpp
       title: lib/_new/tree64.hpp
   - name: lib/_old
@@ -95,16 +92,6 @@ data:
   - name: lib/data_structure
     pages:
     - icon: ':warning:'
-      path: lib/data_structure/Map.hpp
-      title: lib/data_structure/Map.hpp
-    - icon: ':warning:'
-      path: lib/data_structure/PQueue.hpp
-      title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\
-        \u30FC"
-    - icon: ':warning:'
-      path: lib/data_structure/UMap.hpp
-      title: lib/data_structure/UMap.hpp
-    - icon: ':warning:'
       path: lib/data_structure/bigint.hpp
       title: lib/data_structure/bigint.hpp
     - icon: ':warning:'
@@ -117,8 +104,24 @@ data:
       path: lib/data_structure/bit_vector.hpp
       title: "\u5B8C\u5099\u8F9E\u66F8"
     - icon: ':warning:'
+      path: lib/data_structure/erasable_priority_queue.hpp
+      title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\
+        \u30FC"
+    - icon: ':warning:'
       path: lib/data_structure/heap.hpp
       title: lib/data_structure/heap.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/persistent_array.hpp
+      title: lib/data_structure/persistent_array.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/persistent_queue.hpp
+      title: lib/data_structure/persistent_queue.hpp
+    - icon: ':warning:'
+      path: lib/data_structure/persistent_stack.hpp
+      title: lib/data_structure/persistent_stack.hpp
+    - icon: ':warning:'
+      path: lib/data_structure/skip_list.hpp
+      title: lib/data_structure/skip_list.hpp
   - name: lib/dp
     pages:
     - icon: ':heavy_check_mark:'
@@ -146,10 +149,10 @@ data:
       title: lib/fft/ntt_mod.hpp
   - name: lib/flow
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/flow/max_flow.hpp
       title: lib/flow/max_flow.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/flow/min_cost_flow.hpp
       title: lib/flow/min_cost_flow.hpp
   - name: lib/geometry
@@ -245,11 +248,6 @@ data:
     - icon: ':warning:'
       path: lib/heap/skew_heap.hpp
       title: skew heap
-  - name: lib/list
-    pages:
-    - icon: ':warning:'
-      path: lib/list/skip_list.hpp
-      title: lib/list/skip_list.hpp
   - name: lib/math
     pages:
     - icon: ':warning:'
@@ -328,6 +326,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/monoid.hpp
       title: lib/segment_tree/monoid.hpp
+    - icon: ':warning:'
+      path: lib/segment_tree/persistent_dual_segment_tree.hpp
+      title: lib/segment_tree/persistent_dual_segment_tree.hpp
+    - icon: ':warning:'
+      path: lib/segment_tree/persistent_segment_tree.hpp
+      title: lib/segment_tree/persistent_segment_tree.hpp
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/segment_tree.hpp
       title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -371,20 +375,17 @@ data:
       path: lib/tree/link_cut_tree.hpp
       title: lib/tree/link_cut_tree.hpp
     - icon: ':warning:'
-      path: lib/tree/tree_bfs.hpp
-      title: lib/tree/tree_bfs.hpp
+      path: lib/tree/partially_persistent_union_find.hpp
+      title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/persistent_union_find.hpp
+      title: lib/tree/persistent_union_find.hpp
     - icon: ':warning:'
-      path: lib/tree/tree_dfs.hpp
-      title: lib/tree/tree_dfs.hpp
-    - icon: ':warning:'
-      path: lib/tree/tree_dist.hpp
+      path: lib/tree/tree_function.hpp
       title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
-    - icon: ':warning:'
-      path: lib/tree/tree_parent.hpp
-      title: "\u6728\u306E\u9802\u70B9\u306E\u89AA\u3092\u6C42\u3081\u308B"
-    - icon: ':warning:'
-      path: lib/tree/tree_subtree.hpp
-      title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/undo_union_find.hpp
+      title: lib/tree/undo_union_find.hpp
     - icon: ':heavy_check_mark:'
       path: lib/tree/union_find.hpp
       title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
@@ -487,6 +488,12 @@ data:
       path: test/aoj/grl/kruskal.test.cpp
       title: test/aoj/grl/kruskal.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/max_flow.test.cpp
+      title: test/aoj/grl/max_flow.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/min_cost_flow.test.cpp
+      title: test/aoj/grl/min_cost_flow.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/prim.test.cpp
       title: test/aoj/grl/prim.test.cpp
     - icon: ':heavy_check_mark:'
@@ -514,6 +521,12 @@ data:
   - name: test/yosupo/data_structure
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/persistent_queue.test.cpp
+      title: test/yosupo/data_structure/persistent_queue.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/persistent_union_find.test.cpp
+      title: test/yosupo/data_structure/persistent_union_find.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/point_add_range_sum.test.cpp
       title: test/yosupo/data_structure/point_add_range_sum.test.cpp
     - icon: ':heavy_check_mark:'
@@ -531,6 +544,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_rmq.test.cpp
       title: test/yosupo/data_structure/static_rmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/undo_union_find.test.cpp
+      title: test/yosupo/data_structure/undo_union_find.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/unionfind.test.cpp
       title: test/yosupo/data_structure/unionfind.test.cpp

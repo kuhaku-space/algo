@@ -28,10 +28,10 @@ data:
   code: "#include <random>\r\n\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n\
     \ * @brief \u30ED\u30FC\u30EA\u30F3\u30B0\u30CF\u30C3\u30B7\u30E5\r\n * @details\
     \ [\u53C2\u8003](https://qiita.com/keymoon/items/11fac5627672a6d6a9f6)\r\n */\r\
-    \nstruct rolling_hash {\r\n    rolling_hash(const std::string &_s) : data(1),\
-    \ p(1, 1), len(_s.size() + 1) {\r\n        std::random_device seed;\r\n      \
-    \  std::mt19937 mt(seed());\r\n        this->base = mt() + 2;\r\n        std::uint64_t\
-    \ x = 0, t = 1;\r\n        for (const auto c : _s) {\r\n            x = this->_mod(this->_mul(x,\
+    \nstruct rolling_hash {\r\n    rolling_hash(const std::string &_s) : len(_s.size()\
+    \ + 1), base(), data(1), p(1, 1) {\r\n        std::mt19937 rnd((std::random_device::result_type)std::random_device()());\r\
+    \n        this->base = rnd() + 2;\r\n        std::uint64_t x = 0, t = 1;\r\n \
+    \       for (const auto c : _s) {\r\n            x = this->_mod(this->_mul(x,\
     \ this->base) + c);\r\n            this->data.emplace_back(x);\r\n           \
     \ t = this->_mod(this->_mul(t, this->base));\r\n            this->p.emplace_back(t);\r\
     \n        }\r\n    }\r\n\r\n    /**\r\n     * @brief get hash of s[l...r]\r\n\
@@ -67,7 +67,7 @@ data:
   isVerificationFile: false
   path: lib/string/rolling_hash.hpp
   requiredBy: []
-  timestamp: '2022-04-16 04:10:51+09:00'
+  timestamp: '2022-05-14 11:27:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/rolling_hash.test.cpp

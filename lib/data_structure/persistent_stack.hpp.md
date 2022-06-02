@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/graph.hpp
-    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -13,7 +10,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -22,31 +18,30 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
-    /**\r\n * @brief \u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B\
-    \r\n *\r\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\n * @param g \u30B0\
-    \u30E9\u30D5\r\n * @param r \u6839\r\n * @return std::vector<int>\r\n */\r\ntemplate\
-    \ <class T>\r\nstd::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {\r\
-    \n    std::vector<int> res(g.size());\r\n    auto dfs = [&g, &res](auto self,\
-    \ int index) {\r\n        res[index] = 1;\r\n        for (auto &e : g[index])\
-    \ {\r\n            if (res[e.to()] != 0) continue;\r\n            res[index] +=\
-    \ self(self, e.to());\r\n        }\r\n        return res[index];\r\n    };\r\n\
-    \    dfs(dfs, r);\r\n    return res;\r\n}\r\n"
+  code: "#pragma once\n#include \"template/template.hpp\"\n\ntemplate <class T>\n\
+    struct persistent_stack {\n  private:\n    struct Node {\n        using pointer\
+    \ = Node *;\n        T val;\n        pointer prev;\n    };\n\n  public:\n    using\
+    \ node_pointer = Node::pointer;\n\n    constexpr persistent_stack() : root(nullptr)\
+    \ {}\n    constexpr persistent_stack(node_pointer _root) : root(_root) {}\n\n\
+    \    T top() const {\n        assert(this->root);\n        return this->root->val;\n\
+    \    }\n\n    persistent_stack push(T val) const { return persistent_stack(new\
+    \ Node{val, this->root}); }\n\n    persistent_stack pop() const {\n        assert(this->root);\n\
+    \        return persistent_stack(this->root->prev);\n    }\n\n  private:\n   \
+    \ node_pointer root;\n};\n"
   dependsOn:
-  - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/tree/tree_subtree.hpp
+  path: lib/data_structure/persistent_stack.hpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-14 10:40:41+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/tree/tree_subtree.hpp
+documentation_of: lib/data_structure/persistent_stack.hpp
 layout: document
 redirect_from:
-- /library/lib/tree/tree_subtree.hpp
-- /library/lib/tree/tree_subtree.hpp.html
-title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
+- /library/lib/data_structure/persistent_stack.hpp
+- /library/lib/data_structure/persistent_stack.hpp.html
+title: lib/data_structure/persistent_stack.hpp
 ---

@@ -48,7 +48,7 @@ data:
   requiredBy:
   - lib/graph/chromatic_number.hpp
   - lib/graph/warshall_floyd.hpp
-  timestamp: '2022-04-16 04:10:51+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/warshall_floyd.test.cpp

@@ -54,20 +54,8 @@ data:
     path: lib/tree/eular_tour.hpp
     title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
   - icon: ':warning:'
-    path: lib/tree/tree_bfs.hpp
-    title: lib/tree/tree_bfs.hpp
-  - icon: ':warning:'
-    path: lib/tree/tree_dfs.hpp
-    title: lib/tree/tree_dfs.hpp
-  - icon: ':warning:'
-    path: lib/tree/tree_dist.hpp
+    path: lib/tree/tree_function.hpp
     title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
-  - icon: ':warning:'
-    path: lib/tree/tree_parent.hpp
-    title: "\u6728\u306E\u9802\u70B9\u306E\u89AA\u3092\u6C42\u3081\u308B"
-  - icon: ':warning:'
-    path: lib/tree/tree_subtree.hpp
-    title: "\u90E8\u5206\u6728\u306E\u5927\u304D\u3055\u3092\u6C42\u3081\u308B"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/articulation_points.test.cpp
@@ -105,6 +93,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/undo_union_find.test.cpp
+    title: test/yosupo/data_structure/undo_union_find.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
@@ -182,42 +173,39 @@ data:
   isVerificationFile: false
   path: lib/graph/graph.hpp
   requiredBy:
+  - lib/tree/tree_function.hpp
+  - lib/tree/eular_tour.hpp
   - lib/graph/dijkstra.hpp
-  - lib/graph/shortest_path.hpp
-  - lib/graph/kruskal.hpp
   - lib/graph/cycle.hpp
-  - lib/graph/prim.hpp
-  - lib/graph/topological_sort.hpp
+  - lib/graph/shortest_path.hpp
+  - lib/graph/bellman_ford.hpp
   - lib/graph/two_sat.hpp
-  - lib/graph/lowlink.hpp
+  - lib/graph/prim.hpp
   - lib/graph/spfa.hpp
   - lib/graph/spanning_tree.hpp
-  - lib/graph/bellman_ford.hpp
+  - lib/graph/kruskal.hpp
+  - lib/graph/lowlink.hpp
   - lib/graph/scc.hpp
-  - lib/graph/dijkstra_heap.hpp
   - lib/graph/dijkstra_potential.hpp
+  - lib/graph/dijkstra_heap.hpp
+  - lib/graph/topological_sort.hpp
   - lib/_old/tree.hpp
-  - lib/tree/tree_dfs.hpp
-  - lib/tree/eular_tour.hpp
-  - lib/tree/tree_dist.hpp
-  - lib/tree/tree_parent.hpp
-  - lib/tree/tree_bfs.hpp
-  - lib/tree/tree_subtree.hpp
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/kruskal.test.cpp
+  - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/articulation_points.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
-  - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/bridges.test.cpp
-  - test/aoj/grl/kruskal.test.cpp
-  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/prim.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/prim.test.cpp
+  - test/aoj/grl/bellman_ford.test.cpp
+  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/scc.test.cpp
+  - test/yosupo/data_structure/undo_union_find.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document

@@ -61,13 +61,13 @@ data:
   isVerificationFile: false
   path: lib/data_structure/bit_vector.hpp
   requiredBy:
-  - lib/matrix/compressed_wavelet_matrix.hpp
   - lib/matrix/wavelet_matrix.hpp
-  timestamp: '2022-04-16 04:10:51+09:00'
+  - lib/matrix/compressed_wavelet_matrix.hpp
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
 documentation_of: lib/data_structure/bit_vector.hpp
 layout: document
 redirect_from:

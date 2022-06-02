@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/warshall_floyd.test.cpp
   requiredBy: []
-  timestamp: '2022-04-16 04:10:51+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/warshall_floyd.test.cpp

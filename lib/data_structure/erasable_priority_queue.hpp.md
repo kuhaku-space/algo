@@ -10,6 +10,8 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\
+      \u30E5\u30FC"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -20,25 +22,28 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class Key, class Val>\r\
-    \nstruct UMap {\r\n    unordered_map<Key, Val> data;\r\n    Val e;\r\n\r\n   \
-    \ UMap(Val _e = Val()) : e(_e), data() {}\r\n\r\n    Val &operator[](Key k) {\r\
-    \n        if (data.find(k) == data.end()) data[k] = e;\r\n        return data[k];\r\
-    \n    }\r\n\r\n    auto begin() { return data.begin(); }\r\n    auto end() { return\
-    \ data.end(); }\r\n\r\n    auto find() { return data.find(); }\r\n\r\n    auto\
-    \ erase(Val v) { return data.erase(v); }\r\n};\r\n"
+  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u524A\u9664\u4ED8\
+    \u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\u30FC\r\n *\r\n * @tparam\
+    \ T\r\n */\r\ntemplate <class T>\r\nstruct erasable_priority_queue {\r\n    bool\
+    \ empty() const { return this->a.empty(); }\r\n    auto top() const { return this->a.top();\
+    \ }\r\n\r\n    void emplace(T x) { this->a.emplace(x); }\r\n    void insert(T\
+    \ x) { this->a.emplace(x); }\r\n    void push(T x) { this->a.emplace(x); }\r\n\
+    \r\n    void pop() { this->erase(this->a.top()); }\r\n\r\n    void erase(T x)\
+    \ {\r\n        this->b.emplace(x);\r\n        while (!this->a.empty() && this->a.top()\
+    \ == this->b.top()) { this->a.pop(), this->b.pop(); }\r\n    }\r\n\r\n  private:\r\
+    \n    std::priority_queue<T> a, b;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/data_structure/UMap.hpp
+  path: lib/data_structure/erasable_priority_queue.hpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-14 10:49:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/data_structure/UMap.hpp
+documentation_of: lib/data_structure/erasable_priority_queue.hpp
 layout: document
 redirect_from:
-- /library/lib/data_structure/UMap.hpp
-- /library/lib/data_structure/UMap.hpp.html
-title: lib/data_structure/UMap.hpp
+- /library/lib/data_structure/erasable_priority_queue.hpp
+- /library/lib/data_structure/erasable_priority_queue.hpp.html
+title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\u30FC"
 ---

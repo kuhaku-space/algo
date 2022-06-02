@@ -12,8 +12,8 @@ data:
     path: lib/binary_tree/treap.hpp
     title: Treap
   - icon: ':warning:'
-    path: lib/list/skip_list.hpp
-    title: lib/list/skip_list.hpp
+    path: lib/data_structure/skip_list.hpp
+    title: lib/data_structure/skip_list.hpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -57,9 +57,9 @@ data:
   isVerificationFile: false
   path: lib/random/xorshift.hpp
   requiredBy:
-  - lib/list/skip_list.hpp
+  - lib/data_structure/skip_list.hpp
   - lib/binary_tree/treap.hpp
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/random/xorshift.hpp

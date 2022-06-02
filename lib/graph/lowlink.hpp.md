@@ -63,7 +63,7 @@ data:
   isVerificationFile: false
   path: lib/graph/lowlink.hpp
   requiredBy: []
-  timestamp: '2022-04-14 07:10:28+09:00'
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/articulation_points.test.cpp

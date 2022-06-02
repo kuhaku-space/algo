@@ -62,16 +62,16 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
-  - lib/math/primitive_root.hpp
-  - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
+  - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
-  timestamp: '2022-04-14 07:10:28+09:00'
+  - lib/math/primitive_root.hpp
+  timestamp: '2022-05-13 04:24:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/math/pow.hpp
 layout: document
