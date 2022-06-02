@@ -3,16 +3,17 @@
 
 /**
  * @brief modint
- * @details [参考](https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp)
+ * @see https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
  *
  * @tparam mod 法
  */
-
-template <int mod>
+template <int mod = MOD_N>
 struct ModInt {
+    static constexpr int get_mod() noexcept { return mod; }
+
     constexpr ModInt() noexcept : x(0) {}
     constexpr ModInt(int y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
-    constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
+    constexpr ModInt(std::int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
 
     constexpr ModInt &operator+=(const ModInt &rhs) noexcept {
         if ((this->x += rhs.x) >= mod) this->x -= mod;
@@ -71,8 +72,8 @@ struct ModInt {
         return ModInt(u);
     }
 
-    constexpr ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n); }
-    constexpr ModInt &pow_self(int64_t n) noexcept {
+    constexpr ModInt pow(std::int64_t n) const noexcept { return ModInt(*this).pow_self(n); }
+    constexpr ModInt &pow_self(std::int64_t n) noexcept {
         ModInt res(1);
         for (; n > 0; n >>= 1) {
             if (n & 1) res *= *this;
@@ -82,15 +83,13 @@ struct ModInt {
         return *this;
     }
 
-    friend istream &operator>>(istream &is, ModInt &rhs) {
-        int64_t t;
+    friend std::istream &operator>>(std::istream &is, ModInt &rhs) {
+        std::int64_t t;
         is >> t;
         rhs = ModInt<mod>(t);
         return (is);
     }
-    friend ostream &operator<<(ostream &os, const ModInt &rhs) { return os << rhs.x; }
-
-    static int get_mod() noexcept { return mod; }
+    friend std::ostream &operator<<(std::ostream &os, const ModInt &rhs) { return os << rhs.x; }
 
   private:
     int x;
