@@ -3,11 +3,10 @@
 
 /**
  * @brief modint
- * @details [参考](https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp)
+ * @see https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
  *
  * @tparam mod 法
  */
-
 template <int mod = MOD_N>
 struct ModInt {
     static constexpr int get_mod() noexcept { return mod; }
