@@ -10,6 +10,8 @@
 
 template <int mod = MOD_N>
 struct ModInt {
+    static constexpr int get_mod() noexcept { return mod; }
+
     constexpr ModInt() noexcept : x(0) {}
     constexpr ModInt(int y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
     constexpr ModInt(int64_t y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}
@@ -89,8 +91,6 @@ struct ModInt {
         return (is);
     }
     friend ostream &operator<<(ostream &os, const ModInt &rhs) { return os << rhs.x; }
-
-    static int get_mod() noexcept { return mod; }
 
   private:
     int x;
