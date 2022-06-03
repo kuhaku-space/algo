@@ -1,32 +1,45 @@
 #include "template/template.hpp"
 
-template <class T, int N = 20>
+/**
+ * @brief 永続配列
+ * @see https://ei1333.github.io/luzhiled/snippets/structure/persistent-array.html
+ * @see https://qiita.com/hotman78/items/9c643feae1de087e6fc5
+ * @see https://37zigen.com/persistent-array/
+ *
+ * @tparam T 要素の型
+ * @tparam B ビットサイズ
+ */
+template <class T, int B = 4>
 struct persistent_array {
+  private:
+    static constexpr int MASK = (1 << B) - 1;
+
     struct Node {
         using pointer = Node *;
         T val;
-        pointer ch[N] = {};
+        pointer ch[1 << B] = {};
     };
     using node_pointer = typename Node::pointer;
 
+  public:
     constexpr persistent_array() : root() {}
     constexpr persistent_array(node_pointer _root) : root(_root) {}
     constexpr persistent_array(int n, T val) : root() {
         for (int i = 0; i < n; ++i) { this->root = this->set(i, val, this->root); }
     }
     template <class U>
-    constexpr persistent_array(const vector<U> &v) : root() {
+    constexpr persistent_array(const std::vector<U> &v) : root() {
         for (int i = 0; i < (int)v.size(); ++i) { this->root = this->set(i, v[i], this->root); }
     }
 
     constexpr T operator[](int i) const noexcept {
-        node_pointer node = root;
+        node_pointer node = this->root;
         while (node) {
             if (i == 0) {
                 return node->val;
             } else {
                 --i;
-                node = node->ch[i % N], i = i / N;
+                node = node->ch[i & MASK], i = i >> B;
             }
         }
         return T();
@@ -35,7 +48,7 @@ struct persistent_array {
     constexpr T get(int k) const noexcept { return this->operator[](k); }
 
     persistent_array set(int k, T val) const noexcept {
-        return persistent_array(this->set(k, val, root));
+        return persistent_array(this->set(k, val, this->root));
     }
 
   private:
@@ -51,7 +64,7 @@ struct persistent_array {
             res->val = val;
         } else {
             --k;
-            res->ch[k % N] = set(k / N, val, res->ch[k % N]);
+            res->ch[k & MASK] = set(k >> B, val, res->ch[k & MASK]);
         }
         return res;
     }
