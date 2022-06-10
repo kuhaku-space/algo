@@ -2,19 +2,20 @@
 
 /**
  * @brief AVL木
+ * @see https://tjkendev.github.io/procon-library/cpp/binary_search_tree/avl-tree.html
  *
  * @tparam T 要素の型
  */
 template <class T>
 struct avl_tree {
   private:
-    struct Node {
-        using pointer = Node *;
+    struct _node {
+        using pointer = _node *;
         T val;
         int height;
         pointer left, right;
 
-        constexpr Node(T _val) : val(_val), height(1), left(nullptr), right(nullptr) {}
+        constexpr _node(T _val) : val(_val), height(1), left(nullptr), right(nullptr) {}
 
         static constexpr int get_height(pointer node) { return node == nullptr ? 0 : node->height; }
         static constexpr int get_balance_factor(pointer node) const {
@@ -23,13 +24,13 @@ struct avl_tree {
         }
 
         constexpr void set_height() {
-            this->height = std::max(Node::get_height(node->left), Node::get_height(node->right)) + 1
+            this->height = std::max(_node::get_height(node->left), _node::get_height(node->right)) + 1
         }
         constexpr bool is_leaf() const { return this->left == nullptr && this->right == nullptr; }
     };
 
   public:
-    using node_pointer = typename Node::pointer;
+    using node_ptr = typename _node::pointer;
 
     constexpr avl_tree() : root(nullptr) {}
 
@@ -40,7 +41,7 @@ struct avl_tree {
     void erase(T val) { this->root = this->erase(this->root, val); }
 
     bool contains(T val) const {
-        node_pointer node = this->root;
+        node_ptr node = this->root;
         while (node && node->val != val) {
             if (val < node->val) node = node->left;
             else node = node->right;
@@ -50,8 +51,8 @@ struct avl_tree {
 
     int count(T val) const { return this->count(this->root, val); }
 
-    node_pointer lower_bound(T val) const {
-        node_pointer res = nullptr, node = this->root;
+    node_ptr lower_bound(T val) const {
+        node_ptr res = nullptr, node = this->root;
         while (node) {
             if (!(node->val < val)) {
                 res = node;
@@ -63,8 +64,8 @@ struct avl_tree {
         return res;
     }
 
-    node_pointer upper_bound(T val) const {
-        node_pointer res = nullptr, node = this->root;
+    node_ptr upper_bound(T val) const {
+        node_ptr res = nullptr, node = this->root;
         while (node) {
             if (val < node->val) {
                 res = node;
@@ -77,17 +78,17 @@ struct avl_tree {
     }
 
   private:
-    node_pointer root;
+    node_ptr root;
 
-    constexpr T get_min_val(node_pointer node) const {
+    constexpr T get_min_val(node_ptr node) const {
         assert(node);
         while (node->left) { node = node->left; }
         return node->val;
     }
 
-    constexpr node_pointer rotl(node_pointer node) {
+    constexpr node_ptr rotl(node_ptr node) {
         assert(node);
-        node_pointer pivot = node->right;
+        node_ptr pivot = node->right;
         assert(pivot);
         node->right = pivot->left;
         pivot->left = node;
@@ -96,9 +97,9 @@ struct avl_tree {
         return pivot;
     }
 
-    constexpr node_pointer rotr(node_pointer node) {
+    constexpr node_ptr rotr(node_ptr node) {
         assert(node);
-        node_pointer pivot = node->left;
+        node_ptr pivot = node->left;
         assert(pivot);
         node->left = pivot->right;
         pivot->right = node;
@@ -107,19 +108,19 @@ struct avl_tree {
         return pivot;
     }
 
-    constexpr node_pointer rotlr(node_pointer node) {
+    constexpr node_ptr rotlr(node_ptr node) {
         node->left = this->rotl(node->left);
         node = this->rotr(node);
         return node;
     }
 
-    constexpr node_pointer rotrl(node_pointer node) {
+    constexpr node_ptr rotrl(node_ptr node) {
         node->right = this->rotr(node->right);
         node = this->rotl(node);
         return node;
     }
 
-    constexpr node_pointer rotate(node_pointer node) {
+    constexpr node_ptr rotate(node_ptr node) {
         int bf = this->get_balance_factor(node);
         if (bf < -1) {
             if (this->get_balance_factor(node->right) >= 1) node = this->rotrl(node);
@@ -133,15 +134,15 @@ struct avl_tree {
         return node;
     }
 
-    constexpr node_pointer insert(node_pointer node, T val) {
-        if (node == nullptr) return new Node(val);
+    constexpr node_ptr insert(node_ptr node, T val) {
+        if (node == nullptr) return new _node(val);
         if (val < node->val) node->left = this->insert(node->left, val);
         else node->right = this->insert(node->right, val);
 
         return this->rotate(node);
     }
 
-    constexpr node_pointer erase(node_pointer node, T val) {
+    constexpr node_ptr erase(node_ptr node, T val) {
         if (node == nullptr) return nullptr;
         if (val < node->val) {
             node->left = this->erase(node->left, val);
@@ -158,13 +159,13 @@ struct avl_tree {
         return this->rotate(node);
     }
 
-    constexpr node_pointer erase_min(node_pointer node) {
+    constexpr node_ptr erase_min(node_ptr node) {
         if (node->left == nullptr) return node->right;
         node->left = this->erase_min(node->left);
         return this->rotate(node);
     }
 
-    int count(node_pointer node, T val) const {
+    int count(node_ptr node, T val) const {
         if (node == nullptr) return 0;
         int res = node->val == val;
         if (!(node->val < val)) res += this->count(node->left, val);
