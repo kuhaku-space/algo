@@ -2,23 +2,28 @@
 
 /**
  * @brief フェニック木
+ * @see http://hos.ac/slides/20140319_bit.pdf
  *
  * @tparam T
  */
 template <class T>
 struct BIT {
-    int N;
-    vector<T> data;
+    BIT() : _size(), data() {}
+    BIT(int n) : _size(n + 1), data(n + 1) {}
+    BIT(const std::vector<T> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
+        this->build(v);
+    }
+    template <class U>
+    BIT(const std::vector<U> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
+        this->build(v);
+    }
 
-    BIT() : N(), data() {}
-    BIT(int n, T e = T(0)) : N(n + 1), data(n + 1, e) {}
-    BIT(const vector<T> &v) : N(v.size() + 1), data(v.size() + 1) { this->build(v); }
-
-    const T at(int k) const { return this->sum(k + 1) - this->sum(k); }
-    const T get(int k) const { return this->at(k); }
+    T operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
+    T at(int k) const { return this->operator[](k); }
+    T get(int k) const { return this->operator[](k); }
 
     template <class U>
-    void build(const vector<U> &v) {
+    void build(const std::vector<U> &v) {
         for (int i = 0, n = v.size(); i < n; ++i) this->add(i, v[i]);
     }
 
@@ -38,8 +43,8 @@ struct BIT {
      * @return void
      */
     void add(int k, T val) {
-        assert(0 <= k && k < this->N);
-        for (++k; k < N; k += k & -k) this->data[k] += val;
+        assert(0 <= k && k < this->_size);
+        for (++k; k < this->_size; k += k & -k) this->data[k] += val;
     }
     /**
      * @brief chmax(v[k], val)
@@ -71,7 +76,7 @@ struct BIT {
      *
      * @return T
      */
-    T all_sum() const { return this->sum(this->N); }
+    T all_sum() const { return this->sum(this->_size); }
     /**
      * @brief v[0] + ... + v[k - 1]
      *
@@ -79,7 +84,7 @@ struct BIT {
      * @return T
      */
     T sum(int k) const {
-        assert(0 <= k && k <= this->N);
+        assert(0 <= k && k <= this->_size);
         T res = 0;
         for (; k > 0; k -= k & -k) res += this->data[k];
         return res;
@@ -102,11 +107,15 @@ struct BIT {
     int lower_bound(T val) const {
         if (val <= 0) return 0;
         int k = 1;
-        while (k < this->N) k <<= 1;
+        while (k < this->_size) k <<= 1;
         int res = 0;
         for (; k > 0; k >>= 1) {
-            if (res + k < this->N && this->data[res + k] < val) val -= this->data[res += k];
+            if (res + k < this->_size && this->data[res + k] < val) val -= this->data[res += k];
         }
         return res;
     }
+
+  private:
+    int _size;
+    std::vector<T> data;
 };
