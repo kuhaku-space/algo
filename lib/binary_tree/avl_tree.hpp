@@ -18,23 +18,23 @@ struct avl_tree {
         constexpr _node(T _val) : val(_val), height(1), left(nullptr), right(nullptr) {}
 
         static constexpr int get_height(pointer node) { return node == nullptr ? 0 : node->height; }
-        static constexpr int get_balance_factor(pointer node) const {
+        static constexpr int get_balance_factor(pointer node) {
             return node == nullptr ? 0
-                                   : this->get_height(node->left) - this->get_height(node->right);
+                                   : _node::get_height(node->left) - _node::get_height(node->right);
         }
 
         constexpr void set_height() {
-            this->height = std::max(_node::get_height(node->left), _node::get_height(node->right)) + 1
+            this->height =
+                std::max(_node::get_height(this->left), _node::get_height(this->right)) + 1;
         }
         constexpr bool is_leaf() const { return this->left == nullptr && this->right == nullptr; }
     };
 
   public:
+    using node_type = _node;
     using node_ptr = typename _node::pointer;
 
     constexpr avl_tree() : root(nullptr) {}
-
-    int get_height() const { return this->root == nullptr ? 0 : this->root->height; }
 
     void insert(T val) { this->root = this->insert(this->root, val); }
 
@@ -82,7 +82,9 @@ struct avl_tree {
 
     constexpr T get_min_val(node_ptr node) const {
         assert(node);
-        while (node->left) { node = node->left; }
+        while (node->left) {
+            node = node->left;
+        }
         return node->val;
     }
 
@@ -121,12 +123,12 @@ struct avl_tree {
     }
 
     constexpr node_ptr rotate(node_ptr node) {
-        int bf = this->get_balance_factor(node);
+        int bf = node_type::get_balance_factor(node);
         if (bf < -1) {
-            if (this->get_balance_factor(node->right) >= 1) node = this->rotrl(node);
+            if (node_type::get_balance_factor(node->right) >= 1) node = this->rotrl(node);
             else node = this->rotl(node);
         } else if (bf > 1) {
-            if (this->get_balance_factor(node->left) <= -1) node = this->rotlr(node);
+            if (node_type::get_balance_factor(node->left) <= -1) node = this->rotlr(node);
             else node = this->rotr(node);
         } else {
             node->set_height();
