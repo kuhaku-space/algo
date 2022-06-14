@@ -12,6 +12,7 @@
 "test/aoj/dpl/longest_increasing_subsequense.test.cpp": "2022-06-14 14:06:44 +0900",
 "test/aoj/dpl/stirling.test.cpp": "2022-06-14 14:06:44 +0900",
 "test/aoj/dsl/raq_rmq.test.cpp": "2022-06-14 14:06:44 +0900",
+"test/aoj/dsl/raq_rsq.test.cpp": "2022-06-15 04:26:17 +0900",
 "test/aoj/dsl/rmq.test.cpp": "2022-06-14 14:06:44 +0900",
 "test/aoj/dsl/ruq.test.cpp": "2022-06-14 14:06:44 +0900",
 "test/aoj/dsl/union_find.test.cpp": "2022-06-15 02:23:06 +0900",
