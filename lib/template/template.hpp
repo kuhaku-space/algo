@@ -6,11 +6,11 @@
 using namespace std;
 template <class T, class U>
 bool chmax(T &a, const U &b) {
-    return a < b ? a = b, true : false;
+    return a < (T)b ? a = (T)b, true : false;
 }
 template <class T, class U>
 bool chmin(T &a, const U &b) {
-    return b < a ? a = b, true : false;
+    return (T)b < a ? a = (T)b, true : false;
 }
 constexpr int64_t INF = 1000000000000000003;
 constexpr int Inf = 1000000003;
