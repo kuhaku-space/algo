@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/persistent_array.hpp
-    title: lib/data_structure/persistent_array.hpp
+    title: "\u6C38\u7D9A\u914D\u5217"
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -47,7 +47,7 @@ data:
   isVerificationFile: false
   path: lib/tree/persistent_union_find.hpp
   requiredBy: []
-  timestamp: '2022-05-15 03:58:22+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/persistent_union_find.test.cpp

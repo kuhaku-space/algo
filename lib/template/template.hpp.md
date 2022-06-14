@@ -24,23 +24,11 @@ data:
     path: lib/_new/tree64.hpp
     title: lib/_new/tree64.hpp
   - icon: ':warning:'
-    path: lib/_old/dual_segment_tree_virtual.hpp
-    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
     path: lib/_old/lazy_segment_tree.hpp
     title: lib/_old/lazy_segment_tree.hpp
   - icon: ':warning:'
     path: lib/_old/lazy_segment_tree_beta.hpp
     title: lib/_old/lazy_segment_tree_beta.hpp
-  - icon: ':warning:'
-    path: lib/_old/lca.hpp
-    title: lib/_old/lca.hpp
-  - icon: ':warning:'
-    path: lib/_old/segment_tree_virtual.hpp
-    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/_old/tree.hpp
-    title: lib/_old/tree.hpp
   - icon: ':warning:'
     path: lib/algorithm/Mo.hpp
     title: lib/algorithm/Mo.hpp
@@ -60,7 +48,7 @@ data:
     path: lib/binary_tree/BIT_RSQ.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
       \u533A\u9593\u7DCF\u548C\uFF09"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/avl_tree.hpp
     title: "AVL\u6728"
   - icon: ':warning:'
@@ -75,15 +63,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/scapegoat_tree.hpp
     title: "\u30B9\u30B1\u30FC\u30D7\u30B4\u30FC\u30C8\u6728"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/treap.hpp
     title: Treap
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
-    title: lib/data_structure/bigint.hpp
+    title: "\u591A\u500D\u9577\u6574\u6570"
   - icon: ':warning:'
     path: lib/data_structure/bigint_beta.hpp
     title: lib/data_structure/bigint_beta.hpp
@@ -102,7 +90,7 @@ data:
     title: lib/data_structure/heap.hpp
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/persistent_array.hpp
-    title: lib/data_structure/persistent_array.hpp
+    title: "\u6C38\u7D9A\u914D\u5217"
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/persistent_queue.hpp
     title: lib/data_structure/persistent_queue.hpp
@@ -272,13 +260,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/matrix/wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/random/split_mix_64.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
   - icon: ':warning:'
     path: lib/random/xoroshiro128.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/random/xorshift.hpp
     title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - icon: ':warning:'
@@ -346,12 +334,9 @@ data:
     title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
   - icon: ':heavy_check_mark:'
     path: lib/tree/undo_union_find.hpp
-    title: lib/tree/undo_union_find.hpp
+    title: "Undo\u53EF\u80FD\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
-    title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - icon: ':warning:'
-    path: lib/tree/union_find_with_edge.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   - icon: ':heavy_check_mark:'
     path: lib/tree/weighted_union_find.hpp
@@ -457,11 +442,38 @@ data:
     path: test/aoj/grl/warshall_floyd.test.cpp
     title: test/aoj/grl/warshall_floyd.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/itp2/avl_tree.test.cpp
+    title: test/aoj/itp2/avl_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/itp2/scapegoat_tree.test.cpp
+    title: test/aoj/itp2/scapegoat_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/itp2/treap.test.cpp
+    title: test/aoj/itp2/treap.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/addition.test.cpp
+    title: test/aoj/ntl/addition.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/difference.test.cpp
+    title: test/aoj/ntl/difference.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/division.test.cpp
+    title: test/aoj/ntl/division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/multiplication.test.cpp
+    title: test/aoj/ntl/multiplication.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/multiplication2.test.cpp
+    title: test/aoj/ntl/multiplication2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/power.test.cpp
     title: test/aoj/ntl/power.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/prime_factorize.test.cpp
     title: test/aoj/ntl/prime_factorize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/remainder.test.cpp
+    title: test/aoj/ntl/remainder.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
@@ -509,19 +521,19 @@ data:
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#pragma GCC target(\"sse4.2,avx2,bmi2\"\
     )\r\n#pragma GCC optimize(\"O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n\
     #include <bits/stdc++.h>\r\nusing namespace std;\r\ntemplate <class T, class U>\r\
-    \nbool chmax(T &a, const U &b) {\r\n    return a < b ? a = b, true : false;\r\n\
-    }\r\ntemplate <class T, class U>\r\nbool chmin(T &a, const U &b) {\r\n    return\
-    \ b < a ? a = b, true : false;\r\n}\r\nconstexpr int64_t INF = 1000000000000000003;\r\
+    \nbool chmax(T &a, const U &b) {\r\n    return a < (T)b ? a = (T)b, true : false;\r\
+    \n}\r\ntemplate <class T, class U>\r\nbool chmin(T &a, const U &b) {\r\n    return\
+    \ (T)b < a ? a = (T)b, true : false;\r\n}\r\nconstexpr int64_t INF = 1000000000000000003;\r\
     \nconstexpr int Inf = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr\
     \ int MOD_N = 998244353;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double PI\
     \ = M_PI;\n"
   code: "#pragma once\r\n#pragma GCC target(\"sse4.2,avx2,bmi2\")\r\n#pragma GCC optimize(\"\
     O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n#include <bits/stdc++.h>\r\n\
     using namespace std;\r\ntemplate <class T, class U>\r\nbool chmax(T &a, const\
-    \ U &b) {\r\n    return a < b ? a = b, true : false;\r\n}\r\ntemplate <class T,\
-    \ class U>\r\nbool chmin(T &a, const U &b) {\r\n    return b < a ? a = b, true\
-    \ : false;\r\n}\r\nconstexpr int64_t INF = 1000000000000000003;\r\nconstexpr int\
-    \ Inf = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr int MOD_N\
+    \ U &b) {\r\n    return a < (T)b ? a = (T)b, true : false;\r\n}\r\ntemplate <class\
+    \ T, class U>\r\nbool chmin(T &a, const U &b) {\r\n    return (T)b < a ? a = (T)b,\
+    \ true : false;\r\n}\r\nconstexpr int64_t INF = 1000000000000000003;\r\nconstexpr\
+    \ int Inf = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr int MOD_N\
     \ = 998244353;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double PI = M_PI;"
   dependsOn: []
   isVerificationFile: false
@@ -571,7 +583,6 @@ data:
   - lib/dp/lis.hpp
   - lib/tree/weighted_union_find.hpp
   - lib/tree/persistent_union_find.hpp
-  - lib/tree/union_find_with_edge.hpp
   - lib/tree/undo_union_find.hpp
   - lib/tree/tree_function.hpp
   - lib/tree/partially_persistent_union_find.hpp
@@ -633,22 +644,27 @@ data:
   - lib/string/kmp.hpp
   - lib/string/manacher.hpp
   - lib/_old/lazy_segment_tree.hpp
-  - lib/_old/segment_tree_virtual.hpp
   - lib/_old/lazy_segment_tree_beta.hpp
-  - lib/_old/dual_segment_tree_virtual.hpp
-  - lib/_old/tree.hpp
-  - lib/_old/lca.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/fft_mod.hpp
   - lib/fft/fft.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
   - lib/fft/garner.hpp
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
   - test/aoj/ntl/prime_factorize.test.cpp
+  - test/aoj/itp2/treap.test.cpp
+  - test/aoj/itp2/scapegoat_tree.test.cpp
+  - test/aoj/itp2/avl_tree.test.cpp
   - test/aoj/cgl/projection.test.cpp
   - test/aoj/cgl/cross_point.test.cpp
   - test/aoj/cgl/intersection.test.cpp

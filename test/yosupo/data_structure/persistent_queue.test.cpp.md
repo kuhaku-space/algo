@@ -45,7 +45,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/persistent_queue.test.cpp
   requiredBy: []
-  timestamp: '2022-05-15 11:34:09+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/persistent_queue.test.cpp

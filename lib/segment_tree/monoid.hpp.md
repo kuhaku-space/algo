@@ -84,7 +84,7 @@ data:
   - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/persistent_segment_tree.hpp
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/raq_rmq.test.cpp

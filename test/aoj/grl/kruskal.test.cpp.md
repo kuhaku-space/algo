@@ -50,7 +50,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/kruskal.test.cpp
   requiredBy: []
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-15 02:23:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/kruskal.test.cpp

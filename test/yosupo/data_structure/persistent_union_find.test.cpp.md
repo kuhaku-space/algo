@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/persistent_array.hpp
-    title: lib/data_structure/persistent_array.hpp
+    title: "\u6C38\u7D9A\u914D\u5217"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -47,7 +47,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/persistent_union_find.test.cpp
   requiredBy: []
-  timestamp: '2022-05-15 04:01:35+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/persistent_union_find.test.cpp

@@ -5,7 +5,7 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/treap.hpp
     title: Treap
   - icon: ':warning:'
@@ -14,16 +14,19 @@ data:
   - icon: ':warning:'
     path: lib/random/xoroshiro128.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/random/xorshift.hpp
     title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - icon: ':warning:'
     path: lib/random/xoshiro128.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoshiro128++"
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/itp2/treap.test.cpp
+    title: test/aoj/itp2/treap.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
     links: []
@@ -69,9 +72,10 @@ data:
   - lib/random/xoroshiro128.hpp
   - lib/data_structure/skip_list.hpp
   - lib/binary_tree/treap.hpp
-  timestamp: '2022-05-13 04:24:18+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2022-06-14 14:06:44+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/itp2/treap.test.cpp
 documentation_of: lib/random/split_mix_64.hpp
 layout: document
 redirect_from:

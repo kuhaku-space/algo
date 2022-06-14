@@ -27,16 +27,16 @@ data:
   code: "#include \"template/template.hpp\"\n\n/**\n * @brief \u6700\u9577\u5897\u52A0\
     \u90E8\u5206\u5217\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param v \u914D\
     \u5217\n * @return int \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\u306E\u9577\u3055\
-    \n */\ntemplate <class T>\nint LIS(const vector<T> &v) {\n    int n = v.size();\n\
-    \    vector<T> dp;\n    for (int i = 0; i < n; ++i) {\n        auto it = lower_bound(dp.begin(),\
-    \ dp.end(), v[i]);\n        if (it == dp.end()) dp.emplace_back(v[i]);\n     \
-    \   else *it = v[i];\n    }\n    return dp.size();\n}\n"
+    \n */\ntemplate <class T>\nint LIS(const std::vector<T> &v) {\n    int n = v.size();\n\
+    \    std::vector<T> dp;\n    for (int i = 0; i < n; ++i) {\n        auto it =\
+    \ std::lower_bound(dp.begin(), dp.end(), v[i]);\n        if (it == dp.end()) dp.emplace_back(v[i]);\n\
+    \        else *it = v[i];\n    }\n    return dp.size();\n}\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/dp/lis.hpp
   requiredBy: []
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp

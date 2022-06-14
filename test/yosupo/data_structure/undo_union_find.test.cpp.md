@@ -12,7 +12,7 @@ data:
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
     path: lib/tree/undo_union_find.hpp
-    title: lib/tree/undo_union_find.hpp
+    title: "Undo\u53EF\u80FD\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -56,7 +56,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/undo_union_find.test.cpp
   requiredBy: []
-  timestamp: '2022-05-29 14:44:20+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/undo_union_find.test.cpp

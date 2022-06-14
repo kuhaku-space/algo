@@ -61,7 +61,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/segment_tree/lazy_segment_tree.hpp

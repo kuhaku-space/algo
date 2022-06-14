@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/random/split_mix_64.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
   - icon: ':heavy_check_mark:'
@@ -58,7 +58,7 @@ data:
   isVerificationFile: false
   path: lib/random/xoshiro128.hpp
   requiredBy: []
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/random/xoshiro128.hpp

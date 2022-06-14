@@ -8,9 +8,9 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
-    title: lib/data_structure/bigint.hpp
+    title: "\u591A\u500D\u9577\u6574\u6570"
   - icon: ':warning:'
     path: lib/data_structure/bigint_beta.hpp
     title: lib/data_structure/bigint_beta.hpp
@@ -21,6 +21,24 @@ data:
     path: lib/fft/ntt_mod.hpp
     title: lib/fft/ntt_mod.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/addition.test.cpp
+    title: test/aoj/ntl/addition.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/difference.test.cpp
+    title: test/aoj/ntl/difference.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/division.test.cpp
+    title: test/aoj/ntl/division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/multiplication.test.cpp
+    title: test/aoj/ntl/multiplication.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/multiplication2.test.cpp
+    title: test/aoj/ntl/multiplication2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/remainder.test.cpp
+    title: test/aoj/ntl/remainder.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
@@ -77,9 +95,15 @@ data:
   - lib/data_structure/bigint_beta.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document

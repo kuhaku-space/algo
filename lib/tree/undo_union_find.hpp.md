@@ -13,7 +13,9 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
+    document_title: "Undo\u53EF\u80FD\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+    links:
+    - https://ei1333.github.io/luzhiled/snippets/structure/union-find.html
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -23,21 +25,24 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\n\nstruct undo_union_find {\n    undo_union_find(int\
-    \ _n) : data(_n, -1) {}\n\n    int root(int x) { return this->data[x] < 0 ? x\
-    \ : this->data[x] = this->root(this->data[x]); }\n    int get_root(int k) { return\
-    \ this->root(k); }\n\n    bool is_root(int k) const { return this->data[0] < 0;\
-    \ }\n\n    bool unite(int x, int y) {\n        x = this->root(x), y = this->root(y);\n\
-    \        this->history.emplace(x, this->data[x]);\n        this->history.emplace(y,\
-    \ this->data[y]);\n        if (x == y) return false;\n        if (this->data[x]\
-    \ > this->data[y]) swap(x, y);\n        this->data[x] += this->data[y];\n    \
-    \    this->data[y] = x;\n        return true;\n    }\n\n    int size(int k) {\
-    \ return -this->data[this->root(k)]; }\n    int get_size(int k) { return this->size(k);\
-    \ }\n\n    bool same(int x, int y) { return this->root(x) == this->root(y); }\n\
-    \    bool is_same(int x, int y) { return this->same(x, y); }\n\n    void undo()\
-    \ {\n        this->data[this->history.top().first] = this->history.top().second;\n\
-    \        this->history.pop();\n        this->data[this->history.top().first] =\
-    \ this->history.top().second;\n        this->history.pop();\n    }\n\n    int\
+  code: "#include \"template/template.hpp\"\n\n/**\n * @brief Undo\u53EF\u80FD\u7D20\
+    \u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020\n * @details Implement (union by size)\n\
+    \ *\n * @see https://ei1333.github.io/luzhiled/snippets/structure/union-find.html\n\
+    \ */\nstruct undo_union_find {\n    undo_union_find() : data(), history() {}\n\
+    \    undo_union_find(int _n) : data(_n, -1), history() {}\n\n    int root(int\
+    \ x) { return this->data[x] < 0 ? x : this->data[x] = this->root(this->data[x]);\
+    \ }\n    int get_root(int k) { return this->root(k); }\n\n    bool is_root(int\
+    \ k) const { return this->data[0] < 0; }\n\n    bool same(int x, int y) { return\
+    \ this->root(x) == this->root(y); }\n    bool is_same(int x, int y) { return this->same(x,\
+    \ y); }\n\n    int size(int k) { return -this->data[this->root(k)]; }\n    int\
+    \ get_size(int k) { return this->size(k); }\n\n    bool unite(int x, int y) {\n\
+    \        x = this->root(x), y = this->root(y);\n        this->history.emplace(x,\
+    \ this->data[x]);\n        this->history.emplace(y, this->data[y]);\n        if\
+    \ (x == y) return false;\n        if (this->data[x] > this->data[y]) swap(x, y);\n\
+    \        this->data[x] += this->data[y];\n        this->data[y] = x;\n       \
+    \ return true;\n    }\n\n    void undo() {\n        this->data[this->history.top().first]\
+    \ = this->history.top().second;\n        this->history.pop();\n        this->data[this->history.top().first]\
+    \ = this->history.top().second;\n        this->history.pop();\n    }\n\n    int\
     \ snapshot() const { return this->history.size(); }\n\n    void rollback(int x\
     \ = 0) {\n        while ((int)(this->history.size()) > x) this->undo();\n    }\n\
     \n  private:\n    std::vector<int> data;\n    std::stack<std::pair<int, int>>\
@@ -47,7 +52,7 @@ data:
   isVerificationFile: false
   path: lib/tree/undo_union_find.hpp
   requiredBy: []
-  timestamp: '2022-05-28 00:59:09+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/undo_union_find.test.cpp
@@ -56,5 +61,5 @@ layout: document
 redirect_from:
 - /library/lib/tree/undo_union_find.hpp
 - /library/lib/tree/undo_union_find.hpp.html
-title: lib/tree/undo_union_find.hpp
+title: "Undo\u53EF\u80FD\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
 ---

@@ -5,9 +5,9 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
-    title: lib/data_structure/bigint.hpp
+    title: "\u591A\u500D\u9577\u6574\u6570"
   - icon: ':warning:'
     path: lib/data_structure/bigint_beta.hpp
     title: lib/data_structure/bigint_beta.hpp
@@ -34,8 +34,26 @@ data:
     path: test/aoj/dpl/stirling.test.cpp
     title: test/aoj/dpl/stirling.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/addition.test.cpp
+    title: test/aoj/ntl/addition.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/difference.test.cpp
+    title: test/aoj/ntl/difference.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/division.test.cpp
+    title: test/aoj/ntl/division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/multiplication.test.cpp
+    title: test/aoj/ntl/multiplication.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/multiplication2.test.cpp
+    title: test/aoj/ntl/multiplication2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/power.test.cpp
     title: test/aoj/ntl/power.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ntl/remainder.test.cpp
+    title: test/aoj/ntl/remainder.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
@@ -45,7 +63,7 @@ data:
   attributes:
     document_title: modint
     links:
-    - https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp)
+    - https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -56,10 +74,11 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief\
-    \ modint\r\n * @details [\u53C2\u8003](https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp)\r\
-    \n *\r\n * @tparam mod \u6CD5\r\n */\r\n\r\ntemplate <int mod>\r\nstruct ModInt\
-    \ {\r\n    constexpr ModInt() noexcept : x(0) {}\r\n    constexpr ModInt(int y)\
-    \ noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}\r\n    constexpr ModInt(int64_t\
+    \ modint\r\n * @see https://github.com/ei1333/library/blob/master/math/combinatorics/mod-int.cpp\r\
+    \n *\r\n * @tparam mod \u6CD5\r\n */\r\ntemplate <int mod = MOD_N>\r\nstruct ModInt\
+    \ {\r\n    static constexpr int get_mod() noexcept { return mod; }\r\n\r\n   \
+    \ constexpr ModInt() noexcept : x(0) {}\r\n    constexpr ModInt(int y) noexcept\
+    \ : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}\r\n    constexpr ModInt(std::int64_t\
     \ y) noexcept : x(y >= 0 ? y % mod : (mod - 1 - ~y % mod)) {}\r\n\r\n    constexpr\
     \ ModInt &operator+=(const ModInt &rhs) noexcept {\r\n        if ((this->x +=\
     \ rhs.x) >= mod) this->x -= mod;\r\n        return *this;\r\n    }\r\n    constexpr\
@@ -89,15 +108,15 @@ data:
     \ {\r\n        int a = x, b = mod, u = 1, v = 0, t;\r\n        while (b > 0) {\r\
     \n            t = a / b;\r\n            swap(a -= t * b, b);\r\n            swap(u\
     \ -= t * v, v);\r\n        }\r\n        return ModInt(u);\r\n    }\r\n\r\n   \
-    \ constexpr ModInt pow(int64_t n) const noexcept { return ModInt(*this).pow_self(n);\
-    \ }\r\n    constexpr ModInt &pow_self(int64_t n) noexcept {\r\n        ModInt\
+    \ constexpr ModInt pow(std::int64_t n) const noexcept { return ModInt(*this).pow_self(n);\
+    \ }\r\n    constexpr ModInt &pow_self(std::int64_t n) noexcept {\r\n        ModInt\
     \ res(1);\r\n        for (; n > 0; n >>= 1) {\r\n            if (n & 1) res *=\
     \ *this;\r\n            *this *= *this;\r\n        }\r\n        *this = res;\r\
-    \n        return *this;\r\n    }\r\n\r\n    friend istream &operator>>(istream\
-    \ &is, ModInt &rhs) {\r\n        int64_t t;\r\n        is >> t;\r\n        rhs\
-    \ = ModInt<mod>(t);\r\n        return (is);\r\n    }\r\n    friend ostream &operator<<(ostream\
-    \ &os, const ModInt &rhs) { return os << rhs.x; }\r\n\r\n    static int get_mod()\
-    \ noexcept { return mod; }\r\n\r\n  private:\r\n    int x;\r\n};\r\n"
+    \n        return *this;\r\n    }\r\n\r\n    friend std::istream &operator>>(std::istream\
+    \ &is, ModInt &rhs) {\r\n        std::int64_t t;\r\n        is >> t;\r\n     \
+    \   rhs = ModInt<mod>(t);\r\n        return (is);\r\n    }\r\n    friend std::ostream\
+    \ &operator<<(std::ostream &os, const ModInt &rhs) { return os << rhs.x; }\r\n\
+    \r\n  private:\r\n    int x;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -110,10 +129,16 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
   - test/aoj/dpl/bell.test.cpp
   - test/aoj/dpl/stirling.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp

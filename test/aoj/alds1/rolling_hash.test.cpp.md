@@ -41,7 +41,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/rolling_hash.test.cpp
   requiredBy: []
-  timestamp: '2022-05-14 11:27:02+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/rolling_hash.test.cpp

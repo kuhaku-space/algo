@@ -5,9 +5,6 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: lib/_old/tree.hpp
-    title: lib/_old/tree.hpp
   - icon: ':heavy_check_mark:'
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
@@ -189,8 +186,7 @@ data:
   - lib/graph/dijkstra_potential.hpp
   - lib/graph/dijkstra_heap.hpp
   - lib/graph/topological_sort.hpp
-  - lib/_old/tree.hpp
-  timestamp: '2022-05-13 04:24:18+09:00'
+  timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_radix.test.cpp
