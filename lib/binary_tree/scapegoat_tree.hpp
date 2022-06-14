@@ -2,11 +2,12 @@
 
 /**
  * @brief スケープゴート木
+ * @see https://kopricky.github.io/code/BinarySearchTree/scapegoat_tree.html
  *
  * @tparam T 要素の型
  */
 template <class T>
-class scapegoat_tree {
+struct scapegoat_tree {
   private:
     struct Node {
         using pointer = Node *;
@@ -23,7 +24,7 @@ class scapegoat_tree {
     };
 
   public:
-    using node_pointer = typename Node::pointer;
+    using node_ptr = typename Node::pointer;
 
     scapegoat_tree(const double _alpha = 2.0 / 3.0)
         : root(nullptr), alpha(_alpha), log_val(-1.0 / std::log2(_alpha)), max_element_size(0) {}
@@ -33,7 +34,7 @@ class scapegoat_tree {
     constexpr int size() const { return this->empty() ? 0 : this->root->size; }
 
     constexpr bool contains(T val) const {
-        node_pointer node = this->root;
+        node_ptr node = this->root;
         while (node) {
             if (node->val == val) return true;
             node = (val < node->val ? node->left : node->right);
@@ -43,7 +44,7 @@ class scapegoat_tree {
 
     constexpr T index(int k) const {
         assert(k < this->size());
-        node_pointer node = this->root;
+        node_ptr node = this->root;
         while (node) {
             if (Node::get_size(node->left) == k) {
                 break;
@@ -56,6 +57,7 @@ class scapegoat_tree {
         }
         return node->val;
     }
+    constexpr T kth_element(int k) const { return this->index(k); }
 
     void insert(T val) {
         this->max_element_size = std::max(this->max_element_size, this->size() + 1);
@@ -70,39 +72,39 @@ class scapegoat_tree {
     }
 
   private:
-    node_pointer root;
+    node_ptr root;
     double alpha, log_val;
     int max_element_size;
 
-    void subtree_dfs(node_pointer node, std::vector<node_pointer> &nodes) const {
+    void subtree_dfs(node_ptr node, std::vector<node_ptr> &nodes) const {
         if (node->left) this->subtree_dfs(node->left, nodes);
         nodes.emplace_back(node);
         if (node->right) this->subtree_dfs(node->right, nodes);
     }
-    node_pointer build_pbbt_rec(int l, int r, const std::vector<node_pointer> &nodes) {
+    node_ptr build_pbbt_rec(int l, int r, const std::vector<node_ptr> &nodes) {
         if (r - l == 0) {
             return nullptr;
         } else if (r - l == 1) {
-            node_pointer node = nodes[l];
+            node_ptr node = nodes[l];
             node->left = node->right = nullptr;
             node->eval();
             return node;
         }
         int mid = (l + r) >> 1;
-        node_pointer node = nodes[mid];
+        node_ptr node = nodes[mid];
         node->left = this->build_pbbt_rec(l, mid, nodes);
         node->right = this->build_pbbt_rec(mid + 1, r, nodes);
         node->eval();
         return node;
     }
-    node_pointer build_pbbt(node_pointer node) {
+    node_ptr build_pbbt(node_ptr node) {
         if (!node) return nullptr;
-        std::vector<node_pointer> nodes;
+        std::vector<node_ptr> nodes;
         this->subtree_dfs(node, nodes);
         return this->build_pbbt_rec(0, nodes.size(), nodes);
     }
 
-    node_pointer insert(node_pointer node, T val, int depth, bool &balanced) {
+    node_ptr insert(node_ptr node, T val, int depth, bool &balanced) {
         if (!node) {
             balanced = (depth <= std::floor(log_val * std::log2(max_element_size)));
             return new Node(val);
@@ -119,7 +121,7 @@ class scapegoat_tree {
         return this->build_pbbt(node);
     }
 
-    node_pointer join(node_pointer left, node_pointer right) {
+    node_ptr join(node_ptr left, node_ptr right) {
         if (!left || !right) {
             return left ? left : right;
         } else if (left->size < right->size) {
@@ -133,7 +135,7 @@ class scapegoat_tree {
         }
     }
 
-    node_pointer erase(node_pointer node, T val) {
+    node_ptr erase(node_ptr node, T val) {
         if (!node) {
             return nullptr;
         } else if (node->val == val) {
