@@ -10,18 +10,18 @@
 template <class T, class UniformRandomBitGenerator = Xorshift>
 struct Treap {
   private:
-    struct Node {
-        using pointer = Node *;
+    struct _node {
+        using pointer = _node *;
         T val;
-        UniformRandomBitGenerator::result_type priority;
+        typename UniformRandomBitGenerator::result_type priority;
         pointer left, right;
 
-        Node(T _val, UniformRandomBitGenerator::result_type _priority)
+        _node(T _val, typename UniformRandomBitGenerator::result_type _priority)
             : val(_val), priority(_priority), left(nullptr), right(nullptr) {}
     };
 
   public:
-    using node_pointer = typename Node::pointer;
+    using node_ptr = typename _node::pointer;
 
     constexpr Treap() : root(nullptr) {}
 
@@ -30,7 +30,7 @@ struct Treap {
     void erase(T val) { this->root = this->erase(this->root, val); }
 
     bool contains(T val) const {
-        node_pointer node = this->root;
+        node_ptr node = this->root;
         while (node && node->val != val) {
             if (val < node->val) node = node->left;
             else node = node->right;
@@ -42,33 +42,35 @@ struct Treap {
 
   private:
     UniformRandomBitGenerator gen;
-    node_pointer root;
+    node_ptr root;
 
-    constexpr T get_min_val(node_pointer node) const {
+    constexpr T get_min_val(node_ptr node) const {
         assert(node);
-        while (node->left) { node = node->left; }
+        while (node->left) {
+            node = node->left;
+        }
         return node->val;
     }
 
-    constexpr node_pointer rotl(node_pointer node) {
+    constexpr node_ptr rotl(node_ptr node) {
         assert(node);
-        node_pointer pivot = node->right;
+        node_ptr pivot = node->right;
         assert(pivot);
         node->right = pivot->left;
         pivot->left = node;
         return pivot;
     }
 
-    constexpr node_pointer rotr(node_pointer node) {
+    constexpr node_ptr rotr(node_ptr node) {
         assert(node);
-        node_pointer pivot = node->left;
+        node_ptr pivot = node->left;
         assert(pivot);
         node->left = pivot->right;
         pivot->right = node;
         return pivot;
     }
 
-    constexpr node_pointer rotate(node_pointer node) {
+    constexpr node_ptr rotate(node_ptr node) {
         if (node->right && node->priority < node->right->priority) {
             node = this->rotl(node);
         } else if (node->left && node->priority < node->left->priority) {
@@ -77,14 +79,14 @@ struct Treap {
         return node;
     }
 
-    constexpr node_pointer insert(node_pointer node, T val) {
-        if (node == nullptr) return new Node(val, this->gen());
+    constexpr node_ptr insert(node_ptr node, T val) {
+        if (node == nullptr) return new _node(val, this->gen());
         if (val < node->val) node->left = this->insert(node->left, val);
         else node->right = this->insert(node->right, val);
         return this->rotate(node);
     }
 
-    constexpr node_pointer erase(node_pointer node, T val) {
+    constexpr node_ptr erase(node_ptr node, T val) {
         if (node == nullptr) return nullptr;
         if (val < node->val) {
             node->left = this->erase(node->left, val);
@@ -101,13 +103,13 @@ struct Treap {
         return this->rotate(node);
     }
 
-    constexpr node_pointer erase_min(node_pointer node) {
+    constexpr node_ptr erase_min(node_ptr node) {
         if (node->left == nullptr) return node->right;
         node->left = this->erase_min(node->left);
         return this->rotate(node);
     }
 
-    int count(node_pointer node, T val) const {
+    int count(node_ptr node, T val) const {
         if (node == nullptr) return 0;
         int res = node->val == val;
         if (!(node->val < val)) res += this->count(node->left, val);
