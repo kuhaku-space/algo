@@ -3,7 +3,6 @@
 /**
  * @brief 素集合データ構造
  * @details Implement (union by size) + (path compression)
- *
  * @see https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
  */
 struct union_find {
@@ -28,6 +27,18 @@ struct union_find {
         this->data[x] += this->data[y];
         this->data[y] = x;
         return true;
+    }
+
+    template <class F>
+    bool unite(int x, int y, F f) {
+        x = this->root(x), y = this->root(y);
+        if (x != y) {
+            if (this->data[x] > this->data[y]) swap(x, y);
+            this->data[x] += this->data[y];
+            this->data[y] = x;
+        }
+        f(x, y);
+        return x != y;
     }
 
   private:
