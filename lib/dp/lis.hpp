@@ -12,7 +12,7 @@ int LIS(const std::vector<T> &v) {
     int n = v.size();
     std::vector<T> dp;
     for (int i = 0; i < n; ++i) {
-        auto it = sts::lower_bound(dp.begin(), dp.end(), v[i]);
+        auto it = std::lower_bound(dp.begin(), dp.end(), v[i]);
         if (it == dp.end()) dp.emplace_back(v[i]);
         else *it = v[i];
     }
