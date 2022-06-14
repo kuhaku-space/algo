@@ -9,6 +9,7 @@
 "test/aoj/cgl/projection.test.cpp": "2022-05-13 04:24:18 +0900",
 "test/aoj/cgl/reflection.test.cpp": "2022-05-13 04:24:18 +0900",
 "test/aoj/dpl/bell.test.cpp": "2022-06-03 05:14:06 +0900",
+"test/aoj/dpl/longest_increasing_subsequense.test.cpp": "2022-06-14 09:20:54 +0900",
 "test/aoj/dpl/stirling.test.cpp": "2022-06-03 05:14:06 +0900",
 "test/aoj/dsl/raq_rmq.test.cpp": "2022-05-13 04:24:18 +0900",
 "test/aoj/dsl/rmq.test.cpp": "2022-05-13 04:24:18 +0900",
