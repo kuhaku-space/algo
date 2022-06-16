@@ -8,9 +8,8 @@ int main(void) {
     cin >> n >> m;
     vector<int> a(n), b(m);
     cin >> a >> b;
-    NTT_N ntt;
 
-    auto ans = ntt.convolution(a, b);
+    auto ans = NTT<>::convolution(a, b);
     co(ans);
 
     return 0;
