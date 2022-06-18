@@ -1,16 +1,24 @@
+#pragma once
 #include "math/modint.hpp"
+#include "math/pow.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief 数論変換
+ * @see https://hcpc-hokudai.github.io/archive/math_fft_002.pdf
+ *
+ * @tparam mod 法
+ * @tparam primitive_root 原始根
+ */
 template <int mod = MOD_N, int primitive_root = 3>
 struct NTT {
     using mint = ModInt<mod>;
     static constexpr int get_mod() { return mod; }
 
-    template <class T>
-    static void convolution_self(std::vector<T> &a, std::vector<T> b) {
+    template <class T, class U>
+    static void convolution_self(std::vector<T> &a, std::vector<U> b) {
         int n = a.size() + b.size() - 1;
-        int N = 1;
-        while (N < n) N <<= 1;
+        int N = 1 << ceil_pow2(n);
         a.resize(N), b.resize(N);
 
         _ntt(a, false), _ntt(b, false);
@@ -21,8 +29,8 @@ struct NTT {
         a.resize(n);
     }
 
-    template <class T>
-    static std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
+    template <class T, class U>
+    static std::vector<T> convolution(const std::vector<T> &a, const std::vector<U> &b) {
         std::vector<T> res = a;
         convolution_self(res, b);
         return res;
