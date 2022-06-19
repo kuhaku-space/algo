@@ -10,4 +10,6 @@ AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: Empty
+PointerAlignment: Right
+DerivePointerAlignment: false
 ForEachMacros: ["FOR", "FORR", "rep", "repn", "repr", "repnr"]
