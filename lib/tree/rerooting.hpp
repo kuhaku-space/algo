@@ -57,7 +57,7 @@ struct ReRooting {
         Value dp_l = M::id;
         for (int i = 0; i < deg; ++i) {
             int u = graph[v][i].to();
-            if (u != p) this->bfs(u, v, M::g(M::op(dp_l, dp_r[i + 1]), u));
+            if (u != p) this->bfs(u, v, M::g(M::op(dp_l, dp_r[i + 1]), v));
             dp_l = M::op(dp_l, dp[v][i]);
         }
         data[v] = M::g(dp_l, v);
