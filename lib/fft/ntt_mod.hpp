@@ -1,45 +1,56 @@
+#pragma once
 #include "fft/garner.hpp"
 #include "fft/ntt.hpp"
-#include "math/modint64.hpp"
 #include "template/template.hpp"
 
 using NTT_1 = NTT<167772161, 3>;   // 2^25 * 5 + 1
 using NTT_2 = NTT<469762049, 3>;   // 2^26 * 7 + 1
-using NTT_3 = NTT<1224736769, 3>;  // 2^24 * 73 + 1
+using NTT_3 = NTT<998244353, 3>;   // 2^23 * 119 + 1
+using NTT_4 = NTT<1224736769, 3>;  // 2^24 * 73 + 1
 
-vector<int64_t> convolution(vector<int64_t> a, vector<int64_t> b, int mod) {
+/**
+ * @brief 任意mod数論変換
+ * @see https://math314.hateblo.jp/entry/2015/05/07/014908
+ * @see https://asako.growi.cloud/compro/NTT
+ *
+ * @tparam T
+ * @param a
+ * @param b
+ * @param mod
+ * @return std::vector<int>
+ */
+template <class T, class U>
+std::vector<int> convolution(std::vector<T> a, std::vector<U> b, int mod) {
     const int n = a.size() + b.size() - 1;
     for (auto& i : a) i %= mod;
     for (auto& i : b) i %= mod;
-    NTT_1 ntt1;
-    NTT_2 ntt2;
-    NTT_3 ntt3;
-    auto x = ntt1.convolution(a, b);
-    auto y = ntt2.convolution(a, b);
-    auto z = ntt3.convolution(a, b);
+    auto x = NTT_1::convolution(a, b);
+    auto y = NTT_2::convolution(a, b);
+    auto z = NTT_3::convolution(a, b);
 
-    vector<int64_t> res(n);
-    vector<int64_t> r(3), m(3);
+    std::vector<int> res(n);
+    std::vector<int> r(3), m(3);
     for (int i = 0; i < n; ++i) {
-        r[0] = x[i], m[0] = ntt1.get_mod();
-        r[1] = y[i], m[1] = ntt2.get_mod();
-        r[2] = z[i], m[2] = ntt3.get_mod();
+        r[0] = (int)x[i], m[0] = NTT_1::get_mod();
+        r[1] = (int)y[i], m[1] = NTT_2::get_mod();
+        r[2] = (int)z[i], m[2] = NTT_3::get_mod();
         res[i] = garner(r, m, mod);
     }
 
     return res;
 }
 
-vector<int64_t> power(vector<int64_t> v, int64_t x) {
-    int64_t n = v.size();
-    vector<int64_t> res(n);
+template <class T>
+std::vector<T> power(std::vector<T> v, std::int64_t x, int mod = MOD) {
+    int n = v.size();
+    std::vector<T> res(n);
     res[0] = 1;
-    for (; x > 0; x >>= 1) {
+    for (; x; x >>= 1) {
         if (x & 1) {
-            res = convolution(res, v, MOD);
+            res = convolution(res, v, mod);
             res.resize(n);
         }
-        v = convolution(v, v, MOD);
+        v = convolution(v, v, mod);
         v.resize(n);
     }
     return res;

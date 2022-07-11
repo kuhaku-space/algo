@@ -7,8 +7,8 @@
  * @tparam T
  */
 template <class T>
-struct BIT_RSQ {
-    BIT_RSQ(int n) : p(n + 1), q(n + 1) {}
+struct BIT_RAQ {
+    BIT_RAQ(int n) : p(n + 1), q(n + 1) {}
 
     auto operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
     auto at(int k) const { return this->operator[](k); }
