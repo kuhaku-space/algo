@@ -2,15 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/template/atcoder.hpp
+    title: lib/template/atcoder.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/inversion_number.test.cpp
@@ -198,43 +195,34 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/macro.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"template/macro.hpp\"\n#include \"template/sonic.hpp\"\
-    \n#include \"template/template.hpp\"\nusing ll = int64_t;\nusing ld = long double;\n\
-    template <class T, class U>\nstd::istream &operator>>(std::istream &is, std::pair<T,\
-    \ U> &p) {\n    return is >> p.first >> p.second;\n}\ntemplate <class T>\nstd::istream\
-    \ &operator>>(std::istream &is, std::vector<T> &v) {\n    for (T &i : v) is >>\
-    \ i;\n    return is;\n}\ntemplate <class T, class U>\nstd::ostream &operator<<(std::ostream\
-    \ &os, const std::pair<T, U> &p) {\n    return os << '(' << p.first << ',' <<\
-    \ p.second << ')';\n}\ntemplate <class T>\nstd::ostream &operator<<(std::ostream\
-    \ &os, const std::vector<T> &v) {\n    for (auto it = v.begin(); it != v.end();\
-    \ ++it) {\n        os << (it == v.begin() ? \"\" : \" \") << *it;\n    }\n   \
-    \ return os;\n}\ntemplate <class Head, class... Tail>\nvoid co(Head &&head, Tail\
-    \ &&...tail) {\n    if constexpr (sizeof...(tail) == 0) std::cout << head << '\\\
-    n';\n    else std::cout << head << ' ', co(std::forward<Tail>(tail)...);\n}\n\
-    template <class Head, class... Tail>\nvoid ce(Head &&head, Tail &&...tail) {\n\
-    \    if constexpr (sizeof...(tail) == 0) std::cerr << head << '\\n';\n    else\
-    \ std::cerr << head << ' ', ce(std::forward<Tail>(tail)...);\n}\ntemplate <typename\
-    \ T, typename... Args>\nauto make_vector(T x, int arg, Args... args) {\n    if\
-    \ constexpr (sizeof...(args) == 0) return std::vector<T>(arg, x);\n    else return\
-    \ std::vector(arg, make_vector<T>(x, args...));\n}\nvoid setp(int n) {\n    std::cout\
-    \ << std::fixed << std::setprecision(n);\n}\nvoid Yes(bool is_correct = true)\
-    \ {\n    std::cout << (is_correct ? \"Yes\" : \"No\") << '\\n';\n}\nvoid No(bool\
-    \ is_not_correct = true) {\n    Yes(!is_not_correct);\n}\nvoid YES(bool is_correct\
-    \ = true) {\n    std::cout << (is_correct ? \"YES\" : \"NO\") << '\\n';\n}\nvoid\
-    \ NO(bool is_not_correct = true) {\n    YES(!is_not_correct);\n}\nvoid Takahashi(bool\
-    \ is_correct = true) {\n    std::cout << (is_correct ? \"Takahashi\" : \"Aoki\"\
-    ) << '\\n';\n}\nvoid Aoki(bool is_not_correct = true) {\n    Takahashi(!is_not_correct);\n\
-    }"
+  code: '#pragma once
+
+    #include "template/template.hpp"
+
+    #define FOR(i, m, n) for (int i = (m); i < int(n); ++i)
+
+    #define FORR(i, m, n) for (int i = (m)-1; i >= int(n); --i)
+
+    #define FORL(i, m, n) for (int64_t i = (m); i < int64_t(n); ++i)
+
+    #define rep(i, n) FOR (i, 0, n)
+
+    #define repn(i, n) FOR (i, 1, n + 1)
+
+    #define repr(i, n) FORR (i, n, 0)
+
+    #define repnr(i, n) FORR (i, n + 1, 1)
+
+    #define all(s) (s).begin(), (s).end()'
   dependsOn:
-  - lib/template/macro.hpp
   - lib/template/template.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: false
-  path: lib/template/atcoder.hpp
-  requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  path: lib/template/macro.hpp
+  requiredBy:
+  - lib/template/atcoder.hpp
+  timestamp: '2022-06-22 08:10:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution.test.cpp
@@ -295,10 +283,10 @@ data:
   - test/aoj/ntl/prime_factorize.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/ntl/difference.test.cpp
-documentation_of: lib/template/atcoder.hpp
+documentation_of: lib/template/macro.hpp
 layout: document
 redirect_from:
-- /library/lib/template/atcoder.hpp
-- /library/lib/template/atcoder.hpp.html
-title: lib/template/atcoder.hpp
+- /library/lib/template/macro.hpp
+- /library/lib/template/macro.hpp.html
+title: lib/template/macro.hpp
 ---

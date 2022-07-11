@@ -34,9 +34,6 @@ data:
       title: lib/_old/lazy_segment_tree_beta.hpp
   - name: lib/algorithm
     pages:
-    - icon: ':warning:'
-      path: lib/algorithm/Mo.hpp
-      title: lib/algorithm/Mo.hpp
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
@@ -46,13 +43,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/inversion_number.hpp
       title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
+    - icon: ':warning:'
+      path: lib/algorithm/mo.hpp
+      title: Mo's algorithm
   - name: lib/binary_tree
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/BIT.hpp
       title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
-    - icon: ':warning:'
-      path: lib/binary_tree/BIT_RSQ.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/binary_tree/BIT_RAQ.hpp
       title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
         \u533A\u9593\u7DCF\u548C\uFF09"
     - icon: ':heavy_check_mark:'
@@ -131,10 +131,10 @@ data:
       title: lib/fft/garner.hpp
     - icon: ':heavy_check_mark:'
       path: lib/fft/ntt.hpp
-      title: lib/fft/ntt.hpp
+      title: "\u6570\u8AD6\u5909\u63DB"
     - icon: ':warning:'
       path: lib/fft/ntt_mod.hpp
-      title: lib/fft/ntt_mod.hpp
+      title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
   - name: lib/flow
     pages:
     - icon: ':heavy_check_mark:'
@@ -349,6 +349,12 @@ data:
       path: lib/template/atcoder.hpp
       title: lib/template/atcoder.hpp
     - icon: ':heavy_check_mark:'
+      path: lib/template/macro.hpp
+      title: lib/template/macro.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/template/sonic.hpp
+      title: lib/template/sonic.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
   - name: lib/tree
@@ -368,6 +374,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/persistent_union_find.hpp
       title: lib/tree/persistent_union_find.hpp
+    - icon: ':warning:'
+      path: lib/tree/rerooting.hpp
+      title: "\u5168\u65B9\u4F4D\u6728dp"
     - icon: ':warning:'
       path: lib/tree/tree_function.hpp
       title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
@@ -428,6 +437,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/raq_rmq.test.cpp
       title: test/aoj/dsl/raq_rmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/raq_rsq.test.cpp
+      title: test/aoj/dsl/raq_rsq.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/rmq.test.cpp
       title: test/aoj/dsl/rmq.test.cpp
@@ -530,8 +542,8 @@ data:
   - name: test/yosupo/convolution
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/yosupo/convolution/convolution_mod.test.cpp
-      title: test/yosupo/convolution/convolution_mod.test.cpp
+      path: test/yosupo/convolution/convolution.test.cpp
+      title: test/yosupo/convolution/convolution.test.cpp
   - name: test/yosupo/data_structure
     pages:
     - icon: ':heavy_check_mark:'
