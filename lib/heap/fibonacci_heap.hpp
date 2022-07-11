@@ -21,13 +21,7 @@ struct fibonacci_heap {
 
         _node() : key(), value(), order(), left(this), right(this), parent(), child(), dameged() {}
         _node(Key _key, Value _value)
-            : key(_key),
-              value(_value),
-              order(),
-              left(this),
-              right(this),
-              parent(),
-              child(),
+            : key(_key), value(_value), order(), left(this), right(this), parent(), child(),
               dameged() {}
 
         void add_child(pointer node) {
@@ -63,7 +57,8 @@ struct fibonacci_heap {
     };
 
   public:
-    using node_pointer = typename _node::pointer;
+    using node_ptr = typename _node::pointer;
+
     fibonacci_heap() : _root(nullptr), _size(), comp() {}
 
     bool empty() const { return this->_size == 0; }
@@ -95,13 +90,15 @@ struct fibonacci_heap {
         this->_root = this->_root->erase();
         if (!this->_root) return;
 
-        node_pointer nodes[30] = {};
+        node_ptr nodes[30] = {};
         while (this->_root) {
             auto node = this->_root;
             auto order = node->order;
             this->_root = this->_root->erase();
             while (nodes[order]) {
-                if (comp(node->value, nodes[order]->value)) { swap(node, nodes[order]); }
+                if (comp(node->value, nodes[order]->value)) {
+                    swap(node, nodes[order]);
+                }
                 node->add_child(nodes[order]);
                 nodes[order] = nullptr;
                 ++order;
@@ -113,11 +110,13 @@ struct fibonacci_heap {
             if (node && (!this->_root || comp(this->_root->value, node->value))) this->_root = node;
         }
         for (auto node : nodes) {
-            if (node && node != this->_root) { this->_root->insert_left(node); }
+            if (node && node != this->_root) {
+                this->_root->insert_left(node);
+            }
         }
     }
 
-    void update(node_pointer node, Value value) {
+    void update(node_ptr node, Value value) {
         if (comp(node->value, value)) node->value = value;
         else return;
         if (!node->parent) {
@@ -142,7 +141,7 @@ struct fibonacci_heap {
     }
 
   private:
-    node_pointer _root;
+    node_ptr _root;
     int _size;
     Comp comp;
 };
