@@ -1,10 +1,11 @@
+#pragma once
 #include "math/pow.hpp"
 #include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
 /**
  * @brief セグメント木
- * @details [参考](https://noshi91.hatenablog.com/entry/2020/04/22/212649)
+ * @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
  *
  * @tparam M モノイド
  */
@@ -15,7 +16,7 @@ struct segment_tree {
     segment_tree() {}
     segment_tree(int n, T e = M::id) { this->init(n, e); }
 
-    const T &operator[](int i) const { return this->data[i + this->_size]; }
+    const T &operator[](int k) const { return this->data[k + this->_size]; }
     T at(int k) const { return this->operator[](k); }
     T get(int k) const { return this->operator[](k); }
 
@@ -35,7 +36,7 @@ struct segment_tree {
         assert(0 <= k && k < this->_size);
         k += this->_size;
         this->data[k] = val;
-        for (int i = 1; i <= this->_log; i++) this->update(k >> i);
+        for (int i = 1; i <= this->_log; ++i) this->update(k >> i);
     }
     void reset(int k) { this->set(k, M::id); }
 
