@@ -11,20 +11,21 @@ struct leftist_heap {
     struct _node {
         using pointer = _node *;
 
-        pointer l, r;
-        int s;
+        pointer left, right;
+        int rank;
         T val;
 
-        constexpr _node() : l(), r(), s(), val() {}
-        constexpr _node(T _val) : l(), r(), s(), val(_val) {}
+        constexpr _node() : left(), right(), rank(), val() {}
+        constexpr _node(T _val) : left(), right(), rank(), val(_val) {}
     };
 
   public:
-    using node_type = typename _node::pointer;
+    using value_type = T;
+    using node_ptr = typename _node::pointer;
 
     leftist_heap() : root() {}
 
-    constexpr auto top() const { return this->root->val; }
+    constexpr T top() const { return this->root->val; }
     constexpr bool empty() const { return this->root == nullptr; }
 
     void push(T val) {
@@ -32,18 +33,18 @@ struct leftist_heap {
         this->meld(this->root, node);
     }
 
-    void pop() { this->root = this->meld(this->root->l, this->root->r); }
+    void pop() { this->root = this->meld(this->root->left, this->root->right); }
 
-    node_type meld(node_type a, node_type b) {
+    node_ptr meld(node_ptr a, node_ptr b) {
         if (a == nullptr) return b;
         if (b == nullptr) return a;
         if (a.val > b.val) swap(a, b);
-        a.r = this->meld(a.r, b);
-        if (a.l is null || a.l.s < a.r.s) swap(a.l, a.r);
-        a.s = ((a.r == nullptr) ? 0 : a.r.s) + 1;
+        a.right = this->meld(a.right, b);
+        if (a.left == nullptr || a.left.rank < a.right.rank) swap(a.left, a.right);
+        a.rank = ((a.right == nullptr) ? 0 : a.right.rank) + 1;
         return a;
     }
 
   private:
-    node_type root;
+    node_ptr root;
 };

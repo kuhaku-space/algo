@@ -4,7 +4,7 @@ template <class Key, class Value = void>
 struct radix_heap {
   private:
     struct _node {
-        using pointer = _node*;
+        using pointer = _node *;
         Key key;
         Value value;
         int index;
@@ -13,15 +13,17 @@ struct radix_heap {
         constexpr _node(Key _key, Value _value, int _index)
             : key(_key), value(_value), index(_index) {}
 
-        constexpr bool operator<(const _node& rhs) const { return this->value < rhs.value; }
+        constexpr bool operator<(const _node &rhs) const { return this->value < rhs.value; }
 
         constexpr auto get_pair() const { return make_pair(key, value); }
     };
 
   public:
-    using node_pointer = typename _node::pointer;
+    using key_type = Key;
+    using value_type = Value;
+    using node_ptr = typename _node::pointer;
 
-    radix_heap() : v{}, _last(), _size() {}
+    radix_heap() : data{}, _last(), _size() {}
 
     constexpr int size() const { return this->_size; }
     constexpr bool empty() const { return this->_size == 0; }
@@ -30,33 +32,33 @@ struct radix_heap {
         assert(value >= this->_last);
         ++this->_size;
         auto node = new _node(key, value, this->find_bucket(value ^ this->_last));
-        this->v[node->index].emplace(node);
+        this->data[node->index].emplace(node);
         return node;
     }
     auto emplace(Key key, Value value) { return this->push(key, value); }
 
     auto top() {
-        if (this->v[0].empty()) this->relocate();
-        return (*this->v[0].begin())->get_pair();
+        if (this->data[0].empty()) this->relocate();
+        return (*this->data[0].begin())->get_pair();
     }
 
     void pop() {
         assert(this->_size);
-        if (this->v[0].empty()) this->relocate();
-        this->v[0].erase(this->v[0].begin());
+        if (this->data[0].empty()) this->relocate();
+        this->data[0].erase(this->data[0].begin());
         --this->_size;
     }
 
-    void update(node_pointer node, Value value) {
+    void update(node_ptr node, Value value) {
         if (value < node->value) node->value = value;
         else return;
-        this->v[node->index].erase(node);
+        this->data[node->index].erase(node);
         node->index = this->find_bucket(value ^ this->_last);
-        this->v[this->find_bucket(value ^ this->_last)].emplace(node);
+        this->data[this->find_bucket(value ^ this->_last)].emplace(node);
     }
 
   private:
-    std::unordered_set<node_pointer> v[std::numeric_limits<Value>::digits + 1];
+    std::unordered_set<node_ptr> data[std::numeric_limits<Value>::digits + 1];
     Value _last;
     int _size;
 
@@ -83,24 +85,24 @@ struct radix_heap {
 
     void relocate() {
         int index = 1;
-        while (v[index].empty()) ++index;
-        auto new_last = (*std::min_element(this->v[index].begin(), this->v[index].end(),
-                                           [](const auto& a, const auto& b) {
+        while (data[index].empty()) ++index;
+        auto new_last = (*std::min_element(this->data[index].begin(), this->data[index].end(),
+                                           [](const auto &a, const auto &b) {
                                                return a->value < b->value;
                                            }))
                             ->value;
-        for (auto node : this->v[index]) {
+        for (auto node : this->data[index]) {
             node->index = this->find_bucket(node->value ^ new_last);
-            this->v[this->find_bucket(node->value ^ new_last)].emplace(node);
+            this->data[this->find_bucket(node->value ^ new_last)].emplace(node);
         }
         this->_last = new_last;
-        this->v[index].clear();
+        this->data[index].clear();
     }
 };
 
 template <class T>
 struct radix_heap<T, void> {
-    radix_heap() : v{}, _last(), _size() {}
+    radix_heap() : data{}, _last(), _size() {}
 
     constexpr int size() const { return this->_size; }
     constexpr bool empty() const { return this->_size == 0; }
@@ -108,24 +110,24 @@ struct radix_heap<T, void> {
     void push(T x) {
         assert(x >= this->_last);
         ++this->_size;
-        this->v[this->find_bucket(x ^ this->_last)].emplace_back(x);
+        this->data[this->find_bucket(x ^ this->_last)].emplace_back(x);
     }
     void emplace(T x) { this->push(x); }
 
     T top() {
-        if (this->v[0].empty()) this->relocate();
+        if (this->data[0].empty()) this->relocate();
         return this->_last;
     }
 
     void pop() {
         assert(this->_size);
-        if (this->v[0].empty()) this->relocate();
-        this->v[0].pop_back();
+        if (this->data[0].empty()) this->relocate();
+        this->data[0].pop_back();
         --this->_size;
     }
 
   private:
-    std::vector<T> v[std::numeric_limits<T>::digits + 1];
+    std::vector<T> data[std::numeric_limits<T>::digits + 1];
     T _last;
     int _size;
 
@@ -152,10 +154,12 @@ struct radix_heap<T, void> {
 
     void relocate() {
         int index = 1;
-        while (v[index].empty()) ++index;
-        auto new_last = *min_element(this->v[index].begin(), this->v[index].end());
-        for (auto x : this->v[index]) { this->v[this->find_bucket(x ^ new_last)].emplace_back(x); }
+        while (data[index].empty()) ++index;
+        auto new_last = *min_element(this->data[index].begin(), this->data[index].end());
+        for (auto x : this->data[index]) {
+            this->data[this->find_bucket(x ^ new_last)].emplace_back(x);
+        }
         this->_last = new_last;
-        this->v[index].clear();
+        this->data[index].clear();
     }
 };
