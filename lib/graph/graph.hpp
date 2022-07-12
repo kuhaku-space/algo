@@ -78,7 +78,7 @@ struct Graph<void> {
         constexpr int from() const { return this->_from; }
         constexpr int to() const { return this->_to; }
         constexpr int weight() const { return 1; }
-        bool operator<(const _edge &rhs) const { return false; }
+        bool operator<(const _edge &rhs) const { return this->weight() < rhs.weight(); }
         bool operator>(const _edge &rhs) const { return rhs < *this; }
 
       private:
