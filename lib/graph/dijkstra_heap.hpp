@@ -24,7 +24,7 @@ using r_heap = radix_heap<int, T>;
 template <class T, class Heap>
 std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
     Heap heap;
-    std::vector<typename Heap::node_pointer> nodes(g.size());
+    std::vector<typename Heap::node_ptr> nodes(g.size());
     std::vector<T> dists(g.size(), inf);
     dists[s] = T();
     heap.emplace(s, T());
