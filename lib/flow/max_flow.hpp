@@ -7,7 +7,6 @@
  */
 template <class Cap>
 struct mf_graph {
-  public:
     mf_graph() : _n(0) {}
     explicit mf_graph(int n) : _n(n), g(n) {}
 
