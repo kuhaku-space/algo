@@ -54,7 +54,7 @@ data:
     \ \u5404\u9802\u70B9\u307E\u3067\u306E\u6700\u77ED\u8DDD\u96E2\n */\ntemplate\
     \ <class T, class Heap>\nstd::vector<T> dijkstra(const Graph<T> &g, int s = 0,\
     \ T inf = std::numeric_limits<T>::max()) {\n    Heap heap;\n    std::vector<typename\
-    \ Heap::node_pointer> nodes(g.size());\n    std::vector<T> dists(g.size(), inf);\n\
+    \ Heap::node_ptr> nodes(g.size());\n    std::vector<T> dists(g.size(), inf);\n\
     \    dists[s] = T();\n    heap.emplace(s, T());\n    while (!heap.empty()) {\n\
     \        auto [to, dist] = heap.top();\n        heap.pop();\n        if (dists[to]\
     \ < dist) continue;\n        for (auto &e : g[to]) {\n            if (chmin(dists[e.to()],\
@@ -70,12 +70,12 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_heap.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-13 04:39:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
 documentation_of: lib/graph/dijkstra_heap.hpp
 layout: document
 redirect_from:

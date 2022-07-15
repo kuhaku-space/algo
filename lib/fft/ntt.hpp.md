@@ -15,9 +15,6 @@ data:
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
   - icon: ':warning:'
-    path: lib/data_structure/bigint_beta.hpp
-    title: lib/data_structure/bigint_beta.hpp
-  - icon: ':warning:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
   - icon: ':warning:'
@@ -103,17 +100,16 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/data_structure/bigint.hpp
-  - lib/data_structure/bigint_beta.hpp
   timestamp: '2022-06-18 18:40:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document
 redirect_from:

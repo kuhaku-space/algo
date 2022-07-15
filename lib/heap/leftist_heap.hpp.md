@@ -24,24 +24,26 @@ data:
   code: "#include \"template/template.hpp\"\n\n/**\n * @brief leftist heap\n *\n *\
     \ @tparam T \u8981\u7D20\u306E\u578B\n */\ntemplate <class T>\nstruct leftist_heap\
     \ {\n  private:\n    struct _node {\n        using pointer = _node *;\n\n    \
-    \    pointer l, r;\n        int s;\n        T val;\n\n        constexpr _node()\
-    \ : l(), r(), s(), val() {}\n        constexpr _node(T _val) : l(), r(), s(),\
-    \ val(_val) {}\n    };\n\n  public:\n    using node_type = typename _node::pointer;\n\
-    \n    leftist_heap() : root() {}\n\n    constexpr auto top() const { return this->root->val;\
-    \ }\n    constexpr bool empty() const { return this->root == nullptr; }\n\n  \
-    \  void push(T val) {\n        auto node = new _node(val);\n        this->meld(this->root,\
-    \ node);\n    }\n\n    void pop() { this->root = this->meld(this->root->l, this->root->r);\
-    \ }\n\n    node_type meld(node_type a, node_type b) {\n        if (a == nullptr)\
+    \    pointer left, right;\n        int rank;\n        T val;\n\n        constexpr\
+    \ _node() : left(), right(), rank(), val() {}\n        constexpr _node(T _val)\
+    \ : left(), right(), rank(), val(_val) {}\n    };\n\n  public:\n    using value_type\
+    \ = T;\n    using node_ptr = typename _node::pointer;\n\n    leftist_heap() :\
+    \ root() {}\n\n    constexpr T top() const { return this->root->val; }\n    constexpr\
+    \ bool empty() const { return this->root == nullptr; }\n\n    void push(T val)\
+    \ {\n        auto node = new _node(val);\n        this->meld(this->root, node);\n\
+    \    }\n\n    void pop() { this->root = this->meld(this->root->left, this->root->right);\
+    \ }\n\n    node_ptr meld(node_ptr a, node_ptr b) {\n        if (a == nullptr)\
     \ return b;\n        if (b == nullptr) return a;\n        if (a.val > b.val) swap(a,\
-    \ b);\n        a.r = this->meld(a.r, b);\n        if (a.l is null || a.l.s < a.r.s)\
-    \ swap(a.l, a.r);\n        a.s = ((a.r == nullptr) ? 0 : a.r.s) + 1;\n       \
-    \ return a;\n    }\n\n  private:\n    node_type root;\n};\n"
+    \ b);\n        a.right = this->meld(a.right, b);\n        if (a.left == nullptr\
+    \ || a.left.rank < a.right.rank) swap(a.left, a.right);\n        a.rank = ((a.right\
+    \ == nullptr) ? 0 : a.right.rank) + 1;\n        return a;\n    }\n\n  private:\n\
+    \    node_ptr root;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/heap/leftist_heap.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-11 18:16:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/heap/leftist_heap.hpp

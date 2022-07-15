@@ -10,9 +10,6 @@ data:
       path: lib/_new/cumulative_sum_2d.hpp
       title: lib/_new/cumulative_sum_2d.hpp
     - icon: ':warning:'
-      path: lib/_new/dynamic_segment_tree.hpp
-      title: lib/_new/dynamic_segment_tree.hpp
-    - icon: ':warning:'
       path: lib/_new/graph_segment.hpp
       title: lib/_new/graph_segment.hpp
     - icon: ':warning:'
@@ -58,16 +55,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/avl_tree.hpp
       title: "AVL\u6728"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/binary_tree/binary_trie.hpp
       title: "2\u5206\u30C8\u30E9\u30A4\u6728"
-    - icon: ':warning:'
-      path: lib/binary_tree/multi_binary_trie.hpp
-      title: "2\u5206\u30C8\u30E9\u30A4\u6728(\u91CD\u8907\u3042\u308A)"
-    - icon: ':warning:'
-      path: lib/binary_tree/multi_patricia_binary_trie.hpp
-      title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728(\u91CD\u8907\u3042\u308A\
-        )"
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
@@ -82,12 +72,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/bigint.hpp
       title: "\u591A\u500D\u9577\u6574\u6570"
-    - icon: ':warning:'
-      path: lib/data_structure/bigint_beta.hpp
-      title: lib/data_structure/bigint_beta.hpp
-    - icon: ':warning:'
-      path: lib/data_structure/binary_tree.hpp
-      title: lib/data_structure/binary_tree.hpp
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/bit_vector.hpp
       title: "\u5B8C\u5099\u8F9E\u66F8"
@@ -95,9 +79,6 @@ data:
       path: lib/data_structure/erasable_priority_queue.hpp
       title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\
         \u30FC"
-    - icon: ':warning:'
-      path: lib/data_structure/heap.hpp
-      title: lib/data_structure/heap.hpp
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/persistent_array.hpp
       title: "\u6C38\u7D9A\u914D\u5217"
@@ -221,9 +202,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/heap/binary_heap.hpp
       title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-    - icon: ':warning:'
-      path: lib/heap/fast_fibonacci_heap.hpp
-      title: lib/heap/fast_fibonacci_heap.hpp
     - icon: ':heavy_check_mark:'
       path: lib/heap/fibonacci_heap.hpp
       title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
@@ -494,6 +472,12 @@ data:
       path: test/aoj/grl/prim.test.cpp
       title: test/aoj/grl/prim.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/range_query_on_tree.test.cpp
+      title: test/aoj/grl/range_query_on_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/range_query_on_tree_2.test.cpp
+      title: test/aoj/grl/range_query_on_tree_2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/scc.test.cpp
       title: test/aoj/grl/scc.test.cpp
     - icon: ':heavy_check_mark:'
@@ -547,6 +531,12 @@ data:
   - name: test/yosupo/data_structure
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/binary_trie.test.cpp
+      title: test/yosupo/data_structure/binary_trie.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/patricia_binary_trie.test.cpp
+      title: test/yosupo/data_structure/patricia_binary_trie.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/persistent_queue.test.cpp
       title: test/yosupo/data_structure/persistent_queue.test.cpp
     - icon: ':heavy_check_mark:'
@@ -561,9 +551,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
       title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/yosupo/data_structure/set_xor-min.test.cpp
-      title: test/yosupo/data_structure/set_xor-min.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp

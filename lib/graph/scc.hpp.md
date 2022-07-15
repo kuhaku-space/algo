@@ -63,7 +63,7 @@ data:
   path: lib/graph/scc.hpp
   requiredBy:
   - lib/graph/two_sat.hpp
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-13 04:39:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/scc.test.cpp

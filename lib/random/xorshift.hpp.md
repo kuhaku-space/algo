@@ -60,8 +60,8 @@ data:
   isVerificationFile: false
   path: lib/random/xorshift.hpp
   requiredBy:
-  - lib/data_structure/skip_list.hpp
   - lib/binary_tree/treap.hpp
+  - lib/data_structure/skip_list.hpp
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

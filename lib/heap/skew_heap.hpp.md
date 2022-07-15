@@ -23,23 +23,24 @@ data:
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\n\n/**\n * @brief skew heap\n *\n * @tparam\
     \ T \u8981\u7D20\u306E\u578B\n */\ntemplate <class T>\nstruct skew_heap {\n  private:\n\
-    \    struct _node {\n        using pointer = _node *;\n\n        pointer l, r;\n\
-    \        T val;\n\n        constexpr _node() : l(), r(), val() {}\n        constexpr\
-    \ _node(T _val) : l(), r(), val(_val) {}\n    };\n\n  public:\n    using node_pointer\
-    \ = _node::pointer;\n\n    constexpr auto top() const { return this->root->val;\
-    \ }\n    constexpr bool empty() const { return this->root == nullptr; }\n\n  \
-    \  void push(T val) {\n        auto node = new _node(val);\n        this->meld(this->root,\
-    \ node);\n    }\n\n    void pop() { this->root = this->meld(this->root->l, this->root->r);\
-    \ }\n\n    node_pointer meld(node_pointer a, node_pointer b) {\n        if (a\
-    \ == nullptr) return b;\n        if (b == nullptr) return a;\n        if (a.val\
-    \ > b.val) swap(a, b);\n        a.r = this->meld(a.r, b);\n        swap(a.l, a.r);\n\
-    \        return a;\n    }\n\n  private:\n    node_pointer root;\n};\n"
+    \    struct _node {\n        using pointer = _node *;\n\n        pointer left,\
+    \ right;\n        T val;\n\n        constexpr _node() : left(), right(), val()\
+    \ {}\n        constexpr _node(T _val) : left(), right(), val(_val) {}\n    };\n\
+    \n  public:\n    using value_type = T;\n    using node_ptr = _node::pointer;\n\
+    \n    constexpr T top() const { return this->root->val; }\n    constexpr bool\
+    \ empty() const { return this->root == nullptr; }\n\n    void push(T val) {\n\
+    \        auto node = new _node(val);\n        this->meld(this->root, node);\n\
+    \    }\n\n    void pop() { this->root = this->meld(this->root->left, this->root->right);\
+    \ }\n\n    node_ptr meld(node_ptr a, node_ptr b) {\n        if (a == nullptr)\
+    \ return b;\n        if (b == nullptr) return a;\n        if (a.val > b.val) swap(a,\
+    \ b);\n        a.right = this->meld(a.right, b);\n        swap(a.left, a.right);\n\
+    \        return a;\n    }\n\n  private:\n    node_ptr root;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/heap/skew_heap.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-11 18:17:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/heap/skew_heap.hpp

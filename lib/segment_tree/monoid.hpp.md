@@ -9,6 +9,9 @@ data:
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':warning:'
+    path: lib/segment_tree/dynamic_segment_tree.hpp
+    title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
     path: lib/segment_tree/persistent_dual_segment_tree.hpp
     title: lib/segment_tree/persistent_dual_segment_tree.hpp
   - icon: ':warning:'
@@ -79,18 +82,19 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/monoid.hpp
   requiredBy:
-  - lib/segment_tree/persistent_segment_tree.hpp
-  - lib/segment_tree/segment_tree.hpp
-  - lib/segment_tree/persistent_dual_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
+  - lib/segment_tree/segment_tree.hpp
+  - lib/segment_tree/persistent_segment_tree.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
+  - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/segment_tree/persistent_dual_segment_tree.hpp
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/segment_tree/monoid.hpp
 layout: document
 redirect_from:

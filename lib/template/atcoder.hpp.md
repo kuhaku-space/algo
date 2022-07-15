@@ -106,6 +106,12 @@ data:
     path: test/aoj/grl/prim.test.cpp
     title: test/aoj/grl/prim.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/range_query_on_tree.test.cpp
+    title: test/aoj/grl/range_query_on_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/range_query_on_tree_2.test.cpp
+    title: test/aoj/grl/range_query_on_tree_2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -151,6 +157,12 @@ data:
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/binary_trie.test.cpp
+    title: test/yosupo/data_structure/binary_trie.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/patricia_binary_trie.test.cpp
+    title: test/yosupo/data_structure/patricia_binary_trie.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/persistent_queue.test.cpp
     title: test/yosupo/data_structure/persistent_queue.test.cpp
   - icon: ':heavy_check_mark:'
@@ -165,9 +177,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/set_xor-min.test.cpp
-    title: test/yosupo/data_structure/set_xor-min.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_sum.test.cpp
     title: test/yosupo/data_structure/static_range_sum.test.cpp
@@ -237,64 +246,67 @@ data:
   timestamp: '2022-06-22 08:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/sample/many_a+b.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/set_xor-min.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-  - test/yosupo/data_structure/undo_union_find.test.cpp
-  - test/yosupo/data_structure/persistent_union_find.test.cpp
-  - test/yosupo/data_structure/persistent_queue.test.cpp
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/aoj/alds1/inversion_number.test.cpp
-  - test/aoj/alds1/rolling_hash.test.cpp
-  - test/aoj/alds1/prime_numbers.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/weighted_union_find.test.cpp
-  - test/aoj/dsl/raq_rsq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/union_find.test.cpp
-  - test/aoj/dpl/bell.test.cpp
-  - test/aoj/dpl/longest_increasing_subsequense.test.cpp
-  - test/aoj/dpl/stirling.test.cpp
-  - test/aoj/cgl/reflection.test.cpp
-  - test/aoj/cgl/intersection.test.cpp
-  - test/aoj/cgl/projection.test.cpp
-  - test/aoj/cgl/cross_point.test.cpp
-  - test/aoj/cgl/parallel_orthogonal.test.cpp
-  - test/aoj/cgl/counter-clockwise.test.cpp
-  - test/aoj/itp2/avl_tree.test.cpp
-  - test/aoj/itp2/treap.test.cpp
-  - test/aoj/itp2/scapegoat_tree.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/bridges.test.cpp
-  - test/aoj/grl/cycle.test.cpp
-  - test/aoj/grl/max_flow.test.cpp
-  - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/hld.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
-  - test/aoj/grl/warshall_floyd.test.cpp
-  - test/aoj/grl/prim.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/max_flow.test.cpp
+  - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/prim.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/min_cost_flow.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/power.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/aoj/cgl/intersection.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
+  - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/reflection.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/alds1/rolling_hash.test.cpp
+  - test/aoj/alds1/inversion_number.test.cpp
+  - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/prime_factorize.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/dpl/longest_increasing_subsequense.test.cpp
+  - test/aoj/dpl/bell.test.cpp
+  - test/aoj/itp2/avl_tree.test.cpp
+  - test/aoj/itp2/scapegoat_tree.test.cpp
+  - test/aoj/itp2/treap.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/union_find.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/weighted_union_find.test.cpp
+  - test/aoj/dsl/raq_rsq.test.cpp
+  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - test/yosupo/data_structure/static_range_sum.test.cpp
+  - test/yosupo/data_structure/persistent_queue.test.cpp
+  - test/yosupo/data_structure/binary_trie.test.cpp
+  - test/yosupo/data_structure/persistent_union_find.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/data_structure/patricia_binary_trie.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:

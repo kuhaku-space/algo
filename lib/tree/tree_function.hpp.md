@@ -67,7 +67,7 @@ data:
   isVerificationFile: false
   path: lib/tree/tree_function.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-13 04:39:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/tree_function.hpp

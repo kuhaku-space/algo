@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: lib/graph/cycle.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-13 04:39:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/cycle.test.cpp

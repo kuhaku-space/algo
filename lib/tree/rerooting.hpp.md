@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: lib/tree/rerooting.hpp
   requiredBy: []
-  timestamp: '2022-06-20 03:58:11+09:00'
+  timestamp: '2022-07-13 04:39:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/rerooting.hpp

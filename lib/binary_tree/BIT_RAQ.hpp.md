@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/raq_rsq.test.cpp
     title: test/aoj/dsl/raq_rsq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/range_query_on_tree_2.test.cpp
+    title: test/aoj/grl/range_query_on_tree_2.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -61,6 +64,7 @@ data:
   timestamp: '2022-06-15 04:15:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
 documentation_of: lib/binary_tree/BIT_RAQ.hpp
 layout: document

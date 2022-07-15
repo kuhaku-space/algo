@@ -44,17 +44,17 @@ data:
     \n        constexpr std::pair<Key, Value> get_pair() const { return std::make_pair(key,\
     \ value); }\n        constexpr int get_index() const { return this->index; }\n\
     \        constexpr void set_index(int new_index) { this->index = new_index; }\n\
-    \    };\n\n  public:\n    using node_pointer = typename _node::pointer;\n\n  \
-    \  binary_heap() : _size(), nodes(1), comp() {}\n\n    auto top() const { return\
+    \    };\n\n  public:\n    using node_ptr = typename _node::pointer;\n\n    binary_heap()\
+    \ : _size(), nodes(1), comp() {}\n\n    std::pair<Key, Value> top() const { return\
     \ this->nodes[1]->get_pair(); }\n    constexpr int size() const { return this->_size;\
-    \ }\n    constexpr bool empty() const { return this->size() == 0; }\n\n    auto\
+    \ }\n    constexpr bool empty() const { return this->size() == 0; }\n\n    node_ptr\
     \ push(Key key, Value value) {\n        auto node = new _node(key, value);\n \
     \       this->nodes.emplace_back(node);\n\n        int index = this->increment_size();\n\
     \        while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value))\
     \ {\n            swap(this->nodes[index], this->nodes[index >> 1]);\n        \
     \    this->nodes[index]->set_index(index);\n            index >>= 1;\n       \
     \ }\n        this->nodes[index]->set_index(index);\n\n        return node;\n \
-    \   }\n    auto emplace(Key key, Value value) { return this->push(key, value);\
+    \   }\n    node_ptr emplace(Key key, Value value) { return this->push(key, value);\
     \ }\n\n    void pop() {\n        this->nodes[1] = this->nodes[this->decrement_size()];\n\
     \        this->nodes.pop_back();\n\n        int index = 1 << 1;\n        while\
     \ (index <= this->size()) {\n            if (index < this->size() &&\n       \
@@ -63,14 +63,14 @@ data:
     \ >> 1]->value)) break;\n            swap(this->nodes[index >> 1], this->nodes[index]);\n\
     \            this->nodes[index >> 1]->set_index(index >> 1);\n            index\
     \ <<= 1;\n        }\n        this->nodes[index >> 1]->set_index(index >> 1);\n\
-    \    }\n\n    void update(node_pointer node, Value value) {\n        if (comp(node->value,\
+    \    }\n\n    void update(node_ptr node, Value value) {\n        if (comp(node->value,\
     \ value)) node->value = value;\n        else return;\n        int index = node->get_index();\n\
     \        while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value))\
     \ {\n            swap(this->nodes[index], this->nodes[index >> 1]);\n        \
     \    this->nodes[index]->set_index(index);\n            index >>= 1;\n       \
     \ }\n        this->nodes[index]->set_index(index);\n    }\n\n  private:\n    int\
-    \ _size;\n    std::vector<node_pointer> nodes;\n    Comp comp;\n\n    constexpr\
-    \ int increment_size() { return ++(this->_size); }\n    constexpr int decrement_size()\
+    \ _size;\n    std::vector<node_ptr> nodes;\n    Comp comp;\n\n    constexpr int\
+    \ increment_size() { return ++(this->_size); }\n    constexpr int decrement_size()\
     \ { return (this->_size)--; }\n};\n"
   dependsOn:
   - lib/template/template.hpp
@@ -78,12 +78,12 @@ data:
   path: lib/heap/binary_heap.hpp
   requiredBy:
   - lib/graph/dijkstra_heap.hpp
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-11 16:46:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
 documentation_of: lib/heap/binary_heap.hpp
 layout: document
 redirect_from:

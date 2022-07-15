@@ -9,9 +9,6 @@ data:
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
   - icon: ':warning:'
-    path: lib/data_structure/bigint_beta.hpp
-    title: lib/data_structure/bigint_beta.hpp
-  - icon: ':warning:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
   - icon: ':warning:'
@@ -29,6 +26,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':warning:'
+    path: lib/segment_tree/dynamic_segment_tree.hpp
+    title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -108,24 +108,24 @@ data:
   - lib/fft/ntt_mod.hpp
   - lib/math/primitive_root.hpp
   - lib/data_structure/bigint.hpp
-  - lib/data_structure/bigint_beta.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
+  - lib/segment_tree/dynamic_segment_tree.hpp
   timestamp: '2022-06-18 18:40:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/difference.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/math/pow.hpp
 layout: document
 redirect_from:

@@ -30,7 +30,7 @@ data:
   attributes:
     document_title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     links:
-    - https://noshi91.hatenablog.com/entry/2020/04/22/212649)
+    - https://noshi91.hatenablog.com/entry/2020/04/22/212649
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -40,13 +40,13 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"math/pow.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\r\n#include\
-    \ \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30BB\u30B0\u30E1\u30F3\u30C8\
-    \u6728\r\n * @details [\u53C2\u8003](https://noshi91.hatenablog.com/entry/2020/04/22/212649)\r\
+  code: "#pragma once\r\n#include \"math/pow.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\
+    \r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30BB\u30B0\u30E1\
+    \u30F3\u30C8\u6728\r\n * @see https://noshi91.hatenablog.com/entry/2020/04/22/212649\r\
     \n *\r\n * @tparam M \u30E2\u30CE\u30A4\u30C9\r\n */\r\ntemplate <class M>\r\n\
     struct segment_tree {\r\n    using T = typename M::value_type;\r\n\r\n    segment_tree()\
     \ {}\r\n    segment_tree(int n, T e = M::id) { this->init(n, e); }\r\n\r\n   \
-    \ const T &operator[](int i) const { return this->data[i + this->_size]; }\r\n\
+    \ const T &operator[](int k) const { return this->data[k + this->_size]; }\r\n\
     \    T at(int k) const { return this->operator[](k); }\r\n    T get(int k) const\
     \ { return this->operator[](k); }\r\n\r\n    void init(int n, T val) {\r\n   \
     \     this->_log = ceil_pow2(n);\r\n        this->_size = 1 << this->_log;\r\n\
@@ -56,7 +56,7 @@ data:
     \ for (int i = this->_size - 1; i >= 1; --i) this->update(i);\r\n    }\r\n\r\n\
     \    void set(int k, T val) {\r\n        assert(0 <= k && k < this->_size);\r\n\
     \        k += this->_size;\r\n        this->data[k] = val;\r\n        for (int\
-    \ i = 1; i <= this->_log; i++) this->update(k >> i);\r\n    }\r\n    void reset(int\
+    \ i = 1; i <= this->_log; ++i) this->update(k >> i);\r\n    }\r\n    void reset(int\
     \ k) { this->set(k, M::id); }\r\n\r\n    T all_prod() const { return this->data[1];\
     \ }\r\n    T prod(int a, int b) const {\r\n        assert(0 <= a && b <= this->_size);\r\
     \n        T l = M::id, r = M::id;\r\n        for (a += this->_size, b += this->_size;\
@@ -73,12 +73,12 @@ data:
   path: lib/segment_tree/segment_tree.hpp
   requiredBy:
   - lib/segment_tree/segment_tree_raq.hpp
-  timestamp: '2022-06-18 18:40:23+09:00'
+  timestamp: '2022-07-12 23:21:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document
 redirect_from:

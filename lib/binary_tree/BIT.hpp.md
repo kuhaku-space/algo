@@ -20,6 +20,12 @@ data:
     path: test/aoj/dsl/raq_rsq.test.cpp
     title: test/aoj/dsl/raq_rsq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/range_query_on_tree.test.cpp
+    title: test/aoj/grl/range_query_on_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/range_query_on_tree_2.test.cpp
+    title: test/aoj/grl/range_query_on_tree_2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
   _isVerificationFailed: false
@@ -91,9 +97,11 @@ data:
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document
 redirect_from:
