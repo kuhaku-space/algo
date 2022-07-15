@@ -51,8 +51,8 @@ struct mcf_graph {
                 auto e = _edges[i];
                 edge_idx[i] = degree[e.from]++;
                 redge_idx[i] = degree[e.to]++;
-                elist.emplace_back(e.from, {e.to, -1, e.cap - e.flow, e.cost});
-                elist.emplace_back(e.to, {e.from, -1, e.flow, -e.cost});
+                elist.emplace_back(e.from, _edge{e.to, -1, e.cap - e.flow, e.cost});
+                elist.emplace_back(e.to, _edge{e.from, -1, e.flow, -e.cost});
             }
             auto _g = csr<_edge>(_n, elist);
             for (int i = 0; i < m; ++i) {
