@@ -20,7 +20,7 @@ struct patricia_binary_trie {
     };
 
   public:
-    using node_ptr = _node::pointer;
+    using node_ptr = typename _node::pointer;
 
     patricia_binary_trie() : root(nullptr) {}
 
