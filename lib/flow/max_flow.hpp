@@ -61,13 +61,11 @@ struct mf_graph {
         assert(s != t);
 
         std::vector<int> level(_n), iter(_n);
-        std::queue<int> que;
-
         auto bfs = [&]() {
             std::fill(level.begin(), level.end(), -1);
             level[s] = 0;
-            que.clear();
-            que.push(s);
+            std::queue<int> que;
+            que.emplace(s);
             while (!que.empty()) {
                 int v = que.front();
                 que.pop();
@@ -75,7 +73,7 @@ struct mf_graph {
                     if (e.cap == 0 || level[e.to] >= 0) continue;
                     level[e.to] = level[v] + 1;
                     if (e.to == t) return;
-                    que.push(e.to);
+                    que.emplace(e.to);
                 }
             }
         };
