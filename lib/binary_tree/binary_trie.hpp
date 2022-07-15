@@ -125,8 +125,8 @@ struct multi_binary_trie {
     T get(int k) const { return this->operator[](k); }
     T kth_element(int k) const { return this->operator[](k); }
 
-    int size() const { return this->root ? this->root->count : 0; }
-    bool empty() const { return !this->root; }
+    constexpr int size() const { return this->root ? this->root->count : 0; }
+    constexpr bool empty() const { return !this->root; }
 
     void insert(T val) { this->root = this->insert(this->root, val); }
     void erase(T val) {
