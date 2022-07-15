@@ -1,69 +1,91 @@
+#pragma once
+#include "math/pow.hpp"
+#include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
 /**
  * @brief 動的セグメント木
  *
- * @tparam T
- * @tparam F
+ * @tparam M モノイド
  */
-template <class T, class F>
+template <class M>
 struct dynamic_segment_tree {
-    struct Node {
-        Node *parent, *left, *right;
+  private:
+    using T = typename M::value_type;
+
+    struct _node {
+        using pointer = _node *;
+        pointer parent, left, right;
         T value;
 
-        Node(Node *ptr) : parent(ptr), left(nullptr), right(nullptr), value() {}
+        _node(pointer ptr) : parent(ptr), left(nullptr), right(nullptr), value(M::id) {}
     };
 
-    Node *root;
-    int64_t N;
-    const T e;
-    const F op;
+  public:
+    using node_ptr = typename _node::pointer;
 
-    dynamic_segment_tree(int64_t _n, T _e, F &&_op) : e(_e), op(_op) { init(_n); }
-    dynamic_segment_tree(int64_t _n, T _e, const F &_op) : e(_e), op(_op) { init(_n); }
+    dynamic_segment_tree(std::int64_t n) : root(), _size(), _log() { this->init(n); }
 
-    void init(int64_t n) {
-        for (this->N = 1; N < n; this->N <<= 1) {}
-        this->root = new Node(nullptr);
+    T operator[](int k) const {
+        node_ptr node = this->root;
+        for (int i = this->_log - 1; i >= 0; --i) {
+            if (k >> i & 1) {
+                if (!node->right) return M::id;
+                node = node->right;
+            } else {
+                if (!node->left) return M::id;
+                node = node->left;
+            }
+        }
+        return node->value;
+    }
+    T at(int k) const { return this->operator[](k); }
+    T get(int k) const { return this->operator[](k); }
+
+    void init(std::int64_t n) {
+        this->_log = ceil_pow2(n);
+        this->_size = 1LL << this->_log;
+        this->root = new _node(nullptr);
     }
 
-    void update(int64_t k, T x) {
-        assert(0 <= k && k < N);
-        Node *node = this->root;
-        int64_t l = 0, r = this->N;
-        while (r - l > 1) {
-            int64_t m = (l + r) >> 1;
-            if (k < m) {
-                if (!node->left) node->left = new Node(node);
-                node = node->left;
-                r = m;
-            } else {
-                if (!node->right) node->right = new Node(node);
+    void set(std::int64_t k, T x) {
+        assert(0 <= k && k < this->_size);
+        node_ptr node = this->root;
+        for (int i = this->_log - 1; i >= 0; --i) {
+            if (k >> i & 1) {
+                if (!node->right) node->right = new _node(node);
                 node = node->right;
-                l = m;
+            } else {
+                if (!node->left) node->left = new _node(node);
+                node = node->left;
             }
         }
 
         node->value = x;
         while (node->parent) {
             node = node->parent;
-            node->value =
-                op(node->left ? node->left->value : e, node->right ? node->right->value : e);
+            node->value = M::op(node->left ? node->left->value : M::id,
+                                node->right ? node->right->value : M::id);
         }
     }
+    void reset(std::int64_t k) { this->set(k, M::id); }
 
-    T query() const { return this->root->value; }
-    T query(int64_t a, int64_t b) const {
-        assert(0 <= a && a <= N);
-        assert(0 <= b && b <= N);
-        return this->query(a, b, this->root, 0, this->N);
+    T all_prod() const { return this->root ? this->root->value : M::id; }
+    T prod(std::int64_t a, std::int64_t b) const {
+        assert(0 <= a && a <= this->_size);
+        assert(0 <= b && b <= this->_size);
+        return this->prod(a, b, this->root, 0, this->_size);
     }
-    T query(int64_t a, int64_t b, Node *node, int64_t l, int64_t r) const {
-        if (a <= l && r <= b) return node->value;
-        if (r <= a || b <= l) return e;
 
-        return op(node->left ? this->query(a, b, node->left, l, (l + r) >> 1) : e,
-                  node->right ? this->query(a, b, node->right, (l + r) >> 1, r) : e);
+  private:
+    node_ptr root;
+    std::int64_t _size, _log;
+
+    T prod(std::int64_t a, std::int64_t b, node_ptr node, std::int64_t l, std::int64_t r) const {
+        if (a <= l && r <= b) return node->value;
+        if (r <= a || b <= l) return M::id;
+
+        return M::op(node->left ? this->prod(a, b, node->left, l, (l + r) >> 1) : M::id,
+                     node->right ? this->prod(a, b, node->right, (l + r) >> 1, r) : M::id);
     }
 };

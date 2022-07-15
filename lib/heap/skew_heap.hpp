@@ -11,17 +11,18 @@ struct skew_heap {
     struct _node {
         using pointer = _node *;
 
-        pointer l, r;
+        pointer left, right;
         T val;
 
-        constexpr _node() : l(), r(), val() {}
-        constexpr _node(T _val) : l(), r(), val(_val) {}
+        constexpr _node() : left(), right(), val() {}
+        constexpr _node(T _val) : left(), right(), val(_val) {}
     };
 
   public:
-    using node_pointer = _node::pointer;
+    using value_type = T;
+    using node_ptr = _node::pointer;
 
-    constexpr auto top() const { return this->root->val; }
+    constexpr T top() const { return this->root->val; }
     constexpr bool empty() const { return this->root == nullptr; }
 
     void push(T val) {
@@ -29,17 +30,17 @@ struct skew_heap {
         this->meld(this->root, node);
     }
 
-    void pop() { this->root = this->meld(this->root->l, this->root->r); }
+    void pop() { this->root = this->meld(this->root->left, this->root->right); }
 
-    node_pointer meld(node_pointer a, node_pointer b) {
+    node_ptr meld(node_ptr a, node_ptr b) {
         if (a == nullptr) return b;
         if (b == nullptr) return a;
         if (a.val > b.val) swap(a, b);
-        a.r = this->meld(a.r, b);
-        swap(a.l, a.r);
+        a.right = this->meld(a.right, b);
+        swap(a.left, a.right);
         return a;
     }
 
   private:
-    node_pointer root;
+    node_ptr root;
 };

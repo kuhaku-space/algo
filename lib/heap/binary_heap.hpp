@@ -27,15 +27,15 @@ struct binary_heap {
     };
 
   public:
-    using node_pointer = typename _node::pointer;
+    using node_ptr = typename _node::pointer;
 
     binary_heap() : _size(), nodes(1), comp() {}
 
-    auto top() const { return this->nodes[1]->get_pair(); }
+    std::pair<Key, Value> top() const { return this->nodes[1]->get_pair(); }
     constexpr int size() const { return this->_size; }
     constexpr bool empty() const { return this->size() == 0; }
 
-    auto push(Key key, Value value) {
+    node_ptr push(Key key, Value value) {
         auto node = new _node(key, value);
         this->nodes.emplace_back(node);
 
@@ -49,7 +49,7 @@ struct binary_heap {
 
         return node;
     }
-    auto emplace(Key key, Value value) { return this->push(key, value); }
+    node_ptr emplace(Key key, Value value) { return this->push(key, value); }
 
     void pop() {
         this->nodes[1] = this->nodes[this->decrement_size()];
@@ -68,7 +68,7 @@ struct binary_heap {
         this->nodes[index >> 1]->set_index(index >> 1);
     }
 
-    void update(node_pointer node, Value value) {
+    void update(node_ptr node, Value value) {
         if (comp(node->value, value)) node->value = value;
         else return;
         int index = node->get_index();
@@ -82,7 +82,7 @@ struct binary_heap {
 
   private:
     int _size;
-    std::vector<node_pointer> nodes;
+    std::vector<node_ptr> nodes;
     Comp comp;
 
     constexpr int increment_size() { return ++(this->_size); }

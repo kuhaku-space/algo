@@ -10,6 +10,7 @@ AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: Empty
+PackConstructorInitializers: BinPack
 PointerAlignment: Right
 DerivePointerAlignment: false
 ForEachMacros: ["FOR", "FORR", "rep", "repn", "repr", "repnr"]
