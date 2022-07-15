@@ -1,5 +1,11 @@
 #include "template/template.hpp"
 
+/**
+ * @brief 最小費用流
+ *
+ * @tparam Cap
+ * @tparam Cost
+ */
 template <class Cap, class Cost>
 struct mcf_graph {
     mcf_graph() {}
