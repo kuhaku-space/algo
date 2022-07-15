@@ -19,6 +19,9 @@ struct mcf_graph {
         int from, to;
         Cap cap, flow;
         Cost cost;
+
+        constexpr edge(int _from, int _to, Cap _cap, Cap _flow, Cost _cost)
+            : from(_from), to(_to), cap(_cap), flow(_flow), cost(_cost) {}
     };
 
     edge get_edge(int i) {
@@ -51,8 +54,8 @@ struct mcf_graph {
                 auto e = _edges[i];
                 edge_idx[i] = degree[e.from]++;
                 redge_idx[i] = degree[e.to]++;
-                elist.emplace_back(e.from, _edge{e.to, -1, e.cap - e.flow, e.cost});
-                elist.emplace_back(e.to, _edge{e.from, -1, e.flow, -e.cost});
+                elist.emplace_back(e.from, _edge(e.to, -1, e.cap - e.flow, e.cost));
+                elist.emplace_back(e.to, _edge(e.from, -1, e.flow, -e.cost));
             }
             auto _g = csr<_edge>(_n, elist);
             for (int i = 0; i < m; ++i) {
@@ -83,6 +86,8 @@ struct mcf_graph {
         int to, rev;
         Cap cap;
         Cost cost;
+
+        constexpr _edge() : to(), rev(), cap(), cost() {}
         constexpr _edge(int _to, int _rev, Cap _cap, Cost _cost)
             : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
     };
