@@ -15,6 +15,7 @@
 "test/aoj/dsl/raq_rsq.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/aoj/dsl/rmq.test.cpp": "2022-07-12 23:21:22 +0900",
 "test/aoj/dsl/rmq_ruq.test.cpp": "2022-07-17 05:37:34 +0900",
+"test/aoj/dsl/rsq_ruq.test.cpp": "2022-07-17 06:15:39 +0900",
 "test/aoj/dsl/ruq.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/aoj/dsl/union_find.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/aoj/dsl/weighted_union_find.test.cpp": "2022-06-22 08:11:12 +0900",
