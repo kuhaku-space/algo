@@ -2,14 +2,13 @@
 #include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int t;
     cin >> t;
-    rep(i, t) {
+    while (t--) {
         ll a, b;
         cin >> a >> b;
         co(a + b);
     }
-    
+
     return 0;
 }
