@@ -2,17 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/data_structure/bigint.hpp
-    title: "\u591A\u500D\u9577\u6574\u6570"
-  - icon: ':heavy_check_mark:'
-    path: lib/fft/ntt.hpp
-    title: "\u6570\u8AD6\u5909\u63DB"
-  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
   - icon: ':heavy_check_mark:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/monoid.hpp
+    title: lib/segment_tree/monoid.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/segment_tree.hpp
+    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -32,9 +32,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E
+    PROBLEM: https://judge.yosupo.jp/problem/point_set_range_composite
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E
+    - https://judge.yosupo.jp/problem/point_set_range_composite
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -42,31 +42,40 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/bigint.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/2/NTL_2_E\"\
-    \n#include \"data_structure/bigint.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    int main(void) {\n    sonic();\n    BigInt a, b;\n    cin >> a >> b;\n    co(a\
-    \ % b);\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
+    \n#include \"math/modint.hpp\"\n#include \"segment_tree/segment_tree.hpp\"\n#include\
+    \ \"template/atcoder.hpp\"\n\nusing Mint = ModInt<>;\n\nstruct M {\n    using\
+    \ T = pair<Mint, Mint>;\n    using value_type = T;\n    static constexpr T id\
+    \ = T(1, 0);\n    static constexpr T op(T lhs, T rhs) {\n        return {rhs.first\
+    \ * lhs.first, rhs.first * lhs.second + rhs.second};\n    }\n};\n\nint main(void)\
+    \ {\n    int n, q;\n    cin >> n >> q;\n    vector<pair<Mint, Mint>> p(n);\n \
+    \   cin >> p;\n    segment_tree<M> st(p);\n\n    while (q--) {\n        int c;\n\
+    \        cin >> c;\n        if (c == 0) {\n            int k, a, b;\n        \
+    \    cin >> k >> a >> b;\n            st.set(k, {a, b});\n        } else {\n \
+    \           int l, r, x;\n            cin >> l >> r >> x;\n            auto p\
+    \ = st.prod(l, r);\n            co(p.first * x + p.second);\n        }\n    }\n\
+    \n    return 0;\n}\n"
   dependsOn:
-  - lib/data_structure/bigint.hpp
-  - lib/fft/ntt.hpp
   - lib/math/modint.hpp
   - lib/template/template.hpp
+  - lib/segment_tree/segment_tree.hpp
   - lib/math/pow.hpp
+  - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/aoj/ntl/remainder.test.cpp
+  path: test/yosupo/data_structure/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2022-07-18 03:50:33+09:00'
+  timestamp: '2022-07-19 05:54:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/ntl/remainder.test.cpp
+documentation_of: test/yosupo/data_structure/point_set_range_composite.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/ntl/remainder.test.cpp
-- /verify/test/aoj/ntl/remainder.test.cpp.html
-title: test/aoj/ntl/remainder.test.cpp
+- /verify/test/yosupo/data_structure/point_set_range_composite.test.cpp
+- /verify/test/yosupo/data_structure/point_set_range_composite.test.cpp.html
+title: test/yosupo/data_structure/point_set_range_composite.test.cpp
 ---

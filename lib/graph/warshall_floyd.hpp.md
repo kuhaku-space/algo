@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/graph/matrix_graph.hpp
-    title: lib/graph/matrix_graph.hpp
+    title: "\u96A3\u63A5\u884C\u5217"
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -38,7 +38,7 @@ data:
   isVerificationFile: false
   path: lib/graph/warshall_floyd.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-17 07:16:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/warshall_floyd.test.cpp

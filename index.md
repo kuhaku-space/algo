@@ -21,14 +21,6 @@ data:
     - icon: ':warning:'
       path: lib/_new/tree64.hpp
       title: lib/_new/tree64.hpp
-  - name: lib/_old
-    pages:
-    - icon: ':warning:'
-      path: lib/_old/lazy_segment_tree.hpp
-      title: lib/_old/lazy_segment_tree.hpp
-    - icon: ':warning:'
-      path: lib/_old/lazy_segment_tree_beta.hpp
-      title: lib/_old/lazy_segment_tree_beta.hpp
   - name: lib/algorithm
     pages:
     - icon: ':heavy_check_mark:'
@@ -120,10 +112,10 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/flow/max_flow.hpp
-      title: lib/flow/max_flow.hpp
+      title: "\u6700\u5927\u6D41"
     - icon: ':heavy_check_mark:'
       path: lib/flow/min_cost_flow.hpp
-      title: lib/flow/min_cost_flow.hpp
+      title: "\u6700\u5C0F\u8CBB\u7528\u6D41"
   - name: lib/geometry
     pages:
     - icon: ':warning:'
@@ -146,9 +138,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/bellman_ford.hpp
       title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/chromatic_number.hpp
-      title: lib/graph/chromatic_number.hpp
+      title: "\u5F69\u8272\u6570\u3092\u6C42\u3081\u308B"
     - icon: ':heavy_check_mark:'
       path: lib/graph/cycle.hpp
       title: "\u9589\u8DEF\u691C\u51FA"
@@ -172,7 +164,7 @@ data:
       title: LowLink
     - icon: ':heavy_check_mark:'
       path: lib/graph/matrix_graph.hpp
-      title: lib/graph/matrix_graph.hpp
+      title: "\u96A3\u63A5\u884C\u5217"
     - icon: ':heavy_check_mark:'
       path: lib/graph/prim.hpp
       title: "\u30D7\u30EA\u30E0\u6CD5"
@@ -286,9 +278,9 @@ data:
     - icon: ':warning:'
       path: lib/segment_tree/dynamic_segment_tree.hpp
       title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/segment_tree/lazy_segment_tree.hpp
-      title: lib/segment_tree/lazy_segment_tree.hpp
+      title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/monoid.hpp
       title: lib/segment_tree/monoid.hpp
@@ -304,6 +296,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/segment_tree_raq.hpp
       title: lib/segment_tree/segment_tree_raq.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/segment_tree/sparse_table.hpp
+      title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
   - name: lib/string
     pages:
     - icon: ':warning:'
@@ -337,7 +332,7 @@ data:
       title: lib/template/template.hpp
   - name: lib/tree
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/tree/eular_tour.hpp
       title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
     - icon: ':heavy_check_mark:'
@@ -421,6 +416,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/rmq.test.cpp
       title: test/aoj/dsl/rmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/rmq_ruq.test.cpp
+      title: test/aoj/dsl/rmq_ruq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/rsq_ruq.test.cpp
+      title: test/aoj/dsl/rsq_ruq.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/ruq.test.cpp
       title: test/aoj/dsl/ruq.test.cpp
@@ -546,6 +547,12 @@ data:
       path: test/yosupo/data_structure/point_add_range_sum.test.cpp
       title: test/yosupo/data_structure/point_add_range_sum.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/point_set_range_composite.test.cpp
+      title: test/yosupo/data_structure/point_set_range_composite.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+      title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/range_kth_smallest.test.cpp
       title: test/yosupo/data_structure/range_kth_smallest.test.cpp
     - icon: ':heavy_check_mark:'
@@ -563,8 +570,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/unionfind.test.cpp
       title: test/yosupo/data_structure/unionfind.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+      title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+      title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+      title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - name: test/yosupo/graph
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/graph/chromatic_number.test.cpp
+      title: test/yosupo/graph/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/graph/shortest_path.test.cpp
       title: test/yosupo/graph/shortest_path.test.cpp

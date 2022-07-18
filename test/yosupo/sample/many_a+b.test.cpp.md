@@ -33,9 +33,9 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/many_aplusb\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nint main(void) {\n    sonic();\n    int t;\n   \
-    \ cin >> t;\n    rep(i, t) {\n        ll a, b;\n        cin >> a >> b;\n     \
-    \   co(a + b);\n    }\n    \n    return 0;\n}\n"
+    \ \"template/atcoder.hpp\"\n\nint main(void) {\n    int t;\n    cin >> t;\n  \
+    \  while (t--) {\n        ll a, b;\n        cin >> a >> b;\n        co(a + b);\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
@@ -44,7 +44,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/sample/many_a+b.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2022-07-18 02:24:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/sample/many_a+b.test.cpp

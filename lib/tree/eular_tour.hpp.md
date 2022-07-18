@@ -8,10 +8,13 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
     links:
@@ -49,8 +52,9 @@ data:
   path: lib/tree/eular_tour.hpp
   requiredBy: []
   timestamp: '2022-07-13 04:39:10+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
 documentation_of: lib/tree/eular_tour.hpp
 layout: document
 redirect_from:

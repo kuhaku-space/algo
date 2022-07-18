@@ -2,8 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/flow/min_cost_flow.hpp
-    title: "\u6700\u5C0F\u8CBB\u7528\u6D41"
+    path: lib/math/pow.hpp
+    title: lib/math/pow.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/lazy_segment_tree.hpp
+    title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/monoid.hpp
+    title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -23,9 +29,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -33,31 +39,34 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: flow/min_cost_flow.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/lazy_segment_tree.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B\"\
-    \n#include \"flow/min_cost_flow.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int n, m, f;\n    cin >> n >> m >> f;\n\n  \
-    \  mcf_graph<int, int> mf(n);\n    rep(i, m) {\n        int a, b, c, d;\n    \
-    \    cin >> a >> b >> c >> d;\n        mf.add_edge(a, b, c, d);\n    }\n\n   \
-    \ auto ans = mf.flow(0, n - 1, f);\n    if (ans.first == f)\n        co(ans.second);\n\
-    \    else\n        co(-1);\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F\"\
+    \n#include \"segment_tree/lazy_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\
+    \n\nint main(void) {\n    int n, q;\n    cin >> n >> q;\n    lazy_segment_tree<Min<int>,\
+    \ Update<int>> st(n, std::numeric_limits<int>::max());\n    while (q--) {\n  \
+    \      int t;\n        cin >> t;\n        if (t == 0) {\n            int s, t,\
+    \ x;\n            cin >> s >> t >> x;\n            st.apply(s, t + 1, x);\n  \
+    \      } else {\n            int s, t;\n            cin >> s >> t;\n         \
+    \   co(st.prod(s, t + 1));\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/flow/min_cost_flow.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
+  - lib/math/pow.hpp
   - lib/template/template.hpp
+  - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/aoj/grl/min_cost_flow.test.cpp
+  path: test/aoj/dsl/rmq_ruq.test.cpp
   requiredBy: []
-  timestamp: '2022-07-16 07:44:58+09:00'
+  timestamp: '2022-07-19 05:54:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/grl/min_cost_flow.test.cpp
+documentation_of: test/aoj/dsl/rmq_ruq.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/grl/min_cost_flow.test.cpp
-- /verify/test/aoj/grl/min_cost_flow.test.cpp.html
-title: test/aoj/grl/min_cost_flow.test.cpp
+- /verify/test/aoj/dsl/rmq_ruq.test.cpp
+- /verify/test/aoj/dsl/rmq_ruq.test.cpp.html
+title: test/aoj/dsl/rmq_ruq.test.cpp
 ---

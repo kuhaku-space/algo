@@ -15,6 +15,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/range_query_on_tree_2.test.cpp
     title: test/aoj/grl/range_query_on_tree_2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+    title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -33,17 +39,22 @@ data:
     \ line -1: no such header\n"
   code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief\
     \ HLD\r\n * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp\r\
-    \n */\r\nstruct HLD {\r\n    HLD(int n) : g(n), vid(n, -1), nxt(n), sub(n, 1),\
-    \ par(n, -1), inv(n) {}\r\n\r\n    void add_edge(int u, int v) {\r\n        this->g[u].emplace_back(v);\r\
-    \n        this->g[v].emplace_back(u);\r\n    }\r\n    void add_edges(int u, int\
-    \ v) { this->add_edge(u, v); }\r\n\r\n    void build(int r = 0) {\r\n        int\
-    \ pos = 0;\r\n        this->dfs_sz(r);\r\n        this->nxt[r] = r;\r\n      \
-    \  this->dfs_hld(r, pos);\r\n    }\r\n\r\n    int get_parent(int v) const { return\
-    \ this->par[v]; }\r\n\r\n    int lca(int u, int v) const {\r\n        while (true)\
-    \ {\r\n            if (this->vid[u] > this->vid[v]) swap(u, v);\r\n          \
-    \  if (this->nxt[u] == this->nxt[v]) return u;\r\n            v = this->par[this->nxt[v]];\r\
-    \n        }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each(int u,\
-    \ int v, const F &f) const {\r\n        while (true) {\r\n            if (this->vid[u]\
+    \n */\r\nstruct HLD {\r\n    HLD(int n) : _size(n), g(n), vid(n, -1), nxt(n),\
+    \ sub(n, 1), par(n, -1), inv(n) {}\r\n\r\n    void add_edge(int u, int v) { this->add_edges(u,\
+    \ v); }\r\n    void add_edges(int u, int v) {\r\n        this->g[u].emplace_back(v);\r\
+    \n        this->g[v].emplace_back(u);\r\n    }\r\n\r\n    void input_edge(int\
+    \ base = 1) { this->input_edges(base); }\r\n    void input_edges(int base = 1)\
+    \ {\r\n        for (int i = 0; i < this->_size - 1; ++i) {\r\n            int\
+    \ u, v;\r\n            cin >> u >> v;\r\n            this->add_edges(u - base,\
+    \ v - base);\r\n        }\r\n    }\r\n\r\n    void build(int r = 0) {\r\n    \
+    \    int pos = 0;\r\n        this->dfs_sz(r);\r\n        this->nxt[r] = r;\r\n\
+    \        this->dfs_hld(r, pos);\r\n    }\r\n\r\n    int get(int v) const { return\
+    \ this->vid[v]; }\r\n    int get_parent(int v) const { return this->par[v]; }\r\
+    \n\r\n    int lca(int u, int v) const {\r\n        while (true) {\r\n        \
+    \    if (this->vid[u] > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u]\
+    \ == this->nxt[v]) return u;\r\n            v = this->par[this->nxt[v]];\r\n \
+    \       }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each(int u, int\
+    \ v, const F &f) const {\r\n        while (true) {\r\n            if (this->vid[u]\
     \ > this->vid[v]) swap(u, v);\r\n            f(max(this->vid[this->nxt[v]], this->vid[u]),\
     \ this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];\r\
     \n            else break;\r\n        }\r\n    }\r\n\r\n    template <class F>\r\
@@ -53,28 +64,30 @@ data:
     \ this->vid[v] + 1);\r\n                v = this->par[this->nxt[v]];\r\n     \
     \       } else {\r\n                if (u != v) f(this->vid[u] + 1, this->vid[v]\
     \ + 1);\r\n                break;\r\n            }\r\n        }\r\n    }\r\n\r\
-    \n  private:\r\n    std::vector<std::vector<int>> g;\r\n    std::vector<int> vid,\
-    \ nxt, sub, par, inv;\r\n\r\n    void dfs_sz(int v) {\r\n        auto &es = this->g[v];\r\
-    \n        if (~(this->par[v])) es.erase(find(es.begin(), es.end(), this->par[v]));\r\
-    \n\r\n        for (auto &u : es) {\r\n            this->par[u] = v;\r\n      \
-    \      this->dfs_sz(u);\r\n            this->sub[v] += this->sub[u];\r\n     \
-    \       if (this->sub[u] > this->sub[es[0]]) swap(u, es[0]);\r\n        }\r\n\
-    \    }\r\n\r\n    void dfs_hld(int v, int &pos) {\r\n        this->vid[v] = pos++;\r\
-    \n        this->inv[this->vid[v]] = v;\r\n        for (auto u : this->g[v]) {\r\
-    \n            if (u == this->par[v]) continue;\r\n            this->nxt[u] = (u\
-    \ == this->g[v][0] ? this->nxt[v] : u);\r\n            this->dfs_hld(u, pos);\r\
-    \n        }\r\n    }\r\n};\r\n"
+    \n  private:\r\n    int _size;\r\n    std::vector<std::vector<int>> g;\r\n   \
+    \ std::vector<int> vid, nxt, sub, par, inv;\r\n\r\n    void dfs_sz(int v) {\r\n\
+    \        auto &es = this->g[v];\r\n        if (~(this->par[v])) es.erase(find(es.begin(),\
+    \ es.end(), this->par[v]));\r\n\r\n        for (auto &u : es) {\r\n          \
+    \  this->par[u] = v;\r\n            this->dfs_sz(u);\r\n            this->sub[v]\
+    \ += this->sub[u];\r\n            if (this->sub[u] > this->sub[es[0]]) swap(u,\
+    \ es[0]);\r\n        }\r\n    }\r\n\r\n    void dfs_hld(int v, int &pos) {\r\n\
+    \        this->vid[v] = pos++;\r\n        this->inv[this->vid[v]] = v;\r\n   \
+    \     for (auto u : this->g[v]) {\r\n            if (u == this->par[v]) continue;\r\
+    \n            this->nxt[u] = (u == this->g[v][0] ? this->nxt[v] : u);\r\n    \
+    \        this->dfs_hld(u, pos);\r\n        }\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/hld.hpp
   requiredBy: []
-  timestamp: '2022-07-13 04:24:09+09:00'
+  timestamp: '2022-07-19 05:53:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/hld.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
 documentation_of: lib/tree/hld.hpp
 layout: document
 redirect_from:

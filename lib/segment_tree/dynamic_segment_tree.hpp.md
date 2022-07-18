@@ -71,7 +71,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/dynamic_segment_tree.hpp
   requiredBy: []
-  timestamp: '2022-07-12 23:12:31+09:00'
+  timestamp: '2022-07-19 05:54:00+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/segment_tree/dynamic_segment_tree.hpp

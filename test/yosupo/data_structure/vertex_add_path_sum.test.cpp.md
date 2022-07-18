@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/flow/min_cost_flow.hpp
-    title: "\u6700\u5C0F\u8CBB\u7528\u6D41"
+    path: lib/binary_tree/BIT.hpp
+    title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -16,6 +16,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/tree/hld.hpp
+    title: HLD
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,9 +26,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B
+    PROBLEM: https://judge.yosupo.jp/problem/vertex_add_path_sum
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B
+    - https://judge.yosupo.jp/problem/vertex_add_path_sum
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -33,31 +36,36 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: flow/min_cost_flow.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/BIT.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B\"\
-    \n#include \"flow/min_cost_flow.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int n, m, f;\n    cin >> n >> m >> f;\n\n  \
-    \  mcf_graph<int, int> mf(n);\n    rep(i, m) {\n        int a, b, c, d;\n    \
-    \    cin >> a >> b >> c >> d;\n        mf.add_edge(a, b, c, d);\n    }\n\n   \
-    \ auto ans = mf.flow(0, n - 1, f);\n    if (ans.first == f)\n        co(ans.second);\n\
-    \    else\n        co(-1);\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_path_sum\"\n\
+    #include \"binary_tree/BIT.hpp\"\n#include \"template/atcoder.hpp\"\n#include\
+    \ \"tree/hld.hpp\"\n\nint main(void) {\n    int n, q;\n    cin >> n >> q;\n  \
+    \  vector<int> a(n);\n    cin >> a;\n    HLD hld(n);\n    hld.input_edges(0);\n\
+    \    hld.build();\n    BIT<ll> bt(n);\n    rep (i, n) bt.add(hld.get(i), a[i]);\n\
+    \    while (q--) {\n        int c;\n        cin >> c;\n        if (c == 0) {\n\
+    \            int p, x;\n            cin >> p >> x;\n            bt.add(hld.get(p),\
+    \ x);\n        } else {\n            int u, v;\n            cin >> u >> v;\n \
+    \           ll ans = 0;\n            auto f = [&](int u, int v) {\n          \
+    \      ans += bt.sum(u, v);\n            };\n            hld.for_each(u, v, f);\n\
+    \            co(ans);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/flow/min_cost_flow.hpp
+  - lib/binary_tree/BIT.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
+  - lib/tree/hld.hpp
   isVerificationFile: true
-  path: test/aoj/grl/min_cost_flow.test.cpp
+  path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2022-07-16 07:44:58+09:00'
+  timestamp: '2022-07-19 05:54:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/grl/min_cost_flow.test.cpp
+documentation_of: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/grl/min_cost_flow.test.cpp
-- /verify/test/aoj/grl/min_cost_flow.test.cpp.html
-title: test/aoj/grl/min_cost_flow.test.cpp
+- /verify/test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+- /verify/test/yosupo/data_structure/vertex_add_path_sum.test.cpp.html
+title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
 ---

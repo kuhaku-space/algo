@@ -2,15 +2,32 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/math/pow.hpp
+    title: lib/math/pow.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/monoid.hpp
+    title: lib/segment_tree/monoid.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq_ruq.test.cpp
+    title: test/aoj/dsl/rmq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rsq_ruq.test.cpp
+    title: test/aoj/dsl/rsq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
+    document_title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+    links:
+    - https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -18,56 +35,76 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T, class U, class\
-    \ F, class G, class H>\r\nstruct lazy_segment_tree {\r\n    int N, logN;\r\n \
-    \   const T e;\r\n    const U id;\r\n    const F op;    // (T, T) -> T\r\n   \
-    \ const G mapp;  // (U, T) -> T\r\n    const H comp;  // (U, U) -> U\r\n    vector<T>\
-    \ data;\r\n    vector<U> lazy;\r\n\r\n    lazy_segment_tree(int _n, T _e, U _id,\
-    \ F &&_op, G &&_mapp, H &&_comp)\r\n        : e(_e), id(_id), op(_op), mapp(_mapp),\
-    \ comp(_comp) {\r\n        init(_n);\r\n    }\r\n    lazy_segment_tree(int _n,\
-    \ T _e, U _id, const F &_op, const G &_mapp, const H &_comp)\r\n        : e(_e),\
-    \ id(_id), op(_op), mapp(_mapp), comp(_comp) {\r\n        init(_n);\r\n    }\r\
-    \n\r\n    void init(int n) {\r\n        for (N = 1, logN = 0; N < n; N <<= 1,\
-    \ ++logN) {}\r\n        data.assign(N << 1, e);\r\n        lazy.assign(N << 1,\
-    \ id);\r\n    }\r\n\r\n    template <class V>\r\n    void build(const vector<V>\
-    \ &v) {\r\n        for (int i = 0; i < v.size(); ++i) data[N + i] = v[i];\r\n\
-    \        for (int i = N - 1; i >= 1; --i) data[i] = op(data[i * 2], data[i * 2\
-    \ + 1]);\r\n    }\r\n\r\n    void apply(int k, const U &x) {\r\n        assert(0\
-    \ < k && k < N << 1);\r\n        lazy[k] = comp(x, lazy[k]);\r\n\r\n        if\
-    \ ((k >>= 1) >= 1) {\r\n            data[k] = op(mapp(lazy[k * 2], data[k * 2]),\
-    \ mapp(lazy[k * 2 + 1], data[k * 2 + 1]));\r\n        }\r\n    }\r\n\r\n    T\
-    \ eval(int k) {\r\n        assert(0 < k && k < N << 1);\r\n        if (lazy[k]\
-    \ == id) return data[k];\r\n        if (k < N) {\r\n            lazy[k * 2] =\
-    \ comp(lazy[k], lazy[k * 2]);\r\n            lazy[k * 2 + 1] = comp(lazy[k], lazy[k\
-    \ * 2 + 1]);\r\n        }\r\n        data[k] = mapp(lazy[k], data[k]);\r\n   \
-    \     lazy[k] = id;\r\n        return data[k];\r\n    }\r\n\r\n    void update(int\
-    \ a, const U &x) { return add(a, a + 1, x); }\r\n    void update(int a, int b,\
-    \ const U &x) {\r\n        assert(0 <= a && a <= N);\r\n        assert(0 <= b\
-    \ && b <= N);\r\n        int l = a + N, r = b + N - 1;\r\n        for (int i =\
-    \ logN; i >= 0; --i) eval(l >> i), eval(r >> i);\r\n        for (a += N, b +=\
-    \ N; a < b; a >>= 1, b >>= 1) {\r\n            if (a & 1) eval(a), apply(a++,\
-    \ x);\r\n            if (b & 1) eval(--b), apply(b, x);\r\n        }\r\n     \
-    \   for (int i = 0; i <= logN; ++i) apply(l >> i, id), apply(r >> i, id);\r\n\
-    \    }\r\n\r\n    T query(int a, int b) {\r\n        assert(0 <= a && a <= N);\r\
-    \n        assert(0 <= b && b <= N);\r\n        a += N, b += N;\r\n        for\
-    \ (int i = logN; i >= 0; --i) eval(a >> i), eval((b - 1) >> i);\r\n        T l\
-    \ = e, r = e;\r\n        for (; a < b; a >>= 1, b >>= 1) {\r\n            if (a\
-    \ & 1) l = op(l, eval(a++));\r\n            if (b & 1) r = op(eval(--b), r);\r\
-    \n        }\r\n        return op(l, r);\r\n    }\r\n};\r\n"
+  code: "#pragma once\r\n#include \"math/pow.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\
+    \r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u9045\u5EF6\u8A55\
+    \u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\r\n * @see https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp\r\
+    \n *\r\n * @tparam S \u30E2\u30CE\u30A4\u30C9\r\n * @tparam F \u30E2\u30CE\u30A4\
+    \u30C9\r\n */\r\ntemplate <class S, class F>\r\nstruct lazy_segment_tree {\r\n\
+    \  private:\r\n    using T = typename S::value_type;\r\n    using U = typename\
+    \ F::value_type;\r\n\r\n  public:\r\n    lazy_segment_tree() : lazy_segment_tree(0)\
+    \ {}\r\n    explicit lazy_segment_tree(int n, T e = S::id) : lazy_segment_tree(std::vector<T>(n,\
+    \ e)) {}\r\n    explicit lazy_segment_tree(const std::vector<T> &v) : _n(int(v.size()))\
+    \ {\r\n        this->_log = ceil_pow2(this->_n);\r\n        this->_size = 1 <<\
+    \ this->_log;\r\n        this->data = std::vector<T>(2 * this->_size, S::id);\r\
+    \n        this->lazy = std::vector<U>(this->_size, F::id);\r\n        for (int\
+    \ i = 0; i < this->_n; i++) this->data[this->_size + i] = v[i];\r\n        for\
+    \ (int i = this->_size - 1; i >= 1; --i) this->update(i);\r\n    }\r\n\r\n   \
+    \ void set(int p, T x) {\r\n        assert(0 <= p && p < this->_n);\r\n      \
+    \  p += this->_size;\r\n        for (int i = this->_log; i >= 1; --i) this->push(p\
+    \ >> i);\r\n        this->data[p] = x;\r\n        for (int i = 1; i <= this->_log;\
+    \ ++i) this->update(p >> i);\r\n    }\r\n\r\n    T at(int p) { return this->get(p);\
+    \ }\r\n    T get(int p) {\r\n        assert(0 <= p && p < this->_n);\r\n     \
+    \   p += this->_size;\r\n        for (int i = this->_log; i >= 1; --i) this->push(p\
+    \ >> i);\r\n        return this->data[p];\r\n    }\r\n\r\n    void apply(int p,\
+    \ U f) {\r\n        assert(0 <= p && p < this->_n);\r\n        p += this->_size;\r\
+    \n        for (int i = this->_log; i >= 1; --i) this->push(p >> i);\r\n      \
+    \  this->data[p] = F::f(f, this->data[p]);\r\n        for (int i = 1; i <= this->_log;\
+    \ ++i) this->update(p >> i);\r\n    }\r\n    void apply(int l, int r, U f) {\r\
+    \n        assert(0 <= l && l <= r && r <= this->_n);\r\n        if (l == r) return;\r\
+    \n\r\n        l += this->_size, r += this->_size;\r\n\r\n        for (int i =\
+    \ this->_log; i >= 1; --i) {\r\n            if (((l >> i) << i) != l) this->push(l\
+    \ >> i);\r\n            if (((r >> i) << i) != r) this->push((r - 1) >> i);\r\n\
+    \        }\r\n\r\n        int l2 = l, r2 = r;\r\n        while (l < r) {\r\n \
+    \           if (l & 1) this->all_apply(l++, f);\r\n            if (r & 1) this->all_apply(--r,\
+    \ f);\r\n            l >>= 1, r >>= 1;\r\n        }\r\n        l = l2, r = r2;\r\
+    \n\r\n        for (int i = 1; i <= this->_log; i++) {\r\n            if (((l >>\
+    \ i) << i) != l) this->update(l >> i);\r\n            if (((r >> i) << i) != r)\
+    \ this->update((r - 1) >> i);\r\n        }\r\n    }\r\n\r\n    T prod(int l, int\
+    \ r) {\r\n        assert(0 <= l && l <= r && r <= this->_n);\r\n        if (l\
+    \ == r) return S::id;\r\n\r\n        l += this->_size, r += this->_size;\r\n\r\
+    \n        for (int i = this->_log; i >= 1; --i) {\r\n            if (((l >> i)\
+    \ << i) != l) this->push(l >> i);\r\n            if (((r >> i) << i) != r) this->push((r\
+    \ - 1) >> i);\r\n        }\r\n\r\n        T sml = S::id, smr = S::id;\r\n    \
+    \    while (l < r) {\r\n            if (l & 1) sml = S::op(sml, this->data[l++]);\r\
+    \n            if (r & 1) smr = S::op(this->data[--r], smr);\r\n            l >>=\
+    \ 1, r >>= 1;\r\n        }\r\n\r\n        return S::op(sml, smr);\r\n    }\r\n\
+    \r\n    T all_prod() const { return this->data[1]; }\r\n\r\n  private:\r\n   \
+    \ int _n, _size, _log;\r\n    std::vector<T> data;\r\n    std::vector<U> lazy;\r\
+    \n\r\n    void update(int k) { this->data[k] = S::op(this->data[2 * k], this->data[2\
+    \ * k + 1]); }\r\n    void all_apply(int k, U f) {\r\n        this->data[k] =\
+    \ F::f(f, this->data[k]);\r\n        if (k < _size) this->lazy[k] = F::op(f, this->lazy[k]);\r\
+    \n    }\r\n    void push(int k) {\r\n        this->all_apply(2 * k, this->lazy[k]);\r\
+    \n        this->all_apply(2 * k + 1, this->lazy[k]);\r\n        this->lazy[k]\
+    \ = F::id;\r\n    }\r\n};\r\n"
   dependsOn:
+  - lib/math/pow.hpp
   - lib/template/template.hpp
+  - lib/segment_tree/monoid.hpp
   isVerificationFile: false
   path: lib/segment_tree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2022-07-19 05:54:00+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
 documentation_of: lib/segment_tree/lazy_segment_tree.hpp
 layout: document
 redirect_from:
 - /library/lib/segment_tree/lazy_segment_tree.hpp
 - /library/lib/segment_tree/lazy_segment_tree.hpp.html
-title: lib/segment_tree/lazy_segment_tree.hpp
+title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
 ---

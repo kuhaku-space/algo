@@ -67,7 +67,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/persistent_dual_segment_tree.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-19 05:54:00+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/segment_tree/persistent_dual_segment_tree.hpp

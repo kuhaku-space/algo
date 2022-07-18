@@ -30,11 +30,17 @@ data:
     path: lib/segment_tree/dynamic_segment_tree.hpp
     title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/lazy_segment_tree.hpp
+    title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_raq.hpp
     title: lib/segment_tree/segment_tree_raq.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/sparse_table.hpp
+    title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/raq_rmq.test.cpp
@@ -42,6 +48,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq_ruq.test.cpp
+    title: test/aoj/dsl/rmq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rsq_ruq.test.cpp
+    title: test/aoj/dsl/rsq_ruq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
@@ -67,8 +79,20 @@ data:
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_set_range_composite.test.cpp
+    title: test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+    title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -96,7 +120,9 @@ data:
     \n        if (n & 1) (res *= mul) %= mod;\r\n        (mul *= mul) %= mod;\r\n\
     \    }\r\n    return res;\r\n}\r\n\r\nint ceil_pow2(std::int64_t n) {\r\n    int\
     \ x = 0;\r\n    while ((std::uint64_t(1) << x) < (std::uint64_t)(n)) ++x;\r\n\
-    \    return x;\r\n}\r\n"
+    \    return x;\r\n}\r\n\r\nint floor_pow2(std::int64_t n) {\r\n    int x = 0;\r\
+    \n    while ((std::uint64_t(1) << (x + 1)) <= (std::uint64_t)(n)) ++x;\r\n   \
+    \ return x;\r\n}\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -109,10 +135,12 @@ data:
   - lib/math/primitive_root.hpp
   - lib/data_structure/bigint.hpp
   - lib/segment_tree/segment_tree_raq.hpp
+  - lib/segment_tree/sparse_table.hpp
   - lib/segment_tree/segment_tree.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
-  timestamp: '2022-06-18 18:40:23+09:00'
+  timestamp: '2022-07-18 03:50:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ntl/division.test.cpp
@@ -123,7 +151,13 @@ data:
   - test/aoj/ntl/multiplication.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/math/pow.hpp

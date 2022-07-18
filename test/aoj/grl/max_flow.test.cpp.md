@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/flow/max_flow.hpp
-    title: lib/flow/max_flow.hpp
+    title: "\u6700\u5927\u6D41"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -49,7 +49,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/max_flow.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2022-07-16 07:23:56+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/max_flow.test.cpp

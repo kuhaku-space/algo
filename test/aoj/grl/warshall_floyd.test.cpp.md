@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/graph/matrix_graph.hpp
-    title: lib/graph/matrix_graph.hpp
+    title: "\u96A3\u63A5\u884C\u5217"
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
@@ -59,7 +59,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/warshall_floyd.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2022-07-17 07:16:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/warshall_floyd.test.cpp

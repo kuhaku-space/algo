@@ -54,6 +54,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_set_range_composite.test.cpp
+    title: test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+    title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -137,6 +146,9 @@ data:
   - test/aoj/ntl/multiplication.test.cpp
   - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document

@@ -28,6 +28,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -101,6 +104,7 @@ data:
   - test/aoj/grl/range_query_on_tree.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
 documentation_of: lib/binary_tree/BIT.hpp
 layout: document

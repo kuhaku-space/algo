@@ -55,6 +55,12 @@ data:
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq_ruq.test.cpp
+    title: test/aoj/dsl/rmq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rsq_ruq.test.cpp
+    title: test/aoj/dsl/rsq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -169,6 +175,12 @@ data:
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_set_range_composite.test.cpp
+    title: test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest.test.cpp
   - icon: ':heavy_check_mark:'
@@ -186,6 +198,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/unionfind.test.cpp
     title: test/yosupo/data_structure/unionfind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+    title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/chromatic_number.test.cpp
+    title: test/yosupo/graph/chromatic_number.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
@@ -262,21 +286,29 @@ data:
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/union_find.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
   - test/aoj/dsl/weighted_union_find.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/persistent_queue.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/yosupo/data_structure/binary_trie.test.cpp
   - test/yosupo/data_structure/persistent_union_find.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/patricia_binary_trie.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
   - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/graph/chromatic_number.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/template/sonic.hpp

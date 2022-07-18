@@ -100,7 +100,7 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/data_structure/bigint.hpp
-  timestamp: '2022-06-18 18:40:23+09:00'
+  timestamp: '2022-07-18 03:50:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ntl/division.test.cpp

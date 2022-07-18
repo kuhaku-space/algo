@@ -59,7 +59,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/dual_segment_tree.hpp
   requiredBy: []
-  timestamp: '2022-06-18 18:40:23+09:00'
+  timestamp: '2022-07-19 05:54:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp

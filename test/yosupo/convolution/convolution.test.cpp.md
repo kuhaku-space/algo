@@ -57,7 +57,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution/convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2022-07-18 03:50:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/convolution.test.cpp

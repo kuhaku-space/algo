@@ -47,7 +47,7 @@ data:
   - icon: ':warning:'
     path: lib/graph/two_sat.hpp
     title: 2-SAT
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/tree/eular_tour.hpp
     title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
   - icon: ':warning:'
@@ -96,6 +96,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/undo_union_find.test.cpp
     title: test/yosupo/data_structure/undo_union_find.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+    title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
@@ -207,6 +210,7 @@ data:
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/kruskal.test.cpp
   - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
