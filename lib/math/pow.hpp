@@ -36,3 +36,9 @@ int ceil_pow2(std::int64_t n) {
     while ((std::uint64_t(1) << x) < (std::uint64_t)(n)) ++x;
     return x;
 }
+
+int floor_pow2(std::int64_t n) {
+    int x = 0;
+    while ((std::uint64_t(1) << (x + 1)) <= (std::uint64_t)(n)) ++x;
+    return x;
+}

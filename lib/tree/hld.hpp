@@ -6,13 +6,22 @@
  * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
  */
 struct HLD {
-    HLD(int n) : g(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
+    HLD(int n) : _size(n), g(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
 
-    void add_edge(int u, int v) {
+    void add_edge(int u, int v) { this->add_edges(u, v); }
+    void add_edges(int u, int v) {
         this->g[u].emplace_back(v);
         this->g[v].emplace_back(u);
     }
-    void add_edges(int u, int v) { this->add_edge(u, v); }
+
+    void input_edge(int base = 1) { this->input_edges(base); }
+    void input_edges(int base = 1) {
+        for (int i = 0; i < this->_size - 1; ++i) {
+            int u, v;
+            cin >> u >> v;
+            this->add_edges(u - base, v - base);
+        }
+    }
 
     void build(int r = 0) {
         int pos = 0;
@@ -21,6 +30,7 @@ struct HLD {
         this->dfs_hld(r, pos);
     }
 
+    int get(int v) const { return this->vid[v]; }
     int get_parent(int v) const { return this->par[v]; }
 
     int lca(int u, int v) const {
@@ -56,6 +66,7 @@ struct HLD {
     }
 
   private:
+    int _size;
     std::vector<std::vector<int>> g;
     std::vector<int> vid, nxt, sub, par, inv;
 

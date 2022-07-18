@@ -1,10 +1,14 @@
 #include "template/template.hpp"
 
+/**
+ * @brief 最大流
+ *
+ * @tparam Cap
+ */
 template <class Cap>
 struct mf_graph {
-  public:
     mf_graph() : _n(0) {}
-    mf_graph(int n) : _n(n), g(n) {}
+    explicit mf_graph(int n) : _n(n), g(n) {}
 
     int add_edge(int from, int to, Cap cap) {
         assert(0 <= from && from < _n);
@@ -12,8 +16,11 @@ struct mf_graph {
         assert(0 <= cap);
         int m = int(pos.size());
         pos.emplace_back(from, int(g[from].size()));
-        g[from].emplace_back(to, int(g[to].size()), cap);
-        g[to].emplace_back(from, int(g[from].size()) - 1, 0);
+        int from_id = int(g[from].size());
+        int to_id = int(g[to].size());
+        if (from == to) ++to_id;
+        g[from].emplace_back(to, to_id, cap);
+        g[to].emplace_back(from, from_id, 0);
         return m;
     }
 
@@ -32,15 +39,17 @@ struct mf_graph {
     std::vector<edge> edges() {
         int m = int(pos.size());
         std::vector<edge> result;
-        for (int i = 0; i < m; i++) { result.emplace_back(get_edge(i)); }
+        for (int i = 0; i < m; ++i) {
+            result.emplace_back(get_edge(i));
+        }
         return result;
     }
     void change_edge(int i, Cap new_cap, Cap new_flow) {
         int m = int(pos.size());
         assert(0 <= i && i < m);
         assert(0 <= new_flow && new_flow <= new_cap);
-        auto& _e = g[pos[i].first][pos[i].second];
-        auto& _re = g[_e.to][_e.rev];
+        auto &_e = g[pos[i].first][pos[i].second];
+        auto &_re = g[_e.to][_e.rev];
         _e.cap = new_cap - new_flow;
         _re.cap = new_flow;
     }
@@ -49,14 +58,13 @@ struct mf_graph {
     Cap flow(int s, int t, Cap flow_limit) {
         assert(0 <= s && s < _n);
         assert(0 <= t && t < _n);
+        assert(s != t);
 
         std::vector<int> level(_n), iter(_n);
-        std::queue<int> que;
-
         auto bfs = [&]() {
-            fill(level.begin(), level.end(), -1);
+            std::fill(level.begin(), level.end(), -1);
             level[s] = 0;
-            while (!que.empty()) que.pop();
+            std::queue<int> que;
             que.emplace(s);
             while (!que.empty()) {
                 int v = que.front();
@@ -73,16 +81,17 @@ struct mf_graph {
             if (v == s) return up;
             Cap res = 0;
             int level_v = level[v];
-            for (int& i = iter[v]; i < int(g[v].size()); i++) {
-                _edge& e = g[v][i];
+            for (int &i = iter[v]; i < int(g[v].size()); ++i) {
+                _edge &e = g[v][i];
                 if (level_v <= level[e.to] || g[e.to][e.rev].cap == 0) continue;
-                Cap d = self(self, e.to, min(up - res, g[e.to][e.rev].cap));
+                Cap d = self(self, e.to, std::min(up - res, g[e.to][e.rev].cap));
                 if (d <= 0) continue;
                 g[v][i].cap += d;
                 g[e.to][e.rev].cap -= d;
                 res += d;
-                if (res == up) break;
+                if (res == up) return res;
             }
+            level[v] = _n;
             return res;
         };
 
@@ -90,12 +99,10 @@ struct mf_graph {
         while (flow < flow_limit) {
             bfs();
             if (level[t] == -1) break;
-            fill(iter.begin(), iter.end(), 0);
-            while (flow < flow_limit) {
-                Cap f = dfs(dfs, t, flow_limit - flow);
-                if (!f) break;
-                flow += f;
-            }
+            std::fill(iter.begin(), iter.end(), 0);
+            Cap f = dfs(dfs, t, flow_limit - flow);
+            if (!f) break;
+            flow += f;
         }
         return flow;
     }
@@ -126,6 +133,6 @@ struct mf_graph {
 
         constexpr _edge(int _to, int _rev, Cap _cap) : to(_to), rev(_rev), cap(_cap) {}
     };
-    std::vector<pair<int, int>> pos;
+    std::vector<std::pair<int, int>> pos;
     std::vector<std::vector<_edge>> g;
 };

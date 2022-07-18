@@ -1,3 +1,4 @@
+#pragma once
 #include "template/template.hpp"
 
 template <class T>
@@ -82,4 +83,21 @@ struct Update {
     static constexpr U f(T lhs, U rhs) {
         return lhs == Update::id ? rhs : lhs;
     }
+};
+
+template <class T>
+struct Affine {
+    using value_type = std::pair<T, T>;
+    static constexpr std::pair<T, T> id = std::pair<T, T>(1, 0);
+    static constexpr std::pair<T, T> op(std::pair<T, T> lhs, std::pair<T, T> rhs) {
+        return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};
+    }
+};
+
+template <class M>
+struct Rev {
+    using T = typename M::value_type;
+    using value_type = T;
+    static constexpr T id = M::id;
+    static constexpr T op(T lhs, T rhs) { return M::op(rhs, lhs); }
 };

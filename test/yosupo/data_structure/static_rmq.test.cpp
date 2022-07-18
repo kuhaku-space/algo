@@ -1,16 +1,15 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
-#include "segment_tree/segment_tree.hpp"
+#include "segment_tree/sparse_table.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, q;
     cin >> n >> q;
     vector<int> a(n);
     cin >> a;
-    segment_tree<Min<int>> st(n);
-    st.build(a);
-    rep(i, q) {
+    sparse_table<Min<int>> st(a);
+
+    while (q--) {
         int l, r;
         cin >> l >> r;
         co(st.prod(l, r));
