@@ -68,6 +68,7 @@
 "test/yosupo/graph/chromatic_number.test.cpp": "2022-07-17 07:17:48 +0900",
 "test/yosupo/graph/scc.test.cpp": "2022-07-20 02:21:09 +0900",
 "test/yosupo/graph/shortest_path.test.cpp": "2022-07-13 04:39:10 +0900",
+"test/yosupo/math/two_sat.test.cpp": "2022-07-20 04:04:19 +0900",
 "test/yosupo/matrix/matrix_product.test.cpp": "2022-07-20 03:07:46 +0900",
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
 "test/yosupo/sample/many_a+b.test.cpp": "2022-07-18 02:24:58 +0900"
