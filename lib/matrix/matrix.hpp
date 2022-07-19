@@ -12,14 +12,12 @@ struct Matrix {
     Matrix(int x, int y) : v(x, std::vector<T>(y)) {}
     Matrix(const std::vector<std::vector<T>> &_v) : v(_v) {}
 
-    const std::vector<T> &operator[](int i) const {
-        assert(0 <= i && i < this->v.size());
-        return this->v[i];
-    }
-    std::vector<T> &operator[](int i) {
-        assert(0 <= i && i < this->v.size());
-        return this->v[i];
-    }
+    const auto &operator[](int i) const { return this->v[i]; }
+    auto &operator[](int i) { return this->v[i]; }
+    const auto begin() const { return this->v.begin(); }
+    auto begin() { return this->v.begin(); }
+    const auto end() const { return this->v.end(); }
+    auto end() { return this->v.end(); }
 
     Matrix &operator+=(const Matrix &rhs) {
         assert(this->v.size() == rhs.v.size());
@@ -51,9 +49,9 @@ struct Matrix {
     }
 
     Matrix operator-() const {
-        std::vector<std::vector<T>> tmp = v;
-        for (auto &i : tmp)
-            for (auto &j : i) j = -j;
+        std::vector<std::vector<T>> tmp(this->v);
+        for (auto &v : tmp)
+            for (auto &x : v) x = -x;
         return Matrix(tmp);
     }
 
@@ -71,11 +69,13 @@ struct Matrix {
         return res;
     }
 
-    Matrix pow(int64_t n) const {
-        Matrix res(v), mul(v);
+    Matrix pow(std::int64_t k) const {
+        assert(this->v.size() == this->v[0].size);
+        int n = this->v.size();
+        Matrix res(n, n), mul(this->v);
         res.unit_matrix();
-        for (; n > 0; n >>= 1) {
-            if (n & 1) res *= mul;
+        for (; k > 0; k >>= 1) {
+            if (k & 1) res *= mul;
             mul *= mul;
         }
         return res;
@@ -94,15 +94,17 @@ struct Matrix {
         int x = this->v[0].size(), y = this->v.size();
         std::vector<std::vector<T>> res(x, std::vector<T>(y));
         for (int i = 0; i < x; ++i) {
-            for (int j = 0; j < y; ++j) { res[i][j] = v[j][i]; }
+            for (int j = 0; j < y; ++j) {
+                res[i][j] = this->v[j][i];
+            }
         }
         return Matrix(res);
     }
 
     void print_debug() const {
-        for (auto i : v) {
+        for (auto u : this->v) {
             cerr << "[";
-            for (auto j : i) cerr << j << ", ";
+            for (auto x : u) cerr << x << ", ";
             cerr << "]" << endl;
         }
     }
