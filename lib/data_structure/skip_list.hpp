@@ -1,31 +1,33 @@
 #include "random/xorshift.hpp"
 #include "template/template.hpp"
 
-template <class T, int B = 20>
+template <class T, int B = 20, class UniformRandomBitGenerator = Xorshift>
 struct skip_list {
-    struct Node {
+  private:
+    struct _node {
+        using pointer = _node *;
         T val;
-        Node* itr[B];
+        pointer itr[B];
 
-        Node(T _val = T()) : val(_val) {
-            for (int i = 0; i < B; ++i) itr[i] = nullptr;
-        }
+        _node() : _node(T()) {}
+        _node(T _val) : val(_val), itr{} {}
     };
 
-    Node* head;
-    Xorshift xor128;
+  public:
+    using node_ptr = typename _node::pointer;
 
-    skip_list() : xor128() { head = new Node(); }
+    skip_list() : head(), gen() { this->head = new _node(); }
 
+    void emplace(T val) { this->insert(val); }
     void insert(T val) {
         int height = 0;
         for (int i = 0; i < B - 1; ++i) {
-            if (xor128() & 1) break;
+            if (this->gen() & 1) break;
             ++height;
         }
 
-        Node* new_node = new Node(val);
-        Node* node = head;
+        node_ptr new_node = new _node(val);
+        node_ptr node = this->head;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
 
@@ -37,11 +39,11 @@ struct skip_list {
     }
 
     void erase(T val) {
-        Node* node = head;
+        node_ptr node = this->head;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
         }
-        Node* delete_node = node->itr[0]->val == val ? node->itr[0] : nullptr;
+        node_ptr delete_node = node->itr[0]->val == val ? node->itr[0] : nullptr;
         if (!delete_node) return;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
@@ -49,8 +51,17 @@ struct skip_list {
         }
     }
 
+    bool contains(T val) {
+        node_ptr node = this->head;
+        for (int i = B - 1; i >= 0; --i) {
+            while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
+            if (node->itr[i] && node->itr[i]->val == val) return true;
+        }
+        return false;
+    }
+
     int count(T val) {
-        Node* node = head;
+        node_ptr node = this->head;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
         }
@@ -62,4 +73,8 @@ struct skip_list {
         }
         return res;
     }
+
+  private:
+    node_ptr head;
+    UniformRandomBitGenerator gen;
 };
