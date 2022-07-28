@@ -50,6 +50,7 @@
 "test/aoj/ntl/remainder.test.cpp": "2022-07-18 03:50:33 +0900",
 "test/yosupo/convolution/convolution.test.cpp": "2022-07-18 03:50:33 +0900",
 "test/yosupo/data_structure/binary_trie.test.cpp": "2022-07-16 00:03:35 +0900",
+"test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp": "2022-07-28 15:30:08 +0900",
 "test/yosupo/data_structure/patricia_binary_trie.test.cpp": "2022-07-16 00:19:09 +0900",
 "test/yosupo/data_structure/persistent_queue.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/yosupo/data_structure/persistent_union_find.test.cpp": "2022-06-22 08:11:12 +0900",
