@@ -40,7 +40,8 @@ struct Mo {
         std::sort(this->_order.begin(), this->_order.end(), [&](int a, int b) -> bool {
             if (this->_left[a] / width != this->_left[b] / width)
                 return this->_left[a] < this->_left[b];
-            return (this->_left[a] / width % 2) != (this->_right[a] < this->_right[b]);
+            return (this->_left[a] / width % 2 == 0) ? (this->_right[a] < this->_right[b])
+                                                     : (this->_right[b] < this->_right[a]);
         });
     }
 
