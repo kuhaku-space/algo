@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
-#include "binary_tree/BIT.hpp"
+#include "binary_tree/fenwick_tree.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {

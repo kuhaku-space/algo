@@ -1,5 +1,5 @@
 #include "algorithm/compress.hpp"
-#include "binary_tree/BIT.hpp"
+#include "binary_tree/fenwick_tree.hpp"
 #include "template/template.hpp"
 
 /**
