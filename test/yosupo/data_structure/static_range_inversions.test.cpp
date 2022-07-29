@@ -26,7 +26,7 @@ int main(void) {
         ft.add(a[idx], -1);
     };
     auto gr = [&](int idx) {
-        sum -= ft.sum(a[idx] - 1, size);
+        sum -= ft.sum(a[idx] + 1, size);
         ft.add(a[idx], -1);
     };
     Mo mo(n, fl, fr, gl, gr);
