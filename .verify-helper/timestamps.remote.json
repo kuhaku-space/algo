@@ -56,6 +56,7 @@
 "test/yosupo/data_structure/persistent_union_find.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/yosupo/data_structure/point_add_range_sum.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/yosupo/data_structure/point_set_range_composite.test.cpp": "2022-07-19 05:54:00 +0900",
+"test/yosupo/data_structure/queue_operate_all_composite.test.cpp": "2022-07-29 18:25:55 +0900",
 "test/yosupo/data_structure/range_affine_range_sum.test.cpp": "2022-07-19 05:54:00 +0900",
 "test/yosupo/data_structure/range_kth_smallest.test.cpp": "2022-07-29 14:39:45 +0900",
 "test/yosupo/data_structure/range_kth_smallest_2.test.cpp": "2022-07-29 14:39:45 +0900",
