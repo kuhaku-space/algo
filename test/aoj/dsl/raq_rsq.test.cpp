@@ -8,18 +8,18 @@ int main(void) {
     int n, q;
     cin >> n >> q;
 
-    BIT_RAQ<ll> bit(n);
+    fenwick_tree_raq<ll> ft(n);
     while (q--) {
         int com;
         cin >> com;
         if (com == 0) {
             int s, t, x;
             cin >> s >> t >> x;
-            bit.add(s - 1, t, x);
+            ft.add(s - 1, t, x);
         } else {
             int s, t;
             cin >> s >> t;
-            co(bit.sum(s - 1, t));
+            co(ft.sum(s - 1, t));
         }
     }
 

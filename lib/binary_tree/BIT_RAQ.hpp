@@ -54,17 +54,17 @@ struct fenwick_tree_raq {
      * @brief v[0] + ... v[k - 1]
      *
      * @param k index of array
-     * @return auto
+     * @return T
      */
-    auto sum(int k) const { return this->p.sum(k) + this->q.sum(k) * k; }
+    T sum(int k) const { return this->p.sum(k) + this->q.sum(k) * k; }
     /**
      * @brief v[a] + ... + v[b - 1]
      *
      * @param a first index of array
      * @param b last index of array
-     * @return auto
+     * @return T
      */
-    auto sum(int a, int b) const { return this->sum(b) - this->sum(a); }
+    T sum(int a, int b) const { return this->sum(b) - this->sum(a); }
 
   private:
     fenwick_tree<T> p, q;

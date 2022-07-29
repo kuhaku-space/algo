@@ -6,7 +6,7 @@
 int main(void) {
     int n;
     cin >> n;
-    BIT_RAQ<ll> bit(n);
+    fenwick_tree_raq<ll> ft(n);
     HLD hld(n);
     rep (i, n) {
         int k;
@@ -21,14 +21,14 @@ int main(void) {
 
     int q;
     cin >> q;
-    rep (i, q) {
+    while (q--) {
         int id;
         cin >> id;
         if (id == 0) {
             int v, w;
             cin >> v >> w;
             auto f = [&](int a, int b) {
-                bit.add(a, b, w);
+                ft.add(a, b, w);
             };
             hld.for_each_edge(0, v, f);
         } else {
@@ -36,7 +36,7 @@ int main(void) {
             cin >> v;
             ll ans = 0;
             auto f = [&](int a, int b) {
-                ans += bit.sum(a, b);
+                ans += ft.sum(a, b);
             };
             hld.for_each_edge(0, v, f);
             co(ans);
