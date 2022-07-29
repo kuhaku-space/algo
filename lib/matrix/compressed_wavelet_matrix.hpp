@@ -118,5 +118,5 @@ struct compressed_wavelet_matrix {
 
   private:
     wavelet_matrix<int, MAXLOG> mat;
-    Compress<T> cps;
+    coordinate_compression<T> cps;
 };
