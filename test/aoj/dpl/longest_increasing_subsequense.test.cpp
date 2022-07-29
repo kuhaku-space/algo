@@ -1,5 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D"
-#include "dp/lis.hpp"
+#include "algorithm/lis.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
