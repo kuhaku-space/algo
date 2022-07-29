@@ -10,7 +10,7 @@ int main(void) {
     cin >> n;
     vector<int> a(n);
     cin >> a;
-    auto v = compress(a);
+    a = compress(a);
     Mint ans = 0;
     vector<Mint> dp(*max_element(all(a)) + 1);
     for (auto x : a) {
