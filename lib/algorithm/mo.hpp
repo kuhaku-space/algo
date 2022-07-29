@@ -8,10 +8,22 @@
  * @tparam F
  * @tparam G
  */
-template <class F, class G>
+template <class F, class G, class H = F, class I = G>
 struct Mo {
-    Mo(int n, const F &f, const G &g)
-        : _left(), _right(), _order(), _size(n), _nl(0), _nr(0), _ptr(0), _add(f), _del(g) {}
+    Mo(int n, F f, G g)
+        : _left(), _right(), _order(), _size(n), _nl(0), _nr(0), _ptr(0), _addl(f), _addr(f),
+          _dell(g), _delr(g) {}
+    Mo(int n, F fl, H fr, G gl, I gr)
+        : _left(), _right(), _order(), _size(n), _nl(0), _nr(0), _ptr(0), _addl(fl), _addr(fr),
+          _dell(gl), _delr(gr) {}
+
+    void input(int q, int bias = 1, int closed = 0) {
+        for (int i = 0; i < q; ++i) {
+            int l, r;
+            cin >> l >> r;
+            this->add(l - bias, r - bias + closed);
+        }
+    }
 
     void add(int l, int r) {
         this->_left.emplace_back(l);
@@ -35,16 +47,18 @@ struct Mo {
     int process() {
         if (this->_ptr == (int)this->_order.size()) return -1;
         const auto id = this->_order[this->_ptr];
-        while (this->_nl > this->_left[id]) this->_add(--this->_nl);
-        while (this->_nr < this->_right[id]) this->_add(this->_nr++);
-        while (this->_nl < this->_left[id]) this->_del(this->_nl++);
-        while (this->_nr > this->_right[id]) this->_del(--this->_nr);
+        while (this->_nl > this->_left[id]) this->_addl(--this->_nl);
+        while (this->_nr < this->_right[id]) this->_addr(this->_nr++);
+        while (this->_nl < this->_left[id]) this->_dell(this->_nl++);
+        while (this->_nr > this->_right[id]) this->_delr(--this->_nr);
         return this->_order[this->_ptr++];
     }
 
   private:
     std::vector<int> _left, _right, _order;
     int _size, _nl, _nr, _ptr;
-    const F &_add;
-    const G &_del;
+    F _addl;
+    H _addr;
+    G _dell;
+    I _delr;
 };
