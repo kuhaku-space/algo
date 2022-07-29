@@ -1,5 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G"
-#include "binary_tree/BIT_RAQ.hpp"
+#include "binary_tree/fenwick_tree_raq.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
