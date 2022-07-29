@@ -13,7 +13,7 @@ template <class T>
 std::int64_t inversion_number(const std::vector<T> &v) {
     auto u = compress(v);
     std::reverse(u.begin(), u.end());
-    BIT<T> bit(*max_element(u.begin(), u.end()) + 1);
+    fenwick_tree<T> bit(*max_element(u.begin(), u.end()) + 1);
     std::int64_t res = 0;
     for (auto x : u) {
         res += bit.sum(x);

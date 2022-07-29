@@ -7,15 +7,18 @@
  * @tparam T
  */
 template <class T>
-struct BIT_RAQ {
-    BIT_RAQ(int n) : p(n + 1), q(n + 1) {}
+struct fenwick_tree_raq {
+    fenwick_tree_raq() = default;
+    fenwick_tree_raq(int n) : p(n + 1), q(n + 1) {}
 
     auto operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
     auto at(int k) const { return this->operator[](k); }
 
     template <class U>
     void build(const vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) { this->add(i, v[i]); }
+        for (int i = 0, n = v.size(); i < n; ++i) {
+            this->add(i, v[i]);
+        }
     }
 
     /**
@@ -64,5 +67,5 @@ struct BIT_RAQ {
     auto sum(int a, int b) const { return this->sum(b) - this->sum(a); }
 
   private:
-    BIT<T> p, q;
+    fenwick_tree<T> p, q;
 };

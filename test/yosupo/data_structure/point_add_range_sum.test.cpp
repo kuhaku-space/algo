@@ -8,15 +8,14 @@ int main(void) {
     cin >> n >> q;
     vector<int> a(n);
     cin >> a;
-    BIT<ll> bit(n);
-    bit.build(a);
+    fenwick_tree<ll> ft(a);
     while (q--) {
         int x, y, z;
         cin >> x >> y >> z;
         if (x == 0)
-            bit.add(y, z);
+            ft.add(y, z);
         else
-            co(bit.sum(y, z));
+            co(ft.sum(y, z));
     }
 
     return 0;
