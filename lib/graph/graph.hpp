@@ -12,8 +12,8 @@ struct Graph {
     struct _edge {
         constexpr _edge() : _from(), _to(), _weight() {}
         constexpr _edge(int from, int to, T weight) : _from(from), _to(to), _weight(weight) {}
-        bool operator<(const _edge &rhs) const { return this->weight() < rhs.weight(); }
-        bool operator>(const _edge &rhs) const { return rhs < *this; }
+        constexpr bool operator<(const _edge &rhs) const { return this->weight() < rhs.weight(); }
+        constexpr bool operator>(const _edge &rhs) const { return rhs < *this; }
 
         constexpr int from() const { return this->_from; }
         constexpr int to() const { return this->_to; }
@@ -78,8 +78,8 @@ struct Graph<void> {
         constexpr int from() const { return this->_from; }
         constexpr int to() const { return this->_to; }
         constexpr int weight() const { return 1; }
-        bool operator<(const _edge &rhs) const { return this->weight() < rhs.weight(); }
-        bool operator>(const _edge &rhs) const { return rhs < *this; }
+        constexpr bool operator<(const _edge &rhs) const { return this->weight() < rhs.weight(); }
+        constexpr bool operator>(const _edge &rhs) const { return rhs < *this; }
 
       private:
         int _from, _to;
