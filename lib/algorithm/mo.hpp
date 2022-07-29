@@ -17,6 +17,14 @@ struct Mo {
         : _left(), _right(), _order(), _size(n), _nl(0), _nr(0), _ptr(0), _addl(fl), _addr(fr),
           _dell(gl), _delr(gr) {}
 
+    void input(int q, int bias = 1, int closed = 0) {
+        for (int i = 0; i < q; ++i) {
+            int l, r;
+            cin >> l >> r;
+            this->add(l - bias, r - bias + closed);
+        }
+    }
+
     void add(int l, int r) {
         this->_left.emplace_back(l);
         this->_right.emplace_back(r);
