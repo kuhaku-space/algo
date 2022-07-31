@@ -1,3 +1,4 @@
+#include "math/pow.hpp"
 #include "template/template.hpp"
 
 int64_t gcd(int64_t a, int64_t b) {
@@ -47,9 +48,23 @@ int64_t round_ll(long double d) {
     return int64_t(d + 0.5);
 }
 
-bool is_prime(int n) {
-    for (int i = 2; i * i <= n; ++i) {
-        if (n % i == 0) return false;
+constexpr bool is_prime(int n) {
+    if (n <= 1) return false;
+    if (n == 2 || n == 7 || n == 61) return true;
+    if (n % 2 == 0) return false;
+    std::int64_t d = n - 1;
+    while (d % 2 == 0) d /= 2;
+    constexpr std::int64_t bases[3] = {2, 7, 61};
+    for (std::int64_t a : bases) {
+        std::int64_t t = d;
+        std::int64_t y = pow_mod(a, t, n);
+        while (t != n - 1 && y != 1 && y != n - 1) {
+            y = y * y % n;
+            t <<= 1;
+        }
+        if (y != n - 1 && t % 2 == 0) {
+            return false;
+        }
     }
     return true;
 }
