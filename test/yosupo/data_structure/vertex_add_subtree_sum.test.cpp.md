@@ -72,7 +72,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   requiredBy: []
-  timestamp: '2022-07-19 06:15:49+09:00'
+  timestamp: '2022-07-30 08:42:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

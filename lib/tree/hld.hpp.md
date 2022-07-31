@@ -21,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
     title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/tree/lca.test.cpp
+    title: test/yosupo/tree/lca.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -50,13 +53,17 @@ data:
     \    int pos = 0;\r\n        this->dfs_sz(r);\r\n        this->nxt[r] = r;\r\n\
     \        this->dfs_hld(r, pos);\r\n    }\r\n\r\n    int get(int v) const { return\
     \ this->vid[v]; }\r\n    int get_parent(int v) const { return this->par[v]; }\r\
-    \n\r\n    int lca(int u, int v) const {\r\n        while (true) {\r\n        \
-    \    if (this->vid[u] > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u]\
-    \ == this->nxt[v]) return u;\r\n            v = this->par[this->nxt[v]];\r\n \
-    \       }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each(int u, int\
-    \ v, const F &f) const {\r\n        while (true) {\r\n            if (this->vid[u]\
-    \ > this->vid[v]) swap(u, v);\r\n            f(max(this->vid[this->nxt[v]], this->vid[u]),\
-    \ this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];\r\
+    \n\r\n    int la(int v, int k) const {\r\n        while (true) {\r\n         \
+    \   int u = this->nxt[v];\r\n            if (this->vid[v] - k >= this->vid[u])\
+    \ return this->inv[this->vid[v] - k];\r\n            k -= this->vid[v] - this->vid[u]\
+    \ + 1;\r\n            v = this->par[u];\r\n        }\r\n    }\r\n\r\n    int lca(int\
+    \ u, int v) const {\r\n        while (true) {\r\n            if (this->vid[u]\
+    \ > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u] == this->nxt[v])\
+    \ return u;\r\n            v = this->par[this->nxt[v]];\r\n        }\r\n    }\r\
+    \n\r\n    template <class F>\r\n    void for_each(int u, int v, const F &f) const\
+    \ {\r\n        while (true) {\r\n            if (this->vid[u] > this->vid[v])\
+    \ swap(u, v);\r\n            f(max(this->vid[this->nxt[v]], this->vid[u]), this->vid[v]\
+    \ + 1);\r\n            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];\r\
     \n            else break;\r\n        }\r\n    }\r\n\r\n    template <class F>\r\
     \n    void for_each_edge(int u, int v, const F &f) const {\r\n        while (true)\
     \ {\r\n            if (this->vid[u] > this->vid[v]) swap(u, v);\r\n          \
@@ -80,12 +87,13 @@ data:
   isVerificationFile: false
   path: lib/tree/hld.hpp
   requiredBy: []
-  timestamp: '2022-07-19 05:53:21+09:00'
+  timestamp: '2022-07-31 09:58:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/hld.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/yosupo/tree/lca.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
 documentation_of: lib/tree/hld.hpp

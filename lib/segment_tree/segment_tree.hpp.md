@@ -85,9 +85,9 @@ data:
   verifiedWith:
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document
 redirect_from:

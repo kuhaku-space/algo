@@ -58,8 +58,8 @@ data:
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/enumeration.hpp
 layout: document
 redirect_from:

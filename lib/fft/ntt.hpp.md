@@ -97,18 +97,18 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt.hpp
   requiredBy:
-  - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt_mod.hpp
   - lib/data_structure/bigint.hpp
+  - lib/fft/ntt_mod.hpp
+  - lib/fft/formal_power_series.hpp
   timestamp: '2022-07-18 03:50:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/difference.test.cpp
   - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/addition.test.cpp
   - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/division.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document

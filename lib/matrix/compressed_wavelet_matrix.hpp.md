@@ -21,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/static_range_frequency.test.cpp
+    title: test/yosupo/data_structure/static_range_frequency.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -77,7 +80,7 @@ data:
     \  * @param lower\n     * @return T\n     */\n    T next_value(int l, int r, T\
     \ lower) const {\n        auto res = this->mat.next_value(l, r, this->cps.get(lower));\n\
     \        return res == -1 ? T(-1) : this->cps[res];\n    }\n\n  private:\n   \
-    \ wavelet_matrix<int, MAXLOG> mat;\n    Compress<T> cps;\n};\n"
+    \ wavelet_matrix<int, MAXLOG> mat;\n    coordinate_compression<T> cps;\n};\n"
   dependsOn:
   - lib/algorithm/compress.hpp
   - lib/template/template.hpp
@@ -86,9 +89,10 @@ data:
   isVerificationFile: false
   path: lib/matrix/compressed_wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-29 14:39:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
 documentation_of: lib/matrix/compressed_wavelet_matrix.hpp

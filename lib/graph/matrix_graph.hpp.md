@@ -74,8 +74,8 @@ data:
   isVerificationFile: false
   path: lib/graph/matrix_graph.hpp
   requiredBy:
-  - lib/graph/warshall_floyd.hpp
   - lib/graph/chromatic_number.hpp
+  - lib/graph/warshall_floyd.hpp
   timestamp: '2022-07-17 07:16:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

@@ -21,6 +21,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/static_range_frequency.test.cpp
+    title: test/yosupo/data_structure/static_range_frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/static_range_inversions.test.cpp
+    title: test/yosupo/data_structure/static_range_inversions.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/new/number_of_subsequences.test.cpp
+    title: test/yosupo/new/number_of_subsequences.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -36,23 +45,28 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u5EA7\u6A19\u5727\
-    \u7E2E\r\n *\r\n * @tparam T \u8981\u7D20\u306E\u578B\r\n */\r\ntemplate <class\
-    \ T>\r\nstruct Compress {\r\n    Compress() {}\r\n    Compress(const vector<T>&\
-    \ _data) : data(_data) { this->build(); }\r\n\r\n    const T& operator[](int i)\
-    \ const { return this->data[i]; }\r\n    T& operator[](int i) { return this->data[i];\
-    \ }\r\n\r\n    void add(T x) { this->data.emplace_back(x); }\r\n\r\n    void build()\
-    \ {\r\n        std::sort(this->data.begin(), this->data.end());\r\n        this->data.erase(std::unique(this->data.begin(),\
-    \ this->data.end()), this->data.end());\r\n    }\r\n    void build(const vector<T>&\
-    \ _data) {\r\n        this->data = _data;\r\n        std::sort(this->data.begin(),\
+  code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief\
+    \ \u5EA7\u6A19\u5727\u7E2E\r\n *\r\n * @tparam T \u8981\u7D20\u306E\u578B\r\n\
+    \ */\r\ntemplate <class T>\r\nstruct coordinate_compression {\r\n    coordinate_compression()\
+    \ = default;\r\n    coordinate_compression(const vector<T> &_data) : data(_data)\
+    \ { this->build(); }\r\n\r\n    const T &operator[](int i) const { return this->data[i];\
+    \ }\r\n    T &operator[](int i) { return this->data[i]; }\r\n\r\n    void add(T\
+    \ x) { this->data.emplace_back(x); }\r\n\r\n    void build() {\r\n        std::sort(this->data.begin(),\
     \ this->data.end());\r\n        this->data.erase(std::unique(this->data.begin(),\
-    \ this->data.end()), this->data.end());\r\n    }\r\n\r\n    bool exist(T x) const\
-    \ {\r\n        auto it = std::lower_bound(this->data.begin(), this->data.end(),\
-    \ x);\r\n        return it != this->data.end() && *it == x;\r\n    }\r\n\r\n \
-    \   int get(T x) const {\r\n        auto it = std::lower_bound(this->data.begin(),\
-    \ this->data.end(), x);\r\n        return it - this->data.begin();\r\n    }\r\n\
-    \r\n    int size() const { return this->data.size(); }\r\n\r\n  private:\r\n \
-    \   std::vector<T> data;\r\n};\r\n"
+    \ this->data.end()), this->data.end());\r\n    }\r\n    void build(const vector<T>\
+    \ &v) {\r\n        this->data = v;\r\n        std::sort(this->data.begin(), this->data.end());\r\
+    \n        this->data.erase(std::unique(this->data.begin(), this->data.end()),\
+    \ this->data.end());\r\n    }\r\n\r\n    bool exist(T x) const {\r\n        auto\
+    \ it = std::lower_bound(this->data.begin(), this->data.end(), x);\r\n        return\
+    \ it != this->data.end() && *it == x;\r\n    }\r\n\r\n    int get(T x) const {\r\
+    \n        auto it = std::lower_bound(this->data.begin(), this->data.end(), x);\r\
+    \n        return it - this->data.begin();\r\n    }\r\n\r\n    int size() const\
+    \ { return this->data.size(); }\r\n\r\n  private:\r\n    std::vector<T> data;\r\
+    \n};\r\n\r\n/**\r\n * @brief \u5EA7\u6A19\u5727\u7E2E\r\n *\r\n * @tparam T \u8981\
+    \u7D20\u306E\u578B\r\n * @param v\r\n * @return std::vector<T>\r\n */\r\ntemplate\
+    \ <class T>\r\nstd::vector<T> compress(const std::vector<T> &v) {\r\n    coordinate_compression\
+    \ cps(v);\r\n    std::vector<T> res;\r\n    for (auto x : v) res.emplace_back(cps.get(x));\r\
+    \n    return res;\r\n}\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -60,11 +74,14 @@ data:
   requiredBy:
   - lib/algorithm/inversion_number.hpp
   - lib/matrix/compressed_wavelet_matrix.hpp
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-29 14:21:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp
+  - test/yosupo/new/number_of_subsequences.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
 documentation_of: lib/algorithm/compress.hpp
 layout: document

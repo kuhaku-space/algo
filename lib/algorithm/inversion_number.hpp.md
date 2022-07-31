@@ -5,7 +5,7 @@ data:
     path: lib/algorithm/compress.hpp
     title: "\u5EA7\u6A19\u5727\u7E2E"
   - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/BIT.hpp
+    path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
@@ -30,22 +30,22 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"algorithm/compress.hpp\"\n#include \"binary_tree/BIT.hpp\"\n#include\
-    \ \"template/template.hpp\"\n\n/**\n * @brief \u8EE2\u5012\u6570\u3092\u6C42\u3081\
-    \u308B\n *\n * @tparam T \u914D\u5217\u306E\u65B9\n * @param v \u914D\u5217\n\
-    \ * @return int64_t \u8EE2\u5012\u6570\n */\ntemplate <class T>\nint64_t inversion_number(const\
-    \ vector<T> &v) {\n    Compress<T> cps(v);\n    BIT<T> bit(cps.size());\n\n  \
-    \  int64_t res = 0;\n    for (int i = v.size() - 1; i >= 0; --i) {\n        res\
-    \ += bit.sum(cps.get(v[i]));\n        bit.add(cps.get(v[i]), 1);\n    }\n    return\
-    \ res;\n}\n"
+  code: "#include \"algorithm/compress.hpp\"\n#include \"binary_tree/fenwick_tree.hpp\"\
+    \n#include \"template/template.hpp\"\n\n/**\n * @brief \u8EE2\u5012\u6570\u3092\
+    \u6C42\u3081\u308B\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param v \u914D\
+    \u5217\n * @retval std::int64_t \u8EE2\u5012\u6570\n */\ntemplate <class T>\n\
+    std::int64_t inversion_number(const std::vector<T> &v) {\n    auto u = compress(v);\n\
+    \    std::reverse(u.begin(), u.end());\n    fenwick_tree<T> bit(*max_element(u.begin(),\
+    \ u.end()) + 1);\n    std::int64_t res = 0;\n    for (auto x : u) {\n        res\
+    \ += bit.sum(x);\n        bit.add(x, 1);\n    }\n    return res;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
   - lib/template/template.hpp
-  - lib/binary_tree/BIT.hpp
+  - lib/binary_tree/fenwick_tree.hpp
   isVerificationFile: false
   path: lib/algorithm/inversion_number.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-29 22:00:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp

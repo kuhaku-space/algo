@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/BIT.hpp
+    path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
@@ -33,17 +33,17 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.5/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/BIT.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\n\
-    #include \"binary_tree/BIT.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    sonic();\n    int n, q;\n    cin >> n >> q;\n    vector<int> a(n);\n\
-    \    cin >> a;\n    BIT<ll> bit(n);\n    bit.build(a);\n    while (q--) {\n  \
-    \      int x, y, z;\n        cin >> x >> y >> z;\n        if (x == 0)\n      \
-    \      bit.add(y, z);\n        else\n            co(bit.sum(y, z));\n    }\n\n\
-    \    return 0;\n}\n"
+    #include \"binary_tree/fenwick_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\
+    \nint main(void) {\n    sonic();\n    int n, q;\n    cin >> n >> q;\n    vector<int>\
+    \ a(n);\n    cin >> a;\n    fenwick_tree<ll> ft(a);\n    while (q--) {\n     \
+    \   int x, y, z;\n        cin >> x >> y >> z;\n        if (x == 0)\n         \
+    \   ft.add(y, z);\n        else\n            co(ft.sum(y, z));\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
-  - lib/binary_tree/BIT.hpp
+  - lib/binary_tree/fenwick_tree.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2022-07-29 22:00:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_range_sum.test.cpp

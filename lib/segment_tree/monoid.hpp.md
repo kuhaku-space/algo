@@ -6,6 +6,9 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: lib/data_structure/swag.hpp
+    title: lib/data_structure/swag.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':warning:'
@@ -29,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/sparse_table.hpp
     title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
+  - icon: ':heavy_check_mark:'
+    path: lib/tree/link_cut_tree.hpp
+    title: Link-Cut Tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/raq_rmq.test.cpp
@@ -46,8 +52,14 @@ data:
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+    title: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_set_range_composite.test.cpp
     title: test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+    title: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
     title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
@@ -113,27 +125,31 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/monoid.hpp
   requiredBy:
-  - lib/segment_tree/segment_tree_raq.hpp
-  - lib/segment_tree/sparse_table.hpp
-  - lib/segment_tree/segment_tree.hpp
-  - lib/segment_tree/persistent_segment_tree.hpp
-  - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/tree/link_cut_tree.hpp
   - lib/segment_tree/persistent_dual_segment_tree.hpp
+  - lib/segment_tree/segment_tree.hpp
+  - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
+  - lib/segment_tree/sparse_table.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
+  - lib/segment_tree/persistent_segment_tree.hpp
+  - lib/data_structure/swag.hpp
   timestamp: '2022-07-19 05:54:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
 documentation_of: lib/segment_tree/monoid.hpp
 layout: document
 redirect_from:

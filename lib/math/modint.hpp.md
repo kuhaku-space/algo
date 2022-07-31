@@ -58,11 +58,20 @@ data:
     path: test/yosupo/data_structure/point_set_range_composite.test.cpp
     title: test/yosupo/data_structure/point_set_range_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+    title: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
     title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
     title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix/matrix_product.test.cpp
+    title: test/yosupo/matrix/matrix_product.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/new/number_of_subsequences.test.cpp
+    title: test/yosupo/new/number_of_subsequences.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -128,28 +137,31 @@ data:
   isVerificationFile: false
   path: lib/math/modint.hpp
   requiredBy:
+  - lib/math/enumeration.hpp
+  - lib/math/combination.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/fft/ntt_mod.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt.hpp
-  - lib/fft/ntt_mod.hpp
-  - lib/math/combination.hpp
-  - lib/math/enumeration.hpp
-  - lib/data_structure/bigint.hpp
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/power.test.cpp
   - test/aoj/ntl/difference.test.cpp
   - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/addition.test.cpp
   - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/division.test.cpp
   - test/aoj/dpl/bell.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
+  - test/yosupo/new/number_of_subsequences.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/matrix/matrix_product.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document
 redirect_from:

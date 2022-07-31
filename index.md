@@ -32,24 +32,27 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/inversion_number.hpp
       title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
+      path: lib/algorithm/lis.hpp
+      title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
+    - icon: ':heavy_check_mark:'
       path: lib/algorithm/mo.hpp
       title: Mo's algorithm
   - name: lib/binary_tree
     pages:
-    - icon: ':heavy_check_mark:'
-      path: lib/binary_tree/BIT.hpp
-      title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
-    - icon: ':heavy_check_mark:'
-      path: lib/binary_tree/BIT_RAQ.hpp
-      title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
-        \u533A\u9593\u7DCF\u548C\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/avl_tree.hpp
       title: "AVL\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/binary_trie.hpp
       title: "2\u5206\u30C8\u30E9\u30A4\u6728"
+    - icon: ':heavy_check_mark:'
+      path: lib/binary_tree/fenwick_tree.hpp
+      title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
+    - icon: ':heavy_check_mark:'
+      path: lib/binary_tree/fenwick_tree_raq.hpp
+      title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
+        \u533A\u9593\u7DCF\u548C\uFF09"
     - icon: ':heavy_check_mark:'
       path: lib/binary_tree/patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
@@ -83,11 +86,9 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/skip_list.hpp
       title: lib/data_structure/skip_list.hpp
-  - name: lib/dp
-    pages:
     - icon: ':heavy_check_mark:'
-      path: lib/dp/lis.hpp
-      title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
+      path: lib/data_structure/swag.hpp
+      title: lib/data_structure/swag.hpp
   - name: lib/fft
     pages:
     - icon: ':warning:'
@@ -183,7 +184,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/topological_sort.hpp
       title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/two_sat.hpp
       title: 2-SAT
     - icon: ':heavy_check_mark:'
@@ -250,7 +251,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/matrix/compressed_wavelet_matrix.hpp
       title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/matrix/matrix.hpp
       title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':heavy_check_mark:'
@@ -313,9 +314,9 @@ data:
     - icon: ':warning:'
       path: lib/string/trie.hpp
       title: lib/string/trie.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/string/z_algorithm.hpp
-      title: lib/string/z_algorithm.hpp
+      title: Z algorithm
   - name: lib/template
     pages:
     - icon: ':heavy_check_mark:'
@@ -333,14 +334,17 @@ data:
   - name: lib/tree
     pages:
     - icon: ':heavy_check_mark:'
+      path: lib/tree/cartesian_tree.hpp
+      title: Cartesian Tree
+    - icon: ':heavy_check_mark:'
       path: lib/tree/eular_tour.hpp
       title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
     - icon: ':heavy_check_mark:'
       path: lib/tree/hld.hpp
       title: HLD
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/tree/link_cut_tree.hpp
-      title: lib/tree/link_cut_tree.hpp
+      title: Link-Cut Tree
     - icon: ':warning:'
       path: lib/tree/partially_persistent_union_find.hpp
       title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
@@ -350,7 +354,7 @@ data:
     - icon: ':warning:'
       path: lib/tree/rerooting.hpp
       title: "\u5168\u65B9\u4F4D\u6728dp"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/tree/tree_function.hpp
       title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
     - icon: ':heavy_check_mark:'
@@ -535,6 +539,9 @@ data:
       path: test/yosupo/data_structure/binary_trie.test.cpp
       title: test/yosupo/data_structure/binary_trie.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+      title: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/patricia_binary_trie.test.cpp
       title: test/yosupo/data_structure/patricia_binary_trie.test.cpp
     - icon: ':heavy_check_mark:'
@@ -550,6 +557,9 @@ data:
       path: test/yosupo/data_structure/point_set_range_composite.test.cpp
       title: test/yosupo/data_structure/point_set_range_composite.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+      title: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
       title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
     - icon: ':heavy_check_mark:'
@@ -558,6 +568,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
       title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/static_range_frequency.test.cpp
+      title: test/yosupo/data_structure/static_range_frequency.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/static_range_inversions.test.cpp
+      title: test/yosupo/data_structure/static_range_inversions.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp
@@ -585,8 +601,29 @@ data:
       path: test/yosupo/graph/chromatic_number.test.cpp
       title: test/yosupo/graph/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/graph/scc.test.cpp
+      title: test/yosupo/graph/scc.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/graph/shortest_path.test.cpp
       title: test/yosupo/graph/shortest_path.test.cpp
+  - name: test/yosupo/math
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/math/two_sat.test.cpp
+      title: test/yosupo/math/two_sat.test.cpp
+  - name: test/yosupo/matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/matrix/matrix_product.test.cpp
+      title: test/yosupo/matrix/matrix_product.test.cpp
+  - name: test/yosupo/new
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/new/longest_increasing_subsequence.test.cpp
+      title: test/yosupo/new/longest_increasing_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/new/number_of_subsequences.test.cpp
+      title: test/yosupo/new/number_of_subsequences.test.cpp
   - name: test/yosupo/sample
     pages:
     - icon: ':heavy_check_mark:'
@@ -595,5 +632,21 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/sample/many_a+b.test.cpp
       title: test/yosupo/sample/many_a+b.test.cpp
+  - name: test/yosupo/string
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/string/zalgorithm.test.cpp
+      title: test/yosupo/string/zalgorithm.test.cpp
+  - name: test/yosupo/tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/tree/cartesian_tree.test.cpp
+      title: test/yosupo/tree/cartesian_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/tree/lca.test.cpp
+      title: test/yosupo/tree/lca.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/tree/tree_diameter.test.cpp
+      title: test/yosupo/tree/tree_diameter.test.cpp
 layout: toppage
 ---

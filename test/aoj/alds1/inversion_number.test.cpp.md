@@ -8,7 +8,7 @@ data:
     path: lib/algorithm/inversion_number.hpp
     title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
   - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/BIT.hpp
+    path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
@@ -49,14 +49,14 @@ data:
   - lib/algorithm/inversion_number.hpp
   - lib/algorithm/compress.hpp
   - lib/template/template.hpp
-  - lib/binary_tree/BIT.hpp
+  - lib/binary_tree/fenwick_tree.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/inversion_number.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2022-07-29 22:00:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/inversion_number.test.cpp

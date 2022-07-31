@@ -8,13 +8,19 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/two_sat.hpp
     title: 2-SAT
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/scc.test.cpp
+    title: test/yosupo/graph/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/math/two_sat.test.cpp
+    title: test/yosupo/math/two_sat.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -63,10 +69,12 @@ data:
   path: lib/graph/scc.hpp
   requiredBy:
   - lib/graph/two_sat.hpp
-  timestamp: '2022-07-13 04:39:10+09:00'
+  timestamp: '2022-07-30 08:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/scc.test.cpp
+  - test/yosupo/math/two_sat.test.cpp
+  - test/yosupo/graph/scc.test.cpp
 documentation_of: lib/graph/scc.hpp
 layout: document
 redirect_from:

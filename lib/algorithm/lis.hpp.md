@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
     title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/new/longest_increasing_subsequence.test.cpp
+    title: test/yosupo/new/longest_increasing_subsequence.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -26,24 +29,36 @@ data:
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\n\n/**\n * @brief \u6700\u9577\u5897\u52A0\
     \u90E8\u5206\u5217\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param v \u914D\
-    \u5217\n * @return int \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\u306E\u9577\u3055\
+    \u5217\n * @retval int \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\u306E\u9577\u3055\
     \n */\ntemplate <class T>\nint LIS(const std::vector<T> &v) {\n    int n = v.size();\n\
-    \    std::vector<T> dp;\n    for (int i = 0; i < n; ++i) {\n        auto it =\
-    \ std::lower_bound(dp.begin(), dp.end(), v[i]);\n        if (it == dp.end()) dp.emplace_back(v[i]);\n\
-    \        else *it = v[i];\n    }\n    return dp.size();\n}\n"
+    \    std::vector<T> dp;\n    for (auto x : v) {\n        auto it = std::lower_bound(dp.begin(),\
+    \ dp.end(), x);\n        if (it == dp.end()) dp.emplace_back(x);\n        else\
+    \ *it = x;\n    }\n    return dp.size();\n}\n\n/**\n * @brief \u6700\u9577\u5897\
+    \u52A0\u90E8\u5206\u5217\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param\
+    \ v \u914D\u5217\n * @retval std::vector<int> \u6700\u9577\u5897\u52A0\u90E8\u5206\
+    \u5217\u306E\u30A4\u30F3\u30C7\u30C3\u30AF\u30B9\n */\ntemplate <class T>\nstd::vector<int>\
+    \ make_LIS(const std::vector<T> &v) {\n    int n = v.size();\n    std::vector<std::pair<T,\
+    \ int>> dp;\n    std::vector<int> pr(n, -1);\n    for (int i = 0; i < n; ++i)\
+    \ {\n        std::pair<T, int> p(v[i], -i);\n        auto it = std::lower_bound(dp.begin(),\
+    \ dp.end(), p);\n        if (it != dp.begin()) pr[i] = -std::prev(it)->second;\n\
+    \        if (it == dp.end()) dp.emplace_back(p);\n        else *it = p;\n    }\n\
+    \n    std::vector<int> res;\n    for (int x = -dp.back().second; x != -1; x =\
+    \ pr[x]) {\n        res.emplace_back(x);\n    }\n    std::reverse(res.begin(),\
+    \ res.end());\n    return res;\n}\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
-  path: lib/dp/lis.hpp
+  path: lib/algorithm/lis.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2022-07-29 05:36:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp
-documentation_of: lib/dp/lis.hpp
+  - test/yosupo/new/longest_increasing_subsequence.test.cpp
+documentation_of: lib/algorithm/lis.hpp
 layout: document
 redirect_from:
-- /library/lib/dp/lis.hpp
-- /library/lib/dp/lis.hpp.html
+- /library/lib/algorithm/lis.hpp
+- /library/lib/algorithm/lis.hpp.html
 title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
 ---

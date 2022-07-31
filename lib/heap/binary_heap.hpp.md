@@ -82,8 +82,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
 documentation_of: lib/heap/binary_heap.hpp
 layout: document
 redirect_from:
