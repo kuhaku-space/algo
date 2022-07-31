@@ -80,6 +80,7 @@
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
 "test/yosupo/sample/many_a+b.test.cpp": "2022-07-18 02:24:58 +0900",
 "test/yosupo/string/enumerate_palindromes.test.cpp": "2022-07-31 19:13:31 +0900",
+"test/yosupo/string/suffix_array.test.cpp": "2022-07-31 20:16:19 +0900",
 "test/yosupo/string/zalgorithm.test.cpp": "2022-07-20 04:55:43 +0900",
 "test/yosupo/tree/cartesian_tree.test.cpp": "2022-07-31 09:42:19 +0900",
 "test/yosupo/tree/lca.test.cpp": "2022-07-31 09:58:28 +0900",
