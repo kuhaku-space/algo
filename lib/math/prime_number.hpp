@@ -2,24 +2,12 @@
 
 /**
  * @brief 素数ライブラリ
+ *
+ * @tparam N
  */
+template <int N = 1 << 22>
 struct prime_number {
-    prime_number() { this->init(); }
-
-    void init() {
-        this->is_not_prime[0] = this->is_not_prime[1] = true;
-        for (int i = 2; i < _size; ++i) {
-            if (!this->is_not_prime[i]) {
-                this->data.emplace_back(i);
-                if ((int64_t)i * i >= _size) continue;
-                if (i == 2) {
-                    for (int j = i * i; j < _size; j += i) this->is_not_prime[j] = true;
-                } else {
-                    for (int j = i * i; j < _size; j += i << 1) this->is_not_prime[j] = true;
-                }
-            }
-        }
-    }
+    prime_number() : is_not_prime(), data() { this->init(); }
 
     /**
      * @brief 素数判定
@@ -27,11 +15,11 @@ struct prime_number {
      * @param n
      * @return bool
      */
-    bool is_prime(int64_t n) const {
+    bool is_prime(std::int64_t n) const {
         assert(n >= 0);
-        if (n < _size) return !this->is_not_prime[n];
+        if (n < N) return !this->is_not_prime[n];
         for (auto i : this->data) {
-            if ((int64_t)i * i > n) break;
+            if ((std::int64_t)i * i > n) break;
             if (n % i == 0) return false;
         }
         return true;
@@ -61,7 +49,7 @@ struct prime_number {
             int cnt = 0;
             for (; x % i == 0; x /= i) ++cnt;
             if (cnt) res.emplace_back(i, cnt);
-            if ((int64_t)i * i > x) break;
+            if ((std::int64_t)i * i > x) break;
         }
         if (x != 1) res.emplace_back(x, 1);
         return res;
@@ -83,7 +71,9 @@ struct prime_number {
         for (auto p : v) {
             int n = res.size();
             res.resize(n * (p.second + 1));
-            for (int i = 0; i < n * p.second; ++i) { res[n + i] = res[i] * p.first; }
+            for (int i = 0; i < n * p.second; ++i) {
+                res[n + i] = res[i] * p.first;
+            }
             for (int i = 1; i <= p.second; ++i) {
                 std::inplace_merge(res.begin(), res.begin() + n * i, res.begin() + n * (i + 1));
             }
@@ -115,7 +105,21 @@ struct prime_number {
     }
 
   private:
-    static constexpr int _size = 1 << 22;
-    std::bitset<_size> is_not_prime;
+    std::bitset<N> is_not_prime;
     std::vector<int> data;
+
+    void init() {
+        this->is_not_prime[0] = this->is_not_prime[1] = true;
+        for (int i = 2; i < N; ++i) {
+            if (!this->is_not_prime[i]) {
+                this->data.emplace_back(i);
+                if ((std::int64_t)i * i >= N) continue;
+                if (i == 2) {
+                    for (int j = i * i; j < N; j += i) this->is_not_prime[j] = true;
+                } else {
+                    for (int j = i * i; j < N; j += i << 1) this->is_not_prime[j] = true;
+                }
+            }
+        }
+    }
 };
