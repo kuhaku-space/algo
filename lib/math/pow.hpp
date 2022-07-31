@@ -28,7 +28,7 @@ std::int64_t inv_mod(std::int64_t a, std::int64_t mod) {
 
 std::int64_t pow_mod(std::int64_t a, std::int64_t n, std::int64_t mod) {
     if (n < 0) return inv_mod(pow_mod(a, -n, mod), mod);
-    std::int64_t res = 1, mul = a;
+    std::int64_t res = 1, mul = safe_mod(a, mod);
     for (; n > 0; n >>= 1) {
         if (n & 1) (res *= mul) %= mod;
         (mul *= mul) %= mod;
