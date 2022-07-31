@@ -1,12 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_D"
-#include "binary_tree/BIT.hpp"
+#include "binary_tree/fenwick_tree.hpp"
 #include "template/atcoder.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {
     int n;
     cin >> n;
-    BIT<ll> bit(n);
+    fenwick_tree<ll> ft(n);
     HLD hld(n);
     rep (i, n) {
         int k;
@@ -21,14 +21,14 @@ int main(void) {
 
     int q;
     cin >> q;
-    rep (i, q) {
+    while (q--) {
         int id;
         cin >> id;
         if (id == 0) {
             int v, w;
             cin >> v >> w;
             auto f = [&](int a, int b) {
-                bit.add(a, w);
+                ft.add(a, w);
             };
             hld.for_each_edge(hld.get_parent(v), v, f);
         } else {
@@ -36,7 +36,7 @@ int main(void) {
             cin >> v;
             ll ans = 0;
             auto f = [&](int a, int b) {
-                ans += bit.sum(a, b);
+                ans += ft.sum(a, b);
             };
             hld.for_each_edge(0, v, f);
             co(ans);

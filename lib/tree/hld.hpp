@@ -33,6 +33,15 @@ struct HLD {
     int get(int v) const { return this->vid[v]; }
     int get_parent(int v) const { return this->par[v]; }
 
+    int la(int v, int k) const {
+        while (true) {
+            int u = this->nxt[v];
+            if (this->vid[v] - k >= this->vid[u]) return this->inv[this->vid[v] - k];
+            k -= this->vid[v] - this->vid[u] + 1;
+            v = this->par[u];
+        }
+    }
+
     int lca(int u, int v) const {
         while (true) {
             if (this->vid[u] > this->vid[v]) swap(u, v);

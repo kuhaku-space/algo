@@ -7,14 +7,14 @@
  * @tparam T
  */
 template <class T>
-struct BIT {
-    BIT() : _size(), data() {}
-    BIT(int n) : _size(n + 1), data(n + 1) {}
-    BIT(const std::vector<T> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
+struct fenwick_tree {
+    fenwick_tree() : _size(), data() {}
+    fenwick_tree(int n) : _size(n + 1), data(n + 1) {}
+    fenwick_tree(const std::vector<T> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
         this->build(v);
     }
     template <class U>
-    BIT(const std::vector<U> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
+    fenwick_tree(const std::vector<U> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
         this->build(v);
     }
 
@@ -99,7 +99,7 @@ struct BIT {
     T sum(int a, int b) const { return a < b ? this->sum(b) - this->sum(a) : 0; }
 
     /**
-     * @brief binary search on BIT
+     * @brief binary search on fenwick_tree
      *
      * @param val target value
      * @return int

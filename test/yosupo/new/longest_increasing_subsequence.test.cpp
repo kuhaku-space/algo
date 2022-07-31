@@ -1,14 +1,16 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D"
+#define PROBLEM "https://judge.yosupo.jp/problem/longest_increasing_subsequence"
 #include "algorithm/lis.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n;
     cin >> n;
     vector<int> a(n);
     cin >> a;
-    co(LIS(a));
+
+    auto ans = make_LIS(a);
+    co(ans.size());
+    co(ans);
 
     return 0;
 }

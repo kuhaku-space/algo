@@ -1,23 +1,23 @@
 #include "algorithm/compress.hpp"
-#include "binary_tree/BIT.hpp"
+#include "binary_tree/fenwick_tree.hpp"
 #include "template/template.hpp"
 
 /**
  * @brief 転倒数を求める
  *
- * @tparam T 配列の方
+ * @tparam T 配列の型
  * @param v 配列
- * @return int64_t 転倒数
+ * @retval std::int64_t 転倒数
  */
 template <class T>
-int64_t inversion_number(const vector<T> &v) {
-    Compress<T> cps(v);
-    BIT<T> bit(cps.size());
-
-    int64_t res = 0;
-    for (int i = v.size() - 1; i >= 0; --i) {
-        res += bit.sum(cps.get(v[i]));
-        bit.add(cps.get(v[i]), 1);
+std::int64_t inversion_number(const std::vector<T> &v) {
+    auto u = compress(v);
+    std::reverse(u.begin(), u.end());
+    fenwick_tree<T> bit(*max_element(u.begin(), u.end()) + 1);
+    std::int64_t res = 0;
+    for (auto x : u) {
+        res += bit.sum(x);
+        bit.add(x, 1);
     }
     return res;
 }

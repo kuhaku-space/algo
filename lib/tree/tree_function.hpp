@@ -37,13 +37,13 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
  * @brief 木の距離を求める
  *
  * @tparam T 辺の重みの型
+ * @tparam U 距離の型
  * @param g 木
  * @param r 根
- * @return std::vector<int>
+ * @return std::vector<U> 各頂点の根からの距離
  */
-template <class T>
-std::vector<int> tree_dist(const Graph<T> &g, int r = 0) {
-    std::vector<int> res(g.size(), -1);
+template <class T, class U = T> std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
+    std::vector<U> res(g.size(), -1);
     std::stack<int> st;
     res[r] = 0;
     st.emplace(r);
@@ -69,19 +69,20 @@ std::vector<int> tree_dist(const Graph<T> &g, int r = 0) {
  */
 template <class T>
 std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
-    std::vector<int> res(g.size(), -2);
+    std::vector<int> res(g.size(), -1);
     std::stack<int> st;
-    res[r] = -1;
+    res[r] = r;
     st.emplace(r);
     while (!st.empty()) {
         auto index = st.top();
         st.pop();
         for (auto &e : g[index]) {
-            if (res[e.to()] != -2) continue;
+            if (res[e.to()] != -1) continue;
             res[e.to()] = index;
             st.emplace(e.to());
         }
     }
+    res[r] = -1;
     return res;
 }
 

@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
-#include "binary_tree/BIT.hpp"
+#include "binary_tree/fenwick_tree.hpp"
 #include "template/atcoder.hpp"
 #include "tree/hld.hpp"
 
@@ -11,21 +11,21 @@ int main(void) {
     HLD hld(n);
     hld.input_edges(0);
     hld.build();
-    BIT<ll> bt(n);
-    rep (i, n) bt.add(hld.get(i), a[i]);
+    fenwick_tree<ll> ft(n);
+    rep (i, n) ft.add(hld.get(i), a[i]);
     while (q--) {
         int c;
         cin >> c;
         if (c == 0) {
             int p, x;
             cin >> p >> x;
-            bt.add(hld.get(p), x);
+            ft.add(hld.get(p), x);
         } else {
             int u, v;
             cin >> u >> v;
             ll ans = 0;
             auto f = [&](int u, int v) {
-                ans += bt.sum(u, v);
+                ans += ft.sum(u, v);
             };
             hld.for_each(u, v, f);
             co(ans);
