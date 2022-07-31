@@ -1,6 +1,11 @@
 #pragma once
 #include "template/template.hpp"
 
+std::int64_t safe_mod(std::int64_t a, std::int64_t mod) {
+    a %= mod;
+    return a >= 0 ? a : a + mod;
+}
+
 std::int64_t pow_int(std::int64_t a, std::int64_t n) {
     assert(n >= 0);
     std::int64_t res = 1, mul = a;
