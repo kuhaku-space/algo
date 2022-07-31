@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
-#include "segment_tree/sparse_table.hpp"
+#include "data_structure/sparse_table.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
