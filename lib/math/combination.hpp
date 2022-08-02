@@ -1,7 +1,7 @@
 #include "math/modint.hpp"
 #include "template/template.hpp"
 
-template <int mod>
+template <int mod = MOD_N>
 struct Combination {
     using mint = ModInt<mod>;
 
