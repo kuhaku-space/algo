@@ -4,6 +4,7 @@
 
 /**
  * @brief 最大独立集合
+ * @see https://www.slideshare.net/wata_orz/ss-12131479
  *
  * @tparam T 辺の重みの型
  * @param graph グラフ
