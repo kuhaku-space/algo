@@ -75,6 +75,9 @@ data:
       title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\
         \u30FC"
     - icon: ':heavy_check_mark:'
+      path: lib/data_structure/li_chao_tree.hpp
+      title: Add line ($ax+b$)
+    - icon: ':heavy_check_mark:'
       path: lib/data_structure/persistent_array.hpp
       title: "\u6C38\u7D9A\u914D\u5217"
     - icon: ':heavy_check_mark:'
@@ -86,6 +89,9 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/skip_list.hpp
       title: lib/data_structure/skip_list.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/sparse_table.hpp
+      title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/swag.hpp
       title: lib/data_structure/swag.hpp
@@ -166,6 +172,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/matrix_graph.hpp
       title: "\u96A3\u63A5\u884C\u5217"
+    - icon: ':warning:'
+      path: lib/graph/maximum_independent_set.hpp
+      title: "\u6700\u5927\u72EC\u7ACB\u96C6\u5408"
     - icon: ':heavy_check_mark:'
       path: lib/graph/prim.hpp
       title: "\u30D7\u30EA\u30E0\u6CD5"
@@ -220,6 +229,9 @@ data:
       path: lib/math/enumeration.hpp
       title: lib/math/enumeration.hpp
     - icon: ':warning:'
+      path: lib/math/eratosthenes.hpp
+      title: lib/math/eratosthenes.hpp
+    - icon: ':warning:'
       path: lib/math/fraction.hpp
       title: "\u5206\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':warning:'
@@ -237,9 +249,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/math/prime_number.hpp
       title: "\u7D20\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
-    - icon: ':warning:'
-      path: lib/math/prime_number_fast.hpp
-      title: lib/math/prime_number_fast.hpp
     - icon: ':warning:'
       path: lib/math/primitive_root.hpp
       title: lib/math/primitive_root.hpp
@@ -297,20 +306,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/segment_tree_raq.hpp
       title: lib/segment_tree/segment_tree_raq.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/segment_tree/sparse_table.hpp
-      title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
   - name: lib/string
     pages:
     - icon: ':warning:'
       path: lib/string/kmp.hpp
-      title: lib/string/kmp.hpp
-    - icon: ':warning:'
+      title: "KMP\u6CD5"
+    - icon: ':heavy_check_mark:'
       path: lib/string/manacher.hpp
-      title: lib/string/manacher.hpp
+      title: Manacher
     - icon: ':heavy_check_mark:'
       path: lib/string/rolling_hash.hpp
       title: "\u30ED\u30FC\u30EA\u30F3\u30B0\u30CF\u30C3\u30B7\u30E5"
+    - icon: ':heavy_check_mark:'
+      path: lib/string/suffix_array.hpp
+      title: Suffix Array
     - icon: ':warning:'
       path: lib/string/trie.hpp
       title: lib/string/trie.hpp
@@ -366,6 +375,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+  - name: test/aoj/alds1
+    pages:
+    - icon: ':warning:'
+      path: test/aoj/alds1/kmp.cpp
+      title: test/aoj/alds1/kmp.cpp
+  - name: test/yosupo/graph
+    pages:
+    - icon: ':warning:'
+      path: test/yosupo/graph/maximum_independent_set.cpp
+      title: test/yosupo/graph/maximum_independent_set.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
@@ -491,6 +510,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/warshall_floyd.test.cpp
       title: test/aoj/grl/warshall_floyd.test.cpp
+  - name: test/aoj/hupc/2019
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/hupc/2019/manacher.test.cpp
+      title: test/aoj/hupc/2019/manacher.test.cpp
   - name: test/aoj/itp2
     pages:
     - icon: ':heavy_check_mark:'
@@ -542,6 +566,9 @@ data:
       path: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
       title: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/line_add_get_min.test.cpp
+      title: test/yosupo/data_structure/line_add_get_min.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/patricia_binary_trie.test.cpp
       title: test/yosupo/data_structure/patricia_binary_trie.test.cpp
     - icon: ':heavy_check_mark:'
@@ -568,6 +595,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
       title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/segment_add_get_min.test.cpp
+      title: test/yosupo/data_structure/segment_add_get_min.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_frequency.test.cpp
       title: test/yosupo/data_structure/static_range_frequency.test.cpp
@@ -634,6 +664,15 @@ data:
       title: test/yosupo/sample/many_a+b.test.cpp
   - name: test/yosupo/string
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/string/enumerate_palindromes.test.cpp
+      title: test/yosupo/string/enumerate_palindromes.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/string/number_of_substring.test.cpp
+      title: test/yosupo/string/number_of_substring.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/string/suffix_array.test.cpp
+      title: test/yosupo/string/suffix_array.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/string/zalgorithm.test.cpp
       title: test/yosupo/string/zalgorithm.test.cpp
