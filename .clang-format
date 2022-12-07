@@ -10,6 +10,7 @@ AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: Empty
+IncludeBlocks: Merge
 PackConstructorInitializers: BinPack
 PointerAlignment: Right
 DerivePointerAlignment: false

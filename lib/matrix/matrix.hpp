@@ -69,8 +69,37 @@ struct Matrix {
         return res;
     }
 
+    T det() const {
+        assert(this->v.size() == this->v[0].size());
+        std::vector<std::vector<T>> u(v);
+        int n = u.size();
+        T ans = 1;
+        for (int i = 0; i < n; ++i) {
+            if (u[i][i] == T(0)) {
+                for (int j = i + 1; j < n; ++j) {
+                    if (u[j][i] != T(0)) {
+                        swap(u[j], u[i]);
+                        ans *= -1;
+                        break;
+                    }
+                }
+                if (u[i][i] == T(0)) return T(0);
+            }
+            ans *= u[i][i];
+            T t = T(1) / u[i][i];
+            for (int j = i; j < n; ++j) u[i][j] *= t;
+            for (int k = i + 1; k < n; ++k) {
+                if (u[k][i] == T(0)) continue;
+                ans *= u[k][i];
+                t = T(1) / u[k][i];
+                for (int j = i; j < n; ++j) u[k][j] = u[k][j] * t - u[i][j];
+            }
+        }
+        return ans;
+    }
+
     Matrix pow(std::int64_t k) const {
-        assert(this->v.size() == this->v[0].size);
+        assert(this->v.size() == this->v[0].size());
         int n = this->v.size();
         Matrix res(n, n), mul(this->v);
         res.unit_matrix();
