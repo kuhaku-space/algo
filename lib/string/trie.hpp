@@ -1,11 +1,15 @@
 #include "template/template.hpp"
 
-// https://algo-logic.info/trie-tree/#:~:text=Trie%E6%9C%A8%E3%81%AF%E3%80%81%E5%8A%B9%E7%8E%87%E7%9A%84,%E3%81%95%E3%82%92M%20%E3%81%A8%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%EF%BC%89
-
-/*
+/**
+ * @brief Trie
+ * @see https://algo-logic.info/trie-tree/
+ *
  * Usage:
  * Trie<26, 'a'> trie;
  * Trie<96, ' '> trie;
+ *
+ * @tparam char_size
+ * @tparam base
  */
 template <int char_size, int base>
 struct Trie {
