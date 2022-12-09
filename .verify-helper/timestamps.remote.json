@@ -22,6 +22,7 @@
 "test/aoj/dsl/weighted_union_find.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/aoj/grl/articulation_points.test.cpp": "2022-07-30 08:42:03 +0900",
 "test/aoj/grl/bellman_ford.test.cpp": "2022-07-30 08:42:03 +0900",
+"test/aoj/grl/bipartite_matching.test.cpp": "2022-12-10 01:48:30 +0900",
 "test/aoj/grl/bridges.test.cpp": "2022-07-30 08:42:03 +0900",
 "test/aoj/grl/cycle.test.cpp": "2022-07-30 08:42:03 +0900",
 "test/aoj/grl/dijkstra.test.cpp": "2022-07-30 08:42:03 +0900",
