@@ -12,7 +12,7 @@ int main(void) {
 
     int t = 0;
     rep (i, n) {
-        if (v[i].y < v[t].y || v[i].y == v[t].y && v[i].x < v[i].y) t = i;
+        if (v[i].y < v[t].y || (v[i].y == v[t].y && v[i].x < v[i].y)) t = i;
     }
 
     rotate(v.begin(), v.begin() + t, v.end());
