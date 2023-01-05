@@ -1,33 +1,56 @@
 #include "template/template.hpp"
 
-// reference : http://www.prefield.com/algorithm/geometry/convex_hull.html
-// verify : https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A
+/**
+ * @brief 点
+ *
+ * @tparam T 座標の型
+ */
+template <class T>
+struct Point {
+    T x, y;
 
+    constexpr Point() : x(), y() {}
+    constexpr Point(T _x, T _y) : x(_x), y(_y) {}
+
+    constexpr Point &operator-=(const Point &rhs) {
+        this->x -= rhs.x, this->y -= rhs.y;
+        return *this;
+    }
+
+    friend std::istream &operator>>(std::istream &is, Point &rhs) {
+        T x, y;
+        is >> x >> y;
+        rhs = Point(x, y);
+        return (is);
+    }
+};
+
+/**
+ * @brief 凸法
+ *
+ * @tparam T 座標の型
+ * @param points 点集合
+ * @return std::vector<Point<T>>
+ */
 template <class T>
-pair<T, T> &operator-=(pair<T, T> &a, const pair<T, T> &b) {
-    a.first -= b.first, a.second -= b.second;
-    return a;
-}
-template <class T>
-vector<pair<T, T>> convex_hull(vector<pair<T, T>> ps) {
-    int n = ps.size(), k = 0;
-    auto asc = [](pair<T, T> a, pair<T, T> b) {
-        return a.first != b.first ? a.first < b.first : a.second < b.second;
-    };
-    sort(ps.begin(), ps.end(), asc);
-    vector<pair<T, T>> ch(n << 1);
-    auto cross = [](pair<T, T> a, pair<T, T> b, const pair<T, T> &c) {
+std::vector<Point<T>> convex_hull(std::vector<Point<T>> points) {
+    int n = points.size(), k = 0;
+    sort(points.begin(), points.end(), [](const Point<T> &a, const Point<T> &b) {
+        return a.x != b.x ? a.x < b.x : a.y < b.y;
+    });
+    std::vector<Point<T>> res(n << 1);
+    auto cross = [](Point<T> a, Point<T> b, const Point<T> &c) {
         a -= c, b -= c;
-        return a.first * b.second - a.second * b.first;
+        return a.x * b.y - a.y * b.x;
     };
     for (int i = 0; i < n; ++i) {
-        while (k > 1 && cross(ps[i], ch[k - 2], ch[k - 1]) < 0) --k;
-        ch[k++] = ps[i];
+        while (k > 1 && cross(points[i], res[k - 2], res[k - 1]) < 0) --k;
+        res[k++] = points[i];
     }
     for (int i = n - 2, t = k; i >= 0; --i) {
-        while (k > t && cross(ps[i], ch[k - 2], ch[k - 1]) < 0) --k;
-        ch[k++] = ps[i];
+        while (k > t && cross(points[i], res[k - 2], res[k - 1]) < 0) --k;
+        res[k++] = points[i];
     }
-    ch.resize(k - 1);
-    return ch;
+    res.resize(k - 1);
+    return res;
 }

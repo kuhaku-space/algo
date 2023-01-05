@@ -1,59 +1,64 @@
 #include "template/template.hpp"
 
-// https://algo-logic.info/trie-tree/#:~:text=Trie%E6%9C%A8%E3%81%AF%E3%80%81%E5%8A%B9%E7%8E%87%E7%9A%84,%E3%81%95%E3%82%92M%20%E3%81%A8%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%EF%BC%89
-
-/*
+/**
+ * @brief Trie
+ *
+ * @tparam char_size 文字種
+ * @tparam base
+ *
+ * @see https://algo-logic.info/trie-tree/
+ * @see https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
+ *
  * Usage:
  * Trie<26, 'a'> trie;
  * Trie<96, ' '> trie;
  */
 template <int char_size, int base>
 struct Trie {
-    struct Node {
-        vector<int> next_node, accept;
-        int c, common;
-        Node(int _c) : c(_c), common(0), next_node(char_size, -1) {}
+  private:
+    struct _node {
+        std::vector<int> next_node;
+        _node() : next_node(char_size, -1) {}
     };
-    vector<Node> nodes;
-    int root;
-    Trie() : root(0) { nodes.emplace_back(Node(root)); }
 
-    void insert(const string &word) { insert(word, nodes[0].common); }
-    void insert(const string &word, int word_id) {
+  public:
+    using node_type = _node;
+
+    Trie() : root(0), nodes() { this->nodes.emplace_back(); }
+
+    std::vector<int> insert(const string &word) {
+        std::vector<int> res;
         int node_id = 0;
-        for (int i = 0; i < word.size(); ++i) {
+        for (int i = 0; i < (int)word.size(); ++i) {
             int c = word[i] - base;
-            int &next_id = nodes[node_id].next_node[c];
+            int &next_id = this->nodes[node_id].next_node[c];
             if (next_id == -1) {
-                next_id = nodes.size();
-                nodes.emplace_back(Node(c));
+                next_id = this->nodes.size();
+                this->nodes.emplace_back();
             }
-            ++nodes[node_id].common;
             node_id = next_id;
+            res.emplace_back(node_id);
         }
-        ++nodes[node_id].common;
-        nodes[node_id].accept.emplace_back(word_id);
-    }
-
-    bool search(const string &word, bool prefix = false) {
-        int node_id = 0;
-        for (int i = 0; i < word.size(); i++) {
-            int c = word[i] - base;
-            int &next_id = nodes[node_id].next_node[c];
-            if (next_id == -1) return false;
-            node_id = next_id;
-        }
-        return (prefix) ? true : nodes[node_id].accept.size() > 0;
+        return res;
     }
 
     int search_id(const string &word) {
         int node_id = 0;
-        for (int i = 0; i < word.size(); i++) {
+        for (int i = 0; i < (int)word.size(); ++i) {
             int c = word[i] - base;
-            int &next_id = nodes[node_id].next_node[c];
+            int &next_id = this->nodes[node_id].next_node[c];
             if (next_id == -1) return -1;
             node_id = next_id;
         }
         return node_id;
     }
+
+    node_type get_node(int node_id) {
+        assert(0 <= node_id && node_id < (int)this->nodes.size());
+        return this->nodes[node_id];
+    }
+
+  private:
+    int root;
+    std::vector<node_type> nodes;
 };
