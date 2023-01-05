@@ -101,12 +101,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -132,39 +132,39 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
+  - lib/fft/garner.hpp
+  - lib/fft/ntt_mod.hpp
+  - lib/fft/ntt.hpp
+  - lib/fft/formal_power_series.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
+  - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/segment_tree.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/math/math.hpp
-  - lib/math/primitive_root.hpp
-  - lib/fft/ntt.hpp
-  - lib/fft/garner.hpp
-  - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt_mod.hpp
   - lib/data_structure/bigint.hpp
   - lib/data_structure/sparse_table.hpp
+  - lib/math/math.hpp
+  - lib/math/primitive_root.hpp
   timestamp: '2022-07-31 15:35:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
 documentation_of: lib/math/pow.hpp
 layout: document
 redirect_from:

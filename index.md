@@ -76,7 +76,7 @@ data:
         \u30FC"
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/li_chao_tree.hpp
-      title: Add line ($ax+b$)
+      title: Li Chao Tree
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/persistent_array.hpp
       title: "\u6C38\u7D9A\u914D\u5217"
@@ -128,9 +128,9 @@ data:
     - icon: ':warning:'
       path: lib/geometry/cht.hpp
       title: lib/geometry/cht.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/geometry/convex_hull.hpp
-      title: lib/geometry/convex_hull.hpp
+      title: "\u70B9"
     - icon: ':heavy_check_mark:'
       path: lib/geometry/geometry.hpp
       title: lib/geometry/geometry.hpp
@@ -172,7 +172,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/matrix_graph.hpp
       title: "\u96A3\u63A5\u884C\u5217"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/maximum_independent_set.hpp
       title: "\u6700\u5927\u72EC\u7ACB\u96C6\u5408"
     - icon: ':heavy_check_mark:'
@@ -308,7 +308,7 @@ data:
       title: lib/segment_tree/segment_tree_raq.hpp
   - name: lib/string
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/string/kmp.hpp
       title: "KMP\u6CD5"
     - icon: ':heavy_check_mark:'
@@ -322,7 +322,7 @@ data:
       title: Suffix Array
     - icon: ':warning:'
       path: lib/string/trie.hpp
-      title: lib/string/trie.hpp
+      title: Trie
     - icon: ':heavy_check_mark:'
       path: lib/string/z_algorithm.hpp
       title: Z algorithm
@@ -375,22 +375,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - name: test/aoj/alds1
-    pages:
-    - icon: ':warning:'
-      path: test/aoj/alds1/kmp.cpp
-      title: test/aoj/alds1/kmp.cpp
-  - name: test/yosupo/graph
-    pages:
-    - icon: ':warning:'
-      path: test/yosupo/graph/maximum_independent_set.cpp
-      title: test/yosupo/graph/maximum_independent_set.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/inversion_number.test.cpp
       title: test/aoj/alds1/inversion_number.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/kmp.test.cpp
+      title: test/aoj/alds1/kmp.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/prime_numbers.test.cpp
       title: test/aoj/alds1/prime_numbers.test.cpp
@@ -399,6 +392,9 @@ data:
       title: test/aoj/alds1/rolling_hash.test.cpp
   - name: test/aoj/cgl
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/cgl/convex_hull.test.cpp
+      title: test/aoj/cgl/convex_hull.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/cgl/counter-clockwise.test.cpp
       title: test/aoj/cgl/counter-clockwise.test.cpp
@@ -462,6 +458,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/bellman_ford.test.cpp
       title: test/aoj/grl/bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/bipartite_matching.test.cpp
+      title: test/aoj/grl/bipartite_matching.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/bridges.test.cpp
       title: test/aoj/grl/bridges.test.cpp
@@ -630,6 +629,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/graph/chromatic_number.test.cpp
       title: test/yosupo/graph/chromatic_number.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/graph/maximum_independent_set.test.cpp
+      title: test/yosupo/graph/maximum_independent_set.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/graph/scc.test.cpp
       title: test/yosupo/graph/scc.test.cpp
