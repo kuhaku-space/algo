@@ -88,7 +88,6 @@
 "test/yosupo/string/enumerate_palindromes.test.cpp": "2022-07-31 19:13:31 +0900",
 "test/yosupo/string/number_of_substring.test.cpp": "2022-07-31 20:33:20 +0900",
 "test/yosupo/string/suffix_array.test.cpp": "2022-07-31 20:32:53 +0900",
-"test/yosupo/string/zalgorithm.test.cpp": "2022-07-20 04:55:43 +0900",
 "test/yosupo/tree/cartesian_tree.test.cpp": "2022-07-31 09:42:19 +0900",
 "test/yosupo/tree/lca.test.cpp": "2022-07-31 09:58:28 +0900",
 "test/yosupo/tree/tree_diameter.test.cpp": "2022-07-30 09:20:41 +0900"
