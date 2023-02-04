@@ -71,6 +71,16 @@ struct scapegoat_tree {
         this->check();
     }
 
+    int count(T val) {
+        int res = 0;
+        node_ptr node = this->root;
+        while (node) {
+            if (node->val < val) res += Node::get_size(node->left) + 1;
+            node = (val <= node->val ? node->left : node->right);
+        }
+        return res;
+    }
+
   private:
     node_ptr root;
     double alpha, log_val;
