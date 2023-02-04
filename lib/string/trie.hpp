@@ -26,6 +26,8 @@ struct Trie {
 
     Trie() : root(0), nodes() { this->nodes.emplace_back(); }
 
+    int size() const noexcept { return this->nodes.size(); }
+
     std::vector<int> insert(const string &word) {
         std::vector<int> res;
         int node_id = 0;
@@ -53,7 +55,7 @@ struct Trie {
         return node_id;
     }
 
-    node_type get_node(int node_id) {
+    node_type get_node(int node_id) const {
         assert(0 <= node_id && node_id < (int)this->nodes.size());
         return this->nodes[node_id];
     }
