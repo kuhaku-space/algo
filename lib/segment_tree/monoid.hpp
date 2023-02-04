@@ -16,7 +16,7 @@ struct Add {
 template <class T>
 struct And {
     using value_type = T;
-    static constexpr T id = T(0);
+    static constexpr T id = std::numeric_limits<T>::max();
     static constexpr T op(const T &lhs, const T &rhs) { return lhs & rhs; }
 
     template <class U>
