@@ -19,6 +19,20 @@ std::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {
     return res;
 }
 
+std::vector<int> tree_bfs(const std::vector<int> &parents) {
+    int n = parents.size();
+    Graph<void> g(n);
+    int r = 0;
+    for (int i = 0; i < n; ++i) {
+        if (parents[i] == -1 || parents[i] == i) {
+            r = i;
+            continue;
+        }
+        g.add_edges(i, parents[i]);
+    }
+    return tree_bfs(g, r);
+}
+
 template <class T>
 std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
     std::vector<int> res;
@@ -42,7 +56,8 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
  * @param r 根
  * @return std::vector<U> 各頂点の根からの距離
  */
-template <class T, class U = T> std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
+template <class T, class U = T>
+std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
     std::vector<U> res(g.size(), -1);
     std::stack<int> st;
     res[r] = 0;
