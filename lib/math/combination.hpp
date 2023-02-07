@@ -39,9 +39,9 @@ struct Combination {
     mint lucas(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n - k < k) k = n - k;
-        static vector<vector<mint>> v;
+        static std::vector<std::vector<mint>> v;
         if (v.empty()) {
-            v = vector<vector<mint>>(mod, vector<mint>(mod));
+            v = std::vector<std::vector<mint>>(mod, std::vector<mint>(mod));
             for (int i = 0; i < mod; ++i) v[i][0] = 1;
             for (int i = 0; i < mod; ++i) {
                 for (int j = 1; j < mod; ++j) {
@@ -66,10 +66,10 @@ struct Combination {
     }
 
   private:
-    vector<mint> _fact, _finv;
+    std::vector<mint> _fact, _finv;
 
     void _init(int n) {
-        if (this->_fact.size() > n) return;
+        if ((int)this->_fact.size() > n) return;
         int m = this->_fact.size();
         this->_fact.resize(n + 1);
         for (int i = m; i <= n; ++i) {
