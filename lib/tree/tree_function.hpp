@@ -8,7 +8,7 @@ std::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {
     std::vector<bool> visited(g.size());
     res.emplace_back(r);
     visited[r] = true;
-    while (pos < res.size()) {
+    while (pos < (int)res.size()) {
         auto index = res[pos++];
         for (auto &e : g[index]) {
             if (visited[e.to()]) continue;
@@ -112,7 +112,7 @@ std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
 template <class T>
 std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size());
-    auto dfs = [&g, &res](auto self, int index) {
+    auto dfs = [&g, &res](auto self, int index) -> int {
         res[index] = 1;
         for (auto &e : g[index]) {
             if (res[e.to()] != 0) continue;
