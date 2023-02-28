@@ -31,6 +31,8 @@ struct li_chao_tree {
     using line_type = _line;
     using node_ptr = typename _node::pointer;
 
+    static constexpr std::int64_t inf = Inf;
+
     constexpr li_chao_tree(std::int64_t _xr) : root(nullptr), xl(0), xr(_xr) {}
     constexpr li_chao_tree(std::int64_t _xl, std::int64_t _xr) : root(nullptr), xl(_xl), xr(_xr) {}
 
