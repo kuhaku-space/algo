@@ -14,12 +14,12 @@ data:
     links:
     - https://algo-logic.info/trie-tree/
     - https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -30,10 +30,11 @@ data:
     \ntemplate <int char_size, int base>\r\nstruct Trie {\r\n  private:\r\n    struct\
     \ _node {\r\n        std::vector<int> next_node;\r\n        _node() : next_node(char_size,\
     \ -1) {}\r\n    };\r\n\r\n  public:\r\n    using node_type = _node;\r\n\r\n  \
-    \  Trie() : root(0), nodes() { this->nodes.emplace_back(); }\r\n\r\n    std::vector<int>\
-    \ insert(const string &word) {\r\n        std::vector<int> res;\r\n        int\
-    \ node_id = 0;\r\n        for (int i = 0; i < (int)word.size(); ++i) {\r\n   \
-    \         int c = word[i] - base;\r\n            int &next_id = this->nodes[node_id].next_node[c];\r\
+    \  Trie() : root(0), nodes() { this->nodes.emplace_back(); }\r\n\r\n    int size()\
+    \ const noexcept { return this->nodes.size(); }\r\n\r\n    std::vector<int> insert(const\
+    \ string &word) {\r\n        std::vector<int> res;\r\n        int node_id = 0;\r\
+    \n        for (int i = 0; i < (int)word.size(); ++i) {\r\n            int c =\
+    \ word[i] - base;\r\n            int &next_id = this->nodes[node_id].next_node[c];\r\
     \n            if (next_id == -1) {\r\n                next_id = this->nodes.size();\r\
     \n                this->nodes.emplace_back();\r\n            }\r\n           \
     \ node_id = next_id;\r\n            res.emplace_back(node_id);\r\n        }\r\n\
@@ -42,7 +43,7 @@ data:
     \ {\r\n            int c = word[i] - base;\r\n            int &next_id = this->nodes[node_id].next_node[c];\r\
     \n            if (next_id == -1) return -1;\r\n            node_id = next_id;\r\
     \n        }\r\n        return node_id;\r\n    }\r\n\r\n    node_type get_node(int\
-    \ node_id) {\r\n        assert(0 <= node_id && node_id < (int)this->nodes.size());\r\
+    \ node_id) const {\r\n        assert(0 <= node_id && node_id < (int)this->nodes.size());\r\
     \n        return this->nodes[node_id];\r\n    }\r\n\r\n  private:\r\n    int root;\r\
     \n    std::vector<node_type> nodes;\r\n};\r\n"
   dependsOn:
@@ -50,7 +51,7 @@ data:
   isVerificationFile: false
   path: lib/string/trie.hpp
   requiredBy: []
-  timestamp: '2022-12-09 01:48:35+09:00'
+  timestamp: '2023-02-04 18:58:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/string/trie.hpp

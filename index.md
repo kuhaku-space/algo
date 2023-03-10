@@ -230,19 +230,19 @@ data:
       title: lib/math/enumeration.hpp
     - icon: ':warning:'
       path: lib/math/eratosthenes.hpp
-      title: lib/math/eratosthenes.hpp
+      title: "\u7D20\u6570\u5224\u5B9A"
     - icon: ':warning:'
       path: lib/math/fraction.hpp
       title: "\u5206\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
+    - icon: ':warning:'
+      path: lib/math/hashint.hpp
+      title: lib/math/hashint.hpp
     - icon: ':warning:'
       path: lib/math/math.hpp
       title: lib/math/math.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: modint
-    - icon: ':warning:'
-      path: lib/math/modint64.hpp
-      title: lib/math/modint64.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
@@ -308,9 +308,18 @@ data:
       title: lib/segment_tree/segment_tree_raq.hpp
   - name: lib/string
     pages:
+    - icon: ':warning:'
+      path: lib/string/aho_corasick.hpp
+      title: "Aho Corasick \u6CD5"
+    - icon: ':warning:'
+      path: lib/string/converter.hpp
+      title: lib/string/converter.hpp
     - icon: ':heavy_check_mark:'
       path: lib/string/kmp.hpp
       title: "KMP\u6CD5"
+    - icon: ':warning:'
+      path: lib/string/lcp.hpp
+      title: lib/string/lcp.hpp
     - icon: ':heavy_check_mark:'
       path: lib/string/manacher.hpp
       title: Manacher
@@ -345,6 +354,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/cartesian_tree.hpp
       title: Cartesian Tree
+    - icon: ':warning:'
+      path: lib/tree/centroid_decomposition.hpp
+      title: "\u91CD\u5FC3\u5206\u89E3"
+    - icon: ':warning:'
+      path: lib/tree/dynamic_union_find.hpp
+      title: lib/tree/dynamic_union_find.hpp
     - icon: ':heavy_check_mark:'
       path: lib/tree/eular_tour.hpp
       title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
@@ -375,6 +390,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+  - name: test/aoj/jag
+    pages:
+    - icon: ':warning:'
+      path: test/aoj/jag/aho_corasick.cpp
+      title: test/aoj/jag/aho_corasick.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:

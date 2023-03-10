@@ -50,6 +50,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/two_sat.hpp
     title: 2-SAT
+  - icon: ':warning:'
+    path: lib/tree/centroid_decomposition.hpp
+    title: "\u91CD\u5FC3\u5206\u89E3"
   - icon: ':heavy_check_mark:'
     path: lib/tree/eular_tour.hpp
     title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
@@ -59,6 +62,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/tree/tree_function.hpp
     title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
+  - icon: ':warning:'
+    path: test/aoj/jag/aho_corasick.cpp
+    title: test/aoj/jag/aho_corasick.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/articulation_points.test.cpp
@@ -123,12 +129,12 @@ data:
   attributes:
     document_title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -193,46 +199,48 @@ data:
   isVerificationFile: false
   path: lib/graph/graph.hpp
   requiredBy:
+  - test/aoj/jag/aho_corasick.cpp
+  - lib/graph/kruskal.hpp
   - lib/graph/shortest_path.hpp
   - lib/graph/dijkstra_potential.hpp
-  - lib/graph/two_sat.hpp
-  - lib/graph/maximum_independent_set.hpp
-  - lib/graph/scc.hpp
-  - lib/graph/dijkstra.hpp
-  - lib/graph/prim.hpp
-  - lib/graph/kruskal.hpp
-  - lib/graph/spanning_tree.hpp
-  - lib/graph/lowlink.hpp
-  - lib/graph/topological_sort.hpp
-  - lib/graph/dijkstra_heap.hpp
-  - lib/graph/cycle.hpp
   - lib/graph/bellman_ford.hpp
+  - lib/graph/lowlink.hpp
+  - lib/graph/scc.hpp
+  - lib/graph/topological_sort.hpp
+  - lib/graph/prim.hpp
+  - lib/graph/dijkstra_heap.hpp
+  - lib/graph/two_sat.hpp
+  - lib/graph/spanning_tree.hpp
   - lib/graph/spfa.hpp
+  - lib/graph/dijkstra.hpp
+  - lib/graph/cycle.hpp
+  - lib/graph/maximum_independent_set.hpp
+  - lib/tree/centroid_decomposition.hpp
+  - lib/tree/tree_function.hpp
   - lib/tree/rerooting.hpp
   - lib/tree/eular_tour.hpp
-  - lib/tree/tree_function.hpp
   timestamp: '2022-07-30 08:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/articulation_points.test.cpp
-  - test/aoj/grl/kruskal.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/topological_sort.test.cpp
-  - test/aoj/grl/cycle.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
-  - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/prim.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/bridges.test.cpp
-  - test/yosupo/graph/maximum_independent_set.test.cpp
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/yosupo/graph/scc.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/graph/scc.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/graph/maximum_independent_set.test.cpp
   - test/yosupo/tree/tree_diameter.test.cpp
   - test/yosupo/math/two_sat.test.cpp
+  - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/bellman_ford.test.cpp
+  - test/aoj/grl/bridges.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/prim.test.cpp
+  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/kruskal.test.cpp
+  - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/scc.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
 redirect_from:

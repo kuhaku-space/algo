@@ -26,12 +26,12 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/segment_add_get_min
     links:
     - https://judge.yosupo.jp/problem/segment_add_get_min
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/li_chao_tree.hpp:\
     \ line -1: no such header\n"
@@ -43,8 +43,8 @@ data:
     \    int c;\n        cin >> c;\n        if (c == 0) {\n            ll l, r, a,\
     \ b;\n            cin >> l >> r >> a >> b;\n            lct.add_segment(a, b,\
     \ l, r);\n        } else {\n            ll x;\n            cin >> x;\n       \
-    \     auto ans = lct.query(x);\n            if (ans == li_chao_tree::inf) co(\"\
-    INFINITY\");\n            else co(ans);\n        }\n    }\n\n    return 0;\n}\n"
+    \     auto ans = lct.query(x);\n            if (ans == lct.inf) co(\"INFINITY\"\
+    );\n            else co(ans);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/li_chao_tree.hpp
   - lib/template/template.hpp
@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/segment_add_get_min.test.cpp
   requiredBy: []
-  timestamp: '2022-12-09 06:06:13+09:00'
+  timestamp: '2023-03-01 06:11:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/segment_add_get_min.test.cpp
