@@ -22,7 +22,7 @@ int main(void) {
             ll x;
             cin >> x;
             auto ans = lct.query(x);
-            if (ans == li_chao_tree::inf) co("INFINITY");
+            if (ans == lct.inf) co("INFINITY");
             else co(ans);
         }
     }

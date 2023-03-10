@@ -8,7 +8,7 @@ std::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {
     std::vector<bool> visited(g.size());
     res.emplace_back(r);
     visited[r] = true;
-    while (pos < res.size()) {
+    while (pos < (int)res.size()) {
         auto index = res[pos++];
         for (auto &e : g[index]) {
             if (visited[e.to()]) continue;
@@ -17,6 +17,20 @@ std::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {
         }
     }
     return res;
+}
+
+std::vector<int> tree_bfs(const std::vector<int> &parents) {
+    int n = parents.size();
+    Graph<void> g(n);
+    int r = 0;
+    for (int i = 0; i < n; ++i) {
+        if (parents[i] == -1 || parents[i] == i) {
+            r = i;
+            continue;
+        }
+        g.add_edges(i, parents[i]);
+    }
+    return tree_bfs(g, r);
 }
 
 template <class T>
@@ -42,7 +56,8 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
  * @param r 根
  * @return std::vector<U> 各頂点の根からの距離
  */
-template <class T, class U = T> std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
+template <class T, class U = T>
+std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
     std::vector<U> res(g.size(), -1);
     std::stack<int> st;
     res[r] = 0;
@@ -97,7 +112,7 @@ std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
 template <class T>
 std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size());
-    auto dfs = [&g, &res](auto self, int index) {
+    auto dfs = [&g, &res](auto self, int index) -> int {
         res[index] = 1;
         for (auto &e : g[index]) {
             if (res[e.to()] != 0) continue;

@@ -5,8 +5,7 @@
 int main(void) {
     string s;
     cin >> s;
-    z_algorithm za(s);
-    co(za.get());
+    co(z_algorithm(s));
 
     return 0;
 }
