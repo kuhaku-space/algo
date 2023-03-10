@@ -1,6 +1,10 @@
 #include "data_structure/persistent_array.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief 永続Union-Find
+ *
+ */
 struct persistent_union_find {
     constexpr persistent_union_find() : data() {}
     persistent_union_find(const persistent_array<int> &_data) : data(_data) {}
