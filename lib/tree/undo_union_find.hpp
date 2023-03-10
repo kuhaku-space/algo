@@ -1,7 +1,7 @@
 #include "template/template.hpp"
 
 /**
- * @brief Undo可能素集合データ構造
+ * @brief Undo可能Union-Find
  * @details Implement (union by size)
  *
  * @see https://ei1333.github.io/luzhiled/snippets/structure/union-find.html
