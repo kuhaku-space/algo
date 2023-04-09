@@ -33,6 +33,24 @@ struct HLD {
     int get(int v) const { return this->vid[v]; }
     int get_parent(int v) const { return this->par[v]; }
 
+    int dist(int u, int v) const {
+        int d = 0;
+        while (true) {
+            if (this->vid[u] > this->vid[v]) swap(u, v);
+            if (this->nxt[u] == this->nxt[v]) return d + this->vid[v] - this->vid[u];
+            d += this->vid[v] - this->vid[this->nxt[v]] + 1;
+            v = this->par[this->nxt[v]];
+        }
+    }
+
+    int jump(int u, int v, int k) const {
+        int d = this->dist(u, v);
+        if (d < k) return -1;
+        int l = this->lca(u, v);
+        if (this->dist(u, l) >= k) return this->la(u, k);
+        else return this->la(v, d - k);
+    }
+
     int la(int v, int k) const {
         while (true) {
             int u = this->nxt[v];
