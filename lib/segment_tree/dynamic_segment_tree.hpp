@@ -77,6 +77,48 @@ struct dynamic_segment_tree {
         return this->prod(a, b, this->root, 0, this->_size);
     }
 
+    template <class F>
+    std::int64_t max_right(F f) const {
+        assert(f(M::id));
+        if (this->root == nullptr || f(this->root->value)) return this->_size;
+        node_ptr node = this->root;
+        T sm = M::id;
+        std::int64_t l = 0, r = this->_size;
+        while (r - l > 1) {
+            std::int64_t m = (l + r) >> 1;
+            if (node->left == nullptr || f(M::op(sm, node->left->value))) {
+                if (node->left != nullptr) sm = M::op(sm, node->left->value);
+                l = m;
+                node = node->right;
+            } else {
+                r = m;
+                node = node->left;
+            }
+        }
+        return f(M::op(sm, node->value)) ? r : l;
+    }
+
+    template <class F>
+    std::int64_t min_left(F f) const {
+        assert(f(M::id));
+        if (this->root == nullptr || f(this->root->value)) return 0;
+        node_ptr node = this->root;
+        T sm = M::id;
+        std::int64_t l = 0, r = this->_size;
+        while (r - l > 1) {
+            std::int64_t m = (l + r) >> 1;
+            if (node->right == nullptr || f(M::op(node->right->value, sm))) {
+                if (node->right != nullptr) sm = M::op(node->right->value, sm);
+                r = m;
+                node = node->left;
+            } else {
+                l = m;
+                node = node->right;
+            }
+        }
+        return f(M::op(node->value, sm)) ? l : r;
+    }
+
   private:
     node_ptr root;
     std::int64_t _size, _log;
