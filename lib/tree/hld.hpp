@@ -1,4 +1,5 @@
 #pragma once
+#include "graph/graph.hpp"
 #include "template/template.hpp"
 
 /**
@@ -7,6 +8,16 @@
  */
 struct HLD {
     HLD(int n) : _size(n), g(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
+
+    template <class T>
+    HLD(const Graph<T> &g, int r = 0) : HLD(g.size()) {
+        for (auto &es : g) {
+            for (auto &e : es) {
+                this->g[e.from()].emplace_back(e.to());
+            }
+        }
+        this->build(r);
+    }
 
     void add_edge(int u, int v) { this->add_edges(u, v); }
     void add_edges(int u, int v) {
