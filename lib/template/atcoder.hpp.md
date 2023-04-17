@@ -286,6 +286,9 @@ data:
     path: test/yosupo/tree/cartesian_tree.test.cpp
     title: test/yosupo/tree/cartesian_tree.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/tree/jump_on_tree.test.cpp
+    title: test/yosupo/tree/jump_on_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/lca.test.cpp
     title: test/yosupo/tree/lca.test.cpp
   - icon: ':heavy_check_mark:'
@@ -296,12 +299,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/macro.hpp:\
     \ line -1: no such header\n"
@@ -343,98 +346,99 @@ data:
   timestamp: '2022-06-22 08:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_range_inversions.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/persistent_queue.test.cpp
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/binary_trie.test.cpp
-  - test/yosupo/data_structure/patricia_binary_trie.test.cpp
-  - test/yosupo/data_structure/undo_union_find.test.cpp
-  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/line_add_get_min.test.cpp
-  - test/yosupo/data_structure/persistent_union_find.test.cpp
-  - test/yosupo/data_structure/segment_add_get_min.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-  - test/yosupo/new/number_of_subsequences.test.cpp
-  - test/yosupo/new/longest_increasing_subsequence.test.cpp
-  - test/yosupo/string/number_of_substring.test.cpp
-  - test/yosupo/string/suffix_array.test.cpp
   - test/yosupo/string/enumerate_palindromes.test.cpp
+  - test/yosupo/string/number_of_substring.test.cpp
   - test/yosupo/string/zalgorithm.test.cpp
-  - test/yosupo/graph/chromatic_number.test.cpp
-  - test/yosupo/graph/scc.test.cpp
+  - test/yosupo/string/suffix_array.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/graph/maximum_independent_set.test.cpp
-  - test/yosupo/sample/many_a+b.test.cpp
-  - test/yosupo/tree/tree_diameter.test.cpp
+  - test/yosupo/graph/scc.test.cpp
+  - test/yosupo/graph/chromatic_number.test.cpp
+  - test/yosupo/tree/jump_on_tree.test.cpp
   - test/yosupo/tree/lca.test.cpp
+  - test/yosupo/tree/tree_diameter.test.cpp
   - test/yosupo/tree/cartesian_tree.test.cpp
   - test/yosupo/math/two_sat.test.cpp
-  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/data_structure/patricia_binary_trie.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
+  - test/yosupo/data_structure/persistent_queue.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yosupo/data_structure/binary_trie.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+  - test/yosupo/data_structure/static_range_inversions.test.cpp
+  - test/yosupo/data_structure/static_range_sum.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
+  - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/persistent_union_find.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/line_add_get_min.test.cpp
+  - test/yosupo/data_structure/segment_add_get_min.test.cpp
+  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/new/number_of_subsequences.test.cpp
+  - test/yosupo/new/longest_increasing_subsequence.test.cpp
   - test/yosupo/matrix/matrix_product.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/prime_factorize.test.cpp
-  - test/aoj/ntl/power.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/grl/min_cost_flow.test.cpp
-  - test/aoj/grl/warshall_floyd.test.cpp
-  - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/bridges.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
-  - test/aoj/grl/articulation_points.test.cpp
-  - test/aoj/grl/prim.test.cpp
-  - test/aoj/grl/cycle.test.cpp
-  - test/aoj/grl/kruskal.test.cpp
-  - test/aoj/grl/topological_sort.test.cpp
-  - test/aoj/grl/max_flow.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
-  - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/hld.test.cpp
-  - test/aoj/grl/bipartite_matching.test.cpp
-  - test/aoj/itp2/scapegoat_tree.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
   - test/aoj/itp2/treap.test.cpp
   - test/aoj/itp2/avl_tree.test.cpp
+  - test/aoj/itp2/scapegoat_tree.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/prime_factorize.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp
-  - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
-  - test/aoj/hupc/2019/manacher.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/raq_rsq.test.cpp
-  - test/aoj/dsl/weighted_union_find.test.cpp
-  - test/aoj/dsl/union_find.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/cgl/intersection.test.cpp
-  - test/aoj/cgl/cross_point.test.cpp
-  - test/aoj/cgl/counter-clockwise.test.cpp
-  - test/aoj/cgl/projection.test.cpp
-  - test/aoj/cgl/reflection.test.cpp
-  - test/aoj/cgl/parallel_orthogonal.test.cpp
-  - test/aoj/cgl/convex_hull.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/grl/kruskal.test.cpp
+  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/bellman_ford.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/bridges.test.cpp
+  - test/aoj/grl/max_flow.test.cpp
+  - test/aoj/grl/scc.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/bipartite_matching.test.cpp
+  - test/aoj/grl/min_cost_flow.test.cpp
+  - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/prim.test.cpp
+  - test/aoj/alds1/prime_numbers.test.cpp
+  - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/alds1/kmp.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
-  - test/aoj/alds1/inversion_number.test.cpp
-  - test/aoj/alds1/prime_numbers.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/dsl/raq_rsq.test.cpp
+  - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/weighted_union_find.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/union_find.test.cpp
+  - test/aoj/cgl/reflection.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
+  - test/aoj/cgl/convex_hull.test.cpp
+  - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
+  - test/aoj/cgl/intersection.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/hupc/2019/manacher.test.cpp
 documentation_of: lib/template/atcoder.hpp
 layout: document
 redirect_from:

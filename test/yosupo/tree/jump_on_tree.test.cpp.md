@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/scapegoat_tree.hpp
-    title: "\u30B9\u30B1\u30FC\u30D7\u30B4\u30FC\u30C8\u6728"
+    path: lib/graph/graph.hpp
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -16,6 +16,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/tree/hld.hpp
+    title: HLD
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,9 +26,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B
+    PROBLEM: https://judge.yosupo.jp/problem/jump_on_tree
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B
+    - https://judge.yosupo.jp/problem/jump_on_tree
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -33,34 +36,30 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/scapegoat_tree.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B\"\
-    \n#include \"binary_tree/scapegoat_tree.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    int q;\n    cin >> q;\n    int size =\
-    \ 0;\n    scapegoat_tree<int> st;\n    rep(i, q) {\n        int x, y;\n      \
-    \  cin >> x >> y;\n        if (x == 0) {\n            if (!st.contains(y)) {\n\
-    \                st.insert(y);\n                ++size;\n            }\n     \
-    \       co(size);\n        } else if (x == 1) {\n            co(st.contains(y));\n\
-    \        } else if (x == 2) {\n            if (st.contains(y)) {\n           \
-    \     st.erase(y);\n                --size;\n            }\n        }\n    }\n\
-    \n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/jump_on_tree\"\n#include\
+    \ \"template/atcoder.hpp\"\n#include \"tree/hld.hpp\"\n\nint main(void) {\n  \
+    \  int n, q;\n    cin >> n >> q;\n    HLD hld(n);\n    hld.input_edges(0);\n \
+    \   hld.build();\n\n    while (q--) {\n        int u, v, k;\n        cin >> u\
+    \ >> v >> k;\n        co(hld.jump(u, v, k));\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/binary_tree/scapegoat_tree.hpp
-  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
+  - lib/template/template.hpp
   - lib/template/sonic.hpp
+  - lib/tree/hld.hpp
+  - lib/graph/graph.hpp
   isVerificationFile: true
-  path: test/aoj/itp2/scapegoat_tree.test.cpp
+  path: test/yosupo/tree/jump_on_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-02-04 18:47:30+09:00'
+  timestamp: '2023-04-17 09:46:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/itp2/scapegoat_tree.test.cpp
+documentation_of: test/yosupo/tree/jump_on_tree.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/itp2/scapegoat_tree.test.cpp
-- /verify/test/aoj/itp2/scapegoat_tree.test.cpp.html
-title: test/aoj/itp2/scapegoat_tree.test.cpp
+- /verify/test/yosupo/tree/jump_on_tree.test.cpp
+- /verify/test/yosupo/tree/jump_on_tree.test.cpp.html
+title: test/yosupo/tree/jump_on_tree.test.cpp
 ---

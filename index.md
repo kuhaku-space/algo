@@ -16,9 +16,6 @@ data:
       path: lib/_new/make_permutation.hpp
       title: lib/_new/make_permutation.hpp
     - icon: ':warning:'
-      path: lib/_new/mex.hpp
-      title: lib/_new/mex.hpp
-    - icon: ':warning:'
       path: lib/_new/tree64.hpp
       title: lib/_new/tree64.hpp
   - name: lib/algorithm
@@ -35,9 +32,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/lis.hpp
       title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
+    - icon: ':warning:'
+      path: lib/algorithm/mex.hpp
+      title: Mex
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/mo.hpp
       title: Mo's algorithm
+    - icon: ':warning:'
+      path: lib/algorithm/rollback_mo.hpp
+      title: Mo's algorithm (rollback)
   - name: lib/binary_tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -95,6 +98,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/swag.hpp
       title: lib/data_structure/swag.hpp
+    - icon: ':warning:'
+      path: lib/data_structure/undo_deque.hpp
+      title: lib/data_structure/undo_deque.hpp
   - name: lib/fft
     pages:
     - icon: ':warning:'
@@ -127,7 +133,7 @@ data:
     pages:
     - icon: ':warning:'
       path: lib/geometry/cht.hpp
-      title: lib/geometry/cht.hpp
+      title: Convex Hull Trick
     - icon: ':heavy_check_mark:'
       path: lib/geometry/convex_hull.hpp
       title: "\u70B9"
@@ -359,7 +365,7 @@ data:
       title: "\u91CD\u5FC3\u5206\u89E3"
     - icon: ':warning:'
       path: lib/tree/dynamic_union_find.hpp
-      title: lib/tree/dynamic_union_find.hpp
+      title: "\u52D5\u7684Union-Find"
     - icon: ':heavy_check_mark:'
       path: lib/tree/eular_tour.hpp
       title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
@@ -374,7 +380,7 @@ data:
       title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
     - icon: ':heavy_check_mark:'
       path: lib/tree/persistent_union_find.hpp
-      title: lib/tree/persistent_union_find.hpp
+      title: "\u6C38\u7D9AUnion-Find"
     - icon: ':warning:'
       path: lib/tree/rerooting.hpp
       title: "\u5168\u65B9\u4F4D\u6728dp"
@@ -383,7 +389,7 @@ data:
       title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
     - icon: ':heavy_check_mark:'
       path: lib/tree/undo_union_find.hpp
-      title: "Undo\u53EF\u80FD\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+      title: "Undo\u53EF\u80FDUnion-Find"
     - icon: ':heavy_check_mark:'
       path: lib/tree/union_find.hpp
       title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
@@ -703,6 +709,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/tree/cartesian_tree.test.cpp
       title: test/yosupo/tree/cartesian_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/tree/jump_on_tree.test.cpp
+      title: test/yosupo/tree/jump_on_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/tree/lca.test.cpp
       title: test/yosupo/tree/lca.test.cpp

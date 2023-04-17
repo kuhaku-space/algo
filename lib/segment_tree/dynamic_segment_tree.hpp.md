@@ -18,12 +18,12 @@ data:
   attributes:
     document_title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
     \ line -1: no such header\n"
@@ -57,13 +57,31 @@ data:
     \ all_prod() const { return this->root ? this->root->value : M::id; }\n    T prod(std::int64_t\
     \ a, std::int64_t b) const {\n        assert(0 <= a && a <= this->_size);\n  \
     \      assert(0 <= b && b <= this->_size);\n        return this->prod(a, b, this->root,\
-    \ 0, this->_size);\n    }\n\n  private:\n    node_ptr root;\n    std::int64_t\
-    \ _size, _log;\n\n    T prod(std::int64_t a, std::int64_t b, node_ptr node, std::int64_t\
-    \ l, std::int64_t r) const {\n        if (a <= l && r <= b) return node->value;\n\
-    \        if (r <= a || b <= l) return M::id;\n\n        return M::op(node->left\
-    \ ? this->prod(a, b, node->left, l, (l + r) >> 1) : M::id,\n                 \
-    \    node->right ? this->prod(a, b, node->right, (l + r) >> 1, r) : M::id);\n\
-    \    }\n};\n"
+    \ 0, this->_size);\n    }\n\n    template <class F>\n    std::int64_t max_right(F\
+    \ f) const {\n        assert(f(M::id));\n        if (this->root == nullptr ||\
+    \ f(this->root->value)) return this->_size;\n        node_ptr node = this->root;\n\
+    \        T sm = M::id;\n        std::int64_t l = 0, r = this->_size;\n       \
+    \ while (r - l > 1) {\n            std::int64_t m = (l + r) >> 1;\n          \
+    \  if (node->left == nullptr || f(M::op(sm, node->left->value))) {\n         \
+    \       if (node->left != nullptr) sm = M::op(sm, node->left->value);\n      \
+    \          l = m;\n                node = node->right;\n            } else {\n\
+    \                r = m;\n                node = node->left;\n            }\n \
+    \       }\n        return f(M::op(sm, node->value)) ? r : l;\n    }\n\n    template\
+    \ <class F>\n    std::int64_t min_left(F f) const {\n        assert(f(M::id));\n\
+    \        if (this->root == nullptr || f(this->root->value)) return 0;\n      \
+    \  node_ptr node = this->root;\n        T sm = M::id;\n        std::int64_t l\
+    \ = 0, r = this->_size;\n        while (r - l > 1) {\n            std::int64_t\
+    \ m = (l + r) >> 1;\n            if (node->right == nullptr || f(M::op(node->right->value,\
+    \ sm))) {\n                if (node->right != nullptr) sm = M::op(node->right->value,\
+    \ sm);\n                r = m;\n                node = node->left;\n         \
+    \   } else {\n                l = m;\n                node = node->right;\n  \
+    \          }\n        }\n        return f(M::op(node->value, sm)) ? l : r;\n \
+    \   }\n\n  private:\n    node_ptr root;\n    std::int64_t _size, _log;\n\n   \
+    \ T prod(std::int64_t a, std::int64_t b, node_ptr node, std::int64_t l, std::int64_t\
+    \ r) const {\n        if (a <= l && r <= b) return node->value;\n        if (r\
+    \ <= a || b <= l) return M::id;\n\n        return M::op(node->left ? this->prod(a,\
+    \ b, node->left, l, (l + r) >> 1) : M::id,\n                     node->right ?\
+    \ this->prod(a, b, node->right, (l + r) >> 1, r) : M::id);\n    }\n};\n"
   dependsOn:
   - lib/math/pow.hpp
   - lib/template/template.hpp
@@ -71,7 +89,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/dynamic_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-04-17 09:43:48+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/segment_tree/dynamic_segment_tree.hpp

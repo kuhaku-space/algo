@@ -37,12 +37,12 @@ data:
     document_title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     links:
     - https://noshi91.hatenablog.com/entry/2020/04/22/212649
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
     \ line -1: no such header\n"
@@ -69,9 +69,38 @@ data:
     \n        for (a += this->_size, b += this->_size; a < b; a >>= 1, b >>= 1) {\r\
     \n            if (a & 1) l = M::op(l, this->data[a++]);\r\n            if (b &\
     \ 1) r = M::op(this->data[--b], r);\r\n        }\r\n        return M::op(l, r);\r\
-    \n    }\r\n\r\n  private:\r\n    int _n, _size, _log;\r\n    std::vector<T> data;\r\
-    \n\r\n    void update(int k) { this->data[k] = M::op(this->data[2 * k], this->data[2\
-    \ * k + 1]); }\r\n};\r\n"
+    \n    }\r\n\r\n    template <class F>\r\n    int max_right(F f) const {\r\n  \
+    \      return this->max_right(0, f);\r\n    }\r\n\r\n    template <class F>\r\n\
+    \    int max_right(int l, F f) const {\r\n        assert(0 <= l && l <= this->_n);\r\
+    \n        assert(f(M::id));\r\n        if (l == this->_n) return this->_n;\r\n\
+    \        l += this->_size;\r\n        T sm = M::id;\r\n        do {\r\n      \
+    \      while (l % 2 == 0) l >>= 1;\r\n            if (!f(M::op(sm, this->data[l])))\
+    \ {\r\n                while (l < this->_size) {\r\n                    l = (2\
+    \ * l);\r\n                    if (f(M::op(sm, this->data[l]))) {\r\n        \
+    \                sm = M::op(sm, this->data[l]);\r\n                        l++;\r\
+    \n                    }\r\n                }\r\n                return l - this->_size;\r\
+    \n            }\r\n            sm = M::op(sm, this->data[l]);\r\n            l++;\r\
+    \n        } while ((l & -l) != l);\r\n        return this->_n;\r\n    }\r\n\r\n\
+    \    int max_right(T x) const { return this->max_right(0, x); }\r\n\r\n    int\
+    \ max_right(int l, T x) const {\r\n        return this->max_right(l, [&x](auto\
+    \ y) {\r\n            return !(y < x);\r\n        });\r\n    }\r\n\r\n    template\
+    \ <class F>\r\n    int min_left(F f) const {\r\n        return this->min_left(this->_n,\
+    \ f);\r\n    }\r\n\r\n    template <class F>\r\n    int min_left(int r, F f) const\
+    \ {\r\n        assert(0 <= r && r <= this->_n);\r\n        assert(f(M::id));\r\
+    \n        if (r == 0) return 0;\r\n        r += this->_size;\r\n        T sm =\
+    \ M::id;\r\n        do {\r\n            r--;\r\n            while (r > 1 && (r\
+    \ % 2)) r >>= 1;\r\n            if (!f(M::op(this->data[r], sm))) {\r\n      \
+    \          while (r < this->_size) {\r\n                    r = (2 * r + 1);\r\
+    \n                    if (f(M::op(this->data[r], sm))) {\r\n                 \
+    \       sm = M::op(this->data[r], sm);\r\n                        r--;\r\n   \
+    \                 }\r\n                }\r\n                return r + 1 - this->_size;\r\
+    \n            }\r\n            sm = M::op(this->data[r], sm);\r\n        } while\
+    \ ((r & -r) != r);\r\n        return 0;\r\n    }\r\n\r\n    int min_left(T x)\
+    \ const { return this->min_left(this->_n, x); }\r\n\r\n    int min_left(int r,\
+    \ T x) const {\r\n        return this->min_left(r, [&x](auto y) {\r\n        \
+    \    return !(y < x);\r\n        });\r\n    }\r\n\r\n  private:\r\n    int _n,\
+    \ _size, _log;\r\n    std::vector<T> data;\r\n\r\n    void update(int k) { this->data[k]\
+    \ = M::op(this->data[2 * k], this->data[2 * k + 1]); }\r\n};\r\n"
   dependsOn:
   - lib/math/pow.hpp
   - lib/template/template.hpp
@@ -80,14 +109,14 @@ data:
   path: lib/segment_tree/segment_tree.hpp
   requiredBy:
   - lib/segment_tree/segment_tree_raq.hpp
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-04-17 09:43:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document
 redirect_from:
