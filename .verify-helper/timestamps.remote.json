@@ -44,6 +44,7 @@
 "test/aoj/itp2/avl_tree.test.cpp": "2022-06-22 08:11:12 +0900",
 "test/aoj/itp2/scapegoat_tree.test.cpp": "2023-02-04 18:47:30 +0900",
 "test/aoj/itp2/treap.test.cpp": "2022-06-22 08:11:12 +0900",
+"test/aoj/jag/aho_corasick.test.cpp": "2023-04-17 12:47:50 +0900",
 "test/aoj/ntl/addition.test.cpp": "2022-07-31 15:35:50 +0900",
 "test/aoj/ntl/difference.test.cpp": "2022-07-31 15:35:50 +0900",
 "test/aoj/ntl/division.test.cpp": "2022-07-31 15:35:50 +0900",
