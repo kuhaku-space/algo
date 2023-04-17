@@ -1,5 +1,9 @@
 #include "template/template.hpp"
 
+/**
+ * @brief 動的Union-Find
+ *
+ */
 struct dynamic_union_find {
     dynamic_union_find() : data() {}
 

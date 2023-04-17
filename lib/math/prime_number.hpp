@@ -39,17 +39,17 @@ struct prime_number {
      *
      * @tparam T
      * @param x
-     * @return std::vector<pair<T, int>>
+     * @return std::vector<std::pair<T, int>>
      */
     template <class T>
-    std::vector<pair<T, int>> prime_factorization(T x) const {
-        if (x == 1) return std::vector<pair<T, int>>(1, {1, 1});
-        std::vector<pair<T, int>> res;
-        for (auto i : this->data) {
+    std::vector<std::pair<T, int>> prime_factorization(T x) const {
+        if (x == 1) return std::vector<std::pair<T, int>>();
+        std::vector<std::pair<T, int>> res;
+        for (auto p : this->data) {
             int cnt = 0;
-            for (; x % i == 0; x /= i) ++cnt;
-            if (cnt) res.emplace_back(i, cnt);
-            if ((std::int64_t)i * i > x) break;
+            for (; x % p == 0; x /= p) ++cnt;
+            if (cnt) res.emplace_back(p, cnt);
+            if ((std::int64_t)p * p > x) break;
         }
         if (x != 1) res.emplace_back(x, 1);
         return res;
