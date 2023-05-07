@@ -50,7 +50,7 @@ struct Graph {
         for (int i = 0; i < m; ++i) {
             int from, to;
             T weight;
-            cin >> from >> to >> weight;
+            std::cin >> from >> to >> weight;
             this->add_edge(from - base, to - base, weight);
         }
     }
@@ -58,7 +58,7 @@ struct Graph {
         for (int i = 0; i < m; ++i) {
             int from, to;
             T weight;
-            cin >> from >> to >> weight;
+            std::cin >> from >> to >> weight;
             this->add_edges(from - base, to - base, weight);
         }
     }
@@ -108,14 +108,14 @@ struct Graph<void> {
     void input_edge(int m, int base = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
-            cin >> from >> to;
+            std::cin >> from >> to;
             this->add_edge(from - base, to - base);
         }
     }
     void input_edges(int m, int base = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
-            cin >> from >> to;
+            std::cin >> from >> to;
             this->add_edges(from - base, to - base);
         }
     }

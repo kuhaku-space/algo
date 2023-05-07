@@ -7,15 +7,15 @@
  * @param b
  * @param x
  * @param y
- * @return int64_t gcd(a, b)
+ * @return std::int64_t gcd(a, b)
  */
-int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
+std::int64_t extGCD(const std::int64_t a, const std::int64_t b, std::int64_t &x, std::int64_t &y) {
     if (b == 0) {
         x = 1, y = 0;
         return a;
     }
 
-    int64_t d = extGCD(b, a % b, y, x);
+    std::int64_t d = extGCD(b, a % b, y, x);
     y -= a / b * x;
     return d;
 }
@@ -28,17 +28,18 @@ int64_t extGCD(const int64_t a, const int64_t b, int64_t &x, int64_t &y) {
  * @tparam U 配列mの型
  * @param b 余りの配列
  * @param m modの配列
- * @return pair<int64_t, int64_t> (r, M) ($x = r + M * k$ (kは整数))
+ * @return std::pair<std::int64_t, std::int64_t> (r, M) ($x = r + M * k$ (kは整数))
  */
 template <class T, class U>
-pair<int64_t, int64_t> chinese_rem(const vector<T> &b, const vector<U> &m) {
-    int64_t r = 0, M = 1;
+std::pair<std::int64_t, std::int64_t> chinese_rem(const std::vector<T> &b,
+                                                  const std::vector<U> &m) {
+    std::int64_t r = 0, M = 1;
     int n = b.size();
     for (int i = 0; i < n; ++i) {
-        int64_t p, q;
-        int64_t d = extGCD(M, m[i], p, q);
+        std::int64_t p, q;
+        std::int64_t d = extGCD(M, m[i], p, q);
         if ((b[i] - r) % d != 0) return {0, -1};
-        int64_t tmp = (b[i] - r) / d * p % (m[i] / d);
+        std::int64_t tmp = (b[i] - r) / d * p % (m[i] / d);
         r += M * tmp;
         M *= m[i] / d;
     }

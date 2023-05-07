@@ -9,7 +9,7 @@
 template <class T>
 struct coordinate_compression {
     coordinate_compression() = default;
-    coordinate_compression(const vector<T> &_data) : data(_data) { this->build(); }
+    coordinate_compression(const std::vector<T> &_data) : data(_data) { this->build(); }
 
     const T &operator[](int i) const { return this->data[i]; }
     T &operator[](int i) { return this->data[i]; }
@@ -20,7 +20,7 @@ struct coordinate_compression {
         std::sort(this->data.begin(), this->data.end());
         this->data.erase(std::unique(this->data.begin(), this->data.end()), this->data.end());
     }
-    void build(const vector<T> &v) {
+    void build(const std::vector<T> &v) {
         this->data = v;
         std::sort(this->data.begin(), this->data.end());
         this->data.erase(std::unique(this->data.begin(), this->data.end()), this->data.end());

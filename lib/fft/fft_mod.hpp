@@ -6,7 +6,7 @@ using CP = complex<double>;
 void _fft(valarray<CP> &a, bool inv) {
     int N = a.size();
     static bool is_first = true;
-    static vector<CP> vbw(30), vibw(30);
+    static std::vector<CP> vbw(30), vibw(30);
     if (is_first) {
         is_first = false;
         for (int i = 0; i < 30; ++i) {
@@ -32,7 +32,9 @@ void _fft(valarray<CP> &a, bool inv) {
             }
         }
     }
-    if (inv) { a /= N; }
+    if (inv) {
+        a /= N;
+    }
 }
 
 template <class T>
@@ -60,7 +62,7 @@ valarray<T> _convolution(const valarray<T> &a, const valarray<T> &b) {
 }
 
 template <class T>
-vector<T> convolution(const vector<T> &a, const vector<T> &b, int mod) {
+std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b, int mod) {
     int n = a.size(), m = b.size();
     valarray<T> v(n), w(m);
     for (int i = 0; i < n; ++i) v[i] = a[i];
@@ -87,7 +89,7 @@ vector<T> convolution(const vector<T> &a, const vector<T> &b, int mod) {
     x <<= 15;
     x += z;
     x %= mod;
-    vector<T> res(n + m - 1);
+    std::vector<T> res(n + m - 1);
     for (int i = 0; i < n + m - 1; ++i) res[i] = x[i];
     return res;
 }

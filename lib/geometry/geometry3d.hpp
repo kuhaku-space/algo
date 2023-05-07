@@ -15,7 +15,7 @@ struct Circle3 {
 };
 
 template <class T>
-Circle3<T> min_ball(vector<Pos<T>> &ps, Pos<T> p = {0.0, 0.0, 0.0}) {
+Circle3<T> min_ball(std::vector<Pos<T>> &ps, Pos<T> p = {0.0, 0.0, 0.0}) {
     auto dist = [](const Pos<T> &a, const Pos<T> &b) -> T {
         T dx = a.x - b.x;
         T dy = a.y - b.y;

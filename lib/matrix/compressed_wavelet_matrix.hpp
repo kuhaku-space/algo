@@ -12,7 +12,7 @@
 template <class T, int MAXLOG = 20>
 struct compressed_wavelet_matrix {
     compressed_wavelet_matrix() = default;
-    compressed_wavelet_matrix(const vector<T> &v) : cps(v) {
+    compressed_wavelet_matrix(const std::vector<T> &v) : cps(v) {
         int n = v.size();
         std::vector<int> t(n);
         for (int i = 0; i < n; ++i) t[i] = this->cps.get(v[i]);

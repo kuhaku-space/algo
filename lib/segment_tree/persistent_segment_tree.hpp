@@ -23,7 +23,7 @@ struct persistent_segment_tree {
     constexpr persistent_segment_tree(int n, node_pointer _root) : _size(n), root(_root) {}
     persistent_segment_tree(int n, T e = M::id) : _size(n), root(this->build(0, n, e)) {}
     template <class U>
-    persistent_segment_tree(const vector<U> &v)
+    persistent_segment_tree(const std::vector<U> &v)
         : _size(v.size()), root(this->build(0, v.size(), v)) {}
 
     T operator[](int i) const { return this->prod(i, i + 1); }
@@ -56,7 +56,7 @@ struct persistent_segment_tree {
         return this->merge(this->build(l, m, val), this->build(m, r, val));
     }
     template <class U>
-    node_pointer build(int l, int r, const vector<U> &v) const {
+    node_pointer build(int l, int r, const std::vector<U> &v) const {
         if (l + 1 == r) return new Node(v[l]);
         int m = (l + r) >> 1;
         return this->merge(this->build(l, m, v), this->build(m, r, v));

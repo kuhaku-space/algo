@@ -48,7 +48,7 @@ struct Point {
 };
 
 template <class T>
-using Points = vector<Point<T>>;
+using Points = std::vector<Point<T>>;
 
 // ノルム
 template <class T>

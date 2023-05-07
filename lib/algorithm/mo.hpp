@@ -20,7 +20,7 @@ struct Mo {
     void input(int q, int bias = 1, int closed = 0) {
         for (int i = 0; i < q; ++i) {
             int l, r;
-            cin >> l >> r;
+            std::cin >> l >> r;
             this->add(l - bias, r - bias + closed);
         }
     }
