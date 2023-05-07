@@ -17,8 +17,8 @@ struct kdtree {
         Point p;
     };
 
-    vector<Point> points;
-    vector<Node> nodes;
+    std::vector<Point> points;
+    std::vector<Node> nodes;
 
     kdtree() : points(), nodes() {}
 
@@ -28,7 +28,9 @@ struct kdtree {
     }
 
     int make(int l, int r, int depth) {
-        if (l == r) { return -1; }
+        if (l == r) {
+            return -1;
+        }
         if (r - l == 1) {
             int res = nodes.size();
             nodes.emplace_back(Node{-1, -1, points[l]});
@@ -36,11 +38,11 @@ struct kdtree {
         }
         int mid = (l + r) >> 1;
         if (depth & 1) {
-            sort(points.begin() + l, points.begin() + r, [](const Point &a, const Point &b) {
+            std::sort(points.begin() + l, points.begin() + r, [](const Point &a, const Point &b) {
                 return a.x < b.x;
             });
         } else {
-            sort(points.begin() + l, points.begin() + r, [](const Point &a, const Point &b) {
+            std::sort(points.begin() + l, points.begin() + r, [](const Point &a, const Point &b) {
                 return a.y < b.y;
             });
         }
@@ -53,10 +55,10 @@ struct kdtree {
     }
     void build() { make(0, points.size(), 0); }
 
-    int64_t find(int idx, int x, int y, int depth, int64_t r) {
+    std::int64_t find(int idx, int x, int y, int depth, std::int64_t r) {
         if (idx == -1) return r;
         Point &p = nodes[idx].p;
-        int64_t d = int64_t(x - p.x) * (x - p.x) + int64_t(y - p.y) * (y - p.y);
+        std::int64_t d = std::int64_t(x - p.x) * (x - p.x) + std::int64_t(y - p.y) * (y - p.y);
         if (r == -1 || d < r) r = d;
 
         if (depth & 1) {
@@ -76,13 +78,15 @@ struct kdtree {
         }
         return r;
     }
-    int64_t find(int x, int y) { return find(0, x, y, 0, -1); }
+    std::int64_t find(int x, int y) { return find(0, x, y, 0, -1); }
 
     // [sx, tx) * [sy, ty)
-    vector<int> find(int idx, int sx, int tx, int sy, int ty, int depth) {
-        vector<int> res;
+    std::vector<int> find(int idx, int sx, int tx, int sy, int ty, int depth) {
+        std::vector<int> res;
         Point &p = nodes[idx].p;
-        if (sx <= p.x && p.x < tx && sy <= p.y && p.y < ty) { res.emplace_back(p.id); }
+        if (sx <= p.x && p.x < tx && sy <= p.y && p.y < ty) {
+            res.emplace_back(p.id);
+        }
 
         if (depth & 1) {
             if (nodes[idx].left != -1 && sx <= p.x) {
@@ -105,5 +109,5 @@ struct kdtree {
         }
         return res;
     }
-    vector<int> find(int sx, int tx, int sy, int ty) { return find(0, sx, tx, sy, ty, 0); }
+    std::vector<int> find(int sx, int tx, int sy, int ty) { return find(0, sx, tx, sy, ty, 0); }
 };

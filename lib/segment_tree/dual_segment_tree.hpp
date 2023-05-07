@@ -45,7 +45,7 @@ struct dual_segment_tree {
 
   private:
     int _size, _log;
-    vector<T> data;
+    std::vector<T> data;
 
     void all_apply(int k, T val) { this->data[k] = M::op(val, this->data[k]); }
     void push(int k) {

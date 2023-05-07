@@ -8,8 +8,8 @@
 template <class T>
 struct slope_trick {
     T min_f;
-    priority_queue<T> l;
-    priority_queue<T, vector<T>, greater<>> r;
+    std::priority_queue<T> l;
+    std::priority_queue<T, std::vector<T>, std::greater<>> r;
 
     slope_trick() : min_f(), l(), r() {}
 
@@ -60,6 +60,6 @@ struct slope_trick {
         this->add_g(a);
     }
 
-    void min_l() { this->r = priority_queue<T, vector<T>, greater<>>(); }
-    void min_r() { this->l = priority_queue<T>(); }
+    void min_l() { this->r = std::priority_queue<T, std::vector<T>, std::greater<>>(); }
+    void min_r() { this->l = std::priority_queue<T>(); }
 };

@@ -2,9 +2,9 @@
 
 template <class T>
 struct cumulative_sum_2d {
-    vector<vector<T>> v;
+    std::vector<std::vector<T>> v;
 
-    cumulative_sum_2d(const vector<vector<T>> &_v) : v(_v) { make(); }
+    cumulative_sum_2d(const std::vector<std::vector<T>> &_v) : v(_v) { make(); }
 
     void make() {
         int n = v.size();
@@ -23,7 +23,5 @@ struct cumulative_sum_2d {
         }
     }
 
-    T get(int x1, int y1, int x2, int y2) {
-        return v[x1][y1] - v[x1][y2] - v[x2][y1] + v[x2][y2];
-    }
+    T get(int x1, int y1, int x2, int y2) { return v[x1][y1] - v[x1][y2] - v[x2][y1] + v[x2][y2]; }
 };

@@ -35,7 +35,7 @@ struct Point {
 template <class T>
 std::vector<Point<T>> convex_hull(std::vector<Point<T>> points) {
     int n = points.size(), k = 0;
-    sort(points.begin(), points.end(), [](const Point<T> &a, const Point<T> &b) {
+    std::sort(points.begin(), points.end(), [](const Point<T> &a, const Point<T> &b) {
         return a.x != b.x ? a.x < b.x : a.y < b.y;
     });
     std::vector<Point<T>> res(n << 1);

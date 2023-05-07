@@ -1,6 +1,6 @@
 #include "template/template.hpp"
 
-vector<int> make_permutation_one_bit(int n, int a, int b) {
+std::vector<int> make_permutation_one_bit(int n, int a, int b) {
     if (n == 1) {
         return {a, b};
     }

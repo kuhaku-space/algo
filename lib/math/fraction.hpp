@@ -5,13 +5,13 @@
  *
  */
 struct Fraction {
-    int64_t x, y;
+    std::int64_t x, y;
 
     Fraction() : x(0), y(1) {}
 
-    Fraction(int64_t _x, int64_t _y = 1) : x(_x), y(_y) { this->common(); }
+    Fraction(std::int64_t _x, std::int64_t _y = 1) : x(_x), y(_y) { this->common(); }
 
-    int64_t gcd(int64_t a, int64_t b) const {
+    std::int64_t gcd(std::int64_t a, std::int64_t b) const {
         while (b) {
             a %= b;
             swap(a, b);
@@ -79,7 +79,7 @@ struct Fraction {
         string s;
         is >> s;
         bool f = false;
-        int64_t x = 0, y = 1;
+        std::int64_t x = 0, y = 1;
         for (auto c : s) {
             if (c == '.') {
                 f = true;
@@ -97,7 +97,7 @@ struct Fraction {
 
   private:
     void common() {
-        int64_t g = gcd(x, y);
+        std::int64_t g = gcd(x, y);
         if (g) x /= g, y /= g;
         if (y < 0) x *= -1, y *= -1;
     }

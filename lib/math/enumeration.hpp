@@ -29,7 +29,7 @@ struct Enumeration {
 
   private:
     Combination<mod> combi;
-    vector<mint> data;
+    std::vector<mint> data;
 
     void _init(int n) {
         if (this->data.size() > n) return;

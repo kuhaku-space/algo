@@ -15,7 +15,7 @@ struct fenwick_tree_raq {
     auto at(int k) const { return this->operator[](k); }
 
     template <class U>
-    void build(const vector<U> &v) {
+    void build(const std::vector<U> &v) {
         for (int i = 0, n = v.size(); i < n; ++i) {
             this->add(i, v[i]);
         }
