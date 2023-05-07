@@ -17,8 +17,10 @@ std::vector<typename Graph<T>::edge_type> prim(const Graph<T> &g, int r = 0) {
     std::vector<_edge> res;
     std::vector<bool> visited(g.size());
     visited[r] = true;
-    std::priority_queue<_edge, std::vector<_edge>, greater<>> p_que;
-    for (auto &e : g[r]) { p_que.emplace(e); }
+    std::priority_queue<_edge, std::vector<_edge>, std::greater<>> p_que;
+    for (auto &e : g[r]) {
+        p_que.emplace(e);
+    }
     while (!p_que.empty()) {
         auto edge = p_que.top();
         p_que.pop();

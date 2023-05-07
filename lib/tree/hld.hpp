@@ -29,7 +29,7 @@ struct HLD {
     void input_edges(int base = 1) {
         for (int i = 0; i < this->_size - 1; ++i) {
             int u, v;
-            cin >> u >> v;
+            std::cin >> u >> v;
             this->add_edges(u - base, v - base);
         }
     }
