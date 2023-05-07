@@ -4,14 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/aoj/jag/aho_corasick.cpp
-    title: test/aoj/jag/aho_corasick.cpp
-  _extendedVerifiedWith: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/aho_corasick.test.cpp
+    title: test/aoj/jag/aho_corasick.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "Aho Corasick \u6CD5"
     links:
@@ -68,11 +68,11 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/string/aho_corasick.hpp
-  requiredBy:
-  - test/aoj/jag/aho_corasick.cpp
+  requiredBy: []
   timestamp: '2023-02-06 20:04:23+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/jag/aho_corasick.test.cpp
 documentation_of: lib/string/aho_corasick.hpp
 layout: document
 redirect_from:

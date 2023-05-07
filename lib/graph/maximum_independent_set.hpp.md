@@ -54,7 +54,7 @@ data:
   isVerificationFile: false
   path: lib/graph/maximum_independent_set.hpp
   requiredBy: []
-  timestamp: '2022-12-08 04:04:52+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/maximum_independent_set.test.cpp

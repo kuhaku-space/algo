@@ -35,22 +35,22 @@ data:
     \r\n *\r\n * @tparam T \u5EA7\u6A19\u306E\u578B\r\n * @param points \u70B9\u96C6\
     \u5408\r\n * @return std::vector<Point<T>>\r\n */\r\ntemplate <class T>\r\nstd::vector<Point<T>>\
     \ convex_hull(std::vector<Point<T>> points) {\r\n    int n = points.size(), k\
-    \ = 0;\r\n    sort(points.begin(), points.end(), [](const Point<T> &a, const Point<T>\
-    \ &b) {\r\n        return a.x != b.x ? a.x < b.x : a.y < b.y;\r\n    });\r\n \
-    \   std::vector<Point<T>> res(n << 1);\r\n    auto cross = [](Point<T> a, Point<T>\
-    \ b, const Point<T> &c) {\r\n        a -= c, b -= c;\r\n        return a.x * b.y\
-    \ - a.y * b.x;\r\n    };\r\n    for (int i = 0; i < n; ++i) {\r\n        while\
-    \ (k > 1 && cross(points[i], res[k - 2], res[k - 1]) < 0) --k;\r\n        res[k++]\
-    \ = points[i];\r\n    }\r\n    for (int i = n - 2, t = k; i >= 0; --i) {\r\n \
-    \       while (k > t && cross(points[i], res[k - 2], res[k - 1]) < 0) --k;\r\n\
-    \        res[k++] = points[i];\r\n    }\r\n    res.resize(k - 1);\r\n    return\
-    \ res;\r\n}\r\n"
+    \ = 0;\r\n    std::sort(points.begin(), points.end(), [](const Point<T> &a, const\
+    \ Point<T> &b) {\r\n        return a.x != b.x ? a.x < b.x : a.y < b.y;\r\n   \
+    \ });\r\n    std::vector<Point<T>> res(n << 1);\r\n    auto cross = [](Point<T>\
+    \ a, Point<T> b, const Point<T> &c) {\r\n        a -= c, b -= c;\r\n        return\
+    \ a.x * b.y - a.y * b.x;\r\n    };\r\n    for (int i = 0; i < n; ++i) {\r\n  \
+    \      while (k > 1 && cross(points[i], res[k - 2], res[k - 1]) < 0) --k;\r\n\
+    \        res[k++] = points[i];\r\n    }\r\n    for (int i = n - 2, t = k; i >=\
+    \ 0; --i) {\r\n        while (k > t && cross(points[i], res[k - 2], res[k - 1])\
+    \ < 0) --k;\r\n        res[k++] = points[i];\r\n    }\r\n    res.resize(k - 1);\r\
+    \n    return res;\r\n}\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/geometry/convex_hull.hpp
   requiredBy: []
-  timestamp: '2023-01-05 23:30:47+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/cgl/convex_hull.test.cpp

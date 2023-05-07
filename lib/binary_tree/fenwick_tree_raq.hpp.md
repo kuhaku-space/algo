@@ -38,7 +38,7 @@ data:
     \ default;\r\n    fenwick_tree_raq(int n) : p(n + 1), q(n + 1) {}\r\n\r\n    auto\
     \ operator[](int i) const { return this->sum(i + 1) - this->sum(i); }\r\n    auto\
     \ at(int k) const { return this->operator[](k); }\r\n\r\n    template <class U>\r\
-    \n    void build(const vector<U> &v) {\r\n        for (int i = 0, n = v.size();\
+    \n    void build(const std::vector<U> &v) {\r\n        for (int i = 0, n = v.size();\
     \ i < n; ++i) {\r\n            this->add(i, v[i]);\r\n        }\r\n    }\r\n\r\
     \n    /**\r\n     * @brief v[k] = val\r\n     *\r\n     * @param k index of array\r\
     \n     * @param val new value\r\n     */\r\n    void update(int k, T val) { this->add(k,\
@@ -62,7 +62,7 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/fenwick_tree_raq.hpp
   requiredBy: []
-  timestamp: '2022-07-29 22:01:52+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/range_query_on_tree_2.test.cpp

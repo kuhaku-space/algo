@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: lib/graph/topological_sort.hpp
   requiredBy: []
-  timestamp: '2022-07-30 08:42:03+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/topological_sort.test.cpp

@@ -63,7 +63,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-04-17 09:46:35+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_add_path_sum.test.cpp

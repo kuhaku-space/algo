@@ -33,7 +33,7 @@ data:
     \    constexpr persistent_dual_segment_tree() : _size(), root() {}\n    constexpr\
     \ persistent_dual_segment_tree(int n, node_pointer _root) : _size(n), root(_root)\
     \ {}\n    persistent_dual_segment_tree(int n, T e = M::id) : _size(n), root(this->build(0,\
-    \ n, e)) {}\n    template <class U>\n    persistent_dual_segment_tree(const vector<U>\
+    \ n, e)) {}\n    template <class U>\n    persistent_dual_segment_tree(const std::vector<U>\
     \ &v)\n        : _size(v.size()), root(this->build(0, v.size(), v)) {}\n\n   \
     \ T operator[](int i) const { return this->get(0, this->_size, i, this->root);\
     \ }\n    T at(int k) const { return this->operator[](k); }\n    T get(int k) const\
@@ -47,13 +47,13 @@ data:
     \    }\n\n    node_pointer build(int l, int r, T val) const {\n        if (l +\
     \ 1 == r) return new Node(val);\n        int m = (l + r) >> 1;\n        return\
     \ this->merge(this->build(l, m, val), this->build(m, r, val));\n    }\n    template\
-    \ <class U>\n    node_pointer build(int l, int r, const vector<U> &v) const {\n\
-    \        if (l + 1 == r) return new Node(v[l]);\n        int m = (l + r) >> 1;\n\
-    \        return this->merge(this->build(l, m, v), this->build(m, r, v));\n   \
-    \ }\n\n    T get(int l, int r, int k, node_pointer node) const {\n        if (l\
-    \ + 1 == r) return node->val;\n        int m = (l + r) >> 1;\n        if (k <\
-    \ m) return M::op(node->val, this->get(l, m, k, node->left));\n        else return\
-    \ M::op(node->val, this->get(m, r, k, node->right));\n    }\n\n    node_pointer\
+    \ <class U>\n    node_pointer build(int l, int r, const std::vector<U> &v) const\
+    \ {\n        if (l + 1 == r) return new Node(v[l]);\n        int m = (l + r) >>\
+    \ 1;\n        return this->merge(this->build(l, m, v), this->build(m, r, v));\n\
+    \    }\n\n    T get(int l, int r, int k, node_pointer node) const {\n        if\
+    \ (l + 1 == r) return node->val;\n        int m = (l + r) >> 1;\n        if (k\
+    \ < m) return M::op(node->val, this->get(l, m, k, node->left));\n        else\
+    \ return M::op(node->val, this->get(m, r, k, node->right));\n    }\n\n    node_pointer\
     \ apply(int l, int r, int a, int b, T val, T prop, node_pointer node) const {\n\
     \        if (a <= l && r <= b)\n            return new Node(M::op(val, M::op(prop,\
     \ node->val)), node->left, node->right);\n        if (b <= l || r <= a) return\
@@ -67,7 +67,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/persistent_dual_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/segment_tree/persistent_dual_segment_tree.hpp

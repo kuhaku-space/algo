@@ -53,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/graph/maximum_independent_set.test.cpp
   requiredBy: []
-  timestamp: '2022-12-09 23:34:22+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/maximum_independent_set.test.cpp

@@ -64,7 +64,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/undo_union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-03-10 18:37:30+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/undo_union_find.test.cpp

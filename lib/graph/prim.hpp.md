@@ -34,19 +34,20 @@ data:
     \ Graph<T>::edge_type>\n */\ntemplate <class T>\nstd::vector<typename Graph<T>::edge_type>\
     \ prim(const Graph<T> &g, int r = 0) {\n    using _edge = typename Graph<T>::edge_type;\n\
     \    std::vector<_edge> res;\n    std::vector<bool> visited(g.size());\n    visited[r]\
-    \ = true;\n    std::priority_queue<_edge, std::vector<_edge>, greater<>> p_que;\n\
-    \    for (auto &e : g[r]) { p_que.emplace(e); }\n    while (!p_que.empty()) {\n\
-    \        auto edge = p_que.top();\n        p_que.pop();\n        if (visited[edge.to()])\
-    \ continue;\n        visited[edge.to()] = true;\n        res.emplace_back(edge);\n\
-    \        for (auto &e : g[edge.to()]) {\n            if (!visited[e.to()]) p_que.emplace(e);\n\
-    \        }\n    }\n    return res;\n}\n"
+    \ = true;\n    std::priority_queue<_edge, std::vector<_edge>, std::greater<>>\
+    \ p_que;\n    for (auto &e : g[r]) {\n        p_que.emplace(e);\n    }\n    while\
+    \ (!p_que.empty()) {\n        auto edge = p_que.top();\n        p_que.pop();\n\
+    \        if (visited[edge.to()]) continue;\n        visited[edge.to()] = true;\n\
+    \        res.emplace_back(edge);\n        for (auto &e : g[edge.to()]) {\n   \
+    \         if (!visited[e.to()]) p_que.emplace(e);\n        }\n    }\n    return\
+    \ res;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/prim.hpp
   requiredBy: []
-  timestamp: '2022-07-30 08:42:03+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/prim.test.cpp

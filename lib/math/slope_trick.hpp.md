@@ -23,15 +23,15 @@ data:
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief slope trick\r\n\
     \ *\r\n * @tparam T\r\n */\r\ntemplate <class T>\r\nstruct slope_trick {\r\n \
-    \   T min_f;\r\n    priority_queue<T> l;\r\n    priority_queue<T, vector<T>, greater<>>\
-    \ r;\r\n\r\n    slope_trick() : min_f(), l(), r() {}\r\n\r\n    T get_x() { return\
-    \ this->l.top(); }\r\n    T get() { return this->min_f; }\r\n    T get_y() { return\
-    \ this->get(); }\r\n\r\n    /**\r\n     * @brief Add f(x) = a\r\n     *\r\n  \
-    \   * @param a\r\n     */\r\n    void add(T a) { this->min_f += a; }\r\n\r\n \
-    \   /**\r\n     * @brief Add f(x) = max(0, x - a)\r\n     *\r\n     * @param a\r\
-    \n     */\r\n    void add_f(T a) {\r\n        if (!this->l.empty()) this->min_f\
-    \ += max(T(), this->l.top() - a);\r\n        this->l.emplace(a);\r\n        auto\
-    \ x = tihs->l.top();\r\n        this->l.pop();\r\n        this->r.emplace(x);\r\
+    \   T min_f;\r\n    std::priority_queue<T> l;\r\n    std::priority_queue<T, std::vector<T>,\
+    \ std::greater<>> r;\r\n\r\n    slope_trick() : min_f(), l(), r() {}\r\n\r\n \
+    \   T get_x() { return this->l.top(); }\r\n    T get() { return this->min_f; }\r\
+    \n    T get_y() { return this->get(); }\r\n\r\n    /**\r\n     * @brief Add f(x)\
+    \ = a\r\n     *\r\n     * @param a\r\n     */\r\n    void add(T a) { this->min_f\
+    \ += a; }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, x - a)\r\n     *\r\
+    \n     * @param a\r\n     */\r\n    void add_f(T a) {\r\n        if (!this->l.empty())\
+    \ this->min_f += max(T(), this->l.top() - a);\r\n        this->l.emplace(a);\r\
+    \n        auto x = tihs->l.top();\r\n        this->l.pop();\r\n        this->r.emplace(x);\r\
     \n    }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, a - x)\r\n     *\r\n\
     \     * @param a\r\n     */\r\n    void add_g(T a) {\r\n        if (!this->r.empty())\
     \ this->min_f += max(T(), a - this->r.top());\r\n        this->r.emplace(a);\r\
@@ -39,14 +39,14 @@ data:
     \n    }\r\n\r\n    /**\r\n     * @brief Add f(x) = abs(x - a) = max(0, x - a)\
     \ + max(0, a - x)\r\n     *\r\n     * @param a\r\n     */\r\n    void add_abs(T\
     \ a) {\r\n        this->add_f(a);\r\n        this->add_g(a);\r\n    }\r\n\r\n\
-    \    void min_l() { this->r = priority_queue<T, vector<T>, greater<>>(); }\r\n\
-    \    void min_r() { this->l = priority_queue<T>(); }\r\n};\r\n"
+    \    void min_l() { this->r = std::priority_queue<T, std::vector<T>, std::greater<>>();\
+    \ }\r\n    void min_r() { this->l = std::priority_queue<T>(); }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/slope_trick.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/slope_trick.hpp

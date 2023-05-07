@@ -20,7 +20,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\nvector<int> make_permutation_one_bit(int\
+  code: "#include \"template/template.hpp\"\r\n\r\nstd::vector<int> make_permutation_one_bit(int\
     \ n, int a, int b) {\r\n    if (n == 1) {\r\n        return {a, b};\r\n    }\r\
     \n    assert(__builtin_parity(a) != __builtin_parity(b));\r\n    int bit = 1 <<\
     \ (n - 1);\r\n    if ((a ^ b) & bit) {\r\n        auto res = make_permutation_one_bit(n\
@@ -35,7 +35,7 @@ data:
   isVerificationFile: false
   path: lib/_new/make_permutation.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/_new/make_permutation.hpp

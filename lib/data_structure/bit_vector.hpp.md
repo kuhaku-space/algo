@@ -69,9 +69,9 @@ data:
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
 documentation_of: lib/data_structure/bit_vector.hpp
 layout: document
 redirect_from:

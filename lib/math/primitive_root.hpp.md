@@ -25,22 +25,22 @@ data:
     \ line -1: no such header\n"
   code: "#include \"math/pow.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\nint\
     \ get_primitive_root(const int mod) {\r\n    if (mod == 998244353) return 3;\r\
-    \n    int64_t divs[20] = {};\r\n    divs[0] = 2;\r\n    int64_t cnt = 1;\r\n \
-    \   int64_t x = (mod - 1) / 2;\r\n    while (x % 2 == 0) x /= 2;\r\n    for (int64_t\
-    \ i = 3; i * i <= x; i += 2) {\r\n        if (x % i == 0) {\r\n            divs[cnt++]\
-    \ = i;\r\n            while (x % i == 0) x /= i;\r\n        }\r\n    }\r\n   \
-    \ if (x > 1) divs[cnt++] = x;\r\n    for (int64_t g = 2;; ++g) {\r\n        bool\
-    \ ok = true;\r\n        for (int64_t i = 0; i < cnt; ++i) {\r\n            if\
-    \ (pow_mod(g, (mod - 1) / divs[i], mod) == 1) {\r\n                ok = false;\r\
-    \n                break;\r\n            }\r\n        }\r\n        if (ok) return\
-    \ g;\r\n    }\r\n    return 0;\r\n}\r\n"
+    \n    std::int64_t divs[20] = {};\r\n    divs[0] = 2;\r\n    std::int64_t cnt\
+    \ = 1;\r\n    std::int64_t x = (mod - 1) / 2;\r\n    while (x % 2 == 0) x /= 2;\r\
+    \n    for (std::int64_t i = 3; i * i <= x; i += 2) {\r\n        if (x % i == 0)\
+    \ {\r\n            divs[cnt++] = i;\r\n            while (x % i == 0) x /= i;\r\
+    \n        }\r\n    }\r\n    if (x > 1) divs[cnt++] = x;\r\n    for (std::int64_t\
+    \ g = 2;; ++g) {\r\n        bool ok = true;\r\n        for (std::int64_t i = 0;\
+    \ i < cnt; ++i) {\r\n            if (pow_mod(g, (mod - 1) / divs[i], mod) == 1)\
+    \ {\r\n                ok = false;\r\n                break;\r\n            }\r\
+    \n        }\r\n        if (ok) return g;\r\n    }\r\n    return 0;\r\n}\r\n"
   dependsOn:
   - lib/math/pow.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/primitive_root.hpp
   requiredBy: []
-  timestamp: '2022-07-31 15:35:50+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/primitive_root.hpp

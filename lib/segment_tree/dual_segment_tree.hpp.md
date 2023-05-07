@@ -48,10 +48,11 @@ data:
     \ != b) this->push((b - 1) >> i);\r\n        }\r\n\r\n        for (; a < b; a\
     \ >>= 1, b >>= 1) {\r\n            if (a & 1) this->all_apply(a++, val);\r\n \
     \           if (b & 1) this->all_apply(--b, val);\r\n        }\r\n    }\r\n\r\n\
-    \  private:\r\n    int _size, _log;\r\n    vector<T> data;\r\n\r\n    void all_apply(int\
-    \ k, T val) { this->data[k] = M::op(val, this->data[k]); }\r\n    void push(int\
-    \ k) {\r\n        this->all_apply(2 * k, this->data[k]);\r\n        this->all_apply(2\
-    \ * k + 1, this->data[k]);\r\n        this->data[k] = M::id;\r\n    }\r\n};\r\n"
+    \  private:\r\n    int _size, _log;\r\n    std::vector<T> data;\r\n\r\n    void\
+    \ all_apply(int k, T val) { this->data[k] = M::op(val, this->data[k]); }\r\n \
+    \   void push(int k) {\r\n        this->all_apply(2 * k, this->data[k]);\r\n \
+    \       this->all_apply(2 * k + 1, this->data[k]);\r\n        this->data[k] =\
+    \ M::id;\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/math/pow.hpp
   - lib/template/template.hpp
@@ -59,7 +60,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/dual_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp

@@ -45,9 +45,9 @@ data:
     \u30EC\u30C3\u30C8\u884C\u5217\n * @details [\u53C2\u8003](https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html)\n\
     \ *\n * @tparam T\n * @tparam MAXLOG\n */\ntemplate <class T, int MAXLOG = 20>\n\
     struct compressed_wavelet_matrix {\n    compressed_wavelet_matrix() = default;\n\
-    \    compressed_wavelet_matrix(const vector<T> &v) : cps(v) {\n        int n =\
-    \ v.size();\n        std::vector<int> t(n);\n        for (int i = 0; i < n; ++i)\
-    \ t[i] = this->cps.get(v[i]);\n        this->mat = wavelet_matrix<int, MAXLOG>(t);\n\
+    \    compressed_wavelet_matrix(const std::vector<T> &v) : cps(v) {\n        int\
+    \ n = v.size();\n        std::vector<int> t(n);\n        for (int i = 0; i < n;\
+    \ ++i) t[i] = this->cps.get(v[i]);\n        this->mat = wavelet_matrix<int, MAXLOG>(t);\n\
     \    }\n\n    T access(int k) const { return this->cps[this->mat.access(k)]; }\n\
     \    T operator[](int k) const { return this->access(k); }\n\n    /**\n     *\
     \ @brief count i s.t. (0 <= i < r) && v[i] == x\n     *\n     * @param x\n   \
@@ -89,12 +89,12 @@ data:
   isVerificationFile: false
   path: lib/matrix/compressed_wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2022-07-29 14:39:45+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
 documentation_of: lib/matrix/compressed_wavelet_matrix.hpp
 layout: document
 redirect_from:

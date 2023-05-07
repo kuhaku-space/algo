@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: lib/tree/eular_tour.hpp
   requiredBy: []
-  timestamp: '2022-07-30 08:42:03+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

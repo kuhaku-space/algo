@@ -7,11 +7,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/aoj/jag/aho_corasick.cpp
-    title: test/aoj/jag/aho_corasick.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/aho_corasick.test.cpp
+    title: test/aoj/jag/aho_corasick.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/tree_diameter.test.cpp
     title: test/yosupo/tree/tree_diameter.test.cpp
@@ -78,12 +78,12 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/tree_function.hpp
-  requiredBy:
-  - test/aoj/jag/aho_corasick.cpp
-  timestamp: '2023-02-18 16:27:31+09:00'
+  requiredBy: []
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/tree/tree_diameter.test.cpp
+  - test/aoj/jag/aho_corasick.test.cpp
 documentation_of: lib/tree/tree_function.hpp
 layout: document
 redirect_from:

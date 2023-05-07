@@ -21,7 +21,7 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct cumulative_sum_2d\
-    \ {\r\n    vector<vector<T>> v;\r\n\r\n    cumulative_sum_2d(const vector<vector<T>>\
+    \ {\r\n    std::vector<std::vector<T>> v;\r\n\r\n    cumulative_sum_2d(const std::vector<std::vector<T>>\
     \ &_v) : v(_v) { make(); }\r\n\r\n    void make() {\r\n        int n = v.size();\r\
     \n        int m = v[0].size();\r\n        v.resize(n + 1);\r\n        for (int\
     \ i = 0; i < n; ++i) v[i].resize(m + 1);\r\n        for (int i = n - 1; i >= 0;\
@@ -29,14 +29,14 @@ data:
     \ v[i][j] += v[i + 1][j];\r\n            }\r\n        }\r\n        for (int i\
     \ = n - 1; i >= 0; --i) {\r\n            for (int j = n - 1; j >= 0; --j) {\r\n\
     \                v[i][j] += v[i][j + 1];\r\n            }\r\n        }\r\n   \
-    \ }\r\n\r\n    T get(int x1, int y1, int x2, int y2) {\r\n        return v[x1][y1]\
-    \ - v[x1][y2] - v[x2][y1] + v[x2][y2];\r\n    }\r\n};\r\n"
+    \ }\r\n\r\n    T get(int x1, int y1, int x2, int y2) { return v[x1][y1] - v[x1][y2]\
+    \ - v[x2][y1] + v[x2][y2]; }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/_new/cumulative_sum_2d.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/_new/cumulative_sum_2d.hpp

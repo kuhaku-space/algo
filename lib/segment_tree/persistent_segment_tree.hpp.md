@@ -33,7 +33,7 @@ data:
     \    constexpr persistent_segment_tree() : _size(), root() {}\n    constexpr persistent_segment_tree(int\
     \ n, node_pointer _root) : _size(n), root(_root) {}\n    persistent_segment_tree(int\
     \ n, T e = M::id) : _size(n), root(this->build(0, n, e)) {}\n    template <class\
-    \ U>\n    persistent_segment_tree(const vector<U> &v)\n        : _size(v.size()),\
+    \ U>\n    persistent_segment_tree(const std::vector<U> &v)\n        : _size(v.size()),\
     \ root(this->build(0, v.size(), v)) {}\n\n    T operator[](int i) const { return\
     \ this->prod(i, i + 1); }\n    T at(int k) const { return this->operator[](k);\
     \ }\n    T get(int k) const { return this->operator[](k); }\n\n    persistent_segment_tree\
@@ -48,8 +48,8 @@ data:
     \ }\n\n    node_pointer build(int l, int r, T val) const {\n        if (l + 1\
     \ == r) return new Node(val);\n        int m = (l + r) >> 1;\n        return this->merge(this->build(l,\
     \ m, val), this->build(m, r, val));\n    }\n    template <class U>\n    node_pointer\
-    \ build(int l, int r, const vector<U> &v) const {\n        if (l + 1 == r) return\
-    \ new Node(v[l]);\n        int m = (l + r) >> 1;\n        return this->merge(this->build(l,\
+    \ build(int l, int r, const std::vector<U> &v) const {\n        if (l + 1 == r)\
+    \ return new Node(v[l]);\n        int m = (l + r) >> 1;\n        return this->merge(this->build(l,\
     \ m, v), this->build(m, r, v));\n    }\n\n    node_pointer set(int l, int r, int\
     \ k, T val, node_pointer node) const {\n        if (l + 1 == r) return new Node(val);\n\
     \        int m = (l + r) >> 1;\n        if (k < m) return this->merge(this->set(l,\
@@ -65,7 +65,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/persistent_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/segment_tree/persistent_segment_tree.hpp

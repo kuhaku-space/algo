@@ -60,19 +60,19 @@ data:
     \ Point<T> &rhs) {\r\n        T x, y;\r\n        is >> x >> y;\r\n        rhs\
     \ = Point<T>(x, y);\r\n        return (is);\r\n    }\r\n    friend ostream &operator<<(ostream\
     \ &os, const Point<T> &rhs) {\r\n        return os << rhs.x << ' ' << rhs.y;\r\
-    \n    }\r\n};\r\n\r\ntemplate <class T>\r\nusing Points = vector<Point<T>>;\r\n\
-    \r\n// \u30CE\u30EB\u30E0\r\ntemplate <class T>\r\nconstexpr T norm(Point<T> p)\
-    \ {\r\n    return p.x * p.x + p.y * p.y;\r\n}\r\n// \u7D76\u5BFE\u5024\r\ntemplate\
-    \ <class T>\r\nT abs(Point<T> p) {\r\n    return sqrt(norm(p));\r\n}\r\n// \u5185\
-    \u7A4D\r\ntemplate <class T>\r\nconstexpr T dot(Point<T> a, Point<T> b) {\r\n\
-    \    return a.x * b.x + a.y * b.y;\r\n}\r\n// \u5916\u7A4D\r\ntemplate <class\
-    \ T>\r\nconstexpr T cross(Point<T> a, Point<T> b) {\r\n    return a.x * b.y -\
-    \ a.y * b.x;\r\n}\r\n\r\ntemplate <class T>\r\nint ccw(const Point<T> &a, Point<T>\
-    \ b, Point<T> c) {\r\n    b -= a, c -= a;\r\n    if (cross(b, c) > EPS) return\
-    \ +1;   // \"COUNTER_CLOCKWISE\"\r\n    if (cross(b, c) < -EPS) return -1;  //\
-    \ \"CLOCKWISE\"\r\n    if (dot(b, c) < 0) return +2;       // \"ONLINE_BACK\"\r\
-    \n    if (norm(b) < norm(c)) return -2;   // \"ONLINE_FRONT\"\r\n    return 0;\
-    \                           // \"ON_SEGMENT\"\r\n}\r\n\r\ntemplate <class T>\r\
+    \n    }\r\n};\r\n\r\ntemplate <class T>\r\nusing Points = std::vector<Point<T>>;\r\
+    \n\r\n// \u30CE\u30EB\u30E0\r\ntemplate <class T>\r\nconstexpr T norm(Point<T>\
+    \ p) {\r\n    return p.x * p.x + p.y * p.y;\r\n}\r\n// \u7D76\u5BFE\u5024\r\n\
+    template <class T>\r\nT abs(Point<T> p) {\r\n    return sqrt(norm(p));\r\n}\r\n\
+    // \u5185\u7A4D\r\ntemplate <class T>\r\nconstexpr T dot(Point<T> a, Point<T>\
+    \ b) {\r\n    return a.x * b.x + a.y * b.y;\r\n}\r\n// \u5916\u7A4D\r\ntemplate\
+    \ <class T>\r\nconstexpr T cross(Point<T> a, Point<T> b) {\r\n    return a.x *\
+    \ b.y - a.y * b.x;\r\n}\r\n\r\ntemplate <class T>\r\nint ccw(const Point<T> &a,\
+    \ Point<T> b, Point<T> c) {\r\n    b -= a, c -= a;\r\n    if (cross(b, c) > EPS)\
+    \ return +1;   // \"COUNTER_CLOCKWISE\"\r\n    if (cross(b, c) < -EPS) return\
+    \ -1;  // \"CLOCKWISE\"\r\n    if (dot(b, c) < 0) return +2;       // \"ONLINE_BACK\"\
+    \r\n    if (norm(b) < norm(c)) return -2;   // \"ONLINE_FRONT\"\r\n    return\
+    \ 0;                           // \"ON_SEGMENT\"\r\n}\r\n\r\ntemplate <class T>\r\
     \nstruct Line {\r\n    Point<T> a, b;\r\n\r\n    constexpr Line() : a(), b() {}\r\
     \n    constexpr Line(const Point<T> &_a, const Point<T> &_b) : a(_a), b(_b) {}\r\
     \n\r\n    constexpr bool in_line(Point<T> p) const { return eq(cross(p - a, p\
@@ -130,15 +130,15 @@ data:
   isVerificationFile: false
   path: lib/geometry/geometry.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/cgl/projection.test.cpp
   - test/aoj/cgl/reflection.test.cpp
   - test/aoj/cgl/cross_point.test.cpp
-  - test/aoj/cgl/projection.test.cpp
-  - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/cgl/intersection.test.cpp
   - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
 documentation_of: lib/geometry/geometry.hpp
 layout: document
 redirect_from:

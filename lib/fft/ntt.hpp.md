@@ -104,12 +104,12 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document
 redirect_from:

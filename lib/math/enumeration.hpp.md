@@ -42,8 +42,8 @@ data:
     \ n, int k) {\n        this->_init(k);\n        mint res = 0;\n        for (int\
     \ i = 0; i <= k; ++i) {\n            res += mint(i).pow(n) * this->combi.finv(i)\
     \ * this->data[k - i];\n        }\n        return res;\n    }\n\n  private:\n\
-    \    Combination<mod> combi;\n    vector<mint> data;\n\n    void _init(int n)\
-    \ {\n        if (this->data.size() > n) return;\n        int m = this->data.size();\n\
+    \    Combination<mod> combi;\n    std::vector<mint> data;\n\n    void _init(int\
+    \ n) {\n        if (this->data.size() > n) return;\n        int m = this->data.size();\n\
     \        this->data.resize(n + 1);\n        for (int i = m; i <= n; ++i) {\n \
     \           if (i == 0) this->data[i] = 1;\n            else if (i & 1) this->data[i]\
     \ = this->data[i - 1] - this->combi.finv(i);\n            else this->data[i] =\
@@ -55,11 +55,11 @@ data:
   isVerificationFile: false
   path: lib/math/enumeration.hpp
   requiredBy: []
-  timestamp: '2023-02-07 21:11:06+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dpl/bell.test.cpp
   - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/dpl/bell.test.cpp
 documentation_of: lib/math/enumeration.hpp
 layout: document
 redirect_from:

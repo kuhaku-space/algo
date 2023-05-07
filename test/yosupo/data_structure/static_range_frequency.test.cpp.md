@@ -62,7 +62,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/static_range_frequency.test.cpp
   requiredBy: []
-  timestamp: '2022-07-29 17:14:42+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_range_frequency.test.cpp

@@ -48,12 +48,12 @@ data:
   code: "#pragma once\r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief\
     \ \u5EA7\u6A19\u5727\u7E2E\r\n *\r\n * @tparam T \u8981\u7D20\u306E\u578B\r\n\
     \ */\r\ntemplate <class T>\r\nstruct coordinate_compression {\r\n    coordinate_compression()\
-    \ = default;\r\n    coordinate_compression(const vector<T> &_data) : data(_data)\
+    \ = default;\r\n    coordinate_compression(const std::vector<T> &_data) : data(_data)\
     \ { this->build(); }\r\n\r\n    const T &operator[](int i) const { return this->data[i];\
     \ }\r\n    T &operator[](int i) { return this->data[i]; }\r\n\r\n    void add(T\
     \ x) { this->data.emplace_back(x); }\r\n\r\n    void build() {\r\n        std::sort(this->data.begin(),\
     \ this->data.end());\r\n        this->data.erase(std::unique(this->data.begin(),\
-    \ this->data.end()), this->data.end());\r\n    }\r\n    void build(const vector<T>\
+    \ this->data.end()), this->data.end());\r\n    }\r\n    void build(const std::vector<T>\
     \ &v) {\r\n        this->data = v;\r\n        std::sort(this->data.begin(), this->data.end());\r\
     \n        this->data.erase(std::unique(this->data.begin(), this->data.end()),\
     \ this->data.end());\r\n    }\r\n\r\n    bool exist(T x) const {\r\n        auto\
@@ -74,13 +74,13 @@ data:
   requiredBy:
   - lib/matrix/compressed_wavelet_matrix.hpp
   - lib/algorithm/inversion_number.hpp
-  timestamp: '2022-07-29 14:21:49+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/new/number_of_subsequences.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
 documentation_of: lib/algorithm/compress.hpp

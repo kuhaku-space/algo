@@ -49,7 +49,7 @@ data:
   isVerificationFile: false
   path: lib/tree/centroid_decomposition.hpp
   requiredBy: []
-  timestamp: '2023-03-08 14:44:08+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/centroid_decomposition.hpp

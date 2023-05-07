@@ -25,7 +25,7 @@ data:
     \ line -1: no such header\n"
   code: "#pragma once\n#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\
     \n\ntemplate <class T, class U>\nstd::vector<T> dijkstra(const Graph<T> &g, const\
-    \ vector<U> &potentials, int s = 0,\n                        T inf = std::numeric_limits<T>::max())\
+    \ std::vector<U> &potentials, int s = 0,\n                        T inf = std::numeric_limits<T>::max())\
     \ {\n    struct _node {\n        constexpr _node() : _to(), _dist() {}\n     \
     \   constexpr _node(int to, T dist) : _to(to), _dist(dist) {}\n        constexpr\
     \ bool operator<(const _node &rhs) const { return this->dist() < rhs.dist(); }\n\
@@ -39,15 +39,15 @@ data:
     \ < node.dist()) continue;\n        for (auto &e : g[node.to()]) {\n         \
     \   auto next_dist = node.dist() + e.weight() + potentials[node.to()] - potentials[e.to()];\n\
     \            if (chmin(dists[e.to()], next_dist)) p_que.emplace(e.to(), next_dist);\n\
-    \        }\n    }\n    for (int i = 0; i < n; ++i) { dists[i] += potentials[i]\
-    \ - potentials[s]; }\n    return dists;\n}\n"
+    \        }\n    }\n    for (int i = 0; i < n; ++i) {\n        dists[i] += potentials[i]\
+    \ - potentials[s];\n    }\n    return dists;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra_potential.hpp
   requiredBy: []
-  timestamp: '2022-07-30 08:42:03+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/graph/dijkstra_potential.hpp

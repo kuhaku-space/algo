@@ -39,7 +39,7 @@ data:
     \ value(_value), index() {}\r\n        constexpr _node(Key _key, Value _value,\
     \ int _index)\r\n            : key(_key), value(_value), index(_index) {}\r\n\r\
     \n        constexpr bool operator<(const _node &rhs) const { return this->value\
-    \ < rhs.value; }\r\n\r\n        constexpr auto get_pair() const { return make_pair(key,\
+    \ < rhs.value; }\r\n\r\n        constexpr auto get_pair() const { return std::make_pair(key,\
     \ value); }\r\n    };\r\n\r\n  public:\r\n    using key_type = Key;\r\n    using\
     \ value_type = Value;\r\n    using node_ptr = typename _node::pointer;\r\n\r\n\
     \    radix_heap() : data{}, _last(), _size() {}\r\n\r\n    constexpr int size()\
@@ -109,7 +109,7 @@ data:
   path: lib/heap/radix_heap.hpp
   requiredBy:
   - lib/graph/dijkstra_heap.hpp
-  timestamp: '2022-07-12 19:04:09+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_radix.test.cpp

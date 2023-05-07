@@ -21,36 +21,36 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
   code: "#include \"template/template.hpp\"\r\n\r\ntemplate <class T>\r\nstruct Graph\
-    \ {\r\n    struct edge {\r\n        int64_t from, to;\r\n        T dist;\r\n\r\
-    \n        bool operator<(const edge &rhs) const { return dist < rhs.dist; }\r\n\
-    \        bool operator>(const edge &rhs) const { return dist > rhs.dist; }\r\n\
-    \        edge &operator+=(const edge &rhs) {\r\n            to = rhs.to, dist\
-    \ += rhs.dist;\r\n            return *this;\r\n        }\r\n        edge operator+(const\
-    \ edge &rhs) { return edge(*this) += rhs; }\r\n    };\r\n\r\n    int64_t V;\r\n\
-    \    vector<T> dist;\r\n    vector<vector<edge>> edges;\r\n\r\n    Graph(int64_t\
-    \ v) : V(v), edges(v * 5), dist(v, numeric_limits<T>::max()) {\r\n        for\
-    \ (int64_t i = 2; i < v * 2; ++i) {\r\n            edges.push_back(edge{v + i\
-    \ >> 1, v + i, 0});\r\n            edges.push_back(edge{v * 3 + i, v * 3 + i >>\
-    \ 1, 0});\r\n        }\r\n        for (int64_t i = 0; i < v; ++i) {\r\n      \
-    \      edges.push_back(edge{v * 2 + i, i, 0});\r\n            edges.push_back(edge{v\
-    \ * 4 + i, i, 0});\r\n        }\r\n    }\r\n\r\n    void add_edge(int64_t a1,\
-    \ int64_t b1, int64_t a2, int64_t b2, T d = 1,\r\n                  bool is_dual\
-    \ = false) {\r\n        if (is_dual) add_edge(a2, b2, a1, b1, d, !is_dual);\r\n\
-    \        int64_t n = edges.size();\r\n        edges.resize(n + 2);\r\n       \
-    \ edges[n].emplace_back(edge{n, n + 1, d});\r\n        for (a1 += V, b1 += V;\
-    \ a1 < b1; a1 >>= 1, b1 >>= 1) {\r\n            if (a1 & 1)\r\n              \
-    \  edges[V * 3 + a1].emplace_back(edge{V * 3 + a1, n, 0}), ++a1;\r\n         \
-    \   if (b1 & 1)\r\n                --b1, edges[V * 3 + b1].emplace_back(edge{V\
-    \ * 3 + b1, n, 0});\r\n        }\r\n        for (a2 += V, b2 += V; a2 < b2; a2\
-    \ >>= 1, b2 >>= 1) {\r\n            if (a2 & 1) edges[n + 1].emplace_back(edge{n\
-    \ + 1, V + a2, 0}), ++a2;\r\n            if (b2 & 1) --b2, edges[n + 1].emplace_back(edge{n\
-    \ + 1, V + b2, 0});\r\n        }\r\n    }\r\n};\r\n"
+    \ {\r\n    struct edge {\r\n        std::int64_t from, to;\r\n        T dist;\r\
+    \n\r\n        bool operator<(const edge &rhs) const { return dist < rhs.dist;\
+    \ }\r\n        bool operator>(const edge &rhs) const { return dist > rhs.dist;\
+    \ }\r\n        edge &operator+=(const edge &rhs) {\r\n            to = rhs.to,\
+    \ dist += rhs.dist;\r\n            return *this;\r\n        }\r\n        edge\
+    \ operator+(const edge &rhs) { return edge(*this) += rhs; }\r\n    };\r\n\r\n\
+    \    std::int64_t V;\r\n    std::vector<T> dist;\r\n    std::vector<std::vector<edge>>\
+    \ edges;\r\n\r\n    Graph(std::int64_t v) : V(v), edges(v * 5), dist(v, numeric_limits<T>::max())\
+    \ {\r\n        for (std::int64_t i = 2; i < v * 2; ++i) {\r\n            edges.push_back(edge{v\
+    \ + i >> 1, v + i, 0});\r\n            edges.push_back(edge{v * 3 + i, v * 3 +\
+    \ i >> 1, 0});\r\n        }\r\n        for (std::int64_t i = 0; i < v; ++i) {\r\
+    \n            edges.push_back(edge{v * 2 + i, i, 0});\r\n            edges.push_back(edge{v\
+    \ * 4 + i, i, 0});\r\n        }\r\n    }\r\n\r\n    void add_edge(std::int64_t\
+    \ a1, std::int64_t b1, std::int64_t a2, std::int64_t b2, T d = 1,\r\n        \
+    \          bool is_dual = false) {\r\n        if (is_dual) add_edge(a2, b2, a1,\
+    \ b1, d, !is_dual);\r\n        std::int64_t n = edges.size();\r\n        edges.resize(n\
+    \ + 2);\r\n        edges[n].emplace_back(edge{n, n + 1, d});\r\n        for (a1\
+    \ += V, b1 += V; a1 < b1; a1 >>= 1, b1 >>= 1) {\r\n            if (a1 & 1) edges[V\
+    \ * 3 + a1].emplace_back(edge{V * 3 + a1, n, 0}), ++a1;\r\n            if (b1\
+    \ & 1) --b1, edges[V * 3 + b1].emplace_back(edge{V * 3 + b1, n, 0});\r\n     \
+    \   }\r\n        for (a2 += V, b2 += V; a2 < b2; a2 >>= 1, b2 >>= 1) {\r\n   \
+    \         if (a2 & 1) edges[n + 1].emplace_back(edge{n + 1, V + a2, 0}), ++a2;\r\
+    \n            if (b2 & 1) --b2, edges[n + 1].emplace_back(edge{n + 1, V + b2,\
+    \ 0});\r\n        }\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/_new/graph_segment.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/_new/graph_segment.hpp

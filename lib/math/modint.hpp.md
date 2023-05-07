@@ -23,9 +23,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
-  - icon: ':warning:'
-    path: test/aoj/jag/aho_corasick.cpp
-    title: test/aoj/jag/aho_corasick.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dpl/bell.test.cpp
@@ -33,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dpl/stirling.test.cpp
     title: test/aoj/dpl/stirling.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/aho_corasick.test.cpp
+    title: test/aoj/jag/aho_corasick.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/addition.test.cpp
     title: test/aoj/ntl/addition.test.cpp
@@ -140,32 +140,32 @@ data:
   isVerificationFile: false
   path: lib/math/modint.hpp
   requiredBy:
-  - lib/math/combination.hpp
-  - lib/math/enumeration.hpp
   - lib/data_structure/bigint.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt.hpp
   - lib/fft/ntt_mod.hpp
-  - test/aoj/jag/aho_corasick.cpp
+  - lib/fft/ntt.hpp
+  - lib/math/enumeration.hpp
+  - lib/math/combination.hpp
   timestamp: '2022-06-14 14:06:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/new/number_of_subsequences.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/matrix/matrix_product.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/power.test.cpp
+  - test/yosupo/new/number_of_subsequences.test.cpp
+  - test/aoj/jag/aho_corasick.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/dpl/bell.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
   - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/dpl/bell.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document
 redirect_from:

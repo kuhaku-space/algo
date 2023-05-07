@@ -24,7 +24,7 @@ data:
     \ {\r\n    T x, y, z;\r\n    constexpr Pos() : x(), y(), z() {}\r\n    constexpr\
     \ Pos(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}\r\n};\r\n\r\ntemplate <class\
     \ T>\r\nstruct Circle3 {\r\n    Pos<T> p;\r\n    T r;\r\n    constexpr Circle3(Pos<T>\
-    \ _p, T _r) : p(_p), r(_r) {}\r\n};\r\n\r\ntemplate <class T>\r\nCircle3<T> min_ball(vector<Pos<T>>\
+    \ _p, T _r) : p(_p), r(_r) {}\r\n};\r\n\r\ntemplate <class T>\r\nCircle3<T> min_ball(std::vector<Pos<T>>\
     \ &ps, Pos<T> p = {0.0, 0.0, 0.0}) {\r\n    auto dist = [](const Pos<T> &a, const\
     \ Pos<T> &b) -> T {\r\n        T dx = a.x - b.x;\r\n        T dy = a.y - b.y;\r\
     \n        T dz = a.z - b.z;\r\n        return sqrt(dx * dx + dy * dy + dz * dz);\r\
@@ -39,7 +39,7 @@ data:
   isVerificationFile: false
   path: lib/geometry/geometry3d.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/geometry/geometry3d.hpp

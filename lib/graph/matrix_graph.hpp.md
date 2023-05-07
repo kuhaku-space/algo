@@ -45,30 +45,30 @@ data:
     \ this->m[a][b] = d; }\r\n    void add_edges(int a, int b, T d = T(1)) { this->m[a][b]\
     \ = this->m[b][a] = d; }\r\n\r\n    void input_edge(int m, int base = 1) {\r\n\
     \        for (int i = 0; i < m; ++i) {\r\n            int from, to;\r\n      \
-    \      T weight;\r\n            cin >> from >> to >> weight;\r\n            this->add_edge(from\
-    \ - base, to - base, weight);\r\n        }\r\n    }\r\n    void input_edges(int\
-    \ m, int base = 1) {\r\n        for (int i = 0; i < m; ++i) {\r\n            int\
-    \ from, to;\r\n            T weight;\r\n            cin >> from >> to >> weight;\r\
-    \n            this->add_edges(from - base, to - base, weight);\r\n        }\r\n\
-    \    }\r\n\r\n  private:\r\n    int _size;\r\n    std::vector<std::vector<T>>\
-    \ m;\r\n};\r\n\r\ntemplate <>\r\nstruct matrix_graph<void> {\r\n    matrix_graph(int\
-    \ v) : _size(v), m(v, std::vector<bool>(v)) {}\r\n\r\n    const auto &operator[](int\
-    \ i) const { return this->m[i]; }\r\n    auto &operator[](int i) { return this->m[i];\
-    \ }\r\n    const auto begin() const { return this->m.begin(); }\r\n    auto begin()\
-    \ { return this->m.begin(); }\r\n    const auto end() const { return this->m.end();\
-    \ }\r\n    auto end() { return this->m.end(); }\r\n\r\n    constexpr int size()\
-    \ const { return this->_size; }\r\n\r\n    void add_edge(int a, int b) { this->m[a][b]\
-    \ = true; }\r\n    void add_edges(int a, int b) { this->m[a][b] = this->m[b][a]\
-    \ = true; }\r\n\r\n    void input_edge(int m, int base = 1) {\r\n        for (int\
-    \ i = 0; i < m; ++i) {\r\n            int from, to;\r\n            cin >> from\
-    \ >> to;\r\n            this->add_edge(from - base, to - base);\r\n        }\r\
-    \n    }\r\n    void input_edges(int m, int base = 1) {\r\n        for (int i =\
-    \ 0; i < m; ++i) {\r\n            int from, to;\r\n            cin >> from >>\
-    \ to;\r\n            this->add_edges(from - base, to - base);\r\n        }\r\n\
-    \    }\r\n\r\n    void complement() {\r\n        for (int i = 0; i < this->_size;\
-    \ ++i) {\r\n            for (int j = 0; j < this->_size; ++j) this->m[i][j] =\
-    \ !this->m[i][j];\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _size;\r\n\
-    \    std::vector<std::vector<bool>> m;\r\n};\r\n"
+    \      T weight;\r\n            std::cin >> from >> to >> weight;\r\n        \
+    \    this->add_edge(from - base, to - base, weight);\r\n        }\r\n    }\r\n\
+    \    void input_edges(int m, int base = 1) {\r\n        for (int i = 0; i < m;\
+    \ ++i) {\r\n            int from, to;\r\n            T weight;\r\n           \
+    \ std::cin >> from >> to >> weight;\r\n            this->add_edges(from - base,\
+    \ to - base, weight);\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _size;\r\
+    \n    std::vector<std::vector<T>> m;\r\n};\r\n\r\ntemplate <>\r\nstruct matrix_graph<void>\
+    \ {\r\n    matrix_graph(int v) : _size(v), m(v, std::vector<bool>(v)) {}\r\n\r\
+    \n    const auto &operator[](int i) const { return this->m[i]; }\r\n    auto &operator[](int\
+    \ i) { return this->m[i]; }\r\n    const auto begin() const { return this->m.begin();\
+    \ }\r\n    auto begin() { return this->m.begin(); }\r\n    const auto end() const\
+    \ { return this->m.end(); }\r\n    auto end() { return this->m.end(); }\r\n\r\n\
+    \    constexpr int size() const { return this->_size; }\r\n\r\n    void add_edge(int\
+    \ a, int b) { this->m[a][b] = true; }\r\n    void add_edges(int a, int b) { this->m[a][b]\
+    \ = this->m[b][a] = true; }\r\n\r\n    void input_edge(int m, int base = 1) {\r\
+    \n        for (int i = 0; i < m; ++i) {\r\n            int from, to;\r\n     \
+    \       std::cin >> from >> to;\r\n            this->add_edge(from - base, to\
+    \ - base);\r\n        }\r\n    }\r\n    void input_edges(int m, int base = 1)\
+    \ {\r\n        for (int i = 0; i < m; ++i) {\r\n            int from, to;\r\n\
+    \            std::cin >> from >> to;\r\n            this->add_edges(from - base,\
+    \ to - base);\r\n        }\r\n    }\r\n\r\n    void complement() {\r\n       \
+    \ for (int i = 0; i < this->_size; ++i) {\r\n            for (int j = 0; j < this->_size;\
+    \ ++j) this->m[i][j] = !this->m[i][j];\r\n        }\r\n    }\r\n\r\n  private:\r\
+    \n    int _size;\r\n    std::vector<std::vector<bool>> m;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -76,7 +76,7 @@ data:
   requiredBy:
   - lib/graph/chromatic_number.hpp
   - lib/graph/warshall_floyd.hpp
-  timestamp: '2022-07-17 07:16:58+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/chromatic_number.test.cpp

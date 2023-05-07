@@ -35,7 +35,7 @@ data:
     \        : _left(), _right(), _order(), _size(n), _nl(0), _nr(0), _ptr(0), _addl(fl),\
     \ _addr(fr),\r\n          _dell(gl), _delr(gr) {}\r\n\r\n    void input(int q,\
     \ int bias = 1, int closed = 0) {\r\n        for (int i = 0; i < q; ++i) {\r\n\
-    \            int l, r;\r\n            cin >> l >> r;\r\n            this->add(l\
+    \            int l, r;\r\n            std::cin >> l >> r;\r\n            this->add(l\
     \ - bias, r - bias + closed);\r\n        }\r\n    }\r\n\r\n    void add(int l,\
     \ int r) {\r\n        this->_left.emplace_back(l);\r\n        this->_right.emplace_back(r);\r\
     \n    }\r\n    void emplace(int l, int r) { return this->add(l, r); }\r\n    void\
@@ -61,7 +61,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/mo.hpp
   requiredBy: []
-  timestamp: '2022-07-30 01:28:57+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_range_inversions.test.cpp

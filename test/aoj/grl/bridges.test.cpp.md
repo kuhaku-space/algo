@@ -56,7 +56,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/bridges.test.cpp
   requiredBy: []
-  timestamp: '2022-07-30 08:42:03+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/bridges.test.cpp

@@ -143,9 +143,9 @@ data:
     - icon: ':warning:'
       path: lib/geometry/geometry3d.hpp
       title: lib/geometry/geometry3d.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/geometry/kdtree.hpp
-      title: lib/geometry/kdtree.hpp
+      title: kd-tree
   - name: lib/graph
     pages:
     - icon: ':heavy_check_mark:'
@@ -314,7 +314,7 @@ data:
       title: lib/segment_tree/segment_tree_raq.hpp
   - name: lib/string
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/string/aho_corasick.hpp
       title: "Aho Corasick \u6CD5"
     - icon: ':warning:'
@@ -396,11 +396,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - name: test/aoj/jag
-    pages:
-    - icon: ':warning:'
-      path: test/aoj/jag/aho_corasick.cpp
-      title: test/aoj/jag/aho_corasick.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
@@ -452,6 +447,9 @@ data:
       title: test/aoj/dpl/stirling.test.cpp
   - name: test/aoj/dsl
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/dsl/range_search.test.cpp
+      title: test/aoj/dsl/range_search.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/raq_rmq.test.cpp
       title: test/aoj/dsl/raq_rmq.test.cpp
@@ -551,6 +549,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/itp2/treap.test.cpp
       title: test/aoj/itp2/treap.test.cpp
+  - name: test/aoj/jag
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/jag/aho_corasick.test.cpp
+      title: test/aoj/jag/aho_corasick.test.cpp
   - name: test/aoj/ntl
     pages:
     - icon: ':heavy_check_mark:'

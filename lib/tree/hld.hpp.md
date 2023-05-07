@@ -57,9 +57,9 @@ data:
     \ u, int v) {\r\n        this->g[u].emplace_back(v);\r\n        this->g[v].emplace_back(u);\r\
     \n    }\r\n\r\n    void input_edge(int base = 1) { this->input_edges(base); }\r\
     \n    void input_edges(int base = 1) {\r\n        for (int i = 0; i < this->_size\
-    \ - 1; ++i) {\r\n            int u, v;\r\n            cin >> u >> v;\r\n     \
-    \       this->add_edges(u - base, v - base);\r\n        }\r\n    }\r\n\r\n   \
-    \ void build(int r = 0) {\r\n        int pos = 0;\r\n        this->dfs_sz(r);\r\
+    \ - 1; ++i) {\r\n            int u, v;\r\n            std::cin >> u >> v;\r\n\
+    \            this->add_edges(u - base, v - base);\r\n        }\r\n    }\r\n\r\n\
+    \    void build(int r = 0) {\r\n        int pos = 0;\r\n        this->dfs_sz(r);\r\
     \n        this->nxt[r] = r;\r\n        this->dfs_hld(r, pos);\r\n    }\r\n\r\n\
     \    int get(int v) const { return this->vid[v]; }\r\n    int get_parent(int v)\
     \ const { return this->par[v]; }\r\n\r\n    int dist(int u, int v) const {\r\n\
@@ -105,16 +105,16 @@ data:
   isVerificationFile: false
   path: lib/tree/hld.hpp
   requiredBy: []
-  timestamp: '2023-04-17 09:46:35+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/tree/jump_on_tree.test.cpp
   - test/yosupo/tree/lca.test.cpp
+  - test/yosupo/tree/jump_on_tree.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
 documentation_of: lib/tree/hld.hpp
 layout: document
 redirect_from:

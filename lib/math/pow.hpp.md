@@ -132,39 +132,39 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
-  - lib/math/math.hpp
-  - lib/math/primitive_root.hpp
   - lib/data_structure/bigint.hpp
   - lib/data_structure/sparse_table.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/garner.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
+  - lib/fft/ntt.hpp
+  - lib/math/primitive_root.hpp
+  - lib/math/math.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree.hpp
   timestamp: '2022-07-31 15:35:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
 documentation_of: lib/math/pow.hpp
 layout: document
 redirect_from:

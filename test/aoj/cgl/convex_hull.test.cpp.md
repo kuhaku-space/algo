@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/aoj/cgl/convex_hull.test.cpp
   requiredBy: []
-  timestamp: '2023-01-05 23:34:09+09:00'
+  timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/convex_hull.test.cpp

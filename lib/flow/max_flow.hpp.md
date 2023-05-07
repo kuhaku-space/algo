@@ -92,8 +92,8 @@ data:
   timestamp: '2022-07-16 07:23:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/max_flow.test.cpp
   - test/aoj/grl/bipartite_matching.test.cpp
+  - test/aoj/grl/max_flow.test.cpp
 documentation_of: lib/flow/max_flow.hpp
 layout: document
 redirect_from:

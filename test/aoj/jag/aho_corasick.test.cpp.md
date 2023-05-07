@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: modint
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/string/aho_corasick.hpp
     title: "Aho Corasick \u6CD5"
   - icon: ':heavy_check_mark:'
@@ -29,8 +29,10 @@ data:
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/challenges/sources/JAG/Regional/2863?year=2017
     links:
     - https://onlinejudge.u-aizu.ac.jp/challenges/sources/JAG/Regional/2863?year=2017
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -66,16 +68,16 @@ data:
   - lib/template/sonic.hpp
   - lib/tree/tree_function.hpp
   - lib/graph/graph.hpp
-  isVerificationFile: false
-  path: test/aoj/jag/aho_corasick.cpp
+  isVerificationFile: true
+  path: test/aoj/jag/aho_corasick.test.cpp
   requiredBy: []
-  timestamp: '2023-02-18 16:27:31+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2023-05-07 20:09:35+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/jag/aho_corasick.cpp
+documentation_of: test/aoj/jag/aho_corasick.test.cpp
 layout: document
 redirect_from:
-- /library/test/aoj/jag/aho_corasick.cpp
-- /library/test/aoj/jag/aho_corasick.cpp.html
-title: test/aoj/jag/aho_corasick.cpp
+- /verify/test/aoj/jag/aho_corasick.test.cpp
+- /verify/test/aoj/jag/aho_corasick.test.cpp.html
+title: test/aoj/jag/aho_corasick.test.cpp
 ---
