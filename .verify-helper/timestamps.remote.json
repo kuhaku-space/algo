@@ -94,5 +94,6 @@
 "test/yosupo/tree/cartesian_tree.test.cpp": "2022-07-31 09:42:19 +0900",
 "test/yosupo/tree/jump_on_tree.test.cpp": "2023-05-07 20:09:35 +0900",
 "test/yosupo/tree/lca.test.cpp": "2023-05-07 20:09:35 +0900",
-"test/yosupo/tree/tree_diameter.test.cpp": "2023-05-07 20:09:35 +0900"
+"test/yosupo/tree/tree_diameter.test.cpp": "2023-05-07 20:09:35 +0900",
+"test/yosupo/tree/tree_path_composite_sum.test.cpp": "2023-05-09 00:40:05 +0900"
 }
