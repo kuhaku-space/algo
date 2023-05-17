@@ -5,8 +5,14 @@ data:
     path: lib/data_structure/swag.hpp
     title: lib/data_structure/swag.hpp
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
@@ -43,8 +49,8 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
     \n#include \"data_structure/swag.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = ModInt<>;\n\nint main(void) {\n   \
-    \ int q;\n    cin >> q;\n    sliding_window_aggregation<Affine<Mint>> swag;\n\
+    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n  \
+    \  int q;\n    cin >> q;\n    sliding_window_aggregation<Affine<Mint>> swag;\n\
     \    while (q--) {\n        int c;\n        cin >> c;\n        if (c == 0) {\n\
     \            int a, b;\n            cin >> a >> b;\n            swag.emplace({a,\
     \ b});\n        } else if (c == 1) {\n            swag.pop();\n        } else\
@@ -56,13 +62,15 @@ data:
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
   - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
+  - lib/internal/internal_type_traits.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-17 11:40:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/queue_operate_all_composite.test.cpp

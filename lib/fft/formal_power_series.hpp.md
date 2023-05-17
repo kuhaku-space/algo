@@ -3,13 +3,19 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
-    title: "\u6570\u8AD6\u5909\u63DB"
+    title: lib/fft/ntt.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -30,39 +36,60 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: fft/ntt.hpp: line\
     \ -1: no such header\n"
   code: "#include \"fft/ntt.hpp\"\r\n#include \"math/modint.hpp\"\r\n#include \"template/template.hpp\"\
-    \r\n\r\ntemplate <class T>\r\nstruct formal_power_series {\r\n    std::vector<T>\
-    \ data;\r\n\r\n    formal_power_series(std::vector<T> _v) : data(_v) {}\r\n\r\n\
-    \    const Mint &operator[](const std::int64_t x) const { return data[x]; }\r\n\
-    \    Mint &operator[](const std::int64_t x) { return data[x]; }\r\n\r\n    inline\
-    \ size_t size() const { return data.size(); }\r\n\r\n    void resize(size_t _sz)\
-    \ { data.resize(_sz); }\r\n\r\n    void pow(std::int64_t x) {\r\n        std::int64_t\
-    \ n = size();\r\n        std::vector<std::int64_t> ans(n);\r\n        ans[0] =\
-    \ T(1);\r\n        for (; x > 0; x >>= 1) {\r\n            if (x & 1) {\r\n  \
-    \              ntt.convolution_self(ans, data);\r\n                ans.resize(n);\r\
-    \n            }\r\n            ntt.convolution_self(data, data);\r\n         \
-    \   data.resize(n);\r\n        }\r\n        swap(data, ans);\r\n    }\r\n\r\n\
-    \    void conv_naive(const formal_power_series &a) {\r\n        std::int64_t n\
-    \ = size() + a.size() - 1;\r\n        std::vector<T> ans(n);\r\n        for (std::int64_t\
-    \ i = 0; i < a.size(); ++i) {\r\n            if (a[i] == 0) continue;\r\n    \
-    \        for (std::int64_t j = 0; j < size(); ++j) {\r\n                ans[i\
-    \ + j] += data[j] * a[i];\r\n            }\r\n        }\r\n        swap(data,\
-    \ ans);\r\n    }\r\n\r\n    // data * (1 - x^n)\r\n    void mul(std::int64_t n)\
-    \ {\r\n        for (std::int64_t i = size() - 1; i >= n; --i) data[i] -= data[i\
-    \ - n];\r\n    }\r\n\r\n    // data / (1 - x^n)\r\n    void div(std::int64_t n)\
-    \ {\r\n        for (std::int64_t i = n; i < size(); ++i) data[i] += data[i - n];\r\
-    \n    }\r\n\r\n    void cumsum() {\r\n        for (std::int64_t i = 1; i < size();\
-    \ ++i) data[i] += data[i - 1];\r\n    }\r\n\r\n    void cumsum_inv() {\r\n   \
-    \     for (std::int64_t i = size() - 1; i > 0; --i) data[i] -= data[i - 1];\r\n\
-    \    }\r\n};\r\n"
+    \r\n\r\ntemplate <class mint>\r\nstruct formal_power_series : vector<mint> {\r\
+    \n    using fps = formal_power_series;\r\n\r\n    formal_power_series(std::vector<T>\
+    \ &&v) : vector<mint>(v) {}\r\n    formal_power_series(const std::vector<T> &v)\
+    \ : vector<mint>(v) {}\r\n\r\n    constexpr fps &operator+=(const mint &v) {\r\
+    \n        if (this->empty()) this->resize(1);\r\n        (*this)[0] += v;\r\n\
+    \        return *this;\r\n    }\r\n    constexpr fps &operator+=(const fps &f)\
+    \ {\r\n        if (f.size() > this->size()) this->resize(f.size());\r\n      \
+    \  for (int i = 0; i < (int)f.size(); ++i) (*this)[i] += f[i];\r\n        return\
+    \ this->normalize();\r\n    }\r\n    constexpr fps &operator-=(const mint &v)\
+    \ {\r\n        if (this->empty()) this->resize(1);\r\n        (*this)[0] -= v;\r\
+    \n        return *this;\r\n    }\r\n    constexpr fps &operator-=(const fps &f)\
+    \ {\r\n        if (f.size() > this->size()) this->resize(f.size());\r\n      \
+    \  for (int i = 0; i < (int)f.size(); ++i) (*this)[i] -= f[i];\r\n        return\
+    \ this->normalize();\r\n    }\r\n    constexpr fps &operator*=(const mint &v)\
+    \ {\r\n        for (int i = 0; i < (int)this->size(); ++i) (*this)[i] *= v;\r\n\
+    \        return *this;\r\n    }\r\n    constexpr fps &operator*=(const fps &f)\
+    \ { return *this = convolution((*this), f); }\r\n    constexpr fps &operator/=(const\
+    \ mint &v) {\r\n        assert(v != 0);\r\n        mint iv = modinv(v);\r\n  \
+    \      for (int i = 0; i < (int)this->size(); ++i) (*this)[i] *= iv;\r\n     \
+    \   return *this;\r\n    }\r\n    constexpr fps &operator<<=(int x) {\r\n    \
+    \    fps res(x, 0);\r\n        res.insert(res.end(), begin(*this), end(*this));\r\
+    \n        return *this = res;\r\n    }\r\n    constexpr fps &operator>>=(int x)\
+    \ {\r\n        fps res;\r\n        res.insert(res.end(), begin(*this) + x, end(*this));\r\
+    \n        return *this = res;\r\n    }\r\n\r\n    constexpr fps operator+(const\
+    \ mint &v) const { return fps(*this) += v; }\r\n    constexpr fps operator+(const\
+    \ fps &f) const { return fps(*this) += f; }\r\n    constexpr fps operator-(const\
+    \ mint &v) const { return fps(*this) -= v; }\r\n    constexpr fps operator-(const\
+    \ fps &f) const { return fps(*this) -= f; }\r\n    constexpr fps operator*(const\
+    \ mint &v) const { return fps(*this) *= v; }\r\n    constexpr fps operator*(const\
+    \ fps &f) const { return fps(*this) *= f; }\r\n    constexpr fps operator/(const\
+    \ mint &v) const { return fps(*this) /= v; }\r\n    constexpr fps operator<<(int\
+    \ x) const { return fps(*this) <<= x; }\r\n    constexpr fps operator>>(int x)\
+    \ const { return fps(*this) >>= x; }\r\n\r\n    constexpr fps operator+() const\
+    \ { return fps(*this); }\r\n    constexpr fps operator-() const {\r\n        fps\
+    \ res = *this;\r\n        for (int i = 0; i < (int)res.size(); ++i) res[i] = -res[i];\r\
+    \n        return res;\r\n    }\r\n\r\n    constexpr fps pre(int sz) const {\r\n\
+    \        return fps(std::begin(*this), std::begin(*this) + std::min((int)this->size(),\
+    \ sz));\r\n    }\r\n    constexpr fps inv(int deg) {\r\n        assert((*this)[0]\
+    \ != 0);\r\n        if (deg < 0) deg = (int)v.size();\r\n        fps res({mint(1)\
+    \ / (*this)[0]});\r\n        for (int i = 1; i < deg; i <<= 1) {\r\n         \
+    \   res = (res + res - res * res * this->pre(i << 1)).pre(i << 1);\r\n       \
+    \ }\r\n        res.resize(deg);\r\n        return res;\r\n    }\r\n    constexpr\
+    \ fps inv() { return inv(v.size()); }\r\n};\r\n"
   dependsOn:
   - lib/fft/ntt.hpp
-  - lib/math/modint.hpp
+  - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_math.hpp
+  - lib/internal/internal_type_traits.hpp
+  - lib/math/modint.hpp
   isVerificationFile: false
   path: lib/fft/formal_power_series.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-17 11:39:38+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/formal_power_series.hpp

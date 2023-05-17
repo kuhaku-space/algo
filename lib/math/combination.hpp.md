@@ -2,8 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -33,7 +39,7 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#include \"math/modint.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
-    template <int mod = MOD_N>\r\nstruct Combination {\r\n    using mint = ModInt<mod>;\r\
+    template <int mod = MOD_N>\r\nstruct Combination {\r\n    using mint = static_modint<mod>;\r\
     \n\r\n    Combination() : _fact(), _finv() {}\r\n\r\n    mint operator()(int n,\
     \ int k) {\r\n        if (n < k || n < 0 || k < 0) return 0;\r\n        this->_init(n);\r\
     \n        return this->_fact[n] * this->_finv[k] * this->_finv[n - k];\r\n   \
@@ -62,21 +68,23 @@ data:
     \n        this->_fact.resize(n + 1);\r\n        for (int i = m; i <= n; ++i) {\r\
     \n            if (i == 0) this->_fact[i] = 1;\r\n            else this->_fact[i]\
     \ = this->_fact[i - 1] * i;\r\n        }\r\n        this->_finv.resize(n + 1);\r\
-    \n        this->_finv[n] = this->_fact[n].inverse();\r\n        for (int i = n\
-    \ - 1; i >= m; --i) this->_finv[i] = this->_finv[i + 1] * (i + 1);\r\n    }\r\n\
-    };\r\n"
+    \n        this->_finv[n] = this->_fact[n].inv();\r\n        for (int i = n - 1;\
+    \ i >= m; --i) this->_finv[i] = this->_finv[i + 1] * (i + 1);\r\n    }\r\n};\r\
+    \n"
   dependsOn:
   - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
   - lib/template/template.hpp
+  - lib/internal/internal_type_traits.hpp
   isVerificationFile: false
   path: lib/math/combination.hpp
   requiredBy:
   - lib/math/enumeration.hpp
-  timestamp: '2023-02-07 21:11:06+09:00'
+  timestamp: '2023-05-17 11:56:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/combination.hpp
 layout: document
 redirect_from:

@@ -104,13 +104,13 @@ data:
   timestamp: '2022-07-29 22:00:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
-  - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
 documentation_of: lib/binary_tree/fenwick_tree.hpp
 layout: document
 redirect_from:

@@ -2,11 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/math/combination.hpp
     title: lib/math/combination.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -34,13 +40,13 @@ data:
     \ line -1: no such header\n"
   code: "#include \"math/combination.hpp\"\n#include \"math/modint.hpp\"\n#include\
     \ \"template/template.hpp\"\n\ntemplate <int mod>\nstruct Enumeration {\n    using\
-    \ mint = ModInt<mod>;\n\n    Enumeration() : combi(), data() {}\n\n    mint stirling(int\
-    \ n, int k) {\n        mint res = 0;\n        for (int i = 0; i < k; ++i) {\n\
-    \            if (i & 1) res -= this->combi(k, k - i) * mint(k - i).pow(n);\n \
-    \           else res += this->combi(k, k - i) * mint(k - i).pow(n);\n        }\n\
-    \        res *= this->combi.finv(k);\n        return res;\n    }\n\n    mint bell(int\
-    \ n, int k) {\n        this->_init(k);\n        mint res = 0;\n        for (int\
-    \ i = 0; i <= k; ++i) {\n            res += mint(i).pow(n) * this->combi.finv(i)\
+    \ mint = static_modint<mod>;\n\n    Enumeration() : combi(), data() {}\n\n   \
+    \ mint stirling(int n, int k) {\n        mint res = 0;\n        for (int i = 0;\
+    \ i < k; ++i) {\n            if (i & 1) res -= this->combi(k, k - i) * mint(k\
+    \ - i).pow(n);\n            else res += this->combi(k, k - i) * mint(k - i).pow(n);\n\
+    \        }\n        res *= this->combi.finv(k);\n        return res;\n    }\n\n\
+    \    mint bell(int n, int k) {\n        this->_init(k);\n        mint res = 0;\n\
+    \        for (int i = 0; i <= k; ++i) {\n            res += mint(i).pow(n) * this->combi.finv(i)\
     \ * this->data[k - i];\n        }\n        return res;\n    }\n\n  private:\n\
     \    Combination<mod> combi;\n    std::vector<mint> data;\n\n    void _init(int\
     \ n) {\n        if (this->data.size() > n) return;\n        int m = this->data.size();\n\
@@ -51,15 +57,17 @@ data:
   dependsOn:
   - lib/math/combination.hpp
   - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
   - lib/template/template.hpp
+  - lib/internal/internal_type_traits.hpp
   isVerificationFile: false
   path: lib/math/enumeration.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-17 11:56:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/enumeration.hpp
 layout: document
 redirect_from:

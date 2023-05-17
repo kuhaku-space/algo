@@ -81,9 +81,9 @@ data:
   timestamp: '2022-07-11 16:46:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
 documentation_of: lib/heap/binary_heap.hpp
 layout: document
 redirect_from:

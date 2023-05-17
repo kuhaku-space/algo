@@ -5,8 +5,14 @@ data:
     path: lib/algorithm/compress.hpp
     title: "\u5EA7\u6A19\u5727\u7E2E"
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -40,8 +46,8 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/number_of_subsequences\"\
     \n#include \"algorithm/compress.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = ModInt<>;\n\nint main(void) {\n   \
-    \ int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n    a = compress(a);\n\
+    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n  \
+    \  int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n    a = compress(a);\n\
     \    Mint ans = 0;\n    vector<Mint> dp(*max_element(all(a)) + 1);\n    for (auto\
     \ x : a) {\n        auto t = ans - dp[x] + 1;\n        ans += t;\n        dp[x]\
     \ += t;\n    }\n    co(ans);\n\n    return 0;\n}\n"
@@ -49,13 +55,15 @@ data:
   - lib/algorithm/compress.hpp
   - lib/template/template.hpp
   - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
+  - lib/internal/internal_type_traits.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/new/number_of_subsequences.test.cpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-17 11:40:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/new/number_of_subsequences.test.cpp

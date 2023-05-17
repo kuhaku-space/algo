@@ -64,8 +64,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/unionfind.test.cpp
-  - test/aoj/grl/kruskal.test.cpp
   - test/aoj/dsl/union_find.test.cpp
+  - test/aoj/grl/kruskal.test.cpp
 documentation_of: lib/tree/union_find.hpp
 layout: document
 redirect_from:

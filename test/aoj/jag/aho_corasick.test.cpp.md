@@ -5,8 +5,14 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/string/aho_corasick.hpp
     title: "Aho Corasick \u6CD5"
@@ -47,7 +53,7 @@ data:
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/JAG/Regional/2863?year=2017\"\
     \n#include \"string/aho_corasick.hpp\"\n#include \"math/modint.hpp\"\n#include\
     \ \"template/atcoder.hpp\"\n#include \"tree/tree_function.hpp\"\n\nusing Mint\
-    \ = ModInt<MOD>;\n\nint main(void) {\n    int m;\n    cin >> m;\n    vector<string>\
+    \ = modint107;\n\nint main(void) {\n    int m;\n    cin >> m;\n    vector<string>\
     \ t(m);\n    cin >> t;\n    aho_corasick<26, 'a'> aho;\n    vector<vector<int>>\
     \ correct;\n    rep (i, m) {\n        auto v = aho.insert(t[i]);\n        correct.resize(aho.size());\n\
     \        correct[v.back()].emplace_back(i);\n    }\n    auto failure = aho.build();\n\
@@ -63,6 +69,8 @@ data:
   - lib/string/aho_corasick.hpp
   - lib/template/template.hpp
   - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
+  - lib/internal/internal_type_traits.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
@@ -71,7 +79,7 @@ data:
   isVerificationFile: true
   path: test/aoj/jag/aho_corasick.test.cpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-17 11:40:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/aho_corasick.test.cpp

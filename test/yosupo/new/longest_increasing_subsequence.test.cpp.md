@@ -38,7 +38,7 @@ data:
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/longest_increasing_subsequence\"\
     \n#include \"algorithm/lis.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
     \ {\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n\n    auto\
-    \ ans = make_LIS(a);\n    co(ans.size());\n    co(ans);\n\n    return 0;\n}\n"
+    \ ans = make_lis(a);\n    co(ans.size());\n    co(ans);\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/lis.hpp
   - lib/template/template.hpp
@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/new/longest_increasing_subsequence.test.cpp
   requiredBy: []
-  timestamp: '2022-07-29 05:36:41+09:00'
+  timestamp: '2023-05-17 13:55:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/new/longest_increasing_subsequence.test.cpp

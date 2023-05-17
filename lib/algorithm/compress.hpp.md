@@ -72,16 +72,16 @@ data:
   isVerificationFile: false
   path: lib/algorithm/compress.hpp
   requiredBy:
-  - lib/matrix/compressed_wavelet_matrix.hpp
   - lib/algorithm/inversion_number.hpp
+  - lib/matrix/compressed_wavelet_matrix.hpp
   timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/new/number_of_subsequences.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_inversions.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
-  - test/yosupo/new/number_of_subsequences.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
 documentation_of: lib/algorithm/compress.hpp
 layout: document

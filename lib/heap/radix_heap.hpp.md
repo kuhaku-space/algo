@@ -112,9 +112,9 @@ data:
   timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
 documentation_of: lib/heap/radix_heap.hpp
 layout: document
 redirect_from:

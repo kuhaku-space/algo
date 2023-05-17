@@ -59,7 +59,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/tree/hld.hpp
     title: HLD
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/tree/rerooting.hpp
     title: "\u5168\u65B9\u4F4D\u6728dp"
   - icon: ':heavy_check_mark:'
@@ -147,6 +147,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/tree_diameter.test.cpp
     title: test/yosupo/tree/tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/tree/tree_path_composite_sum.test.cpp
+    title: test/yosupo/tree/tree_path_composite_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -224,56 +227,57 @@ data:
   isVerificationFile: false
   path: lib/graph/graph.hpp
   requiredBy:
-  - lib/graph/kruskal.hpp
-  - lib/graph/cycle.hpp
-  - lib/graph/two_sat.hpp
-  - lib/graph/shortest_path.hpp
-  - lib/graph/spfa.hpp
-  - lib/graph/spanning_tree.hpp
-  - lib/graph/lowlink.hpp
-  - lib/graph/maximum_independent_set.hpp
-  - lib/graph/prim.hpp
-  - lib/graph/dijkstra_potential.hpp
-  - lib/graph/dijkstra_heap.hpp
-  - lib/graph/dijkstra.hpp
-  - lib/graph/topological_sort.hpp
-  - lib/graph/bellman_ford.hpp
-  - lib/graph/scc.hpp
-  - lib/tree/tree_function.hpp
   - lib/tree/eular_tour.hpp
   - lib/tree/hld.hpp
-  - lib/tree/rerooting.hpp
   - lib/tree/centroid_decomposition.hpp
+  - lib/tree/rerooting.hpp
+  - lib/tree/tree_function.hpp
+  - lib/graph/shortest_path.hpp
+  - lib/graph/kruskal.hpp
+  - lib/graph/spfa.hpp
+  - lib/graph/prim.hpp
+  - lib/graph/two_sat.hpp
+  - lib/graph/topological_sort.hpp
+  - lib/graph/scc.hpp
+  - lib/graph/cycle.hpp
+  - lib/graph/maximum_independent_set.hpp
+  - lib/graph/bellman_ford.hpp
+  - lib/graph/dijkstra_potential.hpp
+  - lib/graph/dijkstra.hpp
+  - lib/graph/spanning_tree.hpp
+  - lib/graph/dijkstra_heap.hpp
+  - lib/graph/lowlink.hpp
   timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/tree/tree_diameter.test.cpp
+  - test/yosupo/tree/lca.test.cpp
+  - test/yosupo/tree/jump_on_tree.test.cpp
+  - test/yosupo/tree/tree_path_composite_sum.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/math/two_sat.test.cpp
   - test/yosupo/graph/scc.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/graph/maximum_independent_set.test.cpp
-  - test/yosupo/tree/lca.test.cpp
-  - test/yosupo/tree/tree_diameter.test.cpp
-  - test/yosupo/tree/jump_on_tree.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/undo_union_find.test.cpp
-  - test/yosupo/math/two_sat.test.cpp
   - test/aoj/jag/aho_corasick.test.cpp
-  - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/topological_sort.test.cpp
-  - test/aoj/grl/prim.test.cpp
-  - test/aoj/grl/cycle.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
-  - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/hld.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/bridges.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/dijkstra_radix.test.cpp
+  - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/kruskal.test.cpp
+  - test/aoj/grl/prim.test.cpp
+  - test/aoj/grl/scc.test.cpp
+  - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/bellman_ford.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/cycle.test.cpp
 documentation_of: lib/graph/graph.hpp
 layout: document
 redirect_from:

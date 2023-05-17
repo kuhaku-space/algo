@@ -2,8 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
@@ -46,7 +52,7 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
     \n#include \"math/modint.hpp\"\n#include \"segment_tree/segment_tree.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = ModInt<>;\n\nstruct M {\n    using\
+    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nstruct M {\n    using\
     \ T = pair<Mint, Mint>;\n    using value_type = T;\n    static constexpr T id\
     \ = T(1, 0);\n    static constexpr T op(T lhs, T rhs) {\n        return {rhs.first\
     \ * lhs.first, rhs.first * lhs.second + rhs.second};\n    }\n};\n\nint main(void)\
@@ -59,7 +65,9 @@ data:
     \n    return 0;\n}\n"
   dependsOn:
   - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
   - lib/template/template.hpp
+  - lib/internal/internal_type_traits.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/math/pow.hpp
   - lib/segment_tree/monoid.hpp
@@ -69,7 +77,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-04-17 09:43:02+09:00'
+  timestamp: '2023-05-17 11:40:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_set_range_composite.test.cpp

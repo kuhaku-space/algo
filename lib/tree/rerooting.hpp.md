@@ -8,10 +8,13 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/tree/tree_path_composite_sum.test.cpp
+    title: test/yosupo/tree/tree_path_composite_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u5168\u65B9\u4F4D\u6728dp"
     links:
@@ -58,8 +61,9 @@ data:
   path: lib/tree/rerooting.hpp
   requiredBy: []
   timestamp: '2023-05-07 20:09:35+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/tree/tree_path_composite_sum.test.cpp
 documentation_of: lib/tree/rerooting.hpp
 layout: document
 redirect_from:

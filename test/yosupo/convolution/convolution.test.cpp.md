@@ -3,13 +3,19 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
-    title: "\u6570\u8AD6\u5909\u63DB"
+    title: lib/fft/ntt.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -43,21 +49,22 @@ data:
     \ -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n#include\
     \ \"fft/ntt.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n   \
-    \ sonic();\n    int n, m;\n    cin >> n >> m;\n    vector<int> a(n), b(m);\n \
-    \   cin >> a >> b;\n\n    auto ans = NTT<>::convolution(a, b);\n    co(ans);\n\
-    \n    return 0;\n}\n"
+    \ int n, m;\n    cin >> n >> m;\n    vector<int> a(n), b(m);\n    cin >> a >>\
+    \ b;\n\n    auto ans = convolution(a, b);\n    co(ans);\n\n    return 0;\n}\n"
   dependsOn:
   - lib/fft/ntt.hpp
-  - lib/math/modint.hpp
+  - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_math.hpp
+  - lib/internal/internal_type_traits.hpp
+  - lib/math/modint.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/convolution/convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 15:35:50+09:00'
+  timestamp: '2023-05-17 11:40:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/convolution.test.cpp

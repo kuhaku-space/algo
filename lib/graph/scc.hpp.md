@@ -72,8 +72,8 @@ data:
   timestamp: '2023-05-07 20:09:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/graph/scc.test.cpp
   - test/yosupo/math/two_sat.test.cpp
+  - test/yosupo/graph/scc.test.cpp
   - test/aoj/grl/scc.test.cpp
 documentation_of: lib/graph/scc.hpp
 layout: document

@@ -112,9 +112,9 @@ data:
   - test/yosupo/tree/jump_on_tree.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/hld.test.cpp
   - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
 documentation_of: lib/tree/hld.hpp
 layout: document
 redirect_from:

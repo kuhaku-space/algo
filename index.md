@@ -117,7 +117,7 @@ data:
       title: lib/fft/garner.hpp
     - icon: ':heavy_check_mark:'
       path: lib/fft/ntt.hpp
-      title: "\u6570\u8AD6\u5909\u63DB"
+      title: lib/fft/ntt.hpp
     - icon: ':warning:'
       path: lib/fft/ntt_mod.hpp
       title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
@@ -222,6 +222,17 @@ data:
     - icon: ':warning:'
       path: lib/heap/skew_heap.hpp
       title: skew heap
+  - name: lib/internal
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/internal/internal_bit.hpp
+      title: lib/internal/internal_bit.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/internal/internal_math.hpp
+      title: lib/internal/internal_math.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/internal/internal_type_traits.hpp
+      title: lib/internal/internal_type_traits.hpp
   - name: lib/math
     pages:
     - icon: ':warning:'
@@ -248,7 +259,7 @@ data:
       title: lib/math/math.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
-      title: modint
+      title: lib/math/modint.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
@@ -381,7 +392,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/persistent_union_find.hpp
       title: "\u6C38\u7D9AUnion-Find"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/tree/rerooting.hpp
       title: "\u5168\u65B9\u4F4D\u6728dp"
     - icon: ':heavy_check_mark:'
@@ -721,5 +732,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/tree/tree_diameter.test.cpp
       title: test/yosupo/tree/tree_diameter.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/tree/tree_path_composite_sum.test.cpp
+      title: test/yosupo/tree/tree_path_composite_sum.test.cpp
 layout: toppage
 ---

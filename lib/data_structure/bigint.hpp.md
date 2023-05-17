@@ -3,13 +3,19 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
-    title: "\u6570\u8AD6\u5909\u63DB"
+    title: lib/fft/ntt.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
-    title: modint
-  - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
@@ -65,18 +71,18 @@ data:
     \ = 0; i < (int)s.size() - int(this->sign); ++i) {\r\n            this->data[i]\
     \ = s[i] - '0';\r\n        }\r\n    }\r\n    explicit BigInt(const std::vector<int>\
     \ &v) : data(v) { this->format(); }\r\n    explicit BigInt(const std::vector<int>\
-    \ &v, bool flag) : data(v), sign(flag) {\r\n        this->format();\r\n    }\r\
-    \n\r\n    BigInt &operator+=(const BigInt &rhs) {\r\n        if (this->sign ==\
-    \ rhs.sign) add(this->data, rhs.data);\r\n        else sub(this->data, rhs.data);\r\
-    \n        this->format();\r\n        return *this;\r\n    }\r\n    BigInt &operator-=(const\
-    \ BigInt &rhs) {\r\n        if (sign == rhs.sign) sub(this->data, rhs.data);\r\
-    \n        else add(this->data, rhs.data);\r\n        this->format();\r\n     \
-    \   return *this;\r\n    }\r\n    BigInt &operator*=(const BigInt &rhs) {\r\n\
-    \        this->mul(this->data, rhs.data);\r\n        this->sign ^= rhs.sign;\r\
-    \n        this->format();\r\n        return *this;\r\n    }\r\n    BigInt &operator*=(int\
-    \ rhs) {\r\n        this->mul(this->data, rhs);\r\n        return *this;\r\n \
-    \   }\r\n    BigInt &operator/=(const BigInt &rhs) {\r\n        assert(!rhs.is_zero());\r\
-    \n        if (this->abs_less(rhs)) return (*this = BigInt());\r\n        if (this->size()\
+    \ &v, bool flag) : data(v), sign(flag) { this->format(); }\r\n\r\n    BigInt &operator+=(const\
+    \ BigInt &rhs) {\r\n        if (this->sign == rhs.sign) add(this->data, rhs.data);\r\
+    \n        else sub(this->data, rhs.data);\r\n        this->format();\r\n     \
+    \   return *this;\r\n    }\r\n    BigInt &operator-=(const BigInt &rhs) {\r\n\
+    \        if (sign == rhs.sign) sub(this->data, rhs.data);\r\n        else add(this->data,\
+    \ rhs.data);\r\n        this->format();\r\n        return *this;\r\n    }\r\n\
+    \    BigInt &operator*=(const BigInt &rhs) {\r\n        this->mul(this->data,\
+    \ rhs.data);\r\n        this->sign ^= rhs.sign;\r\n        this->format();\r\n\
+    \        return *this;\r\n    }\r\n    BigInt &operator*=(int rhs) {\r\n     \
+    \   this->mul(this->data, rhs);\r\n        return *this;\r\n    }\r\n    BigInt\
+    \ &operator/=(const BigInt &rhs) {\r\n        assert(!rhs.is_zero());\r\n    \
+    \    if (this->abs_less(rhs)) return (*this = BigInt());\r\n        if (this->size()\
     \ < 9) return (*this = BigInt(this->to_int() / rhs.to_int()));\r\n        if (rhs.size()\
     \ < 8) return (*this /= rhs.to_int());\r\n        std::vector<int> v = rhs.data;\r\
     \n        int k = 10 / (1 + v.back());\r\n        *this *= k;\r\n        this->mul(v,\
@@ -161,46 +167,48 @@ data:
     \ {\r\n        int n = std::max(a.size(), b.size());\r\n        a.resize(n);\r\
     \n        for (int i = 0; i < (int)b.size(); ++i) a[i] -= b[i];\r\n        format(a);\r\
     \n    }\r\n    static void mul(std::vector<int> &a, const std::vector<int> &b)\
-    \ {\r\n        NTT<469762049, 3> ntt;  // 2^26 * 7 + 1\r\n        ntt.convolution_self(a,\
-    \ b);\r\n        format(a);\r\n    }\r\n    static void mul(std::vector<int> &data,\
-    \ int k) {\r\n        std::for_each(data.begin(), data.end(), [k](auto &x) {\r\
-    \n            x *= k;\r\n        });\r\n        format(data);\r\n    }\r\n   \
-    \ static void div(std::vector<int> &data, int k) {\r\n        int x = 0;\r\n \
-    \       for (int i = (int)data.size() - 1; i >= 0; --i) {\r\n            int r\
-    \ = (10 * x + data[i]) % k;\r\n            data[i] = (10 * x + data[i]) / k;\r\
-    \n            x = r;\r\n        }\r\n        format(data);\r\n    }\r\n\r\n  \
-    \  static void format(std::vector<int> &data) {\r\n        for (int i = 0;; ++i)\
-    \ {\r\n            if ((int)data.size() == i + 1) {\r\n                if (std::abs(data[i])\
-    \ <= 9) break;\r\n                else data.emplace_back(0);\r\n            }\r\
-    \n            data[i + 1] += data[i] / 10;\r\n            data[i] %= 10;\r\n \
-    \           if (data[i] < 0) --data[i + 1], data[i] += 10;\r\n        }\r\n  \
-    \      while ((int)data.size() > 1 && data.back() == 0) data.pop_back();\r\n \
-    \   }\r\n\r\n    void format() {\r\n        this->format(this->data);\r\n    \
-    \    if (this->back() < 0) {\r\n            this->inverse();\r\n            this->format();\r\
-    \n        }\r\n        if (this->is_zero()) this->sign = false;\r\n    }\r\n\r\
-    \n    void inverse() {\r\n        this->sign = !this->sign;\r\n        std::for_each(this->data.begin(),\
-    \ this->data.end(), [](auto &x) {\r\n            x = -x;\r\n        });\r\n  \
-    \  }\r\n\r\n    int to_int() const { return this->sign ? -this->to_uint() : this->to_uint();\
-    \ }\r\n    unsigned int to_uint() const {\r\n        int res = 0;\r\n        for\
-    \ (int i = this->size() - 1; i >= 0; --i) res = res * 10 + this->data[i];\r\n\
-    \        return res;\r\n    }\r\n};\r\n"
+    \ {\r\n        a = convolution(a, b);\r\n        format(a);\r\n    }\r\n    static\
+    \ void mul(std::vector<int> &data, int k) {\r\n        std::for_each(data.begin(),\
+    \ data.end(), [k](auto &x) {\r\n            x *= k;\r\n        });\r\n       \
+    \ format(data);\r\n    }\r\n    static void div(std::vector<int> &data, int k)\
+    \ {\r\n        int x = 0;\r\n        for (int i = (int)data.size() - 1; i >= 0;\
+    \ --i) {\r\n            int r = (10 * x + data[i]) % k;\r\n            data[i]\
+    \ = (10 * x + data[i]) / k;\r\n            x = r;\r\n        }\r\n        format(data);\r\
+    \n    }\r\n\r\n    static void format(std::vector<int> &data) {\r\n        for\
+    \ (int i = 0;; ++i) {\r\n            if ((int)data.size() == i + 1) {\r\n    \
+    \            if (std::abs(data[i]) <= 9) break;\r\n                else data.emplace_back(0);\r\
+    \n            }\r\n            data[i + 1] += data[i] / 10;\r\n            data[i]\
+    \ %= 10;\r\n            if (data[i] < 0) --data[i + 1], data[i] += 10;\r\n   \
+    \     }\r\n        while ((int)data.size() > 1 && data.back() == 0) data.pop_back();\r\
+    \n    }\r\n\r\n    void format() {\r\n        this->format(this->data);\r\n  \
+    \      if (this->back() < 0) {\r\n            this->inverse();\r\n           \
+    \ this->format();\r\n        }\r\n        if (this->is_zero()) this->sign = false;\r\
+    \n    }\r\n\r\n    void inverse() {\r\n        this->sign = !this->sign;\r\n \
+    \       std::for_each(this->data.begin(), this->data.end(), [](auto &x) {\r\n\
+    \            x = -x;\r\n        });\r\n    }\r\n\r\n    int to_int() const { return\
+    \ this->sign ? -this->to_uint() : this->to_uint(); }\r\n    unsigned int to_uint()\
+    \ const {\r\n        int res = 0;\r\n        for (int i = this->size() - 1; i\
+    \ >= 0; --i) res = res * 10 + this->data[i];\r\n        return res;\r\n    }\r\
+    \n};\r\n"
   dependsOn:
   - lib/fft/ntt.hpp
-  - lib/math/modint.hpp
+  - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_math.hpp
+  - lib/internal/internal_type_traits.hpp
+  - lib/math/modint.hpp
   isVerificationFile: false
   path: lib/data_structure/bigint.hpp
   requiredBy: []
-  timestamp: '2022-07-31 15:35:50+09:00'
+  timestamp: '2023-05-17 11:39:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/addition.test.cpp
 documentation_of: lib/data_structure/bigint.hpp
 layout: document
 redirect_from:

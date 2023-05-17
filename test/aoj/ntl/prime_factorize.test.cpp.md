@@ -23,9 +23,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A
+    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_A
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -35,12 +35,11 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/prime_number.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A\"\
-    \n#include \"math/prime_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nprime_number\
-    \ pn;\n\nint main(void) {\n    sonic();\n    int n;\n    cin >> n;\n    auto v\
-    \ = pn.prime_factorization(n);\n    cout << n << ':';\n    for (auto p : v) {\n\
-    \        rep(i, p.second) cout << ' ' << p.first;\n    }\n    cout << '\\n';\n\
-    \n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_A\"\n#include\
+    \ \"math/prime_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nprime_number\
+    \ pn;\n\nint main(void) {\n    int n;\n    cin >> n;\n    auto v = pn.prime_factorization(n);\n\
+    \    cout << n << ':';\n    for (auto p : v) {\n        rep (i, p.second) cout\
+    \ << ' ' << p.first;\n    }\n    cout << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/prime_number.hpp
   - lib/template/template.hpp
@@ -50,7 +49,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ntl/prime_factorize.test.cpp
   requiredBy: []
-  timestamp: '2023-04-17 11:02:50+09:00'
+  timestamp: '2023-05-17 11:40:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ntl/prime_factorize.test.cpp

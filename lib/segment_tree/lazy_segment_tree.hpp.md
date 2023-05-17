@@ -99,8 +99,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
 documentation_of: lib/segment_tree/lazy_segment_tree.hpp
 layout: document
 redirect_from:
