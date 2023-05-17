@@ -3,7 +3,7 @@
 #include "math/modint.hpp"
 #include "template/atcoder.hpp"
 
-using Mint = ModInt<>;
+using Mint = modint998;
 
 int main(void) {
     int q;

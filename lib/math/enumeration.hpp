@@ -4,7 +4,7 @@
 
 template <int mod>
 struct Enumeration {
-    using mint = ModInt<mod>;
+    using mint = static_modint<mod>;
 
     Enumeration() : combi(), data() {}
 

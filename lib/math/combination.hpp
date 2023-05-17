@@ -3,7 +3,7 @@
 
 template <int mod = MOD_N>
 struct Combination {
-    using mint = ModInt<mod>;
+    using mint = static_modint<mod>;
 
     Combination() : _fact(), _finv() {}
 
@@ -77,7 +77,7 @@ struct Combination {
             else this->_fact[i] = this->_fact[i - 1] * i;
         }
         this->_finv.resize(n + 1);
-        this->_finv[n] = this->_fact[n].inverse();
+        this->_finv[n] = this->_fact[n].inv();
         for (int i = n - 1; i >= m; --i) this->_finv[i] = this->_finv[i + 1] * (i + 1);
     }
 };
