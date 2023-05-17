@@ -8,7 +8,7 @@ int main(void) {
     vector<int> a(n);
     cin >> a;
 
-    auto ans = make_LIS(a);
+    auto ans = make_lis(a);
     co(ans.size());
     co(ans);
 
