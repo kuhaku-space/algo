@@ -8,7 +8,7 @@
  * @retval int 最長増加部分列の長さ
  */
 template <class T>
-int LIS(const std::vector<T> &v) {
+int longest_increasing_subsequence(const std::vector<T> &v) {
     int n = v.size();
     std::vector<T> dp;
     for (auto x : v) {
@@ -27,7 +27,7 @@ int LIS(const std::vector<T> &v) {
  * @retval std::vector<int> 最長増加部分列のインデックス
  */
 template <class T>
-std::vector<int> make_LIS(const std::vector<T> &v) {
+std::vector<int> make_lis(const std::vector<T> &v) {
     int n = v.size();
     std::vector<std::pair<T, int>> dp;
     std::vector<int> pr(n, -1);

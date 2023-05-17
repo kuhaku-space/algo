@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D"
 #include "algorithm/lis.hpp"
 #include "template/atcoder.hpp"
 
@@ -8,7 +8,7 @@ int main(void) {
     cin >> n;
     vector<int> a(n);
     cin >> a;
-    co(LIS(a));
+    co(longest_increasing_subsequence(a));
 
     return 0;
 }
