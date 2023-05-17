@@ -4,7 +4,7 @@
 #include "template/atcoder.hpp"
 #include "tree/hld.hpp"
 
-using Mint = ModInt<>;
+using Mint = modint998;
 
 int main(void) {
     int n, q;

@@ -4,7 +4,7 @@
 #include "template/atcoder.hpp"
 #include "tree/tree_function.hpp"
 
-using Mint = ModInt<MOD>;
+using Mint = modint107;
 
 int main(void) {
     int m;

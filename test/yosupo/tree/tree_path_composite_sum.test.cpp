@@ -3,7 +3,7 @@
 #include "template/atcoder.hpp"
 #include "tree/rerooting.hpp"
 
-using Mint = ModInt<>;
+using Mint = modint998;
 
 struct Monoid {
     using value_type = pair<Mint, Mint>;

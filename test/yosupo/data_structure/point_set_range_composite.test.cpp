@@ -3,7 +3,7 @@
 #include "segment_tree/segment_tree.hpp"
 #include "template/atcoder.hpp"
 
-using Mint = ModInt<>;
+using Mint = modint998;
 
 struct M {
     using T = pair<Mint, Mint>;

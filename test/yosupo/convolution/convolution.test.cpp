@@ -3,13 +3,12 @@
 #include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, m;
     cin >> n >> m;
     vector<int> a(n), b(m);
     cin >> a >> b;
 
-    auto ans = NTT<>::convolution(a, b);
+    auto ans = convolution(a, b);
     co(ans);
 
     return 0;
