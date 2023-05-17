@@ -35,9 +35,7 @@ struct BigInt {
         }
     }
     explicit BigInt(const std::vector<int> &v) : data(v) { this->format(); }
-    explicit BigInt(const std::vector<int> &v, bool flag) : data(v), sign(flag) {
-        this->format();
-    }
+    explicit BigInt(const std::vector<int> &v, bool flag) : data(v), sign(flag) { this->format(); }
 
     BigInt &operator+=(const BigInt &rhs) {
         if (this->sign == rhs.sign) add(this->data, rhs.data);
@@ -238,8 +236,7 @@ struct BigInt {
         format(a);
     }
     static void mul(std::vector<int> &a, const std::vector<int> &b) {
-        NTT<469762049, 3> ntt;  // 2^26 * 7 + 1
-        ntt.convolution_self(a, b);
+        a = convolution(a, b);
         format(a);
     }
     static void mul(std::vector<int> &data, int k) {

@@ -3,7 +3,7 @@
 
 template <int mod = MOD_N>
 struct Combination {
-    using mint = ModInt<mod>;
+    using mint = static_modint<mod>;
 
     Combination() : _fact(), _finv() {}
 
