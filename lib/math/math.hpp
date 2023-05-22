@@ -4,12 +4,12 @@
 std::int64_t gcd(std::int64_t a, std::int64_t b) {
     while (b) {
         a %= b;
-        swap(a, b);
+        std::swap(a, b);
     }
     return a;
 }
 
-std::int64_t gcd(const vector<std::int64_t> &v) {
+std::int64_t gcd(const std::vector<std::int64_t> &v) {
     if (v.empty()) return 1;
     std::int64_t res = v[0];
     for (auto i : v) res = gcd(res, i);
@@ -20,7 +20,7 @@ std::int64_t lcm(std::int64_t a, std::int64_t b) {
     return a / gcd(a, b) * b;
 }
 
-std::int64_t lcm(const vector<std::int64_t> &v) {
+std::int64_t lcm(const std::vector<std::int64_t> &v) {
     std::int64_t res = 1;
     for (auto i : v) res = lcm(res, i);
     return res;

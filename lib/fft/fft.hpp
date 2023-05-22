@@ -19,7 +19,7 @@ void _fft(std::vector<std::complex<double>> &a, bool inv) {
     for (int i = 0, j = 1; j < N - 1; ++j) {
         for (int k = N >> 1; k > (i ^= k); k >>= 1)
             ;
-        if (i > j) swap(a[i], a[j]);
+        if (i > j) std::swap(a[i], a[j]);
     }
     for (int k = 0, t = 1; t < N; ++k, t <<= 1) {
         std::complex<double> bw = vbw[k];

@@ -14,7 +14,7 @@ struct Fraction {
     std::int64_t gcd(std::int64_t a, std::int64_t b) const {
         while (b) {
             a %= b;
-            swap(a, b);
+            std::swap(a, b);
         }
         return a;
     }
@@ -73,10 +73,12 @@ struct Fraction {
     bool operator<(const Fraction &rhs) const { return x * rhs.y < rhs.x * y; }
     bool operator>(const Fraction &rhs) const { return x * rhs.y > rhs.x * y; }
 
-    friend ostream &operator<<(ostream &os, const Fraction &rhs) { return os << rhs.to_double(); }
+    friend std::ostream &operator<<(std::ostream &os, const Fraction &rhs) {
+        return os << rhs.to_double();
+    }
 
-    friend istream &operator>>(istream &is, Fraction &a) {
-        string s;
+    friend std::istream &operator>>(std::istream &is, Fraction &a) {
+        std::string s;
         is >> s;
         bool f = false;
         std::int64_t x = 0, y = 1;

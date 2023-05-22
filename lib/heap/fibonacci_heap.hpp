@@ -96,9 +96,7 @@ struct fibonacci_heap {
             auto order = node->order;
             this->_root = this->_root->erase();
             while (nodes[order]) {
-                if (comp(node->value, nodes[order]->value)) {
-                    swap(node, nodes[order]);
-                }
+                if (comp(node->value, nodes[order]->value)) std::swap(node, nodes[order]);
                 node->add_child(nodes[order]);
                 nodes[order] = nullptr;
                 ++order;
@@ -110,9 +108,7 @@ struct fibonacci_heap {
             if (node && (!this->_root || comp(this->_root->value, node->value))) this->_root = node;
         }
         for (auto node : nodes) {
-            if (node && node != this->_root) {
-                this->_root->insert_left(node);
-            }
+            if (node && node != this->_root) this->_root->insert_left(node);
         }
     }
 

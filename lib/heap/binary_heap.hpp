@@ -41,7 +41,7 @@ struct binary_heap {
 
         int index = this->increment_size();
         while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value)) {
-            swap(this->nodes[index], this->nodes[index >> 1]);
+            std::swap(this->nodes[index], this->nodes[index >> 1]);
             this->nodes[index]->set_index(index);
             index >>= 1;
         }
@@ -61,7 +61,7 @@ struct binary_heap {
                 comp(this->nodes[index]->value, this->nodes[index + 1]->value))
                 ++index;
             if (comp(this->nodes[index]->value, this->nodes[index >> 1]->value)) break;
-            swap(this->nodes[index >> 1], this->nodes[index]);
+            std::swap(this->nodes[index >> 1], this->nodes[index]);
             this->nodes[index >> 1]->set_index(index >> 1);
             index <<= 1;
         }
@@ -73,7 +73,7 @@ struct binary_heap {
         else return;
         int index = node->get_index();
         while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value)) {
-            swap(this->nodes[index], this->nodes[index >> 1]);
+            std::swap(this->nodes[index], this->nodes[index >> 1]);
             this->nodes[index]->set_index(index);
             index >>= 1;
         }

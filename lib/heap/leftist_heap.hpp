@@ -41,9 +41,10 @@ struct leftist_heap {
     constexpr node_ptr meld(node_ptr a, node_ptr b) {
         if (a == nullptr) return b;
         if (b == nullptr) return a;
-        if (a->_val < b->_val) swap(a, b);
+        if (a->_val < b->_val) std::swap(a, b);
         a->_right = meld(a->_right, b);
-        if (a->_left == nullptr || a->_left->_rank < a->_right->_rank) swap(a->_left, a->_right);
+        if (a->_left == nullptr || a->_left->_rank < a->_right->_rank)
+            std::swap(a->_left, a->_right);
         a->_rank = ((a->_right == nullptr) ? 0 : a->_right->_rank) + 1;
         return a;
     }
