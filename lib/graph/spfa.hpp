@@ -3,14 +3,14 @@
 
 /**
  * @brief 単一始点最短経路
- * @details
- * [参考](https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html)
  *
  * @tparam T 辺の重みの型
  * @param g グラフ
  * @param s 始点
  * @param inf
  * @return std::vector<T>
+ *
+ * @see https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html
  */
 template <class T>
 std::vector<T> shortest_path_faster_algorithm(Graph<T> &g, int s,
