@@ -132,9 +132,9 @@ struct Matrix {
 
     void print_debug() const {
         for (auto u : this->v) {
-            cerr << "[";
-            for (auto x : u) cerr << x << ", ";
-            cerr << "]" << endl;
+            std::cerr << "[";
+            for (auto x : u) std::cerr << x << ", ";
+            std::cerr << "]" << std::endl;
         }
     }
 
