@@ -27,7 +27,9 @@ struct wavelet_matrix {
             this->mid[level] = left;
             this->matrix[level].build();
             v.swap(l);
-            for (int i = 0; i < right; ++i) { v[left + i] = r[i]; }
+            for (int i = 0; i < right; ++i) {
+                v[left + i] = r[i];
+            }
         }
     }
 
@@ -113,7 +115,7 @@ struct wavelet_matrix {
         for (int level = L - 1; level >= 0; --level) {
             bool f = ((upper >> level) & 1);
             if (f) res += this->matrix[level].rank(false, r) - this->matrix[level].rank(false, l);
-            tie(l, r) = this->succ(f, l, r, level);
+            std::tie(l, r) = this->succ(f, l, r, level);
         }
         return res;
     }
