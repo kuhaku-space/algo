@@ -24,7 +24,7 @@ struct dynamic_union_find {
     bool unite(int x, int y) {
         x = this->root(x), y = this->root(y);
         if (x == y) return false;
-        if (this->data[x] > this->data[y]) swap(x, y);
+        if (this->data[x] > this->data[y]) std::swap(x, y);
         this->data[x] += this->data[y];
         this->data[y] = x;
         return true;
@@ -34,7 +34,7 @@ struct dynamic_union_find {
     bool unite(int x, int y, F f) {
         x = this->root(x), y = this->root(y);
         if (x != y) {
-            if (this->data[x] > this->data[y]) swap(x, y);
+            if (this->data[x] > this->data[y]) std::swap(x, y);
             this->data[x] += this->data[y];
             this->data[y] = x;
         }

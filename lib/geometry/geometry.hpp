@@ -36,13 +36,13 @@ struct Point {
     constexpr T dot(const Point<T> &p) const { return this->x * p.x + this->y * p.y; }
     constexpr T cross(const Point<T> &p) const { return this->x * p.y - this->y * p.x; }
 
-    friend istream &operator>>(istream &is, Point<T> &rhs) {
+    friend std::istream &operator>>(std::istream &is, Point<T> &rhs) {
         T x, y;
         is >> x >> y;
         rhs = Point<T>(x, y);
         return (is);
     }
-    friend ostream &operator<<(ostream &os, const Point<T> &rhs) {
+    friend std::ostream &operator<<(std::ostream &os, const Point<T> &rhs) {
         return os << rhs.x << ' ' << rhs.y;
     }
 };
@@ -58,7 +58,7 @@ constexpr T norm(Point<T> p) {
 // 絶対値
 template <class T>
 T abs(Point<T> p) {
-    return sqrt(norm(p));
+    return std::sqrt(norm(p));
 }
 // 内積
 template <class T>

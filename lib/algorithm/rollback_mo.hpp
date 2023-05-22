@@ -30,7 +30,7 @@ struct rollback_mo {
     template <class F, class G, class H, class I, class J>
     void solve(F rem, G save, H load, I addl, J addr) const {
         int q = this->_left.size();
-        int width = std::max(1, int(this->_size / sqrt(q)));
+        int width = std::max(1, int(this->_size / std::sqrt(q)));
         this->_order.resize(q);
         std::iota(this->_order.begin(), this->_order.end(), 0);
         std::sort(this->_order.begin(), this->_order.end(), [&](int a, int b) -> bool {

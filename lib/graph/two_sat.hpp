@@ -26,7 +26,7 @@ struct two_sat {
         return true;
     }
 
-    std::vector<bool> build(const vector<int> &v) {
+    std::vector<bool> build(const std::vector<int> &v) {
         std::vector<bool> res(this->_size);
         for (int i = 0; i < this->_size; ++i) res[i] = v[i * 2] < v[i * 2 + 1];
         return res;

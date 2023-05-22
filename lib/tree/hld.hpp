@@ -47,7 +47,7 @@ struct HLD {
     int dist(int u, int v) const {
         int d = 0;
         while (true) {
-            if (this->vid[u] > this->vid[v]) swap(u, v);
+            if (this->vid[u] > this->vid[v]) std::swap(u, v);
             if (this->nxt[u] == this->nxt[v]) return d + this->vid[v] - this->vid[u];
             d += this->vid[v] - this->vid[this->nxt[v]] + 1;
             v = this->par[this->nxt[v]];
@@ -73,7 +73,7 @@ struct HLD {
 
     int lca(int u, int v) const {
         while (true) {
-            if (this->vid[u] > this->vid[v]) swap(u, v);
+            if (this->vid[u] > this->vid[v]) std::swap(u, v);
             if (this->nxt[u] == this->nxt[v]) return u;
             v = this->par[this->nxt[v]];
         }
@@ -82,7 +82,7 @@ struct HLD {
     template <class F>
     void for_each(int u, int v, const F &f) const {
         while (true) {
-            if (this->vid[u] > this->vid[v]) swap(u, v);
+            if (this->vid[u] > this->vid[v]) std::swap(u, v);
             f(max(this->vid[this->nxt[v]], this->vid[u]), this->vid[v] + 1);
             if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];
             else break;
@@ -92,7 +92,7 @@ struct HLD {
     template <class F>
     void for_each_edge(int u, int v, const F &f) const {
         while (true) {
-            if (this->vid[u] > this->vid[v]) swap(u, v);
+            if (this->vid[u] > this->vid[v]) std::swap(u, v);
             if (this->nxt[u] != this->nxt[v]) {
                 f(this->vid[this->nxt[v]], this->vid[v] + 1);
                 v = this->par[this->nxt[v]];
@@ -116,7 +116,7 @@ struct HLD {
             this->par[u] = v;
             this->dfs_sz(u);
             this->sub[v] += this->sub[u];
-            if (this->sub[u] > this->sub[es[0]]) swap(u, es[0]);
+            if (this->sub[u] > this->sub[es[0]]) std::swap(u, es[0]);
         }
     }
 

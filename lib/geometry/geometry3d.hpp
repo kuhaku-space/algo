@@ -20,7 +20,7 @@ Circle3<T> min_ball(std::vector<Pos<T>> &ps, Pos<T> p = {0.0, 0.0, 0.0}) {
         T dx = a.x - b.x;
         T dy = a.y - b.y;
         T dz = a.z - b.z;
-        return sqrt(dx * dx + dy * dy + dz * dz);
+        return std::sqrt(dx * dx + dy * dy + dz * dz);
     };
 
     T r = 0.0, move = 0.5;

@@ -35,7 +35,7 @@ struct partially_persistent_union_find {
         x = this->root(x, _now), y = this->root(y, _now);
         if (x == y) return _now;
         auto p = this->_data[x].back(), q = this->_data[y].back();
-        if (p.second > q.second) swap(x, y), swap(p, q);
+        if (p.second > q.second) std::swap(x, y), std::swap(p, q);
         this->_data[x].emplace_back(_now, p.second + q.second);
         this->_data[y].emplace_back(_now, x);
         return _now;

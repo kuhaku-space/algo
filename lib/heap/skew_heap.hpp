@@ -40,9 +40,9 @@ struct skew_heap {
     constexpr node_ptr meld(node_ptr a, node_ptr b) {
         if (a == nullptr) return b;
         if (b == nullptr) return a;
-        if (a->_val < b->_val) swap(a, b);
+        if (a->_val < b->_val) std::swap(a, b);
         a->_right = meld(a->_right, b);
-        swap(a->_left, a->_right);
+        std::swap(a->_left, a->_right);
         return a;
     }
 
