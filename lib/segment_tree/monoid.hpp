@@ -52,31 +52,31 @@ struct Xor {
 template <class T>
 struct Min {
     using value_type = T;
-    static constexpr T id = numeric_limits<T>::max();
-    static constexpr T op(const T &lhs, const T &rhs) { return min(lhs, rhs); }
+    static constexpr T id = std::numeric_limits<T>::max();
+    static constexpr T op(const T &lhs, const T &rhs) { return std::min(lhs, rhs); }
 
     template <class U>
     static constexpr U f(T lhs, U rhs) {
-        return min((U)lhs, rhs);
+        return std::min((U)lhs, rhs);
     }
 };
 
 template <class T>
 struct Max {
     using value_type = T;
-    static constexpr T id = numeric_limits<T>::min();
-    static constexpr T op(const T &lhs, const T &rhs) { return max(lhs, rhs); }
+    static constexpr T id = std::numeric_limits<T>::min();
+    static constexpr T op(const T &lhs, const T &rhs) { return std::max(lhs, rhs); }
 
     template <class U>
     static constexpr U f(T lhs, U rhs) {
-        return max((U)lhs, rhs);
+        return std::max((U)lhs, rhs);
     }
 };
 
 template <class T>
 struct Update {
     using value_type = T;
-    static constexpr T id = numeric_limits<T>::max();
+    static constexpr T id = std::numeric_limits<T>::max();
     static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs : lhs; }
 
     template <class U>

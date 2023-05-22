@@ -70,8 +70,8 @@ struct HashInt {
         std::int64_t a = x, b = mod, u = 1, v = 0, t = 0;
         while (b > 0) {
             t = a / b;
-            swap(a -= t * b, b);
-            swap(u -= t * v, v);
+            std::swap(a -= t * b, b);
+            std::swap(u -= t * v, v);
         }
         return HashInt(u);
     }

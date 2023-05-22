@@ -44,7 +44,7 @@ struct Matrix {
                 for (int j = 0; j < y; ++j) tmp[i][j] += this->v[i][k] * rhs.v[k][j];
             }
         }
-        swap(this->v, tmp);
+        std::swap(this->v, tmp);
         return *this;
     }
 
@@ -78,7 +78,7 @@ struct Matrix {
             if (u[i][i] == T(0)) {
                 for (int j = i + 1; j < n; ++j) {
                     if (u[j][i] != T(0)) {
-                        swap(u[j], u[i]);
+                        std::swap(u[j], u[i]);
                         ans *= -1;
                         break;
                     }
@@ -132,9 +132,9 @@ struct Matrix {
 
     void print_debug() const {
         for (auto u : this->v) {
-            cerr << "[";
-            for (auto x : u) cerr << x << ", ";
-            cerr << "]" << endl;
+            std::cerr << "[";
+            for (auto x : u) std::cerr << x << ", ";
+            std::cerr << "]" << std::endl;
         }
     }
 

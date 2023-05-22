@@ -36,7 +36,7 @@ struct weighted_union_find {
         x = find(x), y = find(y);
         if (x == y) return false;
         if (this->_data[x] > this->_data[y]) {
-            swap(x, y);
+            std::swap(x, y);
             w *= -1;
         }
         this->_data[x] += this->_data[y];

@@ -22,7 +22,7 @@ struct persistent_union_find {
         x = this->root(x), y = this->root(y);
         if (x == y) return *this;
         int a = this->data[x], b = this->data[y];
-        if (a > b) swap(x, y);
+        if (a > b) std::swap(x, y);
         return persistent_union_find(this->data.set(x, a + b).set(y, x));
     }
 

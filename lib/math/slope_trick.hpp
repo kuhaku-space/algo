@@ -30,9 +30,9 @@ struct slope_trick {
      * @param a
      */
     void add_f(T a) {
-        if (!this->l.empty()) this->min_f += max(T(), this->l.top() - a);
+        if (!this->l.empty()) this->min_f += std::max(T(), this->l.top() - a);
         this->l.emplace(a);
-        auto x = tihs->l.top();
+        auto x = this->l.top();
         this->l.pop();
         this->r.emplace(x);
     }
@@ -43,7 +43,7 @@ struct slope_trick {
      * @param a
      */
     void add_g(T a) {
-        if (!this->r.empty()) this->min_f += max(T(), a - this->r.top());
+        if (!this->r.empty()) this->min_f += std::max(T(), a - this->r.top());
         this->r.emplace(a);
         auto x = this->r.top();
         this->r.pop();

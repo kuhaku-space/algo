@@ -2,7 +2,8 @@
 #include "template/macro.hpp"
 #include "template/sonic.hpp"
 #include "template/template.hpp"
-using ll = int64_t;
+using namespace std;
+using ll = std::int64_t;
 using ld = long double;
 template <class T, class U>
 std::istream &operator>>(std::istream &is, std::pair<T, U> &p) {

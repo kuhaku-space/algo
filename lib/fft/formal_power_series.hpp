@@ -3,11 +3,11 @@
 #include "template/template.hpp"
 
 template <class mint>
-struct formal_power_series : vector<mint> {
+struct formal_power_series : std::vector<mint> {
     using fps = formal_power_series;
 
-    formal_power_series(std::vector<T> &&v) : vector<mint>(v) {}
-    formal_power_series(const std::vector<T> &v) : vector<mint>(v) {}
+    formal_power_series(std::vector<T> &&v) : std::vector<mint>(v) {}
+    formal_power_series(const std::vector<T> &v) : std::vector<mint>(v) {}
 
     constexpr fps &operator+=(const mint &v) {
         if (this->empty()) this->resize(1);

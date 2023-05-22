@@ -19,7 +19,7 @@ struct Graph {
     std::vector<T> dist;
     std::vector<std::vector<edge>> edges;
 
-    Graph(std::int64_t v) : V(v), edges(v * 5), dist(v, numeric_limits<T>::max()) {
+    Graph(std::int64_t v) : V(v), edges(v * 5), dist(v, std::numeric_limits<T>::max()) {
         for (std::int64_t i = 2; i < v * 2; ++i) {
             edges.push_back(edge{v + i >> 1, v + i, 0});
             edges.push_back(edge{v * 3 + i, v * 3 + i >> 1, 0});

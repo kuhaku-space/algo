@@ -20,8 +20,8 @@ std::int64_t inv_mod(std::int64_t a, std::int64_t mod) {
     std::int64_t b = mod, u = 1, v = 0, t;
     while (b > 0) {
         t = a / b;
-        swap(a -= t * b, b);
-        swap(u -= t * v, v);
+        std::swap(a -= t * b, b);
+        std::swap(u -= t * v, v);
     }
     return u >= 0 ? u % mod : (mod - (-u) % mod) % mod;
 }

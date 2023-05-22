@@ -41,7 +41,7 @@ struct KMP {
                 continue;
             }
             i += j - data[j];
-            j = max(data[j], int(0));
+            j = std::max(data[j], int(0));
         }
         return res;
     }

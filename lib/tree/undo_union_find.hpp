@@ -26,7 +26,7 @@ struct undo_union_find {
         this->history.emplace(x, this->data[x]);
         this->history.emplace(y, this->data[y]);
         if (x == y) return false;
-        if (this->data[x] > this->data[y]) swap(x, y);
+        if (this->data[x] > this->data[y]) std::swap(x, y);
         this->data[x] += this->data[y];
         this->data[y] = x;
         return true;

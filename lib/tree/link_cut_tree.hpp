@@ -33,7 +33,7 @@ struct link_cut_tree {
 
         void do_flip() {
             this->flip = !this->flip;
-            swap(this->lp, this->rp);
+            std::swap(this->lp, this->rp);
         }
         void propagate() {
             if (this->flip) {

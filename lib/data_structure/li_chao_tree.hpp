@@ -86,7 +86,7 @@ struct li_chao_tree {
         }
         if (!left && !right) return node;
         bool mid = comp(line(m), node->line(m));
-        if (mid) swap(node->line, line);
+        if (mid) std::swap(node->line, line);
         if (left != mid) node->left = this->add_line(node->left, line, l, m);
         else node->right = this->add_line(node->right, line, m, r);
         return node;
