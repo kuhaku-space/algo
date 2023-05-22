@@ -80,7 +80,7 @@ data:
   path: lib/math/combination.hpp
   requiredBy:
   - lib/math/enumeration.hpp
-  timestamp: '2023-05-17 11:56:48+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dpl/bell.test.cpp

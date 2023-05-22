@@ -81,7 +81,7 @@ data:
   isVerificationFile: false
   path: lib/math/prime_number.hpp
   requiredBy: []
-  timestamp: '2023-04-17 11:02:50+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/prime_numbers.test.cpp

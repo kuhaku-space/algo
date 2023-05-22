@@ -41,7 +41,7 @@ data:
     \n    }\r\n    void emplace(int l, int r) { return this->add(l, r); }\r\n    void\
     \ insert(int l, int r) { return this->add(l, r); }\r\n\r\n    void build() {\r\
     \n        int q = this->_left.size();\r\n        int width = std::max(1, int(this->_size\
-    \ / sqrt(q)));\r\n        this->_order.resize(q);\r\n        std::iota(this->_order.begin(),\
+    \ / std::sqrt(q)));\r\n        this->_order.resize(q);\r\n        std::iota(this->_order.begin(),\
     \ this->_order.end(), 0);\r\n        std::sort(this->_order.begin(), this->_order.end(),\
     \ [&](int a, int b) -> bool {\r\n            if (this->_left[a] / width != this->_left[b]\
     \ / width)\r\n                return this->_left[a] < this->_left[b];\r\n    \
@@ -61,7 +61,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/mo.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_range_inversions.test.cpp

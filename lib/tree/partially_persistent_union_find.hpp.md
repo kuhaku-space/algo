@@ -39,7 +39,7 @@ data:
     \ int unite(int x, int y) {\r\n        ++_now;\r\n        x = this->root(x, _now),\
     \ y = this->root(y, _now);\r\n        if (x == y) return _now;\r\n        auto\
     \ p = this->_data[x].back(), q = this->_data[y].back();\r\n        if (p.second\
-    \ > q.second) swap(x, y), swap(p, q);\r\n        this->_data[x].emplace_back(_now,\
+    \ > q.second) std::swap(x, y), std::swap(p, q);\r\n        this->_data[x].emplace_back(_now,\
     \ p.second + q.second);\r\n        this->_data[y].emplace_back(_now, x);\r\n \
     \       return _now;\r\n    }\r\n\r\n  private:\r\n    int _now;\r\n    std::vector<std::vector<std::pair<int,\
     \ int>>> _data;\r\n};\r\n"
@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: lib/tree/partially_persistent_union_find.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/partially_persistent_union_find.hpp

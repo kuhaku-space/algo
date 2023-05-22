@@ -2,8 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/geometry/geometry.hpp
-    title: lib/geometry/geometry.hpp
+    path: lib/graph/graph.hpp
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+  - icon: ':heavy_check_mark:'
+    path: lib/graph/spfa.hpp
+    title: SPFA
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -23,10 +26,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    ERROR: '0.00000001'
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
+    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -34,30 +36,32 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/spfa.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B\"\
-    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n \
-    \   cin >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--)\
-    \ {\n        Point<double> p;\n        cin >> p;\n        auto ans = l.refl(p);\n\
-    \        co(ans);\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B\"\n#include\
+    \ \"graph/spfa.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n\
+    \    int n, m, r;\n    cin >> n >> m >> r;\n    Graph<int> g(n);\n    g.input_edge(m,\
+    \ 0);\n\n    auto dist = shortest_path_faster_algorithm(g, r, Inf);\n    if (dist.empty())\
+    \ {\n        co(\"NEGATIVE CYCLE\");\n        return 0;\n    }\n    rep (i, n)\
+    \ {\n        if (dist[i] != Inf) co(dist[i]);\n        else co(\"INF\");\n   \
+    \ }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/geometry/geometry.hpp
+  - lib/graph/spfa.hpp
+  - lib/graph/graph.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/aoj/cgl/reflection.test.cpp
+  path: test/aoj/grl/spfa.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/cgl/reflection.test.cpp
+documentation_of: test/aoj/grl/spfa.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/cgl/reflection.test.cpp
-- /verify/test/aoj/cgl/reflection.test.cpp.html
-title: test/aoj/cgl/reflection.test.cpp
+- /verify/test/aoj/grl/spfa.test.cpp
+- /verify/test/aoj/grl/spfa.test.cpp.html
+title: test/aoj/grl/spfa.test.cpp
 ---

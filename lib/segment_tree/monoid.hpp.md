@@ -102,25 +102,25 @@ data:
     \    static constexpr T op(const T &lhs, const T &rhs) { return lhs ^ rhs; }\n\
     \n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return\
     \ lhs ^ rhs;\n    }\n};\n\ntemplate <class T>\nstruct Min {\n    using value_type\
-    \ = T;\n    static constexpr T id = numeric_limits<T>::max();\n    static constexpr\
-    \ T op(const T &lhs, const T &rhs) { return min(lhs, rhs); }\n\n    template <class\
-    \ U>\n    static constexpr U f(T lhs, U rhs) {\n        return min((U)lhs, rhs);\n\
-    \    }\n};\n\ntemplate <class T>\nstruct Max {\n    using value_type = T;\n  \
-    \  static constexpr T id = numeric_limits<T>::min();\n    static constexpr T op(const\
-    \ T &lhs, const T &rhs) { return max(lhs, rhs); }\n\n    template <class U>\n\
-    \    static constexpr U f(T lhs, U rhs) {\n        return max((U)lhs, rhs);\n\
-    \    }\n};\n\ntemplate <class T>\nstruct Update {\n    using value_type = T;\n\
-    \    static constexpr T id = numeric_limits<T>::max();\n    static constexpr T\
-    \ op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs : lhs; }\n\n\
+    \ = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n    static\
+    \ constexpr T op(const T &lhs, const T &rhs) { return std::min(lhs, rhs); }\n\n\
     \    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return\
-    \ lhs == Update::id ? rhs : lhs;\n    }\n};\n\ntemplate <class T>\nstruct Affine\
-    \ {\n    using value_type = std::pair<T, T>;\n    static constexpr std::pair<T,\
-    \ T> id = std::pair<T, T>(1, 0);\n    static constexpr std::pair<T, T> op(std::pair<T,\
-    \ T> lhs, std::pair<T, T> rhs) {\n        return {lhs.first * rhs.first, lhs.first\
-    \ * rhs.second + lhs.second};\n    }\n};\n\ntemplate <class M>\nstruct Rev {\n\
-    \    using T = typename M::value_type;\n    using value_type = T;\n    static\
-    \ constexpr T id = M::id;\n    static constexpr T op(T lhs, T rhs) { return M::op(rhs,\
-    \ lhs); }\n};\n"
+    \ std::min((U)lhs, rhs);\n    }\n};\n\ntemplate <class T>\nstruct Max {\n    using\
+    \ value_type = T;\n    static constexpr T id = std::numeric_limits<T>::min();\n\
+    \    static constexpr T op(const T &lhs, const T &rhs) { return std::max(lhs,\
+    \ rhs); }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n\
+    \        return std::max((U)lhs, rhs);\n    }\n};\n\ntemplate <class T>\nstruct\
+    \ Update {\n    using value_type = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n\
+    \    static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id\
+    \ ? rhs : lhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U\
+    \ rhs) {\n        return lhs == Update::id ? rhs : lhs;\n    }\n};\n\ntemplate\
+    \ <class T>\nstruct Affine {\n    using value_type = std::pair<T, T>;\n    static\
+    \ constexpr std::pair<T, T> id = std::pair<T, T>(1, 0);\n    static constexpr\
+    \ std::pair<T, T> op(std::pair<T, T> lhs, std::pair<T, T> rhs) {\n        return\
+    \ {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};\n    }\n};\n\n\
+    template <class M>\nstruct Rev {\n    using T = typename M::value_type;\n    using\
+    \ value_type = T;\n    static constexpr T id = M::id;\n    static constexpr T\
+    \ op(T lhs, T rhs) { return M::op(rhs, lhs); }\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -136,7 +136,7 @@ data:
   - lib/tree/link_cut_tree.hpp
   - lib/data_structure/swag.hpp
   - lib/data_structure/sparse_table.hpp
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

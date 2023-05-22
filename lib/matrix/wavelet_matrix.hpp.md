@@ -49,22 +49,22 @@ data:
     \         this->matrix[level].set(i);\n                    r[right++] = v[i];\n\
     \                } else {\n                    l[left++] = v[i];\n           \
     \     }\n            }\n            this->mid[level] = left;\n            this->matrix[level].build();\n\
-    \            v.swap(l);\n            for (int i = 0; i < right; ++i) { v[left\
-    \ + i] = r[i]; }\n        }\n    }\n\n    T access(int k) const {\n        T res\
-    \ = 0;\n        for (int level = L - 1; level >= 0; --level) {\n            bool\
-    \ f = this->matrix[level][k];\n            if (f) res |= T(1) << level;\n    \
-    \        k = this->matrix[level].rank(f, k) + this->mid[level] * f;\n        }\n\
-    \        return res;\n    }\n    T operator[](int k) const { return this->access(k);\
-    \ }\n\n    /**\n     * @brief count i s.t. (0 <= i < r) && v[i] == x\n     *\n\
-    \     * @param x\n     * @param r\n     * @return int\n     */\n    int rank(int\
-    \ r, T x) const {\n        int l = 0;\n        for (int level = L - 1; level >=\
-    \ 0; --level) {\n            std::tie(l, r) = this->succ((x >> level) & 1, l,\
-    \ r, level);\n        }\n        return r - l;\n    }\n\n    /**\n     * @brief\
-    \ count i s.t. (l <= i < r) && v[i] == x\n     *\n     * @param l\n     * @param\
-    \ r\n     * @param x\n     * @return int\n     */\n    int rank(int l, int r,\
-    \ T x) const { return this->rank(r, x) - this->rank(l, x); }\n\n    /**\n    \
-    \ * @brief k-th smallest number in v[l ... r-1]\n     *\n     * @param l\n   \
-    \  * @param r\n     * @param k\n     * @return T\n     */\n    T kth_smallest(int\
+    \            v.swap(l);\n            for (int i = 0; i < right; ++i) {\n     \
+    \           v[left + i] = r[i];\n            }\n        }\n    }\n\n    T access(int\
+    \ k) const {\n        T res = 0;\n        for (int level = L - 1; level >= 0;\
+    \ --level) {\n            bool f = this->matrix[level][k];\n            if (f)\
+    \ res |= T(1) << level;\n            k = this->matrix[level].rank(f, k) + this->mid[level]\
+    \ * f;\n        }\n        return res;\n    }\n    T operator[](int k) const {\
+    \ return this->access(k); }\n\n    /**\n     * @brief count i s.t. (0 <= i < r)\
+    \ && v[i] == x\n     *\n     * @param x\n     * @param r\n     * @return int\n\
+    \     */\n    int rank(int r, T x) const {\n        int l = 0;\n        for (int\
+    \ level = L - 1; level >= 0; --level) {\n            std::tie(l, r) = this->succ((x\
+    \ >> level) & 1, l, r, level);\n        }\n        return r - l;\n    }\n\n  \
+    \  /**\n     * @brief count i s.t. (l <= i < r) && v[i] == x\n     *\n     * @param\
+    \ l\n     * @param r\n     * @param x\n     * @return int\n     */\n    int rank(int\
+    \ l, int r, T x) const { return this->rank(r, x) - this->rank(l, x); }\n\n   \
+    \ /**\n     * @brief k-th smallest number in v[l ... r-1]\n     *\n     * @param\
+    \ l\n     * @param r\n     * @param k\n     * @return T\n     */\n    T kth_smallest(int\
     \ l, int r, int k) const {\n        assert(0 <= k && k < r - l);\n        T res\
     \ = 0;\n        for (int level = L - 1; level >= 0; --level) {\n            int\
     \ cnt = this->matrix[level].rank(false, r) - this->matrix[level].rank(false, l);\n\
@@ -79,7 +79,7 @@ data:
     \    */\n    int range_freq(int l, int r, T upper) const {\n        int res =\
     \ 0;\n        for (int level = L - 1; level >= 0; --level) {\n            bool\
     \ f = ((upper >> level) & 1);\n            if (f) res += this->matrix[level].rank(false,\
-    \ r) - this->matrix[level].rank(false, l);\n            tie(l, r) = this->succ(f,\
+    \ r) - this->matrix[level].rank(false, l);\n            std::tie(l, r) = this->succ(f,\
     \ l, r, level);\n        }\n        return res;\n    }\n\n    /**\n     * @brief\
     \ count i s.t. (l <= i < r) && (lower <= v[i] < upper)\n     *\n     * @param\
     \ l\n     * @param r\n     * @param lower\n     * @param upper\n     * @return\
@@ -105,7 +105,7 @@ data:
   path: lib/matrix/wavelet_matrix.hpp
   requiredBy:
   - lib/matrix/compressed_wavelet_matrix.hpp
-  timestamp: '2023-05-17 13:01:16+09:00'
+  timestamp: '2023-05-22 21:14:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_kth_smallest.test.cpp

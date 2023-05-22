@@ -134,7 +134,7 @@ data:
   - lib/math/combination.hpp
   - lib/math/enumeration.hpp
   - lib/math/modint.hpp
-  timestamp: '2023-05-17 11:33:44+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/new/number_of_subsequences.test.cpp

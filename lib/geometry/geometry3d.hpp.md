@@ -27,10 +27,10 @@ data:
     \ _p, T _r) : p(_p), r(_r) {}\r\n};\r\n\r\ntemplate <class T>\r\nCircle3<T> min_ball(std::vector<Pos<T>>\
     \ &ps, Pos<T> p = {0.0, 0.0, 0.0}) {\r\n    auto dist = [](const Pos<T> &a, const\
     \ Pos<T> &b) -> T {\r\n        T dx = a.x - b.x;\r\n        T dy = a.y - b.y;\r\
-    \n        T dz = a.z - b.z;\r\n        return sqrt(dx * dx + dy * dy + dz * dz);\r\
-    \n    };\r\n\r\n    T r = 0.0, move = 0.5;\r\n    Pos<T> k = {0.0, 0.0, 0.0};\r\
-    \n    while (move > EPS * EPS) {\r\n        r = 0.0;\r\n        for (Pos<T> i\
-    \ : ps)\r\n            if (chmax(r, dist(p, i))) k = i;\r\n        p.x += (k.x\
+    \n        T dz = a.z - b.z;\r\n        return std::sqrt(dx * dx + dy * dy + dz\
+    \ * dz);\r\n    };\r\n\r\n    T r = 0.0, move = 0.5;\r\n    Pos<T> k = {0.0, 0.0,\
+    \ 0.0};\r\n    while (move > EPS * EPS) {\r\n        r = 0.0;\r\n        for (Pos<T>\
+    \ i : ps)\r\n            if (chmax(r, dist(p, i))) k = i;\r\n        p.x += (k.x\
     \ - p.x) * move;\r\n        p.y += (k.y - p.y) * move;\r\n        p.x += (k.z\
     \ - p.z) * move;\r\n        move *= 0.999;\r\n    }\r\n\r\n    return Circle3<T>(p,\
     \ r);\r\n}\r\n"
@@ -39,7 +39,7 @@ data:
   isVerificationFile: false
   path: lib/geometry/geometry3d.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/geometry/geometry3d.hpp

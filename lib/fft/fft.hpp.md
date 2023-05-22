@@ -30,7 +30,7 @@ data:
     \            vbw[i] = std::polar(1.0, 2.0 * PI / (1 << (i + 1)));\r\n        \
     \    vibw[i] = std::polar(1.0, -2.0 * PI / (1 << (i + 1)));\r\n        }\r\n \
     \   }\r\n    for (int i = 0, j = 1; j < N - 1; ++j) {\r\n        for (int k =\
-    \ N >> 1; k > (i ^= k); k >>= 1)\r\n            ;\r\n        if (i > j) swap(a[i],\
+    \ N >> 1; k > (i ^= k); k >>= 1)\r\n            ;\r\n        if (i > j) std::swap(a[i],\
     \ a[j]);\r\n    }\r\n    for (int k = 0, t = 1; t < N; ++k, t <<= 1) {\r\n   \
     \     std::complex<double> bw = vbw[k];\r\n        if (inv) bw = vibw[k];\r\n\
     \        for (int i = 0; i < N; i += t * 2) {\r\n            std::complex<double>\
@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: lib/fft/fft.hpp
   requiredBy: []
-  timestamp: '2022-06-17 06:33:14+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/fft.hpp

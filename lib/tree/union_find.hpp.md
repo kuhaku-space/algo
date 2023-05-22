@@ -46,21 +46,21 @@ data:
     \ int size(int x) { return -(this->data[this->root(x)]); }\r\n    int get_size(int\
     \ x) { return this->size(x); }\r\n\r\n    bool unite(int x, int y) {\r\n     \
     \   x = this->root(x), y = this->root(y);\r\n        if (x == y) return false;\r\
-    \n        if (this->data[x] > this->data[y]) swap(x, y);\r\n        this->data[x]\
+    \n        if (this->data[x] > this->data[y]) std::swap(x, y);\r\n        this->data[x]\
     \ += this->data[y];\r\n        this->data[y] = x;\r\n        return true;\r\n\
     \    }\r\n\r\n    template <class F>\r\n    bool unite(int x, int y, F f) {\r\n\
     \        x = this->root(x), y = this->root(y);\r\n        if (x != y) {\r\n  \
-    \          if (this->data[x] > this->data[y]) swap(x, y);\r\n            this->data[x]\
-    \ += this->data[y];\r\n            this->data[y] = x;\r\n        }\r\n       \
-    \ f(x, y);\r\n        return x != y;\r\n    }\r\n\r\n  private:\r\n    std::vector<int>\
-    \ data;\r\n};\r\n"
+    \          if (this->data[x] > this->data[y]) std::swap(x, y);\r\n           \
+    \ this->data[x] += this->data[y];\r\n            this->data[y] = x;\r\n      \
+    \  }\r\n        f(x, y);\r\n        return x != y;\r\n    }\r\n\r\n  private:\r\
+    \n    std::vector<int> data;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/union_find.hpp
   requiredBy:
   - lib/graph/kruskal.hpp
-  timestamp: '2022-06-15 02:23:06+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/unionfind.test.cpp

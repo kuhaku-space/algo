@@ -26,10 +26,10 @@ data:
     \ x, y;\r\n\r\n    Fraction() : x(0), y(1) {}\r\n\r\n    Fraction(std::int64_t\
     \ _x, std::int64_t _y = 1) : x(_x), y(_y) { this->common(); }\r\n\r\n    std::int64_t\
     \ gcd(std::int64_t a, std::int64_t b) const {\r\n        while (b) {\r\n     \
-    \       a %= b;\r\n            swap(a, b);\r\n        }\r\n        return a;\r\
-    \n    }\r\n\r\n    Fraction &operator+=(const Fraction &rhs) {\r\n        x =\
-    \ x * rhs.y + y * rhs.x;\r\n        y *= rhs.y;\r\n        this->common();\r\n\
-    \        return *this;\r\n    }\r\n    Fraction &operator-=(const Fraction &rhs)\
+    \       a %= b;\r\n            std::swap(a, b);\r\n        }\r\n        return\
+    \ a;\r\n    }\r\n\r\n    Fraction &operator+=(const Fraction &rhs) {\r\n     \
+    \   x = x * rhs.y + y * rhs.x;\r\n        y *= rhs.y;\r\n        this->common();\r\
+    \n        return *this;\r\n    }\r\n    Fraction &operator-=(const Fraction &rhs)\
     \ {\r\n        x = x * rhs.y - y * rhs.x;\r\n        y *= rhs.y;\r\n        this->common();\r\
     \n        return *this;\r\n    }\r\n    Fraction &operator*=(const Fraction &rhs)\
     \ {\r\n        x *= rhs.x, y *= rhs.y;\r\n        this->common();\r\n        return\
@@ -49,23 +49,24 @@ data:
     \ Fraction &rhs) const { return x == rhs.x && y == rhs.y; }\r\n    bool operator!=(const\
     \ Fraction &rhs) const { return x != rhs.x || y != rhs.y; }\r\n    bool operator<(const\
     \ Fraction &rhs) const { return x * rhs.y < rhs.x * y; }\r\n    bool operator>(const\
-    \ Fraction &rhs) const { return x * rhs.y > rhs.x * y; }\r\n\r\n    friend ostream\
-    \ &operator<<(ostream &os, const Fraction &rhs) { return os << rhs.to_double();\
-    \ }\r\n\r\n    friend istream &operator>>(istream &is, Fraction &a) {\r\n    \
-    \    string s;\r\n        is >> s;\r\n        bool f = false;\r\n        std::int64_t\
-    \ x = 0, y = 1;\r\n        for (auto c : s) {\r\n            if (c == '.') {\r\
-    \n                f = true;\r\n                continue;\r\n            }\r\n\r\
-    \n            x *= 10, x += c - '0';\r\n            if (f) y *= 10;\r\n      \
-    \  }\r\n        a = Fraction(x, y);\r\n        return is;\r\n    }\r\n\r\n   \
-    \ double to_double() const { return (double)x / y; }\r\n\r\n  private:\r\n   \
-    \ void common() {\r\n        std::int64_t g = gcd(x, y);\r\n        if (g) x /=\
-    \ g, y /= g;\r\n        if (y < 0) x *= -1, y *= -1;\r\n    }\r\n};\r\n"
+    \ Fraction &rhs) const { return x * rhs.y > rhs.x * y; }\r\n\r\n    friend std::ostream\
+    \ &operator<<(std::ostream &os, const Fraction &rhs) {\r\n        return os <<\
+    \ rhs.to_double();\r\n    }\r\n\r\n    friend std::istream &operator>>(std::istream\
+    \ &is, Fraction &a) {\r\n        std::string s;\r\n        is >> s;\r\n      \
+    \  bool f = false;\r\n        std::int64_t x = 0, y = 1;\r\n        for (auto\
+    \ c : s) {\r\n            if (c == '.') {\r\n                f = true;\r\n   \
+    \             continue;\r\n            }\r\n\r\n            x *= 10, x += c -\
+    \ '0';\r\n            if (f) y *= 10;\r\n        }\r\n        a = Fraction(x,\
+    \ y);\r\n        return is;\r\n    }\r\n\r\n    double to_double() const { return\
+    \ (double)x / y; }\r\n\r\n  private:\r\n    void common() {\r\n        std::int64_t\
+    \ g = gcd(x, y);\r\n        if (g) x /= g, y /= g;\r\n        if (y < 0) x *=\
+    \ -1, y *= -1;\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/fraction.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/fraction.hpp

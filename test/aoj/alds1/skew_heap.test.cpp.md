@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/geometry/geometry.hpp
-    title: lib/geometry/geometry.hpp
+    path: lib/heap/skew_heap.hpp
+    title: skew heap
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -23,10 +23,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    ERROR: '0.00000001'
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B
+    - https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -34,30 +33,31 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: heap/skew_heap.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_B\"\
-    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n \
-    \   cin >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--)\
-    \ {\n        Point<double> p;\n        cin >> p;\n        auto ans = l.refl(p);\n\
-    \        co(ans);\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C\"\n\
+    #include \"heap/skew_heap.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    skew_heap<int> heap;\n    while (true) {\n        string s;\n       \
+    \ cin >> s;\n        if (s == \"end\") {\n            break;\n        } else if\
+    \ (s == \"insert\") {\n            int x;\n            cin >> x;\n           \
+    \ heap.push(x);\n        } else {\n            co(heap.top());\n            heap.pop();\n\
+    \        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/geometry/geometry.hpp
+  - lib/heap/skew_heap.hpp
   - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/aoj/cgl/reflection.test.cpp
+  path: test/aoj/alds1/skew_heap.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/cgl/reflection.test.cpp
+documentation_of: test/aoj/alds1/skew_heap.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/cgl/reflection.test.cpp
-- /verify/test/aoj/cgl/reflection.test.cpp.html
-title: test/aoj/cgl/reflection.test.cpp
+- /verify/test/aoj/alds1/skew_heap.test.cpp
+- /verify/test/aoj/alds1/skew_heap.test.cpp.html
+title: test/aoj/alds1/skew_heap.test.cpp
 ---

@@ -32,7 +32,7 @@ data:
   isVerificationFile: false
   path: lib/string/lcp.hpp
   requiredBy: []
-  timestamp: '2023-02-04 20:56:34+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/string/lcp.hpp

@@ -47,7 +47,7 @@ data:
     \   std::vector<std::vector<T>> tmp(x, std::vector<T>(y));\r\n        for (int\
     \ i = 0; i < x; ++i) {\r\n            for (int k = 0; k < z; ++k) {\r\n      \
     \          for (int j = 0; j < y; ++j) tmp[i][j] += this->v[i][k] * rhs.v[k][j];\r\
-    \n            }\r\n        }\r\n        swap(this->v, tmp);\r\n        return\
+    \n            }\r\n        }\r\n        std::swap(this->v, tmp);\r\n        return\
     \ *this;\r\n    }\r\n\r\n    Matrix operator-() const {\r\n        std::vector<std::vector<T>>\
     \ tmp(this->v);\r\n        for (auto &v : tmp)\r\n            for (auto &x : v)\
     \ x = -x;\r\n        return Matrix(tmp);\r\n    }\r\n\r\n    Matrix operator+(const\
@@ -63,11 +63,11 @@ data:
     \ u(v);\r\n        int n = u.size();\r\n        T ans = 1;\r\n        for (int\
     \ i = 0; i < n; ++i) {\r\n            if (u[i][i] == T(0)) {\r\n             \
     \   for (int j = i + 1; j < n; ++j) {\r\n                    if (u[j][i] != T(0))\
-    \ {\r\n                        swap(u[j], u[i]);\r\n                        ans\
-    \ *= -1;\r\n                        break;\r\n                    }\r\n      \
-    \          }\r\n                if (u[i][i] == T(0)) return T(0);\r\n        \
-    \    }\r\n            ans *= u[i][i];\r\n            T t = T(1) / u[i][i];\r\n\
-    \            for (int j = i; j < n; ++j) u[i][j] *= t;\r\n            for (int\
+    \ {\r\n                        std::swap(u[j], u[i]);\r\n                    \
+    \    ans *= -1;\r\n                        break;\r\n                    }\r\n\
+    \                }\r\n                if (u[i][i] == T(0)) return T(0);\r\n  \
+    \          }\r\n            ans *= u[i][i];\r\n            T t = T(1) / u[i][i];\r\
+    \n            for (int j = i; j < n; ++j) u[i][j] *= t;\r\n            for (int\
     \ k = i + 1; k < n; ++k) {\r\n                if (u[k][i] == T(0)) continue;\r\
     \n                ans *= u[k][i];\r\n                t = T(1) / u[k][i];\r\n \
     \               for (int j = i; j < n; ++j) u[k][j] = u[k][j] * t - u[i][j];\r\
@@ -85,16 +85,16 @@ data:
     \ i = 0; i < x; ++i) {\r\n            for (int j = 0; j < y; ++j) {\r\n      \
     \          res[i][j] = this->v[j][i];\r\n            }\r\n        }\r\n      \
     \  return Matrix(res);\r\n    }\r\n\r\n    void print_debug() const {\r\n    \
-    \    for (auto u : this->v) {\r\n            cerr << \"[\";\r\n            for\
-    \ (auto x : u) cerr << x << \", \";\r\n            cerr << \"]\" << endl;\r\n\
-    \        }\r\n    }\r\n\r\n  private:\r\n    std::vector<std::vector<T>> v;\r\n\
-    };\r\n"
+    \    for (auto u : this->v) {\r\n            std::cerr << \"[\";\r\n         \
+    \   for (auto x : u) std::cerr << x << \", \";\r\n            std::cerr << \"\
+    ]\" << std::endl;\r\n        }\r\n    }\r\n\r\n  private:\r\n    std::vector<std::vector<T>>\
+    \ v;\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/matrix/matrix.hpp
   requiredBy: []
-  timestamp: '2022-09-24 19:20:15+09:00'
+  timestamp: '2023-05-22 21:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/matrix/matrix_product.test.cpp

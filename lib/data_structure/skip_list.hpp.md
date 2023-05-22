@@ -64,7 +64,7 @@ data:
   isVerificationFile: false
   path: lib/data_structure/skip_list.hpp
   requiredBy: []
-  timestamp: '2022-07-26 07:19:49+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_structure/skip_list.hpp

@@ -74,7 +74,7 @@ data:
   requiredBy:
   - lib/algorithm/inversion_number.hpp
   - lib/matrix/compressed_wavelet_matrix.hpp
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/new/number_of_subsequences.test.cpp

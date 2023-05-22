@@ -36,7 +36,7 @@ data:
     \ { return this->root(x); }\n\n    bool is_root(int x) const { return this->data[x]\
     \ < 0; }\n\n    persistent_union_find unite(int x, int y) {\n        x = this->root(x),\
     \ y = this->root(y);\n        if (x == y) return *this;\n        int a = this->data[x],\
-    \ b = this->data[y];\n        if (a > b) swap(x, y);\n        return persistent_union_find(this->data.set(x,\
+    \ b = this->data[y];\n        if (a > b) std::swap(x, y);\n        return persistent_union_find(this->data.set(x,\
     \ a + b).set(y, x));\n    }\n\n    int size(int x) const { return -(this->data[this->root(x)]);\
     \ }\n    int get_size(int x) const { return this->size(x); }\n\n    bool same(int\
     \ x, int y) const { return this->root(x) == this->root(y); }\n    bool is_same(int\
@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: lib/tree/persistent_union_find.hpp
   requiredBy: []
-  timestamp: '2023-03-10 18:49:08+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/persistent_union_find.test.cpp

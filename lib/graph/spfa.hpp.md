@@ -8,14 +8,18 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/spfa.test.cpp
+    title: test/aoj/grl/spfa.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: "\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF"
+    document_title: SPFA
     links:
-    - https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html)
+    - https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html
+    - https://hogloid.hatenablog.com/entry/20120409/1333973448
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -26,12 +30,12 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
   code: "#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\n\n/**\n\
-    \ * @brief \u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\n * @details\n * [\u53C2\
-    \u8003](https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html)\n\
-    \ *\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\n * @param g \u30B0\u30E9\
-    \u30D5\n * @param s \u59CB\u70B9\n * @param inf\n * @return std::vector<T>\n */\n\
-    template <class T>\nstd::vector<T> shortest_path_faster_algorithm(Graph<T> &g,\
-    \ int s,\n                                              T inf = std::numeric_limits<T>::max())\
+    \ * @brief SPFA\n *\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\n * @param\
+    \ g \u30B0\u30E9\u30D5\n * @param s \u59CB\u70B9\n * @param inf\n * @return std::vector<T>\n\
+    \ *\n * @see https://hogloid.hatenablog.com/entry/20120409/1333973448\n * @see\
+    \ https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html\n\
+    \ */\ntemplate <class T>\nstd::vector<T> shortest_path_faster_algorithm(Graph<T>\
+    \ &g, int s,\n                                              T inf = std::numeric_limits<T>::max())\
     \ {\n    int n = g.size();\n    std::vector<T> dists(n, inf);\n    std::vector<int>\
     \ pending(n, 0), times(n, 0);\n    std::queue<int> que;\n\n    que.emplace(s);\n\
     \    pending[s] = true;\n    ++times[s];\n    dists[s] = 0;\n\n    while (!que.empty())\
@@ -47,13 +51,14 @@ data:
   isVerificationFile: false
   path: lib/graph/spfa.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2023-05-22 19:46:47+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/grl/spfa.test.cpp
 documentation_of: lib/graph/spfa.hpp
 layout: document
 redirect_from:
 - /library/lib/graph/spfa.hpp
 - /library/lib/graph/spfa.hpp.html
-title: "\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF"
+title: SPFA
 ---

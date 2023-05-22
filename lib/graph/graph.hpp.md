@@ -41,9 +41,9 @@ data:
   - icon: ':warning:'
     path: lib/graph/spanning_tree.hpp
     title: "\u5168\u57DF\u6728"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/spfa.hpp
-    title: "\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF"
+    title: SPFA
   - icon: ':heavy_check_mark:'
     path: lib/graph/topological_sort.hpp
     title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
@@ -108,6 +108,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/spfa.test.cpp
+    title: test/aoj/grl/spfa.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
@@ -247,7 +250,7 @@ data:
   - lib/graph/spanning_tree.hpp
   - lib/graph/dijkstra_heap.hpp
   - lib/graph/lowlink.hpp
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/tree/tree_diameter.test.cpp
@@ -265,6 +268,7 @@ data:
   - test/aoj/jag/aho_corasick.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/spfa.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/dijkstra_fibonacci.test.cpp

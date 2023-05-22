@@ -64,7 +64,7 @@ data:
     \    int get(int v) const { return this->vid[v]; }\r\n    int get_parent(int v)\
     \ const { return this->par[v]; }\r\n\r\n    int dist(int u, int v) const {\r\n\
     \        int d = 0;\r\n        while (true) {\r\n            if (this->vid[u]\
-    \ > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u] == this->nxt[v])\
+    \ > this->vid[v]) std::swap(u, v);\r\n            if (this->nxt[u] == this->nxt[v])\
     \ return d + this->vid[v] - this->vid[u];\r\n            d += this->vid[v] - this->vid[this->nxt[v]]\
     \ + 1;\r\n            v = this->par[this->nxt[v]];\r\n        }\r\n    }\r\n\r\
     \n    int jump(int u, int v, int k) const {\r\n        int d = this->dist(u, v);\r\
@@ -75,37 +75,38 @@ data:
     \ this->vid[u]) return this->inv[this->vid[v] - k];\r\n            k -= this->vid[v]\
     \ - this->vid[u] + 1;\r\n            v = this->par[u];\r\n        }\r\n    }\r\
     \n\r\n    int lca(int u, int v) const {\r\n        while (true) {\r\n        \
-    \    if (this->vid[u] > this->vid[v]) swap(u, v);\r\n            if (this->nxt[u]\
+    \    if (this->vid[u] > this->vid[v]) std::swap(u, v);\r\n            if (this->nxt[u]\
     \ == this->nxt[v]) return u;\r\n            v = this->par[this->nxt[v]];\r\n \
     \       }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each(int u, int\
     \ v, const F &f) const {\r\n        while (true) {\r\n            if (this->vid[u]\
-    \ > this->vid[v]) swap(u, v);\r\n            f(max(this->vid[this->nxt[v]], this->vid[u]),\
-    \ this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];\r\
-    \n            else break;\r\n        }\r\n    }\r\n\r\n    template <class F>\r\
-    \n    void for_each_edge(int u, int v, const F &f) const {\r\n        while (true)\
-    \ {\r\n            if (this->vid[u] > this->vid[v]) swap(u, v);\r\n          \
-    \  if (this->nxt[u] != this->nxt[v]) {\r\n                f(this->vid[this->nxt[v]],\
-    \ this->vid[v] + 1);\r\n                v = this->par[this->nxt[v]];\r\n     \
-    \       } else {\r\n                if (u != v) f(this->vid[u] + 1, this->vid[v]\
-    \ + 1);\r\n                break;\r\n            }\r\n        }\r\n    }\r\n\r\
-    \n  private:\r\n    int _size;\r\n    std::vector<std::vector<int>> g;\r\n   \
-    \ std::vector<int> vid, nxt, sub, par, inv;\r\n\r\n    void dfs_sz(int v) {\r\n\
-    \        auto &es = this->g[v];\r\n        if (~(this->par[v])) es.erase(find(es.begin(),\
-    \ es.end(), this->par[v]));\r\n\r\n        for (auto &u : es) {\r\n          \
-    \  this->par[u] = v;\r\n            this->dfs_sz(u);\r\n            this->sub[v]\
-    \ += this->sub[u];\r\n            if (this->sub[u] > this->sub[es[0]]) swap(u,\
-    \ es[0]);\r\n        }\r\n    }\r\n\r\n    void dfs_hld(int v, int &pos) {\r\n\
-    \        this->vid[v] = pos++;\r\n        this->inv[this->vid[v]] = v;\r\n   \
-    \     for (auto u : this->g[v]) {\r\n            if (u == this->par[v]) continue;\r\
-    \n            this->nxt[u] = (u == this->g[v][0] ? this->nxt[v] : u);\r\n    \
-    \        this->dfs_hld(u, pos);\r\n        }\r\n    }\r\n};\r\n"
+    \ > this->vid[v]) std::swap(u, v);\r\n            f(std::max(this->vid[this->nxt[v]],\
+    \ this->vid[u]), this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v])\
+    \ v = this->par[this->nxt[v]];\r\n            else break;\r\n        }\r\n   \
+    \ }\r\n\r\n    template <class F>\r\n    void for_each_edge(int u, int v, const\
+    \ F &f) const {\r\n        while (true) {\r\n            if (this->vid[u] > this->vid[v])\
+    \ std::swap(u, v);\r\n            if (this->nxt[u] != this->nxt[v]) {\r\n    \
+    \            f(this->vid[this->nxt[v]], this->vid[v] + 1);\r\n               \
+    \ v = this->par[this->nxt[v]];\r\n            } else {\r\n                if (u\
+    \ != v) f(this->vid[u] + 1, this->vid[v] + 1);\r\n                break;\r\n \
+    \           }\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _size;\r\n  \
+    \  std::vector<std::vector<int>> g;\r\n    std::vector<int> vid, nxt, sub, par,\
+    \ inv;\r\n\r\n    void dfs_sz(int v) {\r\n        auto &es = this->g[v];\r\n \
+    \       if (~(this->par[v])) es.erase(find(es.begin(), es.end(), this->par[v]));\r\
+    \n\r\n        for (auto &u : es) {\r\n            this->par[u] = v;\r\n      \
+    \      this->dfs_sz(u);\r\n            this->sub[v] += this->sub[u];\r\n     \
+    \       if (this->sub[u] > this->sub[es[0]]) std::swap(u, es[0]);\r\n        }\r\
+    \n    }\r\n\r\n    void dfs_hld(int v, int &pos) {\r\n        this->vid[v] = pos++;\r\
+    \n        this->inv[this->vid[v]] = v;\r\n        for (auto u : this->g[v]) {\r\
+    \n            if (u == this->par[v]) continue;\r\n            this->nxt[u] = (u\
+    \ == this->g[v][0] ? this->nxt[v] : u);\r\n            this->dfs_hld(u, pos);\r\
+    \n        }\r\n    }\r\n};\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/hld.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:36:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/tree/lca.test.cpp

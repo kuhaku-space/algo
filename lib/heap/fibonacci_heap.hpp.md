@@ -74,21 +74,20 @@ data:
     \   while (this->_root) {\n            auto node = this->_root;\n            auto\
     \ order = node->order;\n            this->_root = this->_root->erase();\n    \
     \        while (nodes[order]) {\n                if (comp(node->value, nodes[order]->value))\
-    \ {\n                    swap(node, nodes[order]);\n                }\n      \
-    \          node->add_child(nodes[order]);\n                nodes[order] = nullptr;\n\
-    \                ++order;\n            }\n            nodes[order] = node;\n \
-    \       }\n\n        for (auto node : nodes) {\n            if (node && (!this->_root\
-    \ || comp(this->_root->value, node->value))) this->_root = node;\n        }\n\
-    \        for (auto node : nodes) {\n            if (node && node != this->_root)\
-    \ {\n                this->_root->insert_left(node);\n            }\n        }\n\
-    \    }\n\n    void update(node_ptr node, Value value) {\n        if (comp(node->value,\
-    \ value)) node->value = value;\n        else return;\n        if (!node->parent)\
-    \ {\n            if (comp(this->_root->value, value)) this->_root = node;\n  \
-    \          return;\n        } else if (!comp(node->parent->value, node->value))\
-    \ {\n            return;\n        }\n        while (node->parent) {\n        \
-    \    auto parent = node->parent;\n            node->dameged = false;\n       \
-    \     parent->child = node->erase();\n            --(parent->order);\n       \
-    \     this->_root->insert_left(node);\n            if (comp(this->_root->value,\
+    \ std::swap(node, nodes[order]);\n                node->add_child(nodes[order]);\n\
+    \                nodes[order] = nullptr;\n                ++order;\n         \
+    \   }\n            nodes[order] = node;\n        }\n\n        for (auto node :\
+    \ nodes) {\n            if (node && (!this->_root || comp(this->_root->value,\
+    \ node->value))) this->_root = node;\n        }\n        for (auto node : nodes)\
+    \ {\n            if (node && node != this->_root) this->_root->insert_left(node);\n\
+    \        }\n    }\n\n    void update(node_ptr node, Value value) {\n        if\
+    \ (comp(node->value, value)) node->value = value;\n        else return;\n    \
+    \    if (!node->parent) {\n            if (comp(this->_root->value, value)) this->_root\
+    \ = node;\n            return;\n        } else if (!comp(node->parent->value,\
+    \ node->value)) {\n            return;\n        }\n        while (node->parent)\
+    \ {\n            auto parent = node->parent;\n            node->dameged = false;\n\
+    \            parent->child = node->erase();\n            --(parent->order);\n\
+    \            this->_root->insert_left(node);\n            if (comp(this->_root->value,\
     \ this->_root->left->value)) this->_root = this->_root->left;\n            if\
     \ (!parent->dameged) {\n                parent->dameged = true;\n            \
     \    break;\n            }\n            node = parent;\n        }\n    }\n\n \
@@ -99,7 +98,7 @@ data:
   path: lib/heap/fibonacci_heap.hpp
   requiredBy:
   - lib/graph/dijkstra_heap.hpp
-  timestamp: '2022-07-11 16:52:36+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_binary.test.cpp

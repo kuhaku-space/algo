@@ -16,11 +16,20 @@ data:
     path: test/aoj/alds1/kmp.test.cpp
     title: test/aoj/alds1/kmp.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/leftist_heap.test.cpp
+    title: test/aoj/alds1/leftist_heap.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/prime_numbers.test.cpp
     title: test/aoj/alds1/prime_numbers.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/prime_numbers2.test.cpp
+    title: test/aoj/alds1/prime_numbers2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/rolling_hash.test.cpp
     title: test/aoj/alds1/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/skew_heap.test.cpp
+    title: test/aoj/alds1/skew_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/cgl/convex_hull.test.cpp
     title: test/aoj/cgl/convex_hull.test.cpp
@@ -129,6 +138,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/spfa.test.cpp
+    title: test/aoj/grl/spfa.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
@@ -336,7 +348,7 @@ data:
   path: lib/template/macro.hpp
   requiredBy:
   - lib/template/atcoder.hpp
-  timestamp: '2022-06-22 08:10:56+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/new/longest_increasing_subsequence.test.cpp
@@ -382,6 +394,9 @@ data:
   - test/yosupo/matrix/matrix_product.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
+  - test/aoj/alds1/prime_numbers2.test.cpp
+  - test/aoj/alds1/skew_heap.test.cpp
+  - test/aoj/alds1/leftist_heap.test.cpp
   - test/aoj/alds1/kmp.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/itp2/treap.test.cpp
@@ -417,6 +432,7 @@ data:
   - test/aoj/ntl/addition.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/spfa.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/min_cost_flow.test.cpp

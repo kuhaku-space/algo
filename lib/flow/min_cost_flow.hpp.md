@@ -127,7 +127,7 @@ data:
   isVerificationFile: false
   path: lib/flow/min_cost_flow.hpp
   requiredBy: []
-  timestamp: '2022-07-16 07:44:58+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/min_cost_flow.test.cpp

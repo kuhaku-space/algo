@@ -50,7 +50,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/patricia_binary_trie.test.cpp
   requiredBy: []
-  timestamp: '2022-07-16 00:19:09+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/patricia_binary_trie.test.cpp

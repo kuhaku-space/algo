@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: lib/string/trie.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:58:10+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/string/trie.hpp

@@ -25,13 +25,13 @@ data:
     \ line -1: no such header\n"
   code: "#include \"math/pow.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\nstd::int64_t\
     \ gcd(std::int64_t a, std::int64_t b) {\r\n    while (b) {\r\n        a %= b;\r\
-    \n        swap(a, b);\r\n    }\r\n    return a;\r\n}\r\n\r\nstd::int64_t gcd(const\
-    \ vector<std::int64_t> &v) {\r\n    if (v.empty()) return 1;\r\n    std::int64_t\
-    \ res = v[0];\r\n    for (auto i : v) res = gcd(res, i);\r\n    return res;\r\n\
-    }\r\n\r\nstd::int64_t lcm(std::int64_t a, std::int64_t b) {\r\n    return a /\
-    \ gcd(a, b) * b;\r\n}\r\n\r\nstd::int64_t lcm(const vector<std::int64_t> &v) {\r\
-    \n    std::int64_t res = 1;\r\n    for (auto i : v) res = lcm(res, i);\r\n   \
-    \ return res;\r\n}\r\n\r\nstd::int64_t floor_div(std::int64_t p, std::int64_t\
+    \n        std::swap(a, b);\r\n    }\r\n    return a;\r\n}\r\n\r\nstd::int64_t\
+    \ gcd(const std::vector<std::int64_t> &v) {\r\n    if (v.empty()) return 1;\r\n\
+    \    std::int64_t res = v[0];\r\n    for (auto i : v) res = gcd(res, i);\r\n \
+    \   return res;\r\n}\r\n\r\nstd::int64_t lcm(std::int64_t a, std::int64_t b) {\r\
+    \n    return a / gcd(a, b) * b;\r\n}\r\n\r\nstd::int64_t lcm(const std::vector<std::int64_t>\
+    \ &v) {\r\n    std::int64_t res = 1;\r\n    for (auto i : v) res = lcm(res, i);\r\
+    \n    return res;\r\n}\r\n\r\nstd::int64_t floor_div(std::int64_t p, std::int64_t\
     \ q) {\r\n    std::int64_t res = p / q;\r\n    if (q * res > p) --res;\r\n   \
     \ return res;\r\n}\r\n\r\nstd::int64_t ceil_div(std::int64_t p, std::int64_t q)\
     \ {\r\n    std::int64_t res = p / q;\r\n    if (q * res < p) ++res;\r\n    return\
@@ -53,7 +53,7 @@ data:
   isVerificationFile: false
   path: lib/math/math.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/math.hpp

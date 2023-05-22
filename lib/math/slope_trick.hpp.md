@@ -30,11 +30,11 @@ data:
     \ = a\r\n     *\r\n     * @param a\r\n     */\r\n    void add(T a) { this->min_f\
     \ += a; }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, x - a)\r\n     *\r\
     \n     * @param a\r\n     */\r\n    void add_f(T a) {\r\n        if (!this->l.empty())\
-    \ this->min_f += max(T(), this->l.top() - a);\r\n        this->l.emplace(a);\r\
-    \n        auto x = tihs->l.top();\r\n        this->l.pop();\r\n        this->r.emplace(x);\r\
+    \ this->min_f += std::max(T(), this->l.top() - a);\r\n        this->l.emplace(a);\r\
+    \n        auto x = this->l.top();\r\n        this->l.pop();\r\n        this->r.emplace(x);\r\
     \n    }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, a - x)\r\n     *\r\n\
     \     * @param a\r\n     */\r\n    void add_g(T a) {\r\n        if (!this->r.empty())\
-    \ this->min_f += max(T(), a - this->r.top());\r\n        this->r.emplace(a);\r\
+    \ this->min_f += std::max(T(), a - this->r.top());\r\n        this->r.emplace(a);\r\
     \n        auto x = this->r.top();\r\n        this->r.pop();\r\n        this->l.emplace(x);\r\
     \n    }\r\n\r\n    /**\r\n     * @brief Add f(x) = abs(x - a) = max(0, x - a)\
     \ + max(0, a - x)\r\n     *\r\n     * @param a\r\n     */\r\n    void add_abs(T\
@@ -46,7 +46,7 @@ data:
   isVerificationFile: false
   path: lib/math/slope_trick.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:36:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/slope_trick.hpp

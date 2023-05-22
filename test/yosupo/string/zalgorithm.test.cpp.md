@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/string/zalgorithm.test.cpp
   requiredBy: []
-  timestamp: '2023-01-10 05:13:47+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/string/zalgorithm.test.cpp

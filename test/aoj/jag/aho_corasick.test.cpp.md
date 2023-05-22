@@ -79,7 +79,7 @@ data:
   isVerificationFile: true
   path: test/aoj/jag/aho_corasick.test.cpp
   requiredBy: []
-  timestamp: '2023-05-17 11:40:23+09:00'
+  timestamp: '2023-05-22 21:14:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/aho_corasick.test.cpp

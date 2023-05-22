@@ -49,7 +49,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/kmp.test.cpp
   requiredBy: []
-  timestamp: '2022-12-09 06:10:47+09:00'
+  timestamp: '2023-05-22 20:36:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/kmp.test.cpp

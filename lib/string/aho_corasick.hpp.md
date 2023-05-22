@@ -48,8 +48,8 @@ data:
     \ = next_y;\n                            break;\n                        }\n \
     \                   } while (y != 0);\n                }\n            }\n    \
     \    }\n        return this->failure;\n    }\n\n    std::vector<int> insert(const\
-    \ string &word) {\n        std::vector<int> res;\n        int node_id = 0;\n \
-    \       for (int i = 0; i < (int)word.size(); ++i) {\n            int &next_id\
+    \ std::string &word) {\n        std::vector<int> res;\n        int node_id = 0;\n\
+    \        for (int i = 0; i < (int)word.size(); ++i) {\n            int &next_id\
     \ = this->nodes[node_id].next_node[word[i] - base];\n            if (next_id ==\
     \ -1) {\n                next_id = this->nodes.size();\n                this->nodes.emplace_back();\n\
     \            }\n            node_id = next_id;\n            res.emplace_back(node_id);\n\
@@ -69,7 +69,7 @@ data:
   isVerificationFile: false
   path: lib/string/aho_corasick.hpp
   requiredBy: []
-  timestamp: '2023-02-06 20:04:23+09:00'
+  timestamp: '2023-05-22 21:14:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/jag/aho_corasick.test.cpp

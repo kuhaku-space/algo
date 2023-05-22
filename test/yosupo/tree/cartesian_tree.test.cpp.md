@@ -49,7 +49,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree/cartesian_tree.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 09:42:19+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/cartesian_tree.test.cpp

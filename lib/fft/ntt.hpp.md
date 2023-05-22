@@ -223,7 +223,7 @@ data:
   - lib/data_structure/bigint.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
-  timestamp: '2023-05-17 11:39:38+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution.test.cpp

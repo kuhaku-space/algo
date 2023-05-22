@@ -37,21 +37,22 @@ data:
     \ true unite correctly\n     * @return false already united\n     */\n    bool\
     \ unite(int x, int y, T w) {\n        w += this->get_weight(x) - this->get_weight(y);\n\
     \        x = find(x), y = find(y);\n        if (x == y) return false;\n      \
-    \  if (this->_data[x] > this->_data[y]) {\n            swap(x, y);\n         \
-    \   w *= -1;\n        }\n        this->_data[x] += this->_data[y];\n        this->_data[y]\
-    \ = x;\n        this->_weights[y] = w;\n        return true;\n    }\n\n    bool\
-    \ same(int x, int y) { return this->find(x) == this->find(y); }\n    bool is_same(int\
-    \ x, int y) { return this->same(x, y); }\n\n    /**\n     * @brief get diff between\
-    \ x and y\n     *\n     * @param x\n     * @param y\n     * @return T v[y] - v[x]\n\
-    \     */\n    T diff(int x, int y) { return this->get_weight(y) - this->get_weight(x);\
-    \ }\n    T get_diff(int x, int y) { return this->diff(x, y); }\n\n  private:\n\
-    \    std::vector<int> _data;\n    std::vector<T> _weights;\n};\n"
+    \  if (this->_data[x] > this->_data[y]) {\n            std::swap(x, y);\n    \
+    \        w *= -1;\n        }\n        this->_data[x] += this->_data[y];\n    \
+    \    this->_data[y] = x;\n        this->_weights[y] = w;\n        return true;\n\
+    \    }\n\n    bool same(int x, int y) { return this->find(x) == this->find(y);\
+    \ }\n    bool is_same(int x, int y) { return this->same(x, y); }\n\n    /**\n\
+    \     * @brief get diff between x and y\n     *\n     * @param x\n     * @param\
+    \ y\n     * @return T v[y] - v[x]\n     */\n    T diff(int x, int y) { return\
+    \ this->get_weight(y) - this->get_weight(x); }\n    T get_diff(int x, int y) {\
+    \ return this->diff(x, y); }\n\n  private:\n    std::vector<int> _data;\n    std::vector<T>\
+    \ _weights;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/weighted_union_find.hpp
   requiredBy: []
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/weighted_union_find.test.cpp

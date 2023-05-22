@@ -19,11 +19,20 @@ data:
     path: test/aoj/alds1/kmp.test.cpp
     title: test/aoj/alds1/kmp.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/leftist_heap.test.cpp
+    title: test/aoj/alds1/leftist_heap.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/prime_numbers.test.cpp
     title: test/aoj/alds1/prime_numbers.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/prime_numbers2.test.cpp
+    title: test/aoj/alds1/prime_numbers2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/rolling_hash.test.cpp
     title: test/aoj/alds1/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/skew_heap.test.cpp
+    title: test/aoj/alds1/skew_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/cgl/convex_hull.test.cpp
     title: test/aoj/cgl/convex_hull.test.cpp
@@ -132,6 +141,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/spfa.test.cpp
+    title: test/aoj/grl/spfa.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
@@ -315,32 +327,32 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/macro.hpp:\
     \ line -1: no such header\n"
   code: "#pragma once\n#include \"template/macro.hpp\"\n#include \"template/sonic.hpp\"\
-    \n#include \"template/template.hpp\"\nusing ll = int64_t;\nusing ld = long double;\n\
-    template <class T, class U>\nstd::istream &operator>>(std::istream &is, std::pair<T,\
-    \ U> &p) {\n    return is >> p.first >> p.second;\n}\ntemplate <class T>\nstd::istream\
-    \ &operator>>(std::istream &is, std::vector<T> &v) {\n    for (T &i : v) is >>\
-    \ i;\n    return is;\n}\ntemplate <class T, class U>\nstd::ostream &operator<<(std::ostream\
-    \ &os, const std::pair<T, U> &p) {\n    return os << '(' << p.first << ',' <<\
-    \ p.second << ')';\n}\ntemplate <class T>\nstd::ostream &operator<<(std::ostream\
-    \ &os, const std::vector<T> &v) {\n    for (auto it = v.begin(); it != v.end();\
-    \ ++it) {\n        os << (it == v.begin() ? \"\" : \" \") << *it;\n    }\n   \
-    \ return os;\n}\ntemplate <class Head, class... Tail>\nvoid co(Head &&head, Tail\
-    \ &&...tail) {\n    if constexpr (sizeof...(tail) == 0) std::cout << head << '\\\
-    n';\n    else std::cout << head << ' ', co(std::forward<Tail>(tail)...);\n}\n\
-    template <class Head, class... Tail>\nvoid ce(Head &&head, Tail &&...tail) {\n\
-    \    if constexpr (sizeof...(tail) == 0) std::cerr << head << '\\n';\n    else\
-    \ std::cerr << head << ' ', ce(std::forward<Tail>(tail)...);\n}\ntemplate <typename\
-    \ T, typename... Args>\nauto make_vector(T x, int arg, Args... args) {\n    if\
-    \ constexpr (sizeof...(args) == 0) return std::vector<T>(arg, x);\n    else return\
-    \ std::vector(arg, make_vector<T>(x, args...));\n}\nvoid setp(int n) {\n    std::cout\
-    \ << std::fixed << std::setprecision(n);\n}\nvoid Yes(bool is_correct = true)\
-    \ {\n    std::cout << (is_correct ? \"Yes\" : \"No\") << '\\n';\n}\nvoid No(bool\
-    \ is_not_correct = true) {\n    Yes(!is_not_correct);\n}\nvoid YES(bool is_correct\
-    \ = true) {\n    std::cout << (is_correct ? \"YES\" : \"NO\") << '\\n';\n}\nvoid\
-    \ NO(bool is_not_correct = true) {\n    YES(!is_not_correct);\n}\nvoid Takahashi(bool\
-    \ is_correct = true) {\n    std::cout << (is_correct ? \"Takahashi\" : \"Aoki\"\
-    ) << '\\n';\n}\nvoid Aoki(bool is_not_correct = true) {\n    Takahashi(!is_not_correct);\n\
-    }"
+    \n#include \"template/template.hpp\"\nusing namespace std;\nusing ll = std::int64_t;\n\
+    using ld = long double;\ntemplate <class T, class U>\nstd::istream &operator>>(std::istream\
+    \ &is, std::pair<T, U> &p) {\n    return is >> p.first >> p.second;\n}\ntemplate\
+    \ <class T>\nstd::istream &operator>>(std::istream &is, std::vector<T> &v) {\n\
+    \    for (T &i : v) is >> i;\n    return is;\n}\ntemplate <class T, class U>\n\
+    std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {\n    return\
+    \ os << '(' << p.first << ',' << p.second << ')';\n}\ntemplate <class T>\nstd::ostream\
+    \ &operator<<(std::ostream &os, const std::vector<T> &v) {\n    for (auto it =\
+    \ v.begin(); it != v.end(); ++it) {\n        os << (it == v.begin() ? \"\" : \"\
+    \ \") << *it;\n    }\n    return os;\n}\ntemplate <class Head, class... Tail>\n\
+    void co(Head &&head, Tail &&...tail) {\n    if constexpr (sizeof...(tail) == 0)\
+    \ std::cout << head << '\\n';\n    else std::cout << head << ' ', co(std::forward<Tail>(tail)...);\n\
+    }\ntemplate <class Head, class... Tail>\nvoid ce(Head &&head, Tail &&...tail)\
+    \ {\n    if constexpr (sizeof...(tail) == 0) std::cerr << head << '\\n';\n   \
+    \ else std::cerr << head << ' ', ce(std::forward<Tail>(tail)...);\n}\ntemplate\
+    \ <typename T, typename... Args>\nauto make_vector(T x, int arg, Args... args)\
+    \ {\n    if constexpr (sizeof...(args) == 0) return std::vector<T>(arg, x);\n\
+    \    else return std::vector(arg, make_vector<T>(x, args...));\n}\nvoid setp(int\
+    \ n) {\n    std::cout << std::fixed << std::setprecision(n);\n}\nvoid Yes(bool\
+    \ is_correct = true) {\n    std::cout << (is_correct ? \"Yes\" : \"No\") << '\\\
+    n';\n}\nvoid No(bool is_not_correct = true) {\n    Yes(!is_not_correct);\n}\n\
+    void YES(bool is_correct = true) {\n    std::cout << (is_correct ? \"YES\" : \"\
+    NO\") << '\\n';\n}\nvoid NO(bool is_not_correct = true) {\n    YES(!is_not_correct);\n\
+    }\nvoid Takahashi(bool is_correct = true) {\n    std::cout << (is_correct ? \"\
+    Takahashi\" : \"Aoki\") << '\\n';\n}\nvoid Aoki(bool is_not_correct = true) {\n\
+    \    Takahashi(!is_not_correct);\n}\n"
   dependsOn:
   - lib/template/macro.hpp
   - lib/template/template.hpp
@@ -348,7 +360,7 @@ data:
   isVerificationFile: false
   path: lib/template/atcoder.hpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/new/longest_increasing_subsequence.test.cpp
@@ -394,6 +406,9 @@ data:
   - test/yosupo/matrix/matrix_product.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
+  - test/aoj/alds1/prime_numbers2.test.cpp
+  - test/aoj/alds1/skew_heap.test.cpp
+  - test/aoj/alds1/leftist_heap.test.cpp
   - test/aoj/alds1/kmp.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/itp2/treap.test.cpp
@@ -429,6 +444,7 @@ data:
   - test/aoj/ntl/addition.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/spfa.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/min_cost_flow.test.cpp

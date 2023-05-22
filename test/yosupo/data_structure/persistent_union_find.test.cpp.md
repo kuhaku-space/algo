@@ -55,7 +55,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/persistent_union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-03-10 18:49:08+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/persistent_union_find.test.cpp

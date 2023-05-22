@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree/lca.test.cpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:36:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/lca.test.cpp

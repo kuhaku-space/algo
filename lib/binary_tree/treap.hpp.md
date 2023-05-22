@@ -81,7 +81,7 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/treap.hpp
   requiredBy: []
-  timestamp: '2022-06-15 03:55:30+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/itp2/treap.test.cpp

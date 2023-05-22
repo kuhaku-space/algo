@@ -53,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/weighted_union_find.test.cpp
   requiredBy: []
-  timestamp: '2022-06-22 08:11:12+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/weighted_union_find.test.cpp

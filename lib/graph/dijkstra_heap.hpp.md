@@ -70,7 +70,7 @@ data:
   isVerificationFile: false
   path: lib/graph/dijkstra_heap.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_binary.test.cpp

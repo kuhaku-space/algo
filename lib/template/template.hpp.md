@@ -178,9 +178,9 @@ data:
   - icon: ':warning:'
     path: lib/graph/spanning_tree.hpp
     title: "\u5168\u57DF\u6728"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/graph/spfa.hpp
-    title: "\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF"
+    title: SPFA
   - icon: ':heavy_check_mark:'
     path: lib/graph/topological_sort.hpp
     title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
@@ -196,13 +196,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/heap/fibonacci_heap.hpp
     title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/leftist_heap.hpp
     title: leftist heap
   - icon: ':heavy_check_mark:'
     path: lib/heap/radix_heap.hpp
     title: lib/heap/radix_heap.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/heap/skew_heap.hpp
     title: skew heap
   - icon: ':heavy_check_mark:'
@@ -224,9 +224,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/math/eratosthenes.hpp
-    title: "\u7D20\u6570\u5224\u5B9A"
+    title: "\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9"
   - icon: ':warning:'
     path: lib/math/fraction.hpp
     title: "\u5206\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
@@ -379,11 +379,20 @@ data:
     path: test/aoj/alds1/kmp.test.cpp
     title: test/aoj/alds1/kmp.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/leftist_heap.test.cpp
+    title: test/aoj/alds1/leftist_heap.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/prime_numbers.test.cpp
     title: test/aoj/alds1/prime_numbers.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/prime_numbers2.test.cpp
+    title: test/aoj/alds1/prime_numbers2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/rolling_hash.test.cpp
     title: test/aoj/alds1/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/skew_heap.test.cpp
+    title: test/aoj/alds1/skew_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/cgl/convex_hull.test.cpp
     title: test/aoj/cgl/convex_hull.test.cpp
@@ -492,6 +501,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/spfa.test.cpp
+    title: test/aoj/grl/spfa.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/topological_sort.test.cpp
     title: test/aoj/grl/topological_sort.test.cpp
@@ -667,21 +679,21 @@ data:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#pragma GCC target(\"sse4.2,avx2,bmi2\"\
     )\r\n#pragma GCC optimize(\"O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n\
-    #include <bits/stdc++.h>\r\nusing namespace std;\r\ntemplate <class T, class U>\r\
-    \nbool chmax(T &a, const U &b) {\r\n    return a < (T)b ? a = (T)b, true : false;\r\
-    \n}\r\ntemplate <class T, class U>\r\nbool chmin(T &a, const U &b) {\r\n    return\
-    \ (T)b < a ? a = (T)b, true : false;\r\n}\r\nconstexpr int64_t INF = 1000000000000000003;\r\
-    \nconstexpr int Inf = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr\
-    \ int MOD_N = 998244353;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double PI\
-    \ = M_PI;\n"
-  code: "#pragma once\r\n#pragma GCC target(\"sse4.2,avx2,bmi2\")\r\n#pragma GCC optimize(\"\
-    O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n#include <bits/stdc++.h>\r\n\
-    using namespace std;\r\ntemplate <class T, class U>\r\nbool chmax(T &a, const\
+    #include <bits/stdc++.h>\r\ntemplate <class T, class U>\r\nbool chmax(T &a, const\
     \ U &b) {\r\n    return a < (T)b ? a = (T)b, true : false;\r\n}\r\ntemplate <class\
     \ T, class U>\r\nbool chmin(T &a, const U &b) {\r\n    return (T)b < a ? a = (T)b,\
-    \ true : false;\r\n}\r\nconstexpr int64_t INF = 1000000000000000003;\r\nconstexpr\
-    \ int Inf = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr int MOD_N\
-    \ = 998244353;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double PI = M_PI;"
+    \ true : false;\r\n}\r\nconstexpr std::int64_t INF = 1000000000000000003;\r\n\
+    constexpr int Inf = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr\
+    \ int MOD_N = 998244353;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double PI\
+    \ = M_PI;\r\n"
+  code: "#pragma once\r\n#pragma GCC target(\"sse4.2,avx2,bmi2\")\r\n#pragma GCC optimize(\"\
+    O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n#include <bits/stdc++.h>\r\n\
+    template <class T, class U>\r\nbool chmax(T &a, const U &b) {\r\n    return a\
+    \ < (T)b ? a = (T)b, true : false;\r\n}\r\ntemplate <class T, class U>\r\nbool\
+    \ chmin(T &a, const U &b) {\r\n    return (T)b < a ? a = (T)b, true : false;\r\
+    \n}\r\nconstexpr std::int64_t INF = 1000000000000000003;\r\nconstexpr int Inf\
+    \ = 1000000003;\r\nconstexpr int MOD = 1000000007;\r\nconstexpr int MOD_N = 998244353;\r\
+    \nconstexpr double EPS = 1e-7;\r\nconstexpr double PI = M_PI;\r\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/template/template.hpp
@@ -808,7 +820,7 @@ data:
   - lib/matrix/matrix.hpp
   - lib/matrix/wavelet_matrix.hpp
   - lib/matrix/compressed_wavelet_matrix.hpp
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/new/longest_increasing_subsequence.test.cpp
@@ -854,6 +866,9 @@ data:
   - test/yosupo/matrix/matrix_product.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
+  - test/aoj/alds1/prime_numbers2.test.cpp
+  - test/aoj/alds1/skew_heap.test.cpp
+  - test/aoj/alds1/leftist_heap.test.cpp
   - test/aoj/alds1/kmp.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/itp2/treap.test.cpp
@@ -889,6 +904,7 @@ data:
   - test/aoj/ntl/addition.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/dijkstra_binary.test.cpp
+  - test/aoj/grl/spfa.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/min_cost_flow.test.cpp

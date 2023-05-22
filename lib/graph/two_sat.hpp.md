@@ -39,7 +39,7 @@ data:
     \ auto res = scc(G);\r\n        return res;\r\n    }\r\n\r\n    bool is_satisfy(const\
     \ std::vector<int> &v) {\r\n        for (int i = 0; i < this->_size; ++i) {\r\n\
     \            if (v[i * 2] == v[i * 2 + 1]) return false;\r\n        }\r\n    \
-    \    return true;\r\n    }\r\n\r\n    std::vector<bool> build(const vector<int>\
+    \    return true;\r\n    }\r\n\r\n    std::vector<bool> build(const std::vector<int>\
     \ &v) {\r\n        std::vector<bool> res(this->_size);\r\n        for (int i =\
     \ 0; i < this->_size; ++i) res[i] = v[i * 2] < v[i * 2 + 1];\r\n        return\
     \ res;\r\n    }\r\n\r\n  private:\r\n    int _size;\r\n    Graph<void> G;\r\n\
@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: lib/graph/two_sat.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/math/two_sat.test.cpp

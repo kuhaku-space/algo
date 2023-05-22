@@ -60,9 +60,9 @@ data:
     \ const noexcept { return x; }\n    constexpr explicit operator unsigned long\
     \ long() const noexcept { return x; }\n\n    constexpr HashInt inverse() const\
     \ noexcept {\n        std::int64_t a = x, b = mod, u = 1, v = 0, t = 0;\n    \
-    \    while (b > 0) {\n            t = a / b;\n            swap(a -= t * b, b);\n\
-    \            swap(u -= t * v, v);\n        }\n        return HashInt(u);\n   \
-    \ }\n\n    constexpr HashInt pow(std::uint64_t n) const noexcept { return HashInt(*this).pow_self(n);\
+    \    while (b > 0) {\n            t = a / b;\n            std::swap(a -= t * b,\
+    \ b);\n            std::swap(u -= t * v, v);\n        }\n        return HashInt(u);\n\
+    \    }\n\n    constexpr HashInt pow(std::uint64_t n) const noexcept { return HashInt(*this).pow_self(n);\
     \ }\n    constexpr HashInt &pow_self(std::uint64_t n) noexcept {\n        HashInt\
     \ res(1);\n        for (; n > 0; n >>= 1) {\n            if (n & 1) res *= *this;\n\
     \            *this *= *this;\n        }\n        *this = res;\n        return\
@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: lib/math/hashint.hpp
   requiredBy: []
-  timestamp: '2023-03-10 18:22:06+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/hashint.hpp

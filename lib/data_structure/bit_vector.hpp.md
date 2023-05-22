@@ -64,7 +64,7 @@ data:
   requiredBy:
   - lib/matrix/wavelet_matrix.hpp
   - lib/matrix/compressed_wavelet_matrix.hpp
-  timestamp: '2023-05-17 13:01:16+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_kth_smallest.test.cpp

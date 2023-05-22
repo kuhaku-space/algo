@@ -31,23 +31,24 @@ data:
     /**\r\n * @brief \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\r\n *\r\
     \n * @tparam T\r\n * @param graph \u30B0\u30E9\u30D5\r\n * @param s \u59CB\u70B9\
     \r\n * @param inf\r\n * @return std::vector<T>\r\n */\r\ntemplate <class T>\r\n\
-    std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = numeric_limits<T>::max())\
-    \ {\r\n    int n = graph.size();\r\n    std::vector<T> dists(n, inf);\r\n    dists[s]\
-    \ = T();\r\n    bool updated = true;\r\n    for (int count = 0; updated && count\
-    \ <= n << 1; ++count) {\r\n        updated = false;\r\n        for (int i = 0;\
-    \ i < n; ++i) {\r\n            if (dists[i] == inf) continue;\r\n            for\
-    \ (auto &e : graph[i]) {\r\n                if (dists[i] == -inf || chmin(dists[e.to()],\
-    \ dists[i] + e.weight())) {\r\n                    if (dists[e.to()] == -inf)\
-    \ continue;\r\n                    updated = true;\r\n                    if (count\
-    \ >= n) dists[e.to()] = -inf;\r\n                }\r\n            }\r\n      \
-    \  }\r\n    }\r\n    return dists;\r\n}\r\n"
+    std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0,\r\n            \
+    \                T inf = std::numeric_limits<T>::max()) {\r\n    int n = graph.size();\r\
+    \n    std::vector<T> dists(n, inf);\r\n    dists[s] = T();\r\n    bool updated\
+    \ = true;\r\n    for (int count = 0; updated && count <= n << 1; ++count) {\r\n\
+    \        updated = false;\r\n        for (int i = 0; i < n; ++i) {\r\n       \
+    \     if (dists[i] == inf) continue;\r\n            for (auto &e : graph[i]) {\r\
+    \n                if (dists[i] == -inf || chmin(dists[e.to()], dists[i] + e.weight()))\
+    \ {\r\n                    if (dists[e.to()] == -inf) continue;\r\n          \
+    \          updated = true;\r\n                    if (count >= n) dists[e.to()]\
+    \ = -inf;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return\
+    \ dists;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/bellman_ford.test.cpp

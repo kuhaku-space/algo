@@ -56,32 +56,32 @@ data:
     \ this->x * this->x + this->y * this->y; }\r\n    T abs() const { return sqrt(this->norm());\
     \ }\r\n    constexpr T dot(const Point<T> &p) const { return this->x * p.x + this->y\
     \ * p.y; }\r\n    constexpr T cross(const Point<T> &p) const { return this->x\
-    \ * p.y - this->y * p.x; }\r\n\r\n    friend istream &operator>>(istream &is,\
-    \ Point<T> &rhs) {\r\n        T x, y;\r\n        is >> x >> y;\r\n        rhs\
-    \ = Point<T>(x, y);\r\n        return (is);\r\n    }\r\n    friend ostream &operator<<(ostream\
-    \ &os, const Point<T> &rhs) {\r\n        return os << rhs.x << ' ' << rhs.y;\r\
-    \n    }\r\n};\r\n\r\ntemplate <class T>\r\nusing Points = std::vector<Point<T>>;\r\
-    \n\r\n// \u30CE\u30EB\u30E0\r\ntemplate <class T>\r\nconstexpr T norm(Point<T>\
-    \ p) {\r\n    return p.x * p.x + p.y * p.y;\r\n}\r\n// \u7D76\u5BFE\u5024\r\n\
-    template <class T>\r\nT abs(Point<T> p) {\r\n    return sqrt(norm(p));\r\n}\r\n\
-    // \u5185\u7A4D\r\ntemplate <class T>\r\nconstexpr T dot(Point<T> a, Point<T>\
-    \ b) {\r\n    return a.x * b.x + a.y * b.y;\r\n}\r\n// \u5916\u7A4D\r\ntemplate\
-    \ <class T>\r\nconstexpr T cross(Point<T> a, Point<T> b) {\r\n    return a.x *\
-    \ b.y - a.y * b.x;\r\n}\r\n\r\ntemplate <class T>\r\nint ccw(const Point<T> &a,\
-    \ Point<T> b, Point<T> c) {\r\n    b -= a, c -= a;\r\n    if (cross(b, c) > EPS)\
-    \ return +1;   // \"COUNTER_CLOCKWISE\"\r\n    if (cross(b, c) < -EPS) return\
-    \ -1;  // \"CLOCKWISE\"\r\n    if (dot(b, c) < 0) return +2;       // \"ONLINE_BACK\"\
-    \r\n    if (norm(b) < norm(c)) return -2;   // \"ONLINE_FRONT\"\r\n    return\
-    \ 0;                           // \"ON_SEGMENT\"\r\n}\r\n\r\ntemplate <class T>\r\
-    \nstruct Line {\r\n    Point<T> a, b;\r\n\r\n    constexpr Line() : a(), b() {}\r\
-    \n    constexpr Line(const Point<T> &_a, const Point<T> &_b) : a(_a), b(_b) {}\r\
-    \n\r\n    constexpr bool in_line(Point<T> p) const { return eq(cross(p - a, p\
-    \ - b), 0); }\r\n\r\n    // \u5C04\u5F71\r\n    constexpr Point<T> proj(const\
-    \ Point<T> &p) const {\r\n        return a + (b - a) * dot(b - a, p - a) / norm(b\
-    \ - a);\r\n    }\r\n    // \u53CD\u5C04\r\n    constexpr Point<T> refl(const Point<T>\
-    \ &p) const { return this->proj(p) * 2 - p; }\r\n\r\n    T dist(Point<T> p) {\
-    \ return abs(p - this->proj(p)); }\r\n};\r\n\r\ntemplate <class T>\r\nconstexpr\
-    \ Point<T> PINF = Point<T>(numeric_limits<T>::max(), numeric_limits<T>::max());\r\
+    \ * p.y - this->y * p.x; }\r\n\r\n    friend std::istream &operator>>(std::istream\
+    \ &is, Point<T> &rhs) {\r\n        T x, y;\r\n        is >> x >> y;\r\n      \
+    \  rhs = Point<T>(x, y);\r\n        return (is);\r\n    }\r\n    friend std::ostream\
+    \ &operator<<(std::ostream &os, const Point<T> &rhs) {\r\n        return os <<\
+    \ rhs.x << ' ' << rhs.y;\r\n    }\r\n};\r\n\r\ntemplate <class T>\r\nusing Points\
+    \ = std::vector<Point<T>>;\r\n\r\n// \u30CE\u30EB\u30E0\r\ntemplate <class T>\r\
+    \nconstexpr T norm(Point<T> p) {\r\n    return p.x * p.x + p.y * p.y;\r\n}\r\n\
+    // \u7D76\u5BFE\u5024\r\ntemplate <class T>\r\nT abs(Point<T> p) {\r\n    return\
+    \ std::sqrt(norm(p));\r\n}\r\n// \u5185\u7A4D\r\ntemplate <class T>\r\nconstexpr\
+    \ T dot(Point<T> a, Point<T> b) {\r\n    return a.x * b.x + a.y * b.y;\r\n}\r\n\
+    // \u5916\u7A4D\r\ntemplate <class T>\r\nconstexpr T cross(Point<T> a, Point<T>\
+    \ b) {\r\n    return a.x * b.y - a.y * b.x;\r\n}\r\n\r\ntemplate <class T>\r\n\
+    int ccw(const Point<T> &a, Point<T> b, Point<T> c) {\r\n    b -= a, c -= a;\r\n\
+    \    if (cross(b, c) > EPS) return +1;   // \"COUNTER_CLOCKWISE\"\r\n    if (cross(b,\
+    \ c) < -EPS) return -1;  // \"CLOCKWISE\"\r\n    if (dot(b, c) < 0) return +2;\
+    \       // \"ONLINE_BACK\"\r\n    if (norm(b) < norm(c)) return -2;   // \"ONLINE_FRONT\"\
+    \r\n    return 0;                           // \"ON_SEGMENT\"\r\n}\r\n\r\ntemplate\
+    \ <class T>\r\nstruct Line {\r\n    Point<T> a, b;\r\n\r\n    constexpr Line()\
+    \ : a(), b() {}\r\n    constexpr Line(const Point<T> &_a, const Point<T> &_b)\
+    \ : a(_a), b(_b) {}\r\n\r\n    constexpr bool in_line(Point<T> p) const { return\
+    \ eq(cross(p - a, p - b), 0); }\r\n\r\n    // \u5C04\u5F71\r\n    constexpr Point<T>\
+    \ proj(const Point<T> &p) const {\r\n        return a + (b - a) * dot(b - a, p\
+    \ - a) / norm(b - a);\r\n    }\r\n    // \u53CD\u5C04\r\n    constexpr Point<T>\
+    \ refl(const Point<T> &p) const { return this->proj(p) * 2 - p; }\r\n\r\n    T\
+    \ dist(Point<T> p) { return abs(p - this->proj(p)); }\r\n};\r\n\r\ntemplate <class\
+    \ T>\r\nconstexpr Point<T> PINF = Point<T>(std::numeric_limits<T>::max(), std::numeric_limits<T>::max());\r\
     \ntemplate <class T>\r\nconstexpr Line<T> LINF = Line<T>(PINF<T>, PINF<T>);\r\n\
     \r\ntemplate <class T>\r\nbool parallel(const Line<T> &a, const Line<T> &b) {\r\
     \n    return eq(cross(a.b - a.a, b.b - b.a), 0.0);\r\n}\r\ntemplate <class T>\r\
@@ -130,7 +130,7 @@ data:
   isVerificationFile: false
   path: lib/geometry/geometry.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/cgl/projection.test.cpp

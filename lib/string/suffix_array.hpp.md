@@ -114,7 +114,7 @@ data:
   isVerificationFile: false
   path: lib/string/suffix_array.hpp
   requiredBy: []
-  timestamp: '2022-07-31 20:32:53+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/string/number_of_substring.test.cpp

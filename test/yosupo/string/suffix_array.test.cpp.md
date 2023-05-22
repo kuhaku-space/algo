@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/string/suffix_array.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 20:32:53+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/string/suffix_array.test.cpp

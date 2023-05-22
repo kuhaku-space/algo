@@ -31,20 +31,20 @@ data:
     \ int y) { return this->same(x, y); }\n\n    int size(int x) { return -(this->data[this->root(x)]);\
     \ }\n    int get_size(int x) { return this->size(x); }\n\n    bool unite(int x,\
     \ int y) {\n        x = this->root(x), y = this->root(y);\n        if (x == y)\
-    \ return false;\n        if (this->data[x] > this->data[y]) swap(x, y);\n    \
-    \    this->data[x] += this->data[y];\n        this->data[y] = x;\n        return\
-    \ true;\n    }\n\n    template <class F>\n    bool unite(int x, int y, F f) {\n\
-    \        x = this->root(x), y = this->root(y);\n        if (x != y) {\n      \
-    \      if (this->data[x] > this->data[y]) swap(x, y);\n            this->data[x]\
-    \ += this->data[y];\n            this->data[y] = x;\n        }\n        f(x, y);\n\
-    \        return x != y;\n    }\n\n  private:\n    std::unordered_map<int, int>\
-    \ data;\n};\n"
+    \ return false;\n        if (this->data[x] > this->data[y]) std::swap(x, y);\n\
+    \        this->data[x] += this->data[y];\n        this->data[y] = x;\n       \
+    \ return true;\n    }\n\n    template <class F>\n    bool unite(int x, int y,\
+    \ F f) {\n        x = this->root(x), y = this->root(y);\n        if (x != y) {\n\
+    \            if (this->data[x] > this->data[y]) std::swap(x, y);\n           \
+    \ this->data[x] += this->data[y];\n            this->data[y] = x;\n        }\n\
+    \        f(x, y);\n        return x != y;\n    }\n\n  private:\n    std::unordered_map<int,\
+    \ int> data;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/dynamic_union_find.hpp
   requiredBy: []
-  timestamp: '2023-03-10 18:33:38+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/tree/dynamic_union_find.hpp

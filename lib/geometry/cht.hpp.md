@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: lib/geometry/cht.hpp
   requiredBy: []
-  timestamp: '2023-03-10 20:38:05+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/geometry/cht.hpp

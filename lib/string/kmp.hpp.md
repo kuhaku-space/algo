@@ -40,14 +40,14 @@ data:
     \ = 0, j = 0;\r\n        while (i + j < n) {\r\n            if (j < m && t[j]\
     \ == s[i + j]) {\r\n                ++j;\r\n                res[i + j - 1] = j;\r\
     \n                continue;\r\n            }\r\n            i += j - data[j];\r\
-    \n            j = max(data[j], int(0));\r\n        }\r\n        return res;\r\n\
-    \    }\r\n};\r\n"
+    \n            j = std::max(data[j], int(0));\r\n        }\r\n        return res;\r\
+    \n    }\r\n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/string/kmp.hpp
   requiredBy: []
-  timestamp: '2022-12-06 23:39:08+09:00'
+  timestamp: '2023-05-22 20:36:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/kmp.test.cpp

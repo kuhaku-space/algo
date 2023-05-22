@@ -39,7 +39,7 @@ data:
     \        if (this->lp) this->total = M::op(this->lp->total, this->total);\r\n\
     \            if (this->rp) this->total = M::op(this->total, this->rp->total);\r\
     \n        }\r\n\r\n        void do_flip() {\r\n            this->flip = !this->flip;\r\
-    \n            swap(this->lp, this->rp);\r\n        }\r\n        void propagate()\
+    \n            std::swap(this->lp, this->rp);\r\n        }\r\n        void propagate()\
     \ {\r\n            if (this->flip) {\r\n                this->flip = false;\r\n\
     \                if (this->lp) this->lp->do_flip();\r\n                if (this->rp)\
     \ this->rp->do_flip();\r\n            }\r\n        }\r\n        void propagate_all()\
@@ -85,7 +85,7 @@ data:
   isVerificationFile: false
   path: lib/tree/link_cut_tree.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp

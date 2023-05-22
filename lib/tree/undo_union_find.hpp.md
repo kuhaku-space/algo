@@ -37,9 +37,9 @@ data:
     \ get_size(int k) { return this->size(k); }\n\n    bool unite(int x, int y) {\n\
     \        x = this->root(x), y = this->root(y);\n        this->history.emplace(x,\
     \ this->data[x]);\n        this->history.emplace(y, this->data[y]);\n        if\
-    \ (x == y) return false;\n        if (this->data[x] > this->data[y]) swap(x, y);\n\
-    \        this->data[x] += this->data[y];\n        this->data[y] = x;\n       \
-    \ return true;\n    }\n\n    void undo() {\n        this->data[this->history.top().first]\
+    \ (x == y) return false;\n        if (this->data[x] > this->data[y]) std::swap(x,\
+    \ y);\n        this->data[x] += this->data[y];\n        this->data[y] = x;\n \
+    \       return true;\n    }\n\n    void undo() {\n        this->data[this->history.top().first]\
     \ = this->history.top().second;\n        this->history.pop();\n        this->data[this->history.top().first]\
     \ = this->history.top().second;\n        this->history.pop();\n    }\n\n    int\
     \ snapshot() const { return this->history.size(); }\n\n    void rollback(int x\
@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: lib/tree/undo_union_find.hpp
   requiredBy: []
-  timestamp: '2023-03-10 18:37:30+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/undo_union_find.test.cpp

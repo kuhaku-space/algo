@@ -87,16 +87,17 @@ data:
     \n        if (n & 1) res *= mul;\r\n        mul *= mul;\r\n    }\r\n    return\
     \ res;\r\n}\r\n\r\nstd::int64_t inv_mod(std::int64_t a, std::int64_t mod) {\r\n\
     \    std::int64_t b = mod, u = 1, v = 0, t;\r\n    while (b > 0) {\r\n       \
-    \ t = a / b;\r\n        swap(a -= t * b, b);\r\n        swap(u -= t * v, v);\r\
-    \n    }\r\n    return u >= 0 ? u % mod : (mod - (-u) % mod) % mod;\r\n}\r\n\r\n\
-    std::int64_t pow_mod(std::int64_t a, std::int64_t n, std::int64_t mod) {\r\n \
-    \   if (n < 0) return inv_mod(pow_mod(a, -n, mod), mod);\r\n    std::int64_t res\
-    \ = 1, mul = safe_mod(a, mod);\r\n    for (; n > 0; n >>= 1) {\r\n        if (n\
-    \ & 1) (res *= mul) %= mod;\r\n        (mul *= mul) %= mod;\r\n    }\r\n    return\
-    \ res;\r\n}\r\n\r\nint ceil_pow2(std::int64_t n) {\r\n    int x = 0;\r\n    while\
-    \ ((std::uint64_t(1) << x) < (std::uint64_t)(n)) ++x;\r\n    return x;\r\n}\r\n\
-    \r\nint floor_pow2(std::int64_t n) {\r\n    int x = 0;\r\n    while ((std::uint64_t(1)\
-    \ << (x + 1)) <= (std::uint64_t)(n)) ++x;\r\n    return x;\r\n}\r\n"
+    \ t = a / b;\r\n        std::swap(a -= t * b, b);\r\n        std::swap(u -= t\
+    \ * v, v);\r\n    }\r\n    return u >= 0 ? u % mod : (mod - (-u) % mod) % mod;\r\
+    \n}\r\n\r\nstd::int64_t pow_mod(std::int64_t a, std::int64_t n, std::int64_t mod)\
+    \ {\r\n    if (n < 0) return inv_mod(pow_mod(a, -n, mod), mod);\r\n    std::int64_t\
+    \ res = 1, mul = safe_mod(a, mod);\r\n    for (; n > 0; n >>= 1) {\r\n       \
+    \ if (n & 1) (res *= mul) %= mod;\r\n        (mul *= mul) %= mod;\r\n    }\r\n\
+    \    return res;\r\n}\r\n\r\nint ceil_pow2(std::int64_t n) {\r\n    int x = 0;\r\
+    \n    while ((std::uint64_t(1) << x) < (std::uint64_t)(n)) ++x;\r\n    return\
+    \ x;\r\n}\r\n\r\nint floor_pow2(std::int64_t n) {\r\n    int x = 0;\r\n    while\
+    \ ((std::uint64_t(1) << (x + 1)) <= (std::uint64_t)(n)) ++x;\r\n    return x;\r\
+    \n}\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
@@ -112,7 +113,7 @@ data:
   - lib/fft/ntt_mod.hpp
   - lib/math/math.hpp
   - lib/math/primitive_root.hpp
-  timestamp: '2022-07-31 15:35:50+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

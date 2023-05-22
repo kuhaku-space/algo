@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2022-07-29 22:00:58+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_range_sum.test.cpp

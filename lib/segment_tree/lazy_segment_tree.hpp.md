@@ -95,7 +95,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-02-04 18:39:21+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp

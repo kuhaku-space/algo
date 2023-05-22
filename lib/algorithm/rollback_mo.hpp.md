@@ -38,7 +38,7 @@ data:
     \ add, add);\r\n    }\r\n    template <class F, class G, class H, class I, class\
     \ J>\r\n    void solve(F rem, G save, H load, I addl, J addr) const {\r\n    \
     \    int q = this->_left.size();\r\n        int width = std::max(1, int(this->_size\
-    \ / sqrt(q)));\r\n        this->_order.resize(q);\r\n        std::iota(this->_order.begin(),\
+    \ / std::sqrt(q)));\r\n        this->_order.resize(q);\r\n        std::iota(this->_order.begin(),\
     \ this->_order.end(), 0);\r\n        std::sort(this->_order.begin(), this->_order.end(),\
     \ [&](int a, int b) -> bool {\r\n            if (this->_left[a] / width != this->_left[b]\
     \ / width)\r\n                return this->_left[a] < this->_left[b];\r\n    \
@@ -62,7 +62,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/rollback_mo.hpp
   requiredBy: []
-  timestamp: '2023-04-07 14:36:23+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/algorithm/rollback_mo.hpp

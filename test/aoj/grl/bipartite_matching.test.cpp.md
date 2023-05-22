@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/bipartite_matching.test.cpp
   requiredBy: []
-  timestamp: '2022-12-10 01:48:30+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/bipartite_matching.test.cpp

@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/aoj/itp2/scapegoat_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-02-04 18:47:30+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/itp2/scapegoat_tree.test.cpp

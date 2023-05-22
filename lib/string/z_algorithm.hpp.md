@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: lib/string/z_algorithm.hpp
   requiredBy: []
-  timestamp: '2023-01-10 05:03:21+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/string/zalgorithm.test.cpp

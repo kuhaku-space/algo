@@ -5,13 +5,17 @@ data:
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/prime_numbers2.test.cpp
+    title: test/aoj/alds1/prime_numbers2.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: "\u7D20\u6570\u5224\u5B9A"
-    links: []
+    document_title: "\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9"
+    links:
+    - https://qiita.com/peria/items/a4ff4ddb3336f7b81d50
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -21,24 +25,23 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\ntemplate <int N = (1 << 22)>\r\n\
-    struct eratosthenes {\r\n  private:\r\n    static constexpr int SIZE = N / 30\
-    \ + (N % 30 != 0);\r\n    static constexpr std::array<int, 8> kMod30 = {1, 7,\
-    \ 11, 13, 17, 19, 23, 29};\r\n    static constexpr std::array<int, 8> C1 = {6,\
-    \ 4, 2, 4, 2, 4, 6, 2};\r\n    static constexpr std::array<std::array<int, 8>,\
-    \ 8> C0 = {\r\n        std::array<int, 8>{0, 0, 0, 0, 0, 0, 0, 1},\r\n       \
-    \ {1, 1, 1, 0, 1, 1, 1, 1},\r\n        {2, 2, 0, 2, 0, 2, 2, 1},\r\n        {3,\
-    \ 1, 1, 2, 1, 1, 3, 1},\r\n        {3, 3, 1, 2, 1, 3, 3, 1},\r\n        {4, 2,\
-    \ 2, 2, 2, 2, 4, 1},\r\n        {5, 3, 1, 4, 1, 3, 5, 1},\r\n        {6, 4, 2,\
-    \ 4, 2, 4, 6, 1},\r\n    };\r\n    static constexpr std::array<std::array<std::uint8_t,\
-    \ 8>, 8> kMask = {\r\n        std::array<std::uint8_t, 8>{0xfe, 0xfd, 0xfb, 0xf7,\
-    \ 0xef, 0xdf, 0xbf, 0x7f},\r\n        {0xfd, 0xdf, 0xef, 0xfe, 0x7f, 0xf7, 0xfb,\
-    \ 0xbf},\r\n        {0xfb, 0xef, 0xfe, 0xbf, 0xfd, 0x7f, 0xf7, 0xdf},\r\n    \
-    \    {0xf7, 0xfe, 0xbf, 0xdf, 0xfb, 0xfd, 0x7f, 0xef},\r\n        {0xef, 0x7f,\
-    \ 0xfd, 0xfb, 0xdf, 0xbf, 0xfe, 0xf7},\r\n        {0xdf, 0xf7, 0x7f, 0xfd, 0xbf,\
-    \ 0xfe, 0xef, 0xfb},\r\n        {0xbf, 0xfb, 0xf7, 0x7f, 0xfe, 0xef, 0xdf, 0xfd},\r\
-    \n        {0x7f, 0xbf, 0xdf, 0xef, 0xf7, 0xfb, 0xfd, 0xfe},\r\n    };\r\n\r\n\
-    \  public:\r\n    constexpr eratosthenes() {\r\n        this->prime_number.fill(0xff);\r\
+  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30A8\u30E9\u30C8\
+    \u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\r\n *\r\n * @see https://qiita.com/peria/items/a4ff4ddb3336f7b81d50\r\
+    \n */\r\ntemplate <int N = (1 << 22)>\r\nstruct eratosthenes {\r\n  private:\r\
+    \n    static constexpr int SIZE = N / 30 + (N % 30 != 0);\r\n    static constexpr\
+    \ std::array<int, 8> kMod30 = {1, 7, 11, 13, 17, 19, 23, 29};\r\n    static constexpr\
+    \ std::array<int, 8> C1 = {6, 4, 2, 4, 2, 4, 6, 2};\r\n    static constexpr std::array<std::array<int,\
+    \ 8>, 8> C0 = {\r\n        0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 2,\
+    \ 2, 0, 2, 0, 2,\r\n        2, 1, 3, 1, 1, 2, 1, 1, 3, 1, 3, 3, 1, 2, 1, 3, 3,\
+    \ 1, 4, 2, 2, 2,\r\n        2, 2, 4, 1, 5, 3, 1, 4, 1, 3, 5, 1, 6, 4, 2, 4, 2,\
+    \ 4, 6, 1,\r\n    };\r\n    static constexpr std::array<std::array<std::uint8_t,\
+    \ 8>, 8> kMask = {\r\n        0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f,\
+    \ 0xfd, 0xdf, 0xef, 0xfe, 0x7f,\r\n        0xf7, 0xfb, 0xbf, 0xfb, 0xef, 0xfe,\
+    \ 0xbf, 0xfd, 0x7f, 0xf7, 0xdf, 0xf7, 0xfe,\r\n        0xbf, 0xdf, 0xfb, 0xfd,\
+    \ 0x7f, 0xef, 0xef, 0x7f, 0xfd, 0xfb, 0xdf, 0xbf, 0xfe,\r\n        0xf7, 0xdf,\
+    \ 0xf7, 0x7f, 0xfd, 0xbf, 0xfe, 0xef, 0xfb, 0xbf, 0xfb, 0xf7, 0x7f,\r\n      \
+    \  0xfe, 0xef, 0xdf, 0xfd, 0x7f, 0xbf, 0xdf, 0xef, 0xf7, 0xfb, 0xfd, 0xfe,\r\n\
+    \    };\r\n\r\n  public:\r\n    constexpr eratosthenes() {\r\n        this->prime_number.fill(0xff);\r\
     \n        this->prime_number[0] = 0xfe;\r\n        if (int r = N % 30) {\r\n \
     \           if (r < 7) prime_number[SIZE - 1] = 0x1;\r\n            else if (r\
     \ < 11) prime_number[SIZE - 1] = 0x3;\r\n            else if (r < 13) prime_number[SIZE\
@@ -78,13 +81,14 @@ data:
   isVerificationFile: false
   path: lib/math/eratosthenes.hpp
   requiredBy: []
-  timestamp: '2023-01-10 05:02:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2023-05-22 19:46:47+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/alds1/prime_numbers2.test.cpp
 documentation_of: lib/math/eratosthenes.hpp
 layout: document
 redirect_from:
 - /library/lib/math/eratosthenes.hpp
 - /library/lib/math/eratosthenes.hpp.html
-title: "\u7D20\u6570\u5224\u5B9A"
+title: "\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9"
 ---

@@ -36,23 +36,23 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: fft/ntt.hpp: line\
     \ -1: no such header\n"
   code: "#include \"fft/ntt.hpp\"\r\n#include \"math/modint.hpp\"\r\n#include \"template/template.hpp\"\
-    \r\n\r\ntemplate <class mint>\r\nstruct formal_power_series : vector<mint> {\r\
-    \n    using fps = formal_power_series;\r\n\r\n    formal_power_series(std::vector<T>\
-    \ &&v) : vector<mint>(v) {}\r\n    formal_power_series(const std::vector<T> &v)\
-    \ : vector<mint>(v) {}\r\n\r\n    constexpr fps &operator+=(const mint &v) {\r\
-    \n        if (this->empty()) this->resize(1);\r\n        (*this)[0] += v;\r\n\
-    \        return *this;\r\n    }\r\n    constexpr fps &operator+=(const fps &f)\
-    \ {\r\n        if (f.size() > this->size()) this->resize(f.size());\r\n      \
-    \  for (int i = 0; i < (int)f.size(); ++i) (*this)[i] += f[i];\r\n        return\
-    \ this->normalize();\r\n    }\r\n    constexpr fps &operator-=(const mint &v)\
-    \ {\r\n        if (this->empty()) this->resize(1);\r\n        (*this)[0] -= v;\r\
-    \n        return *this;\r\n    }\r\n    constexpr fps &operator-=(const fps &f)\
-    \ {\r\n        if (f.size() > this->size()) this->resize(f.size());\r\n      \
-    \  for (int i = 0; i < (int)f.size(); ++i) (*this)[i] -= f[i];\r\n        return\
-    \ this->normalize();\r\n    }\r\n    constexpr fps &operator*=(const mint &v)\
-    \ {\r\n        for (int i = 0; i < (int)this->size(); ++i) (*this)[i] *= v;\r\n\
-    \        return *this;\r\n    }\r\n    constexpr fps &operator*=(const fps &f)\
-    \ { return *this = convolution((*this), f); }\r\n    constexpr fps &operator/=(const\
+    \r\n\r\ntemplate <class mint>\r\nstruct formal_power_series : std::vector<mint>\
+    \ {\r\n    using fps = formal_power_series;\r\n\r\n    formal_power_series(std::vector<T>\
+    \ &&v) : std::vector<mint>(v) {}\r\n    formal_power_series(const std::vector<T>\
+    \ &v) : std::vector<mint>(v) {}\r\n\r\n    constexpr fps &operator+=(const mint\
+    \ &v) {\r\n        if (this->empty()) this->resize(1);\r\n        (*this)[0] +=\
+    \ v;\r\n        return *this;\r\n    }\r\n    constexpr fps &operator+=(const\
+    \ fps &f) {\r\n        if (f.size() > this->size()) this->resize(f.size());\r\n\
+    \        for (int i = 0; i < (int)f.size(); ++i) (*this)[i] += f[i];\r\n     \
+    \   return this->normalize();\r\n    }\r\n    constexpr fps &operator-=(const\
+    \ mint &v) {\r\n        if (this->empty()) this->resize(1);\r\n        (*this)[0]\
+    \ -= v;\r\n        return *this;\r\n    }\r\n    constexpr fps &operator-=(const\
+    \ fps &f) {\r\n        if (f.size() > this->size()) this->resize(f.size());\r\n\
+    \        for (int i = 0; i < (int)f.size(); ++i) (*this)[i] -= f[i];\r\n     \
+    \   return this->normalize();\r\n    }\r\n    constexpr fps &operator*=(const\
+    \ mint &v) {\r\n        for (int i = 0; i < (int)this->size(); ++i) (*this)[i]\
+    \ *= v;\r\n        return *this;\r\n    }\r\n    constexpr fps &operator*=(const\
+    \ fps &f) { return *this = convolution((*this), f); }\r\n    constexpr fps &operator/=(const\
     \ mint &v) {\r\n        assert(v != 0);\r\n        mint iv = modinv(v);\r\n  \
     \      for (int i = 0; i < (int)this->size(); ++i) (*this)[i] *= iv;\r\n     \
     \   return *this;\r\n    }\r\n    constexpr fps &operator<<=(int x) {\r\n    \
@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: lib/fft/formal_power_series.hpp
   requiredBy: []
-  timestamp: '2023-05-17 11:39:38+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/formal_power_series.hpp

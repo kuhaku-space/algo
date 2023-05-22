@@ -109,7 +109,7 @@ data:
   path: lib/segment_tree/segment_tree.hpp
   requiredBy:
   - lib/segment_tree/segment_tree_raq.hpp
-  timestamp: '2023-04-17 09:43:02+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

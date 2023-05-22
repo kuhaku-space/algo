@@ -28,7 +28,7 @@ data:
     \ dist += rhs.dist;\r\n            return *this;\r\n        }\r\n        edge\
     \ operator+(const edge &rhs) { return edge(*this) += rhs; }\r\n    };\r\n\r\n\
     \    std::int64_t V;\r\n    std::vector<T> dist;\r\n    std::vector<std::vector<edge>>\
-    \ edges;\r\n\r\n    Graph(std::int64_t v) : V(v), edges(v * 5), dist(v, numeric_limits<T>::max())\
+    \ edges;\r\n\r\n    Graph(std::int64_t v) : V(v), edges(v * 5), dist(v, std::numeric_limits<T>::max())\
     \ {\r\n        for (std::int64_t i = 2; i < v * 2; ++i) {\r\n            edges.push_back(edge{v\
     \ + i >> 1, v + i, 0});\r\n            edges.push_back(edge{v * 3 + i, v * 3 +\
     \ i >> 1, 0});\r\n        }\r\n        for (std::int64_t i = 0; i < v; ++i) {\r\
@@ -50,7 +50,7 @@ data:
   isVerificationFile: false
   path: lib/_new/graph_segment.hpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/_new/graph_segment.hpp

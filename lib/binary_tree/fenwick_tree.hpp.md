@@ -101,7 +101,7 @@ data:
   requiredBy:
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/algorithm/inversion_number.hpp
-  timestamp: '2022-07-29 22:00:41+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp

@@ -51,26 +51,26 @@ data:
     \ push(Key key, Value value) {\n        auto node = new _node(key, value);\n \
     \       this->nodes.emplace_back(node);\n\n        int index = this->increment_size();\n\
     \        while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value))\
-    \ {\n            swap(this->nodes[index], this->nodes[index >> 1]);\n        \
-    \    this->nodes[index]->set_index(index);\n            index >>= 1;\n       \
-    \ }\n        this->nodes[index]->set_index(index);\n\n        return node;\n \
-    \   }\n    node_ptr emplace(Key key, Value value) { return this->push(key, value);\
+    \ {\n            std::swap(this->nodes[index], this->nodes[index >> 1]);\n   \
+    \         this->nodes[index]->set_index(index);\n            index >>= 1;\n  \
+    \      }\n        this->nodes[index]->set_index(index);\n\n        return node;\n\
+    \    }\n    node_ptr emplace(Key key, Value value) { return this->push(key, value);\
     \ }\n\n    void pop() {\n        this->nodes[1] = this->nodes[this->decrement_size()];\n\
     \        this->nodes.pop_back();\n\n        int index = 1 << 1;\n        while\
     \ (index <= this->size()) {\n            if (index < this->size() &&\n       \
     \         comp(this->nodes[index]->value, this->nodes[index + 1]->value))\n  \
     \              ++index;\n            if (comp(this->nodes[index]->value, this->nodes[index\
-    \ >> 1]->value)) break;\n            swap(this->nodes[index >> 1], this->nodes[index]);\n\
+    \ >> 1]->value)) break;\n            std::swap(this->nodes[index >> 1], this->nodes[index]);\n\
     \            this->nodes[index >> 1]->set_index(index >> 1);\n            index\
     \ <<= 1;\n        }\n        this->nodes[index >> 1]->set_index(index >> 1);\n\
     \    }\n\n    void update(node_ptr node, Value value) {\n        if (comp(node->value,\
     \ value)) node->value = value;\n        else return;\n        int index = node->get_index();\n\
     \        while (index > 1 && comp(this->nodes[index >> 1]->value, this->nodes[index]->value))\
-    \ {\n            swap(this->nodes[index], this->nodes[index >> 1]);\n        \
-    \    this->nodes[index]->set_index(index);\n            index >>= 1;\n       \
-    \ }\n        this->nodes[index]->set_index(index);\n    }\n\n  private:\n    int\
-    \ _size;\n    std::vector<node_ptr> nodes;\n    Comp comp;\n\n    constexpr int\
-    \ increment_size() { return ++(this->_size); }\n    constexpr int decrement_size()\
+    \ {\n            std::swap(this->nodes[index], this->nodes[index >> 1]);\n   \
+    \         this->nodes[index]->set_index(index);\n            index >>= 1;\n  \
+    \      }\n        this->nodes[index]->set_index(index);\n    }\n\n  private:\n\
+    \    int _size;\n    std::vector<node_ptr> nodes;\n    Comp comp;\n\n    constexpr\
+    \ int increment_size() { return ++(this->_size); }\n    constexpr int decrement_size()\
     \ { return (this->_size)--; }\n};\n"
   dependsOn:
   - lib/template/template.hpp
@@ -78,7 +78,7 @@ data:
   path: lib/heap/binary_heap.hpp
   requiredBy:
   - lib/graph/dijkstra_heap.hpp
-  timestamp: '2022-07-11 16:46:27+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra_binary.test.cpp

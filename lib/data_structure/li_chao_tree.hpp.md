@@ -59,7 +59,7 @@ data:
     \        bool left = comp(line(l), node->line(l));\n        bool right = comp(line(r),\
     \ node->line(r));\n        if (left && right) {\n            node->line = line;\n\
     \            return node;\n        }\n        if (!left && !right) return node;\n\
-    \        bool mid = comp(line(m), node->line(m));\n        if (mid) swap(node->line,\
+    \        bool mid = comp(line(m), node->line(m));\n        if (mid) std::swap(node->line,\
     \ line);\n        if (left != mid) node->left = this->add_line(node->left, line,\
     \ l, m);\n        else node->right = this->add_line(node->right, line, m, r);\n\
     \        return node;\n    }\n\n    node_ptr add_segment(std::int64_t a, std::int64_t\
@@ -80,7 +80,7 @@ data:
   isVerificationFile: false
   path: lib/data_structure/li_chao_tree.hpp
   requiredBy: []
-  timestamp: '2023-03-01 06:11:05+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/line_add_get_min.test.cpp

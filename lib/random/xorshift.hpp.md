@@ -62,7 +62,7 @@ data:
   requiredBy:
   - lib/data_structure/skip_list.hpp
   - lib/binary_tree/treap.hpp
-  timestamp: '2022-06-14 14:06:44+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/itp2/treap.test.cpp

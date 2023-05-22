@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: lib/string/manacher.hpp
   requiredBy: []
-  timestamp: '2022-07-31 19:13:11+09:00'
+  timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/string/enumerate_palindromes.test.cpp

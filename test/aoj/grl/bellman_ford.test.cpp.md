@@ -26,9 +26,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B
+    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -38,14 +38,13 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/bellman_ford.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_1_B\"\
-    \n#include \"graph/bellman_ford.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n    Graph<int>\
-    \ g(n);\n    g.input_edge(m, 0);\n\n    auto dist = bellman_ford(g, r, Inf);\n\
-    \    rep(i, n) {\n        if (dist[i] == -Inf) {\n            co(\"NEGATIVE CYCLE\"\
-    );\n            return 0;\n        }\n    }\n    rep(i, n) {\n        if (dist[i]\
-    \ != Inf)\n            co(dist[i]);\n        else\n            co(\"INF\");\n\
-    \    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B\"\n#include\
+    \ \"graph/bellman_ford.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    int n, m, r;\n    cin >> n >> m >> r;\n    Graph<int> g(n);\n    g.input_edge(m,\
+    \ 0);\n\n    auto dist = bellman_ford(g, r, Inf);\n    rep (i, n) {\n        if\
+    \ (dist[i] == -Inf) {\n            co(\"NEGATIVE CYCLE\");\n            return\
+    \ 0;\n        }\n    }\n    rep (i, n) {\n        if (dist[i] != Inf) co(dist[i]);\n\
+    \        else co(\"INF\");\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/bellman_ford.hpp
   - lib/graph/graph.hpp
@@ -56,7 +55,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/bellman_ford.test.cpp
   requiredBy: []
-  timestamp: '2023-05-07 20:09:35+09:00'
+  timestamp: '2023-05-22 20:52:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/bellman_ford.test.cpp

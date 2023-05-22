@@ -193,9 +193,9 @@ data:
     - icon: ':warning:'
       path: lib/graph/spanning_tree.hpp
       title: "\u5168\u57DF\u6728"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/graph/spfa.hpp
-      title: "\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF"
+      title: SPFA
     - icon: ':heavy_check_mark:'
       path: lib/graph/topological_sort.hpp
       title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
@@ -213,13 +213,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/heap/fibonacci_heap.hpp
       title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/heap/leftist_heap.hpp
       title: leftist heap
     - icon: ':heavy_check_mark:'
       path: lib/heap/radix_heap.hpp
       title: lib/heap/radix_heap.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/heap/skew_heap.hpp
       title: skew heap
   - name: lib/internal
@@ -245,9 +245,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/math/enumeration.hpp
       title: lib/math/enumeration.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/eratosthenes.hpp
-      title: "\u7D20\u6570\u5224\u5B9A"
+      title: "\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9"
     - icon: ':warning:'
       path: lib/math/fraction.hpp
       title: "\u5206\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
@@ -417,11 +417,20 @@ data:
       path: test/aoj/alds1/kmp.test.cpp
       title: test/aoj/alds1/kmp.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/leftist_heap.test.cpp
+      title: test/aoj/alds1/leftist_heap.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/prime_numbers.test.cpp
       title: test/aoj/alds1/prime_numbers.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/prime_numbers2.test.cpp
+      title: test/aoj/alds1/prime_numbers2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/rolling_hash.test.cpp
       title: test/aoj/alds1/rolling_hash.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/skew_heap.test.cpp
+      title: test/aoj/alds1/skew_heap.test.cpp
   - name: test/aoj/cgl
     pages:
     - icon: ':heavy_check_mark:'
@@ -538,6 +547,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/scc.test.cpp
       title: test/aoj/grl/scc.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/spfa.test.cpp
+      title: test/aoj/grl/spfa.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/topological_sort.test.cpp
       title: test/aoj/grl/topological_sort.test.cpp

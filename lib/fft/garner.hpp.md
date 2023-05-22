@@ -42,7 +42,7 @@ data:
   path: lib/fft/garner.hpp
   requiredBy:
   - lib/fft/ntt_mod.hpp
-  timestamp: '2022-07-31 15:35:50+09:00'
+  timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/garner.hpp
