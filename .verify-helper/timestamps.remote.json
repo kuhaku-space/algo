@@ -86,6 +86,7 @@
 "test/yosupo/graph/scc.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/yosupo/graph/shortest_path.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/yosupo/math/two_sat.test.cpp": "2023-05-22 20:02:34 +0900",
+"test/yosupo/matrix/matrix_product.test.cpp": "2023-05-22 21:29:05 +0900",
 "test/yosupo/new/longest_increasing_subsequence.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/yosupo/new/number_of_subsequences.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
@@ -96,5 +97,7 @@
 "test/yosupo/string/zalgorithm.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/yosupo/tree/cartesian_tree.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/yosupo/tree/jump_on_tree.test.cpp": "2023-05-22 20:36:33 +0900",
-"test/yosupo/tree/lca.test.cpp": "2023-05-22 20:36:33 +0900"
+"test/yosupo/tree/lca.test.cpp": "2023-05-22 20:36:33 +0900",
+"test/yosupo/tree/tree_diameter.test.cpp": "2023-05-22 19:46:47 +0900",
+"test/yosupo/tree/tree_path_composite_sum.test.cpp": "2023-05-22 19:46:47 +0900"
 }
