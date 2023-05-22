@@ -4,6 +4,8 @@
  * @brief leftist heap
  *
  * @tparam T 要素の型
+ *
+ * @see http://hos.ac/blog/#blog0001
  */
 template <class T>
 struct leftist_heap {
@@ -11,40 +13,41 @@ struct leftist_heap {
     struct _node {
         using pointer = _node *;
 
-        pointer left, right;
-        int rank;
-        T val;
+        pointer _left, _right;
+        int _rank;
+        T _val;
 
-        constexpr _node() : left(), right(), rank(), val() {}
-        constexpr _node(T _val) : left(), right(), rank(), val(_val) {}
+        constexpr _node() : _left(), _right(), _rank(), _val() {}
+        constexpr _node(T _val) : _left(), _right(), _rank(), _val(_val) {}
     };
 
   public:
     using value_type = T;
     using node_ptr = typename _node::pointer;
 
-    leftist_heap() : root() {}
+    leftist_heap() : _root() {}
 
-    constexpr T top() const { return this->root->val; }
-    constexpr bool empty() const { return this->root == nullptr; }
+    constexpr T top() const { return _root->_val; }
+    constexpr bool empty() const { return _root == nullptr; }
 
-    void push(T val) {
+    constexpr void emplace(T val) {
         auto node = new _node(val);
-        this->meld(this->root, node);
+        _root = meld(_root, node);
     }
+    constexpr void push(T val) { emplace(val); }
 
-    void pop() { this->root = this->meld(this->root->left, this->root->right); }
+    constexpr void pop() { _root = meld(_root->_left, _root->_right); }
 
-    node_ptr meld(node_ptr a, node_ptr b) {
+    constexpr node_ptr meld(node_ptr a, node_ptr b) {
         if (a == nullptr) return b;
         if (b == nullptr) return a;
-        if (a.val > b.val) swap(a, b);
-        a.right = this->meld(a.right, b);
-        if (a.left == nullptr || a.left.rank < a.right.rank) swap(a.left, a.right);
-        a.rank = ((a.right == nullptr) ? 0 : a.right.rank) + 1;
+        if (a->_val < b->_val) swap(a, b);
+        a->_right = meld(a->_right, b);
+        if (a->_left == nullptr || a->_left->_rank < a->_right->_rank) swap(a->_left, a->_right);
+        a->_rank = ((a->_right == nullptr) ? 0 : a->_right->_rank) + 1;
         return a;
     }
 
   private:
-    node_ptr root;
+    node_ptr _root;
 };
