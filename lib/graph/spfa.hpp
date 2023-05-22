@@ -2,7 +2,7 @@
 #include "template/template.hpp"
 
 /**
- * @brief 単一始点最短経路
+ * @brief SPFA
  *
  * @tparam T 辺の重みの型
  * @param g グラフ
@@ -10,6 +10,7 @@
  * @param inf
  * @return std::vector<T>
  *
+ * @see https://hogloid.hatenablog.com/entry/20120409/1333973448
  * @see https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html
  */
 template <class T>
