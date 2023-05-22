@@ -1,8 +1,8 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_1_C"
-#include "math/prime_number.hpp"
+#include "math/eratosthenes.hpp"
 #include "template/atcoder.hpp"
 
-prime_number pn;
+eratosthenes<100000001> pn;
 
 int main(void) {
     int n;
