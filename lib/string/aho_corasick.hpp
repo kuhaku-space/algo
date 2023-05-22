@@ -58,7 +58,7 @@ struct aho_corasick {
         return this->failure;
     }
 
-    std::vector<int> insert(const string &word) {
+    std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
