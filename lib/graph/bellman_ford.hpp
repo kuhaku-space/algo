@@ -11,7 +11,8 @@
  * @return std::vector<T>
  */
 template <class T>
-std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = numeric_limits<T>::max()) {
+std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0,
+                            T inf = std::numeric_limits<T>::max()) {
     int n = graph.size();
     std::vector<T> dists(n, inf);
     dists[s] = T();

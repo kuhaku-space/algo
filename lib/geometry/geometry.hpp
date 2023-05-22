@@ -101,7 +101,7 @@ struct Line {
 };
 
 template <class T>
-constexpr Point<T> PINF = Point<T>(numeric_limits<T>::max(), numeric_limits<T>::max());
+constexpr Point<T> PINF = Point<T>(std::numeric_limits<T>::max(), std::numeric_limits<T>::max());
 template <class T>
 constexpr Line<T> LINF = Line<T>(PINF<T>, PINF<T>);
 
