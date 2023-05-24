@@ -2,10 +2,8 @@
 #include "math/modint.hpp"
 #include "template/template.hpp"
 
-template <int mod>
+template <class mint = static_modint<MOD_N>, internal::is_modint_t<mint> * = nullptr>
 struct Enumeration {
-    using mint = static_modint<mod>;
-
     Enumeration() : combi(), data() {}
 
     mint stirling(int n, int k) {
@@ -28,7 +26,7 @@ struct Enumeration {
     }
 
   private:
-    Combination<mod> combi;
+    Combination<mint> combi;
     std::vector<mint> data;
 
     void _init(int n) {
