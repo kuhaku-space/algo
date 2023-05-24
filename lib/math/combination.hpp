@@ -1,10 +1,8 @@
 #include "math/modint.hpp"
 #include "template/template.hpp"
 
-template <int mod = MOD_N>
+template <class mint = static_modint<MOD_N>, internal::is_modint_t<mint> * = nullptr>
 struct Combination {
-    using mint = static_modint<mod>;
-
     Combination() : _fact(), _finv() {}
 
     mint operator()(int n, int k) {
@@ -32,29 +30,6 @@ struct Combination {
         for (int i = 0; i < k; ++i) {
             res *= n - i;
             res /= i + 1;
-        }
-        return res;
-    }
-
-    mint lucas(int n, int k) {
-        if (n < k || n < 0 || k < 0) return 0;
-        if (n - k < k) k = n - k;
-        static std::vector<std::vector<mint>> v;
-        if (v.empty()) {
-            v = std::vector<std::vector<mint>>(mod, std::vector<mint>(mod));
-            for (int i = 0; i < mod; ++i) v[i][0] = 1;
-            for (int i = 0; i < mod; ++i) {
-                for (int j = 1; j < mod; ++j) {
-                    if (i < j) v[i][j] = 0;
-                    else if (i - j < j) v[i][j] = v[i][i - j];
-                    else v[i][j] = v[i][j - 1] * mint(i + 1 - j) / mint(j);
-                }
-            }
-        }
-        mint res = 1;
-        while (n || k) {
-            res *= v[n % mod][k % mod];
-            n /= mod, k /= mod;
         }
         return res;
     }
