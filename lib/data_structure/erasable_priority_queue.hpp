@@ -5,7 +5,7 @@
  *
  * @tparam T
  */
-template <class T>
+template <class T, class Comp = std::less<>>
 struct erasable_priority_queue {
     bool empty() const { return this->a.empty(); }
     auto top() const { return this->a.top(); }
@@ -18,9 +18,11 @@ struct erasable_priority_queue {
 
     void erase(T x) {
         this->b.emplace(x);
-        while (!this->a.empty() && this->a.top() == this->b.top()) { this->a.pop(), this->b.pop(); }
+        while (!this->a.empty() && !this->b.empty() && this->a.top() == this->b.top()) {
+            this->a.pop(), this->b.pop();
+        }
     }
 
   private:
-    std::priority_queue<T> a, b;
+    std::priority_queue<T, std::vector<T>, Comp> a, b;
 };
