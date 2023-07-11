@@ -60,6 +60,9 @@ data:
       path: lib/binary_tree/patricia_binary_trie.hpp
       title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
     - icon: ':heavy_check_mark:'
+      path: lib/binary_tree/range_tree.hpp
+      title: "\u9818\u57DF\u6728"
+    - icon: ':heavy_check_mark:'
       path: lib/binary_tree/scapegoat_tree.hpp
       title: "\u30B9\u30B1\u30FC\u30D7\u30B4\u30FC\u30C8\u6728"
     - icon: ':heavy_check_mark:'
@@ -118,9 +121,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/fft/ntt.hpp
       title: lib/fft/ntt.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/fft/ntt_mod.hpp
-      title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
+      title: "\u4EFB\u610Fmod\u7573\u307F\u8FBC\u307F"
   - name: lib/flow
     pages:
     - icon: ':heavy_check_mark:'
@@ -396,6 +399,9 @@ data:
       path: lib/tree/rerooting.hpp
       title: "\u5168\u65B9\u4F4D\u6728dp"
     - icon: ':heavy_check_mark:'
+      path: lib/tree/stern_brocot_tree.hpp
+      title: "Stern-Brocot \u6728"
+    - icon: ':heavy_check_mark:'
       path: lib/tree/tree_function.hpp
       title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
     - icon: ':heavy_check_mark:'
@@ -561,6 +567,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/hupc/2019/manacher.test.cpp
       title: test/aoj/hupc/2019/manacher.test.cpp
+  - name: test/aoj/icpc
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/icpc/stern_brocot_tree.test.cpp
+      title: test/aoj/icpc/stern_brocot_tree.test.cpp
   - name: test/aoj/itp2
     pages:
     - icon: ':heavy_check_mark:'
@@ -608,6 +619,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/convolution/convolution.test.cpp
       title: test/yosupo/convolution/convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/convolution/convolution_mod.test.cpp
+      title: test/yosupo/convolution/convolution_mod.test.cpp
   - name: test/yosupo/data_structure
     pages:
     - icon: ':heavy_check_mark:'
@@ -631,6 +645,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/point_add_range_sum.test.cpp
       title: test/yosupo/data_structure/point_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+      title: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/point_set_range_composite.test.cpp
       title: test/yosupo/data_structure/point_set_range_composite.test.cpp

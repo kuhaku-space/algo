@@ -14,9 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/fft/ntt_mod.hpp
-    title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
+    title: "\u4EFB\u610Fmod\u7573\u307F\u8FBC\u307F"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/addition.test.cpp
@@ -39,17 +39,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/convolution_mod.test.cpp
+    title: test/yosupo/convolution/convolution_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -66,20 +69,21 @@ data:
   isVerificationFile: false
   path: lib/internal/internal_bit.hpp
   requiredBy:
-  - lib/data_structure/bigint.hpp
+  - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
   - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt_mod.hpp
+  - lib/data_structure/bigint.hpp
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/addition.test.cpp
   - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/addition.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/internal/internal_bit.hpp
 layout: document
 redirect_from:

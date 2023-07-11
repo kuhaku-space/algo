@@ -6,14 +6,11 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: lib/binary_tree/range_tree.hpp
+    title: "\u9818\u57DF\u6728"
+  - icon: ':heavy_check_mark:'
     path: lib/data_structure/sparse_table.hpp
     title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
-  - icon: ':warning:'
-    path: lib/fft/garner.hpp
-    title: lib/fft/garner.hpp
-  - icon: ':warning:'
-    path: lib/fft/ntt_mod.hpp
-    title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
   - icon: ':warning:'
     path: lib/math/math.hpp
     title: lib/math/math.hpp
@@ -52,6 +49,9 @@ data:
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+    title: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_set_range_composite.test.cpp
     title: test/yosupo/data_structure/point_set_range_composite.test.cpp
   - icon: ':heavy_check_mark:'
@@ -71,12 +71,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -103,29 +103,29 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
+  - lib/binary_tree/range_tree.hpp
+  - lib/math/primitive_root.hpp
+  - lib/math/math.hpp
   - lib/segment_tree/segment_tree_raq.hpp
-  - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
   - lib/segment_tree/segment_tree.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
   - lib/data_structure/sparse_table.hpp
-  - lib/fft/garner.hpp
-  - lib/fft/ntt_mod.hpp
-  - lib/math/math.hpp
-  - lib/math/primitive_root.hpp
   timestamp: '2023-05-22 20:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
 documentation_of: lib/math/pow.hpp
 layout: document
 redirect_from:

@@ -1,9 +1,6 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
-    path: lib/fft/garner.hpp
-    title: lib/fft/garner.hpp
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
     title: lib/fft/ntt.hpp
@@ -20,71 +17,80 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/convolution_mod.test.cpp
+    title: test/yosupo/convolution/convolution_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
+    document_title: "\u4EFB\u610Fmod\u7573\u307F\u8FBC\u307F"
     links:
     - https://asako.growi.cloud/compro/NTT
     - https://math314.hateblo.jp/entry/2015/05/07/014908
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: fft/garner.hpp:\
-    \ line -1: no such header\n"
-  code: "#pragma once\r\n#include \"fft/garner.hpp\"\r\n#include \"fft/ntt.hpp\"\r\
-    \n#include \"template/template.hpp\"\r\n\r\nusing NTT_1 = NTT<167772161, 3>; \
-    \  // 2^25 * 5 + 1\r\nusing NTT_2 = NTT<469762049, 3>;   // 2^26 * 7 + 1\r\nusing\
-    \ NTT_3 = NTT<998244353, 3>;   // 2^23 * 119 + 1\r\nusing NTT_4 = NTT<1224736769,\
-    \ 3>;  // 2^24 * 73 + 1\r\n\r\n/**\r\n * @brief \u4EFB\u610Fmod\u6570\u8AD6\u5909\
-    \u63DB\r\n * @see https://math314.hateblo.jp/entry/2015/05/07/014908\r\n * @see\
-    \ https://asako.growi.cloud/compro/NTT\r\n *\r\n * @tparam T\r\n * @param a\r\n\
-    \ * @param b\r\n * @param mod\r\n * @return std::vector<int>\r\n */\r\ntemplate\
-    \ <class T, class U>\r\nstd::vector<int> convolution(std::vector<T> a, std::vector<U>\
-    \ b, int mod) {\r\n    const int n = a.size() + b.size() - 1;\r\n    for (auto&\
-    \ i : a) i %= mod;\r\n    for (auto& i : b) i %= mod;\r\n    auto x = NTT_1::convolution(a,\
-    \ b);\r\n    auto y = NTT_2::convolution(a, b);\r\n    auto z = NTT_3::convolution(a,\
-    \ b);\r\n\r\n    std::vector<int> res(n);\r\n    std::vector<int> r(3), m(3);\r\
-    \n    for (int i = 0; i < n; ++i) {\r\n        r[0] = (int)x[i], m[0] = NTT_1::get_mod();\r\
-    \n        r[1] = (int)y[i], m[1] = NTT_2::get_mod();\r\n        r[2] = (int)z[i],\
-    \ m[2] = NTT_3::get_mod();\r\n        res[i] = garner(r, m, mod);\r\n    }\r\n\
-    \r\n    return res;\r\n}\r\n\r\ntemplate <class T>\r\nstd::vector<T> power(std::vector<T>\
-    \ v, std::int64_t x, int mod = MOD) {\r\n    int n = v.size();\r\n    std::vector<T>\
-    \ res(n);\r\n    res[0] = 1;\r\n    for (; x; x >>= 1) {\r\n        if (x & 1)\
-    \ {\r\n            res = convolution(res, v, mod);\r\n            res.resize(n);\r\
-    \n        }\r\n        v = convolution(v, v, mod);\r\n        v.resize(n);\r\n\
-    \    }\r\n    return res;\r\n}\r\n"
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: fft/ntt.hpp: line\
+    \ -1: no such header\n"
+  code: "#pragma once\r\n#include \"fft/ntt.hpp\"\r\n#include \"template/template.hpp\"\
+    \r\n\r\n/**\r\n * @brief \u4EFB\u610Fmod\u7573\u307F\u8FBC\u307F\r\n *\r\n * @tparam\
+    \ mod\r\n * @tparam T\r\n * @param a\r\n * @param b\r\n * @return std::vector<T>\r\
+    \n *\r\n * @see https://math314.hateblo.jp/entry/2015/05/07/014908\r\n * @see\
+    \ https://asako.growi.cloud/compro/NTT\r\n */\r\ntemplate <unsigned int mod =\
+    \ 998244353, class T,\r\n          std::enable_if_t<std::is_integral<T>::value>\
+    \ * = nullptr>\r\nstd::vector<T> convolution_mod(const std::vector<T> &a, const\
+    \ std::vector<T> &b) {\r\n    int n = int(a.size()), m = int(b.size());\r\n  \
+    \  if (!n || !m) return {};\r\n\r\n    int z = (int)internal::bit_ceil((unsigned\
+    \ int)(n + m - 1));\r\n\r\n    static constexpr std::uint64_t MOD1 = 754974721;\
+    \  // 2^24\r\n    static constexpr std::uint64_t MOD2 = 167772161;  // 2^25\r\n\
+    \    static constexpr std::uint64_t MOD3 = 469762049;  // 2^26\r\n    static constexpr\
+    \ std::uint64_t M2M3 = MOD2 * MOD3;\r\n    static constexpr std::uint64_t M1M3\
+    \ = MOD1 * MOD3;\r\n    static constexpr std::uint64_t M1M2 = MOD1 * MOD2;\r\n\
+    \    static constexpr __uint128_t M1M2M3 = (__uint128_t)MOD1 * MOD2 * MOD3;\r\n\
+    \r\n    static constexpr std::uint64_t i1 = internal::inv_gcd(MOD2 * MOD3, MOD1).second;\r\
+    \n    static constexpr std::uint64_t i2 = internal::inv_gcd(MOD1 * MOD3, MOD2).second;\r\
+    \n    static constexpr std::uint64_t i3 = internal::inv_gcd(MOD1 * MOD2, MOD3).second;\r\
+    \n\r\n    static constexpr int MAX_AB_BIT = 24;\r\n    static_assert(MOD1 % (1ull\
+    \ << MAX_AB_BIT) == 1,\r\n                  \"MOD1 isn't enough to support an\
+    \ array length of 2^24.\");\r\n    static_assert(MOD2 % (1ull << MAX_AB_BIT) ==\
+    \ 1,\r\n                  \"MOD2 isn't enough to support an array length of 2^24.\"\
+    );\r\n    static_assert(MOD3 % (1ull << MAX_AB_BIT) == 1,\r\n                \
+    \  \"MOD3 isn't enough to support an array length of 2^24.\");\r\n    assert(n\
+    \ + m - 1 <= (1 << MAX_AB_BIT));\r\n\r\n    auto c1 = convolution<MOD1>(a, b);\r\
+    \n    auto c2 = convolution<MOD2>(a, b);\r\n    auto c3 = convolution<MOD3>(a,\
+    \ b);\r\n\r\n    std::vector<int> c(n + m - 1);\r\n    for (int i = 0; i < n +\
+    \ m - 1; ++i) {\r\n        __uint128_t x = (c1[i] * i1) % MOD1 * (__uint128_t)M2M3;\r\
+    \n        x += (c2[i] * i2) % MOD2 * (__uint128_t)M1M3;\r\n        if (x >= M1M2M3)\
+    \ x -= M1M2M3;\r\n        x += (c3[i] * i3) % MOD3 * (__uint128_t)M1M2;\r\n  \
+    \      if (x >= M1M2M3) x -= M1M2M3;\r\n        c[i] = x % mod;\r\n    }\r\n\r\
+    \n    return c;\r\n}\r\n"
   dependsOn:
-  - lib/fft/garner.hpp
-  - lib/math/pow.hpp
-  - lib/template/template.hpp
   - lib/fft/ntt.hpp
   - lib/internal/internal_bit.hpp
+  - lib/template/template.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/math/modint.hpp
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2023-05-22 20:02:34+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2023-05-24 16:19:45+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/fft/ntt_mod.hpp
 layout: document
 redirect_from:
 - /library/lib/fft/ntt_mod.hpp
 - /library/lib/fft/ntt_mod.hpp.html
-title: "\u4EFB\u610Fmod\u6570\u8AD6\u5909\u63DB"
+title: "\u4EFB\u610Fmod\u7573\u307F\u8FBC\u307F"
 ---

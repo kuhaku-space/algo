@@ -29,40 +29,30 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#include \"math/modint.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
-    template <int mod = MOD_N>\r\nstruct Combination {\r\n    using mint = static_modint<mod>;\r\
-    \n\r\n    Combination() : _fact(), _finv() {}\r\n\r\n    mint operator()(int n,\
-    \ int k) {\r\n        if (n < k || n < 0 || k < 0) return 0;\r\n        this->_init(n);\r\
-    \n        return this->_fact[n] * this->_finv[k] * this->_finv[n - k];\r\n   \
-    \ }\r\n\r\n    mint fact(int x) {\r\n        assert(x >= 0);\r\n        this->_init(x);\r\
-    \n        return this->_fact[x];\r\n    }\r\n\r\n    mint finv(int x) {\r\n  \
-    \      assert(x >= 0);\r\n        this->_init(x);\r\n        return this->_finv[x];\r\
-    \n    }\r\n\r\n    mint naive(int n, int k) const {\r\n        if (n < k || n\
-    \ < 0 || k < 0) return 0;\r\n        if (n - k < k) k = n - k;\r\n        mint\
-    \ res = 1;\r\n        for (int i = 0; i < k; ++i) {\r\n            res *= n -\
-    \ i;\r\n            res /= i + 1;\r\n        }\r\n        return res;\r\n    }\r\
-    \n\r\n    mint lucas(int n, int k) {\r\n        if (n < k || n < 0 || k < 0) return\
-    \ 0;\r\n        if (n - k < k) k = n - k;\r\n        static std::vector<std::vector<mint>>\
-    \ v;\r\n        if (v.empty()) {\r\n            v = std::vector<std::vector<mint>>(mod,\
-    \ std::vector<mint>(mod));\r\n            for (int i = 0; i < mod; ++i) v[i][0]\
-    \ = 1;\r\n            for (int i = 0; i < mod; ++i) {\r\n                for (int\
-    \ j = 1; j < mod; ++j) {\r\n                    if (i < j) v[i][j] = 0;\r\n  \
-    \                  else if (i - j < j) v[i][j] = v[i][i - j];\r\n            \
-    \        else v[i][j] = v[i][j - 1] * mint(i + 1 - j) / mint(j);\r\n         \
-    \       }\r\n            }\r\n        }\r\n        mint res = 1;\r\n        while\
-    \ (n || k) {\r\n            res *= v[n % mod][k % mod];\r\n            n /= mod,\
-    \ k /= mod;\r\n        }\r\n        return res;\r\n    }\r\n\r\n    mint permu(int\
-    \ n, int k) {\r\n        if (n < k || n < 0 || k < 0) return 0;\r\n        this->_init(n);\r\
-    \n        return this->_fact[n] * this->_finv[n - k];\r\n    }\r\n\r\n  private:\r\
+    template <class mint = static_modint<MOD_N>, internal::is_modint_t<mint> * = nullptr>\r\
+    \nstruct Combination {\r\n    Combination() : _fact(), _finv() {}\r\n\r\n    mint\
+    \ operator()(int n, int k) {\r\n        if (n < k || n < 0 || k < 0) return 0;\r\
+    \n        this->_init(n);\r\n        return this->_fact[n] * this->_finv[k] *\
+    \ this->_finv[n - k];\r\n    }\r\n\r\n    mint fact(int x) {\r\n        assert(x\
+    \ >= 0);\r\n        this->_init(x);\r\n        return this->_fact[x];\r\n    }\r\
+    \n\r\n    mint finv(int x) {\r\n        assert(x >= 0);\r\n        this->_init(x);\r\
+    \n        return this->_finv[x];\r\n    }\r\n\r\n    mint naive(int n, int k)\
+    \ const {\r\n        if (n < k || n < 0 || k < 0) return 0;\r\n        if (n -\
+    \ k < k) k = n - k;\r\n        mint res = 1;\r\n        for (int i = 0; i < k;\
+    \ ++i) {\r\n            res *= n - i;\r\n            res /= i + 1;\r\n       \
+    \ }\r\n        return res;\r\n    }\r\n\r\n    mint permu(int n, int k) {\r\n\
+    \        if (n < k || n < 0 || k < 0) return 0;\r\n        this->_init(n);\r\n\
+    \        return this->_fact[n] * this->_finv[n - k];\r\n    }\r\n\r\n  private:\r\
     \n    std::vector<mint> _fact, _finv;\r\n\r\n    void _init(int n) {\r\n     \
     \   if ((int)this->_fact.size() > n) return;\r\n        int m = this->_fact.size();\r\
     \n        this->_fact.resize(n + 1);\r\n        for (int i = m; i <= n; ++i) {\r\
@@ -80,7 +70,7 @@ data:
   path: lib/math/combination.hpp
   requiredBy:
   - lib/math/enumeration.hpp
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-05-24 16:19:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dpl/bell.test.cpp
