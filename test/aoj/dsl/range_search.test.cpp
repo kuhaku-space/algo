@@ -1,27 +1,27 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_C"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C"
 #include "geometry/kdtree.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
     int n;
-    cin >> n;
+    std::cin >> n;
     kdtree kd;
-    rep (i, n) {
+    while (n--) {
         int x, y;
-        cin >> x >> y;
+        std::cin >> x >> y;
         kd.add(x, y);
     }
     kd.build();
 
     int q;
-    cin >> q;
-    rep (i, q) {
+    std::cin >> q;
+    while (q--) {
         int sx, tx, sy, ty;
-        cin >> sx >> tx >> sy >> ty;
+        std::cin >> sx >> tx >> sy >> ty;
         auto v = kd.find(sx, tx + 1, sy, ty + 1);
-        sort(all(v));
-        for (auto i : v) co(i);
-        cout << endl;
+        std::sort(v.begin(), v.end());
+        for (auto e : v) co(e);
+        std::cout << std::endl;
     }
 
     return 0;
