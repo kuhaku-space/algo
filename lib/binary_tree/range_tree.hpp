@@ -60,7 +60,10 @@ struct range_tree {
         }
         return res;
     }
-    value_type get(T x, T y) const { return prod(x, y, x + 1, y + 1); }
+    value_type get(T x, T y) const {
+        int i = std::distance(_pts.begin(), std::lower_bound(_pts.begin(), _pts.end(), Pt{x, y}));
+        return i < _size && _pts[i] == std::make_pair(x, y) ? segtrees[_size + i].get(0) : M::id;
+    }
 
   private:
     int _size;
