@@ -1,11 +1,11 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A"
-#include "segment_tree/segment_tree.hpp"
+#include "segment_tree/dynamic_segment_tree.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    segment_tree<Min<int>> st(n, (1LL << 31) - 1);
+    dynamic_segment_tree<Min<int>> st(n);
     while (q--) {
         int com, x, y;
         std::cin >> com >> x >> y;
