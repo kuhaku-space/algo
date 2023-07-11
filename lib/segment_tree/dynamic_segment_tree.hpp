@@ -1,5 +1,4 @@
 #pragma once
-#include "math/pow.hpp"
 #include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
@@ -15,25 +14,29 @@ struct dynamic_segment_tree {
 
     struct _node {
         using pointer = _node *;
-        pointer parent, left, right;
+        pointer left, right;
         T value;
 
-        _node(pointer ptr) : parent(ptr), left(nullptr), right(nullptr), value(M::id) {}
+        constexpr _node() : left(nullptr), right(nullptr), value(M::id) {}
     };
 
   public:
     using node_ptr = typename _node::pointer;
 
-    dynamic_segment_tree(std::int64_t n) : root(), _size(), _log() { this->init(n); }
+    dynamic_segment_tree(std::int64_t n) : root(), _size(n) { this->init(); }
 
     T operator[](int k) const {
         node_ptr node = this->root;
-        for (int i = this->_log - 1; i >= 0; --i) {
-            if (k >> i & 1) {
+        std::int64_t l = 0, r = _size;
+        while (r - l > 1) {
+            std::int64_t m = (l + r) >> 1;
+            if (k >= m) {
                 if (!node->right) return M::id;
+                l = m;
                 node = node->right;
             } else {
                 if (!node->left) return M::id;
+                r = m;
                 node = node->left;
             }
         }
@@ -42,28 +45,28 @@ struct dynamic_segment_tree {
     T at(int k) const { return this->operator[](k); }
     T get(int k) const { return this->operator[](k); }
 
-    void init(std::int64_t n) {
-        this->_log = ceil_pow2(n);
-        this->_size = 1LL << this->_log;
-        this->root = new _node(nullptr);
-    }
-
     void set(std::int64_t k, T x) {
         assert(0 <= k && k < this->_size);
         node_ptr node = this->root;
-        for (int i = this->_log - 1; i >= 0; --i) {
-            if (k >> i & 1) {
-                if (!node->right) node->right = new _node(node);
+        std::vector<node_ptr> nodes;
+        std::int64_t l = 0, r = _size;
+        while (r - l > 1) {
+            std::int64_t m = (l + r) >> 1;
+            nodes.emplace_back(node);
+            if (k >= m) {
+                if (!node->right) node->right = new _node();
+                l = m;
                 node = node->right;
             } else {
-                if (!node->left) node->left = new _node(node);
+                if (!node->left) node->left = new _node();
+                r = m;
                 node = node->left;
             }
         }
-
         node->value = x;
-        while (node->parent) {
-            node = node->parent;
+
+        std::reverse(begin(nodes), end(nodes));
+        for (auto node : nodes) {
             node->value = M::op(node->left ? node->left->value : M::id,
                                 node->right ? node->right->value : M::id);
         }
@@ -121,7 +124,9 @@ struct dynamic_segment_tree {
 
   private:
     node_ptr root;
-    std::int64_t _size, _log;
+    std::int64_t _size;
+
+    void init() { this->root = new _node(); }
 
     T prod(std::int64_t a, std::int64_t b, node_ptr node, std::int64_t l, std::int64_t r) const {
         if (a <= l && r <= b) return node->value;
