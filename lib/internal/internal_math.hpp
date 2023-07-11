@@ -107,7 +107,7 @@ constexpr bool is_SPRP32(std::uint32_t n, std::uint32_t a) {
 }
 
 // given 2 <= n,a < 2^64, a prime, check whether n is a-SPRP
-inline bool is_SPRP64(const montgomery &m, std::uint64_t a) {
+constexpr bool is_SPRP64(const montgomery &m, std::uint64_t a) {
     auto n = m.umod();
     if (n == a) return true;
     if (n % a == 0) return false;
