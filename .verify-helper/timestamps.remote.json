@@ -61,6 +61,7 @@
 "test/aoj/ntl/power.test.cpp": "2023-05-24 16:19:45 +0900",
 "test/aoj/ntl/prime_factorize.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/aoj/ntl/remainder.test.cpp": "2023-07-12 23:02:45 +0900",
+"test/aoj/rupc/range_set.test.cpp": "2023-07-13 19:34:40 +0900",
 "test/yosupo/convolution/convolution.test.cpp": "2023-07-12 23:02:45 +0900",
 "test/yosupo/convolution/convolution_mod.test.cpp": "2023-07-12 23:02:45 +0900",
 "test/yosupo/data_structure/binary_trie.test.cpp": "2023-05-22 19:46:47 +0900",
