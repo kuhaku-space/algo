@@ -4,9 +4,9 @@
 
 int main(void) {
     int n;
-    cin >> n;
+    std::cin >> n;
     vector<int> a(n);
-    cin >> a;
+    std::cin >> a;
 
     auto ans = make_lis(a);
     co(ans.size());

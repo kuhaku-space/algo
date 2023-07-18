@@ -3,16 +3,15 @@
 #include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, q;
-    cin >> n >> q;
-    vector<int> a(n);
-    cin >> a;
+    std::cin >> n >> q;
+    std::vector<int> a(n);
+    std::cin >> a;
     wavelet_matrix<int, 30> wm(a);
 
     while (q--) {
         int l, r, k;
-        cin >> l >> r >> k;
+        std::cin >> l >> r >> k;
         co(wm.kth_smallest(l, r, k));
     }
 
