@@ -7,12 +7,12 @@ using Mint = modint998;
 
 int main(void) {
     int n;
-    cin >> n;
-    vector<int> a(n);
-    cin >> a;
+    std::cin >> n;
+    std::vector<int> a(n);
+    std::cin >> a;
     a = compress(a);
     Mint ans = 0;
-    vector<Mint> dp(*max_element(all(a)) + 1);
+    std::vector<Mint> dp(*max_element(all(a)) + 1);
     for (auto x : a) {
         auto t = ans - dp[x] + 1;
         ans += t;

@@ -1,28 +1,23 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B"
-#include "template/atcoder.hpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B"
 #include "tree/weighted_union_find.hpp"
+#include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, q;
-    cin >> n >> q;
-
+    std::cin >> n >> q;
     weighted_union_find<int> uf(n);
     while (q--) {
         int com;
-        cin >> com;
+        std::cin >> com;
         if (com == 0) {
             int x, y, w;
-            cin >> x >> y >> w;
+            std::cin >> x >> y >> w;
             uf.unite(x, y, w);
         } else {
             int x, y;
-            cin >> x >> y;
-            if (uf.same(x, y)) {
-                co(uf.diff(x, y));
-            } else {
-                co('?');
-            }
+            std::cin >> x >> y;
+            if (uf.same(x, y)) co(uf.diff(x, y));
+            else co('?');
         }
     }
 
