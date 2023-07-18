@@ -101,6 +101,7 @@
 "test/yosupo/math/montmort_number.test.cpp": "2023-07-19 00:42:24 +0900",
 "test/yosupo/math/number_of_subsequences.test.cpp": "2023-07-19 00:42:24 +0900",
 "test/yosupo/math/two_sat.test.cpp": "2023-05-22 20:02:34 +0900",
+"test/yosupo/matrix/determinant_of_matrix.test.cpp": "2023-07-19 01:00:50 +0900",
 "test/yosupo/matrix/matrix_product.test.cpp": "2023-05-24 16:19:45 +0900",
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
 "test/yosupo/sample/many_a+b.test.cpp": "2023-05-22 19:46:47 +0900",
