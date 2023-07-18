@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/algorithm/lis.hpp
-    title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
+    path: lib/graph/graph.hpp
+    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -16,6 +16,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/tree/hld.hpp
+    title: HLD
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,9 +26,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/longest_increasing_subsequence
+    PROBLEM: https://judge.yosupo.jp/problem/lca
     links:
-    - https://judge.yosupo.jp/problem/longest_increasing_subsequence
+    - https://judge.yosupo.jp/problem/lca
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -33,28 +36,31 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/lis.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/longest_increasing_subsequence\"\
-    \n#include \"algorithm/lis.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n\n    auto\
-    \ ans = make_lis(a);\n    co(ans.size());\n    co(ans);\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n#include \"template/atcoder.hpp\"\
+    \n#include \"tree/hld.hpp\"\n\nint main(void) {\n    int n, q;\n    std::cin >>\
+    \ n >> q;\n    std::vector<int> p(n - 1);\n    std::cin >> p;\n    HLD hld(n);\n\
+    \    rep (i, n - 1) hld.add_edges(p[i], i + 1);\n    hld.build();\n    while (q--)\
+    \ {\n        int u, v;\n        std::cin >> u >> v;\n        co(hld.lca(u, v));\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/algorithm/lis.hpp
-  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
+  - lib/template/template.hpp
   - lib/template/sonic.hpp
+  - lib/tree/hld.hpp
+  - lib/graph/graph.hpp
   isVerificationFile: true
-  path: test/yosupo/new/longest_increasing_subsequence.test.cpp
+  path: test/yosupo/tree/lowest_common_ancestor.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-07-19 00:42:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/yosupo/new/longest_increasing_subsequence.test.cpp
+documentation_of: test/yosupo/tree/lowest_common_ancestor.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/new/longest_increasing_subsequence.test.cpp
-- /verify/test/yosupo/new/longest_increasing_subsequence.test.cpp.html
-title: test/yosupo/new/longest_increasing_subsequence.test.cpp
+- /verify/test/yosupo/tree/lowest_common_ancestor.test.cpp
+- /verify/test/yosupo/tree/lowest_common_ancestor.test.cpp.html
+title: test/yosupo/tree/lowest_common_ancestor.test.cpp
 ---

@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dynamic_segment_tree.hpp
     title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
@@ -33,6 +33,9 @@ data:
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/segment_tree_2d.hpp
+    title: "\u4E8C\u6B21\u5143\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_raq.hpp
     title: lib/segment_tree/segment_tree_raq.hpp
   - icon: ':heavy_check_mark:'
@@ -40,8 +43,14 @@ data:
     title: Link-Cut Tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/dynamic_rmq.test.cpp
+    title: test/aoj/dsl/dynamic_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/raq_rmq.test.cpp
     title: test/aoj/dsl/raq_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq.2.test.cpp
+    title: test/aoj/dsl/rmq.2.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
@@ -57,6 +66,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
     title: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
+    title: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
     title: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
@@ -136,6 +148,7 @@ data:
   - lib/segment_tree/persistent_dual_segment_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/segment_tree/segment_tree_2d.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/persistent_segment_tree.hpp
@@ -147,6 +160,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
+  - test/aoj/dsl/dynamic_rmq.test.cpp
   - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
@@ -154,6 +169,7 @@ data:
   - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp

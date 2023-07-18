@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
@@ -18,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/raq_rmq.test.cpp
     title: test/aoj/dsl/raq_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq.2.test.cpp
+    title: test/aoj/dsl/rmq.2.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -35,50 +38,57 @@ data:
   code: "#include \"segment_tree/segment_tree.hpp\"\r\n#include \"template/template.hpp\"\
     \r\n\r\ntemplate <class T>\r\nstruct segment_tree_range_add_range_max {\r\n  private:\r\
     \n    struct Monoid {\r\n        using value_type = std::pair<T, T>;\r\n     \
-    \   static constexpr std::pair<T, T> id =\r\n            std::make_pair(std::numeric_limits<T>::lowest()\
-    \ / 2, T(0));\r\n        static constexpr std::pair<T, T> op(const std::pair<T,\
-    \ T> &lhs,\r\n                                            const std::pair<T, T>\
-    \ &rhs) {\r\n            return std::make_pair(std::max(lhs.first, lhs.second\
-    \ + rhs.first),\r\n                                  lhs.second + rhs.second);\r\
-    \n        }\r\n    };\r\n\r\n  public:\r\n    segment_tree_range_add_range_max(int\
-    \ _n, T _e) : st(_n + 1, std::make_pair(_e, T(0))) {}\r\n\r\n    void apply(int\
-    \ k, T val) { this->apply(k, k + 1, val); }\r\n    void apply(int a, int b, T\
-    \ val) {\r\n        auto x = this->st.get(a);\r\n        this->st.set(a, std::make_pair(x.second\
-    \ + val, x.second + val));\r\n        auto y = this->st.get(b);\r\n        this->st.set(b,\
-    \ std::make_pair(y.second - val, y.second - val));\r\n    }\r\n    void add(int\
-    \ k, T val) { this->apply(k, k + 1, val); }\r\n    void add(int a, int b, T val)\
-    \ { this->apply(a, b, val); }\r\n\r\n    T prod(int a, int b) { return this->st.prod(0,\
-    \ a).second + this->st.prod(a, b).first; }\r\n\r\n    T at(int k) { return this->st.prod(0,\
-    \ k).second; }\r\n    T get(int k) { return this->at(k); }\r\n\r\n  private:\r\
-    \n    segment_tree<Monoid> st;\r\n};\r\n\r\ntemplate <class T>\r\nstruct segment_tree_range_add_range_min\
+    \   static constexpr std::pair<T, T> id = std::make_pair(T(), T());\r\n      \
+    \  static constexpr std::pair<T, T> op(const std::pair<T, T> &lhs,\r\n       \
+    \                                     const std::pair<T, T> &rhs) {\r\n      \
+    \      return std::make_pair(std::max(lhs.first, lhs.second + rhs.first),\r\n\
+    \                                  lhs.second + rhs.second);\r\n        }\r\n\
+    \    };\r\n\r\n  public:\r\n    segment_tree_range_add_range_max(int n) : st(n\
+    \ + 1, std::make_pair(T(), T())) {}\r\n    segment_tree_range_add_range_max(int\
+    \ n, T e) : segment_tree_range_add_range_max(n) {\r\n        st.set(0, std::make_pair(e,\
+    \ e));\r\n    }\r\n\r\n    T at(int k) { return this->st.prod(0, k + 1).second;\
+    \ }\r\n    T get(int k) { return this->at(k); }\r\n\r\n    void set(int k, T val)\
+    \ { this->apply(k, k + 1, val - at(k)); }\r\n    void apply(int k, T val) { this->apply(k,\
+    \ k + 1, val); }\r\n    void apply(int a, int b, T val) {\r\n        auto x =\
+    \ this->st.get(a);\r\n        this->st.set(a, std::make_pair(x.second + val, x.second\
+    \ + val));\r\n        auto y = this->st.get(b);\r\n        this->st.set(b, std::make_pair(y.second\
+    \ - val, y.second - val));\r\n    }\r\n    void add(int k, T val) { this->apply(k,\
+    \ k + 1, val); }\r\n    void add(int a, int b, T val) { this->apply(a, b, val);\
+    \ }\r\n\r\n    T prod(int a, int b) { return this->st.prod(0, a + 1).second +\
+    \ this->st.prod(a + 1, b).first; }\r\n\r\n  private:\r\n    segment_tree<Monoid>\
+    \ st;\r\n};\r\n\r\ntemplate <class T>\r\nstruct segment_tree_range_add_range_min\
     \ {\r\n  private:\r\n    struct Monoid {\r\n        using value_type = std::pair<T,\
-    \ T>;\r\n        static constexpr std::pair<T, T> id =\r\n            std::make_pair(std::numeric_limits<T>::max()\
-    \ / 2, T(0));\r\n        static constexpr std::pair<T, T> op(const std::pair<T,\
-    \ T> &lhs,\r\n                                            const std::pair<T, T>\
-    \ &rhs) {\r\n            return std::make_pair(std::min(lhs.first, lhs.second\
-    \ + rhs.first),\r\n                                  lhs.second + rhs.second);\r\
-    \n        }\r\n    };\r\n\r\n  public:\r\n    segment_tree_range_add_range_min(int\
-    \ _n, T _e) : st(_n + 1, std::make_pair(_e, T(0))) {}\r\n\r\n    void apply(int\
-    \ k, T val) { this->apply(k, k + 1, val); }\r\n    void apply(int a, int b, T\
-    \ val) {\r\n        auto x = this->st.get(a);\r\n        this->st.set(a, std::make_pair(x.second\
-    \ + val, x.second + val));\r\n        auto y = this->st.get(b);\r\n        this->st.set(b,\
-    \ std::make_pair(y.second - val, y.second - val));\r\n    }\r\n    void add(int\
-    \ k, T val) { this->apply(k, k + 1, val); }\r\n    void add(int a, int b, T val)\
-    \ { this->apply(a, b, val); }\r\n\r\n    T prod(int a, int b) { return this->st.prod(0,\
-    \ a).second + this->st.prod(a, b).first; }\r\n\r\n    T at(int k) { return this->st.prod(0,\
-    \ k).second; }\r\n    T get(int k) { return this->at(k); }\r\n\r\n  private:\r\
-    \n    segment_tree<Monoid> st;\r\n};\r\n"
+    \ T>;\r\n        static constexpr std::pair<T, T> id = std::make_pair(T(), T());\r\
+    \n        static constexpr std::pair<T, T> op(const std::pair<T, T> &lhs,\r\n\
+    \                                            const std::pair<T, T> &rhs) {\r\n\
+    \            return std::make_pair(std::min(lhs.first, lhs.second + rhs.first),\r\
+    \n                                  lhs.second + rhs.second);\r\n        }\r\n\
+    \    };\r\n\r\n  public:\r\n    segment_tree_range_add_range_min(int n) : st(n\
+    \ + 1, std::make_pair(T(), T())) {}\r\n    segment_tree_range_add_range_min(int\
+    \ n, T e) : segment_tree_range_add_range_min(n) {\r\n        st.set(0, std::make_pair(e,\
+    \ e));\r\n    }\r\n\r\n    T at(int k) { return this->st.prod(0, k + 1).second;\
+    \ }\r\n    T get(int k) { return this->at(k); }\r\n\r\n    void set(int k, T val)\
+    \ { this->apply(k, k + 1, val - at(k)); }\r\n    void apply(int k, T val) { this->apply(k,\
+    \ k + 1, val); }\r\n    void apply(int a, int b, T val) {\r\n        auto x =\
+    \ this->st.get(a);\r\n        this->st.set(a, std::make_pair(x.second + val, x.second\
+    \ + val));\r\n        auto y = this->st.get(b);\r\n        this->st.set(b, std::make_pair(y.second\
+    \ - val, y.second - val));\r\n    }\r\n    void add(int k, T val) { this->apply(k,\
+    \ k + 1, val); }\r\n    void add(int a, int b, T val) { this->apply(a, b, val);\
+    \ }\r\n\r\n    T prod(int a, int b) { return this->st.prod(0, a + 1).second +\
+    \ this->st.prod(a + 1, b).first; }\r\n\r\n  private:\r\n    segment_tree<Monoid>\
+    \ st;\r\n};\r\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
   - lib/segment_tree/monoid.hpp
   isVerificationFile: false
   path: lib/segment_tree/segment_tree_raq.hpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-07-15 01:46:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
 documentation_of: lib/segment_tree/segment_tree_raq.hpp
 layout: document

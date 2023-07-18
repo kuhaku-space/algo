@@ -13,11 +13,11 @@ data:
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+    title: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-    title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_frequency.test.cpp
     title: test/yosupo/data_structure/static_range_frequency.test.cpp
@@ -67,7 +67,7 @@ data:
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
 documentation_of: lib/data_structure/bit_vector.hpp

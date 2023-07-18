@@ -3,10 +3,13 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/fft/ntt.hpp
-    title: lib/fft/ntt.hpp
+    title: "\u7573\u307F\u8FBC\u307F"
   - icon: ':heavy_check_mark:'
     path: lib/internal/internal_bit.hpp
     title: lib/internal/internal_bit.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_fft.hpp
+    title: lib/internal/internal_fft.hpp
   - icon: ':heavy_check_mark:'
     path: lib/internal/internal_math.hpp
     title: lib/internal/internal_math.hpp
@@ -75,6 +78,7 @@ data:
     \n    return c;\r\n}\r\n"
   dependsOn:
   - lib/fft/ntt.hpp
+  - lib/internal/internal_fft.hpp
   - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
   - lib/internal/internal_math.hpp
@@ -83,7 +87,7 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2023-05-24 16:19:45+09:00'
+  timestamp: '2023-07-12 23:02:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

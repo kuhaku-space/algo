@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/algorithm/compress.hpp
-    title: "\u5EA7\u6A19\u5727\u7E2E"
-  - icon: ':heavy_check_mark:'
     path: lib/internal/internal_math.hpp
     title: lib/internal/internal_math.hpp
   - icon: ':heavy_check_mark:'
@@ -32,9 +29,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/number_of_subsequences
+    PROBLEM: https://judge.yosupo.jp/problem/bitwise_xor_convolution
     links:
-    - https://judge.yosupo.jp/problem/number_of_subsequences
+    - https://judge.yosupo.jp/problem/bitwise_xor_convolution
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -42,34 +39,40 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/number_of_subsequences\"\
-    \n#include \"algorithm/compress.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n  \
-    \  int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n    a = compress(a);\n\
-    \    Mint ans = 0;\n    vector<Mint> dp(*max_element(all(a)) + 1);\n    for (auto\
-    \ x : a) {\n        auto t = ans - dp[x] + 1;\n        ans += t;\n        dp[x]\
-    \ += t;\n    }\n    co(ans);\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_xor_convolution\"\
+    \n#include \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\n\nusing Mint\
+    \ = modint998;\n\ntemplate <typename T>\nvoid fwt(vector<T> &f) {\n    int n =\
+    \ f.size();\n    for (int i = 1; i < n; i <<= 1) {\n        for (int j = 0; j\
+    \ < n; j++) {\n            if ((j & i) == 0) {\n                T x = f[j], y\
+    \ = f[j | i];\n                f[j] = x + y, f[j | i] = x - y;\n            }\n\
+    \        }\n    }\n}\ntemplate <typename T>\nvoid ifwt(vector<T> &f) {\n    int\
+    \ n = f.size();\n    for (int i = 1; i < n; i <<= 1) {\n        for (int j = 0;\
+    \ j < n; j++) {\n            if ((j & i) == 0) {\n                T x = f[j],\
+    \ y = f[j | i];\n                f[j] = (x + y) / 2, f[j | i] = (x - y) / 2;\n\
+    \            }\n        }\n    }\n}\n\nint main(void) {\n    int n;\n    std::cin\
+    \ >> n;\n    n = 1 << n;\n    std::vector<Mint> a(n), b(n);\n    std::cin >> a\
+    \ >> b;\n    fwt(a), fwt(b);\n    std::vector<Mint> c(n);\n    rep (i, n) c[i]\
+    \ = a[i] * b[i];\n    ifwt(c);\n    co(c);\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/algorithm/compress.hpp
-  - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
+  - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/yosupo/new/number_of_subsequences.test.cpp
+  path: test/yosupo/convolution/bitwise_xor_convolution.test.cpp
   requiredBy: []
-  timestamp: '2023-05-24 16:19:45+09:00'
+  timestamp: '2023-07-19 00:42:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/yosupo/new/number_of_subsequences.test.cpp
+documentation_of: test/yosupo/convolution/bitwise_xor_convolution.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/new/number_of_subsequences.test.cpp
-- /verify/test/yosupo/new/number_of_subsequences.test.cpp.html
-title: test/yosupo/new/number_of_subsequences.test.cpp
+- /verify/test/yosupo/convolution/bitwise_xor_convolution.test.cpp
+- /verify/test/yosupo/convolution/bitwise_xor_convolution.test.cpp.html
+title: test/yosupo/convolution/bitwise_xor_convolution.test.cpp
 ---

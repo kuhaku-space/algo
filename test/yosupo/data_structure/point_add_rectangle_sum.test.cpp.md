@@ -5,8 +5,8 @@ data:
     path: lib/binary_tree/range_tree.hpp
     title: "\u9818\u57DF\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
@@ -58,7 +58,7 @@ data:
   dependsOn:
   - lib/binary_tree/range_tree.hpp
   - lib/segment_tree/segment_tree.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
@@ -67,7 +67,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-07-11 17:52:34+09:00'
+  timestamp: '2023-07-13 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp

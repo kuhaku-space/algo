@@ -16,8 +16,8 @@ data:
     path: test/aoj/grl/scc.test.cpp
     title: test/aoj/grl/scc.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/graph/scc.test.cpp
-    title: test/yosupo/graph/scc.test.cpp
+    path: test/yosupo/graph/strongly_connected_components.test.cpp
+    title: test/yosupo/graph/strongly_connected_components.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/math/two_sat.test.cpp
     title: test/yosupo/math/two_sat.test.cpp
@@ -74,7 +74,7 @@ data:
   verifiedWith:
   - test/aoj/grl/scc.test.cpp
   - test/yosupo/math/two_sat.test.cpp
-  - test/yosupo/graph/scc.test.cpp
+  - test/yosupo/graph/strongly_connected_components.test.cpp
 documentation_of: lib/graph/scc.hpp
 layout: document
 redirect_from:

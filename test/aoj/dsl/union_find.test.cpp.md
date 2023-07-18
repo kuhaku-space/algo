@@ -23,9 +23,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_A
+    - https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -33,24 +33,24 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/union_find.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_A\"\
-    \n#include \"template/atcoder.hpp\"\n#include \"tree/union_find.hpp\"\n\nint main(void)\
-    \ {\n    sonic();\n    int n, q;\n    cin >> n >> q;\n\n    union_find uf(n);\n\
-    \    while (q--) {\n        int com, x, y;\n        cin >> com >> x >> y;\n  \
-    \      if (com == 0) {\n            uf.unite(x, y);\n        } else {\n      \
-    \      co(uf.same(x, y));\n        }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A\"\n#include\
+    \ \"tree/union_find.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    int n, q;\n    std::cin >> n >> q;\n    union_find uf(n);\n    while\
+    \ (q--) {\n        int com, x, y;\n        std::cin >> com >> x >> y;\n      \
+    \  if (com == 0) uf.unite(x, y);\n        else co(uf.same(x, y));\n    }\n\n \
+    \   return 0;\n}\n"
   dependsOn:
+  - lib/tree/union_find.hpp
+  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
-  - lib/template/template.hpp
   - lib/template/sonic.hpp
-  - lib/tree/union_find.hpp
   isVerificationFile: true
   path: test/aoj/dsl/union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:02:34+09:00'
+  timestamp: '2023-07-12 07:50:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/union_find.test.cpp

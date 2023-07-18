@@ -28,8 +28,8 @@ data:
     path: test/yosupo/tree/jump_on_tree.test.cpp
     title: test/yosupo/tree/jump_on_tree.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree/lca.test.cpp
-    title: test/yosupo/tree/lca.test.cpp
+    path: test/yosupo/tree/lowest_common_ancestor.test.cpp
+    title: test/yosupo/tree/lowest_common_ancestor.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -112,8 +112,8 @@ data:
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
   - test/aoj/grl/hld.test.cpp
+  - test/yosupo/tree/lowest_common_ancestor.test.cpp
   - test/yosupo/tree/jump_on_tree.test.cpp
-  - test/yosupo/tree/lca.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
 documentation_of: lib/tree/hld.hpp

@@ -2,15 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/dual_segment_tree.hpp
-    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/monoid.hpp
-    title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
   - icon: ':heavy_check_mark:'
@@ -29,9 +20,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D
+    PROBLEM: https://judge.yosupo.jp/problem/sort_points_by_argument
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D
+    - https://judge.yosupo.jp/problem/sort_points_by_argument
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -39,34 +30,30 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/dual_segment_tree.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D\"\n#include\
-    \ \"segment_tree/dual_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    int main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    dual_segment_tree<Update<int>>\
-    \ st(n, (1LL << 31) - 1);\n    while (q--) {\n        int com;\n        std::cin\
-    \ >> com;\n        if (com == 0) {\n            int s, t, x;\n            std::cin\
-    \ >> s >> t >> x;\n            st.apply(s, t + 1, x);\n        } else {\n    \
-    \        int x;\n            std::cin >> x;\n            co(st.get(x));\n    \
-    \    }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sort_points_by_argument\"\
+    \n#include \"template/atcoder.hpp\"\n\nint main(void) {\n    int n;\n    std::cin\
+    \ >> n;\n    std::vector<tuple<int, int, long double>> v;\n    rep (i, n) {\n\
+    \        int x, y;\n        cin >> x >> y;\n        v.emplace_back(x, y, atan2l(y,\
+    \ x));\n    }\n    std::sort(v.begin(), v.end(), [&](auto x, auto y) {\n     \
+    \   return get<2>(x) < get<2>(y);\n    });\n    for (auto &&[x, y, z] : v) co(x,\
+    \ y);\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/segment_tree/dual_segment_tree.hpp
-  - lib/math/pow.hpp
-  - lib/template/template.hpp
-  - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
+  - lib/template/template.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/aoj/dsl/ruq.test.cpp
+  path: test/yosupo/geometry/sort_points_by_argument.test.cpp
   requiredBy: []
-  timestamp: '2023-07-12 07:50:09+09:00'
+  timestamp: '2023-07-19 00:42:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/dsl/ruq.test.cpp
+documentation_of: test/yosupo/geometry/sort_points_by_argument.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/dsl/ruq.test.cpp
-- /verify/test/aoj/dsl/ruq.test.cpp.html
-title: test/aoj/dsl/ruq.test.cpp
+- /verify/test/yosupo/geometry/sort_points_by_argument.test.cpp
+- /verify/test/yosupo/geometry/sort_points_by_argument.test.cpp.html
+title: test/yosupo/geometry/sort_points_by_argument.test.cpp
 ---

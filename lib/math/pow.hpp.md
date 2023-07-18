@@ -6,9 +6,6 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/range_tree.hpp
-    title: "\u9818\u57DF\u6728"
-  - icon: ':heavy_check_mark:'
     path: lib/data_structure/sparse_table.hpp
     title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
   - icon: ':warning:'
@@ -20,25 +17,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/segment_tree/dynamic_segment_tree.hpp
-    title: "\u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/lazy_segment_tree.hpp
     title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/segment_tree.hpp
-    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/segment_tree_raq.hpp
-    title: lib/segment_tree/segment_tree_raq.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/raq_rmq.test.cpp
-    title: test/aoj/dsl/raq_rmq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rmq.test.cpp
-    title: test/aoj/dsl/rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq_ruq.test.cpp
     title: test/aoj/dsl/rmq_ruq.test.cpp
@@ -49,23 +31,11 @@ data:
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-    title: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/point_set_range_composite.test.cpp
-    title: test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
     title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-    title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-    title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -103,12 +73,8 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
-  - lib/binary_tree/range_tree.hpp
   - lib/math/primitive_root.hpp
   - lib/math/math.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
-  - lib/segment_tree/dynamic_segment_tree.hpp
-  - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
   - lib/data_structure/sparse_table.hpp
@@ -117,15 +83,9 @@ data:
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
 documentation_of: lib/math/pow.hpp
 layout: document
 redirect_from:

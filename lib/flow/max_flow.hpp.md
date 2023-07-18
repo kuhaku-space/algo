@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/max_flow.test.cpp
     title: test/aoj/grl/max_flow.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
+    title: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -94,6 +97,7 @@ data:
   verifiedWith:
   - test/aoj/grl/bipartite_matching.test.cpp
   - test/aoj/grl/max_flow.test.cpp
+  - test/yosupo/graph/matching_on_bipartite_garph.test.cpp
 documentation_of: lib/flow/max_flow.hpp
 layout: document
 redirect_from:

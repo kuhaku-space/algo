@@ -29,9 +29,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I
+    - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -41,21 +41,21 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/lazy_segment_tree.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I\"\
-    \n#include \"segment_tree/lazy_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nstruct M1 {\n    using T = std::pair<int, int>;\n    using value_type = T;\n\
-    \    static constexpr T id = T(0, 0);\n    static constexpr T op(T lhs, T rhs)\
-    \ {\n        return {lhs.first + rhs.first, lhs.second + rhs.second};\n    }\n\
-    };\n\nstruct M2 {\n    using T = int;\n    using value_type = T;\n    static constexpr\
-    \ T id = std::numeric_limits<int>::max();\n    static constexpr T op(T lhs, T\
-    \ rhs) {\n        return lhs == id ? rhs : lhs;\n    }\n    template <class U>\n\
-    \    static constexpr U f(T lhs, U rhs) {\n        return lhs == id ? rhs : U{lhs\
-    \ * rhs.second, rhs.second};\n    }\n};\n\nint main(void) {\n    int n, q;\n \
-    \   cin >> n >> q;\n    lazy_segment_tree<M1, M2> st(n, {0, 1});\n    while (q--)\
-    \ {\n        int t;\n        cin >> t;\n        if (t == 0) {\n            int\
-    \ s, t, x;\n            cin >> s >> t >> x;\n            st.apply(s, t + 1, x);\n\
-    \        } else {\n            int s, t;\n            cin >> s >> t;\n       \
-    \     co(st.prod(s, t + 1).first);\n        }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I\"\n#include\
+    \ \"segment_tree/lazy_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
+    struct M1 {\n    using T = std::pair<int, int>;\n    using value_type = T;\n \
+    \   static constexpr T id = T(0, 0);\n    static constexpr T op(T lhs, T rhs)\
+    \ { return {lhs.first + rhs.first, lhs.second + rhs.second}; }\n};\n\nstruct M2\
+    \ {\n    using T = int;\n    using value_type = T;\n    static constexpr T id\
+    \ = std::numeric_limits<int>::max();\n    static constexpr T op(T lhs, T rhs)\
+    \ { return lhs == id ? rhs : lhs; }\n    template <class U>\n    static constexpr\
+    \ U f(T lhs, U rhs) {\n        return lhs == id ? rhs : U{lhs * rhs.second, rhs.second};\n\
+    \    }\n};\n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    lazy_segment_tree<M1,\
+    \ M2> st(n, {0, 1});\n    while (q--) {\n        int com;\n        std::cin >>\
+    \ com;\n        if (com == 0) {\n            int s, t, x;\n            std::cin\
+    \ >> s >> t >> x;\n            st.apply(s, t + 1, x);\n        } else {\n    \
+    \        int s, t;\n            std::cin >> s >> t;\n            co(st.prod(s,\
+    \ t + 1).first);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/lazy_segment_tree.hpp
   - lib/math/pow.hpp
@@ -67,7 +67,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/rsq_ruq.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-07-12 07:50:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rsq_ruq.test.cpp

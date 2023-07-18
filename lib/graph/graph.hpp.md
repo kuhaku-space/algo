@@ -133,11 +133,11 @@ data:
     path: test/yosupo/graph/maximum_independent_set.test.cpp
     title: test/yosupo/graph/maximum_independent_set.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/graph/scc.test.cpp
-    title: test/yosupo/graph/scc.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/strongly_connected_components.test.cpp
+    title: test/yosupo/graph/strongly_connected_components.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/math/two_sat.test.cpp
     title: test/yosupo/math/two_sat.test.cpp
@@ -145,8 +145,8 @@ data:
     path: test/yosupo/tree/jump_on_tree.test.cpp
     title: test/yosupo/tree/jump_on_tree.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree/lca.test.cpp
-    title: test/yosupo/tree/lca.test.cpp
+    path: test/yosupo/tree/lowest_common_ancestor.test.cpp
+    title: test/yosupo/tree/lowest_common_ancestor.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/tree_diameter.test.cpp
     title: test/yosupo/tree/tree_diameter.test.cpp
@@ -272,10 +272,10 @@ data:
   - test/aoj/grl/kruskal.test.cpp
   - test/yosupo/math/two_sat.test.cpp
   - test/yosupo/tree/tree_diameter.test.cpp
+  - test/yosupo/tree/lowest_common_ancestor.test.cpp
   - test/yosupo/tree/jump_on_tree.test.cpp
-  - test/yosupo/tree/lca.test.cpp
   - test/yosupo/tree/tree_path_composite_sum.test.cpp
-  - test/yosupo/graph/scc.test.cpp
+  - test/yosupo/graph/strongly_connected_components.test.cpp
   - test/yosupo/graph/maximum_independent_set.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

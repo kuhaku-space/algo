@@ -61,6 +61,9 @@ data:
     path: test/aoj/dpl/stirling.test.cpp
     title: test/aoj/dpl/stirling.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/dynamic_rmq.test.cpp
+    title: test/aoj/dsl/dynamic_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/range_search.test.cpp
     title: test/aoj/dsl/range_search.test.cpp
   - icon: ':heavy_check_mark:'
@@ -70,11 +73,17 @@ data:
     path: test/aoj/dsl/raq_rsq.test.cpp
     title: test/aoj/dsl/raq_rsq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq.2.test.cpp
+    title: test/aoj/dsl/rmq.2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq_ruq.test.cpp
     title: test/aoj/dsl/rmq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rsq.test.cpp
+    title: test/aoj/dsl/rsq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rsq_ruq.test.cpp
     title: test/aoj/dsl/rsq_ruq.test.cpp
@@ -190,6 +199,15 @@ data:
     path: test/aoj/ntl/remainder.test.cpp
     title: test/aoj/ntl/remainder.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/rupc/range_set.test.cpp
+    title: test/aoj/rupc/range_set.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/bitwise_and_convolution.test.cpp
+    title: test/yosupo/convolution/bitwise_and_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution/bitwise_xor_convolution.test.cpp
+    title: test/yosupo/convolution/bitwise_xor_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -217,6 +235,9 @@ data:
     path: test/yosupo/data_structure/point_add_range_sum.test.cpp
     title: test/yosupo/data_structure/point_add_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
+    title: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
     title: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -229,11 +250,11 @@ data:
     path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
     title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+    title: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-    title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/segment_add_get_min.test.cpp
     title: test/yosupo/data_structure/segment_add_get_min.test.cpp
@@ -265,29 +286,41 @@ data:
     path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
     title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/geometry/sort_points_by_argument.test.cpp
+    title: test/yosupo/geometry/sort_points_by_argument.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/chromatic_number.test.cpp
     title: test/yosupo/graph/chromatic_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
+    title: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/maximum_independent_set.test.cpp
     title: test/yosupo/graph/maximum_independent_set.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/graph/scc.test.cpp
-    title: test/yosupo/graph/scc.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/graph/strongly_connected_components.test.cpp
+    title: test/yosupo/graph/strongly_connected_components.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/math/longest_increasing_subsequence.test.cpp
+    title: test/yosupo/math/longest_increasing_subsequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/math/montmort_number.test.cpp
+    title: test/yosupo/math/montmort_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/math/number_of_subsequences.test.cpp
+    title: test/yosupo/math/number_of_subsequences.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/math/two_sat.test.cpp
     title: test/yosupo/math/two_sat.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix/determinant_of_matrix.test.cpp
+    title: test/yosupo/matrix/determinant_of_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix/matrix_product.test.cpp
     title: test/yosupo/matrix/matrix_product.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/new/longest_increasing_subsequence.test.cpp
-    title: test/yosupo/new/longest_increasing_subsequence.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/new/number_of_subsequences.test.cpp
-    title: test/yosupo/new/number_of_subsequences.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
@@ -310,8 +343,8 @@ data:
     path: test/yosupo/tree/jump_on_tree.test.cpp
     title: test/yosupo/tree/jump_on_tree.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree/lca.test.cpp
-    title: test/yosupo/tree/lca.test.cpp
+    path: test/yosupo/tree/lowest_common_ancestor.test.cpp
+    title: test/yosupo/tree/lowest_common_ancestor.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/tree_diameter.test.cpp
     title: test/yosupo/tree/tree_diameter.test.cpp
@@ -348,8 +381,11 @@ data:
   - test/aoj/dsl/range_search.test.cpp
   - test/aoj/dsl/weighted_union_find.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/aoj/dsl/rsq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/union_find.test.cpp
+  - test/aoj/dsl/dynamic_rmq.test.cpp
   - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
@@ -404,25 +440,32 @@ data:
   - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/cgl/parallel_orthogonal.test.cpp
   - test/aoj/cgl/reflection.test.cpp
+  - test/aoj/rupc/range_set.test.cpp
   - test/yosupo/string/zalgorithm.test.cpp
   - test/yosupo/string/number_of_substring.test.cpp
   - test/yosupo/string/suffix_array.test.cpp
   - test/yosupo/string/enumerate_palindromes.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
   - test/yosupo/matrix/matrix_product.test.cpp
+  - test/yosupo/matrix/determinant_of_matrix.test.cpp
   - test/yosupo/math/two_sat.test.cpp
-  - test/yosupo/new/number_of_subsequences.test.cpp
-  - test/yosupo/new/longest_increasing_subsequence.test.cpp
+  - test/yosupo/math/number_of_subsequences.test.cpp
+  - test/yosupo/math/longest_increasing_subsequence.test.cpp
+  - test/yosupo/math/montmort_number.test.cpp
+  - test/yosupo/geometry/sort_points_by_argument.test.cpp
   - test/yosupo/tree/tree_diameter.test.cpp
+  - test/yosupo/tree/lowest_common_ancestor.test.cpp
   - test/yosupo/tree/cartesian_tree.test.cpp
   - test/yosupo/tree/jump_on_tree.test.cpp
-  - test/yosupo/tree/lca.test.cpp
   - test/yosupo/tree/tree_path_composite_sum.test.cpp
+  - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/convolution/bitwise_and_convolution.test.cpp
+  - test/yosupo/graph/strongly_connected_components.test.cpp
   - test/yosupo/graph/chromatic_number.test.cpp
-  - test/yosupo/graph/scc.test.cpp
   - test/yosupo/graph/maximum_independent_set.test.cpp
+  - test/yosupo/graph/matching_on_bipartite_garph.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
@@ -432,8 +475,9 @@ data:
   - test/yosupo/data_structure/binary_trie.test.cpp
   - test/yosupo/data_structure/line_add_get_min.test.cpp
   - test/yosupo/data_structure/persistent_queue.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
   - test/yosupo/data_structure/undo_union_find.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp

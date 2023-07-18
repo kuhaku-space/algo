@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix/determinant_of_matrix.test.cpp
+    title: test/yosupo/matrix/determinant_of_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix/matrix_product.test.cpp
     title: test/yosupo/matrix/matrix_product.test.cpp
   _isVerificationFailed: false
@@ -98,6 +101,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/matrix/matrix_product.test.cpp
+  - test/yosupo/matrix/determinant_of_matrix.test.cpp
 documentation_of: lib/matrix/matrix.hpp
 layout: document
 redirect_from:

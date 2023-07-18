@@ -27,9 +27,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_G
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G
+    - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_G
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -39,14 +39,14 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree_raq.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G\"\
-    \n#include \"binary_tree/fenwick_tree_raq.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n\n    int n, q;\n    cin >> n >> q;\n\n  \
-    \  fenwick_tree_raq<ll> ft(n);\n    while (q--) {\n        int com;\n        cin\
-    \ >> com;\n        if (com == 0) {\n            int s, t, x;\n            cin\
-    \ >> s >> t >> x;\n            ft.add(s - 1, t, x);\n        } else {\n      \
-    \      int s, t;\n            cin >> s >> t;\n            co(ft.sum(s - 1, t));\n\
-    \        }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_G\"\n#include\
+    \ \"binary_tree/fenwick_tree_raq.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
+    int main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    fenwick_tree_raq<ll>\
+    \ ft(n);\n    while (q--) {\n        int com;\n        std::cin >> com;\n    \
+    \    if (com == 0) {\n            int s, t, x;\n            std::cin >> s >> t\
+    \ >> x;\n            ft.add(s - 1, t, x);\n        } else {\n            int s,\
+    \ t;\n            std::cin >> s >> t;\n            co(ft.sum(s - 1, t));\n   \
+    \     }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/binary_tree/fenwick_tree.hpp
@@ -57,7 +57,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/raq_rsq.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-07-12 07:50:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/raq_rsq.test.cpp

@@ -5,6 +5,9 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/internal/internal_math.hpp
     title: lib/internal/internal_math.hpp
   - icon: ':heavy_check_mark:'
@@ -13,9 +16,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
@@ -80,7 +80,7 @@ data:
   - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/segment_tree/segment_tree.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
@@ -90,7 +90,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-05-24 16:19:45+09:00'
+  timestamp: '2023-07-13 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_set_path_composite.test.cpp

@@ -16,11 +16,11 @@ data:
     path: test/aoj/alds1/inversion_number.test.cpp
     title: test/aoj/alds1/inversion_number.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+    title: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
-    title: test/yosupo/data_structure/range_kth_smallest_2.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_frequency.test.cpp
     title: test/yosupo/data_structure/static_range_frequency.test.cpp
@@ -28,8 +28,8 @@ data:
     path: test/yosupo/data_structure/static_range_inversions.test.cpp
     title: test/yosupo/data_structure/static_range_inversions.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/new/number_of_subsequences.test.cpp
-    title: test/yosupo/new/number_of_subsequences.test.cpp
+    path: test/yosupo/math/number_of_subsequences.test.cpp
+    title: test/yosupo/math/number_of_subsequences.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -78,8 +78,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp
-  - test/yosupo/new/number_of_subsequences.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest_2.test.cpp
+  - test/yosupo/math/number_of_subsequences.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
   - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp

@@ -20,6 +20,9 @@ data:
     path: test/aoj/dsl/raq_rsq.test.cpp
     title: test/aoj/dsl/raq_rsq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rsq.test.cpp
+    title: test/aoj/dsl/rsq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/range_query_on_tree.test.cpp
     title: test/aoj/grl/range_query_on_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -105,6 +108,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/aoj/dsl/rsq.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp

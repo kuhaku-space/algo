@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
@@ -63,27 +63,30 @@ data:
     \ {\n            if (l & 1) res = M::op(res, prod(l++, yl, yr));\n           \
     \ if (r & 1) res = M::op(res, prod(--r, yl, yr));\n            l >>= 1, r >>=\
     \ 1;\n        }\n        return res;\n    }\n    value_type get(T x, T y) const\
-    \ { return prod(x, y, x + 1, y + 1); }\n\n  private:\n    int _size;\n    std::vector<Pt>\
-    \ _pts;\n    std::vector<std::vector<Pt>> _range2yxs;\n    std::vector<segment_tree<M>>\
-    \ segtrees;\n\n    void set(int v, Pt p, value_type val) {\n        auto i = std::distance(\n\
+    \ {\n        int i = std::distance(_pts.begin(), std::lower_bound(_pts.begin(),\
+    \ _pts.end(), Pt{x, y}));\n        return i < _size && _pts[i] == std::make_pair(x,\
+    \ y) ? segtrees[_size + i].get(0) : M::id;\n    }\n\n  private:\n    int _size;\n\
+    \    std::vector<Pt> _pts;\n    std::vector<std::vector<Pt>> _range2yxs;\n   \
+    \ std::vector<segment_tree<M>> segtrees;\n\n    void set(int v, Pt p, value_type\
+    \ val) {\n        auto i = std::distance(\n            _range2yxs[v].begin(),\n\
+    \            std::lower_bound(_range2yxs[v].begin(), _range2yxs[v].end(), Pt{p.second,\
+    \ p.first}));\n        segtrees[v].set(i, val);\n    }\n\n    value_type prod(int\
+    \ v, T yl, T yr) const {\n        auto comp = [&](const Pt &l, const Pt &r) {\n\
+    \            return l.first < r.first;\n        };\n        auto il = std::distance(\n\
     \            _range2yxs[v].begin(),\n            std::lower_bound(_range2yxs[v].begin(),\
-    \ _range2yxs[v].end(), Pt{p.second, p.first}));\n        segtrees[v].set(i, val);\n\
-    \    }\n\n    value_type prod(int v, T yl, T yr) const {\n        auto comp =\
-    \ [&](const Pt &l, const Pt &r) {\n            return l.first < r.first;\n   \
-    \     };\n        auto il = std::distance(\n            _range2yxs[v].begin(),\n\
-    \            std::lower_bound(_range2yxs[v].begin(), _range2yxs[v].end(), Pt{yl,\
-    \ yl}, comp));\n        auto ir = std::distance(\n            _range2yxs[v].begin(),\n\
-    \            std::lower_bound(_range2yxs[v].begin(), _range2yxs[v].end(), Pt{yr,\
-    \ yr}, comp));\n        return segtrees[v].prod(il, ir);\n    }\n};\n"
+    \ _range2yxs[v].end(), Pt{yl, yl}, comp));\n        auto ir = std::distance(\n\
+    \            _range2yxs[v].begin(),\n            std::lower_bound(_range2yxs[v].begin(),\
+    \ _range2yxs[v].end(), Pt{yr, yr}, comp));\n        return segtrees[v].prod(il,\
+    \ ir);\n    }\n};\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_bit.hpp
   - lib/template/template.hpp
   - lib/segment_tree/monoid.hpp
   isVerificationFile: false
   path: lib/binary_tree/range_tree.hpp
   requiredBy: []
-  timestamp: '2023-07-11 17:52:12+09:00'
+  timestamp: '2023-07-13 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
