@@ -12,8 +12,8 @@ int longest_increasing_subsequence(const std::vector<T> &v) {
     int n = v.size();
     std::vector<T> dp;
     for (auto x : v) {
-        auto it = std::lower_bound(dp.begin(), dp.end(), x);
-        if (it == dp.end()) dp.emplace_back(x);
+        auto it = std::lower_bound(std::begin(dp), std::end(dp), x);
+        if (it == std::end(dp)) dp.emplace_back(x);
         else *it = x;
     }
     return dp.size();
@@ -29,20 +29,20 @@ int longest_increasing_subsequence(const std::vector<T> &v) {
 template <class T>
 std::vector<int> make_lis(const std::vector<T> &v) {
     int n = v.size();
-    std::vector<std::pair<T, int>> dp;
-    std::vector<int> pr(n, -1);
-    for (int i = 0; i < n; ++i) {
-        std::pair<T, int> p(v[i], -i);
-        auto it = std::lower_bound(dp.begin(), dp.end(), p);
-        if (it != dp.begin()) pr[i] = -std::prev(it)->second;
-        if (it == dp.end()) dp.emplace_back(p);
-        else *it = p;
+    std::vector<T> dp;
+    std::vector<int> pos;
+    pos.reserve(n);
+    for (auto x : v) {
+        auto it = std::lower_bound(std::begin(dp), std::end(dp), x);
+        pos.emplace_back(std::distance(std::begin(dp), it));
+        if (it == std::end(dp)) dp.emplace_back(x);
+        else *it = x;
     }
 
-    std::vector<int> res;
-    for (int x = -dp.back().second; x != -1; x = pr[x]) {
-        res.emplace_back(x);
+    int x = dp.size();
+    std::vector<int> res(x--);
+    for (int i = n - 1; i >= 0; --i) {
+        if (pos[i] == x) res[x] = i, --x;
     }
-    std::reverse(res.begin(), res.end());
     return res;
 }
