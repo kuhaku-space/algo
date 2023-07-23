@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/matrix_det"
+#include "math/matrix.hpp"
 #include "math/modint.hpp"
-#include "matrix/matrix.hpp"
 #include "template/atcoder.hpp"
 
 using Mint = modint998;
