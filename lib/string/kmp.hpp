@@ -19,6 +19,8 @@ struct knuth_morris_pratt {
         }
     }
 
+    const int operator[](int i) const { return data[i]; }
+
     /**
      * @brief 検索
      *
