@@ -4,10 +4,10 @@
 
 int main(void) {
     string s, t;
-    cin >> s >> t;
-    KMP<string> kmp(t);
+    std::cin >> s >> t;
+    knuth_morris_pratt kmp(t);
     auto ans = kmp.search(s);
-    rep(i, s.size()) {
+    rep (i, s.size()) {
         if (ans[i] == t.size()) {
             co(i - t.size() + 1);
         }
