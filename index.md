@@ -79,10 +79,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/bit_vector.hpp
       title: "\u5B8C\u5099\u8F9E\u66F8"
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/compressed_wavelet_matrix.hpp
+      title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
     - icon: ':warning:'
       path: lib/data_structure/erasable_priority_queue.hpp
-      title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\
-        \u30FC"
+      title: "\u524A\u9664\u53EF\u80FD\u512A\u5148\u5EA6\u4ED8\u304D\u30AD\u30E5\u30FC"
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/li_chao_tree.hpp
       title: Li Chao Tree
@@ -107,6 +109,9 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/undo_deque.hpp
       title: lib/data_structure/undo_deque.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/wavelet_matrix.hpp
+      title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - name: lib/fft
     pages:
     - icon: ':warning:'
@@ -166,9 +171,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/dijkstra.hpp
       title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-    - icon: ':heavy_check_mark:'
-      path: lib/graph/dijkstra_heap.hpp
-      title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
     - icon: ':warning:'
       path: lib/graph/dijkstra_potential.hpp
       title: lib/graph/dijkstra_potential.hpp
@@ -194,9 +196,6 @@ data:
       path: lib/graph/scc.hpp
       title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
     - icon: ':warning:'
-      path: lib/graph/shortest_path.hpp
-      title: lib/graph/shortest_path.hpp
-    - icon: ':warning:'
       path: lib/graph/spanning_tree.hpp
       title: "\u5168\u57DF\u6728"
     - icon: ':heavy_check_mark:'
@@ -213,16 +212,16 @@ data:
       title: lib/graph/warshall_floyd.hpp
   - name: lib/heap
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: lib/heap/binary_heap.hpp
       title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: lib/heap/fibonacci_heap.hpp
       title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
     - icon: ':heavy_check_mark:'
       path: lib/heap/leftist_heap.hpp
       title: leftist heap
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: lib/heap/radix_heap.hpp
       title: lib/heap/radix_heap.hpp
     - icon: ':heavy_check_mark:'
@@ -263,9 +262,15 @@ data:
     - icon: ':warning:'
       path: lib/math/hashint.hpp
       title: lib/math/hashint.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/math/kitamasa.hpp
+      title: lib/math/kitamasa.hpp
     - icon: ':warning:'
       path: lib/math/math.hpp
       title: lib/math/math.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/math/matrix.hpp
+      title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: lib/math/modint.hpp
@@ -281,17 +286,9 @@ data:
     - icon: ':warning:'
       path: lib/math/slope_trick.hpp
       title: slope trick
-  - name: lib/matrix
-    pages:
     - icon: ':heavy_check_mark:'
-      path: lib/matrix/compressed_wavelet_matrix.hpp
-      title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
-    - icon: ':heavy_check_mark:'
-      path: lib/matrix/matrix.hpp
-      title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
-    - icon: ':heavy_check_mark:'
-      path: lib/matrix/wavelet_matrix.hpp
-      title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+      path: lib/math/sqrt.hpp
+      title: lib/math/sqrt.hpp
   - name: lib/random
     pages:
     - icon: ':heavy_check_mark:'
@@ -422,12 +419,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+  - name: test/aoj/hupc
+    pages:
+    - icon: ':warning:'
+      path: test/aoj/hupc/kmp.cpp
+      title: test/aoj/hupc/kmp.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/inversion_number.test.cpp
       title: test/aoj/alds1/inversion_number.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/kitamasa.test.cpp
+      title: test/aoj/alds1/kitamasa.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/kmp.test.cpp
       title: test/aoj/alds1/kmp.test.cpp
@@ -539,15 +544,6 @@ data:
       path: test/aoj/grl/dijkstra.test.cpp
       title: test/aoj/grl/dijkstra.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/dijkstra_binary.test.cpp
-      title: test/aoj/grl/dijkstra_binary.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/dijkstra_fibonacci.test.cpp
-      title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/dijkstra_radix.test.cpp
-      title: test/aoj/grl/dijkstra_radix.test.cpp
-    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/hld.test.cpp
       title: test/aoj/grl/hld.test.cpp
     - icon: ':heavy_check_mark:'
@@ -580,11 +576,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/warshall_floyd.test.cpp
       title: test/aoj/grl/warshall_floyd.test.cpp
-  - name: test/aoj/hupc/2019
+  - name: test/aoj/hupc
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/aoj/hupc/2019/manacher.test.cpp
-      title: test/aoj/hupc/2019/manacher.test.cpp
+      path: test/aoj/hupc/manacher.test.cpp
+      title: test/aoj/hupc/manacher.test.cpp
   - name: test/aoj/icpc
     pages:
     - icon: ':heavy_check_mark:'
@@ -758,6 +754,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/math/number_of_subsequences.test.cpp
       title: test/yosupo/math/number_of_subsequences.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/math/sqrt_mod.test.cpp
+      title: test/yosupo/math/sqrt_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/math/two_sat.test.cpp
       title: test/yosupo/math/two_sat.test.cpp

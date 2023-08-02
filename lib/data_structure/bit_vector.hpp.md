@@ -6,10 +6,10 @@ data:
     title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: lib/matrix/compressed_wavelet_matrix.hpp
+    path: lib/data_structure/compressed_wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - icon: ':heavy_check_mark:'
-    path: lib/matrix/wavelet_matrix.hpp
+    path: lib/data_structure/wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -62,8 +62,8 @@ data:
   isVerificationFile: false
   path: lib/data_structure/bit_vector.hpp
   requiredBy:
-  - lib/matrix/wavelet_matrix.hpp
-  - lib/matrix/compressed_wavelet_matrix.hpp
+  - lib/data_structure/wavelet_matrix.hpp
+  - lib/data_structure/compressed_wavelet_matrix.hpp
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

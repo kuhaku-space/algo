@@ -49,7 +49,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/math/longest_increasing_subsequence.test.cpp
   requiredBy: []
-  timestamp: '2023-07-19 00:42:24+09:00'
+  timestamp: '2023-07-23 03:53:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/longest_increasing_subsequence.test.cpp

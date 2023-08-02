@@ -40,10 +40,10 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A\"\
     \n#include \"graph/dijkstra.hpp\"\n#include \"graph/graph.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n\
-    \    Graph<int> g(n);\n    g.input_edge(m, 0);\n\n    auto dist = dijkstra(g,\
-    \ r, Inf);\n    rep(i, n) {\n        if (dist[i] != Inf)\n            co(dist[i]);\n\
-    \        else\n            co(\"INF\");\n    }\n\n    return 0;\n}\n"
+    \n\nint main(void) {\n    int n, m, r;\n    std::cin >> n >> m >> r;\n    Graph<int>\
+    \ g(n);\n    g.input_edge(m, 0);\n\n    auto dist = dijkstra(g, r, Inf);\n   \
+    \ rep (i, n) {\n        if (dist[i] != Inf) co(dist[i]);\n        else co(\"INF\"\
+    );\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/dijkstra.hpp
   - lib/graph/graph.hpp
@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-07-24 06:25:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/dijkstra.test.cpp

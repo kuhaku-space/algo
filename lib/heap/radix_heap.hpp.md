@@ -4,23 +4,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_heap.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_binary.test.cpp
-    title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_fibonacci.test.cpp
-    title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_radix.test.cpp
-    title: test/aoj/grl/dijkstra_radix.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -107,14 +95,10 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/heap/radix_heap.hpp
-  requiredBy:
-  - lib/graph/dijkstra_heap.hpp
+  requiredBy: []
   timestamp: '2023-05-22 19:46:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/grl/dijkstra_radix.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: lib/heap/radix_heap.hpp
 layout: document
 redirect_from:

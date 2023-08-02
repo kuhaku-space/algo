@@ -8,11 +8,11 @@ data:
     path: lib/internal/internal_type_traits.hpp
     title: lib/internal/internal_type_traits.hpp
   - icon: ':heavy_check_mark:'
+    path: lib/math/matrix.hpp
+    title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
+  - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/matrix/matrix.hpp
-    title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -42,26 +42,26 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/matrix.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_det\"\n#include\
-    \ \"math/modint.hpp\"\n#include \"matrix/matrix.hpp\"\n#include \"template/atcoder.hpp\"\
+    \ \"math/matrix.hpp\"\n#include \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\
     \n\nusing Mint = modint998;\n\nint main(void) {\n    int n;\n    std::cin >> n;\n\
     \    std::vector<std::vector<Mint>> v(n, std::vector<Mint>(n));\n    std::cin\
     \ >> v;\n    Matrix mat(v);\n    co(mat.det());\n\n    return 0;\n}\n"
   dependsOn:
+  - lib/math/matrix.hpp
+  - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
-  - lib/matrix/matrix.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/matrix/determinant_of_matrix.test.cpp
   requiredBy: []
-  timestamp: '2023-07-19 01:00:50+09:00'
+  timestamp: '2023-07-24 06:48:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/matrix/determinant_of_matrix.test.cpp

@@ -2,18 +2,28 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/graph.hpp
-    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+    path: lib/string/kmp.hpp
+    title: "KMP\u6CD5"
+  - icon: ':heavy_check_mark:'
+    path: lib/template/atcoder.hpp
+    title: lib/template/atcoder.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/macro.hpp
+    title: lib/template/macro.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/sonic.hpp
+    title: lib/template/sonic.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    links: []
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/2763
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -21,28 +31,31 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/kmp.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\n\nstd::vector<int>\
-    \ shortest_path(const Graph<void> &g, int s = 0,\n                           \
-    \    int inf = std::numeric_limits<int>::max()) {\n    std::vector<int> dists(g.size(),\
-    \ inf);\n    std::queue<int> que;\n    dists[s] = 0;\n    que.emplace(s);\n  \
-    \  while (!que.empty()) {\n        auto index = que.front();\n        que.pop();\n\
-    \        for (auto &e : g[index]) {\n            if (chmin(dists[e.to()], dists[index]\
-    \ + 1)) que.emplace(e.to());\n        }\n    }\n    return dists;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2763\"\n#include\
+    \ \"string/kmp.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n\
+    \    string s;\n    cin >> s;\n    int n = s.size();\n    int x = n - knuth_morris_pratt(s)[n];\n\
+    \    int y = n + 1;\n    while (!(y % x == 0 && y / x % 3 == 0)) ++y;\n    int\
+    \ b = y - n;\n    if (b * 2 > n - 3) {\n        co(\"mitomerarenaiWA\");\n   \
+    \     return 0;\n    }\n    string ans = \"Love \";\n    ans += s.substr(0, y\
+    \ / 3);\n    ans += \"!\";\n    co(ans);\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/graph/graph.hpp
+  - lib/string/kmp.hpp
   - lib/template/template.hpp
+  - lib/template/atcoder.hpp
+  - lib/template/macro.hpp
+  - lib/template/sonic.hpp
   isVerificationFile: false
-  path: lib/graph/shortest_path.hpp
+  path: test/aoj/hupc/kmp.cpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-07-31 13:23:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: lib/graph/shortest_path.hpp
+documentation_of: test/aoj/hupc/kmp.cpp
 layout: document
 redirect_from:
-- /library/lib/graph/shortest_path.hpp
-- /library/lib/graph/shortest_path.hpp.html
-title: lib/graph/shortest_path.hpp
+- /library/test/aoj/hupc/kmp.cpp
+- /library/test/aoj/hupc/kmp.cpp.html
+title: test/aoj/hupc/kmp.cpp
 ---

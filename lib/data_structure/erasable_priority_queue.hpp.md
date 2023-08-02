@@ -10,8 +10,8 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\
-      \u30E5\u30FC"
+    document_title: "\u524A\u9664\u53EF\u80FD\u512A\u5148\u5EA6\u4ED8\u304D\u30AD\u30E5\
+      \u30FC"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -22,15 +22,17 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u524A\u9664\u4ED8\
-    \u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\u30FC\r\n *\r\n * @tparam\
-    \ T\r\n */\r\ntemplate <class T, class Comp = std::less<>>\r\nstruct erasable_priority_queue\
-    \ {\r\n    bool empty() const { return this->a.empty(); }\r\n    auto top() const\
-    \ { return this->a.top(); }\r\n\r\n    void emplace(T x) { this->a.emplace(x);\
-    \ }\r\n    void insert(T x) { this->a.emplace(x); }\r\n    void push(T x) { this->a.emplace(x);\
-    \ }\r\n\r\n    void pop() { this->erase(this->a.top()); }\r\n\r\n    void erase(T\
-    \ x) {\r\n        this->b.emplace(x);\r\n        while (!this->a.empty() && !this->b.empty()\
-    \ && this->a.top() == this->b.top()) {\r\n            this->a.pop(), this->b.pop();\r\
+  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u524A\u9664\u53EF\
+    \u80FD\u512A\u5148\u5EA6\u4ED8\u304D\u30AD\u30E5\u30FC\r\n *\r\n * @tparam T\r\
+    \n */\r\ntemplate <class T, class Comp = std::less<>>\r\nstruct erasable_priority_queue\
+    \ {\r\n    bool empty() const { return a.empty(); }\r\n    int size() const {\
+    \ return a.size() - b.size(); }\r\n    T top() const { return a.top(); }\r\n\r\
+    \n    void insert(const T &x) { a.push(x); }\r\n    void insert(T &&x) { a.push(std::move(x));\
+    \ }\r\n    void push(const T &x) { a.push(x); }\r\n    void push(T &&x) { a.push(std::move(x));\
+    \ }\r\n    template <typename... Args>\r\n    void emplace(Args &&...args) {\r\
+    \n        a.emplace(std::forward<Args>(args)...);\r\n    }\r\n\r\n    void pop()\
+    \ { erase(a.top()); }\r\n\r\n    void erase(T x) {\r\n        b.emplace(x);\r\n\
+    \        while (!b.empty() && a.top() == b.top()) {\r\n            a.pop(), b.pop();\r\
     \n        }\r\n    }\r\n\r\n  private:\r\n    std::priority_queue<T, std::vector<T>,\
     \ Comp> a, b;\r\n};\r\n"
   dependsOn:
@@ -38,7 +40,7 @@ data:
   isVerificationFile: false
   path: lib/data_structure/erasable_priority_queue.hpp
   requiredBy: []
-  timestamp: '2023-07-09 20:05:16+09:00'
+  timestamp: '2023-08-01 21:39:16+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_structure/erasable_priority_queue.hpp
@@ -46,5 +48,5 @@ layout: document
 redirect_from:
 - /library/lib/data_structure/erasable_priority_queue.hpp
 - /library/lib/data_structure/erasable_priority_queue.hpp.html
-title: "\u524A\u9664\u4ED8\u304D\u512A\u5148\u9806\u4F4D\u4ED8\u304D\u30AD\u30E5\u30FC"
+title: "\u524A\u9664\u53EF\u80FD\u512A\u5148\u5EA6\u4ED8\u304D\u30AD\u30E5\u30FC"
 ---

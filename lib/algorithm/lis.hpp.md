@@ -32,25 +32,25 @@ data:
     \u5217\n * @retval int \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\u306E\u9577\u3055\
     \n */\ntemplate <class T>\nint longest_increasing_subsequence(const std::vector<T>\
     \ &v) {\n    int n = v.size();\n    std::vector<T> dp;\n    for (auto x : v) {\n\
-    \        auto it = std::lower_bound(dp.begin(), dp.end(), x);\n        if (it\
-    \ == dp.end()) dp.emplace_back(x);\n        else *it = x;\n    }\n    return dp.size();\n\
-    }\n\n/**\n * @brief \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\n *\n * @tparam\
-    \ T \u914D\u5217\u306E\u578B\n * @param v \u914D\u5217\n * @retval std::vector<int>\
-    \ \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\u306E\u30A4\u30F3\u30C7\u30C3\u30AF\
-    \u30B9\n */\ntemplate <class T>\nstd::vector<int> make_lis(const std::vector<T>\
-    \ &v) {\n    int n = v.size();\n    std::vector<std::pair<T, int>> dp;\n    std::vector<int>\
-    \ pr(n, -1);\n    for (int i = 0; i < n; ++i) {\n        std::pair<T, int> p(v[i],\
-    \ -i);\n        auto it = std::lower_bound(dp.begin(), dp.end(), p);\n       \
-    \ if (it != dp.begin()) pr[i] = -std::prev(it)->second;\n        if (it == dp.end())\
-    \ dp.emplace_back(p);\n        else *it = p;\n    }\n\n    std::vector<int> res;\n\
-    \    for (int x = -dp.back().second; x != -1; x = pr[x]) {\n        res.emplace_back(x);\n\
-    \    }\n    std::reverse(res.begin(), res.end());\n    return res;\n}\n"
+    \        auto it = std::lower_bound(std::begin(dp), std::end(dp), x);\n      \
+    \  if (it == std::end(dp)) dp.emplace_back(x);\n        else *it = x;\n    }\n\
+    \    return dp.size();\n}\n\n/**\n * @brief \u6700\u9577\u5897\u52A0\u90E8\u5206\
+    \u5217\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param v \u914D\u5217\n\
+    \ * @retval std::vector<int> \u6700\u9577\u5897\u52A0\u90E8\u5206\u5217\u306E\u30A4\
+    \u30F3\u30C7\u30C3\u30AF\u30B9\n */\ntemplate <class T>\nstd::vector<int> make_lis(const\
+    \ std::vector<T> &v) {\n    int n = v.size();\n    std::vector<T> dp;\n    std::vector<int>\
+    \ pos;\n    pos.reserve(n);\n    for (auto x : v) {\n        auto it = std::lower_bound(std::begin(dp),\
+    \ std::end(dp), x);\n        pos.emplace_back(std::distance(std::begin(dp), it));\n\
+    \        if (it == std::end(dp)) dp.emplace_back(x);\n        else *it = x;\n\
+    \    }\n\n    int x = dp.size();\n    std::vector<int> res(x--);\n    for (int\
+    \ i = n - 1; i >= 0; --i) {\n        if (pos[i] == x) res[x] = i, --x;\n    }\n\
+    \    return res;\n}\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/algorithm/lis.hpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-07-23 03:53:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp

@@ -32,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/enumeration.hpp
     title: lib/math/enumeration.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/math/sqrt.hpp
+    title: lib/math/sqrt.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dpl/bell.test.cpp
@@ -90,6 +93,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/math/number_of_subsequences.test.cpp
     title: test/yosupo/math/number_of_subsequences.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/math/sqrt_mod.test.cpp
+    title: test/yosupo/math/sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix/determinant_of_matrix.test.cpp
     title: test/yosupo/matrix/determinant_of_matrix.test.cpp
@@ -225,6 +231,7 @@ data:
   path: lib/math/modint.hpp
   requiredBy:
   - lib/math/combination.hpp
+  - lib/math/sqrt.hpp
   - lib/math/enumeration.hpp
   - lib/internal/internal_fft.hpp
   - lib/fft/ntt_mod.hpp
@@ -247,6 +254,7 @@ data:
   - test/yosupo/matrix/matrix_product.test.cpp
   - test/yosupo/matrix/determinant_of_matrix.test.cpp
   - test/yosupo/math/number_of_subsequences.test.cpp
+  - test/yosupo/math/sqrt_mod.test.cpp
   - test/yosupo/tree/tree_path_composite_sum.test.cpp
   - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
   - test/yosupo/convolution/convolution.test.cpp

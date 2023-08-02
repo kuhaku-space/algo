@@ -7,8 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/hupc/2019/manacher.test.cpp
-    title: test/aoj/hupc/2019/manacher.test.cpp
+    path: test/aoj/hupc/manacher.test.cpp
+    title: test/aoj/hupc/manacher.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/string/enumerate_palindromes.test.cpp
     title: test/yosupo/string/enumerate_palindromes.test.cpp
@@ -51,7 +51,7 @@ data:
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/hupc/2019/manacher.test.cpp
+  - test/aoj/hupc/manacher.test.cpp
   - test/yosupo/string/enumerate_palindromes.test.cpp
 documentation_of: lib/string/manacher.hpp
 layout: document

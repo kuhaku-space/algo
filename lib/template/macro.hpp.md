@@ -8,10 +8,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
+  - icon: ':warning:'
+    path: test/aoj/hupc/kmp.cpp
+    title: test/aoj/hupc/kmp.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/inversion_number.test.cpp
     title: test/aoj/alds1/inversion_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/alds1/kitamasa.test.cpp
+    title: test/aoj/alds1/kitamasa.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/kmp.test.cpp
     title: test/aoj/alds1/kmp.test.cpp
@@ -115,15 +121,6 @@ data:
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_binary.test.cpp
-    title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_fibonacci.test.cpp
-    title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_radix.test.cpp
-    title: test/aoj/grl/dijkstra_radix.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
   - icon: ':heavy_check_mark:'
@@ -157,8 +154,8 @@ data:
     path: test/aoj/grl/warshall_floyd.test.cpp
     title: test/aoj/grl/warshall_floyd.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/hupc/2019/manacher.test.cpp
-    title: test/aoj/hupc/2019/manacher.test.cpp
+    path: test/aoj/hupc/manacher.test.cpp
+    title: test/aoj/hupc/manacher.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/icpc/stern_brocot_tree.test.cpp
     title: test/aoj/icpc/stern_brocot_tree.test.cpp
@@ -313,6 +310,9 @@ data:
     path: test/yosupo/math/number_of_subsequences.test.cpp
     title: test/yosupo/math/number_of_subsequences.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/math/sqrt_mod.test.cpp
+    title: test/yosupo/math/sqrt_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/math/two_sat.test.cpp
     title: test/yosupo/math/two_sat.test.cpp
   - icon: ':heavy_check_mark:'
@@ -390,10 +390,11 @@ data:
   path: lib/template/macro.hpp
   requiredBy:
   - lib/template/atcoder.hpp
+  - test/aoj/hupc/kmp.cpp
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/hupc/2019/manacher.test.cpp
+  - test/aoj/hupc/manacher.test.cpp
   - test/aoj/dsl/range_search.test.cpp
   - test/aoj/dsl/weighted_union_find.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
@@ -406,6 +407,7 @@ data:
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/alds1/kitamasa.test.cpp
   - test/aoj/alds1/skew_heap.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
@@ -427,14 +429,11 @@ data:
   - test/aoj/ntl/difference.test.cpp
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/warshall_floyd.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/min_cost_flow.test.cpp
   - test/aoj/grl/bipartite_matching.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/prim.test.cpp
@@ -467,6 +466,7 @@ data:
   - test/yosupo/math/two_sat.test.cpp
   - test/yosupo/math/number_of_subsequences.test.cpp
   - test/yosupo/math/longest_increasing_subsequence.test.cpp
+  - test/yosupo/math/sqrt_mod.test.cpp
   - test/yosupo/math/montmort_number.test.cpp
   - test/yosupo/geometry/sort_points_by_argument.test.cpp
   - test/yosupo/tree/tree_diameter.test.cpp

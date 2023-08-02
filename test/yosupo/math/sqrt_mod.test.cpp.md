@@ -2,20 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_heap.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
+    path: lib/internal/internal_math.hpp
+    title: lib/internal/internal_math.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/graph/graph.hpp
-    title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
+    path: lib/internal/internal_type_traits.hpp
+    title: lib/internal/internal_type_traits.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/heap/binary_heap.hpp
-    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
+    path: lib/math/modint.hpp
+    title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/heap/fibonacci_heap.hpp
-    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':heavy_check_mark:'
-    path: lib/heap/radix_heap.hpp
-    title: lib/heap/radix_heap.hpp
+    path: lib/math/sqrt.hpp
+    title: lib/math/sqrt.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -35,9 +32,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
+    PROBLEM: https://judge.yosupo.jp/problem/sqrt_mod
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
+    - https://judge.yosupo.jp/problem/sqrt_mod
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -45,35 +42,33 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/dijkstra_heap.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A\"\
-    \n#include \"graph/dijkstra_heap.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    int main(void) {\n    sonic();\n    int n, m, r;\n    cin >> n >> m >> r;\n  \
-    \  Graph<int> g(n);\n    g.input_edge(m, 0);\n\n    auto dist = dijkstra<int,\
-    \ r_heap<int>>(g, r, Inf);\n    rep(i, n) {\n        if (dist[i] != Inf)\n   \
-    \         co(dist[i]);\n        else\n            co(\"INF\");\n    }\n\n    return\
-    \ 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_mod\"\n#include \"\
+    math/modint.hpp\"\n#include \"math/sqrt.hpp\"\n#include \"template/atcoder.hpp\"\
+    \n\nint main(void) {\n    int t;\n    cin >> t;\n    while (t--) {\n        int\
+    \ y, p;\n        cin >> y >> p;\n        modint::set_mod(p);\n        modint x(y);\n\
+    \        if (!has_sqrt_mod(x)) co(-1);\n        else co(sqrt_mod(x));\n    }\n\
+    \n    return 0;\n}\n"
   dependsOn:
-  - lib/graph/dijkstra_heap.hpp
-  - lib/graph/graph.hpp
+  - lib/math/modint.hpp
+  - lib/internal/internal_math.hpp
   - lib/template/template.hpp
-  - lib/heap/binary_heap.hpp
-  - lib/heap/fibonacci_heap.hpp
-  - lib/heap/radix_heap.hpp
+  - lib/internal/internal_type_traits.hpp
+  - lib/math/sqrt.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
-  path: test/aoj/grl/dijkstra_radix.test.cpp
+  path: test/yosupo/math/sqrt_mod.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:02:34+09:00'
+  timestamp: '2023-07-23 06:34:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/grl/dijkstra_radix.test.cpp
+documentation_of: test/yosupo/math/sqrt_mod.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/grl/dijkstra_radix.test.cpp
-- /verify/test/aoj/grl/dijkstra_radix.test.cpp.html
-title: test/aoj/grl/dijkstra_radix.test.cpp
+- /verify/test/yosupo/math/sqrt_mod.test.cpp
+- /verify/test/yosupo/math/sqrt_mod.test.cpp.html
+title: test/yosupo/math/sqrt_mod.test.cpp
 ---

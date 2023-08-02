@@ -37,9 +37,10 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n\
     #include \"string/kmp.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    string s, t;\n    cin >> s >> t;\n    KMP<string> kmp(t);\n    auto ans\
-    \ = kmp.search(s);\n    rep(i, s.size()) {\n        if (ans[i] == t.size()) {\n\
-    \            co(i - t.size() + 1);\n        }\n    }\n\n    return 0;\n}\n"
+    \ {\n    string s, t;\n    std::cin >> s >> t;\n    knuth_morris_pratt kmp(t);\n\
+    \    auto ans = kmp.search(s);\n    rep (i, s.size()) {\n        if (ans[i] ==\
+    \ t.size()) {\n            co(i - t.size() + 1);\n        }\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/string/kmp.hpp
   - lib/template/template.hpp
@@ -49,7 +50,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/kmp.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:36:33+09:00'
+  timestamp: '2023-07-31 13:23:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/kmp.test.cpp

@@ -14,9 +14,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/dijkstra.hpp
     title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
-  - icon: ':heavy_check_mark:'
-    path: lib/graph/dijkstra_heap.hpp
-    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\uFF08\u30D2\u30FC\u30D7\uFF09"
   - icon: ':warning:'
     path: lib/graph/dijkstra_potential.hpp
     title: lib/graph/dijkstra_potential.hpp
@@ -35,9 +32,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
-  - icon: ':warning:'
-    path: lib/graph/shortest_path.hpp
-    title: lib/graph/shortest_path.hpp
   - icon: ':warning:'
     path: lib/graph/spanning_tree.hpp
     title: "\u5168\u57DF\u6728"
@@ -81,15 +75,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/dijkstra.test.cpp
     title: test/aoj/grl/dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_binary.test.cpp
-    title: test/aoj/grl/dijkstra_binary.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_fibonacci.test.cpp
-    title: test/aoj/grl/dijkstra_fibonacci.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/dijkstra_radix.test.cpp
-    title: test/aoj/grl/dijkstra_radix.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
     title: test/aoj/grl/hld.test.cpp
@@ -242,25 +227,20 @@ data:
   - lib/graph/lowlink.hpp
   - lib/graph/kruskal.hpp
   - lib/graph/cycle.hpp
-  - lib/graph/shortest_path.hpp
   - lib/graph/maximum_independent_set.hpp
   - lib/graph/spanning_tree.hpp
   - lib/graph/dijkstra_potential.hpp
   - lib/graph/scc.hpp
   - lib/graph/spfa.hpp
   - lib/graph/prim.hpp
-  - lib/graph/dijkstra_heap.hpp
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/jag/aho_corasick.test.cpp
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/dijkstra_radix.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/dijkstra_binary.test.cpp
-  - test/aoj/grl/dijkstra_fibonacci.test.cpp
   - test/aoj/grl/topological_sort.test.cpp
   - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/prim.test.cpp

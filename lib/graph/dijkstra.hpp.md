@@ -47,14 +47,20 @@ data:
     \ (dists[node.to()] < node.dist()) continue;\r\n        for (auto &e : g[node.to()])\
     \ {\r\n            if (chmin(dists[e.to()], node.dist() + e.weight()))\r\n   \
     \             p_que.emplace(e.to(), node.dist() + e.weight());\r\n        }\r\n\
-    \    }\r\n    return dists;\r\n}\r\n"
+    \    }\r\n    return dists;\r\n}\r\n\r\nstd::vector<int> dijkstra(const Graph<void>\
+    \ &g, int s = 0,\r\n                          int inf = std::numeric_limits<int>::max())\
+    \ {\r\n    std::vector<int> dists(g.size(), inf);\r\n    std::queue<int> que;\r\
+    \n    dists[s] = 0;\r\n    que.emplace(s);\r\n    while (!que.empty()) {\r\n \
+    \       auto index = que.front();\r\n        que.pop();\r\n        for (auto &e\
+    \ : g[index]) {\r\n            if (chmin(dists[e.to()], dists[index] + 1)) que.emplace(e.to());\r\
+    \n        }\r\n    }\r\n    return dists;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-07-24 06:07:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/dijkstra.test.cpp
