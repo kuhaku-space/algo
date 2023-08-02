@@ -9,34 +9,34 @@
 template <class T>
 struct coordinate_compression {
     coordinate_compression() = default;
-    coordinate_compression(const std::vector<T> &_data) : data(_data) { this->build(); }
+    coordinate_compression(const std::vector<T> &_data) : data(_data) { build(); }
 
-    const T &operator[](int i) const { return this->data[i]; }
-    T &operator[](int i) { return this->data[i]; }
+    const T &operator[](int i) const { return data[i]; }
+    T &operator[](int i) { return data[i]; }
 
-    void add(T x) { this->data.emplace_back(x); }
+    void add(T x) { data.emplace_back(x); }
 
     void build() {
-        std::sort(this->data.begin(), this->data.end());
-        this->data.erase(std::unique(this->data.begin(), this->data.end()), this->data.end());
+        std::sort(std::begin(data), std::end(data));
+        data.erase(std::unique(std::begin(data), std::end(data)), std::end(data));
     }
     void build(const std::vector<T> &v) {
-        this->data = v;
-        std::sort(this->data.begin(), this->data.end());
-        this->data.erase(std::unique(this->data.begin(), this->data.end()), this->data.end());
+        data = v;
+        std::sort(std::begin(data), std::end(data));
+        data.erase(std::unique(std::begin(data), std::end(data)), std::end(data));
     }
 
-    bool exist(T x) const {
-        auto it = std::lower_bound(this->data.begin(), this->data.end(), x);
-        return it != this->data.end() && *it == x;
+    bool exists(T x) const {
+        auto it = std::lower_bound(std::begin(data), std::end(data), x);
+        return it != std::end(data) && *it == x;
     }
 
     int get(T x) const {
-        auto it = std::lower_bound(this->data.begin(), this->data.end(), x);
-        return it - this->data.begin();
+        auto it = std::lower_bound(std::begin(data), std::end(data), x);
+        return std::distance(std::begin(data), it);
     }
 
-    int size() const { return this->data.size(); }
+    int size() const { return std::size(data); }
 
   private:
     std::vector<T> data;
@@ -53,6 +53,6 @@ template <class T>
 std::vector<T> compress(const std::vector<T> &v) {
     coordinate_compression cps(v);
     std::vector<T> res;
-    for (auto x : v) res.emplace_back(cps.get(x));
+    for (auto &&x : v) res.emplace_back(cps.get(x));
     return res;
 }

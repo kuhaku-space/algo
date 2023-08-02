@@ -2,19 +2,14 @@
 
 /**
  * @brief KMP法
- * @details 構築 $O(|S|)$
- * @see https://snuke.hatenablog.com/entry/2014/12/01/235807
  *
  * @tparam Container
+ *
+ * @see https://snuke.hatenablog.com/entry/2014/12/01/235807
  */
 template <class Container>
-struct KMP {
-  private:
-    Container t;
-    std::vector<int> data;
-
-  public:
-    KMP(const Container &_t) : t(_t), data(_t.size() + 1) {
+struct knuth_morris_pratt {
+    knuth_morris_pratt(const Container &_t) : t(_t), data(_t.size() + 1) {
         data[0] = -1;
         int j = -1;
         for (int i = 0; i < t.size(); ++i) {
@@ -23,6 +18,8 @@ struct KMP {
             else data[i + 1] = j;
         }
     }
+
+    const int operator[](int i) const { return data[i]; }
 
     /**
      * @brief 検索
@@ -45,4 +42,8 @@ struct KMP {
         }
         return res;
     }
+
+  private:
+    Container t;
+    std::vector<int> data;
 };

@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_kth_smallest"
-#include "matrix/compressed_wavelet_matrix.hpp"
+#include "data_structure/wavelet_matrix.hpp"
 #include "template/atcoder.hpp"
 
 int main(void) {
