@@ -84,6 +84,7 @@
 "test/yosupo/data_structure/static_range_frequency.test.cpp": "2023-07-24 06:48:43 +0900",
 "test/yosupo/data_structure/static_range_inversions.test.cpp": "2023-07-23 03:12:37 +0900",
 "test/yosupo/data_structure/static_range_sum.test.cpp": "2023-05-22 19:46:47 +0900",
+"test/yosupo/data_structure/static_rmq.test.cpp": "2023-08-02 18:11:54 +0900",
 "test/yosupo/data_structure/undo_union_find.test.cpp": "2023-05-22 20:02:34 +0900",
 "test/yosupo/data_structure/unionfind.test.cpp": "2023-05-22 20:02:34 +0900",
 "test/yosupo/data_structure/vertex_add_path_sum.test.cpp": "2023-05-22 20:36:33 +0900",
