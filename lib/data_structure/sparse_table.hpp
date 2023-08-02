@@ -15,7 +15,7 @@ struct sparse_table {
 
   public:
     sparse_table(const std::vector<T> &v) : _size(v.size()), lookup(v.size() + 1), data() {
-        int b = std::max(1, internal::bit_ceil(_size - 1));
+        int b = std::max(1, internal::countr_zero(internal::bit_ceil(_size - 1)));
         data.emplace_back(v);
         for (int i = 1; i < b; ++i) data.emplace_back(_size + 1 - (1 << i));
         for (int i = 1; i < b; ++i) {
