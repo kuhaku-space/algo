@@ -36,14 +36,9 @@ struct skip_list {
     }
 
     void erase(const T &val) {
-        node_ptr node = head;
-        for (int i = B - 1; i >= 0; --i) {
-            while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
-        }
-
-        node_ptr delete_node = node->itr[0] && node->itr[0]->val == val ? node->itr[0] : nullptr;
+        node_ptr delete_node = select_delete_node(val);
         if (!delete_node) return;
-        node = head;
+        node_ptr node = head;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
             if (node->itr[i] == delete_node) node->itr[i] = node->itr[i]->itr[i];
@@ -95,5 +90,13 @@ struct skip_list {
                 node->itr[i] = new_node;
             }
         }
+    }
+
+    node_ptr select_delete_node(const T &val) {
+        node_ptr node = head;
+        for (int i = B - 1; i >= 0; --i) {
+            while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
+        }
+        return node->itr[0] && node->itr[0]->val == val ? node->itr[0] : nullptr;
     }
 };
