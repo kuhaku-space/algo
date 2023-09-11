@@ -41,7 +41,7 @@ struct skip_list {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
         }
 
-        node_ptr delete_node = node->itr[0]->val == val ? node->itr[0] : nullptr;
+        node_ptr delete_node = node->itr[0] && node->itr[0]->val == val ? node->itr[0] : nullptr;
         if (!delete_node) return;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
