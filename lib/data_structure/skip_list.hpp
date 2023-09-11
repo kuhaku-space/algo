@@ -43,6 +43,7 @@ struct skip_list {
 
         node_ptr delete_node = node->itr[0] && node->itr[0]->val == val ? node->itr[0] : nullptr;
         if (!delete_node) return;
+        node = head;
         for (int i = B - 1; i >= 0; --i) {
             while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
             if (node->itr[i] == delete_node) node->itr[i] = node->itr[i]->itr[i];
