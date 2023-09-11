@@ -1,6 +1,13 @@
 #include "random/xorshift.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief スキップリスト
+ *
+ * @tparam T 要素の型
+ * @tparam B リンクサイズ
+ * @tparam UniformRandomBitGenerator 擬似乱数生成器
+ */
 template <class T, int B = 20, class UniformRandomBitGenerator = Xorshift>
 struct skip_list {
   private:
