@@ -11,16 +11,16 @@ struct xoshiro128 {
     using result_type = std::uint32_t;
 
     constexpr xoshiro128() : state() {
-        split_mix_64 splitmix{};
-        for (auto& s : state) { s = static_cast<std::uint32_t>(splitmix()); }
+        split_mix_64 split_mix{};
+        for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());
     }
     constexpr xoshiro128(std::int64_t seed) noexcept : state() {
-        split_mix_64 splitmix{seed};
-        for (auto& s : state) { s = static_cast<std::uint32_t>(splitmix()); }
+        split_mix_64 split_mix{seed};
+        for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());
     }
 
-    constexpr result_type min() const noexcept { return std::numeric_limits<result_type>::min(); }
-    constexpr result_type max() const noexcept { return std::numeric_limits<result_type>::max(); }
+    static constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min(); }
+    static constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max(); }
     constexpr result_type operator()() {
         const std::uint32_t result = rotl(state[0] + state[3], 7) + state[0];
         const std::uint32_t t = state[1] << 9;
@@ -32,8 +32,8 @@ struct xoshiro128 {
         state[3] = rotl(state[3], 11);
         return result;
     }
-    bool operator==(const xoshiro128& rhs) noexcept { return (this->state == rhs.state); }
-    bool operator!=(const xoshiro128& rhs) noexcept { return (this->state != rhs.state); }
+    bool operator==(const xoshiro128 &rhs) noexcept { return (this->state == rhs.state); }
+    bool operator!=(const xoshiro128 &rhs) noexcept { return (this->state != rhs.state); }
 
     constexpr state_type serialize() const noexcept { return this->state; }
     constexpr void deserialize(const state_type state) noexcept { this->state = state; }
