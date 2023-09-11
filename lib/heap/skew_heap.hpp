@@ -17,7 +17,10 @@ struct skew_heap {
         T _val;
 
         constexpr _node() : _left(), _right(), _val() {}
-        constexpr _node(T _val) : _left(), _right(), _val(_val) {}
+        constexpr _node(const T &_val) : _left(), _right(), _val(_val) {}
+        constexpr _node(T &&_val) : _left(), _right(), _val(std::move(_val)) {}
+        template <typename... Args>
+        constexpr _node(Args &&...args) : _left(), _right(), _val(std::forward<Args>(args)...) {}
     };
 
   public:
@@ -29,11 +32,19 @@ struct skew_heap {
     constexpr T top() const { return _root->_val; }
     constexpr bool empty() const { return _root == nullptr; }
 
-    constexpr void emplace(T val) {
+    template <typename... Args>
+    constexpr void emplace(Args &&...args) {
+        auto node = new _node(std::forward<Args>(args)...);
+        _root = meld(_root, node);
+    }
+    constexpr void push(const T &val) {
         auto node = new _node(val);
         _root = meld(_root, node);
     }
-    constexpr void push(T val) { emplace(val); }
+    constexpr void push(T &&val) {
+        auto node = new _node(val);
+        _root = meld(_root, node);
+    }
 
     constexpr void pop() { _root = meld(_root->_left, _root->_right); }
 
