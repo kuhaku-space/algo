@@ -1,5 +1,4 @@
 #pragma once
-#include "random/split_mix_64.hpp"
 #include "template/template.hpp"
 
 /**
@@ -18,11 +17,12 @@ struct Xorshift {
         state[0] = state[1], state[1] = state[2], state[2] = state[3];
         return state[3] = (state[3] ^ (state[3] >> 19)) ^ (t ^ (t >> 8));
     }
-    bool operator==(const Xorshift &rhs) noexcept { return (this->state == rhs.state); }
-    bool operator!=(const Xorshift &rhs) noexcept { return (this->state != rhs.state); }
+    bool operator==(const Xorshift &rhs) noexcept { return (state == rhs.state); }
+    bool operator!=(const Xorshift &rhs) noexcept { return (state != rhs.state); }
 
-    constexpr state_type serialize() const noexcept { return this->state; }
-    constexpr void deserialize(const state_type state) noexcept { this->state = state; }
+    constexpr state_type serialize() const noexcept { return state; }
+    constexpr void deserialize(const state_type &data) noexcept { state = data; }
+    constexpr void deserialize(state_type &&data) noexcept { state = std::move(data); }
 
     /**
      * @brief a以上b以下の整数を生成
@@ -31,14 +31,14 @@ struct Xorshift {
      * @param b
      * @return int [a, b]
      */
-    int rand_range(int a, int b) { return a + this->operator()() % (b - a + 1); }
+    int rand_range(int a, int b) { return a + operator()() % (b - a + 1); }
 
     /**
      * @brief 0.0以上1.0未満の浮動小数点数を生成
      *
      * @return double [0.0, 1.0)
      */
-    double random() { return (double)this->operator()() / this->max(); }
+    double random() { return (double)operator()() / max(); }
 
   private:
     state_type state;
