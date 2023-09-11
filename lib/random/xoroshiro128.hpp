@@ -14,19 +14,18 @@ struct xoroshiro128 {
     constexpr xoroshiro128(std::int64_t seed) noexcept
         : state(split_mix_64{seed}.generate_seed_sequence<2>()) {}
 
-    constexpr result_type min() const noexcept { return std::numeric_limits<result_type>::min(); }
-    constexpr result_type max() const noexcept { return std::numeric_limits<result_type>::max(); }
+    static constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min(); }
+    static constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max(); }
     constexpr result_type operator()() {
         const std::uint64_t s0 = state[0];
         std::uint64_t s1 = state[1];
         const std::uint64_t result = rotl(s0 + s1, 17) + s0;
         s1 ^= s0;
-        state[0] = rotl(s0, 49) ^ s1 ^ (s1 << 21);
-        state[1] = rotl(s1, 28);
+        state[0] = rotl(s0, 49) ^ s1 ^ (s1 << 21), state[1] = rotl(s1, 28);
         return result;
     }
-    bool operator==(const xoroshiro128& rhs) noexcept { return (this->state == rhs.state); }
-    bool operator!=(const xoroshiro128& rhs) noexcept { return (this->state != rhs.state); }
+    bool operator==(const xoroshiro128 &rhs) noexcept { return (this->state == rhs.state); }
+    bool operator!=(const xoroshiro128 &rhs) noexcept { return (this->state != rhs.state); }
 
     constexpr state_type serialize() const noexcept { return this->state; }
     constexpr void deserialize(const state_type state) noexcept { this->state = state; }
