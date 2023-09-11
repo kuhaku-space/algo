@@ -83,11 +83,11 @@ struct skip_list {
         return height;
     }
 
-    int insert_node(node_ptr new_node) {
+    void insert_node(node_ptr new_node) {
         node_ptr node = head;
         int height = create_height();
         for (int i = B - 1; i >= 0; --i) {
-            while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];
+            while (node->itr[i] && node->itr[i]->val < new_node->val) node = node->itr[i];
 
             if (i <= height) {
                 new_node->itr[i] = node->itr[i];
