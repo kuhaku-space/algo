@@ -7,32 +7,32 @@
 struct minimum_excluded {
     minimum_excluded() : n(), _size(), exists(64), v() {}
 
-    constexpr int operator()() const noexcept { return this->n; }
-    constexpr int get() const noexcept { return this->n; }
+    constexpr int operator()() const noexcept { return n; }
+    constexpr int get() const noexcept { return n; }
 
     void add(int x) {
         if (x < 0) return;
-        ++this->_size;
-        if (this->_size == (int)this->exists.size()) {
-            this->exists.resize(this->_size << 1);
+        ++_size;
+        if (_size == (int)std::size(exists)) {
+            exists.resize(_size << 1);
             int cnt = 0;
-            for (int i = 0; i < (int)this->v.size(); ++i) {
-                if (this->v[i] < (int)this->exists.size()) {
-                    if (this->exists[this->v[i]]) --this->_size;
-                    else this->exists[this->v[i]] = true;
+            for (int i = 0; i < (int)std::size(v); ++i) {
+                if (v[i] < (int)std::size(exists)) {
+                    if (exists[v[i]]) --_size;
+                    else exists[v[i]] = true;
                 } else {
-                    this->v[cnt++] = this->v[i];
+                    v[cnt++] = v[i];
                 }
             }
-            this->v.erase(this->v.begin() + cnt, this->v.end());
+            v.erase(std::begin(v) + cnt, std::end(v));
         }
-        if (x < (int)this->exists.size()) {
-            if (this->exists[x]) --this->_size;
-            else this->exists[x] = true;
+        if (x < (int)std::size(exists)) {
+            if (exists[x]) --_size;
+            else exists[x] = true;
         } else {
-            this->v.emplace_back(x);
+            v.emplace_back(x);
         }
-        while (this->exists[this->n]) ++this->n;
+        while (exists[n]) ++n;
     }
 
   private:
