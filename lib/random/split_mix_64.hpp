@@ -12,8 +12,8 @@ struct split_mix_64 {
     constexpr split_mix_64() noexcept : state(1234567890) {}
     constexpr split_mix_64(std::uint64_t seed) noexcept : state(seed) {}
 
-    constexpr result_type min() const noexcept { return std::numeric_limits<result_type>::min(); }
-    constexpr result_type max() const noexcept { return std::numeric_limits<result_type>::max(); }
+    static constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min(); }
+    static constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max(); }
     constexpr result_type operator()() {
         std::uint64_t z = (this->state += 0x9e3779b97f4a7c15);
         z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9;
@@ -27,7 +27,7 @@ struct split_mix_64 {
     template <std::size_t N>
     constexpr std::array<std::uint64_t, N> generate_seed_sequence() noexcept {
         std::array<std::uint64_t, N> seeds = {};
-        for (auto& seed : seeds) { seed = this->operator()(); }
+        for (auto &seed : seeds) seed = this->operator()();
         return seeds;
     }
 
