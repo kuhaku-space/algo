@@ -7,6 +7,7 @@
  * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
  */
 struct HLD {
+    HLD() = default;
     HLD(int n) : _size(n), g(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
 
     template <class T>
