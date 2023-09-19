@@ -27,6 +27,7 @@ struct Graph {
   public:
     using edge_type = typename Graph<T>::_edge;
 
+    Graph() : _size(), edges() {}
     Graph(int v) : _size(v), edges(v) {}
 
     const auto &operator[](int i) const { return this->edges[i]; }
@@ -88,6 +89,7 @@ struct Graph<void> {
   public:
     using edge_type = typename Graph<void>::_edge;
 
+    Graph() : _size(), edges() {}
     Graph(int v) : _size(v), edges(v) {}
 
     const auto &operator[](int i) const { return this->edges[i]; }

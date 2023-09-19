@@ -7,9 +7,9 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> p(n - 1);
     std::cin >> p;
-    HLD hld(n);
-    rep (i, n - 1) hld.add_edges(p[i], i + 1);
-    hld.build();
+    Graph<void> g(n);
+    rep (i, n - 1) g.add_edges(p[i], i + 1);
+    heavy_light_decomposition hld(g);
     while (q--) {
         int u, v;
         std::cin >> u >> v;

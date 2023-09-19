@@ -4,14 +4,13 @@
 
 int main(void) {
     int n, q;
-    cin >> n >> q;
-    HLD hld(n);
-    hld.input_edges(0);
-    hld.build();
-
+    std::cin >> n >> q;
+    Graph<void> g(n);
+    g.input_edges(n - 1, 0);
+    heavy_light_decomposition hld(g);
     while (q--) {
         int u, v, k;
-        cin >> u >> v >> k;
+        std::cin >> u >> v >> k;
         co(hld.jump(u, v, k));
     }
 

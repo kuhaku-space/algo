@@ -3,8 +3,8 @@
 #include "template/atcoder.hpp"
 
 int main(void) {
-    string s;
-    cin >> s;
+    std::string s;
+    std::cin >> s;
     int n = s.size();
     int x = n - knuth_morris_pratt(s)[n];
     int y = n + 1;
@@ -14,7 +14,7 @@ int main(void) {
         co("mitomerarenaiWA");
         return 0;
     }
-    string ans = "Love ";
+    std::string ans = "Love ";
     ans += s.substr(0, y / 3);
     ans += "!";
     co(ans);
