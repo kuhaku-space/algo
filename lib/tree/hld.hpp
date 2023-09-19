@@ -15,6 +15,7 @@ struct heavy_light_decomposition {
 
     int get(int v) const { return vid[v]; }
     int get_parent(int v) const { return par[v]; }
+    int get_depth(int v) const { return depth[v]; }
 
     int dist(int u, int v) const {
         int d = 0;
