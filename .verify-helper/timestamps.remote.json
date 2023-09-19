@@ -116,5 +116,7 @@
 "test/yosupo/tree/jump_on_tree.test.cpp": "2023-09-19 17:25:15 +0900",
 "test/yosupo/tree/lowest_common_ancestor.test.cpp": "2023-09-19 17:25:15 +0900",
 "test/yosupo/tree/tree_diameter.test.cpp": "2023-09-11 18:21:39 +0900",
-"test/yosupo/tree/tree_path_composite_sum.test.cpp": "2023-09-11 18:21:39 +0900"
+"test/yosupo/tree/tree_path_composite_sum.test.cpp": "2023-09-11 18:21:39 +0900",
+"test/yukicoder/1211.test.cpp": "2023-09-20 01:04:45 +0900",
+"test/yukicoder/1242.test.cpp": "2023-09-20 01:04:45 +0900"
 }
