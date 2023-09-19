@@ -5,17 +5,17 @@
 #include "tree/hld.hpp"
 
 using Mint = modint998;
+using M = Affine<Mint>;
+using RM = Rev<M>;
 
 int main(void) {
     int n, q;
-    cin >> n >> q;
-    vector<pair<Mint, Mint>> a(n);
-    cin >> a;
-    HLD hld(n);
-    hld.input_edges(0);
-    hld.build();
-    using M = Affine<Mint>;
-    using RM = Rev<M>;
+    std::cin >> n >> q;
+    std::vector<std::pair<Mint, Mint>> a(n);
+    std::cin >> a;
+    Graph<void> g(n);
+    g.input_edges(n - 1, 0);
+    heavy_light_decomposition hld(g);
     segment_tree<M> st1(n);
     segment_tree<RM> st2(n);
     rep (i, n) {
@@ -24,15 +24,15 @@ int main(void) {
     }
     while (q--) {
         int c;
-        cin >> c;
+        std::cin >> c;
         if (c == 0) {
             int p, a, b;
-            cin >> p >> a >> b;
+            std::cin >> p >> a >> b;
             st1.set(hld.get(p), {a, b});
             st2.set(hld.get(p), {a, b});
         } else {
             int u, v, x;
-            cin >> u >> v >> x;
+            std::cin >> u >> v >> x;
             auto l = M::id, r = M::id;
             auto f = [&](int u, int v) {
                 l = M::op(st1.prod(u, v), l);

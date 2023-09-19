@@ -3,89 +3,60 @@
 #include "template/template.hpp"
 
 /**
- * @brief HLD
+ * @brief HL分解
  * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
  */
-struct HLD {
-    HLD() = default;
-    HLD(int n) : _size(n), g(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
-
+struct heavy_light_decomposition {
+    heavy_light_decomposition() = default;
     template <class T>
-    HLD(const Graph<T> &g, int r = 0) : HLD(g.size()) {
-        for (auto &es : g) {
-            for (auto &e : es) {
-                this->g[e.from()].emplace_back(e.to());
-            }
-        }
-        this->build(r);
+    heavy_light_decomposition(const Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {
+        build(g, r);
     }
 
-    void add_edge(int u, int v) { this->add_edges(u, v); }
-    void add_edges(int u, int v) {
-        this->g[u].emplace_back(v);
-        this->g[v].emplace_back(u);
-    }
-
-    void input_edge(int base = 1) { this->input_edges(base); }
-    void input_edges(int base = 1) {
-        for (int i = 0; i < this->_size - 1; ++i) {
-            int u, v;
-            std::cin >> u >> v;
-            this->add_edges(u - base, v - base);
-        }
-    }
-
-    void build(int r = 0) {
-        int pos = 0;
-        this->dfs_sz(r);
-        this->nxt[r] = r;
-        this->dfs_hld(r, pos);
-    }
-
-    int get(int v) const { return this->vid[v]; }
-    int get_parent(int v) const { return this->par[v]; }
+    int get(int v) const { return vid[v]; }
+    int get_parent(int v) const { return par[v]; }
 
     int dist(int u, int v) const {
         int d = 0;
         while (true) {
-            if (this->vid[u] > this->vid[v]) std::swap(u, v);
-            if (this->nxt[u] == this->nxt[v]) return d + this->vid[v] - this->vid[u];
-            d += this->vid[v] - this->vid[this->nxt[v]] + 1;
-            v = this->par[this->nxt[v]];
+            if (vid[u] > vid[v]) std::swap(u, v);
+            if (nxt[u] == nxt[v]) return d + vid[v] - vid[u];
+            d += vid[v] - vid[nxt[v]] + 1;
+            v = par[nxt[v]];
         }
     }
 
     int jump(int u, int v, int k) const {
-        int d = this->dist(u, v);
+        int d = dist(u, v);
         if (d < k) return -1;
-        int l = this->lca(u, v);
-        if (this->dist(u, l) >= k) return this->la(u, k);
-        else return this->la(v, d - k);
+        int l = lca(u, v);
+        if (dist(u, l) >= k) return la(u, k);
+        else return la(v, d - k);
     }
 
     int la(int v, int k) const {
         while (true) {
-            int u = this->nxt[v];
-            if (this->vid[v] - k >= this->vid[u]) return this->inv[this->vid[v] - k];
-            k -= this->vid[v] - this->vid[u] + 1;
-            v = this->par[u];
+            int u = nxt[v];
+            if (vid[v] - k >= vid[u]) return inv[vid[v] - k];
+            k -= vid[v] - vid[u] + 1;
+            v = par[u];
         }
     }
 
     int lca(int u, int v) const {
         while (true) {
-            if (this->vid[u] > this->vid[v]) std::swap(u, v);
-            if (this->nxt[u] == this->nxt[v]) return u;
-            v = this->par[this->nxt[v]];
+            if (vid[u] > vid[v]) std::swap(u, v);
+            if (nxt[u] == nxt[v]) return u;
+            v = par[nxt[v]];
         }
     }
 
     template <class F>
     void for_each(int u, int v, const F &f) const {
         while (true) {
-            if (this->vid[u] > this->vid[v]) std::swap(u, v);
-            f(std::max(this->vid[this->nxt[v]], this->vid[u]), this->vid[v] + 1);
-            if (this->nxt[u] != this->nxt[v]) v = this->par[this->nxt[v]];
+            if (vid[u] > vid[v]) std::swap(u, v);
+            f(std::max(vid[nxt[v]], vid[u]), vid[v] + 1);
+            if (nxt[u] != nxt[v]) v = par[nxt[v]];
             else break;
         }
     }
@@ -93,12 +64,12 @@ struct HLD {
     template <class F>
     void for_each_edge(int u, int v, const F &f) const {
         while (true) {
-            if (this->vid[u] > this->vid[v]) std::swap(u, v);
-            if (this->nxt[u] != this->nxt[v]) {
-                f(this->vid[this->nxt[v]], this->vid[v] + 1);
-                v = this->par[this->nxt[v]];
+            if (vid[u] > vid[v]) std::swap(u, v);
+            if (nxt[u] != nxt[v]) {
+                f(vid[nxt[v]], vid[v] + 1);
+                v = par[nxt[v]];
             } else {
-                if (u != v) f(this->vid[u] + 1, this->vid[v] + 1);
+                if (u != v) f(vid[u] + 1, vid[v] + 1);
                 break;
             }
         }
@@ -106,28 +77,47 @@ struct HLD {
 
   private:
     int _size;
-    std::vector<std::vector<int>> g;
     std::vector<int> vid, nxt, sub, par, inv;
 
-    void dfs_sz(int v) {
-        auto &es = this->g[v];
-        if (~(this->par[v])) es.erase(find(es.begin(), es.end(), this->par[v]));
+    heavy_light_decomposition(int n)
+        : _size(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
 
-        for (auto &u : es) {
-            this->par[u] = v;
-            this->dfs_sz(u);
-            this->sub[v] += this->sub[u];
-            if (this->sub[u] > this->sub[es[0]]) std::swap(u, es[0]);
+    template <class T>
+    void build(const Graph<T> &g, int r = 0) {
+        std::vector<int> heavy_path(_size, -1);
+        dfs_sz(g, r, heavy_path);
+        nxt[r] = r;
+        int pos = 0;
+        dfs_hld(g, r, pos, heavy_path);
+    }
+
+    template <class T>
+    void dfs_sz(const Graph<T> &g, int v, std::vector<int> &heavy_path) {
+        int max_sub = 0;
+        for (auto &e : g[v]) {
+            int u = e.to();
+            if (u == par[v]) continue;
+            par[u] = v;
+            dfs_sz(g, u, heavy_path);
+            sub[v] += sub[u];
+            if (chmax(max_sub, sub[u])) heavy_path[v] = u;
         }
     }
 
-    void dfs_hld(int v, int &pos) {
-        this->vid[v] = pos++;
-        this->inv[this->vid[v]] = v;
-        for (auto u : this->g[v]) {
-            if (u == this->par[v]) continue;
-            this->nxt[u] = (u == this->g[v][0] ? this->nxt[v] : u);
-            this->dfs_hld(u, pos);
+    template <class T>
+    void dfs_hld(const Graph<T> &g, int v, int &pos, const std::vector<int> &heavy_path) {
+        vid[v] = pos++;
+        inv[vid[v]] = v;
+        int hp = heavy_path[v];
+        if (hp != -1) {
+            nxt[hp] = nxt[v];
+            dfs_hld(g, hp, pos, heavy_path);
+        }
+        for (auto &e : g[v]) {
+            int u = e.to();
+            if (u == par[v] || u == heavy_path[v]) continue;
+            nxt[u] = u;
+            dfs_hld(g, u, pos, heavy_path);
         }
     }
 };

@@ -1,29 +1,27 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C"
-#include "template/atcoder.hpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_C"
 #include "tree/hld.hpp"
+#include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n;
-    cin >> n;
-    HLD hld(n);
-    rep(i, n) {
+    std::cin >> n;
+    Graph<void> g(n);
+    rep (i, n) {
         int k;
-        cin >> k;
-        rep(j, k) {
+        std::cin >> k;
+        while (k--) {
             int c;
-            cin >> c;
-            hld.add_edge(i, c);
+            std::cin >> c;
+            g.add_edges(i, c);
         }
     }
 
-    hld.build();
-
+    heavy_light_decomposition hld(g);
     int q;
-    cin >> q;
+    std::cin >> q;
     while (q--) {
         int u, v;
-        cin >> u >> v;
+        std::cin >> u >> v;
         co(hld.lca(u, v));
     }
 

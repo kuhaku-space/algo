@@ -5,24 +5,24 @@
 
 int main(void) {
     int n, q;
-    cin >> n >> q;
-    vector<int> a(n);
-    cin >> a;
-    HLD hld(n);
-    hld.input_edges(0);
-    hld.build();
+    std::cin >> n >> q;
+    std::vector<int> a(n);
+    std::cin >> a;
+    Graph<void> g(n);
+    g.input_edges(n - 1, 0);
+    heavy_light_decomposition hld(g);
     fenwick_tree<ll> ft(n);
     rep (i, n) ft.add(hld.get(i), a[i]);
     while (q--) {
         int c;
-        cin >> c;
+        std::cin >> c;
         if (c == 0) {
             int p, x;
-            cin >> p >> x;
+            std::cin >> p >> x;
             ft.add(hld.get(p), x);
         } else {
             int u, v;
-            cin >> u >> v;
+            std::cin >> u >> v;
             ll ans = 0;
             auto f = [&](int u, int v) {
                 ans += ft.sum(u, v);
