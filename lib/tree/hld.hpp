@@ -3,7 +3,7 @@
 #include "template/template.hpp"
 
 /**
- * @brief HLD
+ * @brief HL分解
  * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
  */
 struct HLD {
