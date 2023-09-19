@@ -23,7 +23,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/algorithm/doubling.hpp
       title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
     - icon: ':heavy_check_mark:'
@@ -97,9 +97,9 @@ data:
     - icon: ':warning:'
       path: lib/data_structure/persistent_stack.hpp
       title: lib/data_structure/persistent_stack.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/data_structure/skip_list.hpp
-      title: lib/data_structure/skip_list.hpp
+      title: "\u30B9\u30AD\u30C3\u30D7\u30EA\u30B9\u30C8"
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/sparse_table.hpp
       title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
@@ -174,6 +174,9 @@ data:
     - icon: ':warning:'
       path: lib/graph/dijkstra_potential.hpp
       title: lib/graph/dijkstra_potential.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/graph/functional_graph.hpp
+      title: lib/graph/functional_graph.hpp
     - icon: ':heavy_check_mark:'
       path: lib/graph/graph.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
@@ -257,6 +260,9 @@ data:
       path: lib/math/eratosthenes.hpp
       title: "\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9"
     - icon: ':warning:'
+      path: lib/math/floor_sum.hpp
+      title: floor sum
+    - icon: ':warning:'
       path: lib/math/fraction.hpp
       title: "\u5206\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':warning:'
@@ -291,7 +297,7 @@ data:
       title: lib/math/sqrt.hpp
   - name: lib/random
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: lib/random/split_mix_64.hpp
       title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
     - icon: ':warning:'
@@ -391,7 +397,7 @@ data:
       title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
     - icon: ':heavy_check_mark:'
       path: lib/tree/hld.hpp
-      title: HLD
+      title: "HL\u5206\u89E3"
     - icon: ':heavy_check_mark:'
       path: lib/tree/link_cut_tree.hpp
       title: Link-Cut Tree
@@ -419,11 +425,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - name: test/aoj/hupc
-    pages:
-    - icon: ':warning:'
-      path: test/aoj/hupc/kmp.cpp
-      title: test/aoj/hupc/kmp.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
@@ -451,6 +452,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/skew_heap.test.cpp
       title: test/aoj/alds1/skew_heap.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/suffix_array.test.cpp
+      title: test/aoj/alds1/suffix_array.test.cpp
   - name: test/aoj/cgl
     pages:
     - icon: ':heavy_check_mark:'
@@ -579,6 +583,9 @@ data:
   - name: test/aoj/hupc
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/aoj/hupc/kmp.test.cpp
+      title: test/aoj/hupc/kmp.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/hupc/manacher.test.cpp
       title: test/aoj/hupc/manacher.test.cpp
   - name: test/aoj/icpc
@@ -594,6 +601,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/itp2/scapegoat_tree.test.cpp
       title: test/aoj/itp2/scapegoat_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/itp2/skip_list.test.cpp
+      title: test/aoj/itp2/skip_list.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/itp2/treap.test.cpp
       title: test/aoj/itp2/treap.test.cpp
@@ -633,6 +643,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/rupc/range_set.test.cpp
       title: test/aoj/rupc/range_set.test.cpp
+  - name: test/aoj/volume
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/volume/doubling.test.cpp
+      title: test/aoj/volume/doubling.test.cpp
   - name: test/yosupo/convolution
     pages:
     - icon: ':heavy_check_mark:'
@@ -807,5 +822,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/tree/tree_path_composite_sum.test.cpp
       title: test/yosupo/tree/tree_path_composite_sum.test.cpp
+  - name: test/yukicoder
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yukicoder/1211.test.cpp
+      title: test/yukicoder/1211.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yukicoder/1242.test.cpp
+      title: test/yukicoder/1242.test.cpp
 layout: toppage
 ---

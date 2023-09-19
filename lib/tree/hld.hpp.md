@@ -7,7 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/graph/functional_graph.hpp
+    title: lib/graph/functional_graph.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/hld.test.cpp
@@ -30,96 +33,102 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/lowest_common_ancestor.test.cpp
     title: test/yosupo/tree/lowest_common_ancestor.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yukicoder/1211.test.cpp
+    title: test/yukicoder/1211.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yukicoder/1242.test.cpp
+    title: test/yukicoder/1242.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: HLD
+    document_title: "HL\u5206\u89E3"
     links:
     - https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
   code: "#pragma once\r\n#include \"graph/graph.hpp\"\r\n#include \"template/template.hpp\"\
-    \r\n\r\n/**\r\n * @brief HLD\r\n * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp\r\
-    \n */\r\nstruct HLD {\r\n    HLD(int n) : _size(n), g(n), vid(n, -1), nxt(n),\
-    \ sub(n, 1), par(n, -1), inv(n) {}\r\n\r\n    template <class T>\r\n    HLD(const\
-    \ Graph<T> &g, int r = 0) : HLD(g.size()) {\r\n        for (auto &es : g) {\r\n\
-    \            for (auto &e : es) {\r\n                this->g[e.from()].emplace_back(e.to());\r\
-    \n            }\r\n        }\r\n        this->build(r);\r\n    }\r\n\r\n    void\
-    \ add_edge(int u, int v) { this->add_edges(u, v); }\r\n    void add_edges(int\
-    \ u, int v) {\r\n        this->g[u].emplace_back(v);\r\n        this->g[v].emplace_back(u);\r\
-    \n    }\r\n\r\n    void input_edge(int base = 1) { this->input_edges(base); }\r\
-    \n    void input_edges(int base = 1) {\r\n        for (int i = 0; i < this->_size\
-    \ - 1; ++i) {\r\n            int u, v;\r\n            std::cin >> u >> v;\r\n\
-    \            this->add_edges(u - base, v - base);\r\n        }\r\n    }\r\n\r\n\
-    \    void build(int r = 0) {\r\n        int pos = 0;\r\n        this->dfs_sz(r);\r\
-    \n        this->nxt[r] = r;\r\n        this->dfs_hld(r, pos);\r\n    }\r\n\r\n\
-    \    int get(int v) const { return this->vid[v]; }\r\n    int get_parent(int v)\
-    \ const { return this->par[v]; }\r\n\r\n    int dist(int u, int v) const {\r\n\
-    \        int d = 0;\r\n        while (true) {\r\n            if (this->vid[u]\
-    \ > this->vid[v]) std::swap(u, v);\r\n            if (this->nxt[u] == this->nxt[v])\
-    \ return d + this->vid[v] - this->vid[u];\r\n            d += this->vid[v] - this->vid[this->nxt[v]]\
-    \ + 1;\r\n            v = this->par[this->nxt[v]];\r\n        }\r\n    }\r\n\r\
-    \n    int jump(int u, int v, int k) const {\r\n        int d = this->dist(u, v);\r\
-    \n        if (d < k) return -1;\r\n        int l = this->lca(u, v);\r\n      \
-    \  if (this->dist(u, l) >= k) return this->la(u, k);\r\n        else return this->la(v,\
-    \ d - k);\r\n    }\r\n\r\n    int la(int v, int k) const {\r\n        while (true)\
-    \ {\r\n            int u = this->nxt[v];\r\n            if (this->vid[v] - k >=\
-    \ this->vid[u]) return this->inv[this->vid[v] - k];\r\n            k -= this->vid[v]\
-    \ - this->vid[u] + 1;\r\n            v = this->par[u];\r\n        }\r\n    }\r\
-    \n\r\n    int lca(int u, int v) const {\r\n        while (true) {\r\n        \
-    \    if (this->vid[u] > this->vid[v]) std::swap(u, v);\r\n            if (this->nxt[u]\
-    \ == this->nxt[v]) return u;\r\n            v = this->par[this->nxt[v]];\r\n \
-    \       }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each(int u, int\
-    \ v, const F &f) const {\r\n        while (true) {\r\n            if (this->vid[u]\
-    \ > this->vid[v]) std::swap(u, v);\r\n            f(std::max(this->vid[this->nxt[v]],\
-    \ this->vid[u]), this->vid[v] + 1);\r\n            if (this->nxt[u] != this->nxt[v])\
-    \ v = this->par[this->nxt[v]];\r\n            else break;\r\n        }\r\n   \
-    \ }\r\n\r\n    template <class F>\r\n    void for_each_edge(int u, int v, const\
-    \ F &f) const {\r\n        while (true) {\r\n            if (this->vid[u] > this->vid[v])\
-    \ std::swap(u, v);\r\n            if (this->nxt[u] != this->nxt[v]) {\r\n    \
-    \            f(this->vid[this->nxt[v]], this->vid[v] + 1);\r\n               \
-    \ v = this->par[this->nxt[v]];\r\n            } else {\r\n                if (u\
-    \ != v) f(this->vid[u] + 1, this->vid[v] + 1);\r\n                break;\r\n \
-    \           }\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _size;\r\n  \
-    \  std::vector<std::vector<int>> g;\r\n    std::vector<int> vid, nxt, sub, par,\
-    \ inv;\r\n\r\n    void dfs_sz(int v) {\r\n        auto &es = this->g[v];\r\n \
-    \       if (~(this->par[v])) es.erase(find(es.begin(), es.end(), this->par[v]));\r\
-    \n\r\n        for (auto &u : es) {\r\n            this->par[u] = v;\r\n      \
-    \      this->dfs_sz(u);\r\n            this->sub[v] += this->sub[u];\r\n     \
-    \       if (this->sub[u] > this->sub[es[0]]) std::swap(u, es[0]);\r\n        }\r\
-    \n    }\r\n\r\n    void dfs_hld(int v, int &pos) {\r\n        this->vid[v] = pos++;\r\
-    \n        this->inv[this->vid[v]] = v;\r\n        for (auto u : this->g[v]) {\r\
-    \n            if (u == this->par[v]) continue;\r\n            this->nxt[u] = (u\
-    \ == this->g[v][0] ? this->nxt[v] : u);\r\n            this->dfs_hld(u, pos);\r\
-    \n        }\r\n    }\r\n};\r\n"
+    \r\n\r\n/**\r\n * @brief HL\u5206\u89E3\r\n * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp\r\
+    \n */\r\nstruct heavy_light_decomposition {\r\n    heavy_light_decomposition()\
+    \ = default;\r\n    template <class T>\r\n    heavy_light_decomposition(const\
+    \ Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {\r\n        build(g,\
+    \ r);\r\n    }\r\n\r\n    constexpr int size() const { return _size; }\r\n\r\n\
+    \    int get(int v) const { return vid[v]; }\r\n    int get_parent(int v) const\
+    \ { return par[v]; }\r\n    int get_depth(int v) const { return depth[v]; }\r\n\
+    \r\n    int dist(int u, int v) const {\r\n        int d = 0;\r\n        while\
+    \ (true) {\r\n            if (vid[u] > vid[v]) std::swap(u, v);\r\n          \
+    \  if (nxt[u] == nxt[v]) return d + vid[v] - vid[u];\r\n            d += vid[v]\
+    \ - vid[nxt[v]] + 1;\r\n            v = par[nxt[v]];\r\n        }\r\n    }\r\n\
+    \r\n    int jump(int u, int v, int k) const {\r\n        int d = dist(u, v);\r\
+    \n        if (d < k) return -1;\r\n        int l = lca(u, v);\r\n        if (dist(u,\
+    \ l) >= k) return la(u, k);\r\n        else return la(v, d - k);\r\n    }\r\n\r\
+    \n    int la(int v, int k) const {\r\n        while (true) {\r\n            int\
+    \ u = nxt[v];\r\n            if (vid[v] - k >= vid[u]) return inv[vid[v] - k];\r\
+    \n            k -= vid[v] - vid[u] + 1;\r\n            v = par[u];\r\n       \
+    \ }\r\n    }\r\n\r\n    int lca(int u, int v) const {\r\n        while (true)\
+    \ {\r\n            if (vid[u] > vid[v]) std::swap(u, v);\r\n            if (nxt[u]\
+    \ == nxt[v]) return u;\r\n            v = par[nxt[v]];\r\n        }\r\n    }\r\
+    \n\r\n    template <class F>\r\n    void for_each(int u, int v, const F &f) const\
+    \ {\r\n        while (true) {\r\n            if (vid[u] > vid[v]) std::swap(u,\
+    \ v);\r\n            f(std::max(vid[nxt[v]], vid[u]), vid[v] + 1);\r\n       \
+    \     if (nxt[u] != nxt[v]) v = par[nxt[v]];\r\n            else break;\r\n  \
+    \      }\r\n    }\r\n\r\n    template <class F>\r\n    void for_each_edge(int\
+    \ u, int v, const F &f) const {\r\n        while (true) {\r\n            if (vid[u]\
+    \ > vid[v]) std::swap(u, v);\r\n            if (nxt[u] != nxt[v]) {\r\n      \
+    \          f(vid[nxt[v]], vid[v] + 1);\r\n                v = par[nxt[v]];\r\n\
+    \            } else {\r\n                if (u != v) f(vid[u] + 1, vid[v] + 1);\r\
+    \n                break;\r\n            }\r\n        }\r\n    }\r\n\r\n  private:\r\
+    \n    int _size;\r\n    std::vector<int> vid, nxt, sub, par, depth, inv;\r\n\r\
+    \n    heavy_light_decomposition(int n)\r\n        : _size(n), vid(n, -1), nxt(n),\
+    \ sub(n, 1), par(n, -1), depth(n), inv(n) {}\r\n\r\n    template <class T>\r\n\
+    \    void build(const Graph<T> &g, int r = 0) {\r\n        std::vector<int> heavy_path(_size,\
+    \ -1);\r\n        dfs_sz(g, r, heavy_path);\r\n        nxt[r] = r;\r\n       \
+    \ int pos = 0;\r\n        dfs_hld(g, r, pos, heavy_path);\r\n    }\r\n\r\n   \
+    \ template <class T>\r\n    void dfs_sz(const Graph<T> &g, int v, std::vector<int>\
+    \ &heavy_path) {\r\n        int max_sub = 0;\r\n        for (auto &e : g[v]) {\r\
+    \n            int u = e.to();\r\n            if (u == par[v]) continue;\r\n  \
+    \          par[u] = v;\r\n            depth[u] = depth[v] + 1;\r\n           \
+    \ dfs_sz(g, u, heavy_path);\r\n            sub[v] += sub[u];\r\n            if\
+    \ (chmax(max_sub, sub[u])) heavy_path[v] = u;\r\n        }\r\n    }\r\n\r\n  \
+    \  template <class T>\r\n    void dfs_hld(const Graph<T> &g, int v, int &pos,\
+    \ const std::vector<int> &heavy_path) {\r\n        vid[v] = pos++;\r\n       \
+    \ inv[vid[v]] = v;\r\n        int hp = heavy_path[v];\r\n        if (hp != -1)\
+    \ {\r\n            nxt[hp] = nxt[v];\r\n            dfs_hld(g, hp, pos, heavy_path);\r\
+    \n        }\r\n        for (auto &e : g[v]) {\r\n            int u = e.to();\r\
+    \n            if (u == par[v] || u == heavy_path[v]) continue;\r\n           \
+    \ nxt[u] = u;\r\n            dfs_hld(g, u, pos, heavy_path);\r\n        }\r\n\
+    \    }\r\n};\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/hld.hpp
-  requiredBy: []
-  timestamp: '2023-05-22 20:36:33+09:00'
+  requiredBy:
+  - lib/graph/functional_graph.hpp
+  timestamp: '2023-09-19 17:25:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yukicoder/1242.test.cpp
+  - test/yukicoder/1211.test.cpp
   - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
   - test/aoj/grl/hld.test.cpp
-  - test/yosupo/tree/lowest_common_ancestor.test.cpp
-  - test/yosupo/tree/jump_on_tree.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/tree/lowest_common_ancestor.test.cpp
+  - test/yosupo/tree/jump_on_tree.test.cpp
 documentation_of: lib/tree/hld.hpp
 layout: document
 redirect_from:
 - /library/lib/tree/hld.hpp
 - /library/lib/tree/hld.hpp.html
-title: HLD
+title: "HL\u5206\u89E3"
 ---

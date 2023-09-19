@@ -16,12 +16,12 @@ data:
     document_title: skew heap
     links:
     - http://hos.ac/blog/#blog0001
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -30,23 +30,29 @@ data:
     template <class T>\nstruct skew_heap {\n  private:\n    struct _node {\n     \
     \   using pointer = _node *;\n\n        pointer _left, _right;\n        T _val;\n\
     \n        constexpr _node() : _left(), _right(), _val() {}\n        constexpr\
-    \ _node(T _val) : _left(), _right(), _val(_val) {}\n    };\n\n  public:\n    using\
-    \ value_type = T;\n    using node_ptr = typename _node::pointer;\n\n    constexpr\
-    \ skew_heap() : _root() {}\n\n    constexpr T top() const { return _root->_val;\
-    \ }\n    constexpr bool empty() const { return _root == nullptr; }\n\n    constexpr\
-    \ void emplace(T val) {\n        auto node = new _node(val);\n        _root =\
-    \ meld(_root, node);\n    }\n    constexpr void push(T val) { emplace(val); }\n\
-    \n    constexpr void pop() { _root = meld(_root->_left, _root->_right); }\n\n\
-    \    constexpr node_ptr meld(node_ptr a, node_ptr b) {\n        if (a == nullptr)\
-    \ return b;\n        if (b == nullptr) return a;\n        if (a->_val < b->_val)\
-    \ std::swap(a, b);\n        a->_right = meld(a->_right, b);\n        std::swap(a->_left,\
-    \ a->_right);\n        return a;\n    }\n\n  private:\n    node_ptr _root;\n};\n"
+    \ _node(const T &_val) : _left(), _right(), _val(_val) {}\n        constexpr _node(T\
+    \ &&_val) : _left(), _right(), _val(std::move(_val)) {}\n        template <typename...\
+    \ Args>\n        constexpr _node(Args &&...args) : _left(), _right(), _val(std::forward<Args>(args)...)\
+    \ {}\n    };\n\n  public:\n    using value_type = T;\n    using node_ptr = typename\
+    \ _node::pointer;\n\n    constexpr skew_heap() : _root() {}\n\n    constexpr T\
+    \ top() const { return _root->_val; }\n    constexpr bool empty() const { return\
+    \ _root == nullptr; }\n\n    template <typename... Args>\n    constexpr void emplace(Args\
+    \ &&...args) {\n        auto node = new _node(std::forward<Args>(args)...);\n\
+    \        _root = meld(_root, node);\n    }\n    constexpr void push(const T &val)\
+    \ {\n        auto node = new _node(val);\n        _root = meld(_root, node);\n\
+    \    }\n    constexpr void push(T &&val) {\n        auto node = new _node(val);\n\
+    \        _root = meld(_root, node);\n    }\n\n    constexpr void pop() { _root\
+    \ = meld(_root->_left, _root->_right); }\n\n    constexpr node_ptr meld(node_ptr\
+    \ a, node_ptr b) {\n        if (a == nullptr) return b;\n        if (b == nullptr)\
+    \ return a;\n        if (a->_val < b->_val) std::swap(a, b);\n        a->_right\
+    \ = meld(a->_right, b);\n        std::swap(a->_left, a->_right);\n        return\
+    \ a;\n    }\n\n  private:\n    node_ptr _root;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/heap/skew_heap.hpp
   requiredBy: []
-  timestamp: '2023-05-22 20:02:34+09:00'
+  timestamp: '2023-09-11 20:43:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/skew_heap.test.cpp

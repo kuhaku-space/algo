@@ -18,7 +18,7 @@ data:
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
     path: lib/tree/hld.hpp
-    title: HLD
+    title: "HL\u5206\u89E3"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -29,21 +29,21 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/lca
     links:
     - https://judge.yosupo.jp/problem/lca
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n#include \"template/atcoder.hpp\"\
     \n#include \"tree/hld.hpp\"\n\nint main(void) {\n    int n, q;\n    std::cin >>\
-    \ n >> q;\n    std::vector<int> p(n - 1);\n    std::cin >> p;\n    HLD hld(n);\n\
-    \    rep (i, n - 1) hld.add_edges(p[i], i + 1);\n    hld.build();\n    while (q--)\
-    \ {\n        int u, v;\n        std::cin >> u >> v;\n        co(hld.lca(u, v));\n\
-    \    }\n\n    return 0;\n}\n"
+    \ n >> q;\n    std::vector<int> p(n - 1);\n    std::cin >> p;\n    Graph<void>\
+    \ g(n);\n    rep (i, n - 1) g.add_edges(p[i], i + 1);\n    heavy_light_decomposition\
+    \ hld(g);\n    while (q--) {\n        int u, v;\n        std::cin >> u >> v;\n\
+    \        co(hld.lca(u, v));\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree/lowest_common_ancestor.test.cpp
   requiredBy: []
-  timestamp: '2023-07-19 00:42:24+09:00'
+  timestamp: '2023-09-19 17:25:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/lowest_common_ancestor.test.cpp

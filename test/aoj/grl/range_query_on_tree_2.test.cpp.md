@@ -25,7 +25,7 @@ data:
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
     path: lib/tree/hld.hpp
-    title: HLD
+    title: "HL\u5206\u89E3"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -33,32 +33,32 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree_raq.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E\"\
-    \n#include \"binary_tree/fenwick_tree_raq.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n#include \"tree/hld.hpp\"\n\nint main(void) {\n    int n;\n    cin >> n;\n \
-    \   fenwick_tree_raq<ll> ft(n);\n    HLD hld(n);\n    rep (i, n) {\n        int\
-    \ k;\n        cin >> k;\n        rep (j, k) {\n            int c;\n          \
-    \  cin >> c;\n            hld.add_edge(i, c);\n        }\n    }\n    hld.build();\n\
-    \n    int q;\n    cin >> q;\n    while (q--) {\n        int id;\n        cin >>\
-    \ id;\n        if (id == 0) {\n            int v, w;\n            cin >> v >>\
-    \ w;\n            auto f = [&](int a, int b) {\n                ft.add(a, b, w);\n\
-    \            };\n            hld.for_each_edge(0, v, f);\n        } else {\n \
-    \           int v;\n            cin >> v;\n            ll ans = 0;\n         \
-    \   auto f = [&](int a, int b) {\n                ans += ft.sum(a, b);\n     \
-    \       };\n            hld.for_each_edge(0, v, f);\n            co(ans);\n  \
-    \      }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E\"\n#include\
+    \ \"binary_tree/fenwick_tree_raq.hpp\"\n#include \"template/atcoder.hpp\"\n#include\
+    \ \"tree/hld.hpp\"\n\nint main(void) {\n    int n;\n    std::cin >> n;\n    Graph<void>\
+    \ g(n);\n    rep (i, n) {\n        int k;\n        std::cin >> k;\n        while\
+    \ (k--) {\n            int c;\n            std::cin >> c;\n            g.add_edges(i,\
+    \ c);\n        }\n    }\n\n    heavy_light_decomposition hld(g);\n    fenwick_tree_raq<ll>\
+    \ ft(n);\n    int q;\n    std::cin >> q;\n    while (q--) {\n        int id;\n\
+    \        std::cin >> id;\n        if (id == 0) {\n            int v, w;\n    \
+    \        std::cin >> v >> w;\n            auto f = [&](int a, int b) {\n     \
+    \           ft.add(a, b, w);\n            };\n            hld.for_each_edge(0,\
+    \ v, f);\n        } else {\n            int v;\n            std::cin >> v;\n \
+    \           ll ans = 0;\n            auto f = [&](int a, int b) {\n          \
+    \      ans += ft.sum(a, b);\n            };\n            hld.for_each_edge(0,\
+    \ v, f);\n            co(ans);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/binary_tree/fenwick_tree.hpp
@@ -71,7 +71,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/range_query_on_tree_2.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:36:33+09:00'
+  timestamp: '2023-09-19 17:25:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/range_query_on_tree_2.test.cpp

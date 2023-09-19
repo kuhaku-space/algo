@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
+  - icon: ':heavy_check_mark:'
+    path: lib/data_structure/sparse_table.hpp
+    title: "\u30B9\u30D1\u30FC\u30B9\u30C6\u30FC\u30D6\u30EB"
   - icon: ':warning:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
@@ -70,6 +73,9 @@ data:
     path: test/yosupo/data_structure/point_set_range_composite.test.cpp
     title: test/yosupo/data_structure/point_set_range_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/static_rmq.test.cpp
+    title: test/yosupo/data_structure/static_rmq.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
     title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -80,12 +86,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
@@ -102,32 +108,34 @@ data:
   isVerificationFile: false
   path: lib/internal/internal_bit.hpp
   requiredBy:
-  - lib/binary_tree/range_tree.hpp
   - lib/internal/internal_fft.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/data_structure/sparse_table.hpp
+  - lib/fft/ntt_mod.hpp
+  - lib/fft/formal_power_series.hpp
+  - lib/fft/ntt.hpp
+  - lib/binary_tree/range_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree.hpp
-  - lib/fft/ntt_mod.hpp
-  - lib/fft/ntt.hpp
-  - lib/fft/formal_power_series.hpp
-  - lib/data_structure/bigint.hpp
   timestamp: '2023-05-22 19:46:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/rmq.2.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/difference.test.cpp
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/internal/internal_bit.hpp
 layout: document
 redirect_from:
