@@ -77,10 +77,10 @@ struct heavy_light_decomposition {
 
   private:
     int _size;
-    std::vector<int> vid, nxt, sub, par, inv;
+    std::vector<int> vid, nxt, sub, par, depth, inv;
 
     heavy_light_decomposition(int n)
-        : _size(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
+        : _size(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), depth(n), inv(n) {}
 
     template <class T>
     void build(const Graph<T> &g, int r = 0) {
@@ -98,6 +98,7 @@ struct heavy_light_decomposition {
             int u = e.to();
             if (u == par[v]) continue;
             par[u] = v;
+            depth[u] = depth[v] + 1;
             dfs_sz(g, u, heavy_path);
             sub[v] += sub[u];
             if (chmax(max_sub, sub[u])) heavy_path[v] = u;
