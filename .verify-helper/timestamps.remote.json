@@ -64,6 +64,7 @@
 "test/aoj/ntl/prime_factorize.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/aoj/ntl/remainder.test.cpp": "2023-07-12 23:02:45 +0900",
 "test/aoj/rupc/range_set.test.cpp": "2023-07-13 19:34:40 +0900",
+"test/aoj/volume/doubling.test.cpp": "2023-09-19 13:03:55 +0900",
 "test/yosupo/convolution/bitwise_and_convolution.test.cpp": "2023-07-19 00:42:24 +0900",
 "test/yosupo/convolution/bitwise_xor_convolution.test.cpp": "2023-07-19 00:42:24 +0900",
 "test/yosupo/convolution/convolution.test.cpp": "2023-07-12 23:02:45 +0900",
