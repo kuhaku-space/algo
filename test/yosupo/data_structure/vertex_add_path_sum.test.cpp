@@ -10,7 +10,7 @@ int main(void) {
     std::cin >> a;
     Graph<void> g(n);
     g.input_edges(n - 1, 0);
-    HLD hld(g);
+    heavy_light_decomposition hld(g);
     fenwick_tree<ll> ft(n);
     rep (i, n) ft.add(hld.get(i), a[i]);
     while (q--) {

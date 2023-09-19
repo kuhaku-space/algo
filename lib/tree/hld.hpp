@@ -6,10 +6,10 @@
  * @brief HL分解
  * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
  */
-struct HLD {
-    HLD() = default;
+struct heavy_light_decomposition {
+    heavy_light_decomposition() = default;
     template <class T>
-    HLD(const Graph<T> &g, int r = 0) : HLD(g.size()) {
+    heavy_light_decomposition(const Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {
         build(g, r);
     }
 
@@ -79,7 +79,8 @@ struct HLD {
     int _size;
     std::vector<int> vid, nxt, sub, par, inv;
 
-    HLD(int n) : _size(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
+    heavy_light_decomposition(int n)
+        : _size(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), inv(n) {}
 
     template <class T>
     void build(const Graph<T> &g, int r = 0) {

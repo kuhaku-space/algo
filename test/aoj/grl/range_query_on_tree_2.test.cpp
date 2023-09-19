@@ -17,7 +17,7 @@ int main(void) {
         }
     }
 
-    HLD hld(g);
+    heavy_light_decomposition hld(g);
     fenwick_tree_raq<ll> ft(n);
     int q;
     std::cin >> q;

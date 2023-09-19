@@ -9,7 +9,7 @@ int main(void) {
     std::cin >> p;
     Graph<void> g(n);
     rep (i, n - 1) g.add_edges(p[i], i + 1);
-    HLD hld(g);
+    heavy_light_decomposition hld(g);
     while (q--) {
         int u, v;
         std::cin >> u >> v;

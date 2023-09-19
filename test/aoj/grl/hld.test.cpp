@@ -16,7 +16,7 @@ int main(void) {
         }
     }
 
-    HLD hld(g);
+    heavy_light_decomposition hld(g);
     int q;
     std::cin >> q;
     while (q--) {
