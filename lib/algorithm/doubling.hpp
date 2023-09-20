@@ -9,7 +9,7 @@
 template <int L, class Monoid = void>
 struct Doubling {
   private:
-    using T = Monoid::value_type;
+    using T = typename Monoid::value_type;
 
   public:
     template <class U>
@@ -18,10 +18,10 @@ struct Doubling {
     }
     std::pair<int, T> jump(int f, std::uint64_t k) { return solve(f, k); }
     std::pair<int, T> solve(int f, std::uint64_t k) {
-        assert(0 <= f && f < _size);
+        assert(-1 <= f && f < _size);
         T res = Monoid::id;
         for (int cnt = 0; k > 0; k >>= 1, ++cnt) {
-            if (k & 1) {
+            if ((k & 1) && f != -1) {
                 res = Monoid::op(res, data[cnt][f]);
                 f = table[cnt][f];
             }
@@ -71,9 +71,9 @@ struct Doubling<L, void> {
 
     int jump(int f, std::uint64_t k) { return solve(f, k); }
     int solve(int f, std::uint64_t k) {
-        assert(0 <= f && f < _size);
+        assert(-1 <= f && f < _size);
         for (int cnt = 0; k > 0; k >>= 1, ++cnt) {
-            if (k & 1) f = table[cnt][f];
+            if ((k & 1) && f != -1) f = table[cnt][f];
         }
         return f;
     }
