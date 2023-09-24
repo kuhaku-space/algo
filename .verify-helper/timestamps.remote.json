@@ -32,6 +32,7 @@
 "test/aoj/dsl/weighted_union_find.test.cpp": "2023-07-12 07:50:09 +0900",
 "test/aoj/grl/articulation_points.test.cpp": "2023-09-11 18:21:39 +0900",
 "test/aoj/grl/bellman_ford.test.cpp": "2023-09-11 18:21:39 +0900",
+"test/aoj/grl/bipartite_matching.2.test.cpp": "2023-09-24 14:47:22 +0900",
 "test/aoj/grl/bipartite_matching.test.cpp": "2023-05-22 19:46:47 +0900",
 "test/aoj/grl/bridges.test.cpp": "2023-09-11 18:21:39 +0900",
 "test/aoj/grl/cycle.test.cpp": "2023-09-11 18:21:39 +0900",
