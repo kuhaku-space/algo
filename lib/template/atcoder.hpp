@@ -40,9 +40,6 @@ auto make_vector(T x, int arg, Args... args) {
     if constexpr (sizeof...(args) == 0) return std::vector<T>(arg, x);
     else return std::vector(arg, make_vector<T>(x, args...));
 }
-void setp(int n) {
-    std::cout << std::fixed << std::setprecision(n);
-}
 void Yes(bool is_correct = true) {
     std::cout << (is_correct ? "Yes" : "No") << '\n';
 }
