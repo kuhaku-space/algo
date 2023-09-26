@@ -4,11 +4,10 @@
 
 int main(void) {
     int n, m;
-    cin >> n >> m;
-    vector<int> a(n), b(m);
-    cin >> a >> b;
-
-    auto ans = convolution_mod<MOD>(a, b);
+    std::cin >> n >> m;
+    std::vector<int> a(n), b(m);
+    std::cin >> a >> b;
+    auto ans = convolution_mod<modint107::mod()>(a, b);
     co(ans);
 
     return 0;
