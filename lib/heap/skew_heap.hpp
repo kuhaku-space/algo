@@ -30,27 +30,27 @@ struct skew_heap {
     constexpr skew_heap() : _root() {}
 
     constexpr T top() const { return _root->_val; }
-    constexpr bool empty() const { return _root == nullptr; }
+    constexpr bool empty() const { return !_root; }
 
-    template <typename... Args>
-    constexpr void emplace(Args &&...args) {
-        auto node = new _node(std::forward<Args>(args)...);
-        _root = meld(_root, node);
-    }
     constexpr void push(const T &val) {
         auto node = new _node(val);
         _root = meld(_root, node);
     }
     constexpr void push(T &&val) {
-        auto node = new _node(val);
+        auto node = new _node(std::move(val));
+        _root = meld(_root, node);
+    }
+    template <typename... Args>
+    constexpr void emplace(Args &&...args) {
+        auto node = new _node(std::forward<Args>(args)...);
         _root = meld(_root, node);
     }
 
     constexpr void pop() { _root = meld(_root->_left, _root->_right); }
 
     constexpr node_ptr meld(node_ptr a, node_ptr b) {
-        if (a == nullptr) return b;
-        if (b == nullptr) return a;
+        if (!a) return b;
+        if (!b) return a;
         if (a->_val < b->_val) std::swap(a, b);
         a->_right = meld(a->_right, b);
         std::swap(a->_left, a->_right);
