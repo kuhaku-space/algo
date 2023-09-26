@@ -17,12 +17,12 @@ struct fibonacci_heap {
         int order;
         pointer left, right;
         pointer parent, child;
-        bool dameged;
+        bool damaged;
 
-        _node() : key(), value(), order(), left(this), right(this), parent(), child(), dameged() {}
+        _node() : key(), value(), order(), left(this), right(this), parent(), child(), damaged() {}
         _node(Key _key, Value _value)
             : key(_key), value(_value), order(), left(this), right(this), parent(), child(),
-              dameged() {}
+              damaged() {}
 
         void add_child(pointer node) {
             node->parent = this;
@@ -123,13 +123,13 @@ struct fibonacci_heap {
         }
         while (node->parent) {
             auto parent = node->parent;
-            node->dameged = false;
+            node->damaged = false;
             parent->child = node->erase();
             --(parent->order);
             this->_root->insert_left(node);
             if (comp(this->_root->value, this->_root->left->value)) this->_root = this->_root->left;
-            if (!parent->dameged) {
-                parent->dameged = true;
+            if (!parent->damaged) {
+                parent->damaged = true;
                 break;
             }
             node = parent;
