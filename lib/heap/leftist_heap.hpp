@@ -7,7 +7,7 @@
  *
  * @see http://hos.ac/blog/#blog0001
  */
-template <class T>
+template <class T, class Comp = std::less<>>
 struct leftist_heap {
   private:
     struct _node {
@@ -31,8 +31,8 @@ struct leftist_heap {
 
     leftist_heap() : _root() {}
 
-    constexpr T top() const { return _root->_val; }
     constexpr bool empty() const { return !_root; }
+    constexpr T top() const { return _root->_val; }
 
     constexpr void push(const T &val) {
         auto node = new _node(val);
@@ -50,16 +50,19 @@ struct leftist_heap {
 
     constexpr void pop() { _root = meld(_root->_left, _root->_right); }
 
+    constexpr void meld(const leftist_heap<T, Comp> &rhs) { _root = meld(_root, rhs._root); }
+
+  private:
+    node_ptr _root;
+    Comp _comp;
+
     constexpr node_ptr meld(node_ptr a, node_ptr b) {
         if (!a) return b;
         if (!b) return a;
-        if (a->_val < b->_val) std::swap(a, b);
+        if (_comp(a->_val, b->_val)) std::swap(a, b);
         a->_right = meld(a->_right, b);
         if (!a->_left || a->_left->_rank < a->_right->_rank) std::swap(a->_left, a->_right);
         a->_rank = (!a->_right ? 0 : a->_right->_rank) + 1;
         return a;
     }
-
-  private:
-    node_ptr _root;
 };
