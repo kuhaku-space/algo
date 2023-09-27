@@ -82,11 +82,11 @@ data:
   isVerificationFile: false
   path: lib/graph/functional_graph.hpp
   requiredBy: []
-  timestamp: '2023-09-20 01:03:33+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/1242.test.cpp
   - test/yukicoder/1211.test.cpp
+  - test/yukicoder/1242.test.cpp
 documentation_of: lib/graph/functional_graph.hpp
 layout: document
 redirect_from:

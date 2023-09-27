@@ -60,7 +60,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/rollback_mo.hpp
   requiredBy: []
-  timestamp: '2023-09-13 23:21:27+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/algorithm/rollback_mo.hpp

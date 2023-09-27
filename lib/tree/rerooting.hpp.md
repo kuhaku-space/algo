@@ -60,7 +60,7 @@ data:
   isVerificationFile: false
   path: lib/tree/rerooting.hpp
   requiredBy: []
-  timestamp: '2023-09-11 18:21:39+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/tree/tree_path_composite_sum.test.cpp

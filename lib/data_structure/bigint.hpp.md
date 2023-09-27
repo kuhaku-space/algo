@@ -42,6 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/remainder.test.cpp
     title: test/aoj/ntl/remainder.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/addition_of_big_integers.test.cpp
+    title: test/yosupo/data_structure/addition_of_big_integers.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -204,15 +207,16 @@ data:
   isVerificationFile: false
   path: lib/data_structure/bigint.hpp
   requiredBy: []
-  timestamp: '2023-07-12 23:02:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
   - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
 documentation_of: lib/data_structure/bigint.hpp
 layout: document
 redirect_from:

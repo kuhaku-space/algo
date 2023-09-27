@@ -55,9 +55,9 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod_1000000007\"\
     \n#include \"fft/ntt_mod.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n, m;\n    cin >> n >> m;\n    vector<int> a(n), b(m);\n    cin >>\
-    \ a >> b;\n\n    auto ans = convolution_mod<MOD>(a, b);\n    co(ans);\n\n    return\
-    \ 0;\n}\n"
+    \ {\n    int n, m;\n    std::cin >> n >> m;\n    std::vector<int> a(n), b(m);\n\
+    \    std::cin >> a >> b;\n    auto ans = convolution_mod<modint107::mod()>(a,\
+    \ b);\n    co(ans);\n\n    return 0;\n}\n"
   dependsOn:
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
@@ -73,7 +73,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution/convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2023-07-12 23:02:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/convolution_mod.test.cpp

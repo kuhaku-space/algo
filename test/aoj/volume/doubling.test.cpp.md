@@ -67,7 +67,7 @@ data:
   isVerificationFile: true
   path: test/aoj/volume/doubling.test.cpp
   requiredBy: []
-  timestamp: '2023-09-19 13:03:55+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/volume/doubling.test.cpp

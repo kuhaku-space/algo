@@ -67,6 +67,9 @@ data:
     path: test/yosupo/convolution/convolution_mod.test.cpp
     title: test/yosupo/convolution/convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/addition_of_big_integers.test.cpp
+    title: test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
     title: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -109,31 +112,32 @@ data:
   path: lib/internal/internal_bit.hpp
   requiredBy:
   - lib/internal/internal_fft.hpp
-  - lib/data_structure/bigint.hpp
-  - lib/data_structure/sparse_table.hpp
-  - lib/fft/ntt_mod.hpp
-  - lib/fft/formal_power_series.hpp
-  - lib/fft/ntt.hpp
-  - lib/binary_tree/range_tree.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree.hpp
-  timestamp: '2023-05-22 19:46:47+09:00'
+  - lib/segment_tree/segment_tree_raq.hpp
+  - lib/binary_tree/range_tree.hpp
+  - lib/data_structure/sparse_table.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/fft/formal_power_series.hpp
+  - lib/fft/ntt_mod.hpp
+  - lib/fft/ntt.hpp
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
 documentation_of: lib/internal/internal_bit.hpp

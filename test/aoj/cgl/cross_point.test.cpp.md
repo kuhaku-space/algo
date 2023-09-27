@@ -24,9 +24,9 @@ data:
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     ERROR: '0.00000001'
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_C
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_C
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -36,12 +36,12 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C\"\
-    \n#define ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    sonic();\n    setp(10);\n    int q;\n    cin >> q;\n\
-    \    while (q--) {\n        Point<double> a, b, c, d;\n        cin >> a >> b >>\
-    \ c >> d;\n        Line l(a, b), m(c, d);\n        co(cross_point(l, m));\n  \
-    \  }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_C\"\n#define\
+    \ ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
+    \n\nint main(void) {\n    int q;\n    std::cin >> q;\n    while (q--) {\n    \
+    \    Point<double> a, b, c, d;\n        std::cin >> a >> b >> c >> d;\n      \
+    \  Line l(a, b), m(c, d);\n        co(cross_point(l, m));\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/aoj/cgl/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/cross_point.test.cpp

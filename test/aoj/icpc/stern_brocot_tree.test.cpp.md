@@ -55,7 +55,7 @@ data:
   isVerificationFile: true
   path: test/aoj/icpc/stern_brocot_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-05-25 14:44:23+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/icpc/stern_brocot_tree.test.cpp

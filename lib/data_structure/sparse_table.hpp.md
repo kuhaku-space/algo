@@ -52,7 +52,7 @@ data:
   isVerificationFile: false
   path: lib/data_structure/sparse_table.hpp
   requiredBy: []
-  timestamp: '2023-08-02 18:11:54+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_rmq.test.cpp

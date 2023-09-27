@@ -85,11 +85,11 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/segment_tree_raq.hpp
   requiredBy: []
-  timestamp: '2023-07-15 01:46:55+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
 documentation_of: lib/segment_tree/segment_tree_raq.hpp
 layout: document
 redirect_from:

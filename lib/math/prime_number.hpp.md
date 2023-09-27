@@ -81,11 +81,11 @@ data:
   isVerificationFile: false
   path: lib/math/prime_number.hpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/alds1/prime_numbers.test.cpp
   - test/aoj/ntl/prime_factorize.test.cpp
+  - test/aoj/alds1/prime_numbers.test.cpp
 documentation_of: lib/math/prime_number.hpp
 layout: document
 redirect_from:

@@ -23,9 +23,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_C
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_C
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -35,16 +35,15 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_C\"\
-    \n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    setp(10);\n    Point<double> a, b;\n    cin\
-    \ >> a >> b;\n    Line l(a, b);\n    int q;\n    cin >> q;\n    while (q--) {\n\
-    \        Point<double> p;\n        cin >> p;\n        auto ans = ccw(a, b, p);\n\
-    \        if (ans == 1)\n            co(\"COUNTER_CLOCKWISE\");\n        else if\
-    \ (ans == -1)\n            co(\"CLOCKWISE\");\n        else if (ans == 2)\n  \
-    \          co(\"ONLINE_BACK\");\n        else if (ans == -2)\n            co(\"\
-    ONLINE_FRONT\");\n        else\n            co(\"ON_SEGMENT\");\n    }\n\n   \
-    \ return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C\"\n#include\
+    \ \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    Point<double> a, b;\n    std::cin >> a >> b;\n    Line l(a, b);\n   \
+    \ int q;\n    std::cin >> q;\n    while (q--) {\n        Point<double> p;\n  \
+    \      std::cin >> p;\n        auto ans = ccw(a, b, p);\n        if (ans == 1)\
+    \ co(\"COUNTER_CLOCKWISE\");\n        else if (ans == -1) co(\"CLOCKWISE\");\n\
+    \        else if (ans == 2) co(\"ONLINE_BACK\");\n        else if (ans == -2)\
+    \ co(\"ONLINE_FRONT\");\n        else co(\"ON_SEGMENT\");\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
@@ -54,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/aoj/cgl/counter-clockwise.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/counter-clockwise.test.cpp

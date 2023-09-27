@@ -1,0 +1,75 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: lib/flow/hopcroft_karp.hpp
+    title: lib/flow/hopcroft_karp.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/graph/matrix_graph.hpp
+    title: "\u96A3\u63A5\u884C\u5217"
+  - icon: ':heavy_check_mark:'
+    path: lib/graph/warshall_floyd.hpp
+    title: lib/graph/warshall_floyd.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/atcoder.hpp
+    title: lib/template/atcoder.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/macro.hpp
+    title: lib/template/macro.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/sonic.hpp
+    title: lib/template/sonic.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/template.hpp
+    title: lib/template/template.hpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
+  _pathExtension: cpp
+  _verificationStatusIcon: ':warning:'
+  attributes:
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/2251
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
+    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: flow/hopcroft_karp.hpp:\
+    \ line -1: no such header\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2251\"\n#include\
+    \ \"flow/hopcroft_karp.hpp\"\n#include \"graph/matrix_graph.hpp\"\n#include \"\
+    graph/warshall_floyd.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    while (true) {\n        int n, m, l;\n        std::cin >> n >> m >> l;\n\
+    \        if (!n) break;\n        matrix_graph<int> g(n, Inf);\n        while (m--)\
+    \ {\n            int u, v, w;\n            cin >> u >> v >> w;\n            g.add_edges(u,\
+    \ v, w);\n        }\n        warshall_floyd(g);\n        std::vector<std::pair<int,\
+    \ int>> q(l);\n        std::cin >> q;\n        sort(all(q), [](auto l, auto r)\
+    \ {\n            return l.second < r.second;\n        });\n        hopcroft_karp\
+    \ hk(l, l);\n        rep (i, l) {\n            auto [a, b] = q[i];\n         \
+    \   FOR (j, i + 1, l) {\n                auto [c, d] = q[j];\n               \
+    \ if (b + g[a][c] <= d) hk.add_edge(i, j);\n            }\n        }\n       \
+    \ co(l - hk.matching());\n    }\n\n    return 0;\n}\n"
+  dependsOn:
+  - lib/flow/hopcroft_karp.hpp
+  - lib/template/template.hpp
+  - lib/graph/matrix_graph.hpp
+  - lib/graph/warshall_floyd.hpp
+  - lib/template/atcoder.hpp
+  - lib/template/macro.hpp
+  - lib/template/sonic.hpp
+  isVerificationFile: false
+  path: test/aoj/jag/hopcroft_karp.cpp
+  requiredBy: []
+  timestamp: '2023-09-26 21:06:03+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: test/aoj/jag/hopcroft_karp.cpp
+layout: document
+redirect_from:
+- /library/test/aoj/jag/hopcroft_karp.cpp
+- /library/test/aoj/jag/hopcroft_karp.cpp.html
+title: test/aoj/jag/hopcroft_karp.cpp
+---

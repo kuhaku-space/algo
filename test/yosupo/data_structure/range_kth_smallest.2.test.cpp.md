@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
   requiredBy: []
-  timestamp: '2023-07-24 06:48:43+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/range_kth_smallest.2.test.cpp

@@ -102,7 +102,7 @@ data:
   path: lib/segment_tree/dynamic_segment_tree.hpp
   requiredBy:
   - lib/segment_tree/segment_tree_2d.hpp
-  timestamp: '2023-07-18 06:23:35+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dynamic_rmq.test.cpp

@@ -61,7 +61,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp

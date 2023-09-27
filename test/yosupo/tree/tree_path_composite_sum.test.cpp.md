@@ -75,7 +75,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree/tree_path_composite_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-09-11 18:21:39+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/tree_path_composite_sum.test.cpp

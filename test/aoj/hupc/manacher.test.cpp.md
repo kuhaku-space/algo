@@ -52,7 +52,7 @@ data:
   isVerificationFile: true
   path: test/aoj/hupc/manacher.test.cpp
   requiredBy: []
-  timestamp: '2023-07-31 13:24:01+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/hupc/manacher.test.cpp

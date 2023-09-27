@@ -53,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
   requiredBy: []
-  timestamp: '2023-07-19 00:42:24+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/matching_on_bipartite_garph.test.cpp

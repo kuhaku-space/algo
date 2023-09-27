@@ -60,14 +60,12 @@ data:
     \n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n\
     \     * @brief \u7D20\u6570\u5224\u5B9A\r\n     *\r\n     * @param x\r\n     *\
     \ @return bool\r\n     */\r\n    bool is_prime(int x) const {\r\n        switch\
-    \ (x % 30) {\r\n            case 1:\r\n                return prime_number[x /\
-    \ 30] >> 0 & 1;\r\n            case 7:\r\n                return prime_number[x\
-    \ / 30] >> 1 & 1;\r\n            case 11:\r\n                return prime_number[x\
-    \ / 30] >> 2 & 1;\r\n            case 13:\r\n                return prime_number[x\
-    \ / 30] >> 3 & 1;\r\n            case 17:\r\n                return prime_number[x\
-    \ / 30] >> 4 & 1;\r\n            case 19:\r\n                return prime_number[x\
-    \ / 30] >> 5 & 1;\r\n            case 23:\r\n                return prime_number[x\
-    \ / 30] >> 6 & 1;\r\n            case 29:\r\n                return prime_number[x\
+    \ (x % 30) {\r\n            case 1: return prime_number[x / 30] >> 0 & 1;\r\n\
+    \            case 7: return prime_number[x / 30] >> 1 & 1;\r\n            case\
+    \ 11: return prime_number[x / 30] >> 2 & 1;\r\n            case 13: return prime_number[x\
+    \ / 30] >> 3 & 1;\r\n            case 17: return prime_number[x / 30] >> 4 & 1;\r\
+    \n            case 19: return prime_number[x / 30] >> 5 & 1;\r\n            case\
+    \ 23: return prime_number[x / 30] >> 6 & 1;\r\n            case 29: return prime_number[x\
     \ / 30] >> 7 & 1;\r\n        }\r\n        if (x < 6) {\r\n            if (x ==\
     \ 2) return true;\r\n            if (x == 3) return true;\r\n            if (x\
     \ == 5) return true;\r\n        }\r\n        return false;\r\n    }\r\n\r\n  \
@@ -81,7 +79,7 @@ data:
   isVerificationFile: false
   path: lib/math/eratosthenes.hpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-09-27 20:23:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/prime_numbers2.test.cpp

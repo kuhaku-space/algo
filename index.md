@@ -38,6 +38,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/mo.hpp
       title: Mo's algorithm
+    - icon: ':heavy_check_mark:'
+      path: lib/algorithm/rle.hpp
+      title: "\u30E9\u30F3\u30EC\u30F3\u30B0\u30B9\u5727\u7E2E"
     - icon: ':warning:'
       path: lib/algorithm/rollback_mo.hpp
       title: Mo's algorithm (rollback)
@@ -135,6 +138,9 @@ data:
   - name: lib/flow
     pages:
     - icon: ':heavy_check_mark:'
+      path: lib/flow/hopcroft_karp.hpp
+      title: lib/flow/hopcroft_karp.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/flow/max_flow.hpp
       title: "\u6700\u5927\u6D41"
     - icon: ':heavy_check_mark:'
@@ -221,6 +227,9 @@ data:
     - icon: ':warning:'
       path: lib/heap/fibonacci_heap.hpp
       title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
+    - icon: ':heavy_check_mark:'
+      path: lib/heap/interval_heap.hpp
+      title: Interval Heap
     - icon: ':heavy_check_mark:'
       path: lib/heap/leftist_heap.hpp
       title: leftist heap
@@ -381,6 +390,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
+    - icon: ':heavy_check_mark:'
+      path: lib/template/vector.hpp
+      title: lib/template/vector.hpp
   - name: lib/tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -401,6 +413,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/link_cut_tree.hpp
       title: Link-Cut Tree
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/palindromic_tree.hpp
+      title: palindromic tree
     - icon: ':warning:'
       path: lib/tree/partially_persistent_union_find.hpp
       title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
@@ -425,9 +440,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+  - name: test/aoj/jag
+    pages:
+    - icon: ':warning:'
+      path: test/aoj/jag/hopcroft_karp.cpp
+      title: test/aoj/jag/hopcroft_karp.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/alds1/interval_heap.test.cpp
+      title: test/aoj/alds1/interval_heap.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/inversion_number.test.cpp
       title: test/aoj/alds1/inversion_number.test.cpp
@@ -536,6 +559,9 @@ data:
       path: test/aoj/grl/bellman_ford.test.cpp
       title: test/aoj/grl/bellman_ford.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/bipartite_matching.2.test.cpp
+      title: test/aoj/grl/bipartite_matching.2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/bipartite_matching.test.cpp
       title: test/aoj/grl/bipartite_matching.test.cpp
     - icon: ':heavy_check_mark:'
@@ -612,6 +638,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/jag/aho_corasick.test.cpp
       title: test/aoj/jag/aho_corasick.test.cpp
+  - name: test/aoj/joi
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/joi/rle.test.cpp
+      title: test/aoj/joi/rle.test.cpp
   - name: test/aoj/ntl
     pages:
     - icon: ':heavy_check_mark:'
@@ -664,6 +695,9 @@ data:
       title: test/yosupo/convolution/convolution_mod.test.cpp
   - name: test/yosupo/data_structure
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/addition_of_big_integers.test.cpp
+      title: test/yosupo/data_structure/addition_of_big_integers.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/binary_trie.test.cpp
       title: test/yosupo/data_structure/binary_trie.test.cpp
@@ -747,6 +781,9 @@ data:
       path: test/yosupo/graph/chromatic_number.test.cpp
       title: test/yosupo/graph/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp
+      title: test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
       title: test/yosupo/graph/matching_on_bipartite_garph.test.cpp
     - icon: ':heavy_check_mark:'
@@ -825,10 +862,25 @@ data:
   - name: test/yukicoder
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/yukicoder/0263.test.cpp
+      title: test/yukicoder/0263.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yukicoder/1013.test.cpp
+      title: test/yukicoder/1013.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yukicoder/1097.test.cpp
+      title: test/yukicoder/1097.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yukicoder/1211.test.cpp
       title: test/yukicoder/1211.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yukicoder/1242.2.test.cpp
+      title: test/yukicoder/1242.2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yukicoder/1242.test.cpp
       title: test/yukicoder/1242.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yukicoder/1977.test.cpp
+      title: test/yukicoder/1977.test.cpp
 layout: toppage
 ---

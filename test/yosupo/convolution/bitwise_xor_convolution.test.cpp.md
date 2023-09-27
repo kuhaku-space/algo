@@ -66,7 +66,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution/bitwise_xor_convolution.test.cpp
   requiredBy: []
-  timestamp: '2023-07-19 00:42:24+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/bitwise_xor_convolution.test.cpp

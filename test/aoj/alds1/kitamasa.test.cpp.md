@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/kitamasa.test.cpp
   requiredBy: []
-  timestamp: '2023-07-27 07:54:08+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/kitamasa.test.cpp

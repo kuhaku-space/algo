@@ -84,11 +84,11 @@ data:
   isVerificationFile: false
   path: lib/data_structure/compressed_wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2023-07-24 06:48:43+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
 documentation_of: lib/data_structure/compressed_wavelet_matrix.hpp
 layout: document
 redirect_from:

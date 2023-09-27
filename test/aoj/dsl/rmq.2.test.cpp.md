@@ -62,7 +62,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/rmq.2.test.cpp
   requiredBy: []
-  timestamp: '2023-07-15 01:47:43+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rmq.2.test.cpp

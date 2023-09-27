@@ -53,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/articulation_points.test.cpp
   requiredBy: []
-  timestamp: '2023-09-11 18:21:39+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/articulation_points.test.cpp

@@ -39,8 +39,8 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#include \"math/modint.hpp\"\r\n#include \"template/template.hpp\"\r\n\r\n\
-    template <class mint = static_modint<MOD_N>, internal::is_modint_t<mint> * = nullptr>\r\
-    \nstruct Combination {\r\n    Combination() : _fact(), _finv() {}\r\n\r\n    mint\
+    template <class mint = modint998, internal::is_modint_t<mint> * = nullptr>\r\n\
+    struct Combination {\r\n    Combination() : _fact(), _finv() {}\r\n\r\n    mint\
     \ operator()(int n, int k) {\r\n        if (n < k || n < 0 || k < 0) return 0;\r\
     \n        this->_init(n);\r\n        return this->_fact[n] * this->_finv[k] *\
     \ this->_finv[n - k];\r\n    }\r\n\r\n    mint fact(int x) {\r\n        assert(x\
@@ -70,11 +70,11 @@ data:
   path: lib/math/combination.hpp
   requiredBy:
   - lib/math/enumeration.hpp
-  timestamp: '2023-05-24 16:19:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/combination.hpp
 layout: document
 redirect_from:

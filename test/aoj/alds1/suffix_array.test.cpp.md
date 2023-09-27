@@ -53,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/suffix_array.test.cpp
   requiredBy: []
-  timestamp: '2023-08-02 18:19:01+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/suffix_array.test.cpp

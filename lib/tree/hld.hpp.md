@@ -113,18 +113,18 @@ data:
   path: lib/tree/hld.hpp
   requiredBy:
   - lib/graph/functional_graph.hpp
-  timestamp: '2023-09-19 17:25:15+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/1242.test.cpp
-  - test/yukicoder/1211.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
   - test/aoj/grl/hld.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/yosupo/tree/lowest_common_ancestor.test.cpp
   - test/yosupo/tree/jump_on_tree.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yukicoder/1211.test.cpp
+  - test/yukicoder/1242.test.cpp
 documentation_of: lib/tree/hld.hpp
 layout: document
 redirect_from:

@@ -23,9 +23,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -35,13 +35,12 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A\"\
-    \n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    setp(10);\n    int q;\n    cin >> q;\n    while\
-    \ (q--) {\n        Point<double> a, b, c, d;\n        cin >> a >> b >> c >> d;\n\
-    \        Line l(a, b), r(c, d);\n        if (parallel(l, r)) co(2);\n        else\
-    \ if (orthogonal(l,r))\n            co(1);\n        else\n            co(0);\n\
-    \    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A\"\n#include\
+    \ \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ {\n    int q;\n    std::cin >> q;\n    while (q--) {\n        Point<double>\
+    \ a, b, c, d;\n        std::cin >> a >> b >> c >> d;\n        Line l(a, b), r(c,\
+    \ d);\n        if (parallel(l, r)) co(2);\n        else if (orthogonal(l, r))\
+    \ co(1);\n        else co(0);\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
@@ -51,7 +50,7 @@ data:
   isVerificationFile: true
   path: test/aoj/cgl/parallel_orthogonal.test.cpp
   requiredBy: []
-  timestamp: '2023-05-22 20:52:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/parallel_orthogonal.test.cpp

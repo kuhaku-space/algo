@@ -39,7 +39,7 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/combination.hpp:\
     \ line -1: no such header\n"
   code: "#include \"math/combination.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/template.hpp\"\n\ntemplate <class mint = static_modint<MOD_N>, internal::is_modint_t<mint>\
+    \ \"template/template.hpp\"\n\ntemplate <class mint = modint998, internal::is_modint_t<mint>\
     \ * = nullptr>\nstruct Enumeration {\n    Enumeration() : combi(), data() {}\n\
     \n    mint stirling(int n, int k) {\n        mint res = 0;\n        for (int i\
     \ = 0; i < k; ++i) {\n            if (i & 1) res -= this->combi(k, k - i) * mint(k\
@@ -63,11 +63,11 @@ data:
   isVerificationFile: false
   path: lib/math/enumeration.hpp
   requiredBy: []
-  timestamp: '2023-05-24 16:19:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
 documentation_of: lib/math/enumeration.hpp
 layout: document
 redirect_from:

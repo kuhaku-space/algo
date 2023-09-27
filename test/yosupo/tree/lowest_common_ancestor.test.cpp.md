@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree/lowest_common_ancestor.test.cpp
   requiredBy: []
-  timestamp: '2023-09-19 17:25:15+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/lowest_common_ancestor.test.cpp

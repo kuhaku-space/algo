@@ -48,7 +48,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
   requiredBy: []
-  timestamp: '2023-07-23 03:53:15+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dpl/longest_increasing_subsequense.test.cpp

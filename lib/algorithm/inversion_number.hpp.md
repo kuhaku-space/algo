@@ -35,9 +35,9 @@ data:
     \u6C42\u3081\u308B\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param v \u914D\
     \u5217\n * @retval std::int64_t \u8EE2\u5012\u6570\n */\ntemplate <class T>\n\
     std::int64_t inversion_number(const std::vector<T> &v) {\n    auto u = compress(v);\n\
-    \    std::reverse(u.begin(), u.end());\n    fenwick_tree<T> bit(*max_element(u.begin(),\
-    \ u.end()) + 1);\n    std::int64_t res = 0;\n    for (auto x : u) {\n        res\
-    \ += bit.sum(x);\n        bit.add(x, 1);\n    }\n    return res;\n}\n"
+    \    std::reverse(std::begin(u), std::end(u));\n    fenwick_tree<T> bit(*max_element(std::begin(u),\
+    \ std::end(u)) + 1);\n    std::int64_t res = 0;\n    for (auto x : u) {\n    \
+    \    res += bit.sum(x);\n        bit.add(x, 1);\n    }\n    return res;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
   - lib/template/template.hpp
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: lib/algorithm/inversion_number.hpp
   requiredBy: []
-  timestamp: '2023-07-23 03:12:37+09:00'
+  timestamp: '2023-09-26 22:26:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp

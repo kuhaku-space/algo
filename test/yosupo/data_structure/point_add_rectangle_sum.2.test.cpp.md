@@ -62,7 +62,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   requiredBy: []
-  timestamp: '2023-07-18 06:33:58+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp

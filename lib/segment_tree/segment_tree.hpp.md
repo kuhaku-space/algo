@@ -109,18 +109,18 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/segment_tree.hpp
   requiredBy:
-  - lib/binary_tree/range_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
-  timestamp: '2023-07-13 20:24:34+09:00'
+  - lib/binary_tree/range_tree.hpp
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document
 redirect_from:

@@ -94,11 +94,11 @@ data:
   isVerificationFile: false
   path: lib/math/matrix.hpp
   requiredBy: []
-  timestamp: '2023-07-24 06:48:43+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/matrix/determinant_of_matrix.test.cpp
   - test/yosupo/matrix/matrix_product.test.cpp
+  - test/yosupo/matrix/determinant_of_matrix.test.cpp
 documentation_of: lib/math/matrix.hpp
 layout: document
 redirect_from:

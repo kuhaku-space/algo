@@ -117,12 +117,12 @@ data:
   isVerificationFile: false
   path: lib/string/suffix_array.hpp
   requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/suffix_array.test.cpp
-  - test/yosupo/string/number_of_substring.test.cpp
   - test/yosupo/string/suffix_array.test.cpp
+  - test/yosupo/string/number_of_substring.test.cpp
 documentation_of: lib/string/suffix_array.hpp
 layout: document
 redirect_from:

@@ -7,7 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: test/aoj/jag/hopcroft_karp.cpp
+    title: test/aoj/jag/hopcroft_karp.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/warshall_floyd.test.cpp
@@ -37,8 +40,9 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/warshall_floyd.hpp
-  requiredBy: []
-  timestamp: '2023-05-22 19:46:47+09:00'
+  requiredBy:
+  - test/aoj/jag/hopcroft_karp.cpp
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/warshall_floyd.test.cpp

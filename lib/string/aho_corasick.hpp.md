@@ -69,7 +69,7 @@ data:
   isVerificationFile: false
   path: lib/string/aho_corasick.hpp
   requiredBy: []
-  timestamp: '2023-05-22 21:14:22+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/jag/aho_corasick.test.cpp

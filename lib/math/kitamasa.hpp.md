@@ -46,7 +46,7 @@ data:
   isVerificationFile: false
   path: lib/math/kitamasa.hpp
   requiredBy: []
-  timestamp: '2023-07-27 07:53:50+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/kitamasa.test.cpp

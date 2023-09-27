@@ -56,7 +56,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ntl/power.test.cpp
   requiredBy: []
-  timestamp: '2023-05-24 16:19:45+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ntl/power.test.cpp

@@ -52,7 +52,7 @@ data:
   isVerificationFile: false
   path: lib/math/sqrt.hpp
   requiredBy: []
-  timestamp: '2023-07-23 06:33:54+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/math/sqrt_mod.test.cpp

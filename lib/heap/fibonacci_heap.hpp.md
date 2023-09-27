@@ -28,64 +28,60 @@ data:
     \ std::less<>>\nstruct fibonacci_heap {\n  private:\n    struct _node {\n    \
     \    using pointer = _node *;\n        Key key;\n        Value value;\n      \
     \  int order;\n        pointer left, right;\n        pointer parent, child;\n\
-    \        bool dameged;\n\n        _node() : key(), value(), order(), left(this),\
-    \ right(this), parent(), child(), dameged() {}\n        _node(Key _key, Value\
+    \        bool damaged;\n\n        _node() : key(), value(), order(), left(this),\
+    \ right(this), parent(), child(), damaged() {}\n        _node(Key _key, Value\
     \ _value)\n            : key(_key), value(_value), order(), left(this), right(this),\
-    \ parent(), child(),\n              dameged() {}\n\n        void add_child(pointer\
-    \ node) {\n            node->parent = this;\n            if (this->child) this->child->insert_left(node);\n\
-    \            else this->child = node;\n            ++(this->order);\n        }\n\
-    \        void insert_left(pointer node) {\n            node->right = this;\n \
-    \           node->left = this->left;\n            this->left->right = node;\n\
-    \            this->left = node;\n        }\n        void insert_right(pointer\
-    \ node) {\n            node->left = this;\n            node->right = this->right;\n\
-    \            this->right->left = node;\n            this->right = node;\n    \
-    \    }\n\n        pointer erase() {\n            this->parent = nullptr;\n   \
-    \         if (this->left == this) return nullptr;\n            this->left->right\
-    \ = this->right;\n            this->right->left = this->left;\n            auto\
-    \ res = this->left;\n            this->left = this->right = this;\n          \
-    \  return res;\n        }\n\n        constexpr auto get_pair() const { return\
-    \ std::make_pair(key, value); }\n    };\n\n  public:\n    using node_ptr = typename\
-    \ _node::pointer;\n\n    fibonacci_heap() : _root(nullptr), _size(), comp() {}\n\
-    \n    bool empty() const { return this->_size == 0; }\n    constexpr int size()\
-    \ const { return this->_size; }\n    constexpr auto top() const { return this->_root->get_pair();\
-    \ }\n\n    auto push(Key key, Value value) {\n        ++(this->_size);\n     \
-    \   auto node = new _node(key, value);\n        if (!this->_root) {\n        \
-    \    this->_root = node;\n        } else {\n            this->_root->insert_left(node);\n\
-    \            if (comp(this->_root->value, value)) this->_root = this->_root->left;\n\
-    \        }\n        return node;\n    }\n    auto emplace(Key key, Value value)\
-    \ { return this->push(key, value); }\n\n    void pop() {\n        --(this->_size);\n\
-    \        if (this->_root->child) {\n            auto child = this->_root->child,\
-    \ left = child->left;\n            this->_root->left->right = child;\n       \
-    \     child->left->right = this->_root;\n            child->left = this->_root->left;\n\
-    \            this->_root->left = left;\n        }\n        this->_root = this->_root->erase();\n\
-    \        if (!this->_root) return;\n\n        node_ptr nodes[30] = {};\n     \
-    \   while (this->_root) {\n            auto node = this->_root;\n            auto\
-    \ order = node->order;\n            this->_root = this->_root->erase();\n    \
-    \        while (nodes[order]) {\n                if (comp(node->value, nodes[order]->value))\
+    \ parent(), child(),\n              damaged() {}\n\n        void add_child(pointer\
+    \ node) {\n            node->parent = this;\n            if (child) child->insert_left(node);\n\
+    \            else child = node;\n            ++order;\n        }\n        void\
+    \ insert_left(pointer node) {\n            node->right = this;\n            node->left\
+    \ = left;\n            left->right = node;\n            left = node;\n       \
+    \ }\n        void insert_right(pointer node) {\n            node->left = this;\n\
+    \            node->right = right;\n            right->left = node;\n         \
+    \   right = node;\n        }\n\n        pointer erase() {\n            parent\
+    \ = nullptr;\n            if (left == this) return nullptr;\n            left->right\
+    \ = right;\n            right->left = left;\n            auto res = left;\n  \
+    \          left = right = this;\n            return res;\n        }\n\n      \
+    \  constexpr auto get_pair() const { return std::make_pair(key, value); }\n  \
+    \  };\n\n  public:\n    using node_ptr = typename _node::pointer;\n\n    fibonacci_heap()\
+    \ : _root(nullptr), _size(), comp() {}\n\n    constexpr bool empty() const { return\
+    \ _size == 0; }\n    constexpr int size() const { return _size; }\n    constexpr\
+    \ auto top() const { return _root->get_pair(); }\n\n    auto push(Key key, Value\
+    \ value) {\n        ++_size;\n        auto node = new _node(key, value);\n   \
+    \     if (!_root) {\n            _root = node;\n        } else {\n           \
+    \ _root->insert_left(node);\n            if (comp(_root->value, value)) _root\
+    \ = _root->left;\n        }\n        return node;\n    }\n    auto emplace(Key\
+    \ key, Value value) { return push(key, value); }\n\n    void pop() {\n       \
+    \ --_size;\n        if (_root->child) {\n            auto child = _root->child,\
+    \ left = child->left;\n            _root->left->right = child;\n            child->left->right\
+    \ = _root;\n            child->left = _root->left;\n            _root->left =\
+    \ left;\n        }\n        _root = _root->erase();\n        if (!_root) return;\n\
+    \n        node_ptr nodes[30] = {};\n        while (_root) {\n            auto\
+    \ node = _root;\n            auto order = node->order;\n            _root = _root->erase();\n\
+    \            while (nodes[order]) {\n                if (comp(node->value, nodes[order]->value))\
     \ std::swap(node, nodes[order]);\n                node->add_child(nodes[order]);\n\
     \                nodes[order] = nullptr;\n                ++order;\n         \
     \   }\n            nodes[order] = node;\n        }\n\n        for (auto node :\
-    \ nodes) {\n            if (node && (!this->_root || comp(this->_root->value,\
-    \ node->value))) this->_root = node;\n        }\n        for (auto node : nodes)\
-    \ {\n            if (node && node != this->_root) this->_root->insert_left(node);\n\
-    \        }\n    }\n\n    void update(node_ptr node, Value value) {\n        if\
-    \ (comp(node->value, value)) node->value = value;\n        else return;\n    \
-    \    if (!node->parent) {\n            if (comp(this->_root->value, value)) this->_root\
-    \ = node;\n            return;\n        } else if (!comp(node->parent->value,\
-    \ node->value)) {\n            return;\n        }\n        while (node->parent)\
-    \ {\n            auto parent = node->parent;\n            node->dameged = false;\n\
-    \            parent->child = node->erase();\n            --(parent->order);\n\
-    \            this->_root->insert_left(node);\n            if (comp(this->_root->value,\
-    \ this->_root->left->value)) this->_root = this->_root->left;\n            if\
-    \ (!parent->dameged) {\n                parent->dameged = true;\n            \
-    \    break;\n            }\n            node = parent;\n        }\n    }\n\n \
-    \ private:\n    node_ptr _root;\n    int _size;\n    Comp comp;\n};\n"
+    \ nodes) {\n            if (node && (!_root || comp(_root->value, node->value)))\
+    \ _root = node;\n        }\n        for (auto node : nodes) {\n            if\
+    \ (node && node != _root) _root->insert_left(node);\n        }\n    }\n\n    void\
+    \ update(node_ptr node, Value value) {\n        if (comp(node->value, value))\
+    \ node->value = value;\n        else return;\n        if (!node->parent) {\n \
+    \           if (comp(_root->value, value)) _root = node;\n            return;\n\
+    \        } else if (!comp(node->parent->value, node->value)) {\n            return;\n\
+    \        }\n        while (node->parent) {\n            auto parent = node->parent;\n\
+    \            node->damaged = false;\n            parent->child = node->erase();\n\
+    \            --(parent->order);\n            _root->insert_left(node);\n     \
+    \       if (comp(_root->value, _root->left->value)) _root = _root->left;\n   \
+    \         if (!parent->damaged) {\n                parent->damaged = true;\n \
+    \               break;\n            }\n            node = parent;\n        }\n\
+    \    }\n\n  private:\n    node_ptr _root;\n    int _size;\n    Comp comp;\n};\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/heap/fibonacci_heap.hpp
   requiredBy: []
-  timestamp: '2023-05-22 20:02:34+09:00'
+  timestamp: '2023-09-26 21:06:03+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/heap/fibonacci_heap.hpp
