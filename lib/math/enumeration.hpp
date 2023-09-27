@@ -2,7 +2,7 @@
 #include "math/modint.hpp"
 #include "template/template.hpp"
 
-template <class mint = static_modint<MOD_N>, internal::is_modint_t<mint> * = nullptr>
+template <class mint = modint998, internal::is_modint_t<mint> * = nullptr>
 struct Enumeration {
     Enumeration() : combi(), data() {}
 
