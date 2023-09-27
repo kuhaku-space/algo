@@ -57,6 +57,7 @@
 "test/aoj/itp2/skip_list.test.cpp": "2023-09-26 21:06:03 +0900",
 "test/aoj/itp2/treap.test.cpp": "2023-09-26 21:06:03 +0900",
 "test/aoj/jag/aho_corasick.test.cpp": "2023-09-26 21:06:03 +0900",
+"test/aoj/jag/hopcroft_karp.test.cpp": "2023-09-28 02:06:05 +0900",
 "test/aoj/joi/rle.test.cpp": "2023-09-26 21:06:03 +0900",
 "test/aoj/ntl/addition.test.cpp": "2023-09-26 21:06:03 +0900",
 "test/aoj/ntl/difference.test.cpp": "2023-09-26 21:06:03 +0900",
