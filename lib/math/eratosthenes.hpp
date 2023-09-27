@@ -61,22 +61,14 @@ struct eratosthenes {
      */
     bool is_prime(int x) const {
         switch (x % 30) {
-            case 1:
-                return prime_number[x / 30] >> 0 & 1;
-            case 7:
-                return prime_number[x / 30] >> 1 & 1;
-            case 11:
-                return prime_number[x / 30] >> 2 & 1;
-            case 13:
-                return prime_number[x / 30] >> 3 & 1;
-            case 17:
-                return prime_number[x / 30] >> 4 & 1;
-            case 19:
-                return prime_number[x / 30] >> 5 & 1;
-            case 23:
-                return prime_number[x / 30] >> 6 & 1;
-            case 29:
-                return prime_number[x / 30] >> 7 & 1;
+            case 1: return prime_number[x / 30] >> 0 & 1;
+            case 7: return prime_number[x / 30] >> 1 & 1;
+            case 11: return prime_number[x / 30] >> 2 & 1;
+            case 13: return prime_number[x / 30] >> 3 & 1;
+            case 17: return prime_number[x / 30] >> 4 & 1;
+            case 19: return prime_number[x / 30] >> 5 & 1;
+            case 23: return prime_number[x / 30] >> 6 & 1;
+            case 29: return prime_number[x / 30] >> 7 & 1;
         }
         if (x < 6) {
             if (x == 2) return true;
