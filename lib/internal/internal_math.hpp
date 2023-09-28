@@ -202,9 +202,7 @@ constexpr bool is_prime_constexpr(int n) {
             y = y * y % n;
             t <<= 1;
         }
-        if (y != n - 1 && t % 2 == 0) {
-            return false;
-        }
+        if (y != n - 1 && t % 2 == 0) { return false; }
     }
     return true;
 }
@@ -250,14 +248,10 @@ constexpr int primitive_root_constexpr(int m) {
     for (int i = 3; (std::int64_t)(i)*i <= x; i += 2) {
         if (x % i == 0) {
             divs[cnt++] = i;
-            while (x % i == 0) {
-                x /= i;
-            }
+            while (x % i == 0) { x /= i; }
         }
     }
-    if (x > 1) {
-        divs[cnt++] = x;
-    }
+    if (x > 1) { divs[cnt++] = x; }
     for (int g = 2;; g++) {
         bool ok = true;
         for (int i = 0; i < cnt; i++) {
@@ -271,32 +265,5 @@ constexpr int primitive_root_constexpr(int m) {
 }
 template <int m>
 constexpr int primitive_root = primitive_root_constexpr(m);
-
-// @param n `n < 2^32`
-// @param m `1 <= m < 2^32`
-// @return sum_{i=0}^{n-1} floor((ai + b) / m) (mod 2^64)
-std::uint64_t floor_sum_unsigned(std::uint64_t n, std::uint64_t m, std::uint64_t a,
-                                 std::uint64_t b) {
-    std::uint64_t ans = 0;
-    while (true) {
-        if (a >= m) {
-            ans += n * (n - 1) / 2 * (a / m);
-            a %= m;
-        }
-        if (b >= m) {
-            ans += n * (b / m);
-            b %= m;
-        }
-
-        std::uint64_t y_max = a * n + b;
-        if (y_max < m) break;
-        // y_max < m * (n + 1)
-        // floor(y_max / m) <= n
-        n = (std::uint64_t)(y_max / m);
-        b = (std::uint64_t)(y_max % m);
-        std::swap(m, a);
-    }
-    return ans;
-}
 
 }  // namespace internal
