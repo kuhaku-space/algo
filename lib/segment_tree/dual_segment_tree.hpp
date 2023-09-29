@@ -9,8 +9,10 @@
  */
 template <class M>
 struct dual_segment_tree {
+  private:
     using T = typename M::value_type;
 
+  public:
     dual_segment_tree(int _n, T _e = M::id) { this->init(_n, _e); }
 
     void init(int n, T e) {
