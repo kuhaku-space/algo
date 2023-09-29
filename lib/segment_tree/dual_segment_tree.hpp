@@ -1,4 +1,4 @@
-#include "math/pow.hpp"
+#include "internal/internal_bit.hpp"
 #include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
@@ -13,17 +13,19 @@ struct dual_segment_tree {
     using T = typename M::value_type;
 
   public:
-    dual_segment_tree(int _n, T _e = M::id) { init(_n, _e); }
-
-    void init(int n, T e) {
-        _log = ceil_pow2(n);
-        _size = 1 << _log;
-        data.assign(_size << 1, e);
+    dual_segment_tree() : dual_segment_tree(0) {}
+    explicit dual_segment_tree(int n, T e = M::id) : dual_segment_tree(std::vector<T>(n, e)) {}
+    template <class U>
+    explicit dual_segment_tree(const std::vector<U> &v) : _n(v.size()) {
+        _size = internal::bit_ceil(_n);
+        _log = internal::countr_zero(_size);
+        data = std::vector<T>(_size << 1, M::id);
+        for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
     }
 
     T at(int k) { return get(k); }
     T get(int k) {
-        assert(0 <= k && k < _size);
+        assert(0 <= k && k < _n);
         k += _size;
         for (int i = _log; i >= 1; --i) push(k >> i);
         return data[k];
@@ -31,8 +33,8 @@ struct dual_segment_tree {
 
     void apply(int a, T val) { apply(a, a + 1, val); }
     void apply(int a, int b, T val) {
-        assert(0 <= a && a <= _size);
-        assert(0 <= b && b <= _size);
+        assert(0 <= a && a <= _n);
+        assert(0 <= b && b <= _n);
         a += _size, b += _size;
         for (int i = _log; i >= 1; --i) {
             if (((a >> i) << i) != a) push(a >> i);
@@ -46,7 +48,7 @@ struct dual_segment_tree {
     }
 
   private:
-    int _size, _log;
+    int _n, _size, _log;
     std::vector<T> data;
 
     void all_apply(int k, T val) { data[k] = M::op(val, data[k]); }
