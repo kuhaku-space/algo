@@ -5,7 +5,7 @@
 /**
  * @brief 双対セグメント木
  *
- * @tparam M
+ * @tparam M モノイド
  */
 template <class M>
 struct dual_segment_tree {
