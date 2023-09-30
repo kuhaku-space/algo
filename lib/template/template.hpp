@@ -4,11 +4,11 @@
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
 template <class T, class U>
-bool chmax(T &a, const U &b) {
+constexpr bool chmax(T &a, const U &b) {
     return a < (T)b ? a = (T)b, true : false;
 }
 template <class T, class U>
-bool chmin(T &a, const U &b) {
+constexpr bool chmin(T &a, const U &b) {
     return (T)b < a ? a = (T)b, true : false;
 }
 constexpr std::int64_t INF = 1000000000000000003;
