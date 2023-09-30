@@ -1,6 +1,11 @@
 #include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
+/**
+ * @brief 永続セグメント木
+ *
+ * @tparam M モノイド
+ */
 template <class M>
 struct persistent_segment_tree {
   private:
