@@ -1,5 +1,5 @@
 #pragma once
-#include "math/pow.hpp"
+#include "internal/internal_bit.hpp"
 #include "segment_tree/monoid.hpp"
 #include "template/template.hpp"
 
@@ -20,8 +20,8 @@ struct lazy_segment_tree {
     lazy_segment_tree() : lazy_segment_tree(0) {}
     explicit lazy_segment_tree(int n, T e = S::id) : lazy_segment_tree(std::vector<T>(n, e)) {}
     explicit lazy_segment_tree(const std::vector<T> &v) : _n(int(v.size())) {
-        this->_log = ceil_pow2(this->_n);
-        this->_size = 1 << this->_log;
+        _size = internal::bit_ceil(_n);
+        _log = internal::countr_zero(_size);
         this->data = std::vector<T>(2 * this->_size, S::id);
         this->lazy = std::vector<U>(this->_size, F::id);
         for (int i = 0; i < this->_n; i++) this->data[this->_size + i] = v[i];
