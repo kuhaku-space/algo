@@ -4,12 +4,12 @@
 /**
  * @brief 永続セグメント木
  *
- * @tparam M モノイド
+ * @tparam Monoid モノイド
  */
-template <class M>
+template <class Monoid>
 struct persistent_segment_tree {
   private:
-    using T = typename M::value_type;
+    using T = typename Monoid::value_type;
 
     struct _node {
         using pointer = _node *;
@@ -26,7 +26,7 @@ struct persistent_segment_tree {
 
     constexpr persistent_segment_tree() : _size(), root() {}
     constexpr persistent_segment_tree(int n, node_pointer _root) : _size(n), root(_root) {}
-    persistent_segment_tree(int n, T e = M::id) : _size(n), root(this->build(0, n, e)) {}
+    persistent_segment_tree(int n, T e = Monoid::id) : _size(n), root(this->build(0, n, e)) {}
     template <class U>
     persistent_segment_tree(const std::vector<U> &v)
         : _size(v.size()), root(this->build(0, v.size(), v)) {}
@@ -39,7 +39,7 @@ struct persistent_segment_tree {
         assert(0 <= k && k < this->_size);
         return persistent_segment_tree(this->_size, this->set(0, this->_size, k, val, this->root));
     }
-    persistent_segment_tree reset(int k) { return this->set(k, M::id); }
+    persistent_segment_tree reset(int k) { return this->set(k, Monoid::id); }
 
     T all_prod() const { return this->root->val; }
     T prod(int a, int b) const {
@@ -52,7 +52,7 @@ struct persistent_segment_tree {
     node_pointer root;
 
     static node_pointer merge(node_pointer left, node_pointer right) {
-        return new _node(M::op(left->val, right->val), left, right);
+        return new _node(Monoid::op(left->val, right->val), left, right);
     }
 
     node_pointer build(int l, int r, T val) const {
@@ -76,8 +76,8 @@ struct persistent_segment_tree {
 
     T prod(int l, int r, int a, int b, node_pointer node) const {
         if (a <= l && r <= b) return node->val;
-        if (b <= l || r <= a) return M::id;
+        if (b <= l || r <= a) return Monoid::id;
         int m = (l + r) >> 1;
-        return M::op(this->prod(l, m, a, b, node->left), this->prod(m, r, a, b, node->right));
+        return Monoid::op(this->prod(l, m, a, b, node->left), this->prod(m, r, a, b, node->right));
     }
 };
