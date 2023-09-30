@@ -24,12 +24,12 @@ struct persistent_segment_tree {
   public:
     using node_pointer = typename _node::pointer;
 
-    constexpr persistent_segment_tree() : _size(), root() {}
-    constexpr persistent_segment_tree(int n, node_pointer _root) : _size(n), root(_root) {}
-    persistent_segment_tree(int n, T e = Monoid::id) : _size(n), root(build(0, n, e)) {}
+    constexpr persistent_segment_tree() : _size(), _root() {}
+    constexpr persistent_segment_tree(int n, node_pointer _root) : _size(n), _root(_root) {}
+    persistent_segment_tree(int n, T e = Monoid::id) : _size(n), _root(build(0, n, e)) {}
     template <class U>
     persistent_segment_tree(const std::vector<U> &v)
-        : _size(v.size()), root(build(0, v.size(), v)) {}
+        : _size(v.size()), _root(build(0, v.size(), v)) {}
 
     T operator[](int i) const { return prod(i, i + 1); }
     T at(int k) const { return operator[](k); }
@@ -37,19 +37,19 @@ struct persistent_segment_tree {
 
     persistent_segment_tree set(int k, T val) {
         assert(0 <= k && k < _size);
-        return persistent_segment_tree(_size, set(0, _size, k, val, root));
+        return persistent_segment_tree(_size, set(0, _size, k, val, _root));
     }
     persistent_segment_tree reset(int k) { return set(k, Monoid::id); }
 
-    T all_prod() const { return root->val; }
+    T all_prod() const { return _root->val; }
     T prod(int a, int b) const {
         assert(0 <= a && b <= _size);
-        return prod(0, _size, a, b, root);
+        return prod(0, _size, a, b, _root);
     }
 
   private:
     int _size;
-    node_pointer root;
+    node_pointer _root;
 
     static node_pointer merge(node_pointer left, node_pointer right) {
         return new _node(Monoid::op(left->val, right->val), left, right);
