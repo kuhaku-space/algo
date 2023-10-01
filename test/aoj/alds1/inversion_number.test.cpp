@@ -1,5 +1,9 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D"
 #include "algorithm/inversion_number.hpp"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 
 int main(void) {
     int n;
