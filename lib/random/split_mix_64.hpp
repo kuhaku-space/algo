@@ -1,5 +1,8 @@
 #pragma once
-#include "template/template.hpp"
+#include <array>
+#include <cstdint>
+#include <limits>
+#include <utility>
 
 /**
  * @brief 疑似乱数生成器 SplitMix64
