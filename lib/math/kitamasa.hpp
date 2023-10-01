@@ -1,4 +1,8 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 /**
  * @brief きたまさ法
