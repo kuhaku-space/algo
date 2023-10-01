@@ -10,6 +10,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/rupc/lazy_segment_tree.test.cpp
+    title: test/aoj/rupc/lazy_segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
     title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   _isVerificationFailed: false
@@ -51,9 +54,10 @@ data:
   isVerificationFile: false
   path: lib/tree/eular_tour.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
 documentation_of: lib/tree/eular_tour.hpp
 layout: document

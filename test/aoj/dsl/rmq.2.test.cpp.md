@@ -54,15 +54,15 @@ data:
   - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
-  - lib/template/template.hpp
   - lib/segment_tree/monoid.hpp
+  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/rmq.2.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rmq.2.test.cpp

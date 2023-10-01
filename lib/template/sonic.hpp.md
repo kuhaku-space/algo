@@ -8,25 +8,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
-  - icon: ':warning:'
-    path: test/aoj/jag/hopcroft_karp.cpp
-    title: test/aoj/jag/hopcroft_karp.cpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/interval_heap.test.cpp
-    title: test/aoj/alds1/interval_heap.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/inversion_number.test.cpp
-    title: test/aoj/alds1/inversion_number.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/kitamasa.test.cpp
-    title: test/aoj/alds1/kitamasa.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/kmp.test.cpp
     title: test/aoj/alds1/kmp.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/leftist_heap.test.cpp
-    title: test/aoj/alds1/leftist_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/prime_numbers.test.cpp
     title: test/aoj/alds1/prime_numbers.test.cpp
@@ -36,9 +21,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/rolling_hash.test.cpp
     title: test/aoj/alds1/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/skew_heap.test.cpp
-    title: test/aoj/alds1/skew_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/suffix_array.test.cpp
     title: test/aoj/alds1/suffix_array.test.cpp
@@ -102,9 +84,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/union_find.test.cpp
-    title: test/aoj/dsl/union_find.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/weighted_union_find.test.cpp
     title: test/aoj/dsl/weighted_union_find.test.cpp
@@ -187,6 +166,9 @@ data:
     path: test/aoj/jag/aho_corasick.test.cpp
     title: test/aoj/jag/aho_corasick.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/hopcroft_karp.test.cpp
+    title: test/aoj/jag/hopcroft_karp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/joi/rle.test.cpp
     title: test/aoj/joi/rle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -213,6 +195,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/remainder.test.cpp
     title: test/aoj/ntl/remainder.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/rupc/lazy_segment_tree.test.cpp
+    title: test/aoj/rupc/lazy_segment_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/rupc/range_set.test.cpp
     title: test/aoj/rupc/range_set.test.cpp
@@ -253,9 +238,6 @@ data:
     path: test/yosupo/data_structure/persistent_union_find.test.cpp
     title: test/yosupo/data_structure/persistent_union_find.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/point_add_range_sum.test.cpp
-    title: test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
     title: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - icon: ':heavy_check_mark:'
@@ -294,9 +276,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/undo_union_find.test.cpp
     title: test/yosupo/data_structure/undo_union_find.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/unionfind.test.cpp
-    title: test/yosupo/data_structure/unionfind.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
     title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
@@ -382,6 +361,9 @@ data:
     path: test/yukicoder/0263.test.cpp
     title: test/yukicoder/0263.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yukicoder/0416.test.cpp
+    title: test/yukicoder/0416.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/1013.test.cpp
     title: test/yukicoder/1013.test.cpp
   - icon: ':heavy_check_mark:'
@@ -423,8 +405,7 @@ data:
   path: lib/template/sonic.hpp
   requiredBy:
   - lib/template/atcoder.hpp
-  - test/aoj/jag/hopcroft_karp.cpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/icpc/stern_brocot_tree.test.cpp
@@ -463,7 +444,9 @@ data:
   - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/bipartite_matching.test.cpp
   - test/aoj/rupc/range_set.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
   - test/aoj/jag/aho_corasick.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/aoj/cgl/intersection.test.cpp
   - test/aoj/cgl/parallel_orthogonal.test.cpp
   - test/aoj/cgl/counter-clockwise.test.cpp
@@ -476,12 +459,7 @@ data:
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/alds1/suffix_array.test.cpp
-  - test/aoj/alds1/leftist_heap.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
-  - test/aoj/alds1/skew_heap.test.cpp
-  - test/aoj/alds1/kitamasa.test.cpp
-  - test/aoj/alds1/interval_heap.test.cpp
-  - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/alds1/prime_numbers2.test.cpp
   - test/aoj/alds1/kmp.test.cpp
   - test/aoj/dsl/rmq_ruq.test.cpp
@@ -494,7 +472,6 @@ data:
   - test/aoj/dsl/rsq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
-  - test/aoj/dsl/union_find.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
   - test/yosupo/geometry/sort_points_by_argument.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
@@ -529,7 +506,6 @@ data:
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/yosupo/data_structure/persistent_queue.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/segment_add_get_min.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
@@ -543,7 +519,6 @@ data:
   - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
   - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
@@ -553,6 +528,7 @@ data:
   - test/yukicoder/1013.test.cpp
   - test/yukicoder/1211.test.cpp
   - test/yukicoder/1097.test.cpp
+  - test/yukicoder/0416.test.cpp
   - test/yukicoder/1977.test.cpp
   - test/yukicoder/0263.test.cpp
   - test/yukicoder/1242.test.cpp

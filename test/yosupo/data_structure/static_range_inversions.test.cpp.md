@@ -57,8 +57,8 @@ data:
     \ x : ans) co(x);\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
-  - lib/template/template.hpp
   - lib/algorithm/mo.hpp
+  - lib/template/template.hpp
   - lib/binary_tree/fenwick_tree.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
@@ -66,7 +66,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/static_range_inversions.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 19:53:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_range_inversions.test.cpp

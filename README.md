@@ -11,6 +11,16 @@
 
 競プロ用ライブラリ
 
+## コンパイラオプション
+
+verify に使用されるコンパイラオプションは Atcoder を参考にしています．
+Atcoder のコンパイラオプションは[こちら](https://img.atcoder.jp/file/language-update/language-list.html)．
+
+## フォーマット
+
+verify 用ファイルをフォーマットしたときにヘッダファイルの順番が異なる現象が確認されています．
+これは Clang-Format の仕様であり，詳しくは[こちら](https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes)を参照してください．
+
 ## ライセンス
 
 This project is licensed under the [MIT License](https://github.com/kuhaku-space/algo/blob/main/LICENSE)

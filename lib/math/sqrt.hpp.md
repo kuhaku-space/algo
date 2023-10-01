@@ -47,12 +47,12 @@ data:
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/sqrt.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 18:31:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/math/sqrt_mod.test.cpp

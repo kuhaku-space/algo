@@ -7,14 +7,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/aoj/jag/hopcroft_karp.cpp
-    title: test/aoj/jag/hopcroft_karp.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/warshall_floyd.test.cpp
     title: test/aoj/grl/warshall_floyd.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/hopcroft_karp.test.cpp
+    title: test/aoj/jag/hopcroft_karp.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -40,12 +40,12 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/warshall_floyd.hpp
-  requiredBy:
-  - test/aoj/jag/hopcroft_karp.cpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  requiredBy: []
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
 documentation_of: lib/graph/warshall_floyd.hpp
 layout: document
 redirect_from:

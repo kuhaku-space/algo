@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/heap/skew_heap.hpp
     title: skew heap
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,22 +24,19 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: heap/skew_heap.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C\"\n\
-    #include \"heap/skew_heap.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    skew_heap<int> heap;\n    while (true) {\n        string s;\n       \
-    \ cin >> s;\n        if (s == \"end\") {\n            break;\n        } else if\
-    \ (s == \"insert\") {\n            int x;\n            cin >> x;\n           \
-    \ heap.push(x);\n        } else {\n            co(heap.top());\n            heap.pop();\n\
-    \        }\n    }\n\n    return 0;\n}\n"
+    #include \"heap/skew_heap.hpp\"\n#include <iostream>\n#include <string>\n\nint\
+    \ main(void) {\n    skew_heap<int> heap;\n    while (true) {\n        std::string\
+    \ s;\n        std::cin >> s;\n        if (s == \"end\") {\n            break;\n\
+    \        } else if (s == \"insert\") {\n            int x;\n            std::cin\
+    \ >> x;\n            heap.push(x);\n        } else {\n            std::cout <<\
+    \ heap.top() << std::endl;\n            heap.pop();\n        }\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/heap/skew_heap.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/skew_heap.test.cpp
   requiredBy: []
-  timestamp: '2023-09-27 03:17:26+09:00'
+  timestamp: '2023-10-01 21:33:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/skew_heap.test.cpp

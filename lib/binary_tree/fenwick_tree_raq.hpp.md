@@ -62,7 +62,7 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/fenwick_tree_raq.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 17:51:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/range_query_on_tree_2.test.cpp

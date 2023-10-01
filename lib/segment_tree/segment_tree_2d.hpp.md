@@ -75,7 +75,7 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/segment_tree_2d.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp

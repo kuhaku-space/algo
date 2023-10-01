@@ -55,16 +55,16 @@ data:
     \       co(ans);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
+  - lib/template/template.hpp
   - lib/template/sonic.hpp
   - lib/tree/hld.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 17:51:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_add_path_sum.test.cpp

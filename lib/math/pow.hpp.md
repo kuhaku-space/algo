@@ -11,28 +11,10 @@ data:
   - icon: ':warning:'
     path: lib/math/primitive_root.hpp
     title: lib/math/primitive_root.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/dual_segment_tree.hpp
-    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/lazy_segment_tree.hpp
-    title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rmq_ruq.test.cpp
-    title: test/aoj/dsl/rmq_ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rsq_ruq.test.cpp
-    title: test/aoj/dsl/rsq_ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/ruq.test.cpp
-    title: test/aoj/dsl/ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
-    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -67,17 +49,11 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
-  - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/lazy_segment_tree.hpp
   - lib/math/math.hpp
   - lib/math/primitive_root.hpp
-  timestamp: '2023-09-26 21:06:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  timestamp: '2023-10-01 03:35:18+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: lib/math/pow.hpp
 layout: document
 redirect_from:

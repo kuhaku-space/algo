@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
@@ -28,39 +28,41 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_bit.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"math/pow.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\r\n#include\
-    \ \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u53CC\u5BFE\u30BB\u30B0\u30E1\
-    \u30F3\u30C8\u6728\r\n *\r\n * @tparam M\r\n */\r\ntemplate <class M>\r\nstruct\
-    \ dual_segment_tree {\r\n    using T = typename M::value_type;\r\n\r\n    dual_segment_tree(int\
-    \ _n, T _e = M::id) { this->init(_n, _e); }\r\n\r\n    void init(int n, T e) {\r\
-    \n        this->_log = ceil_pow2(n);\r\n        this->_size = 1 << this->_log;\r\
-    \n        this->data.assign(this->_size << 1, e);\r\n    }\r\n\r\n    T at(int\
-    \ k) { return this->get(k); }\r\n    T get(int k) {\r\n        assert(0 <= k &&\
-    \ k < this->_size);\r\n        k += this->_size;\r\n        for (int i = this->_log;\
-    \ i >= 1; --i) this->push(k >> i);\r\n        return this->data[k];\r\n    }\r\
-    \n\r\n    void apply(int a, T val) { this->apply(a, a + 1, val); }\r\n    void\
-    \ apply(int a, int b, T val) {\r\n        assert(0 <= a && a <= this->_size);\r\
-    \n        assert(0 <= b && b <= this->_size);\r\n        a += this->_size, b +=\
-    \ this->_size;\r\n        for (int i = _log; i >= 1; --i) {\r\n            if\
-    \ (((a >> i) << i) != a) this->push(a >> i);\r\n            if (((b >> i) << i)\
-    \ != b) this->push((b - 1) >> i);\r\n        }\r\n\r\n        for (; a < b; a\
-    \ >>= 1, b >>= 1) {\r\n            if (a & 1) this->all_apply(a++, val);\r\n \
-    \           if (b & 1) this->all_apply(--b, val);\r\n        }\r\n    }\r\n\r\n\
-    \  private:\r\n    int _size, _log;\r\n    std::vector<T> data;\r\n\r\n    void\
-    \ all_apply(int k, T val) { this->data[k] = M::op(val, this->data[k]); }\r\n \
-    \   void push(int k) {\r\n        this->all_apply(2 * k, this->data[k]);\r\n \
-    \       this->all_apply(2 * k + 1, this->data[k]);\r\n        this->data[k] =\
-    \ M::id;\r\n    }\r\n};\r\n"
+  code: "#include \"internal/internal_bit.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\
+    \r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u53CC\u5BFE\u30BB\
+    \u30B0\u30E1\u30F3\u30C8\u6728\r\n *\r\n * @tparam M \u30E2\u30CE\u30A4\u30C9\r\
+    \n */\r\ntemplate <class M>\r\nstruct dual_segment_tree {\r\n  private:\r\n  \
+    \  using T = typename M::value_type;\r\n\r\n  public:\r\n    dual_segment_tree()\
+    \ : dual_segment_tree(0) {}\r\n    explicit dual_segment_tree(int n, T e = M::id)\
+    \ : dual_segment_tree(std::vector<T>(n, e)) {}\r\n    template <class U>\r\n \
+    \   explicit dual_segment_tree(const std::vector<U> &v) : _n(v.size()) {\r\n \
+    \       _size = internal::bit_ceil(_n);\r\n        _log = internal::countr_zero(_size);\r\
+    \n        data = std::vector<T>(_size << 1, M::id);\r\n        for (int i = 0;\
+    \ i < _n; ++i) data[_size + i] = T(v[i]);\r\n    }\r\n\r\n    T at(int k) { return\
+    \ get(k); }\r\n    T get(int k) {\r\n        assert(0 <= k && k < _n);\r\n   \
+    \     k += _size;\r\n        for (int i = _log; i >= 1; --i) push(k >> i);\r\n\
+    \        return data[k];\r\n    }\r\n\r\n    void apply(int a, T val) { apply(a,\
+    \ a + 1, val); }\r\n    void apply(int a, int b, T val) {\r\n        assert(0\
+    \ <= a && a <= _n);\r\n        assert(0 <= b && b <= _n);\r\n        a += _size,\
+    \ b += _size;\r\n        for (int i = _log; i >= 1; --i) {\r\n            if (((a\
+    \ >> i) << i) != a) push(a >> i);\r\n            if (((b >> i) << i) != b) push((b\
+    \ - 1) >> i);\r\n        }\r\n\r\n        for (; a < b; a >>= 1, b >>= 1) {\r\n\
+    \            if (a & 1) all_apply(a++, val);\r\n            if (b & 1) all_apply(--b,\
+    \ val);\r\n        }\r\n    }\r\n\r\n  private:\r\n    int _n, _size, _log;\r\n\
+    \    std::vector<T> data;\r\n\r\n    void all_apply(int k, T val) { data[k] =\
+    \ M::op(val, data[k]); }\r\n    void push(int k) {\r\n        all_apply(2 * k,\
+    \ data[k]);\r\n        all_apply(2 * k + 1, data[k]);\r\n        data[k] = M::id;\r\
+    \n    }\r\n};\r\n"
   dependsOn:
-  - lib/math/pow.hpp
-  - lib/template/template.hpp
+  - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/segment_tree/dual_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp

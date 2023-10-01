@@ -53,17 +53,17 @@ data:
     \ += t;\n        dp[x] += t;\n    }\n    co(ans);\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
-  - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
+  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/math/number_of_subsequences.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 19:53:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/number_of_subsequences.test.cpp

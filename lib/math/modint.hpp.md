@@ -228,8 +228,8 @@ data:
     \n\r\n}  // namespace internal\r\n"
   dependsOn:
   - lib/internal/internal_math.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/math/modint.hpp
   requiredBy:
@@ -241,7 +241,7 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 18:31:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ntl/division.test.cpp

@@ -76,7 +76,7 @@ data:
   isVerificationFile: false
   path: lib/data_structure/skip_list.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-02 03:03:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/itp2/skip_list.test.cpp

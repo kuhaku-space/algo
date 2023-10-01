@@ -61,17 +61,17 @@ data:
   - lib/fft/ntt.hpp
   - lib/internal/internal_fft.hpp
   - lib/internal/internal_bit.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/math/modint.hpp
+  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/ntl/division.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 18:31:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ntl/division.test.cpp

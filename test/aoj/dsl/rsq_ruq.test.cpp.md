@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/lazy_segment_tree.hpp
     title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -58,16 +58,16 @@ data:
     \ t + 1).first);\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/math/pow.hpp
-  - lib/template/template.hpp
+  - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
+  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/rsq_ruq.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rsq_ruq.test.cpp

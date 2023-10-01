@@ -2,18 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/tree/union_find.hpp
     title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
@@ -36,21 +24,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/union_find.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A\"\n#include\
-    \ \"tree/union_find.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n, q;\n    std::cin >> n >> q;\n    union_find uf(n);\n    while\
-    \ (q--) {\n        int com, x, y;\n        std::cin >> com >> x >> y;\n      \
-    \  if (com == 0) uf.unite(x, y);\n        else co(uf.same(x, y));\n    }\n\n \
-    \   return 0;\n}\n"
+    \ \"tree/union_find.hpp\"\n#include <iostream>\n\nint main(void) {\n    int n,\
+    \ q;\n    std::cin >> n >> q;\n    union_find uf(n);\n    while (q--) {\n    \
+    \    int com, x, y;\n        std::cin >> com >> x >> y;\n        if (com == 0)\
+    \ uf.unite(x, y);\n        else std::cout << uf.same(x, y) << std::endl;\n   \
+    \ }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/union_find.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 19:23:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/union_find.test.cpp

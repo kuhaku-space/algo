@@ -279,7 +279,7 @@ data:
       title: lib/math/hashint.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/kitamasa.hpp
-      title: lib/math/kitamasa.hpp
+      title: "\u304D\u305F\u307E\u3055\u6CD5"
     - icon: ':warning:'
       path: lib/math/math.hpp
       title: lib/math/math.hpp
@@ -289,7 +289,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: lib/math/modint.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: lib/math/pow.hpp
       title: lib/math/pow.hpp
     - icon: ':heavy_check_mark:'
@@ -337,7 +337,7 @@ data:
       title: lib/segment_tree/persistent_dual_segment_tree.hpp
     - icon: ':warning:'
       path: lib/segment_tree/persistent_segment_tree.hpp
-      title: lib/segment_tree/persistent_segment_tree.hpp
+      title: "\u6C38\u7D9A\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/segment_tree/segment_tree.hpp
       title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -416,7 +416,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/palindromic_tree.hpp
       title: palindromic tree
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/tree/partially_persistent_union_find.hpp
       title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
     - icon: ':heavy_check_mark:'
@@ -440,11 +440,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - name: test/aoj/jag
-    pages:
-    - icon: ':warning:'
-      path: test/aoj/jag/hopcroft_karp.cpp
-      title: test/aoj/jag/hopcroft_karp.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
@@ -638,6 +633,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/jag/aho_corasick.test.cpp
       title: test/aoj/jag/aho_corasick.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/jag/hopcroft_karp.test.cpp
+      title: test/aoj/jag/hopcroft_karp.test.cpp
   - name: test/aoj/joi
     pages:
     - icon: ':heavy_check_mark:'
@@ -671,6 +669,9 @@ data:
       title: test/aoj/ntl/remainder.test.cpp
   - name: test/aoj/rupc
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/rupc/lazy_segment_tree.test.cpp
+      title: test/aoj/rupc/lazy_segment_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/rupc/range_set.test.cpp
       title: test/aoj/rupc/range_set.test.cpp
@@ -864,6 +865,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yukicoder/0263.test.cpp
       title: test/yukicoder/0263.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yukicoder/0416.test.cpp
+      title: test/yukicoder/0416.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yukicoder/1013.test.cpp
       title: test/yukicoder/1013.test.cpp

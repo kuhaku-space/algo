@@ -47,12 +47,12 @@ data:
     \ lookup;\n    std::vector<std::vector<T>> data;\n};\n"
   dependsOn:
   - lib/internal/internal_bit.hpp
-  - lib/template/template.hpp
   - lib/segment_tree/monoid.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/sparse_table.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/static_rmq.test.cpp

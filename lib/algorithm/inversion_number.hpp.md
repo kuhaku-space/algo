@@ -40,12 +40,12 @@ data:
     \    res += bit.sum(x);\n        bit.add(x, 1);\n    }\n    return res;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
-  - lib/template/template.hpp
   - lib/binary_tree/fenwick_tree.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/algorithm/inversion_number.hpp
   requiredBy: []
-  timestamp: '2023-09-26 22:26:19+09:00'
+  timestamp: '2023-10-01 19:53:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp

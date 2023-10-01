@@ -78,8 +78,8 @@ data:
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
+  - lib/template/template.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
@@ -91,7 +91,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_set_path_composite.test.cpp

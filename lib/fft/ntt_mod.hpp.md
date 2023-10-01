@@ -80,14 +80,14 @@ data:
   - lib/fft/ntt.hpp
   - lib/internal/internal_fft.hpp
   - lib/internal/internal_bit.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/math/modint.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 18:31:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

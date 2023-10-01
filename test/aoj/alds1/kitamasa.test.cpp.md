@@ -3,19 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/math/kitamasa.hpp
-    title: lib/math/kitamasa.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+    title: "\u304D\u305F\u307E\u3055\u6CD5"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,19 +24,16 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/kitamasa.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_10_A\"\n\
-    #include \"math/kitamasa.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n;\n    std::cin >> n;\n    std::vector<ll> a(2, 1), d(2, 1);\n \
-    \   co(kitamasa(a, d, n));\n\n    return 0;\n}\n"
+    #include \"math/kitamasa.hpp\"\n#include <iostream>\n#include <vector>\n\nint\
+    \ main(void) {\n    int n;\n    std::cin >> n;\n    std::vector<std::int64_t>\
+    \ a(2, 1), d(2, 1);\n    std::cout << kitamasa(a, d, n) << std::endl;\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/math/kitamasa.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/kitamasa.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 21:51:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/kitamasa.test.cpp

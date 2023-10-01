@@ -78,13 +78,13 @@ data:
     \    coordinate_compression<T> cps;\n};\n"
   dependsOn:
   - lib/algorithm/compress.hpp
-  - lib/template/template.hpp
   - lib/data_structure/wavelet_matrix.hpp
   - lib/data_structure/bit_vector.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/compressed_wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 22:47:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_kth_smallest.test.cpp

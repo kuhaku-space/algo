@@ -11,13 +11,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
-  - icon: ':warning:'
-    path: test/aoj/jag/hopcroft_karp.cpp
-    title: test/aoj/jag/hopcroft_karp.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/warshall_floyd.test.cpp
     title: test/aoj/grl/warshall_floyd.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/hopcroft_karp.test.cpp
+    title: test/aoj/jag/hopcroft_karp.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/chromatic_number.test.cpp
     title: test/yosupo/graph/chromatic_number.test.cpp
@@ -79,11 +79,11 @@ data:
   requiredBy:
   - lib/graph/chromatic_number.hpp
   - lib/graph/warshall_floyd.hpp
-  - test/aoj/jag/hopcroft_karp.cpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/yosupo/graph/chromatic_number.test.cpp
 documentation_of: lib/graph/matrix_graph.hpp
 layout: document

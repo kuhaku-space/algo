@@ -52,7 +52,7 @@ data:
   isVerificationFile: true
   path: test/aoj/hupc/kmp.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/hupc/kmp.test.cpp

@@ -79,7 +79,7 @@ data:
   isVerificationFile: false
   path: lib/math/eratosthenes.hpp
   requiredBy: []
-  timestamp: '2023-09-27 20:23:46+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/prime_numbers2.test.cpp

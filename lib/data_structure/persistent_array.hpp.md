@@ -64,7 +64,7 @@ data:
   path: lib/data_structure/persistent_array.hpp
   requiredBy:
   - lib/tree/persistent_union_find.hpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/persistent_union_find.test.cpp

@@ -18,12 +18,6 @@ data:
     path: lib/_new/tree64.hpp
     title: lib/_new/tree64.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/algorithm/compress.hpp
-    title: "\u5EA7\u6A19\u5727\u7E2E"
-  - icon: ':heavy_check_mark:'
-    path: lib/algorithm/doubling.hpp
-    title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
-  - icon: ':heavy_check_mark:'
     path: lib/algorithm/inversion_number.hpp
     title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
   - icon: ':heavy_check_mark:'
@@ -48,9 +42,6 @@ data:
     path: lib/binary_tree/binary_trie.hpp
     title: "2\u5206\u30C8\u30E9\u30A4\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/binary_tree/fenwick_tree.hpp
-    title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
-  - icon: ':heavy_check_mark:'
     path: lib/binary_tree/fenwick_tree_raq.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
       \u533A\u9593\u7DCF\u548C\uFF09"
@@ -72,9 +63,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/bit_vector.hpp
-    title: "\u5B8C\u5099\u8F9E\u66F8"
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/compressed_wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
@@ -205,35 +193,14 @@ data:
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
   - icon: ':warning:'
-    path: lib/heap/binary_heap.hpp
-    title: "\u4E8C\u5206\u30D2\u30FC\u30D7"
-  - icon: ':warning:'
     path: lib/heap/fibonacci_heap.hpp
     title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':heavy_check_mark:'
-    path: lib/heap/interval_heap.hpp
-    title: Interval Heap
-  - icon: ':heavy_check_mark:'
-    path: lib/heap/leftist_heap.hpp
-    title: leftist heap
   - icon: ':warning:'
     path: lib/heap/radix_heap.hpp
     title: lib/heap/radix_heap.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/heap/skew_heap.hpp
-    title: skew heap
-  - icon: ':heavy_check_mark:'
-    path: lib/internal/internal_bit.hpp
-    title: lib/internal/internal_bit.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/internal/internal_fft.hpp
     title: lib/internal/internal_fft.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/internal/internal_math.hpp
-    title: lib/internal/internal_math.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/internal/internal_type_traits.hpp
-    title: lib/internal/internal_type_traits.hpp
   - icon: ':warning:'
     path: lib/math/chinese_rem.hpp
     title: "a * x + b * y = gcd(a, b) \u306E\u7B54\u3048\u3092\u4E00\u3064\u6C42\u3081\
@@ -256,9 +223,6 @@ data:
   - icon: ':warning:'
     path: lib/math/hashint.hpp
     title: lib/math/hashint.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/math/kitamasa.hpp
-    title: lib/math/kitamasa.hpp
   - icon: ':warning:'
     path: lib/math/math.hpp
     title: lib/math/math.hpp
@@ -268,7 +232,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: lib/math/pow.hpp
     title: lib/math/pow.hpp
   - icon: ':heavy_check_mark:'
@@ -283,18 +247,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/sqrt.hpp
     title: lib/math/sqrt.hpp
-  - icon: ':warning:'
-    path: lib/random/split_mix_64.hpp
-    title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
-  - icon: ':warning:'
-    path: lib/random/xoroshiro128.hpp
-    title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoroshiro128++"
-  - icon: ':heavy_check_mark:'
-    path: lib/random/xorshift.hpp
-    title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
-  - icon: ':warning:'
-    path: lib/random/xoshiro128.hpp
-    title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoshiro128++"
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/dual_segment_tree.hpp
     title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -304,15 +256,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/lazy_segment_tree.hpp
     title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/monoid.hpp
-    title: lib/segment_tree/monoid.hpp
   - icon: ':warning:'
     path: lib/segment_tree/persistent_dual_segment_tree.hpp
     title: lib/segment_tree/persistent_dual_segment_tree.hpp
   - icon: ':warning:'
     path: lib/segment_tree/persistent_segment_tree.hpp
-    title: lib/segment_tree/persistent_segment_tree.hpp
+    title: "\u6C38\u7D9A\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -382,7 +331,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/tree/palindromic_tree.hpp
     title: palindromic tree
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/tree/partially_persistent_union_find.hpp
     title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
   - icon: ':heavy_check_mark:'
@@ -401,30 +350,15 @@ data:
     path: lib/tree/undo_union_find.hpp
     title: "Undo\u53EF\u80FDUnion-Find"
   - icon: ':heavy_check_mark:'
-    path: lib/tree/union_find.hpp
-    title: "\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - icon: ':heavy_check_mark:'
     path: lib/tree/weighted_union_find.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - icon: ':warning:'
-    path: test/aoj/jag/hopcroft_karp.cpp
-    title: test/aoj/jag/hopcroft_karp.cpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/interval_heap.test.cpp
-    title: test/aoj/alds1/interval_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/inversion_number.test.cpp
     title: test/aoj/alds1/inversion_number.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/kitamasa.test.cpp
-    title: test/aoj/alds1/kitamasa.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/kmp.test.cpp
     title: test/aoj/alds1/kmp.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/leftist_heap.test.cpp
-    title: test/aoj/alds1/leftist_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/prime_numbers.test.cpp
     title: test/aoj/alds1/prime_numbers.test.cpp
@@ -434,9 +368,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/rolling_hash.test.cpp
     title: test/aoj/alds1/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/alds1/skew_heap.test.cpp
-    title: test/aoj/alds1/skew_heap.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/suffix_array.test.cpp
     title: test/aoj/alds1/suffix_array.test.cpp
@@ -500,9 +431,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/union_find.test.cpp
-    title: test/aoj/dsl/union_find.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/weighted_union_find.test.cpp
     title: test/aoj/dsl/weighted_union_find.test.cpp
@@ -585,6 +513,9 @@ data:
     path: test/aoj/jag/aho_corasick.test.cpp
     title: test/aoj/jag/aho_corasick.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/hopcroft_karp.test.cpp
+    title: test/aoj/jag/hopcroft_karp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/joi/rle.test.cpp
     title: test/aoj/joi/rle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -611,6 +542,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/remainder.test.cpp
     title: test/aoj/ntl/remainder.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/rupc/lazy_segment_tree.test.cpp
+    title: test/aoj/rupc/lazy_segment_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/rupc/range_set.test.cpp
     title: test/aoj/rupc/range_set.test.cpp
@@ -651,9 +585,6 @@ data:
     path: test/yosupo/data_structure/persistent_union_find.test.cpp
     title: test/yosupo/data_structure/persistent_union_find.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/point_add_range_sum.test.cpp
-    title: test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
     title: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - icon: ':heavy_check_mark:'
@@ -692,9 +623,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/undo_union_find.test.cpp
     title: test/yosupo/data_structure/undo_union_find.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/unionfind.test.cpp
-    title: test/yosupo/data_structure/unionfind.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
     title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
@@ -780,6 +708,9 @@ data:
     path: test/yukicoder/0263.test.cpp
     title: test/yukicoder/0263.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yukicoder/0416.test.cpp
+    title: test/yukicoder/0416.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/1013.test.cpp
     title: test/yukicoder/1013.test.cpp
   - icon: ':heavy_check_mark:'
@@ -804,36 +735,31 @@ data:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#pragma GCC target(\"sse4.2,avx2,bmi2\"\
     )\r\n#pragma GCC optimize(\"O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n\
-    #include <bits/stdc++.h>\r\ntemplate <class T, class U>\r\nbool chmax(T &a, const\
-    \ U &b) {\r\n    return a < (T)b ? a = (T)b, true : false;\r\n}\r\ntemplate <class\
-    \ T, class U>\r\nbool chmin(T &a, const U &b) {\r\n    return (T)b < a ? a = (T)b,\
-    \ true : false;\r\n}\r\nconstexpr std::int64_t INF = 1000000000000000003;\r\n\
-    constexpr int Inf = 1000000003;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double\
-    \ PI = M_PI;\r\n"
+    #include <bits/stdc++.h>\r\ntemplate <class T, class U>\r\nconstexpr bool chmax(T\
+    \ &a, const U &b) {\r\n    return a < (T)b ? a = (T)b, true : false;\r\n}\r\n\
+    template <class T, class U>\r\nconstexpr bool chmin(T &a, const U &b) {\r\n  \
+    \  return (T)b < a ? a = (T)b, true : false;\r\n}\r\nconstexpr std::int64_t INF\
+    \ = 1000000000000000003;\r\nconstexpr int Inf = 1000000003;\r\nconstexpr double\
+    \ EPS = 1e-7;\r\nconstexpr double PI = M_PI;\r\n"
   code: "#pragma once\r\n#pragma GCC target(\"sse4.2,avx2,bmi2\")\r\n#pragma GCC optimize(\"\
     O3\")\r\n#pragma GCC optimize(\"unroll-loops\")\r\n#include <bits/stdc++.h>\r\n\
-    template <class T, class U>\r\nbool chmax(T &a, const U &b) {\r\n    return a\
-    \ < (T)b ? a = (T)b, true : false;\r\n}\r\ntemplate <class T, class U>\r\nbool\
-    \ chmin(T &a, const U &b) {\r\n    return (T)b < a ? a = (T)b, true : false;\r\
-    \n}\r\nconstexpr std::int64_t INF = 1000000000000000003;\r\nconstexpr int Inf\
-    \ = 1000000003;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr double PI = M_PI;\r\
-    \n"
+    template <class T, class U>\r\nconstexpr bool chmax(T &a, const U &b) {\r\n  \
+    \  return a < (T)b ? a = (T)b, true : false;\r\n}\r\ntemplate <class T, class\
+    \ U>\r\nconstexpr bool chmin(T &a, const U &b) {\r\n    return (T)b < a ? a =\
+    \ (T)b, true : false;\r\n}\r\nconstexpr std::int64_t INF = 1000000000000000003;\r\
+    \nconstexpr int Inf = 1000000003;\r\nconstexpr double EPS = 1e-7;\r\nconstexpr\
+    \ double PI = M_PI;\r\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/template/template.hpp
   requiredBy:
   - lib/algorithm/inversion_number.hpp
   - lib/algorithm/rle.hpp
-  - lib/algorithm/doubling.hpp
   - lib/algorithm/mo.hpp
   - lib/algorithm/rollback_mo.hpp
   - lib/algorithm/mex.hpp
   - lib/algorithm/lis.hpp
-  - lib/algorithm/compress.hpp
-  - lib/internal/internal_math.hpp
   - lib/internal/internal_fft.hpp
-  - lib/internal/internal_type_traits.hpp
-  - lib/internal/internal_bit.hpp
   - lib/geometry/geometry3d.hpp
   - lib/geometry/geometry.hpp
   - lib/geometry/cht.hpp
@@ -847,14 +773,12 @@ data:
   - lib/segment_tree/persistent_dual_segment_tree.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
-  - lib/segment_tree/monoid.hpp
   - lib/binary_tree/treap.hpp
   - lib/binary_tree/binary_trie.hpp
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/binary_tree/range_set.hpp
   - lib/binary_tree/scapegoat_tree.hpp
   - lib/binary_tree/avl_tree.hpp
-  - lib/binary_tree/fenwick_tree.hpp
   - lib/binary_tree/patricia_binary_trie.hpp
   - lib/binary_tree/range_tree.hpp
   - lib/graph/dijkstra_potential.hpp
@@ -900,7 +824,6 @@ data:
   - lib/math/fraction.hpp
   - lib/math/eratosthenes.hpp
   - lib/math/matrix.hpp
-  - lib/math/kitamasa.hpp
   - lib/math/pow.hpp
   - lib/math/prime_number.hpp
   - lib/math/chinese_rem.hpp
@@ -919,15 +842,9 @@ data:
   - lib/tree/link_cut_tree.hpp
   - lib/tree/stern_brocot_tree.hpp
   - lib/tree/palindromic_tree.hpp
-  - lib/tree/union_find.hpp
   - lib/tree/tree_function.hpp
   - lib/tree/undo_union_find.hpp
-  - lib/random/xoshiro128.hpp
-  - lib/random/xoroshiro128.hpp
-  - lib/random/xorshift.hpp
-  - lib/random/split_mix_64.hpp
   - lib/data_structure/persistent_queue.hpp
-  - lib/data_structure/bit_vector.hpp
   - lib/data_structure/sparse_table.hpp
   - lib/data_structure/swag.hpp
   - lib/data_structure/li_chao_tree.hpp
@@ -940,10 +857,6 @@ data:
   - lib/data_structure/compressed_wavelet_matrix.hpp
   - lib/data_structure/wavelet_matrix.hpp
   - lib/heap/radix_heap.hpp
-  - lib/heap/skew_heap.hpp
-  - lib/heap/leftist_heap.hpp
-  - lib/heap/interval_heap.hpp
-  - lib/heap/binary_heap.hpp
   - lib/heap/fibonacci_heap.hpp
   - lib/_new/cumulative_sum_2d.hpp
   - lib/_new/tree64.hpp
@@ -956,8 +869,7 @@ data:
   - lib/fft/fft.hpp
   - lib/fft/ntt.hpp
   - lib/fft/fft_mod.hpp
-  - test/aoj/jag/hopcroft_karp.cpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/icpc/stern_brocot_tree.test.cpp
@@ -996,7 +908,9 @@ data:
   - test/aoj/grl/kruskal.test.cpp
   - test/aoj/grl/bipartite_matching.test.cpp
   - test/aoj/rupc/range_set.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
   - test/aoj/jag/aho_corasick.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/aoj/cgl/intersection.test.cpp
   - test/aoj/cgl/parallel_orthogonal.test.cpp
   - test/aoj/cgl/counter-clockwise.test.cpp
@@ -1009,11 +923,7 @@ data:
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp
   - test/aoj/alds1/rolling_hash.test.cpp
   - test/aoj/alds1/suffix_array.test.cpp
-  - test/aoj/alds1/leftist_heap.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
-  - test/aoj/alds1/skew_heap.test.cpp
-  - test/aoj/alds1/kitamasa.test.cpp
-  - test/aoj/alds1/interval_heap.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/alds1/prime_numbers2.test.cpp
   - test/aoj/alds1/kmp.test.cpp
@@ -1027,7 +937,6 @@ data:
   - test/aoj/dsl/rsq.test.cpp
   - test/aoj/dsl/ruq.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
-  - test/aoj/dsl/union_find.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
   - test/yosupo/geometry/sort_points_by_argument.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
@@ -1062,7 +971,6 @@ data:
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/yosupo/data_structure/persistent_queue.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/segment_add_get_min.test.cpp
   - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
@@ -1076,7 +984,6 @@ data:
   - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
   - test/yosupo/data_structure/static_range_sum.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
   - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
@@ -1086,6 +993,7 @@ data:
   - test/yukicoder/1013.test.cpp
   - test/yukicoder/1211.test.cpp
   - test/yukicoder/1097.test.cpp
+  - test/yukicoder/0416.test.cpp
   - test/yukicoder/1977.test.cpp
   - test/yukicoder/0263.test.cpp
   - test/yukicoder/1242.test.cpp

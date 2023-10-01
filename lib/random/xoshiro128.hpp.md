@@ -4,9 +4,6 @@ data:
   - icon: ':warning:'
     path: lib/random/split_mix_64.hpp
     title: "\u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 SplitMix64"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -24,14 +21,14 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: random/split_mix_64.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"random/split_mix_64.hpp\"\n#include \"template/template.hpp\"\
-    \n\n/**\n * @brief \u7591\u4F3C\u4E71\u6570\u751F\u6210\u5668 xoshiro128++\n *\
-    \ @details \u5468\u671F\uFF1A$2^128-1$\n */\nstruct xoshiro128 {\n    using state_type\
-    \ = std::array<std::uint32_t, 4>;\n    using result_type = std::uint32_t;\n\n\
-    \    constexpr xoshiro128() : state() {\n        split_mix_64 split_mix{};\n \
-    \       for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());\n \
-    \   }\n    constexpr xoshiro128(std::int64_t seed) noexcept : state() {\n    \
-    \    split_mix_64 split_mix{seed};\n        for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());\n\
+  code: "#pragma once\n#include <array>\n#include <cstdint>\n#include <limits>\n#include\
+    \ <utility>\n#include \"random/split_mix_64.hpp\"\n\n/**\n * @brief \u7591\u4F3C\
+    \u4E71\u6570\u751F\u6210\u5668 xoshiro128++\n * @details \u5468\u671F\uFF1A$2^128-1$\n\
+    \ */\nstruct xoshiro128 {\n    using state_type = std::array<std::uint32_t, 4>;\n\
+    \    using result_type = std::uint32_t;\n\n    constexpr xoshiro128() : state()\
+    \ {\n        split_mix_64 split_mix{};\n        for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());\n\
+    \    }\n    constexpr xoshiro128(std::int64_t seed) noexcept : state() {\n   \
+    \     split_mix_64 split_mix{seed};\n        for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());\n\
     \    }\n\n    static constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min();\
     \ }\n    static constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max();\
     \ }\n    constexpr result_type operator()() {\n        const std::uint32_t result\
@@ -55,11 +52,10 @@ data:
     \ | (x >> (32 - s));\n    }\n};\n"
   dependsOn:
   - lib/random/split_mix_64.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/random/xoshiro128.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-02 03:03:19+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/random/xoshiro128.hpp

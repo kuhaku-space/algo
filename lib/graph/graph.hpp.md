@@ -106,6 +106,9 @@ data:
     path: test/aoj/jag/aho_corasick.test.cpp
     title: test/aoj/jag/aho_corasick.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/rupc/lazy_segment_tree.test.cpp
+    title: test/aoj/rupc/lazy_segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/undo_union_find.test.cpp
     title: test/yosupo/data_structure/undo_union_find.test.cpp
   - icon: ':heavy_check_mark:'
@@ -244,7 +247,7 @@ data:
   - lib/tree/eular_tour.hpp
   - lib/tree/centroid_decomposition.hpp
   - lib/tree/tree_function.hpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/bellman_ford.test.cpp
@@ -260,6 +263,7 @@ data:
   - test/aoj/grl/articulation_points.test.cpp
   - test/aoj/grl/prim.test.cpp
   - test/aoj/grl/kruskal.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
   - test/aoj/jag/aho_corasick.test.cpp
   - test/yosupo/graph/strongly_connected_components.test.cpp
   - test/yosupo/graph/shortest_path.test.cpp

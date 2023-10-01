@@ -4,14 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/aoj/jag/hopcroft_karp.cpp
-    title: test/aoj/jag/hopcroft_karp.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/bipartite_matching.2.test.cpp
     title: test/aoj/grl/bipartite_matching.2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/jag/hopcroft_karp.test.cpp
+    title: test/aoj/jag/hopcroft_karp.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp
     title: test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp
@@ -56,12 +56,12 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/flow/hopcroft_karp.hpp
-  requiredBy:
-  - test/aoj/jag/hopcroft_karp.cpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  requiredBy: []
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/bipartite_matching.2.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp
 documentation_of: lib/flow/hopcroft_karp.hpp
 layout: document

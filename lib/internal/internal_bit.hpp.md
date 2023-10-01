@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/range_tree.hpp
@@ -27,6 +24,12 @@ data:
     path: lib/internal/internal_fft.hpp
     title: lib/internal/internal_fft.hpp
   - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/dual_segment_tree.hpp
+    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
+    path: lib/segment_tree/lazy_segment_tree.hpp
+    title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
+  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
@@ -42,6 +45,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq.test.cpp
     title: test/aoj/dsl/rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rmq_ruq.test.cpp
+    title: test/aoj/dsl/rmq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/rsq_ruq.test.cpp
+    title: test/aoj/dsl/rsq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/ruq.test.cpp
+    title: test/aoj/dsl/ruq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/ntl/addition.test.cpp
     title: test/aoj/ntl/addition.test.cpp
@@ -61,6 +73,9 @@ data:
     path: test/aoj/ntl/remainder.test.cpp
     title: test/aoj/ntl/remainder.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/rupc/lazy_segment_tree.test.cpp
+    title: test/aoj/rupc/lazy_segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -76,6 +91,9 @@ data:
     path: test/yosupo/data_structure/point_set_range_composite.test.cpp
     title: test/yosupo/data_structure/point_set_range_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -89,30 +107,29 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
-    \ line -1: no such header\n"
-  code: "#pragma once\n#include \"template/template.hpp\"\n\nnamespace internal {\n\
+  bundledCode: "#line 2 \"lib/internal/internal_bit.hpp\"\n\nnamespace internal {\n\
     \n// @return same with std::bit::bit_ceil\nunsigned int bit_ceil(unsigned int\
     \ n) {\n    unsigned int x = 1;\n    while (x < (unsigned int)(n)) x *= 2;\n \
     \   return x;\n}\n\n// @param n `1 <= n`\n// @return same with std::bit::countr_zero\n\
-    int countr_zero(unsigned int n) {\n    return __builtin_ctz(n);\n}\n\n// @param\
-    \ n `1 <= n`\n// @return same with std::bit::countr_zero\nconstexpr int countr_zero_constexpr(unsigned\
+    int countr_zero(unsigned int n) { return __builtin_ctz(n); }\n\n// @param n `1\
+    \ <= n`\n// @return same with std::bit::countr_zero\nconstexpr int countr_zero_constexpr(unsigned\
     \ int n) {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n\
     }\n\n}  // namespace internal\n"
-  dependsOn:
-  - lib/template/template.hpp
+  code: "#pragma once\n\nnamespace internal {\n\n// @return same with std::bit::bit_ceil\n\
+    unsigned int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x\
+    \ < (unsigned int)(n)) x *= 2;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return\
+    \ same with std::bit::countr_zero\nint countr_zero(unsigned int n) { return __builtin_ctz(n);\
+    \ }\n\n// @param n `1 <= n`\n// @return same with std::bit::countr_zero\nconstexpr\
+    \ int countr_zero_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n\
+    \ & (1 << x))) x++;\n    return x;\n}\n\n}  // namespace internal\n"
+  dependsOn: []
   isVerificationFile: false
   path: lib/internal/internal_bit.hpp
   requiredBy:
   - lib/internal/internal_fft.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
   - lib/segment_tree/segment_tree.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
   - lib/segment_tree/segment_tree_raq.hpp
   - lib/binary_tree/range_tree.hpp
   - lib/data_structure/sparse_table.hpp
@@ -120,7 +137,7 @@ data:
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 18:30:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ntl/division.test.cpp
@@ -129,9 +146,14 @@ data:
   - test/aoj/ntl/difference.test.cpp
   - test/aoj/ntl/addition.test.cpp
   - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
   - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/yosupo/data_structure/addition_of_big_integers.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp

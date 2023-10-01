@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: lib/tree/stern_brocot_tree.hpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/icpc/stern_brocot_tree.test.cpp

@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: lib/internal/internal_bit.hpp
+    title: lib/internal/internal_bit.hpp
+  - icon: ':heavy_check_mark:'
     path: lib/internal/internal_math.hpp
     title: lib/internal/internal_math.hpp
   - icon: ':heavy_check_mark:'
@@ -10,9 +13,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/math/pow.hpp
-    title: lib/math/pow.hpp
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/lazy_segment_tree.hpp
     title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
@@ -71,10 +71,10 @@ data:
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
-  - lib/template/template.hpp
   - lib/internal/internal_type_traits.hpp
+  - lib/template/template.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/math/pow.hpp
+  - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
@@ -82,7 +82,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/range_affine_range_sum.test.cpp

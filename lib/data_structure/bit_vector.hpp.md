@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/compressed_wavelet_matrix.hpp
@@ -28,17 +25,8 @@ data:
     document_title: "\u5B8C\u5099\u8F9E\u66F8"
     links:
     - https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.hpp
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
-    \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\n\n/**\n * @brief \u5B8C\u5099\u8F9E\u66F8\
-    \n *\n * @see https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.hpp\n\
+  bundledCode: "#line 1 \"lib/data_structure/bit_vector.hpp\"\n#include <vector>\n\
+    \n/**\n * @brief \u5B8C\u5099\u8F9E\u66F8\n *\n * @see https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.hpp\n\
     \ */\nstruct bit_vector {\n    bit_vector() = default;\n    bit_vector(unsigned\
     \ int _length)\n        : length(_length), blocks((_length + 31) >> 5), bit((_length\
     \ + 31) >> 5),\n          sum((_length + 31) >> 5) {}\n\n    void set(unsigned\
@@ -57,14 +45,33 @@ data:
     \ & ((1U << m) - 1)) < k) bl = m;\n            else br = m;\n        }\n     \
     \   return (sl << 5) + bl;\n    }\n\n  private:\n    unsigned int length, blocks;\n\
     \    std::vector<unsigned int> bit, sum;\n};\n"
-  dependsOn:
-  - lib/template/template.hpp
+  code: "#include <vector>\n\n/**\n * @brief \u5B8C\u5099\u8F9E\u66F8\n *\n * @see\
+    \ https://ei1333.github.io/library/structure/wavelet/succinct-indexable-dictionary.hpp\n\
+    \ */\nstruct bit_vector {\n    bit_vector() = default;\n    bit_vector(unsigned\
+    \ int _length)\n        : length(_length), blocks((_length + 31) >> 5), bit((_length\
+    \ + 31) >> 5),\n          sum((_length + 31) >> 5) {}\n\n    void set(unsigned\
+    \ int k) { bit[k >> 5] |= 1U << (k & 31); }\n\n    void build() {\n        sum[0]\
+    \ = 0U;\n        for (unsigned int i = 1; i < blocks; ++i) {\n            sum[i]\
+    \ = sum[i - 1] + __builtin_popcount(bit[i - 1]);\n        }\n    }\n\n    bool\
+    \ operator[](unsigned int k) const { return bit[k >> 5] >> (k & 31) & 1; }\n\n\
+    \    unsigned int rank(unsigned int k) const {\n        return sum[k >> 5] + __builtin_popcount(bit[k\
+    \ >> 5] & ((1U << (k & 31)) - 1));\n    }\n    unsigned int rank(bool val, unsigned\
+    \ int k) const { return val ? rank(k) : k - rank(k); }\n\n    unsigned int select(unsigned\
+    \ int k) const {\n        unsigned int sl = 0, sr = blocks + 1;\n        while\
+    \ (sr - sl > 1) {\n            unsigned int m = (sl + sr) >> 1;\n            if\
+    \ (sum[m] < k) sl = m;\n            else sr = m;\n        }\n        k -= sum[sl];\n\
+    \        unsigned int bl = 0, br = 32;\n        while (br - bl > 1) {\n      \
+    \      unsigned int m = (bl + br) >> 1;\n            if (__builtin_popcount(bit[sl]\
+    \ & ((1U << m) - 1)) < k) bl = m;\n            else br = m;\n        }\n     \
+    \   return (sl << 5) + bl;\n    }\n\n  private:\n    unsigned int length, blocks;\n\
+    \    std::vector<unsigned int> bit, sum;\n};\n"
+  dependsOn: []
   isVerificationFile: false
   path: lib/data_structure/bit_vector.hpp
   requiredBy:
   - lib/data_structure/compressed_wavelet_matrix.hpp
   - lib/data_structure/wavelet_matrix.hpp
-  timestamp: '2023-09-26 21:06:03+09:00'
+  timestamp: '2023-10-01 22:47:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_kth_smallest.test.cpp

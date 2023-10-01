@@ -26,8 +26,10 @@ data:
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2251
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/2251
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
@@ -60,16 +62,16 @@ data:
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
   - lib/template/sonic.hpp
-  isVerificationFile: false
-  path: test/aoj/jag/hopcroft_karp.cpp
+  isVerificationFile: true
+  path: test/aoj/jag/hopcroft_karp.test.cpp
   requiredBy: []
-  timestamp: '2023-09-26 21:06:03+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2023-10-01 03:35:18+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/jag/hopcroft_karp.cpp
+documentation_of: test/aoj/jag/hopcroft_karp.test.cpp
 layout: document
 redirect_from:
-- /library/test/aoj/jag/hopcroft_karp.cpp
-- /library/test/aoj/jag/hopcroft_karp.cpp.html
-title: test/aoj/jag/hopcroft_karp.cpp
+- /verify/test/aoj/jag/hopcroft_karp.test.cpp
+- /verify/test/aoj/jag/hopcroft_karp.test.cpp.html
+title: test/aoj/jag/hopcroft_karp.test.cpp
 ---
