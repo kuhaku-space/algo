@@ -1,19 +1,16 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
-#include "template/atcoder.hpp"
+#include <iostream>
 #include "tree/union_find.hpp"
 
 int main(void) {
-    sonic();
     int n, q;
-    cin >> n >> q;
+    std::cin >> n >> q;
     union_find uf(n);
-    rep(i, q) {
+    while (q--) {
         int t, u, v;
-        cin >> t >> u >> v;
-        if (t == 0)
-            uf.unite(u, v);
-        else
-            cout << uf.same(u, v) << endl;
+        std::cin >> t >> u >> v;
+        if (t == 0) uf.unite(u, v);
+        else std::cout << uf.same(u, v) << std::endl;
     }
 
     return 0;
