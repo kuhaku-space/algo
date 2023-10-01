@@ -35,7 +35,7 @@ struct binary_heap {
 
     std::pair<Key, Value> top() const { return nodes[1]->get_pair(); }
     constexpr int size() const { return _size; }
-    constexpr bool empty() const { return size() == 0; }
+    constexpr bool empty() const { return _size == 0; }
 
     node_pointer push(Key key, Value value) {
         auto node = new _node(key, value);
@@ -58,8 +58,8 @@ struct binary_heap {
         nodes.pop_back();
 
         int index = 1 << 1;
-        while (index <= size()) {
-            if (index < size() && comp(nodes[index]->value, nodes[index + 1]->value)) ++index;
+        while (index <= _size) {
+            if (index < _size && comp(nodes[index]->value, nodes[index + 1]->value)) ++index;
             if (comp(nodes[index]->value, nodes[index >> 1]->value)) break;
             std::swap(nodes[index >> 1], nodes[index]);
             nodes[index >> 1]->set_index(index >> 1);
