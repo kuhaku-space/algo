@@ -55,6 +55,7 @@ template <class T>
 std::vector<T> compress(const std::vector<T> &v) {
     coordinate_compression cps(v);
     std::vector<T> res;
+    res.reserve(std::size(v));
     for (auto &&x : v) res.emplace_back(cps.get(x));
     return res;
 }
