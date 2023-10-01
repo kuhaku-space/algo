@@ -1,20 +1,21 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C"
 #include "heap/interval_heap.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <string>
 
 int main(void) {
     interval_heap<int> heap;
     while (true) {
-        string s;
-        cin >> s;
+        std::string s;
+        std::cin >> s;
         if (s == "end") {
             break;
         } else if (s == "insert") {
             int x;
-            cin >> x;
+            std::cin >> x;
             heap.push(x);
         } else {
-            co(heap.get_max());
+            std::cout << heap.get_max() << std::endl;
             heap.pop_max();
         }
     }
