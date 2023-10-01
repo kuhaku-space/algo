@@ -1,6 +1,9 @@
 #pragma once
+#include <array>
+#include <cstdint>
+#include <limits>
+#include <utility>
 #include "random/split_mix_64.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 疑似乱数生成器 xoshiro128++

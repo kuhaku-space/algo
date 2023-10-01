@@ -1,20 +1,21 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C"
 #include "heap/skew_heap.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <string>
 
 int main(void) {
     skew_heap<int> heap;
     while (true) {
-        string s;
-        cin >> s;
+        std::string s;
+        std::cin >> s;
         if (s == "end") {
             break;
         } else if (s == "insert") {
             int x;
-            cin >> x;
+            std::cin >> x;
             heap.push(x);
         } else {
-            co(heap.top());
+            std::cout << heap.top() << std::endl;
             heap.pop();
         }
     }

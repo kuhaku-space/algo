@@ -1,4 +1,4 @@
-#include "template/template.hpp"
+#include <vector>
 
 /**
  * @brief 完備辞書

@@ -1,5 +1,7 @@
 #pragma once
-#include "template/template.hpp"
+#include <algorithm>
+#include <iterator>
+#include <vector>
 
 /**
  * @brief 座標圧縮
@@ -17,11 +19,6 @@ struct coordinate_compression {
     void add(T x) { data.emplace_back(x); }
 
     void build() {
-        std::sort(std::begin(data), std::end(data));
-        data.erase(std::unique(std::begin(data), std::end(data)), std::end(data));
-    }
-    void build(const std::vector<T> &v) {
-        data = v;
         std::sort(std::begin(data), std::end(data));
         data.erase(std::unique(std::begin(data), std::end(data)), std::end(data));
     }
@@ -46,13 +43,14 @@ struct coordinate_compression {
  * @brief 座標圧縮
  *
  * @tparam T 要素の型
- * @param v
+ * @param v 配列
  * @return std::vector<T>
  */
 template <class T>
 std::vector<T> compress(const std::vector<T> &v) {
     coordinate_compression cps(v);
     std::vector<T> res;
+    res.reserve(std::size(v));
     for (auto &&x : v) res.emplace_back(cps.get(x));
     return res;
 }

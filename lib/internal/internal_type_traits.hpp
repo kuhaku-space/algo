@@ -1,5 +1,7 @@
 #pragma once
-#include "template/template.hpp"
+#include <cassert>
+#include <numeric>
+#include <type_traits>
 
 namespace internal {
 
