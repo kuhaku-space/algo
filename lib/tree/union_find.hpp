@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <utility>
+#include <vector>
 
 /**
  * @brief 素集合データ構造
