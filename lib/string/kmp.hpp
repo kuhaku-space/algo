@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <vector>
 
 /**
  * @brief KMP法
