@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 /**
  * @brief ダブリング
