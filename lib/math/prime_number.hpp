@@ -1,4 +1,9 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 /**
  * @brief 素数ライブラリ
@@ -71,9 +76,7 @@ struct prime_number {
         for (auto p : v) {
             int n = res.size();
             res.resize(n * (p.second + 1));
-            for (int i = 0; i < n * p.second; ++i) {
-                res[n + i] = res[i] * p.first;
-            }
+            for (int i = 0; i < n * p.second; ++i) res[n + i] = res[i] * p.first;
             for (int i = 1; i <= p.second; ++i) {
                 std::inplace_merge(res.begin(), res.begin() + n * i, res.begin() + n * (i + 1));
             }
