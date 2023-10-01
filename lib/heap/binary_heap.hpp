@@ -83,6 +83,6 @@ struct binary_heap {
     std::vector<node_pointer> nodes;
     Comp comp;
 
-    constexpr int increment_size() { return ++(_size); }
-    constexpr int decrement_size() { return (_size)--; }
+    constexpr int increment_size() { return ++_size; }
+    constexpr int decrement_size() { return _size--; }
 };
