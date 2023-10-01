@@ -1,15 +1,12 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D"
 #include "algorithm/inversion_number.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n;
-    cin >> n;
-    vector<int> a(n);
-    cin >> a;
-
-    co(inversion_number(a));
+    std::cin >> n;
+    std::vector<int> a(n);
+    std::copy_n(std::istream_iterator<int>(std::cin), n, std::begin(a));
+    std::cout << inversion_number(a) << std::endl;
 
     return 0;
 }
