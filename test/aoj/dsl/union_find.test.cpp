@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A"
 #include "tree/union_find.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
     int n, q;
@@ -10,7 +10,7 @@ int main(void) {
         int com, x, y;
         std::cin >> com >> x >> y;
         if (com == 0) uf.unite(x, y);
-        else co(uf.same(x, y));
+        else std::cout << uf.same(x, y) << std::endl;
     }
 
     return 0;
