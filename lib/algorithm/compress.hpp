@@ -1,5 +1,7 @@
 #pragma once
-#include "template/template.hpp"
+#include <algorithm>
+#include <iterator>
+#include <vector>
 
 /**
  * @brief 座標圧縮
