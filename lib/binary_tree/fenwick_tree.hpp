@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <cassert>
+#include <vector>
 
 /**
  * @brief フェニック木
