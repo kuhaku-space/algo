@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iterator>
 #include <utility>
 #include <vector>
