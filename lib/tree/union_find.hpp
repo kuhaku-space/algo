@@ -7,8 +7,8 @@
  * @see https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
  */
 struct union_find {
-    union_find() : data() {}
-    union_find(int _n) : data(_n, -1) {}
+    union_find() = default;
+    explicit union_find(int _n) : data(_n, -1) {}
 
     int root(int x) { return data[x] < 0 ? x : data[x] = root(data[x]); }
     int get_root(int x) { return root(x); }
