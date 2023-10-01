@@ -27,7 +27,7 @@ struct leftist_heap {
 
   public:
     using value_type = T;
-    using node_ptr = typename _node::pointer;
+    using node_pointer = typename _node::pointer;
 
     leftist_heap() : _root() {}
 
@@ -53,10 +53,10 @@ struct leftist_heap {
     constexpr void meld(const leftist_heap<T, Comp> &rhs) { _root = meld(_root, rhs._root); }
 
   private:
-    node_ptr _root;
+    node_pointer _root;
     Comp _comp;
 
-    constexpr node_ptr meld(node_ptr a, node_ptr b) {
+    constexpr node_pointer meld(node_pointer a, node_pointer b) {
         if (!a) return b;
         if (!b) return a;
         if (_comp(a->_val, b->_val)) std::swap(a, b);
