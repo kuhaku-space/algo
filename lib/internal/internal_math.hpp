@@ -1,5 +1,6 @@
 #pragma once
-#include "template/template.hpp"
+#include <cstdint>
+#include <utility>
 
 namespace internal {
 
