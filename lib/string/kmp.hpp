@@ -3,10 +3,9 @@
 
 /**
  * @brief KMP法
+ * @see https://snuke.hatenablog.com/entry/2014/12/01/235807
  *
  * @tparam Container
- *
- * @see https://snuke.hatenablog.com/entry/2014/12/01/235807
  */
 template <class Container>
 struct knuth_morris_pratt {
