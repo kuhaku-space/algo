@@ -22,11 +22,6 @@ struct coordinate_compression {
         std::sort(std::begin(data), std::end(data));
         data.erase(std::unique(std::begin(data), std::end(data)), std::end(data));
     }
-    void build(const std::vector<T> &v) {
-        data = v;
-        std::sort(std::begin(data), std::end(data));
-        data.erase(std::unique(std::begin(data), std::end(data)), std::end(data));
-    }
 
     bool exists(T x) const {
         auto it = std::lower_bound(std::begin(data), std::end(data), x);
