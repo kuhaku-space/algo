@@ -48,7 +48,7 @@ struct coordinate_compression {
  * @brief 座標圧縮
  *
  * @tparam T 要素の型
- * @param v
+ * @param v 配列
  * @return std::vector<T>
  */
 template <class T>
