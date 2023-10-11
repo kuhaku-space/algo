@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 
 /**
  * @brief 点
@@ -13,7 +16,7 @@ struct Point {
     constexpr Point(T _x, T _y) : x(_x), y(_y) {}
 
     constexpr Point &operator-=(const Point &rhs) {
-        this->x -= rhs.x, this->y -= rhs.y;
+        x -= rhs.x, y -= rhs.y;
         return *this;
     }
 
@@ -21,7 +24,7 @@ struct Point {
         T x, y;
         is >> x >> y;
         rhs = Point(x, y);
-        return (is);
+        return is;
     }
 };
 
@@ -35,8 +38,8 @@ struct Point {
 template <class T>
 std::vector<Point<T>> convex_hull(std::vector<Point<T>> points) {
     int n = points.size(), k = 0;
-    std::sort(points.begin(), points.end(), [](const Point<T> &a, const Point<T> &b) {
-        return a.x != b.x ? a.x < b.x : a.y < b.y;
+    std::sort(std::begin(points), std::end(points), [](const Point<T> &a, const Point<T> &b) {
+        return a.x == b.x ? a.y < b.y : a.x < b.x;
     });
     std::vector<Point<T>> res(n << 1);
     auto cross = [](Point<T> a, Point<T> b, const Point<T> &c) {
