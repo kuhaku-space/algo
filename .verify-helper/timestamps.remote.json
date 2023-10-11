@@ -108,6 +108,7 @@
 "test/yosupo/graph/strongly_connected_components.test.cpp": "2023-10-12 00:40:28 +0900",
 "test/yosupo/math/floor_sum.test.cpp": "2023-10-12 02:12:08 +0900",
 "test/yosupo/math/longest_increasing_subsequence.test.cpp": "2023-10-01 03:35:18 +0900",
+"test/yosupo/math/min_linear.test.cpp": "2023-10-12 07:01:20 +0900",
 "test/yosupo/math/montmort_number.test.cpp": "2023-10-01 03:35:18 +0900",
 "test/yosupo/math/number_of_subsequences.test.cpp": "2023-10-01 19:53:24 +0900",
 "test/yosupo/math/sqrt_mod.test.cpp": "2023-10-01 18:31:16 +0900",
