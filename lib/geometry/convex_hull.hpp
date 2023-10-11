@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 
 /**
  * @brief 点
