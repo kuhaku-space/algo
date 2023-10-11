@@ -1,22 +1,25 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A"
 #include "geometry/convex_hull.hpp"
-#include "template/atcoder.hpp"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 
 int main(void) {
     int n;
-    cin >> n;
-    vector<Point<ll>> ps(n);
-    cin >> ps;
+    std::cin >> n;
+    std::vector<Point<int>> ps(n);
+    std::copy_n(std::istream_iterator<Point<int>>(std::cin), n, std::begin(ps));
     auto v = convex_hull(ps);
-    co(v.size());
+    std::cout << std::size(v) << '\n';
 
     int t = 0;
-    rep (i, n) {
+    for (int i = 0; i < n; ++i) {
         if (v[i].y < v[t].y || (v[i].y == v[t].y && v[i].x < v[i].y)) t = i;
     }
 
-    rotate(v.begin(), v.begin() + t, v.end());
-    for (auto &[x, y] : v) co(x, y);
+    std::rotate(std::begin(v), std::begin(v) + t, std::end(v));
+    for (auto &[x, y] : v) std::cout << x << ' ' << y << '\n';
 
     return 0;
 }
