@@ -1,6 +1,6 @@
-#pragma once
+#include <algorithm>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 #include "tree/union_find.hpp"
 
 /**
