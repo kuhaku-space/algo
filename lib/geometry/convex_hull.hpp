@@ -16,7 +16,7 @@ struct Point {
     constexpr Point(T _x, T _y) : x(_x), y(_y) {}
 
     constexpr Point &operator-=(const Point &rhs) {
-        this->x -= rhs.x, this->y -= rhs.y;
+        x -= rhs.x, y -= rhs.y;
         return *this;
     }
 
