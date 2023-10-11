@@ -1,5 +1,6 @@
 #pragma once
-#include "template/template.hpp"
+#include <iostream>
+#include <vector>
 
 /**
  * @brief 重み付きグラフ
