@@ -9,7 +9,7 @@ int longest_common_prefix(const std::vector<T> &a, const std::vector<T> &b) {
     return m;
 }
 
-int longest_common_prefix(const string &a, const string &b) {
+int longest_common_prefix(const std::string &a, const std::string &b) {
     int m = (int)std::min(a.size(), b.size());
     for (int i = 0; i < m; ++i) {
         if (a[i] != b[i]) return i;
