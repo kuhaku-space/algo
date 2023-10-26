@@ -28,7 +28,7 @@ struct Trie {
 
     int size() const noexcept { return this->nodes.size(); }
 
-    std::vector<int> insert(const string &word) {
+    std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
@@ -44,7 +44,7 @@ struct Trie {
         return res;
     }
 
-    int search_id(const string &word) {
+    int search_id(const std::string &word) {
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
             int c = word[i] - base;
