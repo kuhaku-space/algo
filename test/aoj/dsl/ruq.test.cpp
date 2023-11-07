@@ -1,11 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D"
+#include <iostream>
+#include <limits>
 #include "segment_tree/dual_segment_tree.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    dual_segment_tree<Update<int>> st(n, (1LL << 31) - 1);
+    dual_segment_tree<Update<int>> st(n, std::numeric_limits<int>::max());
     while (q--) {
         int com;
         std::cin >> com;
@@ -16,7 +17,7 @@ int main(void) {
         } else {
             int x;
             std::cin >> x;
-            co(st.get(x));
+            std::cout << st.get(x) << std::endl;
         }
     }
 

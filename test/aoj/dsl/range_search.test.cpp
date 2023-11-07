@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C"
+#include <algorithm>
+#include <iostream>
 #include "geometry/kdtree.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n;
@@ -20,7 +21,7 @@ int main(void) {
         std::cin >> sx >> tx >> sy >> ty;
         auto v = kd.find(sx, tx + 1, sy, ty + 1);
         std::sort(v.begin(), v.end());
-        for (auto e : v) co(e);
+        for (auto e : v) std::cout << e << std::endl;
         std::cout << std::endl;
     }
 
