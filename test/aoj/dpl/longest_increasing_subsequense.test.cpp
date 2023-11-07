@@ -10,7 +10,7 @@ int main(void) {
     std::cin >> n;
     std::vector<int> a(n);
     std::copy_n(std::istream_iterator<int>(std::cin), n, std::begin(a));
-    std::cout << longest_increasing_subsequence(a) std::endl;
+    std::cout << longest_increasing_subsequence(a) << std::endl;
 
     return 0;
 }
