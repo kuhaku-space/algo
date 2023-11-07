@@ -1,13 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_I"
+#include <iostream>
 #include "math/enumeration.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, k;
-    cin >> n >> k;
+    std::cin >> n >> k;
     Enumeration<modint107> enume;
-    co(enume.stirling(n, k));
+    std::cout << enume.stirling(n, k) << std::endl;
 
     return 0;
 }
