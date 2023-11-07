@@ -2,6 +2,7 @@
 #define ERROR 0.00000001
 #include <iostream>
 #include "geometry/geometry.hpp"
+#include "template/sonic.hpp"
 
 int main(void) {
     Point<double> a, b;
