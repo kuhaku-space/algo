@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B"
+#include <iostream>
 #include "geometry/geometry.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int q;
@@ -9,7 +9,7 @@ int main(void) {
         Point<double> a, b, c, d;
         std::cin >> a >> b >> c >> d;
         Line l(a, b), r(c, d);
-        co(intersection(l, r));
+        std::cout << intersection(l, r) << std::endl;
     }
 
     return 0;

@@ -1,7 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_A"
 #define ERROR 0.00000001
+#include <iostream>
 #include "geometry/geometry.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     Point<double> a, b;
@@ -13,7 +13,7 @@ int main(void) {
         Point<double> p;
         std::cin >> p;
         auto ans = l.proj(p);
-        co(ans);
+        std::cout << ans << std::endl;
     }
 
     return 0;

@@ -1,6 +1,8 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I"
+#include <iostream>
+#include <limits>
+#include <utility>
 #include "segment_tree/lazy_segment_tree.hpp"
-#include "template/atcoder.hpp"
 
 struct M1 {
     using T = std::pair<int, int>;
@@ -34,7 +36,7 @@ int main(void) {
         } else {
             int s, t;
             std::cin >> s >> t;
-            co(st.prod(s, t + 1).first);
+            std::cout << st.prod(s, t + 1).first << std::endl;
         }
     }
 

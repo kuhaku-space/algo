@@ -1,11 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_G"
+#include <cstdint>
+#include <iostream>
 #include "binary_tree/fenwick_tree_raq.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    fenwick_tree_raq<ll> ft(n);
+    fenwick_tree_raq<std::int64_t> ft(n);
     while (q--) {
         int com;
         std::cin >> com;
@@ -16,7 +17,7 @@ int main(void) {
         } else {
             int s, t;
             std::cin >> s >> t;
-            co(ft.sum(s - 1, t));
+            std::cout << ft.sum(s - 1, t) << std::endl;
         }
     }
 

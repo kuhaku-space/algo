@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C"
+#include <cstdio>
+#include <iostream>
 #include "geometry/geometry.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     Point<double> a, b;
@@ -12,11 +13,11 @@ int main(void) {
         Point<double> p;
         std::cin >> p;
         auto ans = ccw(a, b, p);
-        if (ans == 1) co("COUNTER_CLOCKWISE");
-        else if (ans == -1) co("CLOCKWISE");
-        else if (ans == 2) co("ONLINE_BACK");
-        else if (ans == -2) co("ONLINE_FRONT");
-        else co("ON_SEGMENT");
+        if (ans == 1) std::puts("COUNTER_CLOCKWISE");
+        else if (ans == -1) std::puts("CLOCKWISE");
+        else if (ans == 2) std::puts("ONLINE_BACK");
+        else if (ans == -2) std::puts("ONLINE_FRONT");
+        else std::puts("ON_SEGMENT");
     }
 
     return 0;

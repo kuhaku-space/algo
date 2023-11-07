@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_F"
+#include <iostream>
+#include <limits>
 #include "segment_tree/lazy_segment_tree.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
@@ -16,7 +17,7 @@ int main(void) {
         } else {
             int s, t;
             std::cin >> s >> t;
-            co(st.prod(s, t + 1));
+            std::cout << st.prod(s, t + 1) << std::endl;
         }
     }
 
