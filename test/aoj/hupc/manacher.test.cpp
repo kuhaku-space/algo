@@ -1,32 +1,30 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2934"
 #include "string/manacher.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <string>
 
-int main(void) {
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-
-    if (n == 1) {
-        co(1);
-        return 0;
-    }
-
-    Manacher ma(s);
-
-    repn (m, n) {
+int solve(const std::string &s) {
+    int n = s.size();
+    if (n == 1) return 1;
+    Manacher manacher(s);
+    for (int m = 1; m < n; ++m) {
         bool flag = true;
         int k = m;
         while (k < n) {
-            flag &= ma[k] >= min(m + 1, n - k);
+            flag &= manacher[k] >= std::min(m + 1, n - k);
             k += m;
         }
-        if (flag) {
-            co(m + 1);
-            break;
-        }
+        if (flag) return m + 1;
     }
+    return n;
+}
+
+int main(void) {
+    int n;
+    std::cin >> n;
+    std::string s;
+    std::cin >> s;
+    std::cout << solve(s) << std::endl;
 
     return 0;
 }
