@@ -1,16 +1,16 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B"
 #include "graph/topological_sort.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <vector>
 
 int main(void) {
-    sonic();
     int n, m;
-    cin >> n >> m;
+    std::cin >> n >> m;
     Graph<void> g(n);
     g.input_edge(m, 0);
 
     auto v = topological_sort(g);
-    for (auto &e : v) co(e);
+    for (auto &e : v) std::cout << e << std::endl;
 
     return 0;
 }

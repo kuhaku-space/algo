@@ -1,12 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_C"
 #include "tree/hld.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
     int n;
     std::cin >> n;
     Graph<void> g(n);
-    rep (i, n) {
+    for (int i = 0; i < n; ++i) {
         int k;
         std::cin >> k;
         while (k--) {
@@ -22,7 +22,7 @@ int main(void) {
     while (q--) {
         int u, v;
         std::cin >> u >> v;
-        co(hld.lca(u, v));
+        std::cout << hld.lca(u, v) << std::endl;
     }
 
     return 0;

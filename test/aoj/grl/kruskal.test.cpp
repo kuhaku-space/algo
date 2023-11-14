@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A"
 #include "graph/kruskal.hpp"
 #include <iostream>
 #include <vector>
@@ -11,7 +11,7 @@ int main(void) {
     auto v = kruskal(g);
 
     int ans = 0;
-    for (auto &e : v) { ans += e.weight(); }
+    for (auto &e : v) ans += e.weight();
     std::cout << ans << std::endl;
 
     return 0;

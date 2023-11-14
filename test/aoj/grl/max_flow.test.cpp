@@ -1,20 +1,18 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A"
 #include "flow/max_flow.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
-    sonic();
     int n, m;
-    cin >> n >> m;
+    std::cin >> n >> m;
 
     mf_graph<int> mf(n);
-    rep(i, m) {
+    for (int i = 0; i < m; ++i) {
         int a, b, c;
-        cin >> a >> b >> c;
+        std::cin >> a >> b >> c;
         mf.add_edge(a, b, c);
     }
-
-    co(mf.flow(0, n - 1));
+    std::cout << mf.flow(0, n - 1) << std::endl;
 
     return 0;
 }
