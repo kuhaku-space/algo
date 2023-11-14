@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_7_A"
+#include <iostream>
 #include "flow/hopcroft_karp.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int l, r, m;
@@ -11,7 +11,7 @@ int main(void) {
         std::cin >> u >> v;
         g.add_edge(u, v);
     }
-    co(g.matching());
+    std::cout << g.matching() << std::endl;
 
     return 0;
 }

@@ -1,27 +1,26 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_B"
+#include <algorithm>
+#include <iostream>
+#include <utility>
+#include <vector>
 #include "graph/lowlink.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, m;
-    cin >> n >> m;
+    std::cin >> n >> m;
     Graph<void> g(n);
     g.input_edges(m, 0);
 
-    LowLink lowlink(g);
-
-    auto bridges = lowlink.get_bridges();
-    vector<pair<int, int>> ans;
+    LowLink llink(g);
+    auto bridges = llink.get_bridges();
+    std::vector<std::pair<int, int>> ans;
     for (auto &e : bridges) {
-        if (e.from() < e.to())
-            ans.emplace_back(e.from(), e.to());
-        else
-            ans.emplace_back(e.to(), e.from());
+        if (e.from() < e.to()) ans.emplace_back(e.from(), e.to());
+        else ans.emplace_back(e.to(), e.from());
     }
 
-    std::sort(all(ans));
-    for (auto e : ans) { co(e.first, e.second); }
+    std::sort(ans.begin(), ans.end());
+    for (auto e : ans) std::cout << e.first << ' ' << e.second << std::endl;
 
     return 0;
 }
