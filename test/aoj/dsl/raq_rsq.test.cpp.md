@@ -9,15 +9,6 @@ data:
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
       \u533A\u9593\u7DCF\u548C\uFF09"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -40,24 +31,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree_raq.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_G\"\n#include\
-    \ \"binary_tree/fenwick_tree_raq.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    int main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    fenwick_tree_raq<ll>\
+    \ <cstdint>\n#include <iostream>\n#include \"binary_tree/fenwick_tree_raq.hpp\"\
+    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    fenwick_tree_raq<std::int64_t>\
     \ ft(n);\n    while (q--) {\n        int com;\n        std::cin >> com;\n    \
     \    if (com == 0) {\n            int s, t, x;\n            std::cin >> s >> t\
     \ >> x;\n            ft.add(s - 1, t, x);\n        } else {\n            int s,\
-    \ t;\n            std::cin >> s >> t;\n            co(ft.sum(s - 1, t));\n   \
-    \     }\n    }\n\n    return 0;\n}\n"
+    \ t;\n            std::cin >> s >> t;\n            std::cout << ft.sum(s - 1,\
+    \ t) << std::endl;\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/binary_tree/fenwick_tree.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/raq_rsq.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 17:51:19+09:00'
+  timestamp: '2023-11-07 17:41:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/raq_rsq.test.cpp

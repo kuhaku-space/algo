@@ -11,15 +11,6 @@ data:
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,23 +33,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/segment_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A\"\n#include\
-    \ \"segment_tree/segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    segment_tree<Min<int>>\
-    \ st(n, (1LL << 31) - 1);\n    while (q--) {\n        int com, x, y;\n       \
-    \ std::cin >> com >> x >> y;\n        if (com == 0) st.set(x, y);\n        else\
-    \ co(st.prod(x, y + 1));\n    }\n\n    return 0;\n}\n"
+    \ <iostream>\n#include <limits>\n#include \"segment_tree/segment_tree.hpp\"\n\n\
+    int main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    segment_tree<Min<int>>\
+    \ st(n, std::numeric_limits<int>::max());\n    while (q--) {\n        int com,\
+    \ x, y;\n        std::cin >> com >> x >> y;\n        if (com == 0) st.set(x, y);\n\
+    \        else std::cout << st.prod(x, y + 1) << std::endl;\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/rmq.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-07 17:41:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rmq.test.cpp

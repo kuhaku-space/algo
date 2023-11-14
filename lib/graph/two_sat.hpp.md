@@ -46,12 +46,12 @@ data:
     };\r\n"
   dependsOn:
   - lib/graph/graph.hpp
-  - lib/template/template.hpp
   - lib/graph/scc.hpp
+  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/two_sat.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-12 00:40:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/math/two_sat.test.cpp

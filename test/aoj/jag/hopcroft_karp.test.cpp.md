@@ -11,15 +11,6 @@ data:
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,30 +33,28 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: flow/hopcroft_karp.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2251\"\n#include\
-    \ \"flow/hopcroft_karp.hpp\"\n#include \"graph/matrix_graph.hpp\"\n#include \"\
-    graph/warshall_floyd.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ \"flow/hopcroft_karp.hpp\"\n#include <algorithm>\n#include <iostream>\n#include\
+    \ \"graph/matrix_graph.hpp\"\n#include \"graph/warshall_floyd.hpp\"\n\nint main(void)\
     \ {\n    while (true) {\n        int n, m, l;\n        std::cin >> n >> m >> l;\n\
     \        if (!n) break;\n        matrix_graph<int> g(n, Inf);\n        while (m--)\
-    \ {\n            int u, v, w;\n            cin >> u >> v >> w;\n            g.add_edges(u,\
-    \ v, w);\n        }\n        warshall_floyd(g);\n        std::vector<std::pair<int,\
-    \ int>> q(l);\n        std::cin >> q;\n        sort(all(q), [](auto l, auto r)\
-    \ {\n            return l.second < r.second;\n        });\n        hopcroft_karp\
-    \ hk(l, l);\n        rep (i, l) {\n            auto [a, b] = q[i];\n         \
-    \   FOR (j, i + 1, l) {\n                auto [c, d] = q[j];\n               \
-    \ if (b + g[a][c] <= d) hk.add_edge(i, j);\n            }\n        }\n       \
-    \ co(l - hk.matching());\n    }\n\n    return 0;\n}\n"
+    \ {\n            int u, v, w;\n            std::cin >> u >> v >> w;\n        \
+    \    g.add_edges(u, v, w);\n        }\n        warshall_floyd(g);\n        std::vector<std::pair<int,\
+    \ int>> q(l);\n        for (auto &[a, b] : q) std::cin >> a >> b;\n        std::sort(q.begin(),\
+    \ q.end(), [](auto l, auto r) { return l.second < r.second; });\n        hopcroft_karp\
+    \ hk(l, l);\n        for (int i = 0; i < l; ++i) {\n            auto [a, b] =\
+    \ q[i];\n            for (int j = i + 1; j < l; ++j) {\n                auto [c,\
+    \ d] = q[j];\n                if (b + g[a][c] <= d) hk.add_edge(i, j);\n     \
+    \       }\n        }\n        std::cout << l - hk.matching() << std::endl;\n \
+    \   }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/flow/hopcroft_karp.hpp
   - lib/template/template.hpp
   - lib/graph/matrix_graph.hpp
   - lib/graph/warshall_floyd.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/jag/hopcroft_karp.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 01:07:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/hopcroft_karp.test.cpp

@@ -170,21 +170,21 @@ data:
   path: lib/internal/internal_fft.hpp
   requiredBy:
   - lib/data_structure/bigint.hpp
-  - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
+  - lib/fft/formal_power_series.hpp
   timestamp: '2023-10-01 18:31:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
   - test/yosupo/data_structure/addition_of_big_integers.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/addition.test.cpp
 documentation_of: lib/internal/internal_fft.hpp
 layout: document
 redirect_from:

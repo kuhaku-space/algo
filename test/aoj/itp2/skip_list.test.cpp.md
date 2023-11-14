@@ -8,15 +8,6 @@ data:
     path: lib/random/xorshift.hpp
     title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -39,24 +30,22 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/skip_list.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B\"\n\
-    #include \"data_structure/skip_list.hpp\"\n#include \"template/atcoder.hpp\"\n\
-    \nint main(void) {\n    int q;\n    std::cin >> q;\n    int size = 0;\n    skip_list<int>\
-    \ sl;\n    while (q--) {\n        int x, y;\n        std::cin >> x >> y;\n   \
-    \     if (x == 0) {\n            if (!sl.contains(y)) sl.insert(y), ++size;\n\
-    \            co(size);\n        } else if (x == 1) {\n            co(sl.contains(y));\n\
-    \        } else if (x == 2) {\n            if (sl.contains(y)) sl.erase(y), --size;\n\
-    \        }\n    }\n\n    return 0;\n}\n"
+    #include \"data_structure/skip_list.hpp\"\n#include <iostream>\n\nint main(void)\
+    \ {\n    int q;\n    std::cin >> q;\n    int size = 0;\n    skip_list<int> sl;\n\
+    \    while (q--) {\n        int x, y;\n        std::cin >> x >> y;\n        if\
+    \ (x == 0) {\n            if (!sl.contains(y)) sl.insert(y), ++size;\n       \
+    \     std::cout << size << std::endl;\n        } else if (x == 1) {\n        \
+    \    std::cout << sl.contains(y) << std::endl;\n        } else if (x == 2) {\n\
+    \            if (sl.contains(y)) sl.erase(y), --size;\n        }\n    }\n\n  \
+    \  return 0;\n}\n"
   dependsOn:
   - lib/data_structure/skip_list.hpp
   - lib/random/xorshift.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/itp2/skip_list.test.cpp
   requiredBy: []
-  timestamp: '2023-10-02 03:03:19+09:00'
+  timestamp: '2023-11-14 23:34:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/itp2/skip_list.test.cpp

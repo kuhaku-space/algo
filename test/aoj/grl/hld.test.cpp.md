@@ -5,15 +5,6 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -39,24 +30,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/hld.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_C\"\n#include\
-    \ \"tree/hld.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n  \
-    \  int n;\n    std::cin >> n;\n    Graph<void> g(n);\n    rep (i, n) {\n     \
-    \   int k;\n        std::cin >> k;\n        while (k--) {\n            int c;\n\
-    \            std::cin >> c;\n            g.add_edges(i, c);\n        }\n    }\n\
-    \n    heavy_light_decomposition hld(g);\n    int q;\n    std::cin >> q;\n    while\
-    \ (q--) {\n        int u, v;\n        std::cin >> u >> v;\n        co(hld.lca(u,\
-    \ v));\n    }\n\n    return 0;\n}\n"
+    \ \"tree/hld.hpp\"\n#include <iostream>\n\nint main(void) {\n    int n;\n    std::cin\
+    \ >> n;\n    Graph<void> g(n);\n    for (int i = 0; i < n; ++i) {\n        int\
+    \ k;\n        std::cin >> k;\n        while (k--) {\n            int c;\n    \
+    \        std::cin >> c;\n            g.add_edges(i, c);\n        }\n    }\n\n\
+    \    heavy_light_decomposition hld(g);\n    int q;\n    std::cin >> q;\n    while\
+    \ (q--) {\n        int u, v;\n        std::cin >> u >> v;\n        std::cout <<\
+    \ hld.lca(u, v) << std::endl;\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/hld.hpp
   - lib/graph/graph.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/grl/hld.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 17:51:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/hld.test.cpp

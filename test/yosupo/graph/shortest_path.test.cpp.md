@@ -62,14 +62,14 @@ data:
     \ }\n    }\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
-  - lib/template/template.hpp
   - lib/template/atcoder.hpp
   - lib/template/macro.hpp
+  - lib/template/template.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/graph/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-12 00:40:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/shortest_path.test.cpp

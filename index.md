@@ -268,7 +268,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/math/eratosthenes.hpp
       title: "\u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/math/floor_sum.hpp
       title: floor sum
     - icon: ':warning:'
@@ -286,6 +286,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/math/matrix.hpp
       title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
+    - icon: ':heavy_check_mark:'
+      path: lib/math/min_linear.hpp
+      title: lib/math/min_linear.hpp
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: lib/math/modint.hpp
@@ -360,7 +363,7 @@ data:
       title: "KMP\u6CD5"
     - icon: ':warning:'
       path: lib/string/lcp.hpp
-      title: lib/string/lcp.hpp
+      title: "\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E"
     - icon: ':heavy_check_mark:'
       path: lib/string/manacher.hpp
       title: Manacher
@@ -634,6 +637,9 @@ data:
       path: test/aoj/jag/aho_corasick.test.cpp
       title: test/aoj/jag/aho_corasick.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/jag/doubling.test.cpp
+      title: test/aoj/jag/doubling.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/jag/hopcroft_karp.test.cpp
       title: test/aoj/jag/hopcroft_karp.test.cpp
   - name: test/aoj/joi
@@ -675,11 +681,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/rupc/range_set.test.cpp
       title: test/aoj/rupc/range_set.test.cpp
-  - name: test/aoj/volume
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/volume/doubling.test.cpp
-      title: test/aoj/volume/doubling.test.cpp
   - name: test/yosupo/convolution
     pages:
     - icon: ':heavy_check_mark:'
@@ -799,8 +800,14 @@ data:
   - name: test/yosupo/math
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/math/floor_sum.test.cpp
+      title: test/yosupo/math/floor_sum.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/math/longest_increasing_subsequence.test.cpp
       title: test/yosupo/math/longest_increasing_subsequence.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/math/min_linear.test.cpp
+      title: test/yosupo/math/min_linear.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/math/montmort_number.test.cpp
       title: test/yosupo/math/montmort_number.test.cpp

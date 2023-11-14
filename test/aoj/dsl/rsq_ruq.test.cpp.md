@@ -11,15 +11,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,9 +33,9 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/lazy_segment_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I\"\n#include\
-    \ \"segment_tree/lazy_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    struct M1 {\n    using T = std::pair<int, int>;\n    using value_type = T;\n \
-    \   static constexpr T id = T(0, 0);\n    static constexpr T op(T lhs, T rhs)\
+    \ <iostream>\n#include <limits>\n#include <utility>\n#include \"segment_tree/lazy_segment_tree.hpp\"\
+    \n\nstruct M1 {\n    using T = std::pair<int, int>;\n    using value_type = T;\n\
+    \    static constexpr T id = T(0, 0);\n    static constexpr T op(T lhs, T rhs)\
     \ { return {lhs.first + rhs.first, lhs.second + rhs.second}; }\n};\n\nstruct M2\
     \ {\n    using T = int;\n    using value_type = T;\n    static constexpr T id\
     \ = std::numeric_limits<int>::max();\n    static constexpr T op(T lhs, T rhs)\
@@ -54,20 +45,17 @@ data:
     \ M2> st(n, {0, 1});\n    while (q--) {\n        int com;\n        std::cin >>\
     \ com;\n        if (com == 0) {\n            int s, t, x;\n            std::cin\
     \ >> s >> t >> x;\n            st.apply(s, t + 1, x);\n        } else {\n    \
-    \        int s, t;\n            std::cin >> s >> t;\n            co(st.prod(s,\
-    \ t + 1).first);\n        }\n    }\n\n    return 0;\n}\n"
+    \        int s, t;\n            std::cin >> s >> t;\n            std::cout <<\
+    \ st.prod(s, t + 1).first << std::endl;\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/lazy_segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/rsq_ruq.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-07 17:41:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rsq_ruq.test.cpp

@@ -5,15 +5,6 @@ data:
     path: lib/string/manacher.hpp
     title: Manacher
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,23 +27,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/manacher.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2934\"\n#include\
-    \ \"string/manacher.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n;\n    cin >> n;\n    string s;\n    cin >> s;\n\n    if (n == 1)\
-    \ {\n        co(1);\n        return 0;\n    }\n\n    Manacher ma(s);\n\n    repn\
-    \ (m, n) {\n        bool flag = true;\n        int k = m;\n        while (k <\
-    \ n) {\n            flag &= ma[k] >= min(m + 1, n - k);\n            k += m;\n\
-    \        }\n        if (flag) {\n            co(m + 1);\n            break;\n\
-    \        }\n    }\n\n    return 0;\n}\n"
+    \ \"string/manacher.hpp\"\n#include <iostream>\n#include <string>\n\nint solve(const\
+    \ std::string &s) {\n    int n = s.size();\n    if (n == 1) return 1;\n    Manacher\
+    \ manacher(s);\n    for (int m = 1; m < n; ++m) {\n        bool flag = true;\n\
+    \        int k = m;\n        while (k < n) {\n            flag &= manacher[k]\
+    \ >= std::min(m + 1, n - k);\n            k += m;\n        }\n        if (flag)\
+    \ return m + 1;\n    }\n    return n;\n}\n\nint main(void) {\n    int n;\n   \
+    \ std::cin >> n;\n    std::string s;\n    std::cin >> s;\n    std::cout << solve(s)\
+    \ << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/manacher.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/hupc/manacher.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 23:24:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/hupc/manacher.test.cpp

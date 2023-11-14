@@ -32,26 +32,27 @@ data:
     \ -1) {}\r\n    };\r\n\r\n  public:\r\n    using node_type = _node;\r\n\r\n  \
     \  Trie() : root(0), nodes() { this->nodes.emplace_back(); }\r\n\r\n    int size()\
     \ const noexcept { return this->nodes.size(); }\r\n\r\n    std::vector<int> insert(const\
-    \ string &word) {\r\n        std::vector<int> res;\r\n        int node_id = 0;\r\
-    \n        for (int i = 0; i < (int)word.size(); ++i) {\r\n            int c =\
-    \ word[i] - base;\r\n            int &next_id = this->nodes[node_id].next_node[c];\r\
+    \ std::string &word) {\r\n        std::vector<int> res;\r\n        int node_id\
+    \ = 0;\r\n        for (int i = 0; i < (int)word.size(); ++i) {\r\n           \
+    \ int c = word[i] - base;\r\n            int &next_id = this->nodes[node_id].next_node[c];\r\
     \n            if (next_id == -1) {\r\n                next_id = this->nodes.size();\r\
     \n                this->nodes.emplace_back();\r\n            }\r\n           \
     \ node_id = next_id;\r\n            res.emplace_back(node_id);\r\n        }\r\n\
-    \        return res;\r\n    }\r\n\r\n    int search_id(const string &word) {\r\
-    \n        int node_id = 0;\r\n        for (int i = 0; i < (int)word.size(); ++i)\
-    \ {\r\n            int c = word[i] - base;\r\n            int &next_id = this->nodes[node_id].next_node[c];\r\
-    \n            if (next_id == -1) return -1;\r\n            node_id = next_id;\r\
-    \n        }\r\n        return node_id;\r\n    }\r\n\r\n    node_type get_node(int\
-    \ node_id) const {\r\n        assert(0 <= node_id && node_id < (int)this->nodes.size());\r\
-    \n        return this->nodes[node_id];\r\n    }\r\n\r\n  private:\r\n    int root;\r\
-    \n    std::vector<node_type> nodes;\r\n};\r\n"
+    \        return res;\r\n    }\r\n\r\n    int search_id(const std::string &word)\
+    \ {\r\n        int node_id = 0;\r\n        for (int i = 0; i < (int)word.size();\
+    \ ++i) {\r\n            int c = word[i] - base;\r\n            int &next_id =\
+    \ this->nodes[node_id].next_node[c];\r\n            if (next_id == -1) return\
+    \ -1;\r\n            node_id = next_id;\r\n        }\r\n        return node_id;\r\
+    \n    }\r\n\r\n    node_type get_node(int node_id) const {\r\n        assert(0\
+    \ <= node_id && node_id < (int)this->nodes.size());\r\n        return this->nodes[node_id];\r\
+    \n    }\r\n\r\n  private:\r\n    int root;\r\n    std::vector<node_type> nodes;\r\
+    \n};\r\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/string/trie.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-26 17:00:17+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/string/trie.hpp

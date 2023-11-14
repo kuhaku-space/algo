@@ -87,8 +87,8 @@ data:
   timestamp: '2023-10-01 22:47:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
 documentation_of: lib/data_structure/compressed_wavelet_matrix.hpp
 layout: document
 redirect_from:

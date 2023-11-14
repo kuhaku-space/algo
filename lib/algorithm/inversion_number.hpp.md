@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -30,22 +27,21 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"algorithm/compress.hpp\"\n#include \"binary_tree/fenwick_tree.hpp\"\
-    \n#include \"template/template.hpp\"\n\n/**\n * @brief \u8EE2\u5012\u6570\u3092\
-    \u6C42\u3081\u308B\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param v \u914D\
-    \u5217\n * @retval std::int64_t \u8EE2\u5012\u6570\n */\ntemplate <class T>\n\
-    std::int64_t inversion_number(const std::vector<T> &v) {\n    auto u = compress(v);\n\
+  code: "#include <algorithm>\n#include <iterator>\n#include \"algorithm/compress.hpp\"\
+    \n#include \"binary_tree/fenwick_tree.hpp\"\n\n/**\n * @brief \u8EE2\u5012\u6570\
+    \u3092\u6C42\u3081\u308B\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param\
+    \ v \u914D\u5217\n * @retval std::int64_t \u8EE2\u5012\u6570\n */\ntemplate <class\
+    \ T>\nstd::int64_t inversion_number(const std::vector<T> &v) {\n    auto u = compress(v);\n\
     \    std::reverse(std::begin(u), std::end(u));\n    fenwick_tree<T> bit(*max_element(std::begin(u),\
     \ std::end(u)) + 1);\n    std::int64_t res = 0;\n    for (auto x : u) {\n    \
     \    res += bit.sum(x);\n        bit.add(x, 1);\n    }\n    return res;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/algorithm/inversion_number.hpp
   requiredBy: []
-  timestamp: '2023-10-01 19:53:24+09:00'
+  timestamp: '2023-10-02 03:24:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/alds1/inversion_number.test.cpp

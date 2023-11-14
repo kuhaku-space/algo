@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/string/kmp.hpp
     title: "KMP\u6CD5"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,21 +24,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/kmp.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n\
-    #include \"string/kmp.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    string s, t;\n    std::cin >> s >> t;\n    knuth_morris_pratt kmp(t);\n\
-    \    auto ans = kmp.search(s);\n    rep (i, s.size()) {\n        if (ans[i] ==\
-    \ t.size()) {\n            co(i - t.size() + 1);\n        }\n    }\n\n    return\
-    \ 0;\n}\n"
+    #include \"string/kmp.hpp\"\n#include <iostream>\n#include <string>\n\nint main(void)\
+    \ {\n    std::string s, t;\n    std::cin >> s >> t;\n    knuth_morris_pratt kmp(t);\n\
+    \    auto ans = kmp.search(s);\n    for (int i = 0; i < (int)s.size(); ++i) {\n\
+    \        if (ans[i] == (int)t.size()) std::cout << i - t.size() + 1 << std::endl;\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/kmp.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/kmp.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-02 04:22:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/kmp.test.cpp

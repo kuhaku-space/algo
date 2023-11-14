@@ -8,15 +8,6 @@ data:
     path: lib/random/xorshift.hpp
     title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -26,9 +17,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -38,27 +29,23 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/treap.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B\"\
-    \n#include \"binary_tree/treap.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    sonic();\n    int q;\n    cin >> q;\n    int size = 0;\n \
-    \   Treap<int> treap;\n    rep(i, q) {\n        int x, y;\n        cin >> x >>\
-    \ y;\n        if (x == 0) {\n            if (!treap.contains(y)) {\n         \
-    \       treap.insert(y);\n                ++size;\n            }\n           \
-    \ co(size);\n        } else if (x == 1) {\n            co(treap.contains(y));\n\
-    \        } else if (x == 2) {\n            if (treap.contains(y)) {\n        \
-    \        treap.erase(y);\n                --size;\n            }\n        }\n\
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B\"\n\
+    #include \"binary_tree/treap.hpp\"\n#include <iostream>\n\nint main(void) {\n\
+    \    int q;\n    std::cin >> q;\n    int size = 0;\n    Treap<int> treap;\n  \
+    \  while (q--) {\n        int x, y;\n        std::cin >> x >> y;\n        if (x\
+    \ == 0) {\n            if (!treap.contains(y)) treap.insert(y), ++size;\n    \
+    \        std::cout << size << std::endl;\n        } else if (x == 1) {\n     \
+    \       std::cout << treap.contains(y) << std::endl;\n        } else if (x ==\
+    \ 2) {\n            if (treap.contains(y)) treap.erase(y), --size;\n        }\n\
     \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/treap.hpp
   - lib/random/xorshift.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/itp2/treap.test.cpp
   requiredBy: []
-  timestamp: '2023-10-02 03:03:19+09:00'
+  timestamp: '2023-11-14 23:34:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/itp2/treap.test.cpp

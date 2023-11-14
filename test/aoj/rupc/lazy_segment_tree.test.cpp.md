@@ -14,15 +14,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -48,7 +39,7 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/lazy_segment_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2871\"\n#include\
-    \ \"segment_tree/lazy_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\
+    \ \"segment_tree/lazy_segment_tree.hpp\"\n#include <iostream>\n#include <vector>\n\
     #include \"tree/eular_tour.hpp\"\n\nstruct S {\n    int g, w;\n};\n\nstruct M\
     \ {\n    using value_type = S;\n    static constexpr value_type id = S{0, 0};\n\
     \    static constexpr value_type op(const value_type &lhs, const value_type &rhs)\
@@ -58,29 +49,27 @@ data:
     \      return lhs ^ rhs;\n    }\n\n    static S f(const value_type &lhs, S rhs)\
     \ {\n        if (lhs == 0) return rhs;\n        std::swap(rhs.g, rhs.w);\n   \
     \     return rhs;\n    }\n};\n\nint main(void) {\n    int n, q;\n    std::cin\
-    \ >> n >> q;\n    Graph<void> g(n);\n    rep (i, n - 1) {\n        int p;\n  \
-    \      std::cin >> p;\n        g.add_edges(p - 1, i + 1);\n    }\n    eular_tour\
-    \ et(g);\n    std::vector<S> v(n);\n    rep (i, n) {\n        char c;\n      \
-    \  std::cin >> c;\n        if (c == 'G') v[et.get_l(i)] = S{1, 0};\n        else\
-    \ v[et.get_l(i)] = S{0, 1};\n    }\n    lazy_segment_tree<M, F> lst(v);\n    while\
-    \ (q--) {\n        int x;\n        std::cin >> x;\n        --x;\n        lst.apply(et.get_l(x),\
-    \ et.get_r(x), 1);\n        auto [g, w] = lst.all_prod();\n        if (g >= w)\
-    \ co(\"broccoli\");\n        else co(\"cauliflower\");\n    }\n\n    return 0;\n\
-    }\n"
+    \ >> n >> q;\n    Graph<void> g(n);\n    for (int i = 0; i < n - 1; ++i) {\n \
+    \       int p;\n        std::cin >> p;\n        g.add_edges(p - 1, i + 1);\n \
+    \   }\n    eular_tour et(g);\n    std::vector<S> v(n);\n    for (int i = 0; i\
+    \ < n; ++i) {\n        char c;\n        std::cin >> c;\n        if (c == 'G')\
+    \ v[et.get_l(i)] = S{1, 0};\n        else v[et.get_l(i)] = S{0, 1};\n    }\n \
+    \   lazy_segment_tree<M, F> lst(v);\n    while (q--) {\n        int x;\n     \
+    \   std::cin >> x;\n        --x;\n        lst.apply(et.get_l(x), et.get_r(x),\
+    \ 1);\n        auto [g, w] = lst.all_prod();\n        if (g >= w) std::cout <<\
+    \ \"broccoli\" << std::endl;\n        else std::cout << \"cauliflower\" << std::endl;\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/lazy_segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   - lib/tree/eular_tour.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/aoj/rupc/lazy_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 01:56:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/rupc/lazy_segment_tree.test.cpp

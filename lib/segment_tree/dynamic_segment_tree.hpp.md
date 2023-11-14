@@ -105,8 +105,8 @@ data:
   timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dsl/dynamic_rmq.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
+  - test/aoj/dsl/dynamic_rmq.test.cpp
 documentation_of: lib/segment_tree/dynamic_segment_tree.hpp
 layout: document
 redirect_from:

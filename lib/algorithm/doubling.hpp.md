@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/volume/doubling.test.cpp
-    title: test/aoj/volume/doubling.test.cpp
+    path: test/aoj/jag/doubling.test.cpp
+    title: test/aoj/jag/doubling.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/1013.test.cpp
     title: test/yukicoder/1013.test.cpp
@@ -111,11 +111,11 @@ data:
   timestamp: '2023-10-01 20:08:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/volume/doubling.test.cpp
-  - test/yukicoder/1242.2.test.cpp
+  - test/yukicoder/1977.test.cpp
   - test/yukicoder/1013.test.cpp
   - test/yukicoder/1097.test.cpp
-  - test/yukicoder/1977.test.cpp
+  - test/yukicoder/1242.2.test.cpp
+  - test/aoj/jag/doubling.test.cpp
 documentation_of: lib/algorithm/doubling.hpp
 layout: document
 redirect_from:

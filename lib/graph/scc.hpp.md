@@ -69,12 +69,12 @@ data:
   path: lib/graph/scc.hpp
   requiredBy:
   - lib/graph/two_sat.hpp
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-12 00:40:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/scc.test.cpp
   - test/yosupo/graph/strongly_connected_components.test.cpp
   - test/yosupo/math/two_sat.test.cpp
+  - test/aoj/grl/scc.test.cpp
 documentation_of: lib/graph/scc.hpp
 layout: document
 redirect_from:

@@ -5,15 +5,6 @@ data:
     path: lib/algorithm/lis.hpp
     title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,19 +27,18 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/lis.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D\"\n#include\
-    \ \"algorithm/lis.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n\
-    \    sonic();\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n\
-    \    co(longest_increasing_subsequence(a));\n\n    return 0;\n}\n"
+    \ <algorithm>\n#include <iostream>\n#include <iterator>\n#include <vector>\n#include\
+    \ \"algorithm/lis.hpp\"\n\nint main(void) {\n    int n;\n    std::cin >> n;\n\
+    \    std::vector<int> a(n);\n    std::copy_n(std::istream_iterator<int>(std::cin),\
+    \ n, std::begin(a));\n    std::cout << longest_increasing_subsequence(a) << std::endl;\n\
+    \n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/lis.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:51:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dpl/longest_increasing_subsequense.test.cpp

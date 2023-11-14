@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/string/kmp.hpp
     title: "KMP\u6CD5"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,23 +24,19 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/kmp.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2763\"\n#include\
-    \ \"string/kmp.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n\
-    \    std::string s;\n    std::cin >> s;\n    int n = s.size();\n    int x = n\
-    \ - knuth_morris_pratt(s)[n];\n    int y = n + 1;\n    while (!(y % x == 0 &&\
-    \ y / x % 3 == 0)) ++y;\n    int b = y - n;\n    if (b * 2 > n - 3) {\n      \
-    \  co(\"mitomerarenaiWA\");\n        return 0;\n    }\n    std::string ans = \"\
-    Love \";\n    ans += s.substr(0, y / 3);\n    ans += \"!\";\n    co(ans);\n\n\
-    \    return 0;\n}\n"
+    \ \"string/kmp.hpp\"\n#include <iostream>\n#include <string>\n\nstd::string solve(const\
+    \ std::string &s) {\n    int n = s.size();\n    int x = n - knuth_morris_pratt(s)[n];\n\
+    \    int y = n + 1;\n    while (!(y % x == 0 && y / x % 3 == 0)) ++y;\n    int\
+    \ b = y - n;\n    if (b * 2 > n - 3) return \"mitomerarenaiWA\";\n    return \"\
+    Love \" + s.substr(0, y / 3) + \"!\";\n}\n\nint main(void) {\n    std::string\
+    \ s;\n    std::cin >> s;\n    std::cout << solve(s) << std::endl;\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/string/kmp.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/hupc/kmp.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 23:24:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/hupc/kmp.test.cpp

@@ -134,11 +134,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/cgl/intersection.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
+  - test/aoj/cgl/reflection.test.cpp
   - test/aoj/cgl/parallel_orthogonal.test.cpp
   - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/cgl/projection.test.cpp
-  - test/aoj/cgl/cross_point.test.cpp
-  - test/aoj/cgl/reflection.test.cpp
 documentation_of: lib/geometry/geometry.hpp
 layout: document
 redirect_from:

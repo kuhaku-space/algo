@@ -65,8 +65,8 @@ data:
   timestamp: '2023-10-01 17:51:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
 documentation_of: lib/binary_tree/fenwick_tree_raq.hpp
 layout: document
 redirect_from:

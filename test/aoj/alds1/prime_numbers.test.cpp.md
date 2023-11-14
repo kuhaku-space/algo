@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/prime_number.hpp
     title: "\u7D20\u6570\u30E9\u30A4\u30D6\u30E9\u30EA"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,20 +24,16 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/prime_number.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_1_C\"\n\
-    #include \"math/prime_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nprime_number\
-    \ pn;\n\nint main(void) {\n    int n;\n    cin >> n;\n    int ans = 0;\n    while\
-    \ (n--) {\n        int a;\n        cin >> a;\n        ans += pn.is_prime(a);\n\
-    \    }\n    co(ans);\n\n    return 0;\n}\n"
+    #include <iostream>\n#include \"math/prime_number.hpp\"\n\nprime_number pn;\n\n\
+    int main(void) {\n    int n;\n    std::cin >> n;\n    int ans = 0;\n    while\
+    \ (n--) {\n        int a;\n        std::cin >> a;\n        ans += pn.is_prime(a);\n\
+    \    }\n    std::cout << ans << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/prime_number.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/prime_numbers.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-02 05:19:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/prime_numbers.test.cpp

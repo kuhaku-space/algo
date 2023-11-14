@@ -5,15 +5,6 @@ data:
     path: lib/flow/hopcroft_karp.hpp
     title: lib/flow/hopcroft_karp.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,20 +27,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: flow/hopcroft_karp.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_7_A\"\n#include\
-    \ \"flow/hopcroft_karp.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int l, r, m;\n    std::cin >> l >> r >> m;\n    hopcroft_karp g(l, r);\n\
-    \    while (m--) {\n        int u, v;\n        std::cin >> u >> v;\n        g.add_edge(u,\
-    \ v);\n    }\n    co(g.matching());\n\n    return 0;\n}\n"
+    \ <iostream>\n#include \"flow/hopcroft_karp.hpp\"\n\nint main(void) {\n    int\
+    \ l, r, m;\n    std::cin >> l >> r >> m;\n    hopcroft_karp g(l, r);\n    while\
+    \ (m--) {\n        int u, v;\n        std::cin >> u >> v;\n        g.add_edge(u,\
+    \ v);\n    }\n    std::cout << g.matching() << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/flow/hopcroft_karp.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/grl/bipartite_matching.2.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 17:51:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/bipartite_matching.2.test.cpp

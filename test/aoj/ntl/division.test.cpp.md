@@ -23,15 +23,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -54,8 +45,9 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/bigint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_D\"\n#include\
-    \ \"data_structure/bigint.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    BigInt a, b;\n    cin >> a >> b;\n    co(a / b);\n\n    return 0;\n}\n"
+    \ <iostream>\n#include \"data_structure/bigint.hpp\"\n\nint main(void) {\n   \
+    \ BigInt a, b;\n    std::cin >> a >> b;\n    std::cout << a / b << std::endl;\n\
+    \n    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/bigint.hpp
   - lib/fft/ntt.hpp
@@ -65,13 +57,10 @@ data:
   - lib/internal/internal_type_traits.hpp
   - lib/math/modint.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/ntl/division.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:37+09:00'
+  timestamp: '2023-11-15 01:52:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ntl/division.test.cpp

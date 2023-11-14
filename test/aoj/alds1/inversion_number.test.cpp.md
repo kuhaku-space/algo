@@ -10,9 +10,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -33,19 +30,19 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/inversion_number.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D\"\n\
-    #include \"algorithm/inversion_number.hpp\"\n\nint main(void) {\n    int n;\n\
-    \    std::cin >> n;\n    std::vector<int> a(n);\n    std::copy_n(std::istream_iterator<int>(std::cin),\
+    #include \"algorithm/inversion_number.hpp\"\n#include <algorithm>\n#include <iostream>\n\
+    #include <iterator>\n#include <vector>\n\nint main(void) {\n    int n;\n    std::cin\
+    \ >> n;\n    std::vector<int> a(n);\n    std::copy_n(std::istream_iterator<int>(std::cin),\
     \ n, std::begin(a));\n    std::cout << inversion_number(a) << std::endl;\n\n \
     \   return 0;\n}\n"
   dependsOn:
   - lib/algorithm/inversion_number.hpp
   - lib/algorithm/compress.hpp
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/alds1/inversion_number.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 19:53:24+09:00'
+  timestamp: '2023-10-02 03:24:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/inversion_number.test.cpp

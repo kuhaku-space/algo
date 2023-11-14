@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,21 +24,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B\"\n#include\
-    \ \"binary_tree/fenwick_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n, q;\n    std::cin >> n >> q;\n    fenwick_tree<int> ft(n);\n  \
-    \  while (q--) {\n        int com, x, y;\n        std::cin >> com >> x >> y;\n\
-    \        if (com == 0) ft.add(x - 1, y);\n        else co(ft.sum(x - 1, y));\n\
-    \    }\n\n    return 0;\n}\n"
+    \ <iostream>\n#include \"binary_tree/fenwick_tree.hpp\"\n\nint main(void) {\n\
+    \    int n, q;\n    std::cin >> n >> q;\n    fenwick_tree<int> ft(n);\n    while\
+    \ (q--) {\n        int com, x, y;\n        std::cin >> com >> x >> y;\n      \
+    \  if (com == 0) ft.add(x - 1, y);\n        else std::cout << ft.sum(x - 1, y)\
+    \ << std::endl;\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/rsq.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 17:51:19+09:00'
+  timestamp: '2023-11-07 17:41:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rsq.test.cpp

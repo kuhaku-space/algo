@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/geometry/convex_hull.hpp
     title: "\u70B9"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,22 +24,20 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/convex_hull.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A\"\n#include\
-    \ \"geometry/convex_hull.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n;\n    cin >> n;\n    vector<Point<ll>> ps(n);\n    cin >> ps;\n\
-    \    auto v = convex_hull(ps);\n    co(v.size());\n\n    int t = 0;\n    rep (i,\
-    \ n) {\n        if (v[i].y < v[t].y || (v[i].y == v[t].y && v[i].x < v[i].y))\
-    \ t = i;\n    }\n\n    rotate(v.begin(), v.begin() + t, v.end());\n    for (auto\
-    \ &[x, y] : v) co(x, y);\n\n    return 0;\n}\n"
+    \ \"geometry/convex_hull.hpp\"\n#include <algorithm>\n#include <iostream>\n#include\
+    \ <iterator>\n#include <vector>\n\nint main(void) {\n    int n;\n    std::cin\
+    \ >> n;\n    std::vector<Point<int>> ps(n);\n    std::copy_n(std::istream_iterator<Point<int>>(std::cin),\
+    \ n, std::begin(ps));\n    auto v = convex_hull(ps);\n    std::cout << std::size(v)\
+    \ << '\\n';\n\n    int t = 0;\n    for (int i = 0; i < n; ++i) {\n        if (v[i].y\
+    \ < v[t].y || (v[i].y == v[t].y && v[i].x < v[i].y)) t = i;\n    }\n\n    std::rotate(std::begin(v),\
+    \ std::begin(v) + t, std::end(v));\n    for (auto &[x, y] : v) std::cout << x\
+    \ << ' ' << y << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/convex_hull.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/cgl/convex_hull.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-12 07:19:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/convex_hull.test.cpp

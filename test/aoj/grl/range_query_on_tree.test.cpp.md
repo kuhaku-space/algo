@@ -8,15 +8,6 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -42,31 +33,28 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D\"\n#include\
-    \ \"binary_tree/fenwick_tree.hpp\"\n#include \"template/atcoder.hpp\"\n#include\
-    \ \"tree/hld.hpp\"\n\nint main(void) {\n    int n;\n    std::cin >> n;\n    Graph<void>\
-    \ g(n);\n    rep (i, n) {\n        int k;\n        std::cin >> k;\n        while\
-    \ (k--) {\n            int c;\n            std::cin >> c;\n            g.add_edges(i,\
-    \ c);\n        }\n    }\n\n    heavy_light_decomposition hld(g);\n    fenwick_tree<ll>\
-    \ ft(n);\n    int q;\n    cin >> q;\n    while (q--) {\n        int id;\n    \
-    \    std::cin >> id;\n        if (id == 0) {\n            int v, w;\n        \
-    \    std::cin >> v >> w;\n            auto f = [&](int a, int b) {\n         \
-    \       ft.add(a, w);\n            };\n            hld.for_each_edge(hld.get_parent(v),\
+    \ <cstdint>\n#include <iostream>\n#include \"binary_tree/fenwick_tree.hpp\"\n\
+    #include \"tree/hld.hpp\"\n\nint main(void) {\n    int n;\n    std::cin >> n;\n\
+    \    Graph<void> g(n);\n    for (int i = 0; i < n; ++i) {\n        int k;\n  \
+    \      std::cin >> k;\n        while (k--) {\n            int c;\n           \
+    \ std::cin >> c;\n            g.add_edges(i, c);\n        }\n    }\n\n    heavy_light_decomposition\
+    \ hld(g);\n    fenwick_tree<std::int64_t> ft(n);\n    int q;\n    std::cin >>\
+    \ q;\n    while (q--) {\n        int id;\n        std::cin >> id;\n        if\
+    \ (id == 0) {\n            int v, w;\n            std::cin >> v >> w;\n      \
+    \      auto f = [&](int a, int b) { ft.add(a, w); };\n            hld.for_each_edge(hld.get_parent(v),\
     \ v, f);\n        } else {\n            int v;\n            std::cin >> v;\n \
-    \           ll ans = 0;\n            auto f = [&](int a, int b) {\n          \
-    \      ans += ft.sum(a, b);\n            };\n            hld.for_each_edge(0,\
-    \ v, f);\n            co(ans);\n        }\n    }\n\n    return 0;\n}\n"
+    \           std::int64_t ans = 0;\n            auto f = [&](int a, int b) { ans\
+    \ += ft.sum(a, b); };\n            hld.for_each_edge(0, v, f);\n            std::cout\
+    \ << ans << std::endl;\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
   - lib/tree/hld.hpp
   - lib/graph/graph.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/grl/range_query_on_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 17:51:19+09:00'
+  timestamp: '2023-11-14 17:51:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/range_query_on_tree.test.cpp

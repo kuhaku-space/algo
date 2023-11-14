@@ -5,15 +5,6 @@ data:
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,20 +27,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B\"\n#include\
-    \ \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int q;\n    std::cin >> q;\n    while (q--) {\n        Point<double>\
-    \ a, b, c, d;\n        std::cin >> a >> b >> c >> d;\n        Line l(a, b), r(c,\
-    \ d);\n        co(intersection(l, r));\n    }\n\n    return 0;\n}\n"
+    \ <iostream>\n#include \"geometry/geometry.hpp\"\n\nint main(void) {\n    int\
+    \ q;\n    std::cin >> q;\n    while (q--) {\n        Point<double> a, b, c, d;\n\
+    \        std::cin >> a >> b >> c >> d;\n        Line l(a, b), r(c, d);\n     \
+    \   std::cout << intersection(l, r) << std::endl;\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/cgl/intersection.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:18:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/intersection.test.cpp

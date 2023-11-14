@@ -17,15 +17,6 @@ data:
     path: lib/string/aho_corasick.hpp
     title: "Aho Corasick \u6CD5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -38,9 +29,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/challenges/sources/JAG/Regional/2863?year=2017
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2863
     links:
-    - https://onlinejudge.u-aizu.ac.jp/challenges/sources/JAG/Regional/2863?year=2017
+    - https://onlinejudge.u-aizu.ac.jp/problems/2863
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -50,36 +41,35 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/aho_corasick.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/JAG/Regional/2863?year=2017\"\
-    \n#include \"string/aho_corasick.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n#include \"tree/tree_function.hpp\"\n\nusing Mint\
-    \ = modint107;\n\nint main(void) {\n    int m;\n    cin >> m;\n    vector<string>\
-    \ t(m);\n    cin >> t;\n    aho_corasick<26, 'a'> aho;\n    vector<vector<int>>\
-    \ correct;\n    rep (i, m) {\n        auto v = aho.insert(t[i]);\n        correct.resize(aho.size());\n\
-    \        correct[v.back()].emplace_back(i);\n    }\n    auto failure = aho.build();\n\
-    \    auto bfs = tree_bfs(failure);\n    for (auto x : bfs) {\n        int y =\
-    \ failure[x];\n        vector<int> v;\n        set_union(correct[x].begin(), correct[x].end(),\
-    \ correct[y].begin(), correct[y].end(),\n                  back_inserter(v));\n\
-    \        correct[x] = v;\n    }\n    string s;\n    cin >> s;\n    int n = s.size();\n\
-    \    auto res = aho.search(s);\n    vector<Mint> dp(n + 1);\n    dp[0] = 1;\n\
-    \    rep (i, n + 1) {\n        for (auto y : correct[res[i]]) {\n            dp[i]\
-    \ += dp[i - t[y].size()];\n        }\n    }\n    co(dp[n]);\n\n    return 0;\n\
-    }\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2863\"\n#include\
+    \ \"string/aho_corasick.hpp\"\n#include <algorithm>\n#include <iostream>\n#include\
+    \ <iterator>\n#include <string>\n#include <vector>\n#include \"math/modint.hpp\"\
+    \n#include \"tree/tree_function.hpp\"\n\nusing Mint = modint107;\n\nint main(void)\
+    \ {\n    int m;\n    std::cin >> m;\n    std::vector<std::string> t(m);\n    std::copy_n(std::istream_iterator<std::string>(std::cin),\
+    \ m, t.begin());\n    aho_corasick<26, 'a'> aho;\n    std::vector<std::vector<int>>\
+    \ correct;\n    for (int i = 0; i < m; ++i) {\n        auto v = aho.insert(t[i]);\n\
+    \        correct.resize(aho.size());\n        correct[v.back()].emplace_back(i);\n\
+    \    }\n    auto failure = aho.build();\n    auto bfs = tree_bfs(failure);\n \
+    \   for (auto x : bfs) {\n        int y = failure[x];\n        std::vector<int>\
+    \ v;\n        std::set_union(correct[x].begin(), correct[x].end(), correct[y].begin(),\
+    \ correct[y].end(),\n                       std::back_inserter(v));\n        correct[x]\
+    \ = v;\n    }\n    std::string s;\n    std::cin >> s;\n    int n = s.size();\n\
+    \    auto res = aho.search(s);\n    std::vector<Mint> dp(n + 1);\n    dp[0] =\
+    \ 1;\n    for (int i = 0; i < n + 1; ++i) {\n        for (auto y : correct[res[i]])\
+    \ dp[i] += dp[i - t[y].size()];\n    }\n    std::cout << dp.back() << std::endl;\n\
+    \n    return 0;\n}\n"
   dependsOn:
   - lib/string/aho_corasick.hpp
   - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   - lib/tree/tree_function.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/aoj/jag/aho_corasick.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:16+09:00'
+  timestamp: '2023-11-15 01:07:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/aho_corasick.test.cpp

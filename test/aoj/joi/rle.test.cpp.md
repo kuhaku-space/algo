@@ -5,15 +5,6 @@ data:
     path: lib/algorithm/rle.hpp
     title: "\u30E9\u30F3\u30EC\u30F3\u30B0\u30B9\u5727\u7E2E"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -39,31 +30,30 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/rle.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/0534\"\n#include\
-    \ \"algorithm/rle.hpp\"\n#include \"template/atcoder.hpp\"\n#include \"template/vector.hpp\"\
+    \ \"algorithm/rle.hpp\"\n#include <algorithm>\n#include <iostream>\n#include <iterator>\n\
+    #include <vector>\n#include \"template/template.hpp\"\n#include \"template/vector.hpp\"\
     \n\nint main(void) {\n    while (true) {\n        int n;\n        std::cin >>\
-    \ n;\n        if (!n) break;\n        std::vector<int> a(n);\n        std::cin\
-    \ >> a;\n        Dec >> a;\n        int ans = n;\n        rep (i, n) {\n     \
-    \       auto b = a;\n            rep (j, 3) {\n                if (a[i] == j)\
-    \ continue;\n                b[i] = j;\n                auto v = run_length_encoding(b);\n\
-    \                std::stack<std::pair<int, int>> st;\n                for (auto\
-    \ p : v) {\n                    if (p.second >= 4) continue;\n               \
-    \     if (!st.empty() && st.top().first == p.first && st.top().second + p.second\
-    \ >= 4)\n                        st.pop();\n                    else st.emplace(p);\n\
-    \                }\n                int sum = 0;\n                while (!st.empty())\
-    \ {\n                    sum += st.top().second;\n                    st.pop();\n\
-    \                }\n                chmin(ans, sum);\n            }\n        }\n\
-    \        co(ans);\n    }\n\n    return 0;\n}\n"
+    \ n;\n        if (!n) break;\n        std::vector<int> a(n);\n        std::copy_n(std::istream_iterator<int>(std::cin),\
+    \ n, std::begin(a));\n        Dec >> a;\n        int ans = n;\n        for (int\
+    \ i = 0; i < n; ++i) {\n            auto b = a;\n            for (int j = 0; j\
+    \ < 3; ++j) {\n                if (a[i] == j) continue;\n                b[i]\
+    \ = j;\n                auto v = run_length_encoding(b);\n                std::stack<std::pair<int,\
+    \ int>> st;\n                for (auto p : v) {\n                    if (p.second\
+    \ >= 4) continue;\n                    if (!st.empty() && st.top().first == p.first\
+    \ && st.top().second + p.second >= 4)\n                        st.pop();\n   \
+    \                 else st.emplace(p);\n                }\n                int\
+    \ sum = 0;\n                while (!st.empty()) {\n                    sum +=\
+    \ st.top().second;\n                    st.pop();\n                }\n       \
+    \         chmin(ans, sum);\n            }\n        }\n        std::cout << ans\
+    \ << std::endl;\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/rle.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   - lib/template/vector.hpp
   isVerificationFile: true
   path: test/aoj/joi/rle.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 01:47:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/joi/rle.test.cpp

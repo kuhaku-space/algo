@@ -11,15 +11,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,21 +33,18 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_B\"\n#include\
-    \ \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\n\nusing Mint = modint107;\n\
-    \nint main(void) {\n    int n, m;\n    cin >> n >> m;\n    co(Mint(n).pow(m));\n\
-    \n    return 0;\n}\n"
+    \ <iostream>\n#include \"math/modint.hpp\"\n\nusing Mint = modint107;\n\nint main(void)\
+    \ {\n    int n, m;\n    std::cin >> n >> m;\n    std::cout << Mint(n).pow(m) <<\
+    \ std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/ntl/power.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:16+09:00'
+  timestamp: '2023-11-15 01:52:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ntl/power.test.cpp

@@ -54,11 +54,11 @@ data:
   isVerificationFile: false
   path: lib/tree/eular_tour.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-12 00:40:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/rupc/lazy_segment_tree.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
 documentation_of: lib/tree/eular_tour.hpp
 layout: document
 redirect_from:

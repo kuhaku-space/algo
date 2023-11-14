@@ -2,15 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -36,23 +27,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/weighted_union_find.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B\"\n#include\
-    \ \"tree/weighted_union_find.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n, q;\n    std::cin >> n >> q;\n    weighted_union_find<int> uf(n);\n\
+    \ \"tree/weighted_union_find.hpp\"\n#include <iostream>\n\nint main(void) {\n\
+    \    int n, q;\n    std::cin >> n >> q;\n    weighted_union_find<int> uf(n);\n\
     \    while (q--) {\n        int com;\n        std::cin >> com;\n        if (com\
     \ == 0) {\n            int x, y, w;\n            std::cin >> x >> y >> w;\n  \
     \          uf.unite(x, y, w);\n        } else {\n            int x, y;\n     \
-    \       std::cin >> x >> y;\n            if (uf.same(x, y)) co(uf.diff(x, y));\n\
-    \            else co('?');\n        }\n    }\n\n    return 0;\n}\n"
+    \       std::cin >> x >> y;\n            if (uf.same(x, y)) std::cout << uf.diff(x,\
+    \ y) << std::endl;\n            else std::cout << '?' << std::endl;\n        }\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/weighted_union_find.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/weighted_union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:41:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/weighted_union_find.test.cpp

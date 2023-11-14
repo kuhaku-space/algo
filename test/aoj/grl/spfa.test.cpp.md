@@ -8,15 +8,6 @@ data:
     path: lib/graph/spfa.hpp
     title: SPFA
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -39,23 +30,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/spfa.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B\"\n#include\
-    \ \"graph/spfa.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n\
-    \    int n, m, r;\n    cin >> n >> m >> r;\n    Graph<int> g(n);\n    g.input_edge(m,\
-    \ 0);\n\n    auto dist = shortest_path_faster_algorithm(g, r, Inf);\n    if (dist.empty())\
-    \ {\n        co(\"NEGATIVE CYCLE\");\n        return 0;\n    }\n    rep (i, n)\
-    \ {\n        if (dist[i] != Inf) co(dist[i]);\n        else co(\"INF\");\n   \
-    \ }\n\n    return 0;\n}\n"
+    \ \"graph/spfa.hpp\"\n#include <iostream>\n#include <vector>\n\nint main(void)\
+    \ {\n    int n, m, r;\n    std::cin >> n >> m >> r;\n    Graph<int> g(n);\n  \
+    \  g.input_edge(m, 0);\n\n    auto dist = shortest_path_faster_algorithm(g, r,\
+    \ Inf);\n    if (dist.empty()) {\n        std::cout << \"NEGATIVE CYCLE\" << std::endl;\n\
+    \        return 0;\n    }\n    for (int i = 0; i < n; ++i) {\n        if (dist[i]\
+    \ != Inf) std::cout << dist[i] << std::endl;\n        else std::cout << \"INF\"\
+    \ << std::endl;\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/spfa.hpp
   - lib/graph/graph.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/grl/spfa.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 18:02:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/spfa.test.cpp

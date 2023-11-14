@@ -10,6 +10,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: "\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -20,19 +21,24 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\n\ntemplate <class T>\nint longest_common_prefix(const\
+  code: "#include \"template/template.hpp\"\n\n/**\n * @brief \u6700\u9577\u5171\u901A\
+    \u63A5\u982D\u8F9E\n *\n * @tparam T \u914D\u5217\u306E\u578B\n * @param a \u914D\
+    \u5217\n * @param b \u914D\u5217\n * @return int \u6700\u9577\u5171\u901A\u63A5\
+    \u982D\u8F9E\u306E\u9577\u3055\n */\ntemplate <class T>\nint longest_common_prefix(const\
     \ std::vector<T> &a, const std::vector<T> &b) {\n    int m = (int)std::min(a.size(),\
     \ b.size());\n    for (int i = 0; i < m; ++i) {\n        if (a[i] != b[i]) return\
-    \ i;\n    }\n    return m;\n}\n\nint longest_common_prefix(const string &a, const\
-    \ string &b) {\n    int m = (int)std::min(a.size(), b.size());\n    for (int i\
-    \ = 0; i < m; ++i) {\n        if (a[i] != b[i]) return i;\n    }\n    return m;\n\
-    }\n"
+    \ i;\n    }\n    return m;\n}\n\n/**\n * @brief \u6700\u9577\u5171\u901A\u63A5\
+    \u982D\u8F9E\n *\n * @param a \u6587\u5B57\u5217\n * @param b \u6587\u5B57\u5217\
+    \n * @return int \u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\u306E\u9577\u3055\n\
+    \ */\nint longest_common_prefix(const std::string &a, const std::string &b) {\n\
+    \    int m = (int)std::min(a.size(), b.size());\n    for (int i = 0; i < m; ++i)\
+    \ {\n        if (a[i] != b[i]) return i;\n    }\n    return m;\n}\n"
   dependsOn:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/string/lcp.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-10-26 17:04:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/string/lcp.hpp
@@ -40,5 +46,5 @@ layout: document
 redirect_from:
 - /library/lib/string/lcp.hpp
 - /library/lib/string/lcp.hpp.html
-title: lib/string/lcp.hpp
+title: "\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E"
 ---

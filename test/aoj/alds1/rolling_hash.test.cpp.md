@@ -5,15 +5,6 @@ data:
     path: lib/string/rolling_hash.hpp
     title: "\u30ED\u30FC\u30EA\u30F3\u30B0\u30CF\u30C3\u30B7\u30E5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,20 +27,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/rolling_hash.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B\"\
-    \n#include \"string/rolling_hash.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    int main(void) {\n    sonic();\n    string s;\n    cin >> s;\n\n    rolling_hash\
-    \ rh(s);\n    string t;\n    cin >> t;\n    for (auto e : rh.search(t)) {\n  \
-    \      co(e);\n    }\n\n    return 0;\n}\n"
+    \n#include \"string/rolling_hash.hpp\"\n#include <iostream>\n#include <string>\n\
+    \nint main(void) {\n    std::string s;\n    std::cin >> s;\n\n    rolling_hash\
+    \ rh(s);\n    std::string t;\n    std::cin >> t;\n    for (auto e : rh.search(t))\
+    \ std::cout << e << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/rolling_hash.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/rolling_hash.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:07:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/rolling_hash.test.cpp

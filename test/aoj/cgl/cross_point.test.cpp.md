@@ -5,12 +5,6 @@ data:
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/sonic.hpp
     title: lib/template/sonic.hpp
   - icon: ':heavy_check_mark:'
@@ -37,21 +31,19 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_C\"\n#define\
-    \ ERROR 0.00000001\n#include \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    int q;\n    std::cin >> q;\n    while (q--) {\n    \
-    \    Point<double> a, b, c, d;\n        std::cin >> a >> b >> c >> d;\n      \
-    \  Line l(a, b), m(c, d);\n        co(cross_point(l, m));\n    }\n\n    return\
-    \ 0;\n}\n"
+    \ ERROR 0.00000001\n#include <iostream>\n#include \"geometry/geometry.hpp\"\n\
+    #include \"template/sonic.hpp\"\n\nint main(void) {\n    int q;\n    std::cin\
+    \ >> q;\n    while (q--) {\n        Point<double> a, b, c, d;\n        std::cin\
+    \ >> a >> b >> c >> d;\n        Line l(a, b), m(c, d);\n        std::cout << cross_point(l,\
+    \ m) << std::endl;\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
   - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/cgl/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:53:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/cross_point.test.cpp

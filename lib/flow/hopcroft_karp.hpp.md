@@ -60,9 +60,9 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/bipartite_matching.2.test.cpp
-  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
+  - test/aoj/grl/bipartite_matching.2.test.cpp
 documentation_of: lib/flow/hopcroft_karp.hpp
 layout: document
 redirect_from:

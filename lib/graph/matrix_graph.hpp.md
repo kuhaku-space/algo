@@ -77,14 +77,14 @@ data:
   isVerificationFile: false
   path: lib/graph/matrix_graph.hpp
   requiredBy:
-  - lib/graph/chromatic_number.hpp
   - lib/graph/warshall_floyd.hpp
+  - lib/graph/chromatic_number.hpp
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/warshall_floyd.test.cpp
-  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/yosupo/graph/chromatic_number.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
 documentation_of: lib/graph/matrix_graph.hpp
 layout: document
 redirect_from:

@@ -5,15 +5,6 @@ data:
     path: lib/geometry/geometry.hpp
     title: lib/geometry/geometry.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,24 +27,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: geometry/geometry.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C\"\n#include\
-    \ \"geometry/geometry.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
+    \ <cstdio>\n#include <iostream>\n#include \"geometry/geometry.hpp\"\n\nint main(void)\
     \ {\n    Point<double> a, b;\n    std::cin >> a >> b;\n    Line l(a, b);\n   \
     \ int q;\n    std::cin >> q;\n    while (q--) {\n        Point<double> p;\n  \
     \      std::cin >> p;\n        auto ans = ccw(a, b, p);\n        if (ans == 1)\
-    \ co(\"COUNTER_CLOCKWISE\");\n        else if (ans == -1) co(\"CLOCKWISE\");\n\
-    \        else if (ans == 2) co(\"ONLINE_BACK\");\n        else if (ans == -2)\
-    \ co(\"ONLINE_FRONT\");\n        else co(\"ON_SEGMENT\");\n    }\n\n    return\
-    \ 0;\n}\n"
+    \ std::puts(\"COUNTER_CLOCKWISE\");\n        else if (ans == -1) std::puts(\"\
+    CLOCKWISE\");\n        else if (ans == 2) std::puts(\"ONLINE_BACK\");\n      \
+    \  else if (ans == -2) std::puts(\"ONLINE_FRONT\");\n        else std::puts(\"\
+    ON_SEGMENT\");\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/geometry.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/cgl/counter-clockwise.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:18:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/cgl/counter-clockwise.test.cpp

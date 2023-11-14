@@ -91,7 +91,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-10-12 00:40:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_set_path_composite.test.cpp

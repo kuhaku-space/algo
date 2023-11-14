@@ -8,15 +8,6 @@ data:
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -26,9 +17,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_C
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C
+    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_C
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -36,30 +27,28 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/matrix_graph.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/warshall_floyd.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C\"\
-    \n#include \"graph/matrix_graph.hpp\"\n#include \"graph/warshall_floyd.hpp\"\n\
-    #include \"template/atcoder.hpp\"\n\nint main(void) {\n    sonic();\n    int v,\
-    \ e;\n    cin >> v >> e;\n    matrix_graph<ll> g(v, INF);\n    while (e--) {\n\
-    \        int s, t, d;\n        cin >> s >> t >> d;\n        g.add_edge(s, t, d);\n\
-    \    }\n    warshall_floyd(g);\n    rep(i, v) {\n        if (g[i][i] < 0) {\n\
-    \            co(\"NEGATIVE CYCLE\");\n            return 0;\n        }\n    }\n\
-    \n    rep(i, v) {\n        vector<string> ans;\n        rep(j, v) {\n        \
-    \    if (g[i][j] >= INF / 2)\n                ans.emplace_back(\"INF\");\n   \
-    \         else\n                ans.emplace_back(to_string(g[i][j]));\n      \
-    \  }\n        co(ans);\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_C\"\n#include\
+    \ \"graph/warshall_floyd.hpp\"\n#include <cstdint>\n#include <iostream>\n#include\
+    \ <string>\n#include \"graph/matrix_graph.hpp\"\n\nint main(void) {\n    int v,\
+    \ e;\n    std::cin >> v >> e;\n    matrix_graph<std::int64_t> g(v, INF);\n   \
+    \ while (e--) {\n        int s, t, d;\n        std::cin >> s >> t >> d;\n    \
+    \    g.add_edge(s, t, d);\n    }\n    warshall_floyd(g);\n    for (int i = 0;\
+    \ i < v; ++i) {\n        if (g[i][i] < 0) {\n            std::cout << \"NEGATIVE\
+    \ CYCLE\" << std::endl;\n            return 0;\n        }\n    }\n\n    for (int\
+    \ i = 0; i < v; ++i) {\n        for (int j = 0; j < v; ++j) {\n            if\
+    \ (g[i][j] >= INF / 2) std::cout << \"INF\";\n            else std::cout << g[i][j];\n\
+    \            if (j == v - 1) std::cout << std::endl;\n            else std::cout\
+    \ << ' ';\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
+  - lib/graph/warshall_floyd.hpp
   - lib/graph/matrix_graph.hpp
   - lib/template/template.hpp
-  - lib/graph/warshall_floyd.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/grl/warshall_floyd.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 17:51:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/warshall_floyd.test.cpp

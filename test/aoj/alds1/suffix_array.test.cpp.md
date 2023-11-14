@@ -5,15 +5,6 @@ data:
     path: lib/string/suffix_array.hpp
     title: Suffix Array
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,24 +27,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/suffix_array.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_D\"\n\
-    #include \"string/suffix_array.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    std::string s;\n    std::cin >> s;\n    int n = s.size();\n\
+    #include \"string/suffix_array.hpp\"\n#include <iostream>\n#include <string>\n\
+    \nint main(void) {\n    std::string s;\n    std::cin >> s;\n    int n = s.size();\n\
     \    auto v = suffix_array(s);\n    int q;\n    std::cin >> q;\n    while (q--)\
     \ {\n        std::string t;\n        std::cin >> t;\n        int l = -1, r = n\
     \ - 1;\n        while (r - l > 1) {\n            int m = (l + r) / 2;\n      \
     \      if (s.substr(v[m], t.size()) < t) l = m;\n            else r = m;\n   \
-    \     }\n        co(s.substr(v[r], t.size()) == t);\n    }\n\n    return 0;\n\
-    }\n"
+    \     }\n        std::cout << (s.substr(v[r], t.size()) == t) << std::endl;\n\
+    \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/suffix_array.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/alds1/suffix_array.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-07 17:07:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/suffix_array.test.cpp

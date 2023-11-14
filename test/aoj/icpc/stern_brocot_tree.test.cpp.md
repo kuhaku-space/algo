@@ -2,15 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -36,26 +27,24 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/stern_brocot_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/1208\"\n#include\
-    \ \"tree/stern_brocot_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    while (true) {\n        int n, p;\n        cin >> p >> n;\n        if\
-    \ (n == 0 && p == 0) break;\n        int u, v, x, y;\n        auto f = [&](ll\
-    \ a, ll b) -> bool {\n            bool f = a * a < b * b * p;\n            if\
-    \ (f) u = a, v = b;\n            else x = a, y = b;\n            return f;\n \
-    \       };\n        stern_brocot_tree sbt;\n        while (true) {\n         \
-    \   auto [s, t] = sbt.get();\n            if (s > n || t > n) break;\n       \
-    \     if (f(s, t)) sbt = sbt.get_right();\n            else sbt = sbt.get_left();\n\
-    \        }\n\n        cout << x << \"/\" << y << \" \" << u << \"/\" << v << endl;\n\
-    \    }\n\n    return 0;\n}\n"
+    \ \"tree/stern_brocot_tree.hpp\"\n#include <cstdint>\n#include <iostream>\n\n\
+    int main(void) {\n    while (true) {\n        int n, p;\n        std::cin >> p\
+    \ >> n;\n        if (n == 0 && p == 0) break;\n        int u, v, x, y;\n     \
+    \   auto f = [&](std::int64_t a, std::int64_t b) -> bool {\n            bool f\
+    \ = a * a < b * b * p;\n            if (f) u = a, v = b;\n            else x =\
+    \ a, y = b;\n            return f;\n        };\n        stern_brocot_tree sbt;\n\
+    \        while (true) {\n            auto [s, t] = sbt.get();\n            if\
+    \ (s > n || t > n) break;\n            if (f(s, t)) sbt = sbt.get_right();\n \
+    \           else sbt = sbt.get_left();\n        }\n\n        std::cout << x <<\
+    \ \"/\" << y << \" \" << u << \"/\" << v << std::endl;\n    }\n\n    return 0;\n\
+    }\n"
   dependsOn:
   - lib/tree/stern_brocot_tree.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/icpc/stern_brocot_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-14 23:28:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/icpc/stern_brocot_tree.test.cpp

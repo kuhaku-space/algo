@@ -11,15 +11,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,25 +33,22 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/dual_segment_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D\"\n#include\
-    \ \"segment_tree/dual_segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\n\
-    int main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    dual_segment_tree<Update<int>>\
-    \ st(n, (1LL << 31) - 1);\n    while (q--) {\n        int com;\n        std::cin\
-    \ >> com;\n        if (com == 0) {\n            int s, t, x;\n            std::cin\
-    \ >> s >> t >> x;\n            st.apply(s, t + 1, x);\n        } else {\n    \
-    \        int x;\n            std::cin >> x;\n            co(st.get(x));\n    \
-    \    }\n    }\n\n    return 0;\n}\n"
+    \ <iostream>\n#include <limits>\n#include \"segment_tree/dual_segment_tree.hpp\"\
+    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    dual_segment_tree<Update<int>>\
+    \ st(n, std::numeric_limits<int>::max());\n    while (q--) {\n        int com;\n\
+    \        std::cin >> com;\n        if (com == 0) {\n            int s, t, x;\n\
+    \            std::cin >> s >> t >> x;\n            st.apply(s, t + 1, x);\n  \
+    \      } else {\n            int x;\n            std::cin >> x;\n            std::cout\
+    \ << st.get(x) << std::endl;\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/dual_segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/aoj/dsl/ruq.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-07 17:41:55+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/ruq.test.cpp
