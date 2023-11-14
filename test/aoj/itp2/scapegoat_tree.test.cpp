@@ -1,29 +1,22 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B"
 #include "binary_tree/scapegoat_tree.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
-    sonic();
     int q;
-    cin >> q;
+    std::cin >> q;
     int size = 0;
     scapegoat_tree<int> st;
-    rep(i, q) {
+    while (q--) {
         int x, y;
-        cin >> x >> y;
+        std::cin >> x >> y;
         if (x == 0) {
-            if (!st.contains(y)) {
-                st.insert(y);
-                ++size;
-            }
-            co(size);
+            if (!st.contains(y)) st.insert(y), ++size;
+            std::cout << size << std::endl;
         } else if (x == 1) {
-            co(st.contains(y));
+            std::cout << st.contains(y) << std::endl;
         } else if (x == 2) {
-            if (st.contains(y)) {
-                st.erase(y);
-                --size;
-            }
+            if (st.contains(y)) st.erase(y), --size;
         }
     }
 

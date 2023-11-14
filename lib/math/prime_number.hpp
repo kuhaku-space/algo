@@ -1,4 +1,9 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 /**
  * @brief 素数ライブラリ
@@ -7,7 +12,7 @@
  */
 template <int N = 1 << 22>
 struct prime_number {
-    prime_number() : is_not_prime(), data() { this->init(); }
+    prime_number() : is_not_prime(), data() { init(); }
 
     /**
      * @brief 素数判定
@@ -17,8 +22,8 @@ struct prime_number {
      */
     bool is_prime(std::int64_t n) const {
         assert(n >= 0);
-        if (n < N) return !this->is_not_prime[n];
-        for (auto i : this->data) {
+        if (n < N) return !is_not_prime[n];
+        for (auto i : data) {
             if ((std::int64_t)i * i > n) break;
             if (n % i == 0) return false;
         }
@@ -27,7 +32,7 @@ struct prime_number {
 
     std::vector<int> prime_numbers(int x) const {
         std::vector<int> res;
-        for (auto i : this->data) {
+        for (auto i : data) {
             if (i > x) break;
             res.emplace_back(i);
         }
@@ -45,7 +50,7 @@ struct prime_number {
     std::vector<std::pair<T, int>> prime_factorization(T x) const {
         if (x == 1) return std::vector<std::pair<T, int>>();
         std::vector<std::pair<T, int>> res;
-        for (auto p : this->data) {
+        for (auto p : data) {
             int cnt = 0;
             for (; x % p == 0; x /= p) ++cnt;
             if (cnt) res.emplace_back(p, cnt);
@@ -65,15 +70,13 @@ struct prime_number {
     template <class T>
     std::vector<T> divisors(T x) const {
         if (x == 1) return std::vector<T>(1, 1);
-        auto v = this->prime_factorization(x);
+        auto v = prime_factorization(x);
         std::vector<T> res;
         res.emplace_back(1);
         for (auto p : v) {
             int n = res.size();
             res.resize(n * (p.second + 1));
-            for (int i = 0; i < n * p.second; ++i) {
-                res[n + i] = res[i] * p.first;
-            }
+            for (int i = 0; i < n * p.second; ++i) res[n + i] = res[i] * p.first;
             for (int i = 1; i <= p.second; ++i) {
                 std::inplace_merge(res.begin(), res.begin() + n * i, res.begin() + n * (i + 1));
             }
@@ -109,15 +112,15 @@ struct prime_number {
     std::vector<int> data;
 
     void init() {
-        this->is_not_prime[0] = this->is_not_prime[1] = true;
+        is_not_prime[0] = is_not_prime[1] = true;
         for (int i = 2; i < N; ++i) {
-            if (!this->is_not_prime[i]) {
-                this->data.emplace_back(i);
+            if (!is_not_prime[i]) {
+                data.emplace_back(i);
                 if ((std::int64_t)i * i >= N) continue;
                 if (i == 2) {
-                    for (int j = i * i; j < N; j += i) this->is_not_prime[j] = true;
+                    for (int j = i * i; j < N; j += i) is_not_prime[j] = true;
                 } else {
-                    for (int j = i * i; j < N; j += i << 1) this->is_not_prime[j] = true;
+                    for (int j = i * i; j < N; j += i << 1) is_not_prime[j] = true;
                 }
             }
         }

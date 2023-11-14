@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B"
+#include <iostream>
 #include "binary_tree/fenwick_tree.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
@@ -10,7 +10,7 @@ int main(void) {
         int com, x, y;
         std::cin >> com >> x >> y;
         if (com == 0) ft.add(x - 1, y);
-        else co(ft.sum(x - 1, y));
+        else std::cout << ft.sum(x - 1, y) << std::endl;
     }
 
     return 0;

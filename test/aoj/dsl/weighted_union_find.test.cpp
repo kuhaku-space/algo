@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B"
 #include "tree/weighted_union_find.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
     int n, q;
@@ -16,8 +16,8 @@ int main(void) {
         } else {
             int x, y;
             std::cin >> x >> y;
-            if (uf.same(x, y)) co(uf.diff(x, y));
-            else co('?');
+            if (uf.same(x, y)) std::cout << uf.diff(x, y) << std::endl;
+            else std::cout << '?' << std::endl;
         }
     }
 

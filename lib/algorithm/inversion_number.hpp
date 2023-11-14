@@ -1,6 +1,7 @@
+#include <algorithm>
+#include <iterator>
 #include "algorithm/compress.hpp"
 #include "binary_tree/fenwick_tree.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 転倒数を求める

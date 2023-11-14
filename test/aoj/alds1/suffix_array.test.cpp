@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_D"
 #include "string/suffix_array.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <string>
 
 int main(void) {
     std::string s;
@@ -18,7 +19,7 @@ int main(void) {
             if (s.substr(v[m], t.size()) < t) l = m;
             else r = m;
         }
-        co(s.substr(v[r], t.size()) == t);
+        std::cout << (s.substr(v[r], t.size()) == t) << std::endl;
     }
 
     return 0;

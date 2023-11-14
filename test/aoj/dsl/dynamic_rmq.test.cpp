@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A"
+#include <iostream>
 #include "segment_tree/dynamic_segment_tree.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
@@ -10,7 +10,7 @@ int main(void) {
         int com, x, y;
         std::cin >> com >> x >> y;
         if (com == 0) st.set(x, y);
-        else co(st.prod(x, y + 1));
+        else std::cout << st.prod(x, y + 1) << std::endl;
     }
 
     return 0;

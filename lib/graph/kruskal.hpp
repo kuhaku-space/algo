@@ -1,6 +1,6 @@
-#pragma once
+#include <algorithm>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 #include "tree/union_find.hpp"
 
 /**
@@ -22,10 +22,7 @@ std::vector<typename Graph<T>::edge_type> kruskal(const Graph<T> &g) {
     }
     std::sort(edge_list.begin(), edge_list.end());
     for (auto &e : edge_list) {
-        if (!uf.same(e.from(), e.to())) {
-            uf.unite(e.from(), e.to());
-            res.emplace_back(e);
-        }
+        if (uf.unite(e.from(), e.to())) res.emplace_back(e);
     }
     return res;
 }

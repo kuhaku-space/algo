@@ -1,29 +1,22 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B"
 #include "binary_tree/avl_tree.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
-    sonic();
     int q;
-    cin >> q;
+    std::cin >> q;
     int size = 0;
     avl_tree<int> at;
-    rep(i, q) {
+    while (q--) {
         int x, y;
-        cin >> x >> y;
+        std::cin >> x >> y;
         if (x == 0) {
-            if (!at.contains(y)) {
-                at.insert(y);
-                ++size;
-            }
-            co(size);
+            if (!at.contains(y)) at.insert(y), ++size;
+            std::cout << size << std::endl;
         } else if (x == 1) {
-            co(at.contains(y));
+            std::cout << at.contains(y) << std::endl;
         } else if (x == 2) {
-            if (at.contains(y)) {
-                at.erase(y);
-                --size;
-            }
+            if (at.contains(y)) at.erase(y), --size;
         }
     }
 

@@ -1,19 +1,19 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_A"
+#include <algorithm>
+#include <iostream>
+#include <vector>
 #include "graph/lowlink.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
-    sonic();
     int n, m;
-    cin >> n >> m;
+    std::cin >> n >> m;
     Graph<void> g(n);
     g.input_edges(m, 0);
 
     LowLink llink(g);
-
     auto ans = llink.get_articulation_points();
-    std::sort(all(ans));
-    for (auto i : ans) co(i);
+    std::sort(ans.begin(), ans.end());
+    for (auto e : ans) std::cout << e << std::endl;
 
     return 0;
 }
