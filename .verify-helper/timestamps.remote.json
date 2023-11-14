@@ -46,6 +46,7 @@
 "test/aoj/grl/range_query_on_tree.test.cpp": "2023-11-14 17:51:58 +0900",
 "test/aoj/grl/range_query_on_tree_2.test.cpp": "2023-11-14 17:51:58 +0900",
 "test/aoj/grl/scc.test.cpp": "2023-11-14 17:51:58 +0900",
+"test/aoj/grl/spfa.test.cpp": "2023-11-14 18:02:00 +0900",
 "test/aoj/grl/topological_sort.test.cpp": "2023-11-14 17:51:58 +0900",
 "test/aoj/grl/warshall_floyd.test.cpp": "2023-11-14 17:51:58 +0900",
 "test/aoj/hupc/kmp.test.cpp": "2023-10-02 04:21:38 +0900",
