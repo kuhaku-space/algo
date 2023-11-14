@@ -1,25 +1,24 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/persistent_queue"
 #include "data_structure/persistent_queue.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <vector>
 
 int main(void) {
-    sonic();
     int q;
-    cin >> q;
-    vector<persistent_queue<int>> qs;
+    std::cin >> q;
+    std::vector<persistent_queue<int>> qs;
     qs.emplace_back();
-
-    rep (i, q) {
+    while (q--) {
         int t;
-        cin >> t;
+        std::cin >> t;
         if (t == 0) {
             int k, x;
-            cin >> k >> x;
-            qs.emplace_back(qs[k + 1].push(x));
+            std::cin >> k >> x;
+            qs.emplace_back(qs[k + 1].emplace(x));
         } else {
             int k;
-            cin >> k;
-            co(qs[k + 1].top());
+            std::cin >> k;
+            std::cout << qs[k + 1].top() << '\n';
             qs.emplace_back(qs[k + 1].pop());
         }
     }

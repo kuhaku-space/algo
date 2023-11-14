@@ -1,19 +1,21 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
+#include <iostream>
+#include <utility>
+#include <vector>
 #include "math/modint.hpp"
 #include "segment_tree/lazy_segment_tree.hpp"
-#include "template/atcoder.hpp"
 
 using Mint = modint998;
 
 struct M1 {
-    using T = pair<Mint, Mint>;
+    using T = std::pair<Mint, Mint>;
     using value_type = T;
     static constexpr T id = T(0, 0);
     static constexpr T op(T lhs, T rhs) { return {lhs.first + rhs.first, rhs.second + lhs.second}; }
 };
 
 struct M2 {
-    using T = pair<Mint, Mint>;
+    using T = std::pair<Mint, Mint>;
     using value_type = T;
     static constexpr T id = T(1, 0);
     static constexpr T op(T lhs, T rhs) {
@@ -27,24 +29,24 @@ struct M2 {
 
 int main(void) {
     int n, q;
-    cin >> n >> q;
-    vector<Mint> a(n);
-    cin >> a;
-    vector<pair<Mint, Mint>> p(n);
-    rep (i, n) p[i] = {a[i], 1};
+    std::cin >> n >> q;
+    std::vector<Mint> a(n);
+    for (auto &e : a) std::cin >> e;
+    std::vector<std::pair<Mint, Mint>> p(n);
+    for (int i = 0; i < n; ++i) p[i] = {a[i], 1};
     lazy_segment_tree<M1, M2> st(p);
 
     while (q--) {
         int c;
-        cin >> c;
+        std::cin >> c;
         if (c == 0) {
             int l, r, b, c;
-            cin >> l >> r >> b >> c;
+            std::cin >> l >> r >> b >> c;
             st.apply(l, r, {b, c});
         } else {
             int l, r;
-            cin >> l >> r;
-            co(st.prod(l, r).first);
+            std::cin >> l >> r;
+            std::cout << st.prod(l, r).first << '\n';
         }
     }
 
