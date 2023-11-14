@@ -1,6 +1,10 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/0534"
 #include "algorithm/rle.hpp"
-#include "template/atcoder.hpp"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include "template/template.hpp"
 #include "template/vector.hpp"
 
 int main(void) {
@@ -9,12 +13,12 @@ int main(void) {
         std::cin >> n;
         if (!n) break;
         std::vector<int> a(n);
-        std::cin >> a;
+        std::copy_n(std::istream_iterator<int>(std::cin), n, std::begin(a));
         Dec >> a;
         int ans = n;
-        rep (i, n) {
+        for (int i = 0; i < n; ++i) {
             auto b = a;
-            rep (j, 3) {
+            for (int j = 0; j < 3; ++j) {
                 if (a[i] == j) continue;
                 b[i] = j;
                 auto v = run_length_encoding(b);
@@ -33,7 +37,7 @@ int main(void) {
                 chmin(ans, sum);
             }
         }
-        co(ans);
+        std::cout << ans << std::endl;
     }
 
     return 0;

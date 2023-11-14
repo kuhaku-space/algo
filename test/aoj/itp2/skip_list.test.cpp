@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP2_7_B"
 #include "data_structure/skip_list.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
 
 int main(void) {
     int q;
@@ -12,9 +12,9 @@ int main(void) {
         std::cin >> x >> y;
         if (x == 0) {
             if (!sl.contains(y)) sl.insert(y), ++size;
-            co(size);
+            std::cout << size << std::endl;
         } else if (x == 1) {
-            co(sl.contains(y));
+            std::cout << sl.contains(y) << std::endl;
         } else if (x == 2) {
             if (sl.contains(y)) sl.erase(y), --size;
         }

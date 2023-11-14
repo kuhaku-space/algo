@@ -1,18 +1,18 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_A"
+#include <iostream>
 #include "math/prime_number.hpp"
-#include "template/atcoder.hpp"
 
 prime_number pn;
 
 int main(void) {
     int n;
-    cin >> n;
+    std::cin >> n;
     auto v = pn.prime_factorization(n);
-    cout << n << ':';
+    std::cout << n << ':';
     for (auto p : v) {
-        rep (i, p.second) cout << ' ' << p.first;
+        for (int i = 0; i < p.second; ++i) std::cout << ' ' << p.first;
     }
-    cout << '\n';
+    std::cout << std::endl;
 
     return 0;
 }
