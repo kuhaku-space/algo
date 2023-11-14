@@ -1,14 +1,15 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/1208"
 #include "tree/stern_brocot_tree.hpp"
-#include "template/atcoder.hpp"
+#include <cstdint>
+#include <iostream>
 
 int main(void) {
     while (true) {
         int n, p;
-        cin >> p >> n;
+        std::cin >> p >> n;
         if (n == 0 && p == 0) break;
         int u, v, x, y;
-        auto f = [&](ll a, ll b) -> bool {
+        auto f = [&](std::int64_t a, std::int64_t b) -> bool {
             bool f = a * a < b * b * p;
             if (f) u = a, v = b;
             else x = a, y = b;
@@ -22,7 +23,7 @@ int main(void) {
             else sbt = sbt.get_left();
         }
 
-        cout << x << "/" << y << " " << u << "/" << v << endl;
+        std::cout << x << "/" << y << " " << u << "/" << v << std::endl;
     }
 
     return 0;
