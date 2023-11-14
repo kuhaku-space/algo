@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2871"
 #include "segment_tree/lazy_segment_tree.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <vector>
 #include "tree/eular_tour.hpp"
 
 struct S {
@@ -33,14 +34,14 @@ int main(void) {
     int n, q;
     std::cin >> n >> q;
     Graph<void> g(n);
-    rep (i, n - 1) {
+    for (int i = 0; i < n - 1; ++i) {
         int p;
         std::cin >> p;
         g.add_edges(p - 1, i + 1);
     }
     eular_tour et(g);
     std::vector<S> v(n);
-    rep (i, n) {
+    for (int i = 0; i < n; ++i) {
         char c;
         std::cin >> c;
         if (c == 'G') v[et.get_l(i)] = S{1, 0};
@@ -53,8 +54,8 @@ int main(void) {
         --x;
         lst.apply(et.get_l(x), et.get_r(x), 1);
         auto [g, w] = lst.all_prod();
-        if (g >= w) co("broccoli");
-        else co("cauliflower");
+        if (g >= w) std::cout << "broccoli" << std::endl;
+        else std::cout << "cauliflower" << std::endl;
     }
 
     return 0;
