@@ -11,7 +11,8 @@ int main(void) {
         std::cin >> y >> p;
         modint::set_mod(p);
         modint x(y);
-        std::cout << (has_sqrt_mod(x) ? sqrt_mod(x) : -1) << '\n';
+        if (has_sqrt_mod(x)) std::cout << sqrt_mod(x) << '\n';
+        else std::cout << -1 << '\n';
     }
 
     return 0;
