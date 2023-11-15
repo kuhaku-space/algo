@@ -82,7 +82,7 @@ struct avl_tree {
 
     constexpr T get_min_val(node_ptr node) const {
         assert(node);
-        while (node->left) { node = node->left; }
+        while (node->left) node = node->left;
         return node->val;
     }
 
