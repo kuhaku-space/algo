@@ -18,7 +18,7 @@ int main(void) {
         int t, k, u, v;
         std::cin >> t >> k >> u >> v;
         if (t == 0) g.add_edges(k + 1, i + 1, {u, v});
-        else querys[k + 1].emplace_back(i + 1, u, v);
+        else querys[k + 1].emplace_back(S{i + 1, u, v});
     }
 
     undo_union_find uf(n);

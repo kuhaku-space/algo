@@ -13,7 +13,7 @@ struct undo_union_find {
     int root(int x) { return this->data[x] < 0 ? x : this->data[x] = this->root(this->data[x]); }
     int get_root(int k) { return this->root(k); }
 
-    bool is_root(int k) const { return this->data[0] < 0; }
+    bool is_root(int k) const { return this->data[k] < 0; }
 
     bool same(int x, int y) { return this->root(x) == this->root(y); }
     bool is_same(int x, int y) { return this->same(x, y); }
