@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cmath>
+#include <numeric>
+#include <vector>
 
 /**
  * @brief Mo's algorithm
