@@ -14,7 +14,7 @@ int main(void) {
         std::cin >> x >> y;
         v.emplace_back(x, y, std::atan2((long double)y, x));
     }
-    std::sort(v.begin(), v.end(), [&](auto x, auto y) { return get<2>(x) < get<2>(y); });
+    std::sort(v.begin(), v.end(), [&](auto x, auto y) { return std::get<2>(x) < std::get<2>(y); });
     for (auto &&[x, y, z] : v) std::cout << x << ' ' << y << '\n';
 
     return 0;
