@@ -1,16 +1,17 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/longest_increasing_subsequence"
+#include <iostream>
+#include <vector>
 #include "algorithm/lis.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n;
     std::cin >> n;
-    vector<int> a(n);
-    std::cin >> a;
-
+    std::vector<int> a(n);
+    for (auto &e : a) std::cin >> e;
     auto ans = make_lis(a);
-    co(ans.size());
-    co(ans);
+    std::cout << ans.size() << '\n';
+    for (int i = 0; i < (int)ans.size(); ++i)
+        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }
