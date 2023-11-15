@@ -32,12 +32,12 @@ int main(void) {
         sum -= ft.sum(a[idx] + 1, size);
         ft.add(a[idx], -1);
     };
-    Mo mo(n, fl, fr, gl, gr);
+    Mo mo(n);
     mo.input(q, 0);
     mo.build();
     std::vector<std::int64_t> ans(q);
     while (q--) {
-        int k = mo.process();
+        int k = mo.process(fl, fr, gl, gr);
         ans[k] = sum;
     }
     for (auto x : ans) std::cout << x << '\n';
