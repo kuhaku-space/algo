@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <utility>
+#include <vector>
 
 /**
  * @brief ランレングス圧縮
