@@ -7,6 +7,11 @@
 
 using Mint = modint998;
 
+template <class T, class U>
+std::istream &operator>>(std::istream &is, std::pair<T, U> &p) {
+    return is >> p.first >> p.second;
+}
+
 struct Monoid {
     using value_type = std::pair<Mint, Mint>;
     static constexpr value_type id = {0, 0};
