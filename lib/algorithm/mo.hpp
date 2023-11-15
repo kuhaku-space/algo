@@ -21,38 +21,36 @@ struct Mo {
         for (int i = 0; i < q; ++i) {
             int l, r;
             std::cin >> l >> r;
-            this->add(l - bias, r - bias + closed);
+            add(l - bias, r - bias + closed);
         }
     }
 
     void add(int l, int r) {
-        this->_left.emplace_back(l);
-        this->_right.emplace_back(r);
+        _left.emplace_back(l);
+        _right.emplace_back(r);
     }
-    void emplace(int l, int r) { return this->add(l, r); }
-    void insert(int l, int r) { return this->add(l, r); }
+    void emplace(int l, int r) { return add(l, r); }
+    void insert(int l, int r) { return add(l, r); }
 
     void build() {
-        int q = this->_left.size();
-        int width = std::max(1, int(this->_size / std::sqrt(q)));
-        this->_order.resize(q);
-        std::iota(this->_order.begin(), this->_order.end(), 0);
-        std::sort(this->_order.begin(), this->_order.end(), [&](int a, int b) -> bool {
-            if (this->_left[a] / width != this->_left[b] / width)
-                return this->_left[a] < this->_left[b];
-            return (this->_left[a] / width % 2 == 0) ? (this->_right[a] < this->_right[b])
-                                                     : (this->_right[b] < this->_right[a]);
+        int q = _left.size();
+        int width = std::max(1, int(_size / std::sqrt(q)));
+        _order.resize(q);
+        std::iota(_order.begin(), _order.end(), 0);
+        std::sort(_order.begin(), _order.end(), [&](int a, int b) -> bool {
+            if (_left[a] / width != _left[b] / width) return _left[a] < _left[b];
+            return (_left[a] / width % 2 == 0) ? (_right[a] < _right[b]) : (_right[b] < _right[a]);
         });
     }
 
     int process() {
-        if (this->_ptr == (int)this->_order.size()) return -1;
-        const auto id = this->_order[this->_ptr];
-        while (this->_nl > this->_left[id]) this->_addl(--this->_nl);
-        while (this->_nr < this->_right[id]) this->_addr(this->_nr++);
-        while (this->_nl < this->_left[id]) this->_dell(this->_nl++);
-        while (this->_nr > this->_right[id]) this->_delr(--this->_nr);
-        return this->_order[this->_ptr++];
+        if (_ptr == (int)_order.size()) return -1;
+        const auto id = _order[_ptr];
+        while (_nl > _left[id]) _addl(--_nl);
+        while (_nr < _right[id]) _addr(_nr++);
+        while (_nl < _left[id]) _dell(_nl++);
+        while (_nr > _right[id]) _delr(--_nr);
+        return _order[_ptr++];
     }
 
   private:
