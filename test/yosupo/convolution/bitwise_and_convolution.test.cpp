@@ -1,28 +1,28 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/bitwise_and_convolution"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 #include "math/modint.hpp"
-#include "template/atcoder.hpp"
 
 using Mint = modint998;
 
 template <typename T>
-void fwt(vector<T> &f) {
+void fwt(std::vector<T> &f) {
     int n = f.size();
     for (int i = 1; i < n; i <<= 1) {
         for (int j = 0; j < n; j++) {
-            if ((j & i) == 0) {
-                f[j] += f[j | i];
-            }
+            if ((j & i) == 0) f[j] += f[j | i];
         }
     }
 }
+
 template <typename T>
-void ifwt(vector<T> &f) {
+void ifwt(std::vector<T> &f) {
     int n = f.size();
     for (int i = 1; i < n; i <<= 1) {
         for (int j = 0; j < n; j++) {
-            if ((j & i) == 0) {
-                f[j] -= f[j | i];
-            }
+            if ((j & i) == 0) f[j] -= f[j | i];
         }
     }
 }
@@ -32,12 +32,13 @@ int main(void) {
     std::cin >> n;
     n = 1 << n;
     std::vector<Mint> a(n), b(n);
-    std::cin >> a >> b;
+    std::copy_n(std::istream_iterator<Mint>(std::cin), n, std::begin(a));
+    std::copy_n(std::istream_iterator<Mint>(std::cin), n, std::begin(b));
     fwt(a), fwt(b);
     std::vector<Mint> c(n);
-    rep (i, n) c[i] = a[i] * b[i];
+    for (int i = 0; i < n; ++i) c[i] = a[i] * b[i];
     ifwt(c);
-    co(c);
+    for (int i = 0; i < n; ++i) std::cout << c[i] << (i == n - 1 ? '\n' : ' ');
 
     return 0;
 }

@@ -1,17 +1,20 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/static_range_inversions_query"
+#include <algorithm>
+#include <cstdint>
+#include <iostream>
+#include <vector>
 #include "algorithm/compress.hpp"
 #include "algorithm/mo.hpp"
 #include "binary_tree/fenwick_tree.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int n, q;
-    cin >> n >> q;
-    vector<int> a(n);
-    cin >> a;
+    std::cin >> n >> q;
+    std::vector<int> a(n);
+    for (auto &e : a) std::cin >> e;
     a = compress(a);
-    ll sum = 0;
-    int size = *max_element(all(a)) + 1;
+    std::int64_t sum = 0;
+    int size = *max_element(a.begin(), a.end()) + 1;
     fenwick_tree<int> ft(size);
     auto fl = [&](int idx) {
         sum += ft.sum(a[idx]);
@@ -32,12 +35,12 @@ int main(void) {
     Mo mo(n, fl, fr, gl, gr);
     mo.input(q, 0);
     mo.build();
-    vector<ll> ans(q);
+    std::vector<std::int64_t> ans(q);
     while (q--) {
         int k = mo.process();
         ans[k] = sum;
     }
-    for (auto x : ans) co(x);
+    for (auto x : ans) std::cout << x << '\n';
 
     return 0;
 }

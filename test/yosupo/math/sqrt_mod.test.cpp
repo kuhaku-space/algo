@@ -1,18 +1,17 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/sqrt_mod"
+#include <iostream>
 #include "math/modint.hpp"
 #include "math/sqrt.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
     int t;
-    cin >> t;
+    std::cin >> t;
     while (t--) {
         int y, p;
-        cin >> y >> p;
+        std::cin >> y >> p;
         modint::set_mod(p);
         modint x(y);
-        if (!has_sqrt_mod(x)) co(-1);
-        else co(sqrt_mod(x));
+        std::cout << (has_sqrt_mod(x) ? sqrt_mod(x) : -1) << '\n';
     }
 
     return 0;

@@ -1,22 +1,26 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1013"
+#include <cstdint>
+#include <iostream>
+#include <vector>
 #include "algorithm/doubling.hpp"
-#include "template/atcoder.hpp"
 
 struct Monoid {
-    using value_type = ll;
-    static constexpr ll id = 0;
-    static constexpr ll op(const ll &lhs, const ll &rhs) { return lhs + rhs; }
+    using value_type = std::int64_t;
+    static constexpr std::int64_t id = 0;
+    static constexpr std::int64_t op(const std::int64_t &lhs, const std::int64_t &rhs) {
+        return lhs + rhs;
+    }
 };
 
 int main(void) {
     int n, k;
     std::cin >> n >> k;
     std::vector<int> p(n);
-    std::cin >> p;
+    for (auto &e : p) std::cin >> e;
     std::vector<int> to(n);
-    rep (i, n) to[i] = (i + p[i]) % n;
+    for (int i = 0; i < n; ++i) to[i] = (i + p[i]) % n;
     Doubling<30, Monoid> db(to, p);
-    rep (i, n) co(i + 1 + db.solve(i, k).second);
+    for (int i = 0; i < n; ++i) std::cout << i + 1 + db.solve(i, k).second << '\n';
 
     return 0;
 }

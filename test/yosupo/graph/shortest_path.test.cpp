@@ -1,10 +1,16 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/shortest_path"
+#include <functional>
+#include <iostream>
+#include <limits>
+#include <queue>
+#include <utility>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/atcoder.hpp"
+#include "template/template.hpp"
 
 template <class T>
-pair<vector<T>, vector<int>> dijkstra(const Graph<T> &g, int s = 0,
-                                      T inf = numeric_limits<T>::max()) {
+std::pair<std::vector<T>, std::vector<int>> dijkstra(const Graph<T> &g, int s = 0,
+                                                     T inf = std::numeric_limits<T>::max()) {
     struct _node {
         constexpr _node() : _to(), _dist() {}
         constexpr _node(int to, T dist) : _to(to), _dist(dist) {}
@@ -19,9 +25,9 @@ pair<vector<T>, vector<int>> dijkstra(const Graph<T> &g, int s = 0,
         int _to;
         T _dist;
     };
-    vector<T> dists(g.size(), inf);
-    vector<int> v(g.size(), -1);
-    priority_queue<_node, vector<_node>, greater<>> p_que;
+    std::vector<T> dists(g.size(), inf);
+    std::vector<int> v(g.size(), -1);
+    std::priority_queue<_node, std::vector<_node>, std::greater<>> p_que;
     dists[s] = T();
     p_que.emplace(s, T());
     while (!p_que.empty()) {
@@ -39,25 +45,23 @@ pair<vector<T>, vector<int>> dijkstra(const Graph<T> &g, int s = 0,
 }
 
 int main(void) {
-    sonic();
     int n, m, s, t;
-    cin >> n >> m >> s >> t;
-    Graph<ll> g(n);
+    std::cin >> n >> m >> s >> t;
+    Graph<std::int64_t> g(n);
     g.input_edge(m, 0);
-    auto [dist, v] = dijkstra(g, s, INF);
-
+    auto &&[dist, v] = dijkstra(g, s, INF);
     if (dist[t] == INF) {
-        co(-1);
+        std::cout << -1 << '\n';
     } else {
-        vector<pair<int, int>> ans;
+        std::vector<std::pair<int, int>> ans;
         int idx = t;
         while (idx != s) {
             ans.emplace_back(v[idx], idx);
             idx = v[idx];
         }
-        reverse(ans.begin(), ans.end());
-        co(dist[t], ans.size());
-        for (auto p : ans) { co(p.first, p.second); }
+        std::reverse(ans.begin(), ans.end());
+        std::cout << dist[t] << ' ' << ans.size() << '\n';
+        for (auto p : ans) std::cout << p.first << ' ' << p.second << '\n';
     }
     return 0;
 }

@@ -1,19 +1,20 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <vector>
 #include "tree/hld.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
     std::vector<int> p(n - 1);
-    std::cin >> p;
+    for (auto &e : p) std::cin >> e;
     Graph<void> g(n);
-    rep (i, n - 1) g.add_edges(p[i], i + 1);
+    for (int i = 0; i < n - 1; ++i) g.add_edges(p[i], i + 1);
     heavy_light_decomposition hld(g);
     while (q--) {
         int u, v;
         std::cin >> u >> v;
-        co(hld.lca(u, v));
+        std::cout << hld.lca(u, v) << '\n';
     }
 
     return 0;

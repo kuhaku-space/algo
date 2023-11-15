@@ -1,16 +1,18 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/number_of_substrings"
+#include <cstdint>
+#include <iostream>
+#include <vector>
 #include "string/suffix_array.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
-    string s;
-    cin >> s;
+    std::string s;
+    std::cin >> s;
     auto sa = suffix_array(s);
     auto v = lcp_array(s, sa);
     int n = s.size();
-    ll ans = ll(n) * (n + 1) / 2;
+    std::int64_t ans = std::int64_t(n) * (n + 1) / 2;
     for (auto x : v) ans -= x;
-    co(ans);
+    std::cout << ans << '\n';
 
     return 0;
 }
