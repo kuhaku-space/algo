@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/jump_on_tree"
-#include "template/atcoder.hpp"
+#include <iostream>
 #include "tree/hld.hpp"
 
 int main(void) {
@@ -11,7 +11,7 @@ int main(void) {
     while (q--) {
         int u, v, k;
         std::cin >> u >> v >> k;
-        co(hld.jump(u, v, k));
+        std::cout << hld.jump(u, v, k) << '\n';
     }
 
     return 0;
