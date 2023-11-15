@@ -1,27 +1,32 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1977"
+#include <cstdint>
+#include <iostream>
+#include <vector>
 #include "algorithm/doubling.hpp"
-#include "template/atcoder.hpp"
+#include "template/template.hpp"
 
 struct Monoid {
-    using value_type = ll;
-    static constexpr ll id = 0;
-    static constexpr ll op(const ll &lhs, const ll &rhs) { return lhs + rhs; }
+    using value_type = std::int64_t;
+    static constexpr std::int64_t id = 0;
+    static constexpr std::int64_t op(const std::int64_t &lhs, const std::int64_t &rhs) {
+        return lhs + rhs;
+    }
 };
 
 int main(void) {
-    ll n, m, l;
+    std::int64_t n, m, l;
     std::cin >> n >> m >> l;
     std::vector<int> a(n);
-    std::cin >> a;
+    for (auto &e : a) std::cin >> e;
     std::vector<int> to(n);
-    rep (i, n) to[i] = (i + l) % n;
+    for (int i = 0; i < n; ++i) to[i] = (i + l) % n;
     Doubling<40, Monoid> db(to, a);
-    ll r = (n * m) % l;
-    ll k = (n * m) / l;
-    ll ans = -INF;
-    rep (i, min(r, n)) chmax(ans, db.solve(i, k + 1).second);
-    rep (i, min(l - r, n)) chmax(ans, db.solve((r + i) % n, k).second);
-    co(ans);
+    std::int64_t r = (n * m) % l;
+    std::int64_t k = (n * m) / l;
+    std::int64_t ans = -INF;
+    for (int i = 0; i < std::min(r, n); ++i) chmax(ans, db.solve(i, k + 1).second);
+    for (int i = 0; i < std::min(l - r, n); ++i) chmax(ans, db.solve((r + i) % n, k).second);
+    std::cout << ans << '\n';
 
     return 0;
 }
