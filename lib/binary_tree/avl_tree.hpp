@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cassert>
 
 /**
  * @brief AVL木
