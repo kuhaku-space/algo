@@ -99,6 +99,7 @@
 "test/yosupo/data_structure/vertex_add_path_sum.test.cpp": "2023-11-15 06:42:05 +0900",
 "test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp": "2023-11-15 06:42:05 +0900",
 "test/yosupo/data_structure/vertex_set_path_composite.test.cpp": "2023-11-15 06:42:05 +0900",
+"test/yosupo/geometry/sort_points_by_argument.test.cpp": "2023-11-16 01:03:17 +0900",
 "test/yosupo/graph/chromatic_number.test.cpp": "2023-11-15 07:01:02 +0900",
 "test/yosupo/graph/matching_on_bipartite_garph.2.test.cpp": "2023-11-15 07:01:02 +0900",
 "test/yosupo/graph/matching_on_bipartite_garph.test.cpp": "2023-11-15 07:01:02 +0900",
