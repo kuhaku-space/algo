@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <iterator>
+#include <vector>
 
 /**
  * @brief Mex
