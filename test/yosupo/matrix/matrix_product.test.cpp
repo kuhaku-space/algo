@@ -13,7 +13,7 @@ int main(void) {
     for (auto &v : a) {
         for (auto &e : v) std::cin >> e;
     }
-    for (auto &v : a) {
+    for (auto &v : b) {
         for (auto &e : v) std::cin >> e;
     }
     Matrix<Mint> x(a), y(b);
