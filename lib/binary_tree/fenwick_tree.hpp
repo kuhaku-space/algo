@@ -14,20 +14,20 @@ struct fenwick_tree {
     fenwick_tree() : _size(), data() {}
     fenwick_tree(int n) : _size(n + 1), data(n + 1) {}
     fenwick_tree(const std::vector<T> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
-        this->build(v);
+        build(v);
     }
     template <class U>
     fenwick_tree(const std::vector<U> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
-        this->build(v);
+        build(v);
     }
 
-    T operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
-    T at(int k) const { return this->operator[](k); }
-    T get(int k) const { return this->operator[](k); }
+    T operator[](int i) const { return sum(i + 1) - sum(i); }
+    T at(int k) const { return operator[](k); }
+    T get(int k) const { return operator[](k); }
 
     template <class U>
     void build(const std::vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) this->add(i, v[i]);
+        for (int i = 0, n = v.size(); i < n; ++i) add(i, v[i]);
     }
 
     /**
@@ -37,7 +37,7 @@ struct fenwick_tree {
      * @param val new value
      * @return void
      */
-    void update(int k, T val) { this->add(k, val - this->at(k)); }
+    void update(int k, T val) { add(k, val - at(k)); }
     /**
      * @brief v[k] += val
      *
@@ -46,8 +46,8 @@ struct fenwick_tree {
      * @return void
      */
     void add(int k, T val) {
-        assert(0 <= k && k < this->_size);
-        for (++k; k < this->_size; k += k & -k) this->data[k] += val;
+        assert(0 <= k && k < _size);
+        for (++k; k < _size; k += k & -k) data[k] += val;
     }
     /**
      * @brief chmax(v[k], val)
@@ -57,8 +57,8 @@ struct fenwick_tree {
      * @return bool
      */
     bool chmax(int k, T val) {
-        if (this->at(k) >= val) return false;
-        this->update(k, val);
+        if (at(k) >= val) return false;
+        update(k, val);
         return true;
     }
     /**
@@ -69,8 +69,8 @@ struct fenwick_tree {
      * @return bool
      */
     bool chmin(int k, T val) {
-        if (this->at(k) <= val) return false;
-        this->update(k, val);
+        if (at(k) <= val) return false;
+        update(k, val);
         return true;
     }
 
@@ -79,7 +79,7 @@ struct fenwick_tree {
      *
      * @return T
      */
-    T all_sum() const { return this->sum(this->_size); }
+    T all_sum() const { return sum(_size); }
     /**
      * @brief v[0] + ... + v[k - 1]
      *
@@ -87,9 +87,9 @@ struct fenwick_tree {
      * @return T
      */
     T sum(int k) const {
-        assert(0 <= k && k <= this->_size);
+        assert(0 <= k && k <= _size);
         T res = 0;
-        for (; k > 0; k -= k & -k) res += this->data[k];
+        for (; k > 0; k -= k & -k) res += data[k];
         return res;
     }
     /**
@@ -99,7 +99,7 @@ struct fenwick_tree {
      * @param b last index of array
      * @return T
      */
-    T sum(int a, int b) const { return a < b ? this->sum(b) - this->sum(a) : 0; }
+    T sum(int a, int b) const { return a < b ? sum(b) - sum(a) : 0; }
 
     /**
      * @brief binary search on fenwick_tree
@@ -110,10 +110,10 @@ struct fenwick_tree {
     int lower_bound(T val) const {
         if (val <= 0) return 0;
         int k = 1;
-        while (k < this->_size) k <<= 1;
+        while (k < _size) k <<= 1;
         int res = 0;
         for (; k > 0; k >>= 1) {
-            if (res + k < this->_size && this->data[res + k] < val) val -= this->data[res += k];
+            if (res + k < _size && data[res + k] < val) val -= data[res += k];
         }
         return res;
     }
