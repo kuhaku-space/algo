@@ -13,9 +13,6 @@ template <class T>
 struct fenwick_tree {
     fenwick_tree() : _size(), data() {}
     fenwick_tree(int n) : _size(n + 1), data(n + 1) {}
-    fenwick_tree(const std::vector<T> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
-        build(v);
-    }
     template <class U>
     fenwick_tree(const std::vector<U> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
         build(v);
