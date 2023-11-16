@@ -1,4 +1,4 @@
-#include "template/template.hpp"
+#include <cassert>
 
 /**
  * @brief 2分トライ木
