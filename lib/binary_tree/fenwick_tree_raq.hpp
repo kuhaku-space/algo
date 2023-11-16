@@ -16,7 +16,7 @@ struct fenwick_tree_raq {
 
     template <class U>
     void build(const std::vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) { add(i, v[i]); }
+        for (int i = 0, n = v.size(); i < n; ++i) add(i, v[i]);
     }
 
     /**
