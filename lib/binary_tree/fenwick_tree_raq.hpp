@@ -11,14 +11,12 @@ struct fenwick_tree_raq {
     fenwick_tree_raq() = default;
     fenwick_tree_raq(int n) : p(n + 1), q(n + 1) {}
 
-    auto operator[](int i) const { return this->sum(i + 1) - this->sum(i); }
-    auto at(int k) const { return this->operator[](k); }
+    auto operator[](int i) const { return sum(i + 1) - sum(i); }
+    auto at(int k) const { return operator[](k); }
 
     template <class U>
     void build(const std::vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) {
-            this->add(i, v[i]);
-        }
+        for (int i = 0, n = v.size(); i < n; ++i) { add(i, v[i]); }
     }
 
     /**
@@ -27,7 +25,7 @@ struct fenwick_tree_raq {
      * @param k index of array
      * @param val new value
      */
-    void update(int k, T val) { this->add(k, k + 1, val - this->at(k)); }
+    void update(int k, T val) { add(k, k + 1, val - at(k)); }
 
     /**
      * @brief v[k] += val
@@ -35,7 +33,7 @@ struct fenwick_tree_raq {
      * @param k index of array
      * @param val
      */
-    void add(int k, T val) { this->add(k, k + 1, val); }
+    void add(int k, T val) { add(k, k + 1, val); }
     /**
      * @brief v[a ... b-1] += val
      *
@@ -44,10 +42,10 @@ struct fenwick_tree_raq {
      * @param val
      */
     void add(int a, int b, T val) {
-        this->p.add(a, -val * a);
-        this->p.add(b, val * b);
-        this->q.add(a, val);
-        this->q.add(b, -val);
+        p.add(a, -val * a);
+        p.add(b, val * b);
+        q.add(a, val);
+        q.add(b, -val);
     }
 
     /**
@@ -56,7 +54,7 @@ struct fenwick_tree_raq {
      * @param k index of array
      * @return T
      */
-    T sum(int k) const { return this->p.sum(k) + this->q.sum(k) * k; }
+    T sum(int k) const { return p.sum(k) + q.sum(k) * k; }
     /**
      * @brief v[a] + ... + v[b - 1]
      *
@@ -64,7 +62,7 @@ struct fenwick_tree_raq {
      * @param b last index of array
      * @return T
      */
-    T sum(int a, int b) const { return this->sum(b) - this->sum(a); }
+    T sum(int a, int b) const { return sum(b) - sum(a); }
 
   private:
     fenwick_tree<T> p, q;
