@@ -4,10 +4,9 @@
 
 /**
  * @brief フェニック木
+ * @see http://hos.ac/slides/20140319_bit.pdf
  *
  * @tparam T
- *
- * @see http://hos.ac/slides/20140319_bit.pdf
  */
 template <class T>
 struct fenwick_tree {
