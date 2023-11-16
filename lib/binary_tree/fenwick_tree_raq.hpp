@@ -1,5 +1,4 @@
 #include "binary_tree/fenwick_tree.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief フェニック木（区間加算、区間総和）
