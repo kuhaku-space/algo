@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <cassert>
+#include <utility>
+#include <vector>
 
 struct hopcroft_karp {
     hopcroft_karp(int _n, int _m) : n(_n), m(_m), g(_n), match_left(_n, -1), match_right(_m, -1) {}
