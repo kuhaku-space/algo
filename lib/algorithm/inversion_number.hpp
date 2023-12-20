@@ -12,6 +12,7 @@
  */
 template <class T>
 std::int64_t inversion_number(const std::vector<T> &v) {
+    if (v.empty()) return 0;
     auto u = compress(v);
     std::reverse(std::begin(u), std::end(u));
     fenwick_tree<T> bit(*max_element(std::begin(u), std::end(u)) + 1);
