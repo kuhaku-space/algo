@@ -60,3 +60,15 @@ Graph<T> make_DAG(const Graph<T> &g, const std::vector<int> &v) {
     }
     return res;
 }
+
+template <>
+Graph<void> make_DAG(const Graph<void> &g, const std::vector<int> &v) {
+    Graph<void> res(*std::max_element(v.begin(), v.end()) + 1);
+    for (auto &es : g) {
+        for (auto &e : es) {
+            int x = v[e.from()], y = v[e.to()];
+            if (x != y) res.add_edge(x, y);
+        }
+    }
+    return res;
+}
