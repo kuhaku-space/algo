@@ -50,12 +50,24 @@ std::vector<int> scc(const Graph<T> &g) {
  * @return Graph<T> 有向非巡回グラフ
  */
 template <class T>
-Graph<T> make_DAG(const Graph<T> &g, const std::vector<int> &v) {
+Graph<T> make_directed_acyclic_graph(const Graph<T> &g, const std::vector<int> &v) {
     Graph<T> res(*std::max_element(v.begin(), v.end()) + 1);
     for (auto &es : g) {
         for (auto &e : es) {
             int x = v[e.from()], y = v[e.to()];
             if (x != y) res.add_edge(x, y, e.weight());
+        }
+    }
+    return res;
+}
+
+template <>
+Graph<void> make_directed_acyclic_graph(const Graph<void> &g, const std::vector<int> &v) {
+    Graph<void> res(*std::max_element(v.begin(), v.end()) + 1);
+    for (auto &es : g) {
+        for (auto &e : es) {
+            int x = v[e.from()], y = v[e.to()];
+            if (x != y) res.add_edge(x, y);
         }
     }
     return res;
