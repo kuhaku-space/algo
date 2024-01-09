@@ -11,15 +11,6 @@ data:
     path: lib/segment_tree/segment_tree_2d.hpp
     title: "\u4E8C\u6B21\u5143\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,27 +33,24 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/segment_tree_2d.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_rectangle_sum\"\
-    \n#include \"segment_tree/segment_tree_2d.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    segment_tree_2d<Add<ll>>\
+    \n#include <cstdint>\n#include <iostream>\n#include \"segment_tree/segment_tree_2d.hpp\"\
+    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    segment_tree_2d<Add<std::int64_t>>\
     \ st(Inf, Inf);\n    while (n--) {\n        int x, y, w;\n        std::cin >>\
-    \ x >> y >> w;\n        st.set(x, y, st.get(x, y) + w);\n    }\n    while (q--)\
+    \ x >> y >> w;\n        st.set(x, y, st.get(x, y) + w);\n    }\n\n    while (q--)\
     \ {\n        int com;\n        std::cin >> com;\n        if (com == 0) {\n   \
     \         int x, y, w;\n            std::cin >> x >> y >> w;\n            st.set(x,\
     \ y, st.get(x, y) + w);\n        } else {\n            int l, d, r, u;\n     \
-    \       std::cin >> l >> d >> r >> u;\n            co(st.prod(l, r, d, u));\n\
-    \        }\n    }\n\n    return 0;\n}\n"
+    \       std::cin >> l >> d >> r >> u;\n            std::cout << st.prod(l, r,\
+    \ d, u) << '\\n';\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/segment_tree_2d.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp

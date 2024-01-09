@@ -5,15 +5,6 @@ data:
     path: lib/string/z_algorithm.hpp
     title: Z algorithm
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,19 +27,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/z_algorithm.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/zalgorithm\"\n#include\
-    \ \"string/z_algorithm.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    string s;\n    cin >> s;\n    co(z_algorithm(s));\n\n    return 0;\n\
-    }\n"
+    \ <iostream>\n#include <string>\n#include <vector>\n#include \"string/z_algorithm.hpp\"\
+    \n\nint main(void) {\n    std::string s;\n    std::cin >> s;\n    auto ans = z_algorithm(s);\n\
+    \    for (int i = 0; i < (int)ans.size(); ++i)\n        std::cout << ans[i] <<\
+    \ (i == (int)ans.size() - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/z_algorithm.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/string/zalgorithm.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 18:09:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/string/zalgorithm.test.cpp

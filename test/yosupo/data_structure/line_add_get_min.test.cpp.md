@@ -5,15 +5,6 @@ data:
     path: lib/data_structure/li_chao_tree.hpp
     title: Li Chao Tree
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,24 +27,22 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/li_chao_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/line_add_get_min\"\n#include\
-    \ \"data_structure/li_chao_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\nint\
-    \ main(void) {\n    int n, q;\n    cin >> n >> q;\n    li_chao_tree lct(-Inf,\
-    \ Inf);\n    while (n--) {\n        ll a, b;\n        cin >> a >> b;\n       \
-    \ lct.add_line(a, b);\n    }\n    while (q--) {\n        int c;\n        cin >>\
-    \ c;\n        if (c == 0) {\n            ll a, b;\n            cin >> a >> b;\n\
-    \            lct.add_line(a, b);\n        } else {\n            ll x;\n      \
-    \      cin >> x;\n            co(lct.query(x));\n        }\n    }\n\n    return\
+    \ <cstdint>\n#include <iostream>\n#include \"data_structure/li_chao_tree.hpp\"\
+    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    li_chao_tree\
+    \ lct(-Inf, Inf);\n    while (n--) {\n        std::int64_t a, b;\n        std::cin\
+    \ >> a >> b;\n        lct.add_line(a, b);\n    }\n\n    while (q--) {\n      \
+    \  int c;\n        std::cin >> c;\n        if (c == 0) {\n            std::int64_t\
+    \ a, b;\n            std::cin >> a >> b;\n            lct.add_line(a, b);\n  \
+    \      } else {\n            std::int64_t x;\n            std::cin >> x;\n   \
+    \         std::cout << lct.query(x) << '\\n';\n        }\n    }\n\n    return\
     \ 0;\n}\n"
   dependsOn:
   - lib/data_structure/li_chao_tree.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/line_add_get_min.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/line_add_get_min.test.cpp

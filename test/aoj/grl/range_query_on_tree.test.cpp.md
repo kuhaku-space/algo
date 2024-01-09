@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/range_query_on_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 17:51:58+09:00'
+  timestamp: '2023-11-16 21:07:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/range_query_on_tree.test.cpp

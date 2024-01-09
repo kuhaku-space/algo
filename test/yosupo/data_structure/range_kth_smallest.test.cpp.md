@@ -14,15 +14,6 @@ data:
     path: lib/data_structure/wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,24 +36,22 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/compressed_wavelet_matrix.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n\
-    #include \"data_structure/compressed_wavelet_matrix.hpp\"\n#include \"template/atcoder.hpp\"\
+    #include <iostream>\n#include <vector>\n#include \"data_structure/compressed_wavelet_matrix.hpp\"\
     \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    std::vector<int>\
-    \ a(n);\n    std::cin >> a;\n    compressed_wavelet_matrix<int, 18> wm(a);\n\n\
-    \    while (q--) {\n        int l, r, k;\n        std::cin >> l >> r >> k;\n \
-    \       co(wm.kth_smallest(l, r, k));\n    }\n\n    return 0;\n}\n"
+    \ a(n);\n    for (auto &e : a) std::cin >> e;\n    compressed_wavelet_matrix<int,\
+    \ 18> wm(a);\n    while (q--) {\n        int l, r, k;\n        std::cin >> l >>\
+    \ r >> k;\n        std::cout << wm.kth_smallest(l, r, k) << '\\n';\n    }\n\n\
+    \    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/compressed_wavelet_matrix.hpp
   - lib/algorithm/compress.hpp
   - lib/data_structure/wavelet_matrix.hpp
   - lib/data_structure/bit_vector.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/range_kth_smallest.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 22:47:01+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/range_kth_smallest.test.cpp

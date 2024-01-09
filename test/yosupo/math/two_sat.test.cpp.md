@@ -11,15 +11,6 @@ data:
     path: lib/graph/two_sat.hpp
     title: 2-SAT
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -42,29 +33,26 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/two_sat.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/two_sat\"\n#include \"\
-    graph/two_sat.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n \
-    \   string tmp;\n    int n, m;\n    cin >> tmp >> tmp >> n >> m;\n    two_sat\
-    \ ts(n);\n    while (m--) {\n        int a, b, c;\n        cin >> a >> b >> c;\n\
-    \        bool f = true, g = true;\n        if (a < 0) {\n            a = -a;\n\
-    \            f = false;\n        }\n        if (b < 0) {\n            b = -b;\n\
-    \            g = false;\n        }\n        ts.add(a - 1, f, b - 1, g);\n    }\n\
-    \    auto v = ts.solve();\n    if (!ts.is_satisfy(v)) {\n        co(\"s UNSATISFIABLE\"\
-    );\n        return 0;\n    }\n    co(\"s SATISFIABLE\");\n    auto u = ts.build(v);\n\
-    \    vector<int> ans(n);\n    rep (i, n) {\n        if (u[i]) ans[i] = i + 1;\n\
-    \        else ans[i] = -i - 1;\n    }\n    co('v', ans, 0);\n\n    return 0;\n\
-    }\n"
+    graph/two_sat.hpp\"\n#include <iostream>\n#include <string>\n\nint main(void)\
+    \ {\n    std::string tmp;\n    int n, m;\n    std::cin >> tmp >> tmp >> n >> m;\n\
+    \    two_sat ts(n);\n    while (m--) {\n        int a, b, c;\n        std::cin\
+    \ >> a >> b >> c;\n        bool f = true, g = true;\n        if (a < 0) a = -a,\
+    \ f = false;\n        if (b < 0) b = -b, g = false;\n        ts.add(a - 1, f,\
+    \ b - 1, g);\n    }\n    auto v = ts.solve();\n    if (!ts.is_satisfy(v)) {\n\
+    \        std::cout << \"s UNSATISFIABLE\\n\";\n        return 0;\n    }\n    std::cout\
+    \ << \"s SATISFIABLE\\n\";\n    auto u = ts.build(v);\n    std::vector<int> ans(n);\n\
+    \    for (int i = 0; i < n; ++i) ans[i] = (u[i] ? i + 1 : -i - 1);\n    std::cout\
+    \ << \"v \";\n    for (auto &&e : ans) std::cout << e << ' ';\n    std::cout <<\
+    \ 0 << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/two_sat.hpp
   - lib/graph/graph.hpp
   - lib/graph/scc.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/math/two_sat.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 17:56:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/two_sat.test.cpp

@@ -8,15 +8,6 @@ data:
     path: lib/graph/maximum_independent_set.hpp
     title: "\u6700\u5927\u72EC\u7ACB\u96C6\u5408"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -39,21 +30,19 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/maximum_independent_set.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/maximum_independent_set\"\
-    \n#include \"graph/maximum_independent_set.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    int n, m;\n    cin >> n >> m;\n    Graph<void> g(n);\n\
-    \    g.input_edges(m, 0);\n\n    auto ans = maximum_independent_set(g);\n    co(ans.size());\n\
-    \    co(ans);\n\n    return 0;\n}\n"
+    \n#include \"graph/maximum_independent_set.hpp\"\n#include <iostream>\n#include\
+    \ <vector>\n\nint main(void) {\n    int n, m;\n    std::cin >> n >> m;\n    Graph<void>\
+    \ g(n);\n    g.input_edges(m, 0);\n    auto ans = maximum_independent_set(g);\n\
+    \    std::cout << ans.size() << '\\n';\n    for (auto &&e : ans) std::cout <<\
+    \ e << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/maximum_independent_set.hpp
   - lib/graph/graph.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/graph/maximum_independent_set.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 07:01:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/maximum_independent_set.test.cpp

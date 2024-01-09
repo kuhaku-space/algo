@@ -14,15 +14,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,23 +36,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/matrix.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_det\"\n#include\
-    \ \"math/matrix.hpp\"\n#include \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\
+    \ <iostream>\n#include <vector>\n#include \"math/matrix.hpp\"\n#include \"math/modint.hpp\"\
     \n\nusing Mint = modint998;\n\nint main(void) {\n    int n;\n    std::cin >> n;\n\
-    \    std::vector<std::vector<Mint>> v(n, std::vector<Mint>(n));\n    std::cin\
-    \ >> v;\n    Matrix mat(v);\n    co(mat.det());\n\n    return 0;\n}\n"
+    \    std::vector<std::vector<Mint>> v(n, std::vector<Mint>(n));\n    for (auto\
+    \ &u : v) {\n        for (auto &e : u) std::cin >> e;\n    }\n    Matrix mat(v);\n\
+    \    std::cout << mat.det() << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/matrix.hpp
   - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/matrix/determinant_of_matrix.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:16+09:00'
+  timestamp: '2023-11-15 18:01:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/matrix/determinant_of_matrix.test.cpp

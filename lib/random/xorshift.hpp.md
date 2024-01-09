@@ -69,13 +69,13 @@ data:
   isVerificationFile: false
   path: lib/random/xorshift.hpp
   requiredBy:
-  - lib/binary_tree/treap.hpp
   - lib/data_structure/skip_list.hpp
+  - lib/binary_tree/treap.hpp
   timestamp: '2023-10-02 03:03:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/itp2/skip_list.test.cpp
   - test/aoj/itp2/treap.test.cpp
+  - test/aoj/itp2/skip_list.test.cpp
 documentation_of: lib/random/xorshift.hpp
 layout: document
 redirect_from:

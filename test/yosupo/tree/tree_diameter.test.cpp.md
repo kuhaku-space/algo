@@ -5,15 +5,6 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -36,28 +27,27 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/tree_function.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/tree_diameter\"\n#include\
-    \ \"template/atcoder.hpp\"\n#include \"tree/tree_function.hpp\"\n\nint main(void)\
-    \ {\n    int n;\n    cin >> n;\n    Graph<int> g(n);\n    g.input_edges(n - 1,\
-    \ 0);\n    auto d = tree_dist<int, ll>(g, 0);\n    int st = max_element(all(d))\
-    \ - d.begin();\n    d = tree_dist<int, ll>(g, st);\n    auto p = tree_parent(g,\
-    \ st);\n    int gl = max_element(all(d)) - d.begin();\n    vector<int> ans;\n\
-    \    while (gl != -1) {\n        ans.emplace_back(gl);\n        gl = p[gl];\n\
-    \    }\n    co(*max_element(all(d)), ans.size());\n    co(ans);\n\n    return\
-    \ 0;\n}\n"
+    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include \"tree/tree_function.hpp\"\
+    \n\nint main(void) {\n    int n;\n    std::cin >> n;\n    Graph<int> g(n);\n \
+    \   g.input_edges(n - 1, 0);\n    auto d = tree_dist<int, std::int64_t>(g, 0);\n\
+    \    int st = max_element(d.begin(), d.end()) - d.begin();\n    d = tree_dist<int,\
+    \ std::int64_t>(g, st);\n    auto p = tree_parent(g, st);\n    int gl = max_element(d.begin(),\
+    \ d.end()) - d.begin();\n    std::vector<int> ans;\n    while (gl != -1) {\n \
+    \       ans.emplace_back(gl);\n        gl = p[gl];\n    }\n    std::cout << *max_element(d.begin(),\
+    \ d.end()) << ' ' << ans.size() << '\\n';\n    for (int i = 0; i < (int)ans.size();\
+    \ ++i)\n        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\\n' : ' ');\n\
+    \n    return 0;\n}\n"
   dependsOn:
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
   - lib/tree/tree_function.hpp
   - lib/graph/graph.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/tree/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 18:16:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/tree_diameter.test.cpp

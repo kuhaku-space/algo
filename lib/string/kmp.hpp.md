@@ -59,8 +59,8 @@ data:
   timestamp: '2023-10-02 04:21:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/hupc/kmp.test.cpp
   - test/aoj/alds1/kmp.test.cpp
+  - test/aoj/hupc/kmp.test.cpp
 documentation_of: lib/string/kmp.hpp
 layout: document
 redirect_from:

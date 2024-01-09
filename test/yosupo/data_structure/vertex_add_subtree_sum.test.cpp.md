@@ -14,15 +14,6 @@ data:
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -48,31 +39,29 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/segment_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_subtree_sum\"\
-    \n#include \"segment_tree/segment_tree.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n#include \"tree/eular_tour.hpp\"\n\nint main(void) {\n    int n, q;\n    cin\
-    \ >> n >> q;\n    vector<int> a(n), p(n - 1);\n    cin >> a >> p;\n    Graph<void>\
-    \ g(n);\n    rep (i, n - 1) {\n        g.add_edges(i + 1, p[i]);\n    }\n    eular_tour\
-    \ et(g);\n    segment_tree<Add<ll>> st(n);\n    rep (i, n) st.set(et.get_l(i),\
-    \ a[i]);\n    while (q--) {\n        int c;\n        cin >> c;\n        if (c\
-    \ == 0) {\n            int v, x;\n            cin >> v >> x;\n            st.set(et.get_l(v),\
-    \ st.get(et.get_l(v)) + x);\n        } else {\n            int v;\n          \
-    \  cin >> v;\n            auto f = [&](int l, int r) {\n                co(st.prod(l,\
-    \ r));\n            };\n            et.query(v, f);\n        }\n    }\n\n    return\
-    \ 0;\n}\n"
+    \n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include \"segment_tree/segment_tree.hpp\"\
+    \n#include \"tree/eular_tour.hpp\"\n\nint main(void) {\n    int n, q;\n    std::cin\
+    \ >> n >> q;\n    std::vector<int> a(n), p(n - 1);\n    for (auto &e : a) std::cin\
+    \ >> e;\n    for (auto &e : p) std::cin >> e;\n    Graph<void> g(n);\n    for\
+    \ (int i = 0; i < n - 1; ++i) g.add_edges(i + 1, p[i]);\n    eular_tour et(g);\n\
+    \    segment_tree<Add<std::int64_t>> st(n);\n    for (int i = 0; i < n; ++i) st.set(et.get_l(i),\
+    \ a[i]);\n\n    while (q--) {\n        int c;\n        std::cin >> c;\n      \
+    \  if (c == 0) {\n            int v, x;\n            std::cin >> v >> x;\n   \
+    \         st.set(et.get_l(v), st.get(et.get_l(v)) + x);\n        } else {\n  \
+    \          int v;\n            std::cin >> v;\n            auto f = [&](int l,\
+    \ int r) { std::cout << st.prod(l, r) << '\\n'; };\n            et.query(v, f);\n\
+    \        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   - lib/tree/eular_tour.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

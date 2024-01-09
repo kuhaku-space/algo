@@ -14,15 +14,6 @@ data:
     path: lib/math/sqrt.hpp
     title: lib/math/sqrt.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -44,25 +35,22 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_mod\"\n#include \"\
-    math/modint.hpp\"\n#include \"math/sqrt.hpp\"\n#include \"template/atcoder.hpp\"\
-    \n\nint main(void) {\n    int t;\n    cin >> t;\n    while (t--) {\n        int\
-    \ y, p;\n        cin >> y >> p;\n        modint::set_mod(p);\n        modint x(y);\n\
-    \        if (!has_sqrt_mod(x)) co(-1);\n        else co(sqrt_mod(x));\n    }\n\
-    \n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_mod\"\n#include <iostream>\n\
+    #include \"math/modint.hpp\"\n#include \"math/sqrt.hpp\"\n\nint main(void) {\n\
+    \    int t;\n    std::cin >> t;\n    while (t--) {\n        int y, p;\n      \
+    \  std::cin >> y >> p;\n        modint::set_mod(p);\n        modint x(y);\n  \
+    \      if (has_sqrt_mod(x)) std::cout << sqrt_mod(x) << '\\n';\n        else std::cout\
+    \ << -1 << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/template/template.hpp
   - lib/math/sqrt.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/math/sqrt_mod.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:16+09:00'
+  timestamp: '2023-11-15 21:24:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/sqrt_mod.test.cpp

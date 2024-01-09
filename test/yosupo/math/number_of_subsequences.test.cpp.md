@@ -14,15 +14,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,25 +36,23 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/number_of_subsequences\"\
-    \n#include \"algorithm/compress.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n  \
-    \  int n;\n    std::cin >> n;\n    std::vector<int> a(n);\n    std::cin >> a;\n\
-    \    a = compress(a);\n    Mint ans = 0;\n    std::vector<Mint> dp(*max_element(all(a))\
-    \ + 1);\n    for (auto x : a) {\n        auto t = ans - dp[x] + 1;\n        ans\
-    \ += t;\n        dp[x] += t;\n    }\n    co(ans);\n\n    return 0;\n}\n"
+    \n#include <algorithm>\n#include <iostream>\n#include <vector>\n#include \"algorithm/compress.hpp\"\
+    \n#include \"math/modint.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n\
+    \    int n;\n    std::cin >> n;\n    std::vector<int> a(n);\n    for (auto &e\
+    \ : a) std::cin >> e;\n    a = compress(a);\n    Mint ans = 0;\n    std::vector<Mint>\
+    \ dp(*std::max_element(a.begin(), a.end()) + 1);\n    for (auto x : a) {\n   \
+    \     auto t = ans - dp[x] + 1;\n        ans += t, dp[x] += t;\n    }\n    std::cout\
+    \ << ans << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/compress.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/math/number_of_subsequences.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 19:53:24+09:00'
+  timestamp: '2023-11-15 17:56:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/number_of_subsequences.test.cpp

@@ -17,15 +17,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -48,15 +39,15 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/swag.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
-    \n#include \"data_structure/swag.hpp\"\n#include \"math/modint.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n  \
-    \  int q;\n    cin >> q;\n    sliding_window_aggregation<Affine<Mint>> swag;\n\
-    \    while (q--) {\n        int c;\n        cin >> c;\n        if (c == 0) {\n\
-    \            int a, b;\n            cin >> a >> b;\n            swag.emplace({a,\
-    \ b});\n        } else if (c == 1) {\n            swag.pop();\n        } else\
-    \ {\n            int x;\n            cin >> x;\n            auto p = swag.top();\n\
-    \            co(p.first * x + p.second);\n        }\n    }\n\n    return 0;\n\
-    }\n"
+    \n#include <iostream>\n#include \"data_structure/swag.hpp\"\n#include \"math/modint.hpp\"\
+    \n\nusing Mint = modint998;\n\nint main(void) {\n    int q;\n    std::cin >> q;\n\
+    \    sliding_window_aggregation<Affine<Mint>> swag;\n    while (q--) {\n     \
+    \   int c;\n        std::cin >> c;\n        if (c == 0) {\n            int a,\
+    \ b;\n            std::cin >> a >> b;\n            swag.emplace({a, b});\n   \
+    \     } else if (c == 1) {\n            swag.pop();\n        } else {\n      \
+    \      int x;\n            std::cin >> x;\n            auto p = swag.top();\n\
+    \            std::cout << (p.first * x + p.second) << '\\n';\n        }\n    }\n\
+    \n    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/swag.hpp
   - lib/segment_tree/monoid.hpp
@@ -64,13 +55,10 @@ data:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/queue_operate_all_composite.test.cpp

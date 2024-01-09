@@ -8,9 +8,6 @@ data:
     path: lib/binary_tree/fenwick_tree_raq.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728\uFF08\u533A\u9593\u52A0\u7B97\u3001\
       \u533A\u9593\u7DCF\u548C\uFF09"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -41,11 +38,10 @@ data:
   dependsOn:
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/dsl/raq_rsq.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:41:55+09:00'
+  timestamp: '2023-11-16 21:07:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/raq_rsq.test.cpp

@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/joi/rle.test.cpp
     title: test/aoj/joi/rle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/string/enumerate_palindromes.test.cpp
+    title: test/yosupo/string/enumerate_palindromes.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -42,6 +45,7 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/string/enumerate_palindromes.test.cpp
   - test/aoj/joi/rle.test.cpp
 documentation_of: lib/template/vector.hpp
 layout: document

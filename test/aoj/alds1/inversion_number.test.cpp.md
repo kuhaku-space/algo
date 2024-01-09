@@ -42,7 +42,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/inversion_number.test.cpp
   requiredBy: []
-  timestamp: '2023-10-02 03:24:44+09:00'
+  timestamp: '2023-12-20 23:35:30+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/inversion_number.test.cpp

@@ -4,18 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/binary_trie.hpp
     title: "2\u5206\u30C8\u30E9\u30A4\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,21 +24,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/binary_trie.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n#include\
-    \ \"binary_tree/binary_trie.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int q;\n    cin >> q;\n    binary_trie<int, 30> bt;\n    while (q--)\
-    \ {\n        int t, x;\n        cin >> t >> x;\n        if (t == 0) bt.insert(x);\n\
-    \        else if (t == 1) bt.erase(x);\n        else co(bt.min_element(x) ^ x);\n\
-    \    }\n\n    return 0;\n}\n"
+    \ \"binary_tree/binary_trie.hpp\"\n#include <iostream>\n\nint main(void) {\n \
+    \   int q;\n    std::cin >> q;\n    binary_trie<int, 30> bt;\n    while (q--)\
+    \ {\n        int t, x;\n        std::cin >> t >> x;\n        if (t == 0) bt.insert(x);\n\
+    \        else if (t == 1) bt.erase(x);\n        else std::cout << (bt.min_element(x)\
+    \ ^ x) << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/binary_trie.hpp
-  - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/binary_trie.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-16 20:49:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/binary_trie.test.cpp

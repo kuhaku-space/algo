@@ -14,15 +14,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -48,34 +39,34 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/tree_path_composite_sum\"\
-    \n#include \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\n#include \"\
-    tree/rerooting.hpp\"\n\nusing Mint = modint998;\n\nstruct Monoid {\n    using\
-    \ value_type = pair<Mint, Mint>;\n    static constexpr value_type id = {0, 0};\n\
-    \    static inline vector<Mint> a = vector<Mint>();\n    static constexpr value_type\
-    \ op(const value_type &lhs, const value_type &rhs) {\n        return {lhs.first\
-    \ + rhs.first, lhs.second + rhs.second};\n    }\n\n    template <class T>\n  \
-    \  static constexpr value_type f(const value_type &v, T u) {\n        return {u.first\
-    \ * v.first + u.second * v.second, v.second};\n    }\n\n    static value_type\
+    \n#include <iostream>\n#include <utility>\n#include <vector>\n#include \"math/modint.hpp\"\
+    \n#include \"tree/rerooting.hpp\"\n\nusing Mint = modint998;\n\ntemplate <class\
+    \ T, class U>\nstd::istream &operator>>(std::istream &is, std::pair<T, U> &p)\
+    \ {\n    return is >> p.first >> p.second;\n}\n\nstruct Monoid {\n    using value_type\
+    \ = std::pair<Mint, Mint>;\n    static constexpr value_type id = {0, 0};\n   \
+    \ static inline std::vector<Mint> a = std::vector<Mint>();\n    static constexpr\
+    \ value_type op(const value_type &lhs, const value_type &rhs) {\n        return\
+    \ {lhs.first + rhs.first, lhs.second + rhs.second};\n    }\n\n    template <class\
+    \ T>\n    static constexpr value_type f(const value_type &v, T u) {\n        return\
+    \ {u.first * v.first + u.second * v.second, v.second};\n    }\n\n    static value_type\
     \ g(const value_type &v, int u) { return {v.first + a[u], v.second + 1}; }\n};\n\
-    \nint main(void) {\n    int n;\n    cin >> n;\n    Monoid::a = vector<Mint>(n);\n\
-    \    cin >> Monoid::a;\n    Graph<pair<Mint, Mint>> g(n);\n    g.input_edges(n\
-    \ - 1, 0);\n    ReRooting<Monoid, pair<Mint, Mint>> rr(g);\n    vector<Mint> ans;\n\
-    \    rep (i, n) ans.emplace_back(rr[i].first);\n    co(ans);\n\n    return 0;\n\
-    }\n"
+    \nint main(void) {\n    int n;\n    std::cin >> n;\n    Monoid::a = std::vector<Mint>(n);\n\
+    \    for (auto &e : Monoid::a) std::cin >> e;\n    Graph<std::pair<Mint, Mint>>\
+    \ g(n);\n    g.input_edges(n - 1, 0);\n    ReRooting<Monoid, std::pair<Mint, Mint>>\
+    \ rr(g);\n    std::vector<Mint> ans;\n    for (int i = 0; i < n; ++i) ans.emplace_back(rr[i].first);\n\
+    \    for (int i = 0; i < (int)ans.size(); ++i)\n        std::cout << ans[i] <<\
+    \ (i == (int)ans.size() - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   - lib/tree/rerooting.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/yosupo/tree/tree_path_composite_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 21:39:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/tree_path_composite_sum.test.cpp

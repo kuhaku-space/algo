@@ -88,8 +88,8 @@ data:
   timestamp: '2023-10-01 20:21:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dsl/rmq.2.test.cpp
   - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
 documentation_of: lib/segment_tree/segment_tree_raq.hpp
 layout: document
 redirect_from:

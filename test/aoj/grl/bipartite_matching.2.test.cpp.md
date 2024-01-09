@@ -3,10 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/flow/hopcroft_karp.hpp
-    title: lib/flow/hopcroft_karp.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+    title: Hopcroft-Karp algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -33,11 +30,10 @@ data:
     \ v);\n    }\n    std::cout << g.matching() << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/flow/hopcroft_karp.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/grl/bipartite_matching.2.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 17:51:58+09:00'
+  timestamp: '2023-12-09 13:20:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/bipartite_matching.2.test.cpp

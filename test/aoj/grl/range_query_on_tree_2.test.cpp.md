@@ -53,13 +53,13 @@ data:
   dependsOn:
   - lib/binary_tree/fenwick_tree_raq.hpp
   - lib/binary_tree/fenwick_tree.hpp
-  - lib/template/template.hpp
   - lib/tree/hld.hpp
   - lib/graph/graph.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/grl/range_query_on_tree_2.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 17:51:58+09:00'
+  timestamp: '2023-11-16 21:07:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/range_query_on_tree_2.test.cpp

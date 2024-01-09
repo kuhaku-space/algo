@@ -4,7 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: test/aoj/jag/min_cost_flow.cpp
+    title: test/aoj/jag/min_cost_flow.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/min_cost_flow.test.cpp
@@ -126,7 +129,8 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/flow/min_cost_flow.hpp
-  requiredBy: []
+  requiredBy:
+  - test/aoj/jag/min_cost_flow.cpp
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/algorithm/lis.hpp
     title: "\u6700\u9577\u5897\u52A0\u90E8\u5206\u5217"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -34,11 +31,10 @@ data:
     \n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/lis.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:51:24+09:00'
+  timestamp: '2023-11-16 01:25:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dpl/longest_increasing_subsequense.test.cpp

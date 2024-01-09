@@ -44,8 +44,8 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
 documentation_of: lib/graph/warshall_floyd.hpp
 layout: document
 redirect_from:

@@ -1,18 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,30 +11,26 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/montmort_number_mod
     links:
     - https://judge.yosupo.jp/problem/montmort_number_mod
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
-    \ line -1: no such header\n"
+  bundledCode: "#line 1 \"test/yosupo/math/montmort_number.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/montmort_number_mod\"\n#include <cstdint>\n\
+    #include <iostream>\n#include <vector>\n\nint main(void) {\n    int n, m;\n  \
+    \  std::cin >> n >> m;\n    std::int64_t sum = 0;\n    std::vector<int> ans(n);\n\
+    \    for (int i = 0; i < n; ++i) {\n        ans[i] = sum;\n        sum *= i +\
+    \ 2;\n        if (i & 1) sum += m - 1;\n        else ++sum;\n        sum %= m;\n\
+    \    }\n    for (int i = 0; i < (int)ans.size(); ++i)\n        std::cout << ans[i]\
+    \ << (i == (int)ans.size() - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/montmort_number_mod\"\n\
-    #include \"template/atcoder.hpp\"\n\nint main(void) {\n    int n, m;\n    std::cin\
-    \ >> n >> m;\n    ll sum = 0;\n    std::vector<int> ans(n);\n    rep (i, n) {\n\
-    \        ans[i] = sum;\n        sum *= i + 2;\n        if (i & 1) sum += m - 1;\n\
-    \        else ++sum;\n        sum %= m;\n    }\n    co(ans);\n\n    return 0;\n\
-    }\n"
-  dependsOn:
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
+    #include <cstdint>\n#include <iostream>\n#include <vector>\n\nint main(void) {\n\
+    \    int n, m;\n    std::cin >> n >> m;\n    std::int64_t sum = 0;\n    std::vector<int>\
+    \ ans(n);\n    for (int i = 0; i < n; ++i) {\n        ans[i] = sum;\n        sum\
+    \ *= i + 2;\n        if (i & 1) sum += m - 1;\n        else ++sum;\n        sum\
+    \ %= m;\n    }\n    for (int i = 0; i < (int)ans.size(); ++i)\n        std::cout\
+    \ << ans[i] << (i == (int)ans.size() - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
+  dependsOn: []
   isVerificationFile: true
   path: test/yosupo/math/montmort_number.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 17:56:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/montmort_number.test.cpp

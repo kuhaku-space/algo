@@ -83,8 +83,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/chromatic_number.test.cpp
-  - test/aoj/jag/hopcroft_karp.test.cpp
   - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
 documentation_of: lib/graph/matrix_graph.hpp
 layout: document
 redirect_from:

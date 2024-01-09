@@ -11,15 +11,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -41,23 +32,21 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/sparse_table.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n#include \"\
-    data_structure/sparse_table.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n, q;\n    cin >> n >> q;\n    vector<int> a(n);\n    cin >> a;\n\
-    \    sparse_table<Min<int>> st(a);\n\n    while (q--) {\n        int l, r;\n \
-    \       cin >> l >> r;\n        co(st.prod(l, r));\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n#include <iostream>\n\
+    #include <vector>\n#include \"data_structure/sparse_table.hpp\"\n\nint main(void)\
+    \ {\n    int n, q;\n    std::cin >> n >> q;\n    std::vector<int> a(n);\n    for\
+    \ (auto &e : a) std::cin >> e;\n    sparse_table<Min<int>> st(a);\n    while (q--)\
+    \ {\n        int l, r;\n        std::cin >> l >> r;\n        std::cout << st.prod(l,\
+    \ r) << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/sparse_table.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/static_rmq.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_rmq.test.cpp

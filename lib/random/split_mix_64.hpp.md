@@ -67,8 +67,8 @@ data:
   isVerificationFile: false
   path: lib/random/split_mix_64.hpp
   requiredBy:
-  - lib/random/xoroshiro128.hpp
   - lib/random/xoshiro128.hpp
+  - lib/random/xoroshiro128.hpp
   timestamp: '2023-10-02 03:03:19+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

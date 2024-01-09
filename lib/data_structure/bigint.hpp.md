@@ -211,11 +211,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/addition_of_big_integers.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/ntl/addition.test.cpp
 documentation_of: lib/data_structure/bigint.hpp
 layout: document

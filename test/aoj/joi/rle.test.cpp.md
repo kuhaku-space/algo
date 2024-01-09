@@ -53,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/aoj/joi/rle.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 01:47:41+09:00'
+  timestamp: '2023-11-16 06:30:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/joi/rle.test.cpp

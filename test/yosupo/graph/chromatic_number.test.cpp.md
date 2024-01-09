@@ -8,15 +8,6 @@ data:
     path: lib/graph/matrix_graph.hpp
     title: "\u96A3\u63A5\u884C\u5217"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -39,20 +30,17 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/chromatic_number.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/chromatic_number\"\n#include\
-    \ \"graph/chromatic_number.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    int n, m;\n    cin >> n >> m;\n    matrix_graph<void> g(n);\n    g.input_edges(m,\
-    \ 0);\n    co(chromatic_number(g));\n\n    return 0;\n}\n"
+    \ \"graph/chromatic_number.hpp\"\n#include <iostream>\n\nint main(void) {\n  \
+    \  int n, m;\n    std::cin >> n >> m;\n    matrix_graph<void> g(n);\n    g.input_edges(m,\
+    \ 0);\n    std::cout << chromatic_number(g) << '\\n';\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/chromatic_number.hpp
   - lib/graph/matrix_graph.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/graph/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 07:01:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/chromatic_number.test.cpp

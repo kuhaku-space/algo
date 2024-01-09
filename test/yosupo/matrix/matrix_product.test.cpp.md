@@ -14,15 +14,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,24 +36,24 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/matrix.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n#include\
-    \ \"math/matrix.hpp\"\n#include \"math/modint.hpp\"\n#include \"template/atcoder.hpp\"\
+    \ <iostream>\n#include <vector>\n#include \"math/matrix.hpp\"\n#include \"math/modint.hpp\"\
     \n\nusing Mint = modint998;\n\nint main(void) {\n    int n, m, k;\n    std::cin\
     \ >> n >> m >> k;\n    std::vector a(n, std::vector(m, Mint())), b(m, std::vector(k,\
-    \ Mint()));\n    std::cin >> a >> b;\n    Matrix<Mint> x(a), y(b);\n    auto z\
-    \ = x * y;\n    for (auto v : z) co(v);\n\n    return 0;\n}\n"
+    \ Mint()));\n    for (auto &v : a) {\n        for (auto &e : v) std::cin >> e;\n\
+    \    }\n    for (auto &v : b) {\n        for (auto &e : v) std::cin >> e;\n  \
+    \  }\n    Matrix<Mint> x(a), y(b);\n    auto z = x * y;\n    for (auto &&v : z)\
+    \ {\n        for (int i = 0; i < (int)v.size(); ++i)\n            std::cout <<\
+    \ v[i] << (i == (int)v.size() - 1 ? '\\n' : ' ');\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/matrix.hpp
   - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/matrix/matrix_product.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:16+09:00'
+  timestamp: '2023-11-15 21:25:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/matrix/matrix_product.test.cpp

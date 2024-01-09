@@ -14,15 +14,6 @@ data:
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -45,29 +36,27 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/range_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_rectangle_sum\"\
-    \n#include \"binary_tree/range_tree.hpp\"\n#include \"template/atcoder.hpp\"\n\
-    \nint main(void) {\n    int n, q;\n    cin >> n >> q;\n    range_tree<Add<ll>>\
-    \ rt;\n    vector<tuple<int, int, int>> points(n);\n    for (auto &[x, y, z] :\
-    \ points) {\n        cin >> x >> y >> z;\n        rt.add(x, y);\n    }\n    vector<tuple<int,\
+    \n#include <cstdint>\n#include <iostream>\n#include <tuple>\n#include <vector>\n\
+    #include \"binary_tree/range_tree.hpp\"\n\nint main(void) {\n    int n, q;\n \
+    \   std::cin >> n >> q;\n    range_tree<Add<std::int64_t>> rt;\n    std::vector<std::tuple<int,\
+    \ int, int>> points(n);\n    for (auto &[x, y, z] : points) {\n        std::cin\
+    \ >> x >> y >> z;\n        rt.add(x, y);\n    }\n    std::vector<std::tuple<int,\
     \ int, int, int, int>> queries(q);\n    for (auto &[x, y, z, w, v] : queries)\
-    \ {\n        cin >> x;\n        cin >> y >> z >> w;\n        if (x == 1) cin >>\
-    \ v;\n        if (x == 0) rt.add(y, z);\n    }\n\n    rt.build();\n    for (auto\
-    \ [x, y, z] : points) rt.set(x, y, rt.get(x, y) + z);\n    for (auto [x, y, z,\
-    \ w, v] : queries) {\n        if (x == 0) rt.set(y, z, rt.get(y, z) + w);\n  \
-    \      else co(rt.prod(y, z, w, v));\n    }\n\n    return 0;\n}\n"
+    \ {\n        std::cin >> x >> y >> z >> w;\n        if (x == 0) rt.add(y, z);\n\
+    \        else std::cin >> v;\n    }\n\n    rt.build();\n    for (auto [x, y, z]\
+    \ : points) rt.set(x, y, rt.get(x, y) + z);\n    for (auto [x, y, z, w, v] : queries)\
+    \ {\n        if (x == 0) rt.set(y, z, rt.get(y, z) + w);\n        else std::cout\
+    \ << rt.prod(y, z, w, v) << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/range_tree.hpp
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_rectangle_sum.test.cpp

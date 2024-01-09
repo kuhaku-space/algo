@@ -2,15 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -33,23 +24,22 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/cartesian_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/cartesian_tree\"\n#include\
-    \ \"template/atcoder.hpp\"\n#include \"tree/cartesian_tree.hpp\"\n\nint main(void)\
-    \ {\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    cin >> a;\n    auto\
-    \ ans = cartesian_tree(a);\n    rep (i, n) {\n        if (ans[i] == -1) ans[i]\
-    \ = i;\n    }\n    co(ans);\n\n    return 0;\n}\n"
+    \ \"tree/cartesian_tree.hpp\"\n#include <iostream>\n#include <vector>\n\nint main(void)\
+    \ {\n    int n;\n    std::cin >> n;\n    std::vector<int> a(n);\n    for (auto\
+    \ &e : a) std::cin >> e;\n    auto ans = cartesian_tree(a);\n    for (int i =\
+    \ 0; i < n; ++i) {\n        if (ans[i] == -1) ans[i] = i;\n    }\n    for (int\
+    \ i = 0; i < (int)ans.size(); ++i)\n        std::cout << ans[i] << (i == (int)ans.size()\
+    \ - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
   - lib/tree/cartesian_tree.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/tree/cartesian_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 18:16:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/cartesian_tree.test.cpp

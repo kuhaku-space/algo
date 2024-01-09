@@ -20,15 +20,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -51,23 +42,24 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_affine_range_sum\"\
-    \n#include \"math/modint.hpp\"\n#include \"segment_tree/lazy_segment_tree.hpp\"\
-    \n#include \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nstruct M1 {\n\
-    \    using T = pair<Mint, Mint>;\n    using value_type = T;\n    static constexpr\
-    \ T id = T(0, 0);\n    static constexpr T op(T lhs, T rhs) { return {lhs.first\
-    \ + rhs.first, rhs.second + lhs.second}; }\n};\n\nstruct M2 {\n    using T = pair<Mint,\
-    \ Mint>;\n    using value_type = T;\n    static constexpr T id = T(1, 0);\n  \
-    \  static constexpr T op(T lhs, T rhs) {\n        return {lhs.first * rhs.first,\
-    \ lhs.first * rhs.second + lhs.second};\n    }\n    template <class U>\n    static\
-    \ constexpr U f(T lhs, U rhs) {\n        return {lhs.first * rhs.first + lhs.second\
-    \ * rhs.second, rhs.second};\n    }\n};\n\nint main(void) {\n    int n, q;\n \
-    \   cin >> n >> q;\n    vector<Mint> a(n);\n    cin >> a;\n    vector<pair<Mint,\
-    \ Mint>> p(n);\n    rep (i, n) p[i] = {a[i], 1};\n    lazy_segment_tree<M1, M2>\
-    \ st(p);\n\n    while (q--) {\n        int c;\n        cin >> c;\n        if (c\
-    \ == 0) {\n            int l, r, b, c;\n            cin >> l >> r >> b >> c;\n\
-    \            st.apply(l, r, {b, c});\n        } else {\n            int l, r;\n\
-    \            cin >> l >> r;\n            co(st.prod(l, r).first);\n        }\n\
-    \    }\n\n    return 0;\n}\n"
+    \n#include <iostream>\n#include <utility>\n#include <vector>\n#include \"math/modint.hpp\"\
+    \n#include \"segment_tree/lazy_segment_tree.hpp\"\n\nusing Mint = modint998;\n\
+    \nstruct M1 {\n    using T = std::pair<Mint, Mint>;\n    using value_type = T;\n\
+    \    static constexpr T id = T(0, 0);\n    static constexpr T op(T lhs, T rhs)\
+    \ { return {lhs.first + rhs.first, rhs.second + lhs.second}; }\n};\n\nstruct M2\
+    \ {\n    using T = std::pair<Mint, Mint>;\n    using value_type = T;\n    static\
+    \ constexpr T id = T(1, 0);\n    static constexpr T op(T lhs, T rhs) {\n     \
+    \   return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};\n   \
+    \ }\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n      \
+    \  return {lhs.first * rhs.first + lhs.second * rhs.second, rhs.second};\n   \
+    \ }\n};\n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    std::vector<Mint>\
+    \ a(n);\n    for (auto &e : a) std::cin >> e;\n    std::vector<std::pair<Mint,\
+    \ Mint>> p(n);\n    for (int i = 0; i < n; ++i) p[i] = {a[i], 1};\n    lazy_segment_tree<M1,\
+    \ M2> st(p);\n\n    while (q--) {\n        int c;\n        std::cin >> c;\n  \
+    \      if (c == 0) {\n            int l, r, b, c;\n            std::cin >> l >>\
+    \ r >> b >> c;\n            st.apply(l, r, {b, c});\n        } else {\n      \
+    \      int l, r;\n            std::cin >> l >> r;\n            std::cout << st.prod(l,\
+    \ r).first << '\\n';\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
@@ -76,13 +68,10 @@ data:
   - lib/segment_tree/lazy_segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/range_affine_range_sum.test.cpp

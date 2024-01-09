@@ -139,7 +139,7 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: lib/flow/hopcroft_karp.hpp
-      title: lib/flow/hopcroft_karp.hpp
+      title: Hopcroft-Karp algorithm
     - icon: ':heavy_check_mark:'
       path: lib/flow/max_flow.hpp
       title: "\u6700\u5927\u6D41"
@@ -443,6 +443,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
+  - name: test/aoj/jag
+    pages:
+    - icon: ':warning:'
+      path: test/aoj/jag/min_cost_flow.cpp
+      title: test/aoj/jag/min_cost_flow.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:

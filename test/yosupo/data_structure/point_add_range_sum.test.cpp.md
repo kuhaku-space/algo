@@ -4,6 +4,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/fenwick_tree.hpp
     title: "\u30D5\u30A7\u30CB\u30C3\u30AF\u6728"
+  - icon: ':heavy_check_mark:'
+    path: lib/template/sonic.hpp
+    title: lib/template/sonic.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/template.hpp
+    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -24,18 +30,20 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: binary_tree/fenwick_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\n\
-    #include <algorithm>\n#include <iostream>\n#include <iterator>\n#include \"binary_tree/fenwick_tree.hpp\"\
+    #include <iostream>\n#include \"binary_tree/fenwick_tree.hpp\"\n#include \"template/sonic.hpp\"\
     \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    std::vector<int>\
-    \ a(n);\n    std::copy_n(std::istream_iterator<int>(std::cin), n, std::begin(a));\n\
-    \    fenwick_tree<std::int64_t> ft(a);\n    while (q--) {\n        int x, y, z;\n\
-    \        std::cin >> x >> y >> z;\n        if (x == 0) ft.add(y, z);\n       \
-    \ else std::cout << ft.sum(y, z) << std::endl;\n    }\n\n    return 0;\n}\n"
+    \ a(n);\n    for (auto &e : a) std::cin >> e;\n    fenwick_tree<std::int64_t>\
+    \ ft(a);\n    while (q--) {\n        int x, y, z;\n        std::cin >> x >> y\
+    \ >> z;\n        if (x == 0) ft.add(y, z);\n        else std::cout << ft.sum(y,\
+    \ z) << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/fenwick_tree.hpp
+  - lib/template/sonic.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:12:34+09:00'
+  timestamp: '2023-11-16 21:07:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_range_sum.test.cpp

@@ -27,13 +27,13 @@ data:
     #include \"tree/union_find.hpp\"\n\nint main(void) {\n    int n, q;\n    std::cin\
     \ >> n >> q;\n    union_find uf(n);\n    while (q--) {\n        int t, u, v;\n\
     \        std::cin >> t >> u >> v;\n        if (t == 0) uf.unite(u, v);\n     \
-    \   else std::cout << uf.same(u, v) << std::endl;\n    }\n\n    return 0;\n}\n"
+    \   else std::cout << uf.same(u, v) << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/union_find.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/unionfind.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 19:23:14+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/unionfind.test.cpp

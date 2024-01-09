@@ -20,15 +20,6 @@ data:
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -51,15 +42,16 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/modint.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
-    \n#include \"math/modint.hpp\"\n#include \"segment_tree/segment_tree.hpp\"\n#include\
-    \ \"template/atcoder.hpp\"\n\nusing Mint = modint998;\n\nint main(void) {\n  \
-    \  int n, q;\n    std::cin >> n >> q;\n    std::vector<std::pair<Mint, Mint>>\
-    \ p(n);\n    cin >> p;\n    segment_tree<Rev<Affine<Mint>>> st(p);\n\n    while\
-    \ (q--) {\n        int c;\n        std::cin >> c;\n        if (c == 0) {\n   \
-    \         int k, a, b;\n            std::cin >> k >> a >> b;\n            st.set(k,\
-    \ {a, b});\n        } else {\n            int l, r, x;\n            std::cin >>\
-    \ l >> r >> x;\n            auto p = st.prod(l, r);\n            co(p.first *\
-    \ x + p.second);\n        }\n    }\n\n    return 0;\n}\n"
+    \n#include <iostream>\n#include <utility>\n#include <vector>\n#include \"math/modint.hpp\"\
+    \n#include \"segment_tree/segment_tree.hpp\"\n\nusing Mint = modint998;\n\nint\
+    \ main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    std::vector<std::pair<Mint,\
+    \ Mint>> p(n);\n    for (auto &[a, b] : p) std::cin >> a >> b;\n    segment_tree<Rev<Affine<Mint>>>\
+    \ st(p);\n\n    while (q--) {\n        int c;\n        std::cin >> c;\n      \
+    \  if (c == 0) {\n            int k, a, b;\n            std::cin >> k >> a >>\
+    \ b;\n            st.set(k, {a, b});\n        } else {\n            int l, r,\
+    \ x;\n            std::cin >> l >> r >> x;\n            auto p = st.prod(l, r);\n\
+    \            std::cout << (p.first * x + p.second) << '\\n';\n        }\n    }\n\
+    \n    return 0;\n}\n"
   dependsOn:
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
@@ -68,13 +60,10 @@ data:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_set_range_composite.test.cpp

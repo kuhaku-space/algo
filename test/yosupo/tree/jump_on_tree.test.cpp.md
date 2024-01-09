@@ -5,15 +5,6 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -36,25 +27,22 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/hld.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/jump_on_tree\"\n#include\
-    \ \"template/atcoder.hpp\"\n#include \"tree/hld.hpp\"\n\nint main(void) {\n  \
-    \  int n, q;\n    std::cin >> n >> q;\n    Graph<void> g(n);\n    g.input_edges(n\
-    \ - 1, 0);\n    heavy_light_decomposition hld(g);\n    while (q--) {\n       \
-    \ int u, v, k;\n        std::cin >> u >> v >> k;\n        co(hld.jump(u, v, k));\n\
-    \    }\n\n    return 0;\n}\n"
+    \ <iostream>\n#include \"tree/hld.hpp\"\n\nint main(void) {\n    int n, q;\n \
+    \   std::cin >> n >> q;\n    Graph<void> g(n);\n    g.input_edges(n - 1, 0);\n\
+    \    heavy_light_decomposition hld(g);\n    while (q--) {\n        int u, v, k;\n\
+    \        std::cin >> u >> v >> k;\n        std::cout << hld.jump(u, v, k) << '\\\
+    n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
   - lib/tree/hld.hpp
   - lib/graph/graph.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/tree/jump_on_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 18:16:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/jump_on_tree.test.cpp

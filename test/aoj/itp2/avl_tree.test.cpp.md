@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/avl_tree.hpp
     title: "AVL\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -37,11 +34,10 @@ data:
     \ 0;\n}\n"
   dependsOn:
   - lib/binary_tree/avl_tree.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/itp2/avl_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 23:34:20+09:00'
+  timestamp: '2023-11-16 06:51:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/itp2/avl_tree.test.cpp

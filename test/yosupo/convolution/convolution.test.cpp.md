@@ -20,15 +20,6 @@ data:
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -51,9 +42,13 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: fft/ntt.hpp: line\
     \ -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n#include\
-    \ \"fft/ntt.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void) {\n   \
-    \ int n, m;\n    cin >> n >> m;\n    vector<int> a(n), b(m);\n    cin >> a >>\
-    \ b;\n\n    auto ans = convolution(a, b);\n    co(ans);\n\n    return 0;\n}\n"
+    \ <algorithm>\n#include <iostream>\n#include <iterator>\n#include <vector>\n#include\
+    \ \"fft/ntt.hpp\"\n\nint main(void) {\n    int n, m;\n    std::cin >> n >> m;\n\
+    \    std::vector<int> a(n), b(m);\n    std::copy_n(std::istream_iterator<int>(std::cin),\
+    \ n, std::begin(a));\n    std::copy_n(std::istream_iterator<int>(std::cin), m,\
+    \ std::begin(b));\n    auto ans = convolution(a, b);\n    for (int i = 0; i <\
+    \ (int)ans.size(); ++i)\n        std::cout << ans[i] << (i == (int)ans.size()\
+    \ - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
   - lib/fft/ntt.hpp
   - lib/internal/internal_fft.hpp
@@ -62,13 +57,10 @@ data:
   - lib/internal/internal_type_traits.hpp
   - lib/math/modint.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/convolution/convolution.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:37+09:00'
+  timestamp: '2023-11-15 05:00:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution/convolution.test.cpp

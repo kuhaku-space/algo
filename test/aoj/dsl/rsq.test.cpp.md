@@ -34,7 +34,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/rsq.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:41:55+09:00'
+  timestamp: '2023-11-16 21:07:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rsq.test.cpp

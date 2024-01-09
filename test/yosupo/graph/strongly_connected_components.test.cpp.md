@@ -8,15 +8,6 @@ data:
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -38,23 +29,22 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/scc.hpp:\
     \ line -1: no such header\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\n#include \"graph/scc.hpp\"\
-    \n#include \"template/atcoder.hpp\"\n\nint main(void) {\n    int n, m;\n    std::cin\
-    \ >> n >> m;\n    Graph<void> g(n);\n    g.input_edge(m, 0);\n    auto v = scc(g);\n\
-    \    std::vector<std::vector<int>> ans(*max_element(v.begin(), v.end()) + 1);\n\
-    \    rep (i, n) ans[v[i]].emplace_back(i);\n    co(ans.size());\n    for (auto\
-    \ &&u : ans) {\n        co(u.size(), u);\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\n#include <algorithm>\n\
+    #include <iostream>\n#include <vector>\n#include \"graph/scc.hpp\"\n\nint main(void)\
+    \ {\n    int n, m;\n    std::cin >> n >> m;\n    Graph<void> g(n);\n    g.input_edge(m,\
+    \ 0);\n    auto v = scc(g);\n    std::vector<std::vector<int>> ans(*std::max_element(v.begin(),\
+    \ v.end()) + 1);\n    for (int i = 0; i < n; ++i) ans[v[i]].emplace_back(i);\n\
+    \    std::cout << ans.size() << '\\n';\n    for (auto &&u : ans) {\n        std::cout\
+    \ << u.size();\n        for (auto &e : u) std::cout << ' ' << e;\n        std::cout\
+    \ << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/graph/scc.hpp
   - lib/graph/graph.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/graph/strongly_connected_components.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2023-11-15 07:01:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/strongly_connected_components.test.cpp

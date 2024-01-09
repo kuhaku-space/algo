@@ -31,7 +31,7 @@ data:
     \    undo_union_find(int _n) : data(_n, -1), history() {}\n\n    int root(int\
     \ x) { return this->data[x] < 0 ? x : this->data[x] = this->root(this->data[x]);\
     \ }\n    int get_root(int k) { return this->root(k); }\n\n    bool is_root(int\
-    \ k) const { return this->data[0] < 0; }\n\n    bool same(int x, int y) { return\
+    \ k) const { return this->data[k] < 0; }\n\n    bool same(int x, int y) { return\
     \ this->root(x) == this->root(y); }\n    bool is_same(int x, int y) { return this->same(x,\
     \ y); }\n\n    int size(int k) { return -this->data[this->root(k)]; }\n    int\
     \ get_size(int k) { return this->size(k); }\n\n    bool unite(int x, int y) {\n\
@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: lib/tree/undo_union_find.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 20:57:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/undo_union_find.test.cpp

@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: lib/flow/hopcroft_karp.hpp
-    title: lib/flow/hopcroft_karp.hpp
+    title: Hopcroft-Karp algorithm
   - icon: ':heavy_check_mark:'
     path: lib/graph/matrix_graph.hpp
     title: "\u96A3\u63A5\u884C\u5217"
@@ -48,13 +48,13 @@ data:
     \   }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/flow/hopcroft_karp.hpp
-  - lib/template/template.hpp
   - lib/graph/matrix_graph.hpp
+  - lib/template/template.hpp
   - lib/graph/warshall_floyd.hpp
   isVerificationFile: true
   path: test/aoj/jag/hopcroft_karp.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 01:07:11+09:00'
+  timestamp: '2023-12-09 13:20:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/hopcroft_karp.test.cpp

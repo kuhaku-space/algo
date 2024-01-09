@@ -1,18 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,31 +11,28 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/sort_points_by_argument
     links:
     - https://judge.yosupo.jp/problem/sort_points_by_argument
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
-    \ line -1: no such header\n"
+  bundledCode: "#line 1 \"test/yosupo/geometry/sort_points_by_argument.test.cpp\"\n\
+    #define PROBLEM \"https://judge.yosupo.jp/problem/sort_points_by_argument\"\n\
+    #include <algorithm>\n#include <cmath>\n#include <iostream>\n#include <tuple>\n\
+    #include <vector>\n\nint main(void) {\n    int n;\n    std::cin >> n;\n    std::vector<std::tuple<int,\
+    \ int, long double>> v;\n    for (int i = 0; i < n; ++i) {\n        int x, y;\n\
+    \        std::cin >> x >> y;\n        v.emplace_back(x, y, std::atan2((long double)y,\
+    \ x));\n    }\n    std::sort(v.begin(), v.end(), [&](auto x, auto y) { return\
+    \ std::get<2>(x) < std::get<2>(y); });\n    for (auto &&[x, y, z] : v) std::cout\
+    \ << x << ' ' << y << '\\n';\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sort_points_by_argument\"\
-    \n#include \"template/atcoder.hpp\"\n\nint main(void) {\n    int n;\n    std::cin\
-    \ >> n;\n    std::vector<tuple<int, int, long double>> v;\n    rep (i, n) {\n\
-    \        int x, y;\n        cin >> x >> y;\n        v.emplace_back(x, y, atan2l(y,\
-    \ x));\n    }\n    std::sort(v.begin(), v.end(), [&](auto x, auto y) {\n     \
-    \   return get<2>(x) < get<2>(y);\n    });\n    for (auto &&[x, y, z] : v) co(x,\
-    \ y);\n\n    return 0;\n}\n"
-  dependsOn:
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
+    \n#include <algorithm>\n#include <cmath>\n#include <iostream>\n#include <tuple>\n\
+    #include <vector>\n\nint main(void) {\n    int n;\n    std::cin >> n;\n    std::vector<std::tuple<int,\
+    \ int, long double>> v;\n    for (int i = 0; i < n; ++i) {\n        int x, y;\n\
+    \        std::cin >> x >> y;\n        v.emplace_back(x, y, std::atan2((long double)y,\
+    \ x));\n    }\n    std::sort(v.begin(), v.end(), [&](auto x, auto y) { return\
+    \ std::get<2>(x) < std::get<2>(y); });\n    for (auto &&[x, y, z] : v) std::cout\
+    \ << x << ' ' << y << '\\n';\n\n    return 0;\n}\n"
+  dependsOn: []
   isVerificationFile: true
   path: test/yosupo/geometry/sort_points_by_argument.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-16 01:03:17+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/geometry/sort_points_by_argument.test.cpp

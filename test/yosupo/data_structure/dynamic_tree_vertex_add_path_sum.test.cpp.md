@@ -5,15 +5,6 @@ data:
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -36,32 +27,31 @@ data:
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
     \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/atcoder.hpp:\
+    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/link_cut_tree.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum\"\
-    \n#include \"template/atcoder.hpp\"\n#include \"tree/link_cut_tree.hpp\"\n\nint\
-    \ main(void) {\n    int n, q;\n    cin >> n >> q;\n    vector<int> a(n);\n   \
-    \ cin >> a;\n    link_cut_tree<Add<ll>> lct(n);\n    rep (i, n) {\n        lct.set(i,\
-    \ a[i]);\n    }\n    rep (i, n - 1) {\n        int u, v;\n        cin >> u >>\
-    \ v;\n        lct.link(u, v);\n    }\n\n    while (q--) {\n        int t;\n  \
-    \      cin >> t;\n        if (t == 0) {\n            int u, v, w, x;\n       \
-    \     cin >> u >> v >> w >> x;\n            lct.cut(u, v);\n            lct.link(w,\
-    \ x);\n        } else if (t == 1) {\n            int p, x;\n            cin >>\
-    \ p >> x;\n            lct.set(p, lct.get_val(p) + x);\n        } else if (t ==\
-    \ 2) {\n            int u, v;\n            cin >> u >> v;\n            lct.make_root(u);\n\
-    \            lct.expose(v);\n            cout << lct.get_total(v) << endl;\n \
-    \       }\n    }\n\n    return 0;\n}\n"
+    \n#include <algorithm>\n#include <cstdint>\n#include <iostream>\n#include <iterator>\n\
+    #include <vector>\n#include \"tree/link_cut_tree.hpp\"\n\nint main(void) {\n \
+    \   int n, q;\n    std::cin >> n >> q;\n    std::vector<int> a(n);\n    for (auto\
+    \ &e : a) std::cin >> e;\n    link_cut_tree<Add<std::int64_t>> lct(n);\n    for\
+    \ (int i = 0; i < n; ++i) lct.set(i, a[i]);\n    for (int i = 0; i < n - 1; ++i)\
+    \ {\n        int u, v;\n        std::cin >> u >> v;\n        lct.link(u, v);\n\
+    \    }\n\n    while (q--) {\n        int t;\n        std::cin >> t;\n        if\
+    \ (t == 0) {\n            int u, v, w, x;\n            std::cin >> u >> v >> w\
+    \ >> x;\n            lct.cut(u, v);\n            lct.link(w, x);\n        } else\
+    \ if (t == 1) {\n            int p, x;\n            std::cin >> p >> x;\n    \
+    \        lct.set(p, lct.get_val(p) + x);\n        } else if (t == 2) {\n     \
+    \       int u, v;\n            std::cin >> u >> v;\n            lct.make_root(u);\n\
+    \            lct.expose(v);\n            std::cout << lct.get_total(v) << '\\\
+    n';\n        }\n    }\n\n    return 0;\n}\n"
   dependsOn:
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/template.hpp
-  - lib/template/sonic.hpp
   - lib/tree/link_cut_tree.hpp
   - lib/segment_tree/monoid.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp

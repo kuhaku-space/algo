@@ -5,15 +5,6 @@ data:
     path: lib/data_structure/persistent_queue.hpp
     title: lib/data_structure/persistent_queue.hpp
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -36,24 +27,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/persistent_queue.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/persistent_queue\"\n#include\
-    \ \"data_structure/persistent_queue.hpp\"\n#include \"template/atcoder.hpp\"\n\
-    \nint main(void) {\n    sonic();\n    int q;\n    cin >> q;\n    vector<persistent_queue<int>>\
-    \ qs;\n    qs.emplace_back();\n\n    rep (i, q) {\n        int t;\n        cin\
-    \ >> t;\n        if (t == 0) {\n            int k, x;\n            cin >> k >>\
-    \ x;\n            qs.emplace_back(qs[k + 1].push(x));\n        } else {\n    \
-    \        int k;\n            cin >> k;\n            co(qs[k + 1].top());\n   \
-    \         qs.emplace_back(qs[k + 1].pop());\n        }\n    }\n\n    return 0;\n\
-    }\n"
+    \ \"data_structure/persistent_queue.hpp\"\n#include <iostream>\n#include <vector>\n\
+    \nint main(void) {\n    int q;\n    std::cin >> q;\n    std::vector<persistent_queue<int>>\
+    \ qs;\n    qs.emplace_back();\n    while (q--) {\n        int t;\n        std::cin\
+    \ >> t;\n        if (t == 0) {\n            int k, x;\n            std::cin >>\
+    \ k >> x;\n            qs.emplace_back(qs[k + 1].emplace(x));\n        } else\
+    \ {\n            int k;\n            std::cin >> k;\n            std::cout <<\
+    \ qs[k + 1].top() << '\\n';\n            qs.emplace_back(qs[k + 1].pop());\n \
+    \       }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/persistent_queue.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/persistent_queue.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 06:42:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/persistent_queue.test.cpp

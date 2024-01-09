@@ -5,17 +5,11 @@ data:
     path: lib/string/manacher.hpp
     title: Manacher
   - icon: ':heavy_check_mark:'
-    path: lib/template/atcoder.hpp
-    title: lib/template/atcoder.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/macro.hpp
-    title: lib/template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/sonic.hpp
-    title: lib/template/sonic.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
+  - icon: ':heavy_check_mark:'
+    path: lib/template/vector.hpp
+    title: lib/template/vector.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,22 +30,21 @@ data:
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: string/manacher.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/enumerate_palindromes\"\
-    \n#include \"string/manacher.hpp\"\n#include \"template/atcoder.hpp\"\n\nint main(void)\
-    \ {\n    string s;\n    cin >> s;\n    string t;\n    for (auto c : s) {\n   \
-    \     t += ' ';\n        t += c;\n    }\n    t += ' ';\n\n    Manacher ma(t);\n\
-    \    auto ans = ma.get();\n    ans.erase(ans.begin());\n    ans.pop_back();\n\
-    \    for (auto &x : ans) {\n        --x;\n    }\n    co(ans);\n\n    return 0;\n\
-    }\n"
+    \n#include <iostream>\n#include <string>\n#include \"string/manacher.hpp\"\n#include\
+    \ \"template/vector.hpp\"\n\nint main(void) {\n    std::string s;\n    std::cin\
+    \ >> s;\n    std::string t;\n    for (auto c : s) {\n        t += ' ';\n     \
+    \   t += c;\n    }\n    t += ' ';\n\n    Manacher ma(t);\n    auto ans = ma.get();\n\
+    \    ans.erase(ans.begin());\n    ans.pop_back();\n    Dec >> ans;\n    for (int\
+    \ i = 0; i < (int)ans.size(); ++i)\n        std::cout << ans[i] << (i == (int)ans.size()\
+    \ - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/manacher.hpp
   - lib/template/template.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/sonic.hpp
+  - lib/template/vector.hpp
   isVerificationFile: true
   path: test/yosupo/string/enumerate_palindromes.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2023-11-15 18:09:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/string/enumerate_palindromes.test.cpp
