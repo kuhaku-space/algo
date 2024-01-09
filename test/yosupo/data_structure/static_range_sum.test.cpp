@@ -1,18 +1,20 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
-#include "template/atcoder.hpp"
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <vector>
 
 int main(void) {
-    sonic();
     int n, q;
-    cin >> n >> q;
-    vector<ll> a(n);
-    cin >> a;
+    std::cin >> n >> q;
+    std::vector<std::int64_t> a(n);
+    for (auto &e : a) std::cin >> e;
     a.emplace_back(0);
-    repr(i, n) a[i] += a[i + 1];
-    rep(i, q) {
+    std::inclusive_scan(a.rbegin(), a.rend(), a.rbegin());
+    while (q--) {
         int l, r;
-        cin >> l >> r;
-        co(a[l] - a[r]);
+        std::cin >> l >> r;
+        std::cout << a[l] - a[r] << '\n';
     }
 
     return 0;

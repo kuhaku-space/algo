@@ -1,16 +1,19 @@
 #define PROBLEM "https://yukicoder.me/problems/no/416"
-#include "template/atcoder.hpp"
+#include <algorithm>
+#include <iostream>
+#include <utility>
+#include <vector>
 #include "tree/partially_persistent_union_find.hpp"
 
 int main(void) {
     int n, m, q;
     std::cin >> n >> m >> q;
     std::vector<std::pair<int, int>> es(m);
-    std::cin >> es;
+    for (auto &[a, b] : es) std::cin >> a >> b;
     std::vector<std::pair<int, int>> queries(q);
-    std::cin >> queries;
-    std::reverse(all(queries));
-    std::set<std::pair<int, int>> st(all(queries));
+    for (auto &[a, b] : queries) std::cin >> a >> b;
+    std::reverse(queries.begin(), queries.end());
+    std::set<std::pair<int, int>> st(queries.begin(), queries.end());
 
     partially_persistent_union_find uf(n);
     for (auto [a, b] : es) {
@@ -18,14 +21,13 @@ int main(void) {
     }
     for (auto [a, b] : queries) uf.unite(a - 1, b - 1);
 
-    rep (i, n) {
-        if (!i) continue;
+    for (int i = 1; i < n; ++i) {
         if (!uf.same(0, i)) {
-            co(0);
+            std::cout << 0 << '\n';
             continue;
         }
         if (uf.same(0, i, m - q)) {
-            co(-1);
+            std::cout << -1 << '\n';
             continue;
         }
         auto check = [&](int mid) { return !uf.same(0, i, m - mid); };
@@ -34,7 +36,7 @@ int main(void) {
             int mid = (l + r) / 2;
             (check(mid) ? l : r) = mid;
         }
-        co(l);
+        std::cout << l << '\n';
     }
 
     return 0;

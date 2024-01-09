@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <iterator>
+#include <vector>
 
 /**
  * @brief Mex
@@ -13,20 +15,20 @@ struct minimum_excluded {
     void add(int x) {
         if (x < 0) return;
         ++_size;
-        if (_size == (int)std::size(exists)) {
+        if (_size == (int)exists.size()) {
             exists.resize(_size << 1);
-            int cnt = 0;
-            for (int i = 0; i < (int)std::size(v); ++i) {
-                if (v[i] < (int)std::size(exists)) {
-                    if (exists[v[i]]) --_size;
-                    else exists[v[i]] = true;
-                } else {
-                    v[cnt++] = v[i];
-                }
-            }
-            v.erase(std::begin(v) + cnt, std::end(v));
+            v.erase(std::remove_if(v.begin(), v.end(),
+                                   [&](int y) {
+                                       if (y < (int)exists.size()) {
+                                           if (exists[y]) --_size;
+                                           else exists[y] = true;
+                                           return true;
+                                       }
+                                       return false;
+                                   }),
+                    v.end());
         }
-        if (x < (int)std::size(exists)) {
+        if (x < (int)exists.size()) {
             if (exists[x]) --_size;
             else exists[x] = true;
         } else {

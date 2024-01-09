@@ -1,14 +1,21 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/tree_path_composite_sum"
+#include <iostream>
+#include <utility>
+#include <vector>
 #include "math/modint.hpp"
-#include "template/atcoder.hpp"
 #include "tree/rerooting.hpp"
 
 using Mint = modint998;
 
+template <class T, class U>
+std::istream &operator>>(std::istream &is, std::pair<T, U> &p) {
+    return is >> p.first >> p.second;
+}
+
 struct Monoid {
-    using value_type = pair<Mint, Mint>;
+    using value_type = std::pair<Mint, Mint>;
     static constexpr value_type id = {0, 0};
-    static inline vector<Mint> a = vector<Mint>();
+    static inline std::vector<Mint> a = std::vector<Mint>();
     static constexpr value_type op(const value_type &lhs, const value_type &rhs) {
         return {lhs.first + rhs.first, lhs.second + rhs.second};
     }
@@ -23,15 +30,16 @@ struct Monoid {
 
 int main(void) {
     int n;
-    cin >> n;
-    Monoid::a = vector<Mint>(n);
-    cin >> Monoid::a;
-    Graph<pair<Mint, Mint>> g(n);
+    std::cin >> n;
+    Monoid::a = std::vector<Mint>(n);
+    for (auto &e : Monoid::a) std::cin >> e;
+    Graph<std::pair<Mint, Mint>> g(n);
     g.input_edges(n - 1, 0);
-    ReRooting<Monoid, pair<Mint, Mint>> rr(g);
-    vector<Mint> ans;
-    rep (i, n) ans.emplace_back(rr[i].first);
-    co(ans);
+    ReRooting<Monoid, std::pair<Mint, Mint>> rr(g);
+    std::vector<Mint> ans;
+    for (int i = 0; i < n; ++i) ans.emplace_back(rr[i].first);
+    for (int i = 0; i < (int)ans.size(); ++i)
+        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }

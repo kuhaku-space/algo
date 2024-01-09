@@ -1,18 +1,21 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
+#include <cstdint>
+#include <iostream>
+#include <vector>
 #include "binary_tree/fenwick_tree.hpp"
-#include "template/atcoder.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
     std::vector<int> a(n);
-    std::cin >> a;
+    for (auto &e : a) std::cin >> e;
     Graph<void> g(n);
     g.input_edges(n - 1, 0);
     heavy_light_decomposition hld(g);
-    fenwick_tree<ll> ft(n);
-    rep (i, n) ft.add(hld.get(i), a[i]);
+    fenwick_tree<std::int64_t> ft(n);
+    for (int i = 0; i < n; ++i) ft.add(hld.get(i), a[i]);
+
     while (q--) {
         int c;
         std::cin >> c;
@@ -23,12 +26,10 @@ int main(void) {
         } else {
             int u, v;
             std::cin >> u >> v;
-            ll ans = 0;
-            auto f = [&](int u, int v) {
-                ans += ft.sum(u, v);
-            };
+            std::int64_t ans = 0;
+            auto f = [&](int u, int v) { ans += ft.sum(u, v); };
             hld.for_each(u, v, f);
-            co(ans);
+            std::cout << ans << '\n';
         }
     }
 

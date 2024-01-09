@@ -1,4 +1,8 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <numeric>
+#include <vector>
 
 /**
  * @brief Mo's algorithm (rollback)

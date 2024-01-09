@@ -1,39 +1,33 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/two_sat"
 #include "graph/two_sat.hpp"
-#include "template/atcoder.hpp"
+#include <iostream>
+#include <string>
 
 int main(void) {
-    string tmp;
+    std::string tmp;
     int n, m;
-    cin >> tmp >> tmp >> n >> m;
+    std::cin >> tmp >> tmp >> n >> m;
     two_sat ts(n);
     while (m--) {
         int a, b, c;
-        cin >> a >> b >> c;
+        std::cin >> a >> b >> c;
         bool f = true, g = true;
-        if (a < 0) {
-            a = -a;
-            f = false;
-        }
-        if (b < 0) {
-            b = -b;
-            g = false;
-        }
+        if (a < 0) a = -a, f = false;
+        if (b < 0) b = -b, g = false;
         ts.add(a - 1, f, b - 1, g);
     }
     auto v = ts.solve();
     if (!ts.is_satisfy(v)) {
-        co("s UNSATISFIABLE");
+        std::cout << "s UNSATISFIABLE\n";
         return 0;
     }
-    co("s SATISFIABLE");
+    std::cout << "s SATISFIABLE\n";
     auto u = ts.build(v);
-    vector<int> ans(n);
-    rep (i, n) {
-        if (u[i]) ans[i] = i + 1;
-        else ans[i] = -i - 1;
-    }
-    co('v', ans, 0);
+    std::vector<int> ans(n);
+    for (int i = 0; i < n; ++i) ans[i] = (u[i] ? i + 1 : -i - 1);
+    std::cout << "v ";
+    for (auto &&e : ans) std::cout << e << ' ';
+    std::cout << 0 << '\n';
 
     return 0;
 }

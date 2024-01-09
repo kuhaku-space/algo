@@ -1,11 +1,15 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/zalgorithm"
+#include <iostream>
+#include <string>
+#include <vector>
 #include "string/z_algorithm.hpp"
-#include "template/atcoder.hpp"
 
 int main(void) {
-    string s;
-    cin >> s;
-    co(z_algorithm(s));
+    std::string s;
+    std::cin >> s;
+    auto ans = z_algorithm(s);
+    for (int i = 0; i < (int)ans.size(); ++i)
+        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }

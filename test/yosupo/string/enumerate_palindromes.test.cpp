@@ -1,11 +1,13 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/enumerate_palindromes"
+#include <iostream>
+#include <string>
 #include "string/manacher.hpp"
-#include "template/atcoder.hpp"
+#include "template/vector.hpp"
 
 int main(void) {
-    string s;
-    cin >> s;
-    string t;
+    std::string s;
+    std::cin >> s;
+    std::string t;
     for (auto c : s) {
         t += ' ';
         t += c;
@@ -16,10 +18,9 @@ int main(void) {
     auto ans = ma.get();
     ans.erase(ans.begin());
     ans.pop_back();
-    for (auto &x : ans) {
-        --x;
-    }
-    co(ans);
+    Dec >> ans;
+    for (int i = 0; i < (int)ans.size(); ++i)
+        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }
