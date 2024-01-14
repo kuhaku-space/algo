@@ -21,6 +21,14 @@ struct union_find {
     int size(int x) { return -(data[root(x)]); }
     int get_size(int x) { return size(x); }
 
+    std::vector<int> leaders() {
+        std::vector<int> res;
+        for (int i = 0; i < (int)data.size(); ++i) {
+            if (is_root(i)) res.emplace_back(i);
+        }
+        return res;
+    }
+
     bool unite(int x, int y) {
         x = root(x), y = root(y);
         if (x == y) return false;
