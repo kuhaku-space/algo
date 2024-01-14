@@ -1,7 +1,8 @@
 #pragma once
+#include <cassert>
+#include <vector>
 #include "internal/internal_bit.hpp"
 #include "segment_tree/monoid.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief セグメント木
