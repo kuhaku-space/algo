@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <stack>
+#include <utility>
+#include <vector>
 
 /**
  * @brief Undo可能Union-Find
