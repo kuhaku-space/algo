@@ -13,7 +13,7 @@ struct weighted_union_find {
 
     int find(int k) {
         if (_data[k] < 0) return k;
-        auto par = find(_data[k]);
+        int par = find(_data[k]);
         _weights[k] += _weights[_data[k]];
         return _data[k] = par;
     }
