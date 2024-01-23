@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
 
 /**
  * @brief palindromic tree
