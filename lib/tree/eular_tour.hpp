@@ -14,7 +14,7 @@ struct eular_tour {
         build(r);
     }
 
-    std::pair<int, int> operator[](int i) const { return {ls[i], rs[i]}; }
+    std::pair<int, int> operator[](int i) const { return std::make_pair(ls[i], rs[i]); }
 
     int size() const { return pos; }
 
