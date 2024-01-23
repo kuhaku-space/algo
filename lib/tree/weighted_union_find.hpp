@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <utility>
+#include <vector>
 
 /**
  * @brief 重み付き素集合データ構造
