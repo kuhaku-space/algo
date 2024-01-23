@@ -4,12 +4,11 @@
 
 /**
  * @brief Aho Corasick 法
+ * @see https://naoya-2.hatenadiary.org/entry/20090405/aho_corasick
+ * @see https://ei1333.github.io/library/string/aho-corasick.hpp.html
  *
  * @tparam char_size
  * @tparam base
- *
- * @see https://naoya-2.hatenadiary.org/entry/20090405/aho_corasick
- * @see https://ei1333.github.io/library/string/aho-corasick.hpp.html
  */
 template <int char_size, int base>
 struct aho_corasick {
