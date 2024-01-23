@@ -4,7 +4,7 @@
 
 /**
  * @brief オイラーツアー
- * @details [参考](https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp)
+ * @see https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp
  *
  * @tparam T 辺の重みの型
  */
