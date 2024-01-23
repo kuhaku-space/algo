@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <stack>
+#include <vector>
 
 /**
  * @brief Cartesian Tree
