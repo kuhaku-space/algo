@@ -4,7 +4,7 @@
 #include <vector>
 
 /**
- * @brief palindromic tree
+ * @brief 回文木
  * @see https://math314.hateblo.jp/entry/2016/12/19/005919
  */
 struct palindromic_tree {
