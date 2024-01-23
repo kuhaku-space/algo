@@ -56,6 +56,7 @@
 "test/aoj/itp2/scapegoat_tree.test.cpp": "2023-11-14 23:34:20 +0900",
 "test/aoj/itp2/skip_list.test.cpp": "2023-11-14 23:34:20 +0900",
 "test/aoj/itp2/treap.test.cpp": "2023-11-14 23:34:20 +0900",
+"test/aoj/jag/aho_corasick.test.cpp": "2024-01-23 17:46:25 +0900",
 "test/aoj/jag/doubling.test.cpp": "2023-11-15 02:51:05 +0900",
 "test/aoj/jag/hopcroft_karp.test.cpp": "2023-12-09 13:20:54 +0900",
 "test/aoj/joi/rle.test.cpp": "2023-11-16 06:30:44 +0900",
