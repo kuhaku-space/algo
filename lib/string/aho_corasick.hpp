@@ -1,4 +1,5 @@
 #include <cassert>
+#include <queue>
 #include <string>
 #include <vector>
 
