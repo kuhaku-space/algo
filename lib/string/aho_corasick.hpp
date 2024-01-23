@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <cassert>
+#include <string>
+#include <vector>
 
 /**
  * @brief Aho Corasick 法
@@ -31,9 +33,7 @@ struct aho_corasick {
         std::queue<int> que;
         for (int i = 0; i < char_size; ++i) {
             int next_root = this->nodes[0].next(i);
-            if (next_root != -1) {
-                que.emplace(next_root);
-            }
+            if (next_root != -1) { que.emplace(next_root); }
         }
 
         while (!que.empty()) {
