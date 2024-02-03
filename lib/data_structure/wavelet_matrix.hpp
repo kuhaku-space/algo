@@ -3,11 +3,10 @@
 
 /**
  * @brief ウェーブレット行列
+ * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
  *
  * @tparam T
  * @tparam L
- *
- * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html
  */
 template <class T, int L = 20>
 struct wavelet_matrix {
