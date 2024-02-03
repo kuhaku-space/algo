@@ -28,9 +28,7 @@ struct wavelet_matrix {
             mid[level] = left;
             matrix[level].build();
             v.swap(l);
-            for (int i = 0; i < right; ++i) {
-                v[left + i] = r[i];
-            }
+            for (int i = 0; i < right; ++i) v[left + i] = r[i];
         }
     }
 
