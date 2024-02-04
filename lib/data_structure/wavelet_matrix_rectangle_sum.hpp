@@ -3,17 +3,13 @@
 #include <tuple>
 #include <vector>
 #include "data_structure/bit_vector.hpp"
-#include "segment_tree/monoid.hpp"
 
-template <class T, class M, int L = 30>
-struct wavelet_matrix_monoid {
-  private:
-    using U = typename M::value_type;
-
-  public:
-    wavelet_matrix_monoid() = default;
+template <class T, class U = T, int L = 30>
+struct wavelet_matrix_rectangle_sum {
+    wavelet_matrix_rectangle_sum() = default;
     template <class Value>
-    wavelet_matrix_monoid(const std::vector<T> &v, const std::vector<Value> &u) : length(v.size()) {
+    wavelet_matrix_rectangle_sum(const std::vector<T> &v, const std::vector<Value> &u)
+        : length(v.size()) {
         assert(v.size() == u.size());
         std::vector<int> l(length), r(length), ord(length);
         std::iota(ord.begin(), ord.end(), 0);
@@ -33,8 +29,8 @@ struct wavelet_matrix_monoid {
             ord.swap(l);
             for (int i = 0; i < right; i++) ord[left + i] = r[i];
             cs[level].resize(length + 1);
-            cs[level][0] = M::id;
-            for (int i = 0; i < length; i++) cs[level][i + 1] = M::op(cs[level][i], u[ord[i]]);
+            cs[level][0] = U(0);
+            for (int i = 0; i < length; i++) cs[level][i + 1] = cs[level][i] + u[ord[i]];
         }
     }
 
