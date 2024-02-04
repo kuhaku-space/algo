@@ -1,5 +1,7 @@
+#include <cassert>
+#include <tuple>
+#include <vector>
 #include "data_structure/bit_vector.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief ウェーブレット行列

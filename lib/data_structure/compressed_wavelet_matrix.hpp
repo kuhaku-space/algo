@@ -1,6 +1,6 @@
+#include <vector>
 #include "algorithm/compress.hpp"
 #include "data_structure/wavelet_matrix.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief ウェーブレット行列
