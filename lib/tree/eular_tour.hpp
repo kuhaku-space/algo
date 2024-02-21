@@ -1,28 +1,29 @@
+#include <utility>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief オイラーツアー
- * @details [参考](https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp)
+ * @see https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp
  *
  * @tparam T 辺の重みの型
  */
 template <class T>
 struct eular_tour {
     eular_tour(const Graph<T> &_g, int r = 0) : g(_g), ls(_g.size()), rs(_g.size()), pos() {
-        this->build(r);
+        build(r);
     }
 
-    std::pair<int, int> operator[](int i) const { return {this->ls[i], this->rs[i]}; }
+    std::pair<int, int> operator[](int i) const { return std::make_pair(ls[i], rs[i]); }
 
-    int size() const { return this->pos; }
+    int size() const { return pos; }
 
-    int get_l(int i) const { return this->ls[i]; }
-    int get_r(int i) const { return this->rs[i]; }
+    int get_l(int i) const { return ls[i]; }
+    int get_r(int i) const { return rs[i]; }
 
     template <class F>
     void query(int v, const F &f) const {
-        f(this->ls[v], this->rs[v]);
+        f(ls[v], rs[v]);
     }
 
   private:
@@ -31,15 +32,15 @@ struct eular_tour {
     int pos;
 
     void build(int r = 0) {
-        this->pos = 0;
-        this->dfs(r, -1);
+        pos = 0;
+        dfs(r, -1);
     }
 
     void dfs(int v, int p) {
-        this->ls[v] = this->pos++;
-        for (auto &e : this->g[v]) {
-            if (e.to() != p) this->dfs(e.to(), v);
+        ls[v] = pos++;
+        for (auto &e : g[v]) {
+            if (e.to() != p) dfs(e.to(), v);
         }
-        this->rs[v] = this->pos;
+        rs[v] = pos;
     }
 };

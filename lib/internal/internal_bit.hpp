@@ -10,6 +10,10 @@ unsigned int bit_ceil(unsigned int n) {
 }
 
 // @param n `1 <= n`
+// @return same with std::bit::countl_zero
+int countl_zero(unsigned int n) { return __builtin_clz(n); }
+
+// @param n `1 <= n`
 // @return same with std::bit::countr_zero
 int countr_zero(unsigned int n) { return __builtin_ctz(n); }
 

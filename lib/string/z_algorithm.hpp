@@ -1,13 +1,11 @@
-#include "template/template.hpp"
+#include <vector>
 
 /**
  * @brief Z algorithm
- *
- * @tparam Container
- *
+ * @details Z[i] := S[i:Z[i]] == S[0:Z[i]-i]
  * @see https://snuke.hatenablog.com/entry/2014/12/03/214243
  *
- * Z[i] := S[i:Z[i]] == S[0:Z[i]-i]
+ * @tparam Container
  */
 template <class Container>
 std::vector<int> z_algorithm(const Container &s) {

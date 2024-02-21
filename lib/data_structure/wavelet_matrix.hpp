@@ -1,13 +1,14 @@
+#include <cassert>
+#include <tuple>
+#include <vector>
 #include "data_structure/bit_vector.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief ウェーブレット行列
+ * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
  *
  * @tparam T
  * @tparam L
- *
- * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html
  */
 template <class T, int L = 20>
 struct wavelet_matrix {
@@ -28,9 +29,7 @@ struct wavelet_matrix {
             mid[level] = left;
             matrix[level].build();
             v.swap(l);
-            for (int i = 0; i < right; ++i) {
-                v[left + i] = r[i];
-            }
+            for (int i = 0; i < right; ++i) v[left + i] = r[i];
         }
     }
 
