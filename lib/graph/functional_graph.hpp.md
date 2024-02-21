@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -82,11 +82,11 @@ data:
   isVerificationFile: false
   path: lib/graph/functional_graph.hpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2024-02-04 08:44:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/1242.test.cpp
   - test/yukicoder/1211.test.cpp
+  - test/yukicoder/1242.test.cpp
 documentation_of: lib/graph/functional_graph.hpp
 layout: document
 redirect_from:

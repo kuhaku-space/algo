@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/aoj/jag/min_cost_flow.cpp
-    title: test/aoj/jag/min_cost_flow.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/min_cost_flow.test.cpp
     title: test/aoj/grl/min_cost_flow.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/aoj/jag/min_cost_flow.test.cpp
+    title: test/aoj/jag/min_cost_flow.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: "\u6700\u5C0F\u8CBB\u7528\u6D41"
     links: []
@@ -129,12 +129,12 @@ data:
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/flow/min_cost_flow.hpp
-  requiredBy:
-  - test/aoj/jag/min_cost_flow.cpp
+  requiredBy: []
   timestamp: '2023-10-01 03:35:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/grl/min_cost_flow.test.cpp
+  - test/aoj/jag/min_cost_flow.test.cpp
 documentation_of: lib/flow/min_cost_flow.hpp
 layout: document
 redirect_from:

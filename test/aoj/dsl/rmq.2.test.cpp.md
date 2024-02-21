@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_raq.hpp
     title: lib/segment_tree/segment_tree_raq.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -51,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/rmq.2.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:41:55+09:00'
+  timestamp: '2024-02-21 23:45:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rmq.2.test.cpp

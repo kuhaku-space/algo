@@ -10,9 +10,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -27,7 +24,7 @@ data:
   attributes:
     document_title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
     links:
-    - https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html
+    - https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
@@ -37,11 +34,11 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/compress.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"algorithm/compress.hpp\"\n#include \"data_structure/wavelet_matrix.hpp\"\
-    \n#include \"template/template.hpp\"\n\n/**\n * @brief \u30A6\u30A7\u30FC\u30D6\
-    \u30EC\u30C3\u30C8\u884C\u5217\n *\n * @tparam T\n * @tparam L\n *\n * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html\n\
-    \ */\ntemplate <class T, int L = 20>\nstruct compressed_wavelet_matrix {\n   \
-    \ compressed_wavelet_matrix() = default;\n    compressed_wavelet_matrix(const\
+  code: "#include <vector>\n#include \"algorithm/compress.hpp\"\n#include \"data_structure/wavelet_matrix.hpp\"\
+    \n\n/**\n * @brief \u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217\n *\
+    \ @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp\n\
+    \ *\n * @tparam T\n * @tparam L\n */\ntemplate <class T, int L = 20>\nstruct compressed_wavelet_matrix\
+    \ {\n    compressed_wavelet_matrix() = default;\n    compressed_wavelet_matrix(const\
     \ std::vector<T> &v) : cps(v) {\n        int n = v.size();\n        std::vector<int>\
     \ t(n);\n        for (int i = 0; i < n; ++i) t[i] = cps.get(v[i]);\n        mat\
     \ = wavelet_matrix<int, L>(t);\n    }\n\n    T access(int k) const { return cps[mat.access(k)];\
@@ -80,11 +77,10 @@ data:
   - lib/algorithm/compress.hpp
   - lib/data_structure/wavelet_matrix.hpp
   - lib/data_structure/bit_vector.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/compressed_wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2023-10-01 22:47:01+09:00'
+  timestamp: '2024-02-04 13:16:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_kth_smallest.test.cpp

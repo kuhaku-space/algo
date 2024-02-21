@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -87,7 +87,7 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:37+09:00'
+  timestamp: '2024-02-21 23:45:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

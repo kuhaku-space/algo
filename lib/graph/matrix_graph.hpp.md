@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -77,8 +77,8 @@ data:
   isVerificationFile: false
   path: lib/graph/matrix_graph.hpp
   requiredBy:
-  - lib/graph/warshall_floyd.hpp
   - lib/graph/chromatic_number.hpp
+  - lib/graph/warshall_floyd.hpp
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

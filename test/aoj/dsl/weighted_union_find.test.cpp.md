@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/tree/weighted_union_find.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
   _extendedRequiredBy: []
@@ -37,11 +34,10 @@ data:
     \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/weighted_union_find.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/dsl/weighted_union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:41:55+09:00'
+  timestamp: '2024-01-23 17:38:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/weighted_union_find.test.cpp

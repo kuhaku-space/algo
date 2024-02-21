@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/scc.hpp
     title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -44,7 +44,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/graph/strongly_connected_components.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 07:01:02+09:00'
+  timestamp: '2024-01-10 03:54:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/strongly_connected_components.test.cpp

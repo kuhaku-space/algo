@@ -35,9 +35,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/compressed_wavelet_matrix.hpp
-    title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - icon: ':warning:'
     path: lib/data_structure/erasable_priority_queue.hpp
     title: "\u524A\u9664\u53EF\u80FD\u512A\u5148\u5EA6\u4ED8\u304D\u30AD\u30E5\u30FC"
@@ -65,9 +62,6 @@ data:
   - icon: ':warning:'
     path: lib/data_structure/undo_deque.hpp
     title: lib/data_structure/undo_deque.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/wavelet_matrix.hpp
-    title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
   - icon: ':warning:'
     path: lib/fft/fft.hpp
     title: lib/fft/fft.hpp
@@ -89,7 +83,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/flow/max_flow.hpp
     title: "\u6700\u5927\u6D41"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/flow/min_cost_flow.hpp
     title: "\u6700\u5C0F\u8CBB\u7528\u6D41"
   - icon: ':warning:'
@@ -217,26 +211,17 @@ data:
     path: lib/segment_tree/persistent_segment_tree.hpp
     title: "\u6C38\u7D9A\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/segment_tree.hpp
-    title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_2d.hpp
     title: "\u4E8C\u6B21\u5143\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_raq.hpp
     title: lib/segment_tree/segment_tree_raq.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/string/aho_corasick.hpp
-    title: "Aho Corasick \u6CD5"
   - icon: ':warning:'
     path: lib/string/converter.hpp
     title: lib/string/converter.hpp
   - icon: ':warning:'
     path: lib/string/lcp.hpp
     title: "\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E"
-  - icon: ':heavy_check_mark:'
-    path: lib/string/manacher.hpp
-    title: Manacher
   - icon: ':heavy_check_mark:'
     path: lib/string/rolling_hash.hpp
     title: "\u30ED\u30FC\u30EA\u30F3\u30B0\u30CF\u30C3\u30B7\u30E5"
@@ -246,9 +231,6 @@ data:
   - icon: ':warning:'
     path: lib/string/trie.hpp
     title: Trie
-  - icon: ':heavy_check_mark:'
-    path: lib/string/z_algorithm.hpp
-    title: Z algorithm
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -261,9 +243,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template/vector.hpp
     title: lib/template/vector.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/cartesian_tree.hpp
-    title: Cartesian Tree
   - icon: ':warning:'
     path: lib/tree/centroid_decomposition.hpp
     title: "\u91CD\u5FC3\u5206\u89E3"
@@ -271,17 +250,11 @@ data:
     path: lib/tree/dynamic_union_find.hpp
     title: "\u52D5\u7684Union-Find"
   - icon: ':heavy_check_mark:'
-    path: lib/tree/eular_tour.hpp
-    title: "\u30AA\u30A4\u30E9\u30FC\u30C4\u30A2\u30FC"
-  - icon: ':heavy_check_mark:'
     path: lib/tree/hld.hpp
     title: "HL\u5206\u89E3"
   - icon: ':heavy_check_mark:'
     path: lib/tree/link_cut_tree.hpp
     title: Link-Cut Tree
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/palindromic_tree.hpp
-    title: palindromic tree
   - icon: ':heavy_check_mark:'
     path: lib/tree/partially_persistent_union_find.hpp
     title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
@@ -297,15 +270,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/tree/tree_function.hpp
     title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/undo_union_find.hpp
-    title: "Undo\u53EF\u80FDUnion-Find"
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/weighted_union_find.hpp
-    title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - icon: ':warning:'
-    path: test/aoj/jag/min_cost_flow.cpp
-    title: test/aoj/jag/min_cost_flow.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/alds1/prime_numbers2.test.cpp
@@ -353,9 +317,6 @@ data:
     path: test/aoj/dsl/rmq.2.test.cpp
     title: test/aoj/dsl/rmq.2.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rmq.test.cpp
-    title: test/aoj/dsl/rmq.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/rmq_ruq.test.cpp
     title: test/aoj/dsl/rmq_ruq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -364,9 +325,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/ruq.test.cpp
     title: test/aoj/dsl/ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/weighted_union_find.test.cpp
-    title: test/aoj/dsl/weighted_union_find.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/articulation_points.test.cpp
     title: test/aoj/grl/articulation_points.test.cpp
@@ -416,9 +374,6 @@ data:
     path: test/aoj/grl/warshall_floyd.test.cpp
     title: test/aoj/grl/warshall_floyd.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/hupc/manacher.test.cpp
-    title: test/aoj/hupc/manacher.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/aoj/icpc/stern_brocot_tree.test.cpp
     title: test/aoj/icpc/stern_brocot_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -436,6 +391,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/jag/hopcroft_karp.test.cpp
     title: test/aoj/jag/hopcroft_karp.test.cpp
+  - icon: ':x:'
+    path: test/aoj/jag/min_cost_flow.test.cpp
+    title: test/aoj/jag/min_cost_flow.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/joi/rle.test.cpp
     title: test/aoj/joi/rle.test.cpp
@@ -515,29 +473,14 @@ data:
     path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
     title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
-    title: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_kth_smallest.test.cpp
-    title: test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/segment_add_get_min.test.cpp
     title: test/yosupo/data_structure/segment_add_get_min.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/static_range_frequency.test.cpp
-    title: test/yosupo/data_structure/static_range_frequency.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_rmq.test.cpp
     title: test/yosupo/data_structure/static_rmq.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/undo_union_find.test.cpp
-    title: test/yosupo/data_structure/undo_union_find.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
     title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-    title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
     title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
@@ -584,12 +527,6 @@ data:
     path: test/yosupo/string/suffix_array.test.cpp
     title: test/yosupo/string/suffix_array.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/string/zalgorithm.test.cpp
-    title: test/yosupo/string/zalgorithm.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree/cartesian_tree.test.cpp
-    title: test/yosupo/tree/cartesian_tree.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/jump_on_tree.test.cpp
     title: test/yosupo/tree/jump_on_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -602,9 +539,6 @@ data:
     path: test/yosupo/tree/tree_path_composite_sum.test.cpp
     title: test/yosupo/tree/tree_path_composite_sum.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yukicoder/0263.test.cpp
-    title: test/yukicoder/0263.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yukicoder/0416.test.cpp
     title: test/yukicoder/0416.test.cpp
   - icon: ':heavy_check_mark:'
@@ -616,9 +550,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/1977.test.cpp
     title: test/yukicoder/1977.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"lib/template/template.hpp\"\n#pragma GCC target(\"sse4.2,avx2,bmi2\"\
@@ -641,213 +575,191 @@ data:
   isVerificationFile: false
   path: lib/template/template.hpp
   requiredBy:
-  - test/aoj/jag/min_cost_flow.cpp
-  - lib/fft/fft.hpp
-  - lib/fft/garner.hpp
-  - lib/fft/fft_mod.hpp
-  - lib/fft/ntt.hpp
-  - lib/fft/ntt_mod.hpp
-  - lib/fft/formal_power_series.hpp
-  - lib/math/modint.hpp
-  - lib/math/enumeration.hpp
-  - lib/math/chinese_rem.hpp
-  - lib/math/sqrt.hpp
-  - lib/math/pow.hpp
-  - lib/math/combination.hpp
-  - lib/math/math.hpp
-  - lib/math/slope_trick.hpp
-  - lib/math/hashint.hpp
-  - lib/math/fraction.hpp
-  - lib/math/eratosthenes.hpp
-  - lib/math/primitive_root.hpp
-  - lib/math/matrix.hpp
-  - lib/heap/fibonacci_heap.hpp
-  - lib/heap/radix_heap.hpp
   - lib/flow/min_cost_flow.hpp
   - lib/flow/max_flow.hpp
-  - lib/data_structure/swag.hpp
-  - lib/data_structure/wavelet_matrix.hpp
-  - lib/data_structure/persistent_stack.hpp
-  - lib/data_structure/bigint.hpp
-  - lib/data_structure/undo_deque.hpp
-  - lib/data_structure/persistent_queue.hpp
-  - lib/data_structure/compressed_wavelet_matrix.hpp
-  - lib/data_structure/sparse_table.hpp
-  - lib/data_structure/skip_list.hpp
-  - lib/data_structure/li_chao_tree.hpp
-  - lib/data_structure/persistent_array.hpp
-  - lib/data_structure/erasable_priority_queue.hpp
-  - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/segment_tree/persistent_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
-  - lib/segment_tree/segment_tree.hpp
-  - lib/segment_tree/dynamic_segment_tree.hpp
-  - lib/segment_tree/persistent_dual_segment_tree.hpp
-  - lib/segment_tree/segment_tree_2d.hpp
-  - lib/internal/internal_fft.hpp
-  - lib/_new/graph_segment.hpp
-  - lib/_new/cumulative_sum_2d.hpp
-  - lib/_new/tree64.hpp
-  - lib/_new/make_permutation.hpp
-  - lib/_new/b-tree.hpp
-  - lib/binary_tree/range_tree.hpp
-  - lib/binary_tree/treap.hpp
-  - lib/binary_tree/range_set.hpp
-  - lib/binary_tree/scapegoat_tree.hpp
-  - lib/binary_tree/patricia_binary_trie.hpp
-  - lib/template/sonic.hpp
-  - lib/template/atcoder.hpp
-  - lib/template/macro.hpp
-  - lib/template/vector.hpp
-  - lib/tree/weighted_union_find.hpp
-  - lib/tree/rerooting.hpp
-  - lib/tree/palindromic_tree.hpp
-  - lib/tree/undo_union_find.hpp
-  - lib/tree/dynamic_union_find.hpp
-  - lib/tree/eular_tour.hpp
-  - lib/tree/cartesian_tree.hpp
-  - lib/tree/hld.hpp
-  - lib/tree/partially_persistent_union_find.hpp
-  - lib/tree/stern_brocot_tree.hpp
-  - lib/tree/persistent_union_find.hpp
-  - lib/tree/tree_function.hpp
-  - lib/tree/centroid_decomposition.hpp
-  - lib/tree/link_cut_tree.hpp
-  - lib/graph/bellman_ford.hpp
-  - lib/graph/prim.hpp
-  - lib/graph/lowlink.hpp
-  - lib/graph/warshall_floyd.hpp
-  - lib/graph/spfa.hpp
-  - lib/graph/functional_graph.hpp
-  - lib/graph/cycle.hpp
-  - lib/graph/spanning_tree.hpp
+  - lib/fft/fft.hpp
+  - lib/fft/ntt_mod.hpp
+  - lib/fft/ntt.hpp
+  - lib/fft/fft_mod.hpp
+  - lib/fft/garner.hpp
+  - lib/fft/formal_power_series.hpp
   - lib/graph/maximum_independent_set.hpp
-  - lib/graph/topological_sort.hpp
-  - lib/graph/scc.hpp
-  - lib/graph/chromatic_number.hpp
-  - lib/graph/dijkstra.hpp
   - lib/graph/two_sat.hpp
-  - lib/graph/matrix_graph.hpp
+  - lib/graph/topological_sort.hpp
+  - lib/graph/chromatic_number.hpp
+  - lib/graph/cycle.hpp
   - lib/graph/dijkstra_potential.hpp
+  - lib/graph/dijkstra.hpp
+  - lib/graph/functional_graph.hpp
+  - lib/graph/bellman_ford.hpp
+  - lib/graph/matrix_graph.hpp
+  - lib/graph/lowlink.hpp
+  - lib/graph/prim.hpp
+  - lib/graph/spanning_tree.hpp
+  - lib/graph/warshall_floyd.hpp
+  - lib/graph/scc.hpp
+  - lib/graph/spfa.hpp
+  - lib/internal/internal_fft.hpp
+  - lib/math/enumeration.hpp
+  - lib/math/matrix.hpp
+  - lib/math/chinese_rem.hpp
+  - lib/math/combination.hpp
+  - lib/math/slope_trick.hpp
+  - lib/math/fraction.hpp
+  - lib/math/primitive_root.hpp
+  - lib/math/modint.hpp
+  - lib/math/sqrt.hpp
+  - lib/math/math.hpp
+  - lib/math/pow.hpp
+  - lib/math/eratosthenes.hpp
+  - lib/math/hashint.hpp
+  - lib/geometry/kdtree.hpp
+  - lib/geometry/geometry.hpp
   - lib/geometry/cht.hpp
   - lib/geometry/geometry3d.hpp
-  - lib/geometry/geometry.hpp
-  - lib/geometry/kdtree.hpp
+  - lib/data_structure/erasable_priority_queue.hpp
+  - lib/data_structure/persistent_queue.hpp
+  - lib/data_structure/li_chao_tree.hpp
+  - lib/data_structure/skip_list.hpp
+  - lib/data_structure/persistent_array.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/data_structure/swag.hpp
+  - lib/data_structure/sparse_table.hpp
+  - lib/data_structure/undo_deque.hpp
+  - lib/data_structure/persistent_stack.hpp
+  - lib/heap/radix_heap.hpp
+  - lib/heap/fibonacci_heap.hpp
+  - lib/_new/make_permutation.hpp
+  - lib/_new/b-tree.hpp
+  - lib/_new/tree64.hpp
+  - lib/_new/graph_segment.hpp
+  - lib/_new/cumulative_sum_2d.hpp
   - lib/string/trie.hpp
-  - lib/string/rolling_hash.hpp
-  - lib/string/manacher.hpp
   - lib/string/lcp.hpp
   - lib/string/suffix_array.hpp
-  - lib/string/z_algorithm.hpp
   - lib/string/converter.hpp
-  - lib/string/aho_corasick.hpp
+  - lib/string/rolling_hash.hpp
+  - lib/tree/link_cut_tree.hpp
+  - lib/tree/persistent_union_find.hpp
+  - lib/tree/rerooting.hpp
+  - lib/tree/tree_function.hpp
+  - lib/tree/dynamic_union_find.hpp
+  - lib/tree/partially_persistent_union_find.hpp
+  - lib/tree/hld.hpp
+  - lib/tree/stern_brocot_tree.hpp
+  - lib/tree/centroid_decomposition.hpp
+  - lib/binary_tree/treap.hpp
+  - lib/binary_tree/range_tree.hpp
+  - lib/binary_tree/scapegoat_tree.hpp
+  - lib/binary_tree/patricia_binary_trie.hpp
+  - lib/binary_tree/range_set.hpp
+  - lib/template/atcoder.hpp
+  - lib/template/sonic.hpp
+  - lib/template/macro.hpp
+  - lib/template/vector.hpp
+  - lib/segment_tree/lazy_segment_tree.hpp
+  - lib/segment_tree/persistent_segment_tree.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
+  - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/segment_tree/segment_tree_2d.hpp
+  - lib/segment_tree/dual_segment_tree.hpp
+  - lib/segment_tree/persistent_dual_segment_tree.hpp
   timestamp: '2023-10-01 03:35:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/yosupo/matrix/determinant_of_matrix.test.cpp
-  - test/yosupo/matrix/matrix_product.test.cpp
+  - test/yukicoder/1211.test.cpp
+  - test/yukicoder/1977.test.cpp
+  - test/yukicoder/0416.test.cpp
+  - test/yukicoder/1242.test.cpp
+  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/graph/strongly_connected_components.test.cpp
+  - test/yosupo/graph/maximum_independent_set.test.cpp
+  - test/yosupo/graph/matching_on_bipartite_garph.test.cpp
+  - test/yosupo/graph/chromatic_number.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/convolution/bitwise_and_convolution.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
   - test/yosupo/math/two_sat.test.cpp
   - test/yosupo/math/sqrt_mod.test.cpp
   - test/yosupo/math/number_of_subsequences.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
-  - test/yosupo/convolution/bitwise_and_convolution.test.cpp
-  - test/yosupo/data_structure/segment_add_get_min.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/patricia_binary_trie.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/undo_union_find.test.cpp
-  - test/yosupo/data_structure/persistent_union_find.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
-  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/line_add_get_min.test.cpp
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-  - test/yosupo/data_structure/persistent_queue.test.cpp
+  - test/yosupo/data_structure/static_rmq.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/tree/jump_on_tree.test.cpp
-  - test/yosupo/tree/tree_path_composite_sum.test.cpp
-  - test/yosupo/tree/cartesian_tree.test.cpp
-  - test/yosupo/tree/tree_diameter.test.cpp
-  - test/yosupo/tree/lowest_common_ancestor.test.cpp
-  - test/yosupo/graph/maximum_independent_set.test.cpp
-  - test/yosupo/graph/matching_on_bipartite_garph.test.cpp
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/yosupo/graph/chromatic_number.test.cpp
-  - test/yosupo/graph/strongly_connected_components.test.cpp
-  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/data_structure/segment_add_get_min.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/persistent_queue.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - test/yosupo/data_structure/persistent_union_find.test.cpp
+  - test/yosupo/string/suffix_array.test.cpp
   - test/yosupo/string/number_of_substring.test.cpp
   - test/yosupo/string/enumerate_palindromes.test.cpp
-  - test/yosupo/string/zalgorithm.test.cpp
-  - test/yosupo/string/suffix_array.test.cpp
-  - test/aoj/cgl/parallel_orthogonal.test.cpp
-  - test/aoj/cgl/intersection.test.cpp
-  - test/aoj/cgl/counter-clockwise.test.cpp
-  - test/aoj/cgl/reflection.test.cpp
-  - test/aoj/cgl/cross_point.test.cpp
-  - test/aoj/cgl/projection.test.cpp
-  - test/aoj/alds1/rolling_hash.test.cpp
-  - test/aoj/alds1/prime_numbers2.test.cpp
-  - test/aoj/alds1/suffix_array.test.cpp
-  - test/aoj/itp2/treap.test.cpp
-  - test/aoj/itp2/skip_list.test.cpp
-  - test/aoj/itp2/scapegoat_tree.test.cpp
-  - test/aoj/icpc/stern_brocot_tree.test.cpp
-  - test/aoj/grl/scc.test.cpp
-  - test/aoj/grl/articulation_points.test.cpp
-  - test/aoj/grl/max_flow.test.cpp
-  - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/hld.test.cpp
-  - test/aoj/grl/topological_sort.test.cpp
-  - test/aoj/grl/prim.test.cpp
-  - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/bipartite_matching.test.cpp
-  - test/aoj/grl/cycle.test.cpp
-  - test/aoj/grl/spfa.test.cpp
-  - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/warshall_floyd.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
-  - test/aoj/grl/bridges.test.cpp
-  - test/aoj/grl/min_cost_flow.test.cpp
-  - test/aoj/dsl/range_search.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/dynamic_rmq.test.cpp
-  - test/aoj/dsl/rmq.2.test.cpp
-  - test/aoj/dsl/weighted_union_find.test.cpp
-  - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/hupc/manacher.test.cpp
-  - test/aoj/rupc/range_set.test.cpp
-  - test/aoj/rupc/lazy_segment_tree.test.cpp
+  - test/yosupo/tree/tree_path_composite_sum.test.cpp
+  - test/yosupo/tree/lowest_common_ancestor.test.cpp
+  - test/yosupo/tree/jump_on_tree.test.cpp
+  - test/yosupo/tree/tree_diameter.test.cpp
+  - test/yosupo/matrix/determinant_of_matrix.test.cpp
+  - test/yosupo/matrix/matrix_product.test.cpp
   - test/aoj/dpl/stirling.test.cpp
   - test/aoj/dpl/bell.test.cpp
-  - test/aoj/joi/rle.test.cpp
-  - test/aoj/jag/hopcroft_karp.test.cpp
-  - test/aoj/jag/aho_corasick.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/division.test.cpp
+  - test/aoj/itp2/skip_list.test.cpp
+  - test/aoj/itp2/scapegoat_tree.test.cpp
+  - test/aoj/itp2/treap.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
+  - test/aoj/rupc/range_set.test.cpp
+  - test/aoj/alds1/suffix_array.test.cpp
+  - test/aoj/alds1/rolling_hash.test.cpp
+  - test/aoj/alds1/prime_numbers2.test.cpp
+  - test/aoj/icpc/stern_brocot_tree.test.cpp
   - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/power.test.cpp
   - test/aoj/ntl/addition.test.cpp
-  - test/yukicoder/0263.test.cpp
-  - test/yukicoder/1242.test.cpp
-  - test/yukicoder/1977.test.cpp
-  - test/yukicoder/0416.test.cpp
-  - test/yukicoder/1211.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/dsl/dynamic_rmq.test.cpp
+  - test/aoj/dsl/range_search.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/ruq.test.cpp
+  - test/aoj/grl/scc.test.cpp
+  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/aoj/grl/hld.test.cpp
+  - test/aoj/grl/max_flow.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/grl/bipartite_matching.test.cpp
+  - test/aoj/grl/bridges.test.cpp
+  - test/aoj/grl/min_cost_flow.test.cpp
+  - test/aoj/grl/spfa.test.cpp
+  - test/aoj/grl/bellman_ford.test.cpp
+  - test/aoj/grl/prim.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/topological_sort.test.cpp
+  - test/aoj/grl/dijkstra.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/joi/rle.test.cpp
+  - test/aoj/jag/aho_corasick.test.cpp
+  - test/aoj/jag/min_cost_flow.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
+  - test/aoj/cgl/reflection.test.cpp
+  - test/aoj/cgl/intersection.test.cpp
+  - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
 documentation_of: lib/template/template.hpp
 layout: document
 redirect_from:

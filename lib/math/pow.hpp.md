@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -49,8 +49,8 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
-  - lib/math/math.hpp
   - lib/math/primitive_root.hpp
+  - lib/math/math.hpp
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

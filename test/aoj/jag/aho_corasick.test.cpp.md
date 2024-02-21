@@ -16,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/string/aho_corasick.hpp
     title: "Aho Corasick \u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   - icon: ':heavy_check_mark:'
@@ -60,16 +60,16 @@ data:
     \n    return 0;\n}\n"
   dependsOn:
   - lib/string/aho_corasick.hpp
-  - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
+  - lib/template/template.hpp
   - lib/tree/tree_function.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/aoj/jag/aho_corasick.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 01:07:11+09:00'
+  timestamp: '2024-01-23 17:46:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/aho_corasick.test.cpp

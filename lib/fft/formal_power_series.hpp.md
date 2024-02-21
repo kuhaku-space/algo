@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -93,7 +93,7 @@ data:
   isVerificationFile: false
   path: lib/fft/formal_power_series.hpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:37+09:00'
+  timestamp: '2024-02-21 23:45:35+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/formal_power_series.hpp

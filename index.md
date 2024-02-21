@@ -27,6 +27,9 @@ data:
       path: lib/algorithm/doubling.hpp
       title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
     - icon: ':heavy_check_mark:'
+      path: lib/algorithm/in_field.hpp
+      title: lib/algorithm/in_field.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/algorithm/inversion_number.hpp
       title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
     - icon: ':heavy_check_mark:'
@@ -85,9 +88,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/compressed_wavelet_matrix.hpp
       title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/disjoint_sparse_table.hpp
+      title: Disjoint Sparse Table
     - icon: ':warning:'
       path: lib/data_structure/erasable_priority_queue.hpp
       title: "\u524A\u9664\u53EF\u80FD\u512A\u5148\u5EA6\u4ED8\u304D\u30AD\u30E5\u30FC"
+    - icon: ':warning:'
+      path: lib/data_structure/flip_set.hpp
+      title: lib/data_structure/flip_set.hpp
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/li_chao_tree.hpp
       title: Li Chao Tree
@@ -115,6 +124,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/data_structure/wavelet_matrix.hpp
       title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+    - icon: ':heavy_check_mark:'
+      path: lib/data_structure/wavelet_matrix_rectangle_sum.hpp
+      title: lib/data_structure/wavelet_matrix_rectangle_sum.hpp
   - name: lib/fft
     pages:
     - icon: ':warning:'
@@ -143,7 +155,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/flow/max_flow.hpp
       title: "\u6700\u5927\u6D41"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/flow/min_cost_flow.hpp
       title: "\u6700\u5C0F\u8CBB\u7528\u6D41"
   - name: lib/geometry
@@ -390,7 +402,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/template/sonic.hpp
       title: lib/template/sonic.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
     - icon: ':heavy_check_mark:'
@@ -418,7 +430,7 @@ data:
       title: Link-Cut Tree
     - icon: ':heavy_check_mark:'
       path: lib/tree/palindromic_tree.hpp
-      title: palindromic tree
+      title: "\u56DE\u6587\u6728"
     - icon: ':heavy_check_mark:'
       path: lib/tree/partially_persistent_union_find.hpp
       title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
@@ -443,11 +455,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/tree/weighted_union_find.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u7D20\u96C6\u5408\u30C7\u30FC\u30BF\u69CB\u9020"
-  - name: test/aoj/jag
-    pages:
-    - icon: ':warning:'
-      path: test/aoj/jag/min_cost_flow.cpp
-      title: test/aoj/jag/min_cost_flow.cpp
   verificationCategories:
   - name: test/aoj/alds1
     pages:
@@ -647,11 +654,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/jag/hopcroft_karp.test.cpp
       title: test/aoj/jag/hopcroft_karp.test.cpp
+    - icon: ':x:'
+      path: test/aoj/jag/min_cost_flow.test.cpp
+      title: test/aoj/jag/min_cost_flow.test.cpp
   - name: test/aoj/joi
     pages:
     - icon: ':heavy_check_mark:'
       path: test/aoj/joi/rle.test.cpp
       title: test/aoj/joi/rle.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/joi/undo_union_find.test.cpp
+      title: test/aoj/joi/undo_union_find.test.cpp
   - name: test/aoj/ntl
     pages:
     - icon: ':heavy_check_mark:'
@@ -748,6 +761,9 @@ data:
       path: test/yosupo/data_structure/range_kth_smallest.test.cpp
       title: test/yosupo/data_structure/range_kth_smallest.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/rectangle_sum.test.cpp
+      title: test/yosupo/data_structure/rectangle_sum.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/segment_add_get_min.test.cpp
       title: test/yosupo/data_structure/segment_add_get_min.test.cpp
     - icon: ':heavy_check_mark:'
@@ -759,6 +775,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_range_sum.test.cpp
       title: test/yosupo/data_structure/static_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/static_rmq.2.test.cpp
+      title: test/yosupo/data_structure/static_rmq.2.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/static_rmq.test.cpp
       title: test/yosupo/data_structure/static_rmq.test.cpp

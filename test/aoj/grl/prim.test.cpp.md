@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/prim.hpp
     title: "\u30D7\u30EA\u30E0\u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

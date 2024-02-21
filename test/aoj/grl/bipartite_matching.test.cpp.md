@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/flow/max_flow.hpp
     title: "\u6700\u5927\u6D41"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []

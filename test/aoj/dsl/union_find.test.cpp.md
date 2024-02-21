@@ -34,7 +34,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-10-01 19:23:14+09:00'
+  timestamp: '2024-02-04 08:44:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/union_find.test.cpp

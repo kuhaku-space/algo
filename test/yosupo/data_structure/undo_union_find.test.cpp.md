@@ -5,9 +5,6 @@ data:
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/tree/undo_union_find.hpp
     title: "Undo\u53EF\u80FDUnion-Find"
   _extendedRequiredBy: []
@@ -46,12 +43,11 @@ data:
     \ if (ans[i] != -1) std::cout << ans[i] << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/undo_union_find.hpp
-  - lib/template/template.hpp
   - lib/graph/graph.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/undo_union_find.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 20:58:21+09:00'
+  timestamp: '2024-01-14 19:57:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/undo_union_find.test.cpp

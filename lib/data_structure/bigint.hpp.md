@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -207,16 +207,16 @@ data:
   isVerificationFile: false
   path: lib/data_structure/bigint.hpp
   requiredBy: []
-  timestamp: '2023-10-01 18:31:37+09:00'
+  timestamp: '2024-02-21 23:45:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/addition_of_big_integers.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/division.test.cpp
   - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
 documentation_of: lib/data_structure/bigint.hpp
 layout: document
 redirect_from:

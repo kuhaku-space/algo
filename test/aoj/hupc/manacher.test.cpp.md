@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/string/manacher.hpp
     title: Manacher
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -37,11 +34,10 @@ data:
     \ << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/manacher.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/hupc/manacher.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 23:24:15+09:00'
+  timestamp: '2024-01-23 18:07:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/hupc/manacher.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -120,8 +120,8 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/string/number_of_substring.test.cpp
   - test/yosupo/string/suffix_array.test.cpp
+  - test/yosupo/string/number_of_substring.test.cpp
   - test/aoj/alds1/suffix_array.test.cpp
 documentation_of: lib/string/suffix_array.hpp
 layout: document

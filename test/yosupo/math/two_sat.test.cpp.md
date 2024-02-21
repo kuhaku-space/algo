@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/two_sat.hpp
     title: 2-SAT
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -52,7 +52,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/math/two_sat.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 17:56:11+09:00'
+  timestamp: '2024-01-10 03:54:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/math/two_sat.test.cpp

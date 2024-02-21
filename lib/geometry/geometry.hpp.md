@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -133,12 +133,12 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/cgl/parallel_orthogonal.test.cpp
-  - test/aoj/cgl/intersection.test.cpp
-  - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/cgl/reflection.test.cpp
-  - test/aoj/cgl/cross_point.test.cpp
+  - test/aoj/cgl/intersection.test.cpp
   - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
 documentation_of: lib/geometry/geometry.hpp
 layout: document
 redirect_from:

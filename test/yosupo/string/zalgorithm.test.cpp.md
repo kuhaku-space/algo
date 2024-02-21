@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/string/z_algorithm.hpp
     title: Z algorithm
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -33,11 +30,10 @@ data:
     \ (i == (int)ans.size() - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
   - lib/string/z_algorithm.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/string/zalgorithm.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 18:09:09+09:00'
+  timestamp: '2024-01-23 18:10:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/string/zalgorithm.test.cpp

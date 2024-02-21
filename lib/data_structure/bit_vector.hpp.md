@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
+  - icon: ':heavy_check_mark:'
+    path: lib/data_structure/wavelet_matrix_rectangle_sum.hpp
+    title: lib/data_structure/wavelet_matrix_rectangle_sum.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest.2.test.cpp
@@ -15,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/range_kth_smallest.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/rectangle_sum.test.cpp
+    title: test/yosupo/data_structure/rectangle_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_frequency.test.cpp
     title: test/yosupo/data_structure/static_range_frequency.test.cpp
@@ -69,14 +75,16 @@ data:
   isVerificationFile: false
   path: lib/data_structure/bit_vector.hpp
   requiredBy:
-  - lib/data_structure/wavelet_matrix.hpp
+  - lib/data_structure/wavelet_matrix_rectangle_sum.hpp
   - lib/data_structure/compressed_wavelet_matrix.hpp
+  - lib/data_structure/wavelet_matrix.hpp
   timestamp: '2023-10-01 22:47:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
+  - test/yosupo/data_structure/rectangle_sum.test.cpp
 documentation_of: lib/data_structure/bit_vector.hpp
 layout: document
 redirect_from:

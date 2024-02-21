@@ -13,9 +13,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/wavelet_matrix.hpp
     title: "\u30A6\u30A7\u30FC\u30D6\u30EC\u30C3\u30C8\u884C\u5217"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -46,11 +43,10 @@ data:
   - lib/algorithm/compress.hpp
   - lib/data_structure/wavelet_matrix.hpp
   - lib/data_structure/bit_vector.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/static_range_frequency.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 06:42:05+09:00'
+  timestamp: '2024-02-04 13:16:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/static_range_frequency.test.cpp

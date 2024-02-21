@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
@@ -94,13 +94,13 @@ data:
   isVerificationFile: false
   path: lib/segment_tree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2024-02-21 23:45:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
   - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/aoj/rupc/lazy_segment_tree.test.cpp
 documentation_of: lib/segment_tree/lazy_segment_tree.hpp
 layout: document
 redirect_from:

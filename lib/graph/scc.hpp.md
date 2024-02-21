@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -57,11 +57,16 @@ data:
     \n *\r\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\n * @param g \u30B0\
     \u30E9\u30D5\r\n * @param v \u5404\u9802\u70B9\u304C\u5C5E\u3059\u308B\u5F37\u9023\
     \u7D50\u6210\u5206\u306E\u756A\u53F7\r\n * @return Graph<T> \u6709\u5411\u975E\
-    \u5DE1\u56DE\u30B0\u30E9\u30D5\r\n */\r\ntemplate <class T>\r\nGraph<T> make_DAG(const\
+    \u5DE1\u56DE\u30B0\u30E9\u30D5\r\n */\r\ntemplate <class T>\r\nGraph<T> make_directed_acyclic_graph(const\
     \ Graph<T> &g, const std::vector<int> &v) {\r\n    Graph<T> res(*std::max_element(v.begin(),\
     \ v.end()) + 1);\r\n    for (auto &es : g) {\r\n        for (auto &e : es) {\r\
     \n            int x = v[e.from()], y = v[e.to()];\r\n            if (x != y) res.add_edge(x,\
-    \ y, e.weight());\r\n        }\r\n    }\r\n    return res;\r\n}\r\n"
+    \ y, e.weight());\r\n        }\r\n    }\r\n    return res;\r\n}\r\n\r\ntemplate\
+    \ <>\r\nGraph<void> make_directed_acyclic_graph(const Graph<void> &g, const std::vector<int>\
+    \ &v) {\r\n    Graph<void> res(*std::max_element(v.begin(), v.end()) + 1);\r\n\
+    \    for (auto &es : g) {\r\n        for (auto &e : es) {\r\n            int x\
+    \ = v[e.from()], y = v[e.to()];\r\n            if (x != y) res.add_edge(x, y);\r\
+    \n        }\r\n    }\r\n    return res;\r\n}\r\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
@@ -69,11 +74,11 @@ data:
   path: lib/graph/scc.hpp
   requiredBy:
   - lib/graph/two_sat.hpp
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2024-01-10 03:54:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/math/two_sat.test.cpp
   - test/yosupo/graph/strongly_connected_components.test.cpp
+  - test/yosupo/math/two_sat.test.cpp
   - test/aoj/grl/scc.test.cpp
 documentation_of: lib/graph/scc.hpp
 layout: document

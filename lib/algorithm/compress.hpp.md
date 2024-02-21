@@ -16,6 +16,9 @@ data:
     path: test/yosupo/data_structure/range_kth_smallest.test.cpp
     title: test/yosupo/data_structure/range_kth_smallest.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/rectangle_sum.test.cpp
+    title: test/yosupo/data_structure/rectangle_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/static_range_frequency.test.cpp
     title: test/yosupo/data_structure/static_range_frequency.test.cpp
   - icon: ':heavy_check_mark:'
@@ -81,8 +84,9 @@ data:
   verifiedWith:
   - test/yosupo/math/number_of_subsequences.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
-  - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
+  - test/yosupo/data_structure/static_range_inversions.test.cpp
+  - test/yosupo/data_structure/rectangle_sum.test.cpp
   - test/aoj/alds1/inversion_number.test.cpp
 documentation_of: lib/algorithm/compress.hpp
 layout: document

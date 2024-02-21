@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/range_tree.hpp
@@ -55,11 +52,11 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_bit.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\r\n#include \"internal/internal_bit.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\
-    \r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u30BB\u30B0\u30E1\
-    \u30F3\u30C8\u6728\r\n *\r\n * @tparam M \u30E2\u30CE\u30A4\u30C9\r\n *\r\n *\
-    \ @see https://noshi91.hatenablog.com/entry/2020/04/22/212649\r\n */\r\ntemplate\
-    \ <class M>\r\nstruct segment_tree {\r\n  private:\r\n    using T = typename M::value_type;\r\
+  code: "#pragma once\r\n#include <cassert>\r\n#include <vector>\r\n#include \"internal/internal_bit.hpp\"\
+    \r\n#include \"segment_tree/monoid.hpp\"\r\n\r\n/**\r\n * @brief \u30BB\u30B0\u30E1\
+    \u30F3\u30C8\u6728\r\n * @see https://noshi91.hatenablog.com/entry/2020/04/22/212649\r\
+    \n *\r\n * @tparam M \u30E2\u30CE\u30A4\u30C9\r\n */\r\ntemplate <class M>\r\n\
+    struct segment_tree {\r\n  private:\r\n    using T = typename M::value_type;\r\
     \n\r\n  public:\r\n    segment_tree() : segment_tree(0) {}\r\n    explicit segment_tree(int\
     \ n, T e = M::id) : segment_tree(std::vector<T>(n, e)) {}\r\n    template <class\
     \ U>\r\n    explicit segment_tree(const std::vector<U> &v) : _n(v.size()) {\r\n\
@@ -105,22 +102,21 @@ data:
   dependsOn:
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/segment_tree/segment_tree.hpp
   requiredBy:
-  - lib/segment_tree/segment_tree_raq.hpp
   - lib/binary_tree/range_tree.hpp
-  timestamp: '2023-10-01 20:21:13+09:00'
+  - lib/segment_tree/segment_tree_raq.hpp
+  timestamp: '2024-02-21 23:45:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq.2.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
   - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
 documentation_of: lib/segment_tree/segment_tree.hpp
 layout: document
 redirect_from:

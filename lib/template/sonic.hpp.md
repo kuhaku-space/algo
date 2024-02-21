@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy:
@@ -51,11 +51,11 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
   - test/aoj/cgl/reflection.test.cpp
-  - test/aoj/cgl/cross_point.test.cpp
   - test/aoj/cgl/projection.test.cpp
+  - test/aoj/cgl/cross_point.test.cpp
 documentation_of: lib/template/sonic.hpp
 layout: document
 redirect_from:

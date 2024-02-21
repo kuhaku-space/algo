@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/tree/cartesian_tree.hpp
     title: Cartesian Tree
   _extendedRequiredBy: []
@@ -35,11 +32,10 @@ data:
     \ - 1 ? '\\n' : ' ');\n\n    return 0;\n}\n"
   dependsOn:
   - lib/tree/cartesian_tree.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/tree/cartesian_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 18:16:35+09:00'
+  timestamp: '2024-01-23 17:27:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree/cartesian_tree.test.cpp

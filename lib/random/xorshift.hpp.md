@@ -74,8 +74,8 @@ data:
   timestamp: '2023-10-02 03:03:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/itp2/treap.test.cpp
   - test/aoj/itp2/skip_list.test.cpp
+  - test/aoj/itp2/treap.test.cpp
 documentation_of: lib/random/xorshift.hpp
 layout: document
 redirect_from:

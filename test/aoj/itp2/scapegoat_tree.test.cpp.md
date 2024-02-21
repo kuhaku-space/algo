@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/scapegoat_tree.hpp
     title: "\u30B9\u30B1\u30FC\u30D7\u30B4\u30FC\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: lib/template/template.hpp
     title: lib/template/template.hpp
   _extendedRequiredBy: []
