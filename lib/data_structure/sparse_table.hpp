@@ -28,7 +28,8 @@ struct sparse_table {
 
     T prod(int l, int r) const {
         assert(0 <= l && l < r && r <= _size);
-        int b = 31 - internal::countl_zero(r - l);
+        if (l + 1 == r) return data[0][l];
+        int b = 31 - internal::countl_zero(r - l - 1);
         return M::op(data[b][l], data[b][r - (1 << b)]);
     }
 
