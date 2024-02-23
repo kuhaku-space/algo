@@ -96,6 +96,7 @@
 "test/yosupo/data_structure/static_range_inversions.test.cpp": "2023-11-16 21:07:43 +0900",
 "test/yosupo/data_structure/static_range_sum.test.cpp": "2023-11-15 06:42:05 +0900",
 "test/yosupo/data_structure/static_rmq.2.test.cpp": "2024-02-21 23:45:40 +0900",
+"test/yosupo/data_structure/static_rmq.test.cpp": "2024-02-24 06:37:27 +0900",
 "test/yosupo/data_structure/undo_union_find.test.cpp": "2024-01-14 19:57:06 +0900",
 "test/yosupo/data_structure/unionfind.test.cpp": "2024-02-04 08:44:45 +0900",
 "test/yosupo/data_structure/vertex_add_path_sum.test.cpp": "2023-11-16 21:07:43 +0900",
