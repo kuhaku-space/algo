@@ -1,6 +1,7 @@
 #pragma once
+#include <cassert>
+#include <vector>
 #include "internal/internal_bit.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief スパーステーブル
