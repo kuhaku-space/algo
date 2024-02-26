@@ -15,6 +15,20 @@ struct segment_tree {
   private:
     using T = typename M::value_type;
 
+    struct _segment_tree_reference {
+      private:
+        segment_tree<M> &self;
+        int k;
+
+      public:
+        _segment_tree_reference(segment_tree<M> &self, int k) : self(self), k(k) {}
+        _segment_tree_reference &operator=(const T &x) {
+            self.set(k, x);
+            return *this;
+        }
+        operator T() const { return self.get(k); }
+    };
+
   public:
     segment_tree() : segment_tree(0) {}
     explicit segment_tree(int n, T e = M::id) : segment_tree(std::vector<T>(n, e)) {}
@@ -28,8 +42,9 @@ struct segment_tree {
     }
 
     const T &operator[](int k) const { return data[k + _size]; }
-    T at(int k) const { return operator[](k); }
-    T get(int k) const { return operator[](k); }
+    _segment_tree_reference operator[](int k) { return _segment_tree_reference(*this, k); }
+    T at(int k) const { return data[k + _size]; }
+    T get(int k) const { return data[k + _size]; }
 
     void set(int k, T val) {
         assert(0 <= k && k < _n);
