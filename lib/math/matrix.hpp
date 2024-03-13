@@ -22,16 +22,16 @@ struct Matrix {
     Matrix &operator+=(const Matrix &rhs) {
         assert(v.size() == rhs.v.size());
         assert(v[0].size() == rhs.v[0].size());
-        for (int i = 0; i < v.size(); ++i) {
-            for (int j = 0; j < v[0].size(); ++j) v[i][j] += rhs.v[i][j];
+        for (int i = 0; i < (int)v.size(); ++i) {
+            for (int j = 0; j < (int)v[0].size(); ++j) v[i][j] += rhs.v[i][j];
         }
         return *this;
     }
     Matrix &operator-=(const Matrix &rhs) {
         assert(v.size() == rhs.v.size());
         assert(v[0].size() == rhs.v[0].size());
-        for (int i = 0; i < v.size(); ++i) {
-            for (int j = 0; j < v[0].size(); ++j) v[i][j] -= rhs.v[i][j];
+        for (int i = 0; i < (int)v.size(); ++i) {
+            for (int j = 0; j < (int)v[0].size(); ++j) v[i][j] -= rhs.v[i][j];
         }
         return *this;
     }
@@ -123,9 +123,7 @@ struct Matrix {
         int x = v[0].size(), y = v.size();
         std::vector<std::vector<T>> res(x, std::vector<T>(y));
         for (int i = 0; i < x; ++i) {
-            for (int j = 0; j < y; ++j) {
-                res[i][j] = v[j][i];
-            }
+            for (int j = 0; j < y; ++j) { res[i][j] = v[j][i]; }
         }
         return Matrix(res);
     }
