@@ -1,5 +1,5 @@
-#pragma once
-#include "template/template.hpp"
+#include <cstdint>
+#include <utility>
 
 struct HashInt {
     static constexpr std::uint64_t get_mod() noexcept { return mod; }
@@ -13,19 +13,19 @@ struct HashInt {
     constexpr HashInt(unsigned long long y) noexcept : x(y % mod) {}
 
     constexpr HashInt &operator+=(const HashInt &rhs) noexcept {
-        if ((this->x += rhs.x) >= mod) this->x -= mod;
+        if ((x += rhs.x) >= mod) x -= mod;
         return *this;
     }
     constexpr HashInt &operator-=(const HashInt &rhs) noexcept {
-        if ((this->x += mod - rhs.x) >= mod) this->x -= mod;
+        if ((x += mod - rhs.x) >= mod) x -= mod;
         return *this;
     }
     constexpr HashInt &operator*=(const HashInt &rhs) noexcept {
-        std::uint64_t au = this->x >> 31, ad = this->x & this->mask31;
-        std::uint64_t bu = rhs.x >> 31, bd = rhs.x & this->mask31;
+        std::uint64_t au = x >> 31, ad = x & mask31;
+        std::uint64_t bu = rhs.x >> 31, bd = rhs.x & mask31;
         std::uint64_t mid = ad * bu + au * bd;
-        std::uint64_t midu = mid >> 30, midd = mid & this->mask30;
-        this->x = this->_mod(au * bu * 2 + midu + (midd << 31) + ad * bd);
+        std::uint64_t midu = mid >> 30, midd = mid & mask30;
+        x = _mod(au * bu * 2 + midu + (midd << 31) + ad * bd);
         return *this;
     }
     constexpr HashInt &operator/=(const HashInt &rhs) noexcept {
@@ -34,32 +34,32 @@ struct HashInt {
     }
 
     constexpr HashInt &operator++() noexcept {
-        if ((++(this->x)) >= mod) this->x -= mod;
+        if ((++x) >= mod) x -= mod;
         return *this;
     }
     constexpr HashInt operator++(int) noexcept {
         HashInt tmp(*this);
-        this->operator++();
+        operator++();
         return tmp;
     }
     constexpr HashInt &operator--() noexcept {
-        if ((this->x += mod - 1) >= mod) this->x -= mod;
+        if ((x += mod - 1) >= mod) x -= mod;
         return *this;
     }
     constexpr HashInt operator--(int) noexcept {
         HashInt tmp(*this);
-        this->operator--();
+        operator--();
         return tmp;
     }
 
-    constexpr HashInt operator-() const noexcept { return HashInt(-this->x); }
+    constexpr HashInt operator-() const noexcept { return HashInt(-x); }
     constexpr HashInt operator+(const HashInt &rhs) const noexcept { return HashInt(*this) += rhs; }
     constexpr HashInt operator-(const HashInt &rhs) const noexcept { return HashInt(*this) -= rhs; }
     constexpr HashInt operator*(const HashInt &rhs) const noexcept { return HashInt(*this) *= rhs; }
     constexpr HashInt operator/(const HashInt &rhs) const noexcept { return HashInt(*this) /= rhs; }
 
-    constexpr bool operator==(const HashInt &rhs) const noexcept { return this->x == rhs.x; }
-    constexpr bool operator!=(const HashInt &rhs) const noexcept { return this->x != rhs.x; }
+    constexpr bool operator==(const HashInt &rhs) const noexcept { return x == rhs.x; }
+    constexpr bool operator!=(const HashInt &rhs) const noexcept { return x != rhs.x; }
 
     constexpr explicit operator long() const noexcept { return x; }
     constexpr explicit operator unsigned long() const noexcept { return x; }
@@ -95,9 +95,9 @@ struct HashInt {
     static constexpr std::uint64_t mask31 = (1ul << 31) - 1;
 
     constexpr std::uint64_t _mod(std::uint64_t x) const {
-        std::uint64_t xu = x >> 61, xd = x & this->mod;
+        std::uint64_t xu = x >> 61, xd = x & mod;
         std::uint64_t res = xu + xd;
-        if (res >= this->mod) res -= this->mod;
+        if (res >= mod) res -= mod;
         return res;
     }
 };

@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <cstdint>
+#include <iostream>
+#include <utility>
 
 /**
  * @brief 分数ライブラリ
@@ -9,7 +11,7 @@ struct Fraction {
 
     Fraction() : x(0), y(1) {}
 
-    Fraction(std::int64_t _x, std::int64_t _y = 1) : x(_x), y(_y) { this->common(); }
+    Fraction(std::int64_t _x, std::int64_t _y = 1) : x(_x), y(_y) { common(); }
 
     std::int64_t gcd(std::int64_t a, std::int64_t b) const {
         while (b) {
@@ -22,42 +24,42 @@ struct Fraction {
     Fraction &operator+=(const Fraction &rhs) {
         x = x * rhs.y + y * rhs.x;
         y *= rhs.y;
-        this->common();
+        common();
         return *this;
     }
     Fraction &operator-=(const Fraction &rhs) {
         x = x * rhs.y - y * rhs.x;
         y *= rhs.y;
-        this->common();
+        common();
         return *this;
     }
     Fraction &operator*=(const Fraction &rhs) {
         x *= rhs.x, y *= rhs.y;
-        this->common();
+        common();
         return *this;
     }
     Fraction &operator/=(const Fraction &rhs) {
         x *= rhs.y, y *= rhs.x;
-        this->common();
+        common();
         return *this;
     }
 
     Fraction &operator++() {
-        this->x += this->y;
+        x += y;
         return *this;
     }
     Fraction operator++(int) {
         Fraction tmp(*this);
-        this->operator++();
+        operator++();
         return tmp;
     }
     Fraction &operator--() {
-        this->x -= this->y;
+        x -= y;
         return *this;
     }
     Fraction operator--(int) {
         Fraction tmp(*this);
-        this->operator--();
+        operator--();
         return tmp;
     }
 

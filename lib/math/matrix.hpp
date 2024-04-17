@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <cassert>
+#include <iostream>
+#include <utility>
+#include <vector>
 
 /**
  * @brief 行列ライブラリ

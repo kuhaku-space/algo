@@ -1,5 +1,4 @@
 #include "math/modint.hpp"
-#include "template/template.hpp"
 
 template <class mint, internal::is_modint_t<mint> * = nullptr>
 bool has_sqrt_mod(mint x) {
