@@ -1,6 +1,7 @@
 #pragma once
+#include <algorithm>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief トポロジカルソート

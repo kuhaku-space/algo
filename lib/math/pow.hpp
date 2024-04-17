@@ -1,5 +1,7 @@
 #pragma once
-#include "template/template.hpp"
+#include <cassert>
+#include <cstdint>
+#include <utility>
 
 std::int64_t safe_mod(std::int64_t a, std::int64_t mod) {
     a %= mod;

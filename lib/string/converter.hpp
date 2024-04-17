@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <locale>
+#include <string>
+#include <vector>
 
 struct string_converter {
     char type(const char &c) const {

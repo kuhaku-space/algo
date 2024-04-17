@@ -7,7 +7,7 @@
 #include <numeric>
 #include <string>
 #include <vector>
-#include "algorithm/in_field.hpp"
+#include "graph/grid.hpp"
 
 int main(void) {
     while (true) {
@@ -18,8 +18,8 @@ int main(void) {
         std::vector<std::string> s(h);
         for (auto &e : s) std::cin >> e;
 
-        InField<2> in_field(h, w);
-        auto in_grid = [&](int x, int y) { return in_field(x, y) && s[x][y] != '#'; };
+        Grid<2> grid(h, w);
+        auto in_grid = [&](int x, int y) { return grid.in_field(x, y) && s[x][y] != '#'; };
         auto flatten = [h, w](int x, int y, int d) { return (x * w + y) * 4 + d; };
 
         std::vector<int> to(h * w * 4);

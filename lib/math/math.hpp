@@ -1,5 +1,6 @@
+#include <cstdint>
+#include <utility>
 #include "math/pow.hpp"
-#include "template/template.hpp"
 
 std::int64_t gcd(std::int64_t a, std::int64_t b) {
     while (b) {
@@ -16,13 +17,11 @@ std::int64_t gcd(const std::vector<std::int64_t> &v) {
     return res;
 }
 
-std::int64_t lcm(std::int64_t a, std::int64_t b) {
-    return a / gcd(a, b) * b;
-}
+std::int64_t lcm(std::int64_t a, std::int64_t b) { return a / gcd(a, b) * b; }
 
 std::int64_t lcm(const std::vector<std::int64_t> &v) {
     std::int64_t res = 1;
-    for (auto i : v) res = lcm(res, i);
+    for (std::int64_t i : v) res = lcm(res, i);
     return res;
 }
 
@@ -62,9 +61,7 @@ constexpr bool is_prime(int n) {
             y = y * y % n;
             t <<= 1;
         }
-        if (y != n - 1 && t % 2 == 0) {
-            return false;
-        }
+        if (y != n - 1 && t % 2 == 0) return false;
     }
     return true;
 }

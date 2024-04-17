@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 /**
  * @brief a * x + b * y = gcd(a, b) の答えを一つ求める

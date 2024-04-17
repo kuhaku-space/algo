@@ -1,4 +1,8 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cassert>
+#include <numeric>
+#include <string>
+#include <vector>
 
 namespace internal {
 
@@ -42,20 +46,15 @@ std::vector<int> sa_is(const std::vector<int> &s, int upper) {
     if (n == 0) return {};
     if (n == 1) return {0};
     if (n == 2) {
-        if (s[0] < s[1]) {
-            return {0, 1};
-        } else {
-            return {1, 0};
-        }
+        if (s[0] < s[1]) return {0, 1};
+        else return {1, 0};
     }
     if (n < THRESHOLD_NAIVE) return sa_naive(s);
     if (n < THRESHOLD_DOUBLING) return sa_doubling(s);
 
     std::vector<int> sa(n);
     std::vector<bool> ls(n);
-    for (int i = n - 2; i >= 0; i--) {
-        ls[i] = (s[i] == s[i + 1]) ? ls[i + 1] : (s[i] < s[i + 1]);
-    }
+    for (int i = n - 2; i >= 0; i--) ls[i] = (s[i] == s[i + 1]) ? ls[i + 1] : (s[i] < s[i + 1]);
     std::vector<int> sum_l(upper + 1), sum_s(upper + 1);
     for (int i = 0; i < n; ++i) {
         if (!ls[i]) ++sum_s[s[i]];
@@ -117,9 +116,7 @@ std::vector<int> sa_is(const std::vector<int> &s, int upper) {
                 same = false;
             } else {
                 while (l < end_l) {
-                    if (s[l] != s[r]) {
-                        break;
-                    }
+                    if (s[l] != s[r]) break;
                     ++l, ++r;
                 }
                 if (l == n || s[l] != s[r]) same = false;
@@ -163,9 +160,7 @@ std::vector<int> suffix_array(const std::vector<T> &s) {
     int n = int(s.size());
     std::vector<int> idx(n);
     std::iota(idx.begin(), idx.end(), 0);
-    std::sort(idx.begin(), idx.end(), [&](int l, int r) {
-        return s[l] < s[r];
-    });
+    std::sort(idx.begin(), idx.end(), [&](int l, int r) { return s[l] < s[r]; });
     std::vector<int> s2(n);
     int now = 0;
     for (int i = 0; i < n; ++i) {
@@ -193,9 +188,7 @@ std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa) 
     int n = int(s.size());
     assert(n >= 1);
     std::vector<int> rnk(n);
-    for (int i = 0; i < n; ++i) {
-        rnk[sa[i]] = i;
-    }
+    for (int i = 0; i < n; ++i) { rnk[sa[i]] = i; }
     std::vector<int> lcp(n - 1);
     int h = 0;
     for (int i = 0; i < n; ++i) {
@@ -213,8 +206,6 @@ std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa) 
 std::vector<int> lcp_array(const std::string &s, const std::vector<int> &sa) {
     int n = int(s.size());
     std::vector<int> s2(n);
-    for (int i = 0; i < n; ++i) {
-        s2[i] = s[i];
-    }
+    for (int i = 0; i < n; ++i) { s2[i] = s[i]; }
     return lcp_array(s2, sa);
 }

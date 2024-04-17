@@ -10,8 +10,8 @@ int main(void) {
     while (q--) {
         int com, x, y;
         std::cin >> com >> x >> y;
-        if (com == 0) st.set(x, y);
-        else std::cout << st.prod(x, y + 1) << std::endl;
+        if (com == 0) st[x] = y;
+        else std::cout << st.prod(x, y + 1) << '\n';
     }
 
     return 0;

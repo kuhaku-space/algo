@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <vector>
 
 /**
  * @brief 最長共通接頭辞

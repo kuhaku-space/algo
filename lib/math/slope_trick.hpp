@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <functional>
+#include <queue>
+#include <vector>
 
 /**
  * @brief slope trick
@@ -13,16 +16,16 @@ struct slope_trick {
 
     slope_trick() : min_f(), l(), r() {}
 
-    T get_x() { return this->l.top(); }
-    T get() { return this->min_f; }
-    T get_y() { return this->get(); }
+    T get_x() { return l.top(); }
+    T get() { return min_f; }
+    T get_y() { return get(); }
 
     /**
      * @brief Add f(x) = a
      *
      * @param a
      */
-    void add(T a) { this->min_f += a; }
+    void add(T a) { min_f += a; }
 
     /**
      * @brief Add f(x) = max(0, x - a)
@@ -30,11 +33,11 @@ struct slope_trick {
      * @param a
      */
     void add_f(T a) {
-        if (!this->l.empty()) this->min_f += std::max(T(), this->l.top() - a);
-        this->l.emplace(a);
-        auto x = this->l.top();
-        this->l.pop();
-        this->r.emplace(x);
+        if (!l.empty()) min_f += std::max(T(), l.top() - a);
+        l.emplace(a);
+        auto x = l.top();
+        l.pop();
+        r.emplace(x);
     }
 
     /**
@@ -43,11 +46,11 @@ struct slope_trick {
      * @param a
      */
     void add_g(T a) {
-        if (!this->r.empty()) this->min_f += std::max(T(), a - this->r.top());
-        this->r.emplace(a);
-        auto x = this->r.top();
-        this->r.pop();
-        this->l.emplace(x);
+        if (!r.empty()) min_f += std::max(T(), a - r.top());
+        r.emplace(a);
+        auto x = r.top();
+        r.pop();
+        l.emplace(x);
     }
 
     /**
@@ -56,10 +59,10 @@ struct slope_trick {
      * @param a
      */
     void add_abs(T a) {
-        this->add_f(a);
-        this->add_g(a);
+        add_f(a);
+        add_g(a);
     }
 
-    void min_l() { this->r = std::priority_queue<T, std::vector<T>, std::greater<>>(); }
-    void min_r() { this->l = std::priority_queue<T>(); }
+    void min_l() { r = std::priority_queue<T, std::vector<T>, std::greater<>>(); }
+    void min_r() { l = std::priority_queue<T>(); }
 };

@@ -1,8 +1,10 @@
-#include "template/template.hpp"
+#include <array>
+#include <cmath>
+#include <cstdint>
+#include <vector>
 
 /**
  * @brief エラトステネスの篩
- *
  * @see https://qiita.com/peria/items/a4ff4ddb3336f7b81d50
  */
 template <int N = (1 << 22)>
@@ -26,8 +28,8 @@ struct eratosthenes {
 
   public:
     constexpr eratosthenes() {
-        this->prime_number.fill(0xff);
-        this->prime_number[0] = 0xfe;
+        prime_number.fill(0xff);
+        prime_number[0] = 0xfe;
         if (int r = N % 30) {
             if (r < 7) prime_number[SIZE - 1] = 0x1;
             else if (r < 11) prime_number[SIZE - 1] = 0x3;
@@ -82,7 +84,7 @@ struct eratosthenes {
         if (x < 2) return std::vector<int>();
         std::vector<int> res = {2};
         for (int i = 3; i <= x; i += 2) {
-            if (this->is_prime(i)) res.emplace_back(i);
+            if (is_prime(i)) res.emplace_back(i);
         }
         return res;
     }

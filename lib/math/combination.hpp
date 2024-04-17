@@ -1,5 +1,6 @@
+#include <cassert>
+#include <vector>
 #include "math/modint.hpp"
-#include "template/template.hpp"
 
 template <class mint = modint998, internal::is_modint_t<mint> * = nullptr>
 struct Combination {
@@ -7,20 +8,20 @@ struct Combination {
 
     mint operator()(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
-        this->_init(n);
-        return this->_fact[n] * this->_finv[k] * this->_finv[n - k];
+        _init(n);
+        return _fact[n] * _finv[k] * _finv[n - k];
     }
 
     mint fact(int x) {
         assert(x >= 0);
-        this->_init(x);
-        return this->_fact[x];
+        _init(x);
+        return _fact[x];
     }
 
     mint finv(int x) {
         assert(x >= 0);
-        this->_init(x);
-        return this->_finv[x];
+        _init(x);
+        return _finv[x];
     }
 
     mint naive(int n, int k) const {
@@ -36,23 +37,23 @@ struct Combination {
 
     mint permu(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
-        this->_init(n);
-        return this->_fact[n] * this->_finv[n - k];
+        _init(n);
+        return _fact[n] * _finv[n - k];
     }
 
   private:
     std::vector<mint> _fact, _finv;
 
     void _init(int n) {
-        if ((int)this->_fact.size() > n) return;
-        int m = this->_fact.size();
-        this->_fact.resize(n + 1);
+        if ((int)_fact.size() > n) return;
+        int m = _fact.size();
+        _fact.resize(n + 1);
         for (int i = m; i <= n; ++i) {
-            if (i == 0) this->_fact[i] = 1;
-            else this->_fact[i] = this->_fact[i - 1] * i;
+            if (i == 0) _fact[i] = 1;
+            else _fact[i] = _fact[i - 1] * i;
         }
-        this->_finv.resize(n + 1);
-        this->_finv[n] = this->_fact[n].inv();
-        for (int i = n - 1; i >= m; --i) this->_finv[i] = this->_finv[i + 1] * (i + 1);
+        _finv.resize(n + 1);
+        _finv[n] = _fact[n].inv();
+        for (int i = n - 1; i >= m; --i) _finv[i] = _finv[i + 1] * (i + 1);
     }
 };

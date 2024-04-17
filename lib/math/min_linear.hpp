@@ -35,6 +35,17 @@ std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int
 
 }  // namespace internal
 
+/**
+ * @brief min of mod of linear
+ * @details min (ax + b) mod m | 0 <= x < n
+ * @see https://judge.yosupo.jp/submission/102303
+ *
+ * @param n
+ * @param m
+ * @param a
+ * @param b
+ * @return std::int64_t
+ */
 std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t b) {
     return internal::min_linear::min_linear(n, m, a, b, true, 1, 1);
 }

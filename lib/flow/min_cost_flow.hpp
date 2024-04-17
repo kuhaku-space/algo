@@ -1,4 +1,8 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cassert>
+#include <limits>
+#include <queue>
+#include <vector>
 
 /**
  * @brief 最小費用流
@@ -104,16 +108,10 @@ struct mcf_graph {
         std::vector<E> elist;
         explicit csr(int n, const std::vector<std::pair<int, E>> &edges)
             : start(n + 1), elist(edges.size()) {
-            for (auto e : edges) {
-                start[e.first + 1]++;
-            }
-            for (int i = 1; i <= n; i++) {
-                start[i] += start[i - 1];
-            }
+            for (auto e : edges) start[e.first + 1]++;
+            for (int i = 1; i <= n; i++) start[i] += start[i - 1];
             auto counter = start;
-            for (auto e : edges) {
-                elist[counter[e.first]++] = e.second;
-            }
+            for (auto e : edges) elist[counter[e.first]++] = e.second;
         }
     };
 
@@ -130,9 +128,7 @@ struct mcf_graph {
         std::vector<int> que_min;
         std::vector<Q> que;
         auto dual_ref = [&]() {
-            for (int i = 0; i < _n; ++i) {
-                dual_dist[i].second = std::numeric_limits<Cost>::max();
-            }
+            for (int i = 0; i < _n; ++i) dual_dist[i].second = std::numeric_limits<Cost>::max();
             std::fill(vis.begin(), vis.end(), false);
             que_min.clear();
             que.clear();
@@ -176,9 +172,7 @@ struct mcf_graph {
                     }
                 }
             }
-            if (!vis[t]) {
-                return false;
-            }
+            if (!vis[t]) return false;
 
             for (int v = 0; v < _n; ++v) {
                 if (!vis[v]) continue;
@@ -203,9 +197,7 @@ struct mcf_graph {
             Cost d = -dual_dist[s].first;
             flow += c;
             cost += c * d;
-            if (prev_cost_per_flow == d) {
-                result.pop_back();
-            }
+            if (prev_cost_per_flow == d) result.pop_back();
             result.emplace_back(flow, cost);
             prev_cost_per_flow = d;
         }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "data_structure/sparse_table.hpp"
+#include "segment_tree/monoid.hpp"
 
 int main(void) {
     int n, q;
