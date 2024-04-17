@@ -1,6 +1,5 @@
 #include <stack>
 #include <vector>
-
 #include "graph/graph.hpp"
 
 template <class T>
@@ -10,15 +9,13 @@ std::vector<int> cycle_detection_on_namori_graph(const Graph<T> &g) {
     std::stack<int> st;
     for (int i = 0; i < n; ++i) {
         cnt[i] = g[i].size();
-        if (cnt[i] == 1)
-            st.emplace(i);
+        if (cnt[i] == 1) st.emplace(i);
     }
     while (!st.empty()) {
         int x = st.top();
         st.pop();
         for (auto &e : g[x]) {
-            if ((--cnt[e.to()]) == 1)
-                st.emplace(e.to());
+            if ((--cnt[e.to()]) == 1) st.emplace(e.to());
         }
     }
 
