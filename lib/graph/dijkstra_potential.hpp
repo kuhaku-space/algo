@@ -32,8 +32,6 @@ std::vector<T> dijkstra(const Graph<T> &g, const std::vector<U> &potentials, int
             if (chmin(dists[e.to()], next_dist)) p_que.emplace(e.to(), next_dist);
         }
     }
-    for (int i = 0; i < n; ++i) {
-        dists[i] += potentials[i] - potentials[s];
-    }
+    for (int i = 0; i < n; ++i) dists[i] += potentials[i] - potentials[s];
     return dists;
 }
