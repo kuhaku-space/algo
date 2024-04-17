@@ -59,8 +59,8 @@ data:
   timestamp: '2023-11-16 01:25:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/math/longest_increasing_subsequence.test.cpp
   - test/aoj/dpl/longest_increasing_subsequense.test.cpp
+  - test/yosupo/math/longest_increasing_subsequence.test.cpp
 documentation_of: lib/algorithm/lis.hpp
 layout: document
 redirect_from:

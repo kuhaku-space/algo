@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':question:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -12,41 +9,51 @@ data:
   attributes:
     document_title: slope trick
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
-    , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
-    )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: template/template.hpp:\
-    \ line -1: no such header\n"
-  code: "#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief slope trick\r\n\
-    \ *\r\n * @tparam T\r\n */\r\ntemplate <class T>\r\nstruct slope_trick {\r\n \
-    \   T min_f;\r\n    std::priority_queue<T> l;\r\n    std::priority_queue<T, std::vector<T>,\
-    \ std::greater<>> r;\r\n\r\n    slope_trick() : min_f(), l(), r() {}\r\n\r\n \
-    \   T get_x() { return this->l.top(); }\r\n    T get() { return this->min_f; }\r\
-    \n    T get_y() { return this->get(); }\r\n\r\n    /**\r\n     * @brief Add f(x)\
-    \ = a\r\n     *\r\n     * @param a\r\n     */\r\n    void add(T a) { this->min_f\
-    \ += a; }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, x - a)\r\n     *\r\
-    \n     * @param a\r\n     */\r\n    void add_f(T a) {\r\n        if (!this->l.empty())\
-    \ this->min_f += std::max(T(), this->l.top() - a);\r\n        this->l.emplace(a);\r\
-    \n        auto x = this->l.top();\r\n        this->l.pop();\r\n        this->r.emplace(x);\r\
+  bundledCode: "#line 1 \"lib/math/slope_trick.hpp\"\n#include <algorithm>\r\n#include\
+    \ <functional>\r\n#include <queue>\r\n#include <vector>\r\n\r\n/**\r\n * @brief\
+    \ slope trick\r\n *\r\n * @tparam T\r\n */\r\ntemplate <class T>\r\nstruct slope_trick\
+    \ {\r\n    T min_f;\r\n    std::priority_queue<T> l;\r\n    std::priority_queue<T,\
+    \ std::vector<T>, std::greater<>> r;\r\n\r\n    slope_trick() : min_f(), l(),\
+    \ r() {}\r\n\r\n    T get_x() { return l.top(); }\r\n    T get() { return min_f;\
+    \ }\r\n    T get_y() { return get(); }\r\n\r\n    /**\r\n     * @brief Add f(x)\
+    \ = a\r\n     *\r\n     * @param a\r\n     */\r\n    void add(T a) { min_f +=\
+    \ a; }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, x - a)\r\n     *\r\n\
+    \     * @param a\r\n     */\r\n    void add_f(T a) {\r\n        if (!l.empty())\
+    \ min_f += std::max(T(), l.top() - a);\r\n        l.emplace(a);\r\n        auto\
+    \ x = l.top();\r\n        l.pop();\r\n        r.emplace(x);\r\n    }\r\n\r\n \
+    \   /**\r\n     * @brief Add f(x) = max(0, a - x)\r\n     *\r\n     * @param a\r\
+    \n     */\r\n    void add_g(T a) {\r\n        if (!r.empty()) min_f += std::max(T(),\
+    \ a - r.top());\r\n        r.emplace(a);\r\n        auto x = r.top();\r\n    \
+    \    r.pop();\r\n        l.emplace(x);\r\n    }\r\n\r\n    /**\r\n     * @brief\
+    \ Add f(x) = abs(x - a) = max(0, x - a) + max(0, a - x)\r\n     *\r\n     * @param\
+    \ a\r\n     */\r\n    void add_abs(T a) {\r\n        add_f(a);\r\n        add_g(a);\r\
+    \n    }\r\n\r\n    void min_l() { r = std::priority_queue<T, std::vector<T>, std::greater<>>();\
+    \ }\r\n    void min_r() { l = std::priority_queue<T>(); }\r\n};\r\n"
+  code: "#include <algorithm>\r\n#include <functional>\r\n#include <queue>\r\n#include\
+    \ <vector>\r\n\r\n/**\r\n * @brief slope trick\r\n *\r\n * @tparam T\r\n */\r\n\
+    template <class T>\r\nstruct slope_trick {\r\n    T min_f;\r\n    std::priority_queue<T>\
+    \ l;\r\n    std::priority_queue<T, std::vector<T>, std::greater<>> r;\r\n\r\n\
+    \    slope_trick() : min_f(), l(), r() {}\r\n\r\n    T get_x() { return l.top();\
+    \ }\r\n    T get() { return min_f; }\r\n    T get_y() { return get(); }\r\n\r\n\
+    \    /**\r\n     * @brief Add f(x) = a\r\n     *\r\n     * @param a\r\n     */\r\
+    \n    void add(T a) { min_f += a; }\r\n\r\n    /**\r\n     * @brief Add f(x) =\
+    \ max(0, x - a)\r\n     *\r\n     * @param a\r\n     */\r\n    void add_f(T a)\
+    \ {\r\n        if (!l.empty()) min_f += std::max(T(), l.top() - a);\r\n      \
+    \  l.emplace(a);\r\n        auto x = l.top();\r\n        l.pop();\r\n        r.emplace(x);\r\
     \n    }\r\n\r\n    /**\r\n     * @brief Add f(x) = max(0, a - x)\r\n     *\r\n\
-    \     * @param a\r\n     */\r\n    void add_g(T a) {\r\n        if (!this->r.empty())\
-    \ this->min_f += std::max(T(), a - this->r.top());\r\n        this->r.emplace(a);\r\
-    \n        auto x = this->r.top();\r\n        this->r.pop();\r\n        this->l.emplace(x);\r\
-    \n    }\r\n\r\n    /**\r\n     * @brief Add f(x) = abs(x - a) = max(0, x - a)\
-    \ + max(0, a - x)\r\n     *\r\n     * @param a\r\n     */\r\n    void add_abs(T\
-    \ a) {\r\n        this->add_f(a);\r\n        this->add_g(a);\r\n    }\r\n\r\n\
-    \    void min_l() { this->r = std::priority_queue<T, std::vector<T>, std::greater<>>();\
-    \ }\r\n    void min_r() { this->l = std::priority_queue<T>(); }\r\n};\r\n"
-  dependsOn:
-  - lib/template/template.hpp
+    \     * @param a\r\n     */\r\n    void add_g(T a) {\r\n        if (!r.empty())\
+    \ min_f += std::max(T(), a - r.top());\r\n        r.emplace(a);\r\n        auto\
+    \ x = r.top();\r\n        r.pop();\r\n        l.emplace(x);\r\n    }\r\n\r\n \
+    \   /**\r\n     * @brief Add f(x) = abs(x - a) = max(0, x - a) + max(0, a - x)\r\
+    \n     *\r\n     * @param a\r\n     */\r\n    void add_abs(T a) {\r\n        add_f(a);\r\
+    \n        add_g(a);\r\n    }\r\n\r\n    void min_l() { r = std::priority_queue<T,\
+    \ std::vector<T>, std::greater<>>(); }\r\n    void min_r() { l = std::priority_queue<T>();\
+    \ }\r\n};\r\n"
+  dependsOn: []
   isVerificationFile: false
   path: lib/math/slope_trick.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2024-04-17 14:43:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/slope_trick.hpp

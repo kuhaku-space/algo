@@ -1,23 +1,6 @@
 ---
 data:
   libraryCategories:
-  - name: lib/_new
-    pages:
-    - icon: ':warning:'
-      path: lib/_new/b-tree.hpp
-      title: lib/_new/b-tree.hpp
-    - icon: ':warning:'
-      path: lib/_new/cumulative_sum_2d.hpp
-      title: lib/_new/cumulative_sum_2d.hpp
-    - icon: ':warning:'
-      path: lib/_new/graph_segment.hpp
-      title: lib/_new/graph_segment.hpp
-    - icon: ':warning:'
-      path: lib/_new/make_permutation.hpp
-      title: lib/_new/make_permutation.hpp
-    - icon: ':warning:'
-      path: lib/_new/tree64.hpp
-      title: lib/_new/tree64.hpp
   - name: lib/algorithm
     pages:
     - icon: ':heavy_check_mark:'
@@ -26,9 +9,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/doubling.hpp
       title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
-    - icon: ':heavy_check_mark:'
-      path: lib/algorithm/in_field.hpp
-      title: lib/algorithm/in_field.hpp
     - icon: ':heavy_check_mark:'
       path: lib/algorithm/inversion_number.hpp
       title: "\u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B"
@@ -199,6 +179,9 @@ data:
       path: lib/graph/graph.hpp
       title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
     - icon: ':heavy_check_mark:'
+      path: lib/graph/grid.hpp
+      title: lib/graph/grid.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/graph/kruskal.hpp
       title: "\u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5"
     - icon: ':heavy_check_mark:'
@@ -210,6 +193,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/graph/maximum_independent_set.hpp
       title: "\u6700\u5927\u72EC\u7ACB\u96C6\u5408"
+    - icon: ':heavy_check_mark:'
+      path: lib/graph/namori_graph.hpp
+      title: lib/graph/namori_graph.hpp
     - icon: ':heavy_check_mark:'
       path: lib/graph/prim.hpp
       title: "\u30D7\u30EA\u30E0\u6CD5"
@@ -300,7 +286,7 @@ data:
       title: "\u884C\u5217\u30E9\u30A4\u30D6\u30E9\u30EA"
     - icon: ':heavy_check_mark:'
       path: lib/math/min_linear.hpp
-      title: lib/math/min_linear.hpp
+      title: min of mod of linear
     - icon: ':heavy_check_mark:'
       path: lib/math/modint.hpp
       title: lib/math/modint.hpp
@@ -402,7 +388,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/template/sonic.hpp
       title: lib/template/sonic.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: lib/template/template.hpp
       title: lib/template/template.hpp
     - icon: ':heavy_check_mark:'
@@ -488,6 +474,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/alds1/suffix_array.test.cpp
       title: test/aoj/alds1/suffix_array.test.cpp
+  - name: test/aoj/aupc
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/aupc/namori_graph.test.cpp
+      title: test/aoj/aupc/namori_graph.test.cpp
   - name: test/aoj/cgl
     pages:
     - icon: ':heavy_check_mark:'

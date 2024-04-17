@@ -84,11 +84,11 @@ data:
   timestamp: '2024-02-04 08:44:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/1211.test.cpp
-  - test/yukicoder/1242.test.cpp
-  - test/yosupo/data_structure/unionfind.test.cpp
   - test/aoj/dsl/union_find.test.cpp
   - test/aoj/grl/kruskal.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
+  - test/yukicoder/1242.test.cpp
+  - test/yukicoder/1211.test.cpp
 documentation_of: lib/tree/union_find.hpp
 layout: document
 redirect_from:

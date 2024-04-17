@@ -7,13 +7,12 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/topological_sort.test.cpp
-    title: test/aoj/grl/topological_sort.test.cpp
+    path: test/aoj/aupc/namori_graph.test.cpp
+    title: test/aoj/aupc/namori_graph.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
@@ -24,30 +23,33 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\r\n#include <algorithm>\r\n#include <vector>\r\n#include \"\
-    graph/graph.hpp\"\r\n\r\n/**\r\n * @brief \u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\
-    \u30BD\u30FC\u30C8\r\n *\r\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\r\
-    \n * @param g \u30B0\u30E9\u30D5\r\n * @return std::vector<int> \u9802\u70B9\u306E\
-    \u9806\u5E8F\r\n */\r\ntemplate <class T>\r\nstd::vector<int> topological_sort(const\
-    \ Graph<T> &g) {\r\n    int n = g.size();\r\n    std::vector<int> res;\r\n   \
-    \ std::vector<bool> seen(n);\r\n    auto dfs = [&](auto self, int v) {\r\n   \
-    \     if (seen[v]) return;\r\n        seen[v] = true;\r\n        for (auto &e\
-    \ : g[v])\r\n            if (!seen[e.to()]) self(self, e.to());\r\n        res.emplace_back(v);\r\
-    \n    };\r\n    for (int i = 0; i < n; ++i) dfs(dfs, i);\r\n    std::reverse(res.begin(),\
-    \ res.end());\r\n    return res;\r\n}\r\n"
+  code: "#include <stack>\n#include <vector>\n#include \"graph/graph.hpp\"\n\ntemplate\
+    \ <class T>\nstd::vector<int> cycle_detection_on_namori_graph(const Graph<T> &g)\
+    \ {\n    int n = g.size();\n    std::vector<int> cnt(n);\n    std::stack<int>\
+    \ st;\n    for (int i = 0; i < n; ++i) {\n        cnt[i] = g[i].size();\n    \
+    \    if (cnt[i] == 1) st.emplace(i);\n    }\n    while (!st.empty()) {\n     \
+    \   int x = st.top();\n        st.pop();\n        for (auto &e : g[x]) {\n   \
+    \         if ((--cnt[e.to()]) == 1) st.emplace(e.to());\n        }\n    }\n\n\
+    \    std::vector<int> parent(n, -2);\n    st = std::stack<int>();\n    for (int\
+    \ i = 0; i < n; ++i) {\n        if (cnt[i] >= 2) {\n            parent[i] = -1;\n\
+    \            st.emplace(i);\n        }\n    }\n\n    while (!st.empty()) {\n \
+    \       int x = st.top();\n        st.pop();\n        for (auto &e : g[x]) {\n\
+    \            if (parent[e.to()] == -2) {\n                parent[e.to()] = x;\n\
+    \                st.emplace(e.to());\n            }\n        }\n    }\n\n    return\
+    \ parent;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
   isVerificationFile: false
-  path: lib/graph/topological_sort.hpp
+  path: lib/graph/namori_graph.hpp
   requiredBy: []
-  timestamp: '2024-04-17 13:21:34+09:00'
+  timestamp: '2024-04-17 13:11:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/topological_sort.test.cpp
-documentation_of: lib/graph/topological_sort.hpp
+  - test/aoj/aupc/namori_graph.test.cpp
+documentation_of: lib/graph/namori_graph.hpp
 layout: document
 redirect_from:
-- /library/lib/graph/topological_sort.hpp
-- /library/lib/graph/topological_sort.hpp.html
-title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
+- /library/lib/graph/namori_graph.hpp
+- /library/lib/graph/namori_graph.hpp.html
+title: lib/graph/namori_graph.hpp
 ---

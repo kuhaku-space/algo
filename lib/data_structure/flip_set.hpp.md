@@ -9,31 +9,33 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"lib/data_structure/flip_set.hpp\"\n#include <set>\n\ntemplate\
-    \ <class T>\nstruct flip_set {\n    flip_set() : data() {}\n\n    bool empty()\
-    \ const {\n        return data.empty();\n    }\n    int size() const {\n     \
-    \   return data.size();\n    }\n\n    bool contains(const T &x) const {\n    \
-    \    return data.count(x);\n    }\n    bool contains(T &&x) const {\n        return\
-    \ data.count(std::move(x));\n    }\n\n    bool flip(const T &x) {\n        if\
-    \ (data.count(x))\n            return data.erase(x), false;\n        else\n  \
-    \          return data.emplace(x), true;\n    }\n    bool flip(T &&x) {\n    \
-    \    if (data.count(x))\n            return data.erase(std::move(x)), false;\n\
-    \        else\n            return data.emplace(x), true;\n    }\n\n  private:\n\
-    \    std::set<T> data;\n};\n"
+    \ <class T>\nstruct flip_set {\n    flip_set() : data() {}\n\n    const auto begin()\
+    \ const { return data.begin(); }\n    auto begin() { return data.begin(); }\n\
+    \    const auto end() const { return data.end(); }\n    auto end() { return data.end();\
+    \ }\n\n    bool empty() const { return data.empty(); }\n    int size() const {\
+    \ return data.size(); }\n\n    bool contains(const T &x) const { return data.count(x);\
+    \ }\n    bool contains(T &&x) const { return data.count(std::move(x)); }\n\n \
+    \   bool flip(const T &x) {\n        if (data.count(x)) return data.erase(x),\
+    \ false;\n        else return data.emplace(x), true;\n    }\n    bool flip(T &&x)\
+    \ {\n        if (data.count(x)) return data.erase(std::move(x)), false;\n    \
+    \    else return data.emplace(x), true;\n    }\n\n  private:\n    std::set<T>\
+    \ data;\n};\n"
   code: "#include <set>\n\ntemplate <class T>\nstruct flip_set {\n    flip_set() :\
-    \ data() {}\n\n    bool empty() const {\n        return data.empty();\n    }\n\
-    \    int size() const {\n        return data.size();\n    }\n\n    bool contains(const\
-    \ T &x) const {\n        return data.count(x);\n    }\n    bool contains(T &&x)\
-    \ const {\n        return data.count(std::move(x));\n    }\n\n    bool flip(const\
-    \ T &x) {\n        if (data.count(x))\n            return data.erase(x), false;\n\
-    \        else\n            return data.emplace(x), true;\n    }\n    bool flip(T\
-    \ &&x) {\n        if (data.count(x))\n            return data.erase(std::move(x)),\
-    \ false;\n        else\n            return data.emplace(x), true;\n    }\n\n \
-    \ private:\n    std::set<T> data;\n};\n"
+    \ data() {}\n\n    const auto begin() const { return data.begin(); }\n    auto\
+    \ begin() { return data.begin(); }\n    const auto end() const { return data.end();\
+    \ }\n    auto end() { return data.end(); }\n\n    bool empty() const { return\
+    \ data.empty(); }\n    int size() const { return data.size(); }\n\n    bool contains(const\
+    \ T &x) const { return data.count(x); }\n    bool contains(T &&x) const { return\
+    \ data.count(std::move(x)); }\n\n    bool flip(const T &x) {\n        if (data.count(x))\
+    \ return data.erase(x), false;\n        else return data.emplace(x), true;\n \
+    \   }\n    bool flip(T &&x) {\n        if (data.count(x)) return data.erase(std::move(x)),\
+    \ false;\n        else return data.emplace(x), true;\n    }\n\n  private:\n  \
+    \  std::set<T> data;\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/data_structure/flip_set.hpp
   requiredBy: []
-  timestamp: '2024-02-09 11:05:37+09:00'
+  timestamp: '2024-03-23 06:42:22+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/data_structure/flip_set.hpp

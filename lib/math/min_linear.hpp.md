@@ -10,7 +10,9 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
+    document_title: min of mod of linear
+    links:
+    - https://judge.yosupo.jp/submission/102303
   bundledCode: "#line 1 \"lib/math/min_linear.hpp\"\n#include <cstdint>\n\nnamespace\
     \ internal {\n\nnamespace min_linear {\n\nstd::int64_t min_linear(std::int64_t\
     \ n, std::int64_t m, std::int64_t a, std::int64_t b, bool is_min,\n          \
@@ -24,9 +26,12 @@ data:
     \            b += a * t;\n        }\n        b = m - 1 - b;\n    }\n    std::int64_t\
     \ d = m / a;\n    std::int64_t c = min_linear(n, a, m % a, b, !is_min, (d - 1)\
     \ * p + q, d * p + q);\n    return is_min ? a - 1 - c : m - 1 - c;\n}\n\n}  //\
-    \ namespace min_linear\n\n}  // namespace internal\n\nstd::int64_t min_linear(std::int64_t\
-    \ n, std::int64_t m, std::int64_t a, std::int64_t b) {\n    return internal::min_linear::min_linear(n,\
-    \ m, a, b, true, 1, 1);\n}\n"
+    \ namespace min_linear\n\n}  // namespace internal\n\n/**\n * @brief min of mod\
+    \ of linear\n * @details min (ax + b) mod m | 0 <= x < n\n * @see https://judge.yosupo.jp/submission/102303\n\
+    \ *\n * @param n\n * @param m\n * @param a\n * @param b\n * @return std::int64_t\n\
+    \ */\nstd::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a,\
+    \ std::int64_t b) {\n    return internal::min_linear::min_linear(n, m, a, b, true,\
+    \ 1, 1);\n}\n"
   code: "#include <cstdint>\n\nnamespace internal {\n\nnamespace min_linear {\n\n\
     std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t\
     \ b, bool is_min,\n                        std::int64_t p, std::int64_t q) {\n\
@@ -40,14 +45,16 @@ data:
     \ - 1 - b;\n    }\n    std::int64_t d = m / a;\n    std::int64_t c = min_linear(n,\
     \ a, m % a, b, !is_min, (d - 1) * p + q, d * p + q);\n    return is_min ? a -\
     \ 1 - c : m - 1 - c;\n}\n\n}  // namespace min_linear\n\n}  // namespace internal\n\
-    \nstd::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t\
-    \ b) {\n    return internal::min_linear::min_linear(n, m, a, b, true, 1, 1);\n\
-    }\n"
+    \n/**\n * @brief min of mod of linear\n * @details min (ax + b) mod m | 0 <= x\
+    \ < n\n * @see https://judge.yosupo.jp/submission/102303\n *\n * @param n\n *\
+    \ @param m\n * @param a\n * @param b\n * @return std::int64_t\n */\nstd::int64_t\
+    \ min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t b) {\n\
+    \    return internal::min_linear::min_linear(n, m, a, b, true, 1, 1);\n}\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/math/min_linear.hpp
   requiredBy: []
-  timestamp: '2023-10-12 07:01:01+09:00'
+  timestamp: '2024-03-23 07:02:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/math/min_linear.test.cpp
@@ -56,5 +63,5 @@ layout: document
 redirect_from:
 - /library/lib/math/min_linear.hpp
 - /library/lib/math/min_linear.hpp.html
-title: lib/math/min_linear.hpp
+title: min of mod of linear
 ---

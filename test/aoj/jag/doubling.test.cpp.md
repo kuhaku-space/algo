@@ -5,8 +5,8 @@ data:
     path: lib/algorithm/doubling.hpp
     title: "\u30C0\u30D6\u30EA\u30F3\u30B0"
   - icon: ':heavy_check_mark:'
-    path: lib/algorithm/in_field.hpp
-    title: lib/algorithm/in_field.hpp
+    path: lib/graph/grid.hpp
+    title: lib/graph/grid.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,23 +17,23 @@ data:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2320
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/2320
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: algorithm/doubling.hpp:\
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2320\"\n#include\
     \ \"algorithm/doubling.hpp\"\n#include <algorithm>\n#include <cstdint>\n#include\
     \ <iostream>\n#include <iterator>\n#include <numeric>\n#include <string>\n#include\
-    \ <vector>\n#include \"algorithm/in_field.hpp\"\n\nint main(void) {\n    while\
-    \ (true) {\n        int h, w;\n        std::int64_t l;\n        std::cin >> h\
-    \ >> w >> l;\n        if (!h && !w && !l) break;\n        std::vector<std::string>\
-    \ s(h);\n        for (auto &e : s) std::cin >> e;\n\n        InField<2> in_field(h,\
-    \ w);\n        auto in_grid = [&](int x, int y) { return in_field(x, y) && s[x][y]\
+    \ <vector>\n#include \"graph/grid.hpp\"\n\nint main(void) {\n    while (true)\
+    \ {\n        int h, w;\n        std::int64_t l;\n        std::cin >> h >> w >>\
+    \ l;\n        if (!h && !w && !l) break;\n        std::vector<std::string> s(h);\n\
+    \        for (auto &e : s) std::cin >> e;\n\n        Grid<2> grid(h, w);\n   \
+    \     auto in_grid = [&](int x, int y) { return grid.in_field(x, y) && s[x][y]\
     \ != '#'; };\n        auto flatten = [h, w](int x, int y, int d) { return (x *\
     \ w + y) * 4 + d; };\n\n        std::vector<int> to(h * w * 4);\n        std::iota(to.begin(),\
     \ to.end(), 0);\n        std::vector<int> dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};\n\
@@ -55,11 +55,11 @@ data:
     \ 0;\n}\n"
   dependsOn:
   - lib/algorithm/doubling.hpp
-  - lib/algorithm/in_field.hpp
+  - lib/graph/grid.hpp
   isVerificationFile: true
   path: test/aoj/jag/doubling.test.cpp
   requiredBy: []
-  timestamp: '2024-02-22 00:09:36+09:00'
+  timestamp: '2024-02-22 18:29:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/doubling.test.cpp

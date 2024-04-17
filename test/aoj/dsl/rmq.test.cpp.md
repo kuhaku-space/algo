@@ -20,12 +20,12 @@ data:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
+  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
     , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
-    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus.py\"\
+    , line 187, in bundle\n    bundler.update(path)\n  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 401, in update\n    self.update(self._resolve(pathlib.Path(included), included_from=path))\n\
-    \  File \"/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
+    \  File \"/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py\"\
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/segment_tree.hpp:\
     \ line -1: no such header\n"
@@ -33,9 +33,9 @@ data:
     \ <iostream>\n#include <limits>\n#include \"segment_tree/segment_tree.hpp\"\n\n\
     int main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    segment_tree<Min<int>>\
     \ st(n, std::numeric_limits<int>::max());\n    while (q--) {\n        int com,\
-    \ x, y;\n        std::cin >> com >> x >> y;\n        if (com == 0) st.set(x, y);\n\
-    \        else std::cout << st.prod(x, y + 1) << std::endl;\n    }\n\n    return\
-    \ 0;\n}\n"
+    \ x, y;\n        std::cin >> com >> x >> y;\n        if (com == 0) st[x] = y;\n\
+    \        else std::cout << st.prod(x, y + 1) << '\\n';\n    }\n\n    return 0;\n\
+    }\n"
   dependsOn:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
@@ -43,7 +43,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/rmq.test.cpp
   requiredBy: []
-  timestamp: '2024-02-21 23:45:35+09:00'
+  timestamp: '2024-02-27 00:58:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/rmq.test.cpp
