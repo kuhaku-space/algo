@@ -9,6 +9,7 @@
 "test/aoj/alds1/rolling_hash.test.cpp": "2023-11-07 17:07:57 +0900",
 "test/aoj/alds1/skew_heap.test.cpp": "2023-10-01 21:33:34 +0900",
 "test/aoj/alds1/suffix_array.test.cpp": "2023-11-07 17:07:57 +0900",
+"test/aoj/aupc/namori_graph.test.cpp": "2024-04-17 12:30:47 +0900",
 "test/aoj/cgl/convex_hull.test.cpp": "2023-10-12 07:19:23 +0900",
 "test/aoj/cgl/counter-clockwise.test.cpp": "2023-11-07 17:18:00 +0900",
 "test/aoj/cgl/cross_point.test.cpp": "2023-11-07 17:53:38 +0900",
