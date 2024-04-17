@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <cassert>
+#include <vector>
 
 /**
  * @brief Trie
@@ -24,19 +25,19 @@ struct Trie {
   public:
     using node_type = _node;
 
-    Trie() : root(0), nodes() { this->nodes.emplace_back(); }
+    Trie() : root(0), nodes() { nodes.emplace_back(); }
 
-    int size() const noexcept { return this->nodes.size(); }
+    int size() const { return nodes.size(); }
 
     std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
             int c = word[i] - base;
-            int &next_id = this->nodes[node_id].next_node[c];
+            int &next_id = nodes[node_id].next_node[c];
             if (next_id == -1) {
-                next_id = this->nodes.size();
-                this->nodes.emplace_back();
+                next_id = nodes.size();
+                nodes.emplace_back();
             }
             node_id = next_id;
             res.emplace_back(node_id);
@@ -48,7 +49,7 @@ struct Trie {
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
             int c = word[i] - base;
-            int &next_id = this->nodes[node_id].next_node[c];
+            int &next_id = nodes[node_id].next_node[c];
             if (next_id == -1) return -1;
             node_id = next_id;
         }
@@ -56,8 +57,8 @@ struct Trie {
     }
 
     node_type get_node(int node_id) const {
-        assert(0 <= node_id && node_id < (int)this->nodes.size());
-        return this->nodes[node_id];
+        assert(0 <= node_id && node_id < (int)nodes.size());
+        return nodes[node_id];
     }
 
   private:
