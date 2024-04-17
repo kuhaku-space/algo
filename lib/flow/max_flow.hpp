@@ -1,4 +1,8 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cassert>
+#include <limits>
+#include <queue>
+#include <vector>
 
 /**
  * @brief 最大流
@@ -39,9 +43,7 @@ struct mf_graph {
     std::vector<edge> edges() {
         int m = int(pos.size());
         std::vector<edge> result;
-        for (int i = 0; i < m; ++i) {
-            result.emplace_back(get_edge(i));
-        }
+        for (int i = 0; i < m; ++i) result.emplace_back(get_edge(i));
         return result;
     }
     void change_edge(int i, Cap new_cap, Cap new_flow) {
