@@ -1,5 +1,6 @@
+#include <algorithm>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 強連結成分分解
