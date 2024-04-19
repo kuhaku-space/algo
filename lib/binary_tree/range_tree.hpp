@@ -1,5 +1,7 @@
+#include <algorithm>
+#include <iterator>
+#include <utility>
 #include "segment_tree/segment_tree.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 領域木
@@ -45,9 +47,7 @@ struct range_tree {
     }
 
     value_type prod(T xl, T yl, T xr, T yr) const {
-        auto comp = [](const Pt &l, const Pt &r) {
-            return l.first < r.first;
-        };
+        auto comp = [](const Pt &l, const Pt &r) { return l.first < r.first; };
         int l = _size + std::distance(_pts.begin(),
                                       std::lower_bound(_pts.begin(), _pts.end(), Pt{xl, yr}, comp));
         int r = _size + std::distance(_pts.begin(),
@@ -79,9 +79,7 @@ struct range_tree {
     }
 
     value_type prod(int v, T yl, T yr) const {
-        auto comp = [&](const Pt &l, const Pt &r) {
-            return l.first < r.first;
-        };
+        auto comp = [&](const Pt &l, const Pt &r) { return l.first < r.first; };
         auto il = std::distance(
             _range2yxs[v].begin(),
             std::lower_bound(_range2yxs[v].begin(), _range2yxs[v].end(), Pt{yl, yl}, comp));

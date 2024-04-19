@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <functional>
+#include <queue>
+#include <utility>
 
 /**
  * @brief 削除可能優先度付きキュー
@@ -24,9 +26,7 @@ struct erasable_priority_queue {
 
     void erase(T x) {
         b.emplace(x);
-        while (!b.empty() && a.top() == b.top()) {
-            a.pop(), b.pop();
-        }
+        while (!b.empty() && a.top() == b.top()) { a.pop(), b.pop(); }
     }
 
   private:

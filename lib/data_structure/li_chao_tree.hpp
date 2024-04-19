@@ -1,5 +1,8 @@
 #pragma once
-#include "template/template.hpp"
+#include <cassert>
+#include <cstdint>
+#include <functional>
+#include <limits>
 
 /**
  * @brief Li Chao Tree
@@ -44,7 +47,7 @@ struct li_chao_tree {
      */
     void add_line(std::int64_t a, std::int64_t b) {
         line_type line = line_type{a, b};
-        this->root = this->add_line(this->root, line, this->xl, this->xr);
+        root = add_line(root, line, xl, xr);
     }
 
     /**
@@ -56,14 +59,14 @@ struct li_chao_tree {
      * @param r
      */
     void add_segment(std::int64_t a, std::int64_t b, std::int64_t l, std::int64_t r) {
-        assert(this->xl <= l && l < r && r <= this->xr);
+        assert(xl <= l && l < r && r <= xr);
         line_type line = line_type{a, b};
-        this->root = this->add_segment(l, r, this->root, line, this->xl, this->xr);
+        root = add_segment(l, r, root, line, xl, xr);
     }
 
     std::int64_t query(std::int64_t x) {
-        assert(this->xl <= x && x < this->xr);
-        return this->query(x, this->xl, this->xr);
+        assert(xl <= x && x < xr);
+        return query(x, xl, xr);
     }
 
   private:
@@ -87,24 +90,24 @@ struct li_chao_tree {
         if (!left && !right) return node;
         bool mid = comp(line(m), node->line(m));
         if (mid) std::swap(node->line, line);
-        if (left != mid) node->left = this->add_line(node->left, line, l, m);
-        else node->right = this->add_line(node->right, line, m, r);
+        if (left != mid) node->left = add_line(node->left, line, l, m);
+        else node->right = add_line(node->right, line, m, r);
         return node;
     }
 
     node_ptr add_segment(std::int64_t a, std::int64_t b, node_ptr node, line_type line,
                          std::int64_t l, std::int64_t r) {
         if (r <= a || b <= l) return node;
-        if (a <= l && r <= b) return this->add_line(node, line, l, r);
+        if (a <= l && r <= b) return add_line(node, line, l, r);
         if (node == nullptr) node = new _node(inf_line);
         std::int64_t m = (l + r) >> 1;
-        node->left = this->add_segment(a, b, node->left, line, l, m);
-        node->right = this->add_segment(a, b, node->right, line, m, r);
+        node->left = add_segment(a, b, node->left, line, l, m);
+        node->right = add_segment(a, b, node->right, line, m, r);
         return node;
     }
 
     std::int64_t query(std::int64_t k, std::int64_t l, std::int64_t r) {
-        node_ptr node = this->root;
+        node_ptr node = root;
         std::int64_t s = Inf;
         while (node != nullptr) {
             std::int64_t m = (l + r) >> 1;
