@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <bitset>
 #include <cassert>
+#include <cstdint>
 #include <iterator>
 #include <utility>
 #include <vector>
