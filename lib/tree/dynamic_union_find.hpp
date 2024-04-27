@@ -21,6 +21,8 @@ struct dynamic_union_find {
     int size(int x) { return -(this->data[this->root(x)]); }
     int get_size(int x) { return this->size(x); }
 
+    void clear() { data.clear(); }
+
     bool unite(int x, int y) {
         x = this->root(x), y = this->root(y);
         if (x == y) return false;
