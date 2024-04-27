@@ -47,7 +47,7 @@ struct dsu_on_tree {
 
   private:
     int size, root;
-    std::vector<int> par, sub, euler, left, right, heavy_path;
+    std::vector<int> par, sub, euler, left, right;
 
     template <class T>
     void dfs_sz(const Graph<T> &g, int v, std::vector<int> &heavy_path) {
