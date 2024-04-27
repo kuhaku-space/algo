@@ -8,23 +8,23 @@
 struct dynamic_union_find {
     dynamic_union_find() : data() {}
 
-    int root(int x) {
+    std::int64_t root(std::int64_t x) {
         if (!data.count(x)) data[x] = -1;
         return data[x] < 0 ? x : data[x] = root(data[x]);
     }
-    int get_root(int x) { return root(x); }
+    std::int64_t get_root(std::int64_t x) { return root(x); }
 
-    bool is_root(int x) { return data.count(x) && data[x] < 0; }
+    bool is_root(std::int64_t x) { return data.count(x) && data[x] < 0; }
 
-    bool same(int x, int y) { return root(x) == root(y); }
-    bool is_same(int x, int y) { return same(x, y); }
+    bool same(std::int64_t x, std::int64_t y) { return root(x) == root(y); }
+    bool is_same(std::int64_t x, std::int64_t y) { return same(x, y); }
 
-    int size(int x) { return -(data[root(x)]); }
-    int get_size(int x) { return size(x); }
+    int size(std::int64_t x) { return -data[root(x)]; }
+    int get_size(std::int64_t x) { return size(x); }
 
     void clear() { data.clear(); }
 
-    bool unite(int x, int y) {
+    bool unite(std::int64_t x, std::int64_t y) {
         x = root(x), y = root(y);
         if (x == y) return false;
         if (data[x] > data[y]) std::swap(x, y);
@@ -34,7 +34,7 @@ struct dynamic_union_find {
     }
 
     template <class F>
-    bool unite(int x, int y, F f) {
+    bool unite(std::int64_t x, std::int64_t y, F f) {
         x = root(x), y = root(y);
         if (x != y) {
             if (data[x] > data[y]) std::swap(x, y);
@@ -46,5 +46,5 @@ struct dynamic_union_find {
     }
 
   private:
-    std::unordered_map<int, int> data;
+    std::unordered_map<std::int64_t, std::int64_t> data;
 };
