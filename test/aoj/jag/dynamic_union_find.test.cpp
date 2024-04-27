@@ -36,12 +36,11 @@ int main(void) {
             flag[x] |= flag[y];
         }
     };
-    auto query_vertex = [&](int v) {
+    auto query = [&](int v) {
         auto [s, t] = a[v];
         duf.unite(s, t, f);
     };
-    auto query_edge = [&](int u, int v) {};
-    dsu.solve(rem, clear, query_vertex, query_edge);
+    dsu.solve(rem, clear, query);
     for (int i = 0; i < n; ++i) std::cout << ans[i] << '\n';
 
     return 0;
