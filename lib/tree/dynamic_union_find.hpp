@@ -1,4 +1,5 @@
-#include "template/template.hpp"
+#include <unordered_map>
+#include <utility>
 
 /**
  * @brief 動的Union-Find
