@@ -14,7 +14,7 @@ int main(void) {
     g.input_edges(n - 1);
     dsu_on_tree dsu(g);
     std::vector<std::pair<int, int>> a(n);
-    for (auto &[x, y] : a) std::cin >> x >> y;
+    for (auto &[x, y] : a) std::cin >> x >> y, --x, --y;
     std::vector<int> ans(n);
     int sum = 0;
     union_find uf(k);
