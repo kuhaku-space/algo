@@ -86,6 +86,7 @@
 "test/yosupo/data_structure/persistent_queue.test.cpp": "2023-11-15 06:42:05 +0900",
 "test/yosupo/data_structure/persistent_union_find.test.cpp": "2023-11-15 06:42:05 +0900",
 "test/yosupo/data_structure/point_add_range_sum.test.cpp": "2023-11-16 21:07:43 +0900",
+"test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp": "2024-04-28 13:38:09 +0900",
 "test/yosupo/data_structure/point_add_rectangle_sum.test.cpp": "2024-04-19 12:27:28 +0900",
 "test/yosupo/data_structure/point_set_range_composite.test.cpp": "2024-04-17 14:43:31 +0900",
 "test/yosupo/data_structure/queue_operate_all_composite.test.cpp": "2024-04-17 14:43:31 +0900",
