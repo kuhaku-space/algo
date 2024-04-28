@@ -1,6 +1,11 @@
 #pragma once
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <iterator>
+#include <utility>
+#include <vector>
 #include "segment_tree/monoid.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 動的セグメント木

@@ -1,4 +1,7 @@
-
+#include <algorithm>
+#include <cassert>
+#include <type_traits>
+#include <vector>
 #include "internal/internal_fft.hpp"
 #include "template/template.hpp"
 
@@ -45,17 +48,11 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     assert((mint::mod() - 1) % z == 0);
 
     std::vector<mint> a2(n), b2(m);
-    for (int i = 0; i < n; i++) {
-        a2[i] = mint(a[i]);
-    }
-    for (int i = 0; i < m; i++) {
-        b2[i] = mint(b[i]);
-    }
+    for (int i = 0; i < n; i++) { a2[i] = mint(a[i]); }
+    for (int i = 0; i < m; i++) { b2[i] = mint(b[i]); }
     auto c2 = convolution(std::move(a2), std::move(b2));
     std::vector<T> c(n + m - 1);
-    for (int i = 0; i < n + m - 1; i++) {
-        c[i] = c2[i].val();
-    }
+    for (int i = 0; i < n + m - 1; i++) { c[i] = c2[i].val(); }
     return c;
 }
 

@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstdint>
 #include <iterator>
 #include "algorithm/compress.hpp"
 #include "binary_tree/fenwick_tree.hpp"
