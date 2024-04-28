@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+#include <vector>
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
@@ -15,18 +17,14 @@ std::vector<int> maximum_independent_set(const Graph<T> &graph) {
     int n = graph.size();
     std::vector<std::int64_t> g(n);
     for (auto es : graph) {
-        for (auto e : es) {
-            g[e.from()] |= 1LL << e.to();
-        }
+        for (auto e : es) { g[e.from()] |= 1LL << e.to(); }
     }
 
     std::int64_t mv = 0, v = 0;
     int msz = 0, sz = 0;
     auto f = [&](auto self, std::int64_t used) {
         if (used == (1LL << n) - 1) {
-            if (chmax(msz, sz)) {
-                mv = v;
-            }
+            if (chmax(msz, sz)) { mv = v; }
             return;
         }
         int deg = 0, x = -1;
@@ -41,9 +39,7 @@ std::vector<int> maximum_independent_set(const Graph<T> &graph) {
         }
         used |= 1LL << x;
 
-        if (deg > 2) {
-            self(self, used);
-        }
+        if (deg > 2) { self(self, used); }
 
         v |= 1LL << x;
         ++sz;

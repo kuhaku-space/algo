@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <utility>
+#include <vector>
 #include "math/pow.hpp"
 
 std::int64_t gcd(std::int64_t a, std::int64_t b) {

@@ -1,6 +1,7 @@
 #pragma once
+#include <cstdint>
+#include <vector>
 #include "internal/internal_math.hpp"
-#include "template/template.hpp"
 
 template <class T>
 int garner(std::vector<T> r, std::vector<int> m, const int mod) {

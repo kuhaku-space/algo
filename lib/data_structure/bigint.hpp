@@ -1,3 +1,4 @@
+#include <cstdint>
 #include "fft/ntt.hpp"
 #include "template/template.hpp"
 
@@ -30,9 +31,7 @@ struct BigInt {
             this->data.pop_back();
         }
         std::reverse(s.begin(), s.end());
-        for (int i = 0; i < (int)s.size() - int(this->sign); ++i) {
-            this->data[i] = s[i] - '0';
-        }
+        for (int i = 0; i < (int)s.size() - int(this->sign); ++i) { this->data[i] = s[i] - '0'; }
     }
     explicit BigInt(const std::vector<int> &v) : data(v) { this->format(); }
     explicit BigInt(const std::vector<int> &v, bool flag) : data(v), sign(flag) { this->format(); }
@@ -240,9 +239,7 @@ struct BigInt {
         format(a);
     }
     static void mul(std::vector<int> &data, int k) {
-        std::for_each(data.begin(), data.end(), [k](auto &x) {
-            x *= k;
-        });
+        std::for_each(data.begin(), data.end(), [k](auto &x) { x *= k; });
         format(data);
     }
     static void div(std::vector<int> &data, int k) {
@@ -279,9 +276,7 @@ struct BigInt {
 
     void inverse() {
         this->sign = !this->sign;
-        std::for_each(this->data.begin(), this->data.end(), [](auto &x) {
-            x = -x;
-        });
+        std::for_each(this->data.begin(), this->data.end(), [](auto &x) { x = -x; });
     }
 
     int to_int() const { return this->sign ? -this->to_uint() : this->to_uint(); }

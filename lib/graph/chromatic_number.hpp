@@ -1,5 +1,6 @@
+#include <cstdint>
+#include <vector>
 #include "graph/matrix_graph.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 彩色数を求める
