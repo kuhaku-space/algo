@@ -17,15 +17,15 @@ struct persistent_stack {
     constexpr persistent_stack(node_pointer _root) : root(_root) {}
 
     T top() const {
-        assert(this->root);
-        return this->root->val;
+        assert(root);
+        return root->val;
     }
 
-    persistent_stack push(T val) const { return persistent_stack(new _node{val, this->root}); }
+    persistent_stack push(T val) const { return persistent_stack(new _node{val, root}); }
 
     persistent_stack pop() const {
-        assert(this->root);
-        return persistent_stack(this->root->prev);
+        assert(root);
+        return persistent_stack(root->prev);
     }
 
   private:
