@@ -1,8 +1,13 @@
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <cstdint>
+#include <type_traits>
+#include <vector>
 #include "internal/internal_bit.hpp"
 #include "internal/internal_math.hpp"
 #include "internal/internal_type_traits.hpp"
 #include "math/modint.hpp"
-#include "template/template.hpp"
 
 namespace internal {
 
