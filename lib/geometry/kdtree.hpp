@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <vector>
 
 /**
  * @brief kd-tree
@@ -44,9 +46,7 @@ struct kdtree {
     std::vector<_node> nodes;
 
     int build(int l, int r, int depth) {
-        if (l == r) {
-            return -1;
-        }
+        if (l == r) { return -1; }
         if (r - l == 1) {
             int res = this->nodes.size();
             this->nodes.emplace_back(-1, -1, this->points[l]);
@@ -55,14 +55,10 @@ struct kdtree {
         int mid = (l + r) >> 1;
         if (depth & 1) {
             std::sort(this->points.begin() + l, this->points.begin() + r,
-                      [](const _point &a, const _point &b) {
-                          return a.x < b.x;
-                      });
+                      [](const _point &a, const _point &b) { return a.x < b.x; });
         } else {
             std::sort(this->points.begin() + l, this->points.begin() + r,
-                      [](const _point &a, const _point &b) {
-                          return a.y < b.y;
-                      });
+                      [](const _point &a, const _point &b) { return a.y < b.y; });
         }
         int res = this->nodes.size();
         this->nodes.emplace_back();
@@ -99,9 +95,7 @@ struct kdtree {
     std::vector<int> find(int idx, int sx, int tx, int sy, int ty, int depth) {
         std::vector<int> res;
         _point &p = this->nodes[idx].p;
-        if (sx <= p.x && p.x < tx && sy <= p.y && p.y < ty) {
-            res.emplace_back(p.id);
-        }
+        if (sx <= p.x && p.x < tx && sy <= p.y && p.y < ty) { res.emplace_back(p.id); }
 
         if (depth & 1) {
             if (this->nodes[idx].left != -1 && sx <= p.x) {

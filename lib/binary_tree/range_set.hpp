@@ -1,4 +1,8 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <cassert>
+#include <limits>
+#include <set>
+#include <utility>
 
 template <class T>
 struct range_set {
@@ -6,25 +10,24 @@ struct range_set {
 
     std::pair<T, T> get(T x) const {
         auto it = intervals.lower_bound(std::make_pair(x, x));
-        if (it == std::end(intervals) || !contains(x, *it))
-            return std::make_pair(inf, inf);
+        if (it == intervals.end() || !contains(x, *it)) return std::make_pair(inf, inf);
         return std::make_pair(it->second, it->first);
     }
 
     bool contains(T x) const {
         auto it = intervals.lower_bound(std::make_pair(x, x));
-        return it != std::end(intervals) && contains(x, *it);
+        return it != intervals.end() && contains(x, *it);
     }
 
     bool same(T x, T y) const {
         auto it = intervals.lower_bound(std::make_pair(x, x));
-        return it != std::end(intervals) && contains(x, *it) && contains(y, *it);
+        return it != intervals.end() && contains(x, *it) && contains(y, *it);
     }
 
     std::pair<T, T> insert(T x, T y) {
         assert(x < y);
         auto it = intervals.lower_bound(std::make_pair(x, std::numeric_limits<T>::lowest()));
-        while (it != std::end(intervals) && it->second <= y) {
+        while (it != intervals.end() && it->second <= y) {
             x = std::min(x, it->second);
             y = std::max(y, it->first);
             it = intervals.erase(it);
@@ -33,15 +36,12 @@ struct range_set {
         return std::make_pair(x, y);
     }
 
-    std::pair<T, T> insert(T x) {
-        return insert(x, x + 1);
-    }
+    std::pair<T, T> insert(T x) { return insert(x, x + 1); }
 
     void erase(T x, T y) {
         assert(x < y);
         auto it = intervals.lower_bound(std::make_pair(x, x));
-        if (it == std::end(intervals))
-            return;
+        if (it == intervals.end()) return;
         if (it->second != x) {
             T l = it->second, r = it->first;
             intervals.erase(it);
@@ -49,9 +49,8 @@ struct range_set {
             intervals.emplace(r, x);
         }
         it = intervals.lower_bound(std::make_pair(x, x));
-        while (it != std::end(intervals)) {
-            if (y <= it->second)
-                break;
+        while (it != intervals.end()) {
+            if (y <= it->second) break;
             if (y < it->first) {
                 T r = it->first;
                 intervals.erase(it);
@@ -62,15 +61,11 @@ struct range_set {
         }
     }
 
-    void erase(T x) {
-        erase(x, x + 1);
-    }
+    void erase(T x) { erase(x, x + 1); }
 
   private:
     static constexpr T inf = std::numeric_limits<T>::max();
     std::set<std::pair<T, T>> intervals;
 
-    static bool contains(T x, const std::pair<T, T> &p) {
-        return p.second <= x && x < p.first;
-    }
+    static bool contains(T x, const std::pair<T, T> &p) { return p.second <= x && x < p.first; }
 };

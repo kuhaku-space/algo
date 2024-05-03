@@ -1,5 +1,5 @@
+#include <cassert>
 #include "random/xorshift.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief Treap
@@ -25,12 +25,12 @@ struct Treap {
 
     constexpr Treap() : root(nullptr) {}
 
-    void insert(T val) { this->root = this->insert(this->root, val); }
+    void insert(T val) { root = insert(root, val); }
 
-    void erase(T val) { this->root = this->erase(this->root, val); }
+    void erase(T val) { root = erase(root, val); }
 
     bool contains(T val) const {
-        node_ptr node = this->root;
+        node_ptr node = root;
         while (node && node->val != val) {
             if (val < node->val) node = node->left;
             else node = node->right;
@@ -38,7 +38,7 @@ struct Treap {
         return node != nullptr;
     }
 
-    int count(T val) const { return this->count(this->root, val); }
+    int count(T val) const { return count(root, val); }
 
   private:
     UniformRandomBitGenerator gen;
@@ -46,9 +46,7 @@ struct Treap {
 
     constexpr T get_min_val(node_ptr node) const {
         assert(node);
-        while (node->left) {
-            node = node->left;
-        }
+        while (node->left) { node = node->left; }
         return node->val;
     }
 
@@ -71,49 +69,46 @@ struct Treap {
     }
 
     constexpr node_ptr rotate(node_ptr node) {
-        if (node->right && node->priority < node->right->priority) {
-            node = this->rotl(node);
-        } else if (node->left && node->priority < node->left->priority) {
-            node = this->rotr(node);
-        }
+        if (node->right && node->priority < node->right->priority) node = rotl(node);
+        else if (node->left && node->priority < node->left->priority) node = rotr(node);
         return node;
     }
 
     constexpr node_ptr insert(node_ptr node, T val) {
-        if (node == nullptr) return new _node(val, this->gen());
-        if (val < node->val) node->left = this->insert(node->left, val);
-        else node->right = this->insert(node->right, val);
-        return this->rotate(node);
+        if (node == nullptr) return new _node(val, gen());
+        if (val < node->val) node->left = insert(node->left, val);
+        else node->right = insert(node->right, val);
+        return rotate(node);
     }
 
     constexpr node_ptr erase(node_ptr node, T val) {
         if (node == nullptr) return nullptr;
         if (val < node->val) {
-            node->left = this->erase(node->left, val);
+            node->left = erase(node->left, val);
         } else if (node->val < val) {
-            node->right = this->erase(node->right, val);
+            node->right = erase(node->right, val);
         } else {
             if (node->right == nullptr) {
                 return node->left;
             } else {
-                node->val = this->get_min_val(node->right);
-                node->right = this->erase_min(node->right);
+                node->val = get_min_val(node->right);
+                node->right = erase_min(node->right);
             }
         }
-        return this->rotate(node);
+        return rotate(node);
     }
 
     constexpr node_ptr erase_min(node_ptr node) {
         if (node->left == nullptr) return node->right;
-        node->left = this->erase_min(node->left);
-        return this->rotate(node);
+        node->left = erase_min(node->left);
+        return rotate(node);
     }
 
     int count(node_ptr node, T val) const {
         if (node == nullptr) return 0;
         int res = node->val == val;
-        if (!(node->val < val)) res += this->count(node->left, val);
-        if (!(val < node->val)) res += this->count(node->right, val);
+        if (!(node->val < val)) res += count(node->left, val);
+        if (!(val < node->val)) res += count(node->right, val);
         return res;
     }
 };

@@ -1,6 +1,10 @@
 #pragma once
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <iterator>
+#include <vector>
 #include "segment_tree/dynamic_segment_tree.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 二次元セグメント木

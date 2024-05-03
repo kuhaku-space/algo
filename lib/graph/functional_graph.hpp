@@ -1,4 +1,7 @@
 #pragma once
+#include <cstdint>
+#include <utility>
+#include <vector>
 #include "tree/hld.hpp"
 #include "tree/union_find.hpp"
 

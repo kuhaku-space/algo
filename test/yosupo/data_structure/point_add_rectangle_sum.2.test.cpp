@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include "segment_tree/segment_tree_2d.hpp"
+#include "template/template.hpp"
 
 int main(void) {
     int n, q;

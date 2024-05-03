@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include "data_structure/li_chao_tree.hpp"
+#include "template/template.hpp"
 
 int main(void) {
     int n, q;

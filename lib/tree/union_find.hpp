@@ -10,6 +10,9 @@ struct union_find {
     union_find() = default;
     explicit union_find(int _n) : _rank(_n), data(_n, -1) {}
 
+    const int &operator[](std::size_t x) const { return data[x]; }
+    int &operator[](std::size_t x) { return data[x]; }
+
     int root(int x) { return data[x] < 0 ? x : data[x] = root(data[x]); }
     int get_root(int x) { return root(x); }
 
