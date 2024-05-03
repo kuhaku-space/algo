@@ -1,5 +1,4 @@
 #include "random/xorshift.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief スキップリスト
