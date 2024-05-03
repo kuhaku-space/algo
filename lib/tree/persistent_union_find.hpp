@@ -1,5 +1,5 @@
+#include <utility>
 #include "data_structure/persistent_array.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 永続Union-Find
