@@ -1,4 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/tree_diameter"
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <vector>
@@ -10,16 +11,16 @@ int main(void) {
     Graph<int> g(n);
     g.input_edges(n - 1, 0);
     auto d = tree_dist<int, std::int64_t>(g, 0);
-    int st = max_element(d.begin(), d.end()) - d.begin();
+    int st = std::max_element(d.begin(), d.end()) - d.begin();
     d = tree_dist<int, std::int64_t>(g, st);
     auto p = tree_parent(g, st);
-    int gl = max_element(d.begin(), d.end()) - d.begin();
+    int gl = std::max_element(d.begin(), d.end()) - d.begin();
     std::vector<int> ans;
     while (gl != -1) {
         ans.emplace_back(gl);
         gl = p[gl];
     }
-    std::cout << *max_element(d.begin(), d.end()) << ' ' << ans.size() << '\n';
+    std::cout << *std::max_element(d.begin(), d.end()) << ' ' << ans.size() << '\n';
     for (int i = 0; i < (int)ans.size(); ++i)
         std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
