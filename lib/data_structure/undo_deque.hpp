@@ -1,4 +1,6 @@
-#include "template/template.hpp"
+#include <deque>
+#include <stack>
+#include <utility>
 
 template <class T>
 struct undo_deque {
