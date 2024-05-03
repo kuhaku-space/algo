@@ -1,45 +1,47 @@
-#include "template/template.hpp"
+#include <deque>
+#include <stack>
+#include <utility>
 
 template <class T>
 struct undo_deque {
-    T front() const { return this->data.front(); }
-    T back() const { return this->data.back(); }
-    bool empty() const { return this->data.empty(); }
-    int size() const { return this->data.size(); }
+    T front() const { return data.front(); }
+    T back() const { return data.back(); }
+    bool empty() const { return data.empty(); }
+    int size() const { return data.size(); }
 
     void emplace_front(T x) {
-        this->history.emplace(0, x);
-        this->data.emplace_front(x);
+        history.emplace(0, x);
+        data.emplace_front(x);
     }
 
     void emplace_back(T x) {
-        this->history.emplace(1, x);
-        this->data.emplace_back(x);
+        history.emplace(1, x);
+        data.emplace_back(x);
     }
 
     void pop_front() {
-        this->history.emplace(2, this->data.front());
-        this->data.pop_front();
+        history.emplace(2, data.front());
+        data.pop_front();
     }
 
     void pop_back() {
-        this->history.emplace(3, this->data.back());
-        this->data.pop_back();
+        history.emplace(3, data.back());
+        data.pop_back();
     }
 
     void undo() {
-        auto [x, y] = this->history.top();
-        this->history.pop();
-        if (x == 0) this->data.pop_front();
-        else if (x == 1) this->data.pop_back();
-        else if (x == 2) this->data.emplace_front(y);
-        else this->data.emplace_back(y);
+        auto [x, y] = history.top();
+        history.pop();
+        if (x == 0) data.pop_front();
+        else if (x == 1) data.pop_back();
+        else if (x == 2) data.emplace_front(y);
+        else data.emplace_back(y);
     }
 
-    int snapshot() const { return this->history.size(); }
+    int snapshot() const { return history.size(); }
 
     void rollback(int x = 0) {
-        while (x < (int)this->history.size()) this->undo();
+        while (x < (int)history.size()) undo();
     }
 
   private:
