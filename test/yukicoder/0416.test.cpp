@@ -1,5 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/416"
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <set>
 #include <utility>
@@ -33,7 +34,7 @@ int main(void) {
         }
         auto check = [&](int mid) { return !uf.same(0, i, m - mid); };
         int l = q, r = -1;
-        while (abs(l - r) > 1) {
+        while (std::abs(l - r) > 1) {
             int mid = (l + r) / 2;
             (check(mid) ? l : r) = mid;
         }
