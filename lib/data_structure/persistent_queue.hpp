@@ -4,16 +4,16 @@
 template <class T>
 struct persistent_queue {
   private:
-    struct Node {
-        using pointer = Node *;
+    struct _node {
+        using pointer = _node *;
         T val;
         std::vector<pointer> prev;
 
-        Node(T _val) : val(_val), prev() {}
+        _node(T _val) : val(_val), prev() {}
     };
 
   public:
-    using node_pointer = typename Node::pointer;
+    using node_pointer = typename _node::pointer;
 
     constexpr persistent_queue() : _size(), root() {}
     constexpr persistent_queue(int n, node_pointer _root) : _size(n), root(_root) {}
@@ -32,7 +32,7 @@ struct persistent_queue {
     T front() const { return this->top(); }
 
     persistent_queue push(T val) const {
-        node_pointer new_node = new Node(val);
+        node_pointer new_node = new _node(val);
         node_pointer node = root;
         new_node->prev.emplace_back(node);
         int k = 0;
