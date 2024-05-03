@@ -8,27 +8,25 @@ struct sliding_window_aggregation {
     using T = typename M::value_type;
 
   public:
-    sliding_window_aggregation() : back_total(M::id), front(), back() {
-        this->front.emplace(M::id);
-    }
+    sliding_window_aggregation() : back_total(M::id), front(), back() { front.emplace(M::id); }
 
-    T top() const { return M::op(this->back_total, this->front.top()); }
+    T top() const { return M::op(back_total, front.top()); }
 
     void emplace(T val) {
-        this->back.emplace(val);
-        this->back_total = M::op(val, back_total);
+        back.emplace(val);
+        back_total = M::op(val, back_total);
     }
-    void push(T val) { this->emplace(val); }
+    void push(T val) { emplace(val); }
 
     void pop() {
-        if (this->front.size() == 1) {
-            while (!this->back.empty()) {
-                this->front.emplace(M::op(this->front.top(), this->back.top()));
-                this->back.pop();
+        if (front.size() == 1) {
+            while (!back.empty()) {
+                front.emplace(M::op(front.top(), back.top()));
+                back.pop();
             }
-            this->back_total = M::id;
+            back_total = M::id;
         }
-        this->front.pop();
+        front.pop();
     }
 
   private:
