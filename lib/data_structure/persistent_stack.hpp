@@ -1,5 +1,5 @@
 #pragma once
-#include "template/template.hpp"
+#include <cassert>
 
 template <class T>
 struct persistent_stack {
