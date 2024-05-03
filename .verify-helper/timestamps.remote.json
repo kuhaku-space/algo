@@ -131,6 +131,7 @@
 "test/yosupo/tree/cartesian_tree.test.cpp": "2024-01-23 17:27:36 +0900",
 "test/yosupo/tree/jump_on_tree.test.cpp": "2023-11-15 18:16:35 +0900",
 "test/yosupo/tree/lowest_common_ancestor.test.cpp": "2023-11-15 18:16:35 +0900",
+"test/yosupo/tree/tree_diameter.test.cpp": "2024-05-04 03:29:26 +0900",
 "test/yosupo/tree/tree_path_composite_sum.test.cpp": "2024-04-17 14:43:31 +0900",
 "test/yukicoder/0263.test.cpp": "2024-01-23 17:10:55 +0900",
 "test/yukicoder/0416.test.cpp": "2024-05-04 03:16:27 +0900",
