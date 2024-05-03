@@ -1,6 +1,6 @@
 #pragma once
+#include <stack>
 #include "segment_tree/monoid.hpp"
-#include "template/template.hpp"
 
 template <class M>
 struct sliding_window_aggregation {
