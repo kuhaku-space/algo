@@ -61,7 +61,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/addition_of_big_integers.test.cpp
   requiredBy: []
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/addition_of_big_integers.test.cpp

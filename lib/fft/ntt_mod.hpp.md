@@ -87,7 +87,7 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

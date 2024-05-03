@@ -65,8 +65,8 @@ data:
   timestamp: '2024-04-17 13:10:17+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/bridges.test.cpp
 documentation_of: lib/graph/lowlink.hpp
 layout: document
 redirect_from:

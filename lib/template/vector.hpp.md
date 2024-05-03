@@ -45,8 +45,8 @@ data:
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/joi/rle.test.cpp
   - test/yosupo/string/enumerate_palindromes.test.cpp
+  - test/aoj/joi/rle.test.cpp
 documentation_of: lib/template/vector.hpp
 layout: document
 redirect_from:

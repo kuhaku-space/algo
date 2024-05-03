@@ -28,33 +28,33 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\
-    \n\n/**\n * @brief \u6700\u5927\u72EC\u7ACB\u96C6\u5408\n * @see https://www.slideshare.net/wata_orz/ss-12131479\n\
-    \ *\n * @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\n * @param graph \u30B0\
-    \u30E9\u30D5\n * @return std::vector<int> \u6700\u5927\u72EC\u7ACB\u96C6\u5408\
-    \n */\ntemplate <class T>\nstd::vector<int> maximum_independent_set(const Graph<T>\
-    \ &graph) {\n    int n = graph.size();\n    std::vector<std::int64_t> g(n);\n\
-    \    for (auto es : graph) {\n        for (auto e : es) {\n            g[e.from()]\
-    \ |= 1LL << e.to();\n        }\n    }\n\n    std::int64_t mv = 0, v = 0;\n   \
-    \ int msz = 0, sz = 0;\n    auto f = [&](auto self, std::int64_t used) {\n   \
-    \     if (used == (1LL << n) - 1) {\n            if (chmax(msz, sz)) {\n     \
-    \           mv = v;\n            }\n            return;\n        }\n        int\
-    \ deg = 0, x = -1;\n        for (int i = 0; i < n; ++i) {\n            if (used\
-    \ >> i & 1) continue;\n            int d = __builtin_popcountl(~used & g[i]);\n\
-    \            if (d <= 1) {\n                x = i;\n                break;\n \
-    \           }\n            if (chmax(deg, d)) x = i;\n        }\n        used\
-    \ |= 1LL << x;\n\n        if (deg > 2) {\n            self(self, used);\n    \
-    \    }\n\n        v |= 1LL << x;\n        ++sz;\n        used |= g[x];\n     \
-    \   self(self, used);\n        v &= ~(1LL << x);\n        --sz;\n    };\n    f(f,\
-    \ 0);\n\n    std::vector<int> res;\n    for (int i = 0; i < n; ++i) {\n      \
-    \  if (mv >> i & 1) res.emplace_back(i);\n    }\n    return res;\n}\n"
+  code: "#pragma once\n#include <cstdint>\n#include <vector>\n#include \"graph/graph.hpp\"\
+    \n#include \"template/template.hpp\"\n\n/**\n * @brief \u6700\u5927\u72EC\u7ACB\
+    \u96C6\u5408\n * @see https://www.slideshare.net/wata_orz/ss-12131479\n *\n *\
+    \ @tparam T \u8FBA\u306E\u91CD\u307F\u306E\u578B\n * @param graph \u30B0\u30E9\
+    \u30D5\n * @return std::vector<int> \u6700\u5927\u72EC\u7ACB\u96C6\u5408\n */\n\
+    template <class T>\nstd::vector<int> maximum_independent_set(const Graph<T> &graph)\
+    \ {\n    int n = graph.size();\n    std::vector<std::int64_t> g(n);\n    for (auto\
+    \ es : graph) {\n        for (auto e : es) { g[e.from()] |= 1LL << e.to(); }\n\
+    \    }\n\n    std::int64_t mv = 0, v = 0;\n    int msz = 0, sz = 0;\n    auto\
+    \ f = [&](auto self, std::int64_t used) {\n        if (used == (1LL << n) - 1)\
+    \ {\n            if (chmax(msz, sz)) { mv = v; }\n            return;\n      \
+    \  }\n        int deg = 0, x = -1;\n        for (int i = 0; i < n; ++i) {\n  \
+    \          if (used >> i & 1) continue;\n            int d = __builtin_popcountl(~used\
+    \ & g[i]);\n            if (d <= 1) {\n                x = i;\n              \
+    \  break;\n            }\n            if (chmax(deg, d)) x = i;\n        }\n \
+    \       used |= 1LL << x;\n\n        if (deg > 2) { self(self, used); }\n\n  \
+    \      v |= 1LL << x;\n        ++sz;\n        used |= g[x];\n        self(self,\
+    \ used);\n        v &= ~(1LL << x);\n        --sz;\n    };\n    f(f, 0);\n\n \
+    \   std::vector<int> res;\n    for (int i = 0; i < n; ++i) {\n        if (mv >>\
+    \ i & 1) res.emplace_back(i);\n    }\n    return res;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/graph/maximum_independent_set.hpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/maximum_independent_set.test.cpp

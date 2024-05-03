@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/scapegoat_tree.hpp
     title: "\u30B9\u30B1\u30FC\u30D7\u30B4\u30FC\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -37,11 +34,10 @@ data:
     \n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/scapegoat_tree.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/itp2/scapegoat_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 23:34:20+09:00'
+  timestamp: '2024-04-19 12:27:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/itp2/scapegoat_tree.test.cpp

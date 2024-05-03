@@ -34,14 +34,15 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_rectangle_sum\"\
     \n#include <cstdint>\n#include <iostream>\n#include \"segment_tree/segment_tree_2d.hpp\"\
-    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    segment_tree_2d<Add<std::int64_t>>\
-    \ st(Inf, Inf);\n    while (n--) {\n        int x, y, w;\n        std::cin >>\
-    \ x >> y >> w;\n        st.set(x, y, st.get(x, y) + w);\n    }\n\n    while (q--)\
-    \ {\n        int com;\n        std::cin >> com;\n        if (com == 0) {\n   \
-    \         int x, y, w;\n            std::cin >> x >> y >> w;\n            st.set(x,\
-    \ y, st.get(x, y) + w);\n        } else {\n            int l, d, r, u;\n     \
-    \       std::cin >> l >> d >> r >> u;\n            std::cout << st.prod(l, r,\
-    \ d, u) << '\\n';\n        }\n    }\n\n    return 0;\n}\n"
+    \n#include \"template/template.hpp\"\n\nint main(void) {\n    int n, q;\n    std::cin\
+    \ >> n >> q;\n    segment_tree_2d<Add<std::int64_t>> st(Inf, Inf);\n    while\
+    \ (n--) {\n        int x, y, w;\n        std::cin >> x >> y >> w;\n        st.set(x,\
+    \ y, st.get(x, y) + w);\n    }\n\n    while (q--) {\n        int com;\n      \
+    \  std::cin >> com;\n        if (com == 0) {\n            int x, y, w;\n     \
+    \       std::cin >> x >> y >> w;\n            st.set(x, y, st.get(x, y) + w);\n\
+    \        } else {\n            int l, d, r, u;\n            std::cin >> l >> d\
+    \ >> r >> u;\n            std::cout << st.prod(l, r, d, u) << '\\n';\n       \
+    \ }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/segment_tree/segment_tree_2d.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
@@ -50,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 06:42:05+09:00'
+  timestamp: '2024-04-28 13:38:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp

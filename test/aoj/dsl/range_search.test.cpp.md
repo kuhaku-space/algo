@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/geometry/kdtree.hpp
     title: kd-tree
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -37,11 +34,10 @@ data:
     \    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/geometry/kdtree.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/dsl/range_search.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:41:55+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/range_search.test.cpp

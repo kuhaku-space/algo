@@ -82,12 +82,12 @@ data:
   timestamp: '2023-10-01 19:53:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/alds1/inversion_number.test.cpp
-  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/static_range_inversions.test.cpp
   - test/yosupo/data_structure/range_kth_smallest.test.cpp
+  - test/yosupo/data_structure/static_range_frequency.test.cpp
   - test/yosupo/data_structure/rectangle_sum.test.cpp
   - test/yosupo/math/number_of_subsequences.test.cpp
+  - test/aoj/alds1/inversion_number.test.cpp
 documentation_of: lib/algorithm/compress.hpp
 layout: document
 redirect_from:

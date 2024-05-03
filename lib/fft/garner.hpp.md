@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/internal/internal_math.hpp
     title: lib/internal/internal_math.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,7 +20,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_math.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\r\n#include \"internal/internal_math.hpp\"\r\n#include \"template/template.hpp\"\
+  code: "#pragma once\r\n#include <cstdint>\r\n#include <vector>\r\n#include \"internal/internal_math.hpp\"\
     \r\n\r\ntemplate <class T>\r\nint garner(std::vector<T> r, std::vector<int> m,\
     \ const int mod) {\r\n    int n = r.size();\r\n    r.emplace_back(0);\r\n    m.emplace_back(mod);\r\
     \n\r\n    std::vector<std::int64_t> coffs(n + 1, 1);\r\n    std::vector<std::int64_t>\
@@ -43,11 +40,10 @@ data:
     }\r\n"
   dependsOn:
   - lib/internal/internal_math.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/fft/garner.hpp
   requiredBy: []
-  timestamp: '2023-10-01 18:30:47+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/fft/garner.hpp

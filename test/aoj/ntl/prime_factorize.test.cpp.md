@@ -34,7 +34,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ntl/prime_factorize.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 01:52:14+09:00'
+  timestamp: '2024-04-23 13:47:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ntl/prime_factorize.test.cpp

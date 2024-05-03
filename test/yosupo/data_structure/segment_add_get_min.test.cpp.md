@@ -28,22 +28,23 @@ data:
     \ line -1: no such header\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/segment_add_get_min\"\n\
     #include <cstdint>\n#include <iostream>\n#include \"data_structure/li_chao_tree.hpp\"\
-    \n\nint main(void) {\n    int n, q;\n    std::cin >> n >> q;\n    li_chao_tree\
-    \ lct(-Inf, Inf);\n    while (n--) {\n        std::int64_t l, r, a, b;\n     \
-    \   std::cin >> l >> r >> a >> b;\n        lct.add_segment(a, b, l, r);\n    }\n\
-    \n    while (q--) {\n        int c;\n        std::cin >> c;\n        if (c ==\
-    \ 0) {\n            std::int64_t l, r, a, b;\n            std::cin >> l >> r >>\
-    \ a >> b;\n            lct.add_segment(a, b, l, r);\n        } else {\n      \
-    \      std::int64_t x;\n            std::cin >> x;\n            auto ans = lct.query(x);\n\
-    \            if (ans == lct.inf) std::cout << \"INFINITY\\n\";\n            else\
-    \ std::cout << ans << '\\n';\n        }\n    }\n\n    return 0;\n}\n"
+    \n#include \"template/template.hpp\"\n\nint main(void) {\n    int n, q;\n    std::cin\
+    \ >> n >> q;\n    li_chao_tree lct(-Inf, Inf);\n    while (n--) {\n        std::int64_t\
+    \ l, r, a, b;\n        std::cin >> l >> r >> a >> b;\n        lct.add_segment(a,\
+    \ b, l, r);\n    }\n\n    while (q--) {\n        int c;\n        std::cin >> c;\n\
+    \        if (c == 0) {\n            std::int64_t l, r, a, b;\n            std::cin\
+    \ >> l >> r >> a >> b;\n            lct.add_segment(a, b, l, r);\n        } else\
+    \ {\n            std::int64_t x;\n            std::cin >> x;\n            auto\
+    \ ans = lct.query(x);\n            if (ans == lct.inf) std::cout << \"INFINITY\\\
+    n\";\n            else std::cout << ans << '\\n';\n        }\n    }\n\n    return\
+    \ 0;\n}\n"
   dependsOn:
   - lib/data_structure/li_chao_tree.hpp
   - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/segment_add_get_min.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 06:42:05+09:00'
+  timestamp: '2024-04-19 15:35:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/segment_add_get_min.test.cpp

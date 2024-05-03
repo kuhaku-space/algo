@@ -27,7 +27,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/matrix_graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/matrix_graph.hpp\"\r\n#include \"template/template.hpp\"\
+  code: "#include <cstdint>\r\n#include <vector>\r\n#include \"graph/matrix_graph.hpp\"\
     \r\n\r\n/**\r\n * @brief \u5F69\u8272\u6570\u3092\u6C42\u3081\u308B\r\n * @details\
     \ $O(2^N)$\r\n *\r\n * @param G \u30B0\u30E9\u30D5\r\n * @return int \u5F69\u8272\
     \u6570\r\n */\r\nint chromatic_number(const matrix_graph<void> &G) {\r\n    constexpr\
@@ -54,7 +54,7 @@ data:
   isVerificationFile: false
   path: lib/graph/chromatic_number.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/graph/chromatic_number.test.cpp

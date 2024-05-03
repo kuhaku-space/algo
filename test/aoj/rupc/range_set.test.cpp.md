@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/range_set.hpp
     title: lib/binary_tree/range_set.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -40,11 +37,10 @@ data:
     \ std::cout << (f ? \"Yes\" : \"No\") << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/range_set.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/rupc/range_set.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 01:56:12+09:00'
+  timestamp: '2024-04-19 12:27:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/rupc/range_set.test.cpp

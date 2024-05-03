@@ -34,6 +34,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
     title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
+    title: test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -126,19 +129,20 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/fenwick_tree.hpp
   requiredBy:
-  - lib/algorithm/inversion_number.hpp
   - lib/binary_tree/fenwick_tree_raq.hpp
+  - lib/algorithm/inversion_number.hpp
   timestamp: '2023-11-16 21:07:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/data_structure/static_range_inversions.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
   - test/aoj/dsl/rsq.test.cpp
   - test/aoj/dsl/raq_rsq.test.cpp
+  - test/aoj/alds1/inversion_number.test.cpp
   - test/aoj/grl/range_query_on_tree.test.cpp
   - test/aoj/grl/range_query_on_tree_2.test.cpp
-  - test/aoj/alds1/inversion_number.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/data_structure/static_range_inversions.test.cpp
-  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
 documentation_of: lib/binary_tree/fenwick_tree.hpp
 layout: document
 redirect_from:

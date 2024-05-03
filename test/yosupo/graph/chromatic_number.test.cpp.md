@@ -40,7 +40,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/graph/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 07:01:02+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/chromatic_number.test.cpp

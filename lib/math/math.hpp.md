@@ -20,36 +20,36 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: math/pow.hpp:\
     \ line -1: no such header\n"
-  code: "#include <cstdint>\r\n#include <utility>\r\n#include \"math/pow.hpp\"\r\n\
-    \r\nstd::int64_t gcd(std::int64_t a, std::int64_t b) {\r\n    while (b) {\r\n\
-    \        a %= b;\r\n        std::swap(a, b);\r\n    }\r\n    return a;\r\n}\r\n\
-    \r\nstd::int64_t gcd(const std::vector<std::int64_t> &v) {\r\n    if (v.empty())\
-    \ return 1;\r\n    std::int64_t res = v[0];\r\n    for (auto i : v) res = gcd(res,\
-    \ i);\r\n    return res;\r\n}\r\n\r\nstd::int64_t lcm(std::int64_t a, std::int64_t\
-    \ b) { return a / gcd(a, b) * b; }\r\n\r\nstd::int64_t lcm(const std::vector<std::int64_t>\
-    \ &v) {\r\n    std::int64_t res = 1;\r\n    for (std::int64_t i : v) res = lcm(res,\
-    \ i);\r\n    return res;\r\n}\r\n\r\nstd::int64_t floor_div(std::int64_t p, std::int64_t\
-    \ q) {\r\n    std::int64_t res = p / q;\r\n    if (q * res > p) --res;\r\n   \
-    \ return res;\r\n}\r\n\r\nstd::int64_t ceil_div(std::int64_t p, std::int64_t q)\
-    \ {\r\n    std::int64_t res = p / q;\r\n    if (q * res < p) ++res;\r\n    return\
-    \ res;\r\n}\r\n\r\nstd::int64_t round_ll(double d) {\r\n    if (d < 0) return\
-    \ -round_ll(-d);\r\n    return std::int64_t(d + 0.5);\r\n}\r\n\r\nstd::int64_t\
-    \ round_ll(long double d) {\r\n    if (d < 0) return -round_ll(-d);\r\n    return\
-    \ std::int64_t(d + 0.5);\r\n}\r\n\r\nconstexpr bool is_prime(int n) {\r\n    if\
-    \ (n <= 1) return false;\r\n    if (n == 2 || n == 7 || n == 61) return true;\r\
-    \n    if (n % 2 == 0) return false;\r\n    std::int64_t d = n - 1;\r\n    while\
-    \ (d % 2 == 0) d /= 2;\r\n    constexpr std::int64_t bases[3] = {2, 7, 61};\r\n\
-    \    for (std::int64_t a : bases) {\r\n        std::int64_t t = d;\r\n       \
-    \ std::int64_t y = pow_mod(a, t, n);\r\n        while (t != n - 1 && y != 1 &&\
-    \ y != n - 1) {\r\n            y = y * y % n;\r\n            t <<= 1;\r\n    \
-    \    }\r\n        if (y != n - 1 && t % 2 == 0) return false;\r\n    }\r\n   \
-    \ return true;\r\n}\r\n"
+  code: "#include <cstdint>\r\n#include <utility>\r\n#include <vector>\r\n#include\
+    \ \"math/pow.hpp\"\r\n\r\nstd::int64_t gcd(std::int64_t a, std::int64_t b) {\r\
+    \n    while (b) {\r\n        a %= b;\r\n        std::swap(a, b);\r\n    }\r\n\
+    \    return a;\r\n}\r\n\r\nstd::int64_t gcd(const std::vector<std::int64_t> &v)\
+    \ {\r\n    if (v.empty()) return 1;\r\n    std::int64_t res = v[0];\r\n    for\
+    \ (auto i : v) res = gcd(res, i);\r\n    return res;\r\n}\r\n\r\nstd::int64_t\
+    \ lcm(std::int64_t a, std::int64_t b) { return a / gcd(a, b) * b; }\r\n\r\nstd::int64_t\
+    \ lcm(const std::vector<std::int64_t> &v) {\r\n    std::int64_t res = 1;\r\n \
+    \   for (std::int64_t i : v) res = lcm(res, i);\r\n    return res;\r\n}\r\n\r\n\
+    std::int64_t floor_div(std::int64_t p, std::int64_t q) {\r\n    std::int64_t res\
+    \ = p / q;\r\n    if (q * res > p) --res;\r\n    return res;\r\n}\r\n\r\nstd::int64_t\
+    \ ceil_div(std::int64_t p, std::int64_t q) {\r\n    std::int64_t res = p / q;\r\
+    \n    if (q * res < p) ++res;\r\n    return res;\r\n}\r\n\r\nstd::int64_t round_ll(double\
+    \ d) {\r\n    if (d < 0) return -round_ll(-d);\r\n    return std::int64_t(d +\
+    \ 0.5);\r\n}\r\n\r\nstd::int64_t round_ll(long double d) {\r\n    if (d < 0) return\
+    \ -round_ll(-d);\r\n    return std::int64_t(d + 0.5);\r\n}\r\n\r\nconstexpr bool\
+    \ is_prime(int n) {\r\n    if (n <= 1) return false;\r\n    if (n == 2 || n ==\
+    \ 7 || n == 61) return true;\r\n    if (n % 2 == 0) return false;\r\n    std::int64_t\
+    \ d = n - 1;\r\n    while (d % 2 == 0) d /= 2;\r\n    constexpr std::int64_t bases[3]\
+    \ = {2, 7, 61};\r\n    for (std::int64_t a : bases) {\r\n        std::int64_t\
+    \ t = d;\r\n        std::int64_t y = pow_mod(a, t, n);\r\n        while (t !=\
+    \ n - 1 && y != 1 && y != n - 1) {\r\n            y = y * y % n;\r\n         \
+    \   t <<= 1;\r\n        }\r\n        if (y != n - 1 && t % 2 == 0) return false;\r\
+    \n    }\r\n    return true;\r\n}\r\n"
   dependsOn:
   - lib/math/pow.hpp
   isVerificationFile: false
   path: lib/math/math.hpp
   requiredBy: []
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: lib/math/math.hpp

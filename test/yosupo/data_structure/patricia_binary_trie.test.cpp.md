@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/binary_tree/patricia_binary_trie.hpp
     title: "2\u5206\u30D1\u30C8\u30EA\u30B7\u30A2\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -34,11 +31,10 @@ data:
     \ std::cout << (bt.min_element(x) ^ x) << '\\n';\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/binary_tree/patricia_binary_trie.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/patricia_binary_trie.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 06:42:05+09:00'
+  timestamp: '2024-04-19 12:27:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/patricia_binary_trie.test.cpp

@@ -82,8 +82,8 @@ data:
   timestamp: '2023-10-12 00:40:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/jag/aho_corasick.test.cpp
   - test/yosupo/tree/tree_diameter.test.cpp
+  - test/aoj/jag/aho_corasick.test.cpp
 documentation_of: lib/tree/tree_function.hpp
 layout: document
 redirect_from:

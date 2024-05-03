@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_2d.hpp
@@ -33,7 +30,8 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/monoid.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"segment_tree/monoid.hpp\"\n#include \"template/template.hpp\"\
+  code: "#pragma once\n#include <algorithm>\n#include <cassert>\n#include <cstdint>\n\
+    #include <iterator>\n#include <utility>\n#include <vector>\n#include \"segment_tree/monoid.hpp\"\
     \n\n/**\n * @brief \u52D5\u7684\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\n *\n * @tparam\
     \ M \u30E2\u30CE\u30A4\u30C9\n */\ntemplate <class M>\nstruct dynamic_segment_tree\
     \ {\n  private:\n    using T = typename M::value_type;\n\n    struct _node {\n\
@@ -97,16 +95,15 @@ data:
     \ + r) >> 1, r));\n    }\n};\n"
   dependsOn:
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/segment_tree/dynamic_segment_tree.hpp
   requiredBy:
   - lib/segment_tree/segment_tree_2d.hpp
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/dsl/dynamic_rmq.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
+  - test/aoj/dsl/dynamic_rmq.test.cpp
 documentation_of: lib/segment_tree/dynamic_segment_tree.hpp
 layout: document
 redirect_from:

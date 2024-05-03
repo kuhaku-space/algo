@@ -72,7 +72,8 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_fft.hpp:\
     \ line -1: no such header\n"
-  code: "\r\n#include \"internal/internal_fft.hpp\"\r\n#include \"template/template.hpp\"\
+  code: "#include <algorithm>\r\n#include <cassert>\r\n#include <type_traits>\r\n\
+    #include <vector>\r\n#include \"internal/internal_fft.hpp\"\r\n#include \"template/template.hpp\"\
     \r\n\r\n/**\r\n * @brief \u7573\u307F\u8FBC\u307F\r\n *\r\n * @tparam mint\r\n\
     \ * @param a\r\n * @param b\r\n * @return std::vector<mint>\r\n */\r\ntemplate\
     \ <class mint, internal::is_static_modint_t<mint> * = nullptr>\r\nstd::vector<mint>\
@@ -92,11 +93,10 @@ data:
     \ = int(a.size()), m = int(b.size());\r\n    if (!n || !m) return {};\r\n\r\n\
     \    using mint = static_modint<mod>;\r\n\r\n    int z = (int)internal::bit_ceil((unsigned\
     \ int)(n + m - 1));\r\n    assert((mint::mod() - 1) % z == 0);\r\n\r\n    std::vector<mint>\
-    \ a2(n), b2(m);\r\n    for (int i = 0; i < n; i++) {\r\n        a2[i] = mint(a[i]);\r\
-    \n    }\r\n    for (int i = 0; i < m; i++) {\r\n        b2[i] = mint(b[i]);\r\n\
-    \    }\r\n    auto c2 = convolution(std::move(a2), std::move(b2));\r\n    std::vector<T>\
-    \ c(n + m - 1);\r\n    for (int i = 0; i < n + m - 1; i++) {\r\n        c[i] =\
-    \ c2[i].val();\r\n    }\r\n    return c;\r\n}\r\n\r\nstd::vector<std::int64_t>\
+    \ a2(n), b2(m);\r\n    for (int i = 0; i < n; i++) { a2[i] = mint(a[i]); }\r\n\
+    \    for (int i = 0; i < m; i++) { b2[i] = mint(b[i]); }\r\n    auto c2 = convolution(std::move(a2),\
+    \ std::move(b2));\r\n    std::vector<T> c(n + m - 1);\r\n    for (int i = 0; i\
+    \ < n + m - 1; i++) { c[i] = c2[i].val(); }\r\n    return c;\r\n}\r\n\r\nstd::vector<std::int64_t>\
     \ convolution_ll(const std::vector<std::int64_t> &a,\r\n                     \
     \                    const std::vector<std::int64_t> &b) {\r\n    int n = int(a.size()),\
     \ m = int(b.size());\r\n    if (!n || !m) return {};\r\n\r\n    static constexpr\
@@ -137,18 +137,18 @@ data:
   - lib/data_structure/bigint.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/addition.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document
 redirect_from:

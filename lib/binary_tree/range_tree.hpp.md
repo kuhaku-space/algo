@@ -10,9 +10,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -34,9 +31,9 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/segment_tree.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"segment_tree/segment_tree.hpp\"\n#include \"template/template.hpp\"\
-    \n\n/**\n * @brief \u9818\u57DF\u6728\n *\n * @tparam M\n * @tparam T\n *\n *\
-    \ @see https://hitonanode.github.io/cplib-cpp/segmenttree/rangetree.hpp.html\n\
+  code: "#include <algorithm>\n#include <iterator>\n#include <utility>\n#include \"\
+    segment_tree/segment_tree.hpp\"\n\n/**\n * @brief \u9818\u57DF\u6728\n *\n * @tparam\
+    \ M\n * @tparam T\n *\n * @see https://hitonanode.github.io/cplib-cpp/segmenttree/rangetree.hpp.html\n\
     \ */\ntemplate <class M, class T = int>\nstruct range_tree {\n  private:\n   \
     \ using Pt = std::pair<T, T>;\n    using value_type = typename M::value_type;\n\
     \n  public:\n    range_tree() = default;\n\n    void add(T x, T y) noexcept {\
@@ -54,26 +51,25 @@ data:
     \ std::lower_bound(_pts.begin(), _pts.end(), Pt{x, y}));\n        assert(i < _size\
     \ && _pts[i] == std::make_pair(x, y));\n        for (i += _size; i; i >>= 1) set(i,\
     \ {x, y}, val);\n    }\n\n    value_type prod(T xl, T yl, T xr, T yr) const {\n\
-    \        auto comp = [](const Pt &l, const Pt &r) {\n            return l.first\
-    \ < r.first;\n        };\n        int l = _size + std::distance(_pts.begin(),\n\
-    \                                      std::lower_bound(_pts.begin(), _pts.end(),\
-    \ Pt{xl, yr}, comp));\n        int r = _size + std::distance(_pts.begin(),\n \
-    \                                     std::lower_bound(_pts.begin(), _pts.end(),\
-    \ Pt{xr, yr}, comp));\n        value_type res = M::id;\n        while (l < r)\
-    \ {\n            if (l & 1) res = M::op(res, prod(l++, yl, yr));\n           \
-    \ if (r & 1) res = M::op(res, prod(--r, yl, yr));\n            l >>= 1, r >>=\
-    \ 1;\n        }\n        return res;\n    }\n    value_type get(T x, T y) const\
-    \ {\n        int i = std::distance(_pts.begin(), std::lower_bound(_pts.begin(),\
-    \ _pts.end(), Pt{x, y}));\n        return i < _size && _pts[i] == std::make_pair(x,\
-    \ y) ? segtrees[_size + i].get(0) : M::id;\n    }\n\n  private:\n    int _size;\n\
-    \    std::vector<Pt> _pts;\n    std::vector<std::vector<Pt>> _range2yxs;\n   \
-    \ std::vector<segment_tree<M>> segtrees;\n\n    void set(int v, Pt p, value_type\
-    \ val) {\n        auto i = std::distance(\n            _range2yxs[v].begin(),\n\
+    \        auto comp = [](const Pt &l, const Pt &r) { return l.first < r.first;\
+    \ };\n        int l = _size + std::distance(_pts.begin(),\n                  \
+    \                    std::lower_bound(_pts.begin(), _pts.end(), Pt{xl, yr}, comp));\n\
+    \        int r = _size + std::distance(_pts.begin(),\n                       \
+    \               std::lower_bound(_pts.begin(), _pts.end(), Pt{xr, yr}, comp));\n\
+    \        value_type res = M::id;\n        while (l < r) {\n            if (l &\
+    \ 1) res = M::op(res, prod(l++, yl, yr));\n            if (r & 1) res = M::op(res,\
+    \ prod(--r, yl, yr));\n            l >>= 1, r >>= 1;\n        }\n        return\
+    \ res;\n    }\n    value_type get(T x, T y) const {\n        int i = std::distance(_pts.begin(),\
+    \ std::lower_bound(_pts.begin(), _pts.end(), Pt{x, y}));\n        return i < _size\
+    \ && _pts[i] == std::make_pair(x, y) ? segtrees[_size + i].get(0) : M::id;\n \
+    \   }\n\n  private:\n    int _size;\n    std::vector<Pt> _pts;\n    std::vector<std::vector<Pt>>\
+    \ _range2yxs;\n    std::vector<segment_tree<M>> segtrees;\n\n    void set(int\
+    \ v, Pt p, value_type val) {\n        auto i = std::distance(\n            _range2yxs[v].begin(),\n\
     \            std::lower_bound(_range2yxs[v].begin(), _range2yxs[v].end(), Pt{p.second,\
     \ p.first}));\n        segtrees[v].set(i, val);\n    }\n\n    value_type prod(int\
-    \ v, T yl, T yr) const {\n        auto comp = [&](const Pt &l, const Pt &r) {\n\
-    \            return l.first < r.first;\n        };\n        auto il = std::distance(\n\
-    \            _range2yxs[v].begin(),\n            std::lower_bound(_range2yxs[v].begin(),\
+    \ v, T yl, T yr) const {\n        auto comp = [&](const Pt &l, const Pt &r) {\
+    \ return l.first < r.first; };\n        auto il = std::distance(\n           \
+    \ _range2yxs[v].begin(),\n            std::lower_bound(_range2yxs[v].begin(),\
     \ _range2yxs[v].end(), Pt{yl, yl}, comp));\n        auto ir = std::distance(\n\
     \            _range2yxs[v].begin(),\n            std::lower_bound(_range2yxs[v].begin(),\
     \ _range2yxs[v].end(), Pt{yr, yr}, comp));\n        return segtrees[v].prod(il,\
@@ -82,11 +78,10 @@ data:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/binary_tree/range_tree.hpp
   requiredBy: []
-  timestamp: '2024-02-27 00:57:12+09:00'
+  timestamp: '2024-04-19 12:27:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp

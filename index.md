@@ -402,7 +402,10 @@ data:
     - icon: ':warning:'
       path: lib/tree/centroid_decomposition.hpp
       title: "\u91CD\u5FC3\u5206\u89E3"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/dsu_on_tree.hpp
+      title: lib/tree/dsu_on_tree.hpp
+    - icon: ':heavy_check_mark:'
       path: lib/tree/dynamic_union_find.hpp
       title: "\u52D5\u7684Union-Find"
     - icon: ':heavy_check_mark:'
@@ -643,6 +646,12 @@ data:
       path: test/aoj/jag/doubling.test.cpp
       title: test/aoj/jag/doubling.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/jag/dsu_on_tree.test.cpp
+      title: test/aoj/jag/dsu_on_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/jag/dynamic_union_find.test.cpp
+      title: test/aoj/jag/dynamic_union_find.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/jag/hopcroft_karp.test.cpp
       title: test/aoj/jag/hopcroft_karp.test.cpp
     - icon: ':x:'
@@ -781,6 +790,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
       title: test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
+      title: test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
       title: test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp

@@ -33,7 +33,7 @@ data:
   isVerificationFile: true
   path: test/aoj/alds1/prime_numbers.test.cpp
   requiredBy: []
-  timestamp: '2023-10-02 05:19:32+09:00'
+  timestamp: '2024-04-23 13:47:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/alds1/prime_numbers.test.cpp

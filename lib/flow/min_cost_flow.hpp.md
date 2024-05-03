@@ -213,8 +213,8 @@ data:
   timestamp: '2024-04-17 15:00:06+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/aoj/grl/min_cost_flow.test.cpp
   - test/aoj/jag/min_cost_flow.test.cpp
+  - test/aoj/grl/min_cost_flow.test.cpp
 documentation_of: lib/flow/min_cost_flow.hpp
 layout: document
 redirect_from:

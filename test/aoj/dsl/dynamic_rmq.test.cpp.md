@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -38,11 +35,10 @@ data:
   dependsOn:
   - lib/segment_tree/dynamic_segment_tree.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/dsl/dynamic_rmq.test.cpp
   requiredBy: []
-  timestamp: '2023-11-07 17:41:55+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dynamic_rmq.test.cpp

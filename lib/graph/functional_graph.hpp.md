@@ -35,30 +35,31 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: tree/hld.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"tree/hld.hpp\"\n#include \"tree/union_find.hpp\"\
-    \n\nstruct functional_graph {\n    functional_graph() = default;\n    functional_graph(const\
-    \ std::vector<int> &_to) : functional_graph(_to.size(), _to) {\n        union_find\
-    \ uf(_size);\n        for (int i = 0; i < _size; ++i) {\n            assert(0\
-    \ <= to[i] && to[i] < _size);\n            if (!uf.unite(i, to[i])) root[i] =\
-    \ i;\n        }\n        for (int i = 0; i < _size; ++i) {\n            if (root[i]\
-    \ == i) root[uf.root(i)] = root[i];\n        }\n        for (int i = 0; i < _size;\
-    \ ++i) root[i] = root[uf.root(i)];\n\n        for (int i = 0; i < _size; ++i)\
-    \ {\n            if (root[i] == i) g.add_edge(_size, i);\n            else g.add_edge(to[i],\
-    \ i);\n        }\n        hld = heavy_light_decomposition(g, _size);\n    }\n\n\
-    \    constexpr int size() const { return _size; }\n\n    int jump(int v, std::uint64_t\
-    \ step) const {\n        int d = hld.get_depth(v);\n        if (step <= (std::uint64_t)d\
-    \ - 1) return hld.jump(v, _size, step);\n        v = root[v];\n        step -=\
-    \ d - 1;\n        int bottom = to[v];\n        int c = hld.get_depth(bottom);\n\
-    \        step %= c;\n        if (step == 0) return v;\n        return hld.jump(bottom,\
-    \ _size, step - 1);\n    }\n\n    std::vector<int> jump_all(std::uint64_t step)\
-    \ const {\n        std::vector<int> res(_size, -1);\n        std::vector<std::vector<std::pair<int,\
-    \ int>>> query(_size);\n        for (int v = 0; v < _size; ++v) {\n          \
-    \  int d = hld.get_depth(v);\n            int r = root[v];\n            if ((std::uint64_t)d\
-    \ - 1 > step) {\n                query[v].emplace_back(v, step);\n           \
-    \ } else {\n                std::int64_t k = step - (d - 1);\n               \
-    \ int bottom = to[r];\n                int c = hld.get_depth(bottom);\n      \
-    \          k %= c;\n                if (k == 0) {\n                    res[v]\
-    \ = r;\n                    continue;\n                }\n                query[bottom].emplace_back(v,\
+  code: "#pragma once\n#include <cstdint>\n#include <utility>\n#include <vector>\n\
+    #include \"tree/hld.hpp\"\n#include \"tree/union_find.hpp\"\n\nstruct functional_graph\
+    \ {\n    functional_graph() = default;\n    functional_graph(const std::vector<int>\
+    \ &_to) : functional_graph(_to.size(), _to) {\n        union_find uf(_size);\n\
+    \        for (int i = 0; i < _size; ++i) {\n            assert(0 <= to[i] && to[i]\
+    \ < _size);\n            if (!uf.unite(i, to[i])) root[i] = i;\n        }\n  \
+    \      for (int i = 0; i < _size; ++i) {\n            if (root[i] == i) root[uf.root(i)]\
+    \ = root[i];\n        }\n        for (int i = 0; i < _size; ++i) root[i] = root[uf.root(i)];\n\
+    \n        for (int i = 0; i < _size; ++i) {\n            if (root[i] == i) g.add_edge(_size,\
+    \ i);\n            else g.add_edge(to[i], i);\n        }\n        hld = heavy_light_decomposition(g,\
+    \ _size);\n    }\n\n    constexpr int size() const { return _size; }\n\n    int\
+    \ jump(int v, std::uint64_t step) const {\n        int d = hld.get_depth(v);\n\
+    \        if (step <= (std::uint64_t)d - 1) return hld.jump(v, _size, step);\n\
+    \        v = root[v];\n        step -= d - 1;\n        int bottom = to[v];\n \
+    \       int c = hld.get_depth(bottom);\n        step %= c;\n        if (step ==\
+    \ 0) return v;\n        return hld.jump(bottom, _size, step - 1);\n    }\n\n \
+    \   std::vector<int> jump_all(std::uint64_t step) const {\n        std::vector<int>\
+    \ res(_size, -1);\n        std::vector<std::vector<std::pair<int, int>>> query(_size);\n\
+    \        for (int v = 0; v < _size; ++v) {\n            int d = hld.get_depth(v);\n\
+    \            int r = root[v];\n            if ((std::uint64_t)d - 1 > step) {\n\
+    \                query[v].emplace_back(v, step);\n            } else {\n     \
+    \           std::int64_t k = step - (d - 1);\n                int bottom = to[r];\n\
+    \                int c = hld.get_depth(bottom);\n                k %= c;\n   \
+    \             if (k == 0) {\n                    res[v] = r;\n               \
+    \     continue;\n                }\n                query[bottom].emplace_back(v,\
     \ k - 1);\n            }\n        }\n\n        std::vector<int> path;\n      \
     \  auto dfs = [&](auto self, int v) -> void {\n            path.emplace_back(v);\n\
     \            for (auto &&[w, k] : query[v]) res[w] = path[path.size() - 1 - k];\n\
@@ -82,11 +83,11 @@ data:
   isVerificationFile: false
   path: lib/graph/functional_graph.hpp
   requiredBy: []
-  timestamp: '2024-02-04 08:44:45+09:00'
+  timestamp: '2024-04-28 13:30:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/1242.test.cpp
   - test/yukicoder/1211.test.cpp
+  - test/yukicoder/1242.test.cpp
 documentation_of: lib/graph/functional_graph.hpp
 layout: document
 redirect_from:
