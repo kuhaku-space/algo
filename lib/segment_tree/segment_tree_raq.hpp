@@ -1,5 +1,6 @@
+#include <algorithm>
+#include <utility>
 #include "segment_tree/segment_tree.hpp"
-#include "template/template.hpp"
 
 template <class T>
 struct segment_tree_range_add_range_max {

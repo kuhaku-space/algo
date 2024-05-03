@@ -1,5 +1,5 @@
+#include <vector>
 #include "segment_tree/monoid.hpp"
-#include "template/template.hpp"
 
 /**
  * @brief 永続セグメント木
