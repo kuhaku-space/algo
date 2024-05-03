@@ -11,26 +11,26 @@ struct persistent_union_find {
     persistent_union_find(int n) : data(n, -1) {}
 
     int root(int x) const {
-        int y = this->data[x];
-        return y < 0 ? x : this->root(y);
+        int y = data[x];
+        return y < 0 ? x : root(y);
     }
-    int get_root(int x) const { return this->root(x); }
+    int get_root(int x) const { return root(x); }
 
-    bool is_root(int x) const { return this->data[x] < 0; }
+    bool is_root(int x) const { return data[x] < 0; }
 
     persistent_union_find unite(int x, int y) {
-        x = this->root(x), y = this->root(y);
+        x = root(x), y = root(y);
         if (x == y) return *this;
-        int a = this->data[x], b = this->data[y];
+        int a = data[x], b = data[y];
         if (a > b) std::swap(x, y);
-        return persistent_union_find(this->data.set(x, a + b).set(y, x));
+        return persistent_union_find(data.set(x, a + b).set(y, x));
     }
 
-    int size(int x) const { return -(this->data[this->root(x)]); }
-    int get_size(int x) const { return this->size(x); }
+    int size(int x) const { return -(data[root(x)]); }
+    int get_size(int x) const { return size(x); }
 
-    bool same(int x, int y) const { return this->root(x) == this->root(y); }
-    bool is_same(int x, int y) const { return this->same(x, y); }
+    bool same(int x, int y) const { return root(x) == root(y); }
+    bool is_same(int x, int y) const { return same(x, y); }
 
   private:
     persistent_array<int> data;
