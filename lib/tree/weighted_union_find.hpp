@@ -23,6 +23,21 @@ struct weighted_union_find {
         return _weights[t];
     }
 
+    bool same(int x, int y) { return find(x) == find(y); }
+    bool is_same(int x, int y) { return same(x, y); }
+
+    int size(int x) { return -_data[find(x)]; }
+
+    /**
+     * @brief get diff between x and y
+     *
+     * @param x
+     * @param y
+     * @return T v[y] - v[x]
+     */
+    T diff(int x, int y) { return get_weight(y) - get_weight(x); }
+    T get_diff(int x, int y) { return diff(x, y); }
+
     /**
      * @brief v[y] = v[x] + w
      *
@@ -45,19 +60,6 @@ struct weighted_union_find {
         _weights[y] = w;
         return true;
     }
-
-    bool same(int x, int y) { return find(x) == find(y); }
-    bool is_same(int x, int y) { return same(x, y); }
-
-    /**
-     * @brief get diff between x and y
-     *
-     * @param x
-     * @param y
-     * @return T v[y] - v[x]
-     */
-    T diff(int x, int y) { return get_weight(y) - get_weight(x); }
-    T get_diff(int x, int y) { return diff(x, y); }
 
   private:
     std::vector<int> _data;
