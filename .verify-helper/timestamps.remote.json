@@ -126,6 +126,7 @@
 "test/yosupo/polynomial/inv_of_formal_power_series.test.cpp": "2024-05-15 10:29:23 +0900",
 "test/yosupo/polynomial/log_of_formal_power_series.test.cpp": "2024-05-15 10:29:23 +0900",
 "test/yosupo/polynomial/pow_of_formal_power_series.test.cpp": "2024-05-15 10:29:23 +0900",
+"test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp": "2024-05-15 13:22:36 +0900",
 "test/yosupo/sample/a+b.test.cpp": "2021-09-18 15:01:36 +0900",
 "test/yosupo/sample/many_a+b.test.cpp": "2023-10-01 03:35:18 +0900",
 "test/yosupo/string/enumerate_palindromes.test.cpp": "2024-01-23 18:07:39 +0900",
