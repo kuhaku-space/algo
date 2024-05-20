@@ -1,38 +1,38 @@
 #pragma once
-#include "template/template.hpp"
+#include <vector>
 
 template <class T>
 struct persistent_queue {
   private:
-    struct Node {
-        using pointer = Node *;
+    struct _node {
+        using pointer = _node *;
         T val;
         std::vector<pointer> prev;
 
-        Node(T _val) : val(_val), prev() {}
+        _node(T _val) : val(_val), prev() {}
     };
 
   public:
-    using node_pointer = typename Node::pointer;
+    using node_pointer = typename _node::pointer;
 
     constexpr persistent_queue() : _size(), root() {}
     constexpr persistent_queue(int n, node_pointer _root) : _size(n), root(_root) {}
 
-    constexpr int size() const { return this->_size; }
+    constexpr int size() const { return _size; }
 
     T top() const {
-        node_pointer node = this->root;
+        node_pointer node = root;
         int k = 0;
-        while ((this->_size - 1) >> k) {
-            if ((this->_size - 1) >> k & 1) { node = node->prev[k]; }
+        while ((_size - 1) >> k) {
+            if ((_size - 1) >> k & 1) { node = node->prev[k]; }
             ++k;
         }
         return node->val;
     }
-    T front() const { return this->top(); }
+    T front() const { return top(); }
 
     persistent_queue push(T val) const {
-        node_pointer new_node = new Node(val);
+        node_pointer new_node = new _node(val);
         node_pointer node = root;
         new_node->prev.emplace_back(node);
         int k = 0;
@@ -43,9 +43,9 @@ struct persistent_queue {
         }
         return persistent_queue(_size + 1, new_node);
     }
-    persistent_queue emplace(T val) const { return this->push(val); }
+    persistent_queue emplace(T val) const { return push(val); }
 
-    persistent_queue pop() const { return persistent_queue(this->_size - 1, root); }
+    persistent_queue pop() const { return persistent_queue(_size - 1, root); }
 
   private:
     int _size;

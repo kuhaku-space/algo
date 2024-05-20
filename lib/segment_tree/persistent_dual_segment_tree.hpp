@@ -1,5 +1,5 @@
+#include <vector>
 #include "segment_tree/monoid.hpp"
-#include "template/template.hpp"
 
 template <class M>
 struct persistent_dual_segment_tree {

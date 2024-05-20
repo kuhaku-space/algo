@@ -1,31 +1,31 @@
 #pragma once
-#include "template/template.hpp"
+#include <cassert>
 
 template <class T>
 struct persistent_stack {
   private:
-    struct Node {
-        using pointer = Node *;
+    struct _node {
+        using pointer = _node *;
         T val;
         pointer prev;
     };
 
   public:
-    using node_pointer = Node::pointer;
+    using node_pointer = _node::pointer;
 
     constexpr persistent_stack() : root(nullptr) {}
     constexpr persistent_stack(node_pointer _root) : root(_root) {}
 
     T top() const {
-        assert(this->root);
-        return this->root->val;
+        assert(root);
+        return root->val;
     }
 
-    persistent_stack push(T val) const { return persistent_stack(new Node{val, this->root}); }
+    persistent_stack push(T val) const { return persistent_stack(new _node{val, root}); }
 
     persistent_stack pop() const {
-        assert(this->root);
-        return persistent_stack(this->root->prev);
+        assert(root);
+        return persistent_stack(root->prev);
     }
 
   private:

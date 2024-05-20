@@ -1,4 +1,7 @@
-#include "template/template.hpp"
+#include <algorithm>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 /**
  * @brief 部分永続Union-Find

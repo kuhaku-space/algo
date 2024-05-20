@@ -20,8 +20,6 @@ std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b)
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
 
-    int z = (int)internal::bit_ceil((unsigned int)(n + m - 1));
-
     static constexpr std::uint64_t MOD1 = 754974721;  // 2^24
     static constexpr std::uint64_t MOD2 = 167772161;  // 2^25
     static constexpr std::uint64_t MOD3 = 469762049;  // 2^26
@@ -47,7 +45,7 @@ std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b)
     auto c2 = convolution<MOD2>(a, b);
     auto c3 = convolution<MOD3>(a, b);
 
-    std::vector<int> c(n + m - 1);
+    std::vector<T> c(n + m - 1);
     for (int i = 0; i < n + m - 1; ++i) {
         __uint128_t x = (c1[i] * i1) % MOD1 * (__uint128_t)M2M3;
         x += (c2[i] * i2) % MOD2 * (__uint128_t)M1M3;
