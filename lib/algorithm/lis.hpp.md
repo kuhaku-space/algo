@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
-    title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+    path: test/aoj/dpl/longest_increasing_subsequence.test.cpp
+    title: test/aoj/dpl/longest_increasing_subsequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/math/longest_increasing_subsequence.test.cpp
     title: test/yosupo/math/longest_increasing_subsequence.test.cpp
@@ -59,8 +59,8 @@ data:
   timestamp: '2023-11-16 01:25:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/dpl/longest_increasing_subsequence.test.cpp
   - test/yosupo/math/longest_increasing_subsequence.test.cpp
-  - test/aoj/dpl/longest_increasing_subsequense.test.cpp
 documentation_of: lib/algorithm/lis.hpp
 layout: document
 redirect_from:

@@ -27,28 +27,27 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: data_structure/persistent_array.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"data_structure/persistent_array.hpp\"\n#include \"template/template.hpp\"\
-    \n\n/**\n * @brief \u6C38\u7D9AUnion-Find\n *\n */\nstruct persistent_union_find\
-    \ {\n    constexpr persistent_union_find() : data() {}\n    persistent_union_find(const\
+  code: "#include <utility>\n#include \"data_structure/persistent_array.hpp\"\n\n\
+    /**\n * @brief \u6C38\u7D9AUnion-Find\n *\n */\nstruct persistent_union_find {\n\
+    \    constexpr persistent_union_find() : data() {}\n    persistent_union_find(const\
     \ persistent_array<int> &_data) : data(_data) {}\n    persistent_union_find(int\
-    \ n) : data(n, -1) {}\n\n    int root(int x) const {\n        int y = this->data[x];\n\
-    \        return y < 0 ? x : this->root(y);\n    }\n    int get_root(int x) const\
-    \ { return this->root(x); }\n\n    bool is_root(int x) const { return this->data[x]\
-    \ < 0; }\n\n    persistent_union_find unite(int x, int y) {\n        x = this->root(x),\
-    \ y = this->root(y);\n        if (x == y) return *this;\n        int a = this->data[x],\
-    \ b = this->data[y];\n        if (a > b) std::swap(x, y);\n        return persistent_union_find(this->data.set(x,\
-    \ a + b).set(y, x));\n    }\n\n    int size(int x) const { return -(this->data[this->root(x)]);\
-    \ }\n    int get_size(int x) const { return this->size(x); }\n\n    bool same(int\
-    \ x, int y) const { return this->root(x) == this->root(y); }\n    bool is_same(int\
-    \ x, int y) const { return this->same(x, y); }\n\n  private:\n    persistent_array<int>\
-    \ data;\n};\n"
+    \ n) : data(n, -1) {}\n\n    int root(int x) const {\n        int y = data[x];\n\
+    \        return y < 0 ? x : root(y);\n    }\n    int get_root(int x) const { return\
+    \ root(x); }\n\n    bool is_root(int x) const { return data[x] < 0; }\n\n    persistent_union_find\
+    \ unite(int x, int y) {\n        x = root(x), y = root(y);\n        if (x == y)\
+    \ return *this;\n        int a = data[x], b = data[y];\n        if (a > b) std::swap(x,\
+    \ y);\n        return persistent_union_find(data.set(x, a + b).set(y, x));\n \
+    \   }\n\n    int size(int x) const { return -(data[root(x)]); }\n    int get_size(int\
+    \ x) const { return size(x); }\n\n    bool same(int x, int y) const { return root(x)\
+    \ == root(y); }\n    bool is_same(int x, int y) const { return same(x, y); }\n\
+    \n  private:\n    persistent_array<int> data;\n};\n"
   dependsOn:
   - lib/data_structure/persistent_array.hpp
   - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/persistent_union_find.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2024-05-04 03:07:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/persistent_union_find.test.cpp

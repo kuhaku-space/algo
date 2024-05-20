@@ -52,8 +52,7 @@ data:
     \ 998244353, class T,\r\n          std::enable_if_t<std::is_integral<T>::value>\
     \ * = nullptr>\r\nstd::vector<T> convolution_mod(const std::vector<T> &a, const\
     \ std::vector<T> &b) {\r\n    int n = int(a.size()), m = int(b.size());\r\n  \
-    \  if (!n || !m) return {};\r\n\r\n    int z = (int)internal::bit_ceil((unsigned\
-    \ int)(n + m - 1));\r\n\r\n    static constexpr std::uint64_t MOD1 = 754974721;\
+    \  if (!n || !m) return {};\r\n\r\n    static constexpr std::uint64_t MOD1 = 754974721;\
     \  // 2^24\r\n    static constexpr std::uint64_t MOD2 = 167772161;  // 2^25\r\n\
     \    static constexpr std::uint64_t MOD3 = 469762049;  // 2^26\r\n    static constexpr\
     \ std::uint64_t M2M3 = MOD2 * MOD3;\r\n    static constexpr std::uint64_t M1M3\
@@ -70,8 +69,8 @@ data:
     \  \"MOD3 isn't enough to support an array length of 2^24.\");\r\n    assert(n\
     \ + m - 1 <= (1 << MAX_AB_BIT));\r\n\r\n    auto c1 = convolution<MOD1>(a, b);\r\
     \n    auto c2 = convolution<MOD2>(a, b);\r\n    auto c3 = convolution<MOD3>(a,\
-    \ b);\r\n\r\n    std::vector<int> c(n + m - 1);\r\n    for (int i = 0; i < n +\
-    \ m - 1; ++i) {\r\n        __uint128_t x = (c1[i] * i1) % MOD1 * (__uint128_t)M2M3;\r\
+    \ b);\r\n\r\n    std::vector<T> c(n + m - 1);\r\n    for (int i = 0; i < n + m\
+    \ - 1; ++i) {\r\n        __uint128_t x = (c1[i] * i1) % MOD1 * (__uint128_t)M2M3;\r\
     \n        x += (c2[i] * i2) % MOD2 * (__uint128_t)M1M3;\r\n        if (x >= M1M2M3)\
     \ x -= M1M2M3;\r\n        x += (c3[i] * i3) % MOD3 * (__uint128_t)M1M2;\r\n  \
     \      if (x >= M1M2M3) x -= M1M2M3;\r\n        c[i] = x % mod;\r\n    }\r\n\r\
@@ -87,7 +86,7 @@ data:
   isVerificationFile: false
   path: lib/fft/ntt_mod.hpp
   requiredBy: []
-  timestamp: '2024-04-28 13:30:09+09:00'
+  timestamp: '2024-05-15 10:18:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution/convolution_mod.test.cpp

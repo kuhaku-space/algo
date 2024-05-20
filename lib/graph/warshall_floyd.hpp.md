@@ -41,7 +41,7 @@ data:
   isVerificationFile: false
   path: lib/graph/warshall_floyd.hpp
   requiredBy: []
-  timestamp: '2023-10-01 03:35:18+09:00'
+  timestamp: '2024-05-03 20:12:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/jag/hopcroft_karp.test.cpp

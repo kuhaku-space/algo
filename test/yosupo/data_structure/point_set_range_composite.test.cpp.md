@@ -59,7 +59,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/data_structure/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/point_set_range_composite.test.cpp

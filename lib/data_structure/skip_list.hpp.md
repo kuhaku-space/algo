@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/random/xorshift.hpp
     title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -27,24 +24,24 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: random/xorshift.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"random/xorshift.hpp\"\n#include \"template/template.hpp\"\n\n\
-    /**\n * @brief \u30B9\u30AD\u30C3\u30D7\u30EA\u30B9\u30C8\n *\n * @tparam T \u8981\
-    \u7D20\u306E\u578B\n * @tparam B \u30EA\u30F3\u30AF\u30B5\u30A4\u30BA\n * @tparam\
-    \ UniformRandomBitGenerator \u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668\n */\n\
-    template <class T, int B = 20, class UniformRandomBitGenerator = Xorshift>\nstruct\
-    \ skip_list {\n  private:\n    struct _node {\n        using pointer = _node *;\n\
-    \        T val;\n        pointer itr[B];\n\n        constexpr _node() : val(),\
-    \ itr{} {}\n        constexpr _node(const T &_val) : val(_val), itr{} {}\n   \
-    \     constexpr _node(T &&_val) : val(std::move(_val)), itr{} {}\n        template\
-    \ <typename... Args>\n        constexpr _node(Args &&...args) : val(std::forward<Args>(args)...),\
-    \ itr{} {}\n    };\n\n  public:\n    using node_ptr = typename _node::pointer;\n\
-    \n    skip_list() : head(), gen() { head = new _node(); }\n\n    template <typename...\
-    \ Args>\n    void emplace(Args &&...args) {\n        node_ptr new_node = new _node(std::forward<Args>(args)...);\n\
-    \        insert_node(new_node);\n    }\n    void insert(const T &val) {\n    \
-    \    node_ptr new_node = new _node(val);\n        insert_node(new_node);\n   \
-    \ }\n    void insert(T &&val) {\n        node_ptr new_node = new _node(val);\n\
-    \        insert_node(new_node);\n    }\n\n    void erase(const T &val) {\n   \
-    \     node_ptr delete_node = select_delete_node(val);\n        if (!delete_node)\
+  code: "#include \"random/xorshift.hpp\"\n\n/**\n * @brief \u30B9\u30AD\u30C3\u30D7\
+    \u30EA\u30B9\u30C8\n *\n * @tparam T \u8981\u7D20\u306E\u578B\n * @tparam B \u30EA\
+    \u30F3\u30AF\u30B5\u30A4\u30BA\n * @tparam UniformRandomBitGenerator \u64EC\u4F3C\
+    \u4E71\u6570\u751F\u6210\u5668\n */\ntemplate <class T, int B = 20, class UniformRandomBitGenerator\
+    \ = Xorshift>\nstruct skip_list {\n  private:\n    struct _node {\n        using\
+    \ pointer = _node *;\n        T val;\n        pointer itr[B];\n\n        constexpr\
+    \ _node() : val(), itr{} {}\n        constexpr _node(const T &_val) : val(_val),\
+    \ itr{} {}\n        constexpr _node(T &&_val) : val(std::move(_val)), itr{} {}\n\
+    \        template <typename... Args>\n        constexpr _node(Args &&...args)\
+    \ : val(std::forward<Args>(args)...), itr{} {}\n    };\n\n  public:\n    using\
+    \ node_ptr = typename _node::pointer;\n\n    skip_list() : head(), gen() { head\
+    \ = new _node(); }\n\n    template <typename... Args>\n    void emplace(Args &&...args)\
+    \ {\n        node_ptr new_node = new _node(std::forward<Args>(args)...);\n   \
+    \     insert_node(new_node);\n    }\n    void insert(const T &val) {\n       \
+    \ node_ptr new_node = new _node(val);\n        insert_node(new_node);\n    }\n\
+    \    void insert(T &&val) {\n        node_ptr new_node = new _node(val);\n   \
+    \     insert_node(new_node);\n    }\n\n    void erase(const T &val) {\n      \
+    \  node_ptr delete_node = select_delete_node(val);\n        if (!delete_node)\
     \ return;\n        node_ptr node = head;\n        for (int i = B - 1; i >= 0;\
     \ --i) {\n            while (node->itr[i] && node->itr[i]->val < val) node = node->itr[i];\n\
     \            if (node->itr[i] == delete_node) node->itr[i] = node->itr[i]->itr[i];\n\
@@ -72,11 +69,10 @@ data:
     \ == val ? node->itr[0] : nullptr;\n    }\n};\n"
   dependsOn:
   - lib/random/xorshift.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/skip_list.hpp
   requiredBy: []
-  timestamp: '2023-10-02 03:03:19+09:00'
+  timestamp: '2024-05-03 19:32:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/itp2/skip_list.test.cpp

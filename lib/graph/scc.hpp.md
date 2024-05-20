@@ -73,9 +73,9 @@ data:
   timestamp: '2024-04-17 13:21:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/scc.test.cpp
   - test/yosupo/graph/strongly_connected_components.test.cpp
   - test/yosupo/math/two_sat.test.cpp
-  - test/aoj/grl/scc.test.cpp
 documentation_of: lib/graph/scc.hpp
 layout: document
 redirect_from:

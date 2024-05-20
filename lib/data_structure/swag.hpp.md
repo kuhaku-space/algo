@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -26,25 +23,23 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/monoid.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\n#include \"segment_tree/monoid.hpp\"\n#include \"template/template.hpp\"\
-    \n\ntemplate <class M>\nstruct sliding_window_aggregation {\n  private:\n    using\
+  code: "#pragma once\n#include <stack>\n#include \"segment_tree/monoid.hpp\"\n\n\
+    template <class M>\nstruct sliding_window_aggregation {\n  private:\n    using\
     \ T = typename M::value_type;\n\n  public:\n    sliding_window_aggregation() :\
-    \ back_total(M::id), front(), back() {\n        this->front.emplace(M::id);\n\
-    \    }\n\n    T top() const { return M::op(this->back_total, this->front.top());\
-    \ }\n\n    void emplace(T val) {\n        this->back.emplace(val);\n        this->back_total\
-    \ = M::op(val, back_total);\n    }\n    void push(T val) { this->emplace(val);\
-    \ }\n\n    void pop() {\n        if (this->front.size() == 1) {\n            while\
-    \ (!this->back.empty()) {\n                this->front.emplace(M::op(this->front.top(),\
-    \ this->back.top()));\n                this->back.pop();\n            }\n    \
-    \        this->back_total = M::id;\n        }\n        this->front.pop();\n  \
-    \  }\n\n  private:\n    T back_total;\n    std::stack<T> front, back;\n};\n"
+    \ back_total(M::id), front(), back() { front.emplace(M::id); }\n\n    T top()\
+    \ const { return M::op(back_total, front.top()); }\n\n    void emplace(T val)\
+    \ {\n        back.emplace(val);\n        back_total = M::op(val, back_total);\n\
+    \    }\n    void push(T val) { emplace(val); }\n\n    void pop() {\n        if\
+    \ (front.size() == 1) {\n            while (!back.empty()) {\n               \
+    \ front.emplace(M::op(front.top(), back.top()));\n                back.pop();\n\
+    \            }\n            back_total = M::id;\n        }\n        front.pop();\n\
+    \    }\n\n  private:\n    T back_total;\n    std::stack<T> front, back;\n};\n"
   dependsOn:
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/data_structure/swag.hpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/queue_operate_all_composite.test.cpp

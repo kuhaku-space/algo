@@ -26,21 +26,20 @@ data:
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D\"\n#include\
     \ <algorithm>\n#include <iostream>\n#include <iterator>\n#include <vector>\n#include\
     \ \"algorithm/lis.hpp\"\n\nint main(void) {\n    int n;\n    std::cin >> n;\n\
-    \    std::vector<int> a(n);\n    std::copy_n(std::istream_iterator<int>(std::cin),\
-    \ n, std::begin(a));\n    std::cout << longest_increasing_subsequence(a) << std::endl;\n\
-    \n    return 0;\n}\n"
+    \    std::vector<int> a(n);\n    for (int &e : a) std::cin >> e;\n    std::cout\
+    \ << longest_increasing_subsequence(a) << std::endl;\n\n    return 0;\n}\n"
   dependsOn:
   - lib/algorithm/lis.hpp
   isVerificationFile: true
-  path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+  path: test/aoj/dpl/longest_increasing_subsequence.test.cpp
   requiredBy: []
-  timestamp: '2023-11-16 01:25:21+09:00'
+  timestamp: '2024-05-15 13:33:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+documentation_of: test/aoj/dpl/longest_increasing_subsequence.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/dpl/longest_increasing_subsequense.test.cpp
-- /verify/test/aoj/dpl/longest_increasing_subsequense.test.cpp.html
-title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+- /verify/test/aoj/dpl/longest_increasing_subsequence.test.cpp
+- /verify/test/aoj/dpl/longest_increasing_subsequence.test.cpp.html
+title: test/aoj/dpl/longest_increasing_subsequence.test.cpp
 ---

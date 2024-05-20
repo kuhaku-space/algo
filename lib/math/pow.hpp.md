@@ -54,8 +54,8 @@ data:
   isVerificationFile: false
   path: lib/math/pow.hpp
   requiredBy:
-  - lib/math/primitive_root.hpp
   - lib/math/math.hpp
+  - lib/math/primitive_root.hpp
   timestamp: '2024-04-17 14:43:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

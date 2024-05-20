@@ -61,8 +61,8 @@ data:
   timestamp: '2024-01-14 19:57:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/undo_union_find.test.cpp
   - test/aoj/joi/undo_union_find.test.cpp
+  - test/yosupo/data_structure/undo_union_find.test.cpp
 documentation_of: lib/tree/undo_union_find.hpp
 layout: document
 redirect_from:

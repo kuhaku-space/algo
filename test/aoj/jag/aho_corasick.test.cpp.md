@@ -17,9 +17,6 @@ data:
     path: lib/string/aho_corasick.hpp
     title: "Aho Corasick \u6CD5"
   - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
-  - icon: ':heavy_check_mark:'
     path: lib/tree/tree_function.hpp
     title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
   _extendedRequiredBy: []
@@ -65,11 +62,10 @@ data:
   - lib/internal/internal_type_traits.hpp
   - lib/tree/tree_function.hpp
   - lib/graph/graph.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/jag/aho_corasick.test.cpp
   requiredBy: []
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-05-04 03:21:35+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/aho_corasick.test.cpp

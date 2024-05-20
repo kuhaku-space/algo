@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
   - icon: ':heavy_check_mark:'
@@ -57,6 +57,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/addition_of_big_integers.test.cpp
     title: test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+    title: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -72,8 +87,8 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_fft.hpp:\
     \ line -1: no such header\n"
-  code: "#include <algorithm>\r\n#include <cassert>\r\n#include <type_traits>\r\n\
-    #include <vector>\r\n#include \"internal/internal_fft.hpp\"\r\n#include \"template/template.hpp\"\
+  code: "#pragma once\r\n#include <algorithm>\r\n#include <cassert>\r\n#include <type_traits>\r\
+    \n#include <vector>\r\n#include \"internal/internal_fft.hpp\"\r\n#include \"template/template.hpp\"\
     \r\n\r\n/**\r\n * @brief \u7573\u307F\u8FBC\u307F\r\n *\r\n * @tparam mint\r\n\
     \ * @param a\r\n * @param b\r\n * @return std::vector<mint>\r\n */\r\ntemplate\
     \ <class mint, internal::is_static_modint_t<mint> * = nullptr>\r\nstd::vector<mint>\
@@ -137,18 +152,23 @@ data:
   - lib/data_structure/bigint.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
-  timestamp: '2024-04-28 13:30:09+09:00'
+  timestamp: '2024-05-15 10:18:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+  - test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
   - test/yosupo/convolution/convolution.test.cpp
   - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/addition.test.cpp
 documentation_of: lib/fft/ntt.hpp
 layout: document
 redirect_from:

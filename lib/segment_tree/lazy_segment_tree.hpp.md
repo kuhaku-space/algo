@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -40,8 +37,8 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_bit.hpp:\
     \ line -1: no such header\n"
-  code: "#pragma once\r\n#include \"internal/internal_bit.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\
-    \r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u9045\u5EF6\u8A55\
+  code: "#pragma once\r\n#include <cassert>\r\n#include <vector>\r\n#include \"internal/internal_bit.hpp\"\
+    \r\n#include \"segment_tree/monoid.hpp\"\r\n\r\n/**\r\n * @brief \u9045\u5EF6\u8A55\
     \u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\r\n * @see https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp\r\
     \n *\r\n * @tparam S \u30E2\u30CE\u30A4\u30C9\r\n * @tparam F \u30E2\u30CE\u30A4\
     \u30C9\r\n */\r\ntemplate <class S, class F>\r\nstruct lazy_segment_tree {\r\n\
@@ -90,17 +87,16 @@ data:
   dependsOn:
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/segment_tree/lazy_segment_tree.hpp
   requiredBy: []
-  timestamp: '2024-02-21 23:45:35+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/aoj/rupc/lazy_segment_tree.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
   - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
 documentation_of: lib/segment_tree/lazy_segment_tree.hpp
 layout: document
 redirect_from:

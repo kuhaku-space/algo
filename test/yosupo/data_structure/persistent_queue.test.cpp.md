@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/persistent_queue.hpp
     title: lib/data_structure/persistent_queue.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -37,11 +34,10 @@ data:
     \       }\n    }\n\n    return 0;\n}\n"
   dependsOn:
   - lib/data_structure/persistent_queue.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/persistent_queue.test.cpp
   requiredBy: []
-  timestamp: '2023-11-15 06:42:05+09:00'
+  timestamp: '2024-05-03 19:27:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/persistent_queue.test.cpp

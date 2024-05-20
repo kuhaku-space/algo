@@ -16,9 +16,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -51,14 +48,13 @@ data:
   dependsOn:
   - lib/data_structure/swag.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   - lib/math/modint.hpp
   - lib/internal/internal_math.hpp
   - lib/internal/internal_type_traits.hpp
   isVerificationFile: true
   path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   requiredBy: []
-  timestamp: '2024-04-17 14:43:31+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/data_structure/queue_operate_all_composite.test.cpp

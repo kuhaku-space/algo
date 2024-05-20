@@ -118,8 +118,8 @@ data:
   timestamp: '2024-04-23 13:47:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/ntl/prime_factorize.test.cpp
   - test/aoj/alds1/prime_numbers.test.cpp
+  - test/aoj/ntl/prime_factorize.test.cpp
 documentation_of: lib/math/prime_number.hpp
 layout: document
 redirect_from:

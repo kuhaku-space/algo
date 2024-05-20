@@ -10,11 +10,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/math/modint.hpp
     title: lib/math/modint.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: lib/fft/formal_power_series.hpp
+    title: lib/fft/formal_power_series.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/math/sqrt_mod.test.cpp
     title: test/yosupo/math/sqrt_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -46,10 +61,15 @@ data:
   - lib/internal/internal_type_traits.hpp
   isVerificationFile: false
   path: lib/math/sqrt.hpp
-  requiredBy: []
+  requiredBy:
+  - lib/fft/formal_power_series.hpp
   timestamp: '2024-04-17 14:43:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
   - test/yosupo/math/sqrt_mod.test.cpp
 documentation_of: lib/math/sqrt.hpp
 layout: document

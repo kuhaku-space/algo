@@ -99,11 +99,11 @@ data:
   path: lib/segment_tree/dynamic_segment_tree.hpp
   requiredBy:
   - lib/segment_tree/segment_tree_2d.hpp
-  timestamp: '2024-04-28 13:30:09+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/aoj/dsl/dynamic_rmq.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
 documentation_of: lib/segment_tree/dynamic_segment_tree.hpp
 layout: document
 redirect_from:

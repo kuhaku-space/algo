@@ -13,9 +13,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree_raq.hpp
     title: lib/segment_tree/segment_tree_raq.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -48,11 +45,10 @@ data:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/dsl/raq_rmq.test.cpp
   requiredBy: []
-  timestamp: '2024-02-27 00:57:12+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/raq_rmq.test.cpp

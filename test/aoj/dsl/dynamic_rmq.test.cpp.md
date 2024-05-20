@@ -38,7 +38,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/dynamic_rmq.test.cpp
   requiredBy: []
-  timestamp: '2024-04-28 13:30:09+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dynamic_rmq.test.cpp

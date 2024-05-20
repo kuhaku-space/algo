@@ -4,9 +4,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/graph.hpp
     title: "\u91CD\u307F\u4ED8\u304D\u30B0\u30E9\u30D5"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -30,7 +27,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: graph/graph.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"graph/graph.hpp\"\n#include \"template/template.hpp\"\n\ntemplate\
+  code: "#include <stack>\n#include <vector>\n#include \"graph/graph.hpp\"\n\ntemplate\
     \ <class T>\nstd::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {\n    int\
     \ pos = 0;\n    std::vector<int> res;\n    std::vector<bool> visited(g.size());\n\
     \    res.emplace_back(r);\n    visited[r] = true;\n    while (pos < (int)res.size())\
@@ -75,15 +72,14 @@ data:
     \    return res;\n}\n"
   dependsOn:
   - lib/graph/graph.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/tree/tree_function.hpp
   requiredBy: []
-  timestamp: '2023-10-12 00:40:28+09:00'
+  timestamp: '2024-05-04 03:21:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/tree/tree_diameter.test.cpp
   - test/aoj/jag/aho_corasick.test.cpp
+  - test/yosupo/tree/tree_diameter.test.cpp
 documentation_of: lib/tree/tree_function.hpp
 layout: document
 redirect_from:

@@ -85,7 +85,7 @@ data:
   isVerificationFile: false
   path: lib/tree/link_cut_tree.hpp
   requiredBy: []
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp

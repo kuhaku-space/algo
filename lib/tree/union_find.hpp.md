@@ -89,18 +89,18 @@ data:
   isVerificationFile: false
   path: lib/tree/union_find.hpp
   requiredBy:
-  - lib/graph/kruskal.hpp
   - lib/graph/functional_graph.hpp
+  - lib/graph/kruskal.hpp
   timestamp: '2024-04-27 16:36:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/unionfind.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
-  - test/yukicoder/1211.test.cpp
-  - test/yukicoder/1242.test.cpp
-  - test/aoj/dsl/union_find.test.cpp
   - test/aoj/jag/dsu_on_tree.test.cpp
+  - test/aoj/dsl/union_find.test.cpp
   - test/aoj/grl/kruskal.test.cpp
+  - test/yukicoder/1242.test.cpp
+  - test/yukicoder/1211.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
+  - test/yosupo/data_structure/unionfind.test.cpp
 documentation_of: lib/tree/union_find.hpp
 layout: document
 redirect_from:

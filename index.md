@@ -115,7 +115,7 @@ data:
     - icon: ':warning:'
       path: lib/fft/fft_mod.hpp
       title: lib/fft/fft_mod.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: lib/fft/formal_power_series.hpp
       title: lib/fft/formal_power_series.hpp
     - icon: ':warning:'
@@ -511,8 +511,8 @@ data:
       path: test/aoj/dpl/bell.test.cpp
       title: test/aoj/dpl/bell.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/aoj/dpl/longest_increasing_subsequense.test.cpp
-      title: test/aoj/dpl/longest_increasing_subsequense.test.cpp
+      path: test/aoj/dpl/longest_increasing_subsequence.test.cpp
+      title: test/aoj/dpl/longest_increasing_subsequence.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/dpl/stirling.test.cpp
       title: test/aoj/dpl/stirling.test.cpp
@@ -855,6 +855,23 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/matrix/matrix_product.test.cpp
       title: test/yosupo/matrix/matrix_product.test.cpp
+  - name: test/yosupo/polynomial
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+      title: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+      title: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+      title: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+      title: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+      title: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
   - name: test/yosupo/sample
     pages:
     - icon: ':heavy_check_mark:'

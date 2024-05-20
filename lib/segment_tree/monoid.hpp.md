@@ -100,42 +100,11 @@ data:
     \ value_type = T;\n    static constexpr T id = T(0);\n    static constexpr T op(const\
     \ T &lhs, const T &rhs) { return lhs + rhs; }\n\n    template <class U>\n    static\
     \ constexpr U f(T lhs, U rhs) {\n        return lhs + rhs;\n    }\n};\n\ntemplate\
-    \ <class T>\nstruct And {\n    using value_type = T;\n    static constexpr T id\
-    \ = std::numeric_limits<T>::max();\n    static constexpr T op(const T &lhs, const\
-    \ T &rhs) { return lhs & rhs; }\n\n    template <class U>\n    static constexpr\
-    \ U f(T lhs, U rhs) {\n        return lhs & rhs;\n    }\n};\n\ntemplate <class\
-    \ T>\nstruct Or {\n    using value_type = T;\n    static constexpr T id = T(0);\n\
-    \    static constexpr T op(const T &lhs, const T &rhs) { return lhs | rhs; }\n\
-    \n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return\
-    \ lhs | rhs;\n    }\n};\n\ntemplate <class T>\nstruct Xor {\n    using value_type\
-    \ = T;\n    static constexpr T id = T(0);\n    static constexpr T op(const T &lhs,\
-    \ const T &rhs) { return lhs ^ rhs; }\n\n    template <class U>\n    static constexpr\
-    \ U f(T lhs, U rhs) {\n        return lhs ^ rhs;\n    }\n};\n\ntemplate <class\
-    \ T>\nstruct Min {\n    using value_type = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n\
-    \    static constexpr T op(const T &lhs, const T &rhs) { return std::min(lhs,\
-    \ rhs); }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n\
-    \        return std::min((U)lhs, rhs);\n    }\n};\n\ntemplate <class T>\nstruct\
-    \ Max {\n    using value_type = T;\n    static constexpr T id = std::numeric_limits<T>::min();\n\
-    \    static constexpr T op(const T &lhs, const T &rhs) { return std::max(lhs,\
-    \ rhs); }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n\
-    \        return std::max((U)lhs, rhs);\n    }\n};\n\ntemplate <class T>\nstruct\
-    \ Update {\n    using value_type = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n\
-    \    static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id\
-    \ ? rhs : lhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U\
-    \ rhs) {\n        return lhs == Update::id ? rhs : lhs;\n    }\n};\n\ntemplate\
-    \ <class T>\nstruct Affine {\n    using value_type = std::pair<T, T>;\n    static\
-    \ constexpr std::pair<T, T> id = std::pair<T, T>(1, 0);\n    static constexpr\
-    \ std::pair<T, T> op(std::pair<T, T> lhs, std::pair<T, T> rhs) {\n        return\
-    \ {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};\n    }\n};\n\n\
-    template <class M>\nstruct Rev {\n    using T = typename M::value_type;\n    using\
-    \ value_type = T;\n    static constexpr T id = M::id;\n    static constexpr T\
-    \ op(T lhs, T rhs) { return M::op(rhs, lhs); }\n};\n"
-  code: "#pragma once\n#include <algorithm>\n#include <limits>\n#include <utility>\n\
-    \ntemplate <class T>\nstruct Add {\n    using value_type = T;\n    static constexpr\
-    \ T id = T(0);\n    static constexpr T op(const T &lhs, const T &rhs) { return\
-    \ lhs + rhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs)\
-    \ {\n        return lhs + rhs;\n    }\n};\n\ntemplate <class T>\nstruct And {\n\
-    \    using value_type = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n\
+    \ <class T>\nstruct Mul {\n    using value_type = T;\n    static constexpr T id\
+    \ = T(1);\n    static constexpr T op(const T &lhs, const T &rhs) { return lhs\
+    \ * rhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n\
+    \        return lhs * rhs;\n    }\n};\n\ntemplate <class T>\nstruct And {\n  \
+    \  using value_type = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n\
     \    static constexpr T op(const T &lhs, const T &rhs) { return lhs & rhs; }\n\
     \n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return\
     \ lhs & rhs;\n    }\n};\n\ntemplate <class T>\nstruct Or {\n    using value_type\
@@ -165,42 +134,81 @@ data:
     template <class M>\nstruct Rev {\n    using T = typename M::value_type;\n    using\
     \ value_type = T;\n    static constexpr T id = M::id;\n    static constexpr T\
     \ op(T lhs, T rhs) { return M::op(rhs, lhs); }\n};\n"
+  code: "#pragma once\n#include <algorithm>\n#include <limits>\n#include <utility>\n\
+    \ntemplate <class T>\nstruct Add {\n    using value_type = T;\n    static constexpr\
+    \ T id = T(0);\n    static constexpr T op(const T &lhs, const T &rhs) { return\
+    \ lhs + rhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs)\
+    \ {\n        return lhs + rhs;\n    }\n};\n\ntemplate <class T>\nstruct Mul {\n\
+    \    using value_type = T;\n    static constexpr T id = T(1);\n    static constexpr\
+    \ T op(const T &lhs, const T &rhs) { return lhs * rhs; }\n\n    template <class\
+    \ U>\n    static constexpr U f(T lhs, U rhs) {\n        return lhs * rhs;\n  \
+    \  }\n};\n\ntemplate <class T>\nstruct And {\n    using value_type = T;\n    static\
+    \ constexpr T id = std::numeric_limits<T>::max();\n    static constexpr T op(const\
+    \ T &lhs, const T &rhs) { return lhs & rhs; }\n\n    template <class U>\n    static\
+    \ constexpr U f(T lhs, U rhs) {\n        return lhs & rhs;\n    }\n};\n\ntemplate\
+    \ <class T>\nstruct Or {\n    using value_type = T;\n    static constexpr T id\
+    \ = T(0);\n    static constexpr T op(const T &lhs, const T &rhs) { return lhs\
+    \ | rhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n\
+    \        return lhs | rhs;\n    }\n};\n\ntemplate <class T>\nstruct Xor {\n  \
+    \  using value_type = T;\n    static constexpr T id = T(0);\n    static constexpr\
+    \ T op(const T &lhs, const T &rhs) { return lhs ^ rhs; }\n\n    template <class\
+    \ U>\n    static constexpr U f(T lhs, U rhs) {\n        return lhs ^ rhs;\n  \
+    \  }\n};\n\ntemplate <class T>\nstruct Min {\n    using value_type = T;\n    static\
+    \ constexpr T id = std::numeric_limits<T>::max();\n    static constexpr T op(const\
+    \ T &lhs, const T &rhs) { return std::min(lhs, rhs); }\n\n    template <class\
+    \ U>\n    static constexpr U f(T lhs, U rhs) {\n        return std::min((U)lhs,\
+    \ rhs);\n    }\n};\n\ntemplate <class T>\nstruct Max {\n    using value_type =\
+    \ T;\n    static constexpr T id = std::numeric_limits<T>::min();\n    static constexpr\
+    \ T op(const T &lhs, const T &rhs) { return std::max(lhs, rhs); }\n\n    template\
+    \ <class U>\n    static constexpr U f(T lhs, U rhs) {\n        return std::max((U)lhs,\
+    \ rhs);\n    }\n};\n\ntemplate <class T>\nstruct Update {\n    using value_type\
+    \ = T;\n    static constexpr T id = std::numeric_limits<T>::max();\n    static\
+    \ constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs\
+    \ : lhs; }\n\n    template <class U>\n    static constexpr U f(T lhs, U rhs) {\n\
+    \        return lhs == Update::id ? rhs : lhs;\n    }\n};\n\ntemplate <class T>\n\
+    struct Affine {\n    using value_type = std::pair<T, T>;\n    static constexpr\
+    \ std::pair<T, T> id = std::pair<T, T>(1, 0);\n    static constexpr std::pair<T,\
+    \ T> op(std::pair<T, T> lhs, std::pair<T, T> rhs) {\n        return {lhs.first\
+    \ * rhs.first, lhs.first * rhs.second + lhs.second};\n    }\n};\n\ntemplate <class\
+    \ M>\nstruct Rev {\n    using T = typename M::value_type;\n    using value_type\
+    \ = T;\n    static constexpr T id = M::id;\n    static constexpr T op(T lhs, T\
+    \ rhs) { return M::op(rhs, lhs); }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: lib/segment_tree/monoid.hpp
   requiredBy:
+  - lib/data_structure/swag.hpp
   - lib/binary_tree/range_tree.hpp
-  - lib/segment_tree/persistent_segment_tree.hpp
+  - lib/segment_tree/segment_tree_raq.hpp
   - lib/segment_tree/segment_tree_2d.hpp
+  - lib/segment_tree/persistent_segment_tree.hpp
   - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/dynamic_segment_tree.hpp
+  - lib/segment_tree/segment_tree.hpp
   - lib/segment_tree/persistent_dual_segment_tree.hpp
   - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
-  - lib/data_structure/swag.hpp
   - lib/tree/link_cut_tree.hpp
-  timestamp: '2023-10-01 20:21:13+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/aoj/rupc/lazy_segment_tree.test.cpp
+  - test/aoj/dsl/raq_rmq.test.cpp
+  - test/aoj/dsl/rmq.2.test.cpp
+  - test/aoj/dsl/rmq.test.cpp
+  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/aoj/dsl/rmq_ruq.test.cpp
+  - test/aoj/dsl/dynamic_rmq.test.cpp
+  - test/aoj/dsl/ruq.test.cpp
+  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
   - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
   - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/static_rmq.test.cpp
-  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
-  - test/yosupo/data_structure/static_rmq.2.test.cpp
   - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
-  - test/aoj/rupc/lazy_segment_tree.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq.2.test.cpp
-  - test/aoj/dsl/dynamic_rmq.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/rmq.test.cpp
-  - test/aoj/dsl/rsq_ruq.test.cpp
+  - test/yosupo/data_structure/static_rmq.2.test.cpp
+  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
+  - test/yosupo/data_structure/point_set_range_composite.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp
 documentation_of: lib/segment_tree/monoid.hpp
 layout: document
 redirect_from:

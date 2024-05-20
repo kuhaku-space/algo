@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/matrix_graph.hpp
     title: "\u96A3\u63A5\u884C\u5217"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -36,11 +33,10 @@ data:
   dependsOn:
   - lib/graph/chromatic_number.hpp
   - lib/graph/matrix_graph.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/yosupo/graph/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2024-04-28 13:30:09+09:00'
+  timestamp: '2024-05-03 20:12:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/graph/chromatic_number.test.cpp

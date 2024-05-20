@@ -103,8 +103,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/range_kth_smallest.2.test.cpp
-  - test/yosupo/data_structure/range_kth_smallest.test.cpp
   - test/yosupo/data_structure/static_range_frequency.test.cpp
+  - test/yosupo/data_structure/range_kth_smallest.test.cpp
 documentation_of: lib/data_structure/wavelet_matrix.hpp
 layout: document
 redirect_from:

@@ -8,28 +8,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/persistent_array.hpp
     title: "\u6C38\u7D9A\u914D\u5217"
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/persistent_queue.hpp
-    title: lib/data_structure/persistent_queue.hpp
-  - icon: ':warning:'
-    path: lib/data_structure/persistent_stack.hpp
-    title: lib/data_structure/persistent_stack.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/skip_list.hpp
-    title: "\u30B9\u30AD\u30C3\u30D7\u30EA\u30B9\u30C8"
-  - icon: ':heavy_check_mark:'
-    path: lib/data_structure/swag.hpp
-    title: lib/data_structure/swag.hpp
-  - icon: ':warning:'
-    path: lib/data_structure/undo_deque.hpp
-    title: lib/data_structure/undo_deque.hpp
   - icon: ':warning:'
     path: lib/fft/fft.hpp
     title: lib/fft/fft.hpp
   - icon: ':warning:'
     path: lib/fft/fft_mod.hpp
     title: lib/fft/fft_mod.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
   - icon: ':heavy_check_mark:'
@@ -51,9 +36,6 @@ data:
     path: lib/graph/bellman_ford.hpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
   - icon: ':heavy_check_mark:'
-    path: lib/graph/chromatic_number.hpp
-    title: "\u5F69\u8272\u6570\u3092\u6C42\u3081\u308B"
-  - icon: ':heavy_check_mark:'
     path: lib/graph/cycle.hpp
     title: "\u9589\u8DEF\u691C\u51FA"
   - icon: ':heavy_check_mark:'
@@ -69,9 +51,6 @@ data:
     path: lib/graph/lowlink.hpp
     title: LowLink
   - icon: ':heavy_check_mark:'
-    path: lib/graph/matrix_graph.hpp
-    title: "\u96A3\u63A5\u884C\u5217"
-  - icon: ':heavy_check_mark:'
     path: lib/graph/maximum_independent_set.hpp
     title: "\u6700\u5927\u72EC\u7ACB\u96C6\u5408"
   - icon: ':heavy_check_mark:'
@@ -80,30 +59,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/graph/warshall_floyd.hpp
     title: lib/graph/warshall_floyd.hpp
-  - icon: ':warning:'
-    path: lib/heap/fibonacci_heap.hpp
-    title: "\u30D5\u30A3\u30DC\u30CA\u30C3\u30C1\u30D2\u30FC\u30D7"
-  - icon: ':warning:'
-    path: lib/heap/radix_heap.hpp
-    title: lib/heap/radix_heap.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/internal/internal_fft.hpp
-    title: lib/internal/internal_fft.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/dual_segment_tree.hpp
-    title: "\u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/lazy_segment_tree.hpp
-    title: "\u9045\u5EF6\u8A55\u4FA1\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':warning:'
-    path: lib/segment_tree/persistent_dual_segment_tree.hpp
-    title: lib/segment_tree/persistent_dual_segment_tree.hpp
-  - icon: ':warning:'
-    path: lib/segment_tree/persistent_segment_tree.hpp
-    title: "\u6C38\u7D9A\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/segment_tree/segment_tree_raq.hpp
-    title: lib/segment_tree/segment_tree_raq.hpp
   - icon: ':heavy_check_mark:'
     path: lib/template/atcoder.hpp
     title: lib/template/atcoder.hpp
@@ -129,9 +84,6 @@ data:
     path: lib/tree/link_cut_tree.hpp
     title: Link-Cut Tree
   - icon: ':heavy_check_mark:'
-    path: lib/tree/partially_persistent_union_find.hpp
-    title: "\u90E8\u5206\u6C38\u7D9AUnion-Find"
-  - icon: ':heavy_check_mark:'
     path: lib/tree/persistent_union_find.hpp
     title: "\u6C38\u7D9AUnion-Find"
   - icon: ':heavy_check_mark:'
@@ -140,9 +92,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/tree/stern_brocot_tree.hpp
     title: "Stern-Brocot \u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/tree/tree_function.hpp
-    title: "\u6728\u306E\u8DDD\u96E2\u3092\u6C42\u3081\u308B"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/cgl/counter-clockwise.test.cpp
@@ -162,21 +111,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/cgl/reflection.test.cpp
     title: test/aoj/cgl/reflection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/raq_rmq.test.cpp
-    title: test/aoj/dsl/raq_rmq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rmq.2.test.cpp
-    title: test/aoj/dsl/rmq.2.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rmq_ruq.test.cpp
-    title: test/aoj/dsl/rmq_ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/rsq_ruq.test.cpp
-    title: test/aoj/dsl/rsq_ruq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/ruq.test.cpp
-    title: test/aoj/dsl/ruq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/articulation_points.test.cpp
     title: test/aoj/grl/articulation_points.test.cpp
@@ -211,12 +145,6 @@ data:
     path: test/aoj/icpc/stern_brocot_tree.test.cpp
     title: test/aoj/icpc/stern_brocot_tree.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/itp2/skip_list.test.cpp
-    title: test/aoj/itp2/skip_list.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/jag/aho_corasick.test.cpp
-    title: test/aoj/jag/aho_corasick.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/aoj/jag/dsu_on_tree.test.cpp
     title: test/aoj/jag/dsu_on_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -247,9 +175,6 @@ data:
     path: test/aoj/ntl/remainder.test.cpp
     title: test/aoj/ntl/remainder.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/aoj/rupc/lazy_segment_tree.test.cpp
-    title: test/aoj/rupc/lazy_segment_tree.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution/convolution.test.cpp
     title: test/yosupo/convolution/convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -265,9 +190,6 @@ data:
     path: test/yosupo/data_structure/line_add_get_min.test.cpp
     title: test/yosupo/data_structure/line_add_get_min.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/persistent_queue.test.cpp
-    title: test/yosupo/data_structure/persistent_queue.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/persistent_union_find.test.cpp
     title: test/yosupo/data_structure/persistent_union_find.test.cpp
   - icon: ':heavy_check_mark:'
@@ -276,12 +198,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
     title: test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
-    title: test/yosupo/data_structure/queue_operate_all_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/data_structure/range_affine_range_sum.test.cpp
-    title: test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/data_structure/segment_add_get_min.test.cpp
     title: test/yosupo/data_structure/segment_add_get_min.test.cpp
@@ -295,14 +211,26 @@ data:
     path: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
     title: test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/graph/chromatic_number.test.cpp
-    title: test/yosupo/graph/chromatic_number.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/maximum_independent_set.test.cpp
     title: test/yosupo/graph/maximum_independent_set.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/graph/shortest_path.test.cpp
     title: test/yosupo/graph/shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+    title: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/sample/many_a+b.test.cpp
     title: test/yosupo/sample/many_a+b.test.cpp
@@ -316,14 +244,8 @@ data:
     path: test/yosupo/tree/lowest_common_ancestor.test.cpp
     title: test/yosupo/tree/lowest_common_ancestor.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree/tree_diameter.test.cpp
-    title: test/yosupo/tree/tree_diameter.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/tree_path_composite_sum.test.cpp
     title: test/yosupo/tree/tree_path_composite_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yukicoder/0416.test.cpp
-    title: test/yukicoder/0416.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/1211.test.cpp
     title: test/yukicoder/1211.test.cpp
@@ -358,119 +280,93 @@ data:
   isVerificationFile: false
   path: lib/template/template.hpp
   requiredBy:
-  - lib/segment_tree/persistent_segment_tree.hpp
-  - lib/segment_tree/lazy_segment_tree.hpp
-  - lib/segment_tree/persistent_dual_segment_tree.hpp
-  - lib/segment_tree/dual_segment_tree.hpp
-  - lib/segment_tree/segment_tree_raq.hpp
-  - lib/heap/radix_heap.hpp
-  - lib/heap/fibonacci_heap.hpp
-  - lib/graph/cycle.hpp
+  - lib/data_structure/bigint.hpp
+  - lib/data_structure/persistent_array.hpp
   - lib/graph/dijkstra.hpp
-  - lib/graph/chromatic_number.hpp
   - lib/graph/lowlink.hpp
+  - lib/graph/spfa.hpp
+  - lib/graph/cycle.hpp
   - lib/graph/functional_graph.hpp
+  - lib/graph/warshall_floyd.hpp
   - lib/graph/bellman_ford.hpp
   - lib/graph/maximum_independent_set.hpp
-  - lib/graph/spfa.hpp
-  - lib/graph/warshall_floyd.hpp
-  - lib/graph/matrix_graph.hpp
   - lib/graph/dijkstra_potential.hpp
-  - lib/data_structure/undo_deque.hpp
-  - lib/data_structure/swag.hpp
-  - lib/data_structure/persistent_stack.hpp
-  - lib/data_structure/bigint.hpp
-  - lib/data_structure/skip_list.hpp
-  - lib/data_structure/persistent_queue.hpp
-  - lib/data_structure/persistent_array.hpp
   - lib/template/vector.hpp
-  - lib/template/macro.hpp
   - lib/template/sonic.hpp
+  - lib/template/macro.hpp
   - lib/template/atcoder.hpp
-  - lib/geometry/cht.hpp
-  - lib/geometry/geometry3d.hpp
-  - lib/geometry/geometry.hpp
-  - lib/internal/internal_fft.hpp
-  - lib/tree/centroid_decomposition.hpp
-  - lib/tree/rerooting.hpp
-  - lib/tree/tree_function.hpp
-  - lib/tree/dsu_on_tree.hpp
-  - lib/tree/persistent_union_find.hpp
-  - lib/tree/hld.hpp
-  - lib/tree/partially_persistent_union_find.hpp
-  - lib/tree/stern_brocot_tree.hpp
-  - lib/tree/link_cut_tree.hpp
+  - lib/fft/fft_mod.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
-  - lib/fft/fft_mod.hpp
   - lib/fft/fft.hpp
   - lib/fft/ntt.hpp
+  - lib/geometry/geometry3d.hpp
+  - lib/geometry/cht.hpp
+  - lib/geometry/geometry.hpp
+  - lib/tree/persistent_union_find.hpp
+  - lib/tree/dsu_on_tree.hpp
+  - lib/tree/hld.hpp
+  - lib/tree/centroid_decomposition.hpp
+  - lib/tree/link_cut_tree.hpp
+  - lib/tree/stern_brocot_tree.hpp
+  - lib/tree/rerooting.hpp
   timestamp: '2023-10-01 03:35:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/yosupo/sample/many_a+b.test.cpp
-  - test/yosupo/graph/shortest_path.test.cpp
-  - test/yosupo/graph/maximum_independent_set.test.cpp
-  - test/yosupo/graph/chromatic_number.test.cpp
-  - test/yosupo/data_structure/range_affine_range_sum.test.cpp
-  - test/yosupo/data_structure/segment_add_get_min.test.cpp
-  - test/yosupo/data_structure/point_add_range_sum.test.cpp
-  - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/line_add_get_min.test.cpp
-  - test/yosupo/data_structure/persistent_queue.test.cpp
-  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/persistent_union_find.test.cpp
-  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
-  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
-  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
-  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
-  - test/yosupo/string/enumerate_palindromes.test.cpp
-  - test/yosupo/tree/tree_path_composite_sum.test.cpp
-  - test/yosupo/tree/lowest_common_ancestor.test.cpp
-  - test/yosupo/tree/jump_on_tree.test.cpp
-  - test/yosupo/tree/tree_diameter.test.cpp
-  - test/yukicoder/1211.test.cpp
-  - test/yukicoder/1977.test.cpp
-  - test/yukicoder/1242.test.cpp
-  - test/yukicoder/0416.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/rupc/lazy_segment_tree.test.cpp
-  - test/aoj/itp2/skip_list.test.cpp
-  - test/aoj/joi/rle.test.cpp
-  - test/aoj/dsl/ruq.test.cpp
-  - test/aoj/dsl/raq_rmq.test.cpp
-  - test/aoj/dsl/rmq.2.test.cpp
-  - test/aoj/dsl/rmq_ruq.test.cpp
-  - test/aoj/dsl/rsq_ruq.test.cpp
-  - test/aoj/jag/dynamic_union_find.test.cpp
-  - test/aoj/jag/hopcroft_karp.test.cpp
-  - test/aoj/jag/aho_corasick.test.cpp
-  - test/aoj/jag/dsu_on_tree.test.cpp
   - test/aoj/cgl/projection.test.cpp
-  - test/aoj/cgl/counter-clockwise.test.cpp
   - test/aoj/cgl/cross_point.test.cpp
   - test/aoj/cgl/reflection.test.cpp
-  - test/aoj/cgl/parallel_orthogonal.test.cpp
   - test/aoj/cgl/intersection.test.cpp
-  - test/aoj/icpc/stern_brocot_tree.test.cpp
-  - test/aoj/grl/hld.test.cpp
-  - test/aoj/grl/spfa.test.cpp
-  - test/aoj/grl/warshall_floyd.test.cpp
-  - test/aoj/grl/range_query_on_tree.test.cpp
-  - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/cgl/counter-clockwise.test.cpp
+  - test/aoj/cgl/parallel_orthogonal.test.cpp
+  - test/aoj/jag/dynamic_union_find.test.cpp
+  - test/aoj/jag/hopcroft_karp.test.cpp
+  - test/aoj/jag/dsu_on_tree.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
   - test/aoj/grl/dijkstra.test.cpp
-  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/range_query_on_tree_2.test.cpp
+  - test/aoj/grl/warshall_floyd.test.cpp
+  - test/aoj/grl/spfa.test.cpp
+  - test/aoj/grl/range_query_on_tree.test.cpp
+  - test/aoj/grl/cycle.test.cpp
   - test/aoj/grl/bridges.test.cpp
   - test/aoj/grl/bellman_ford.test.cpp
-  - test/aoj/grl/cycle.test.cpp
+  - test/aoj/grl/articulation_points.test.cpp
+  - test/aoj/grl/hld.test.cpp
+  - test/aoj/joi/rle.test.cpp
+  - test/aoj/icpc/stern_brocot_tree.test.cpp
+  - test/yukicoder/1242.test.cpp
+  - test/yukicoder/1977.test.cpp
+  - test/yukicoder/1211.test.cpp
+  - test/yosupo/sample/many_a+b.test.cpp
+  - test/yosupo/data_structure/dynamic_tree_vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/point_add_range_sum.test.cpp
+  - test/yosupo/data_structure/persistent_union_find.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
+  - test/yosupo/data_structure/point_add_rectangle_sum.2.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
+  - test/yosupo/data_structure/line_add_get_min.test.cpp
+  - test/yosupo/data_structure/vertex_add_path_sum.test.cpp
+  - test/yosupo/data_structure/segment_add_get_min.test.cpp
+  - test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+  - test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+  - test/yosupo/graph/shortest_path.test.cpp
+  - test/yosupo/graph/maximum_independent_set.test.cpp
+  - test/yosupo/string/enumerate_palindromes.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/tree/jump_on_tree.test.cpp
+  - test/yosupo/tree/lowest_common_ancestor.test.cpp
+  - test/yosupo/tree/tree_path_composite_sum.test.cpp
 documentation_of: lib/template/template.hpp
 layout: document
 redirect_from:

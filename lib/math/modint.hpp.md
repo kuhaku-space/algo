@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/data_structure/bigint.hpp
     title: "\u591A\u500D\u9577\u6574\u6570"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: lib/fft/formal_power_series.hpp
     title: lib/fft/formal_power_series.hpp
   - icon: ':heavy_check_mark:'
@@ -102,6 +102,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix/matrix_product.test.cpp
     title: test/yosupo/matrix/matrix_product.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+    title: test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+    title: test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/tree/tree_path_composite_sum.test.cpp
     title: test/yosupo/tree/tree_path_composite_sum.test.cpp
@@ -230,40 +245,45 @@ data:
   path: lib/math/modint.hpp
   requiredBy:
   - lib/data_structure/bigint.hpp
-  - lib/math/combination.hpp
-  - lib/math/sqrt.hpp
-  - lib/math/enumeration.hpp
-  - lib/internal/internal_fft.hpp
   - lib/fft/formal_power_series.hpp
   - lib/fft/ntt_mod.hpp
   - lib/fft/ntt.hpp
+  - lib/internal/internal_fft.hpp
+  - lib/math/sqrt.hpp
+  - lib/math/combination.hpp
+  - lib/math/enumeration.hpp
   timestamp: '2024-04-17 14:43:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution/bitwise_and_convolution.test.cpp
-  - test/yosupo/convolution/convolution.test.cpp
-  - test/yosupo/convolution/convolution_mod.test.cpp
-  - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
+  - test/aoj/dpl/bell.test.cpp
+  - test/aoj/dpl/stirling.test.cpp
+  - test/aoj/jag/aho_corasick.test.cpp
+  - test/aoj/ntl/power.test.cpp
+  - test/aoj/ntl/division.test.cpp
+  - test/aoj/ntl/addition.test.cpp
+  - test/aoj/ntl/multiplication.test.cpp
+  - test/aoj/ntl/difference.test.cpp
+  - test/aoj/ntl/remainder.test.cpp
+  - test/aoj/ntl/multiplication2.test.cpp
+  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
+  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
+  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
   - test/yosupo/data_structure/range_affine_range_sum.test.cpp
   - test/yosupo/data_structure/point_set_range_composite.test.cpp
-  - test/yosupo/data_structure/vertex_set_path_composite.test.cpp
-  - test/yosupo/data_structure/addition_of_big_integers.test.cpp
-  - test/yosupo/data_structure/queue_operate_all_composite.test.cpp
-  - test/yosupo/matrix/matrix_product.test.cpp
-  - test/yosupo/matrix/determinant_of_matrix.test.cpp
+  - test/yosupo/polynomial/log_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/product_of_polynomial_sequence.test.cpp
+  - test/yosupo/polynomial/pow_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/inv_of_formal_power_series.test.cpp
+  - test/yosupo/polynomial/exp_of_formal_power_series.test.cpp
   - test/yosupo/math/number_of_subsequences.test.cpp
   - test/yosupo/math/sqrt_mod.test.cpp
+  - test/yosupo/matrix/matrix_product.test.cpp
+  - test/yosupo/matrix/determinant_of_matrix.test.cpp
+  - test/yosupo/convolution/convolution.test.cpp
+  - test/yosupo/convolution/convolution_mod.test.cpp
+  - test/yosupo/convolution/bitwise_and_convolution.test.cpp
+  - test/yosupo/convolution/bitwise_xor_convolution.test.cpp
   - test/yosupo/tree/tree_path_composite_sum.test.cpp
-  - test/aoj/ntl/multiplication2.test.cpp
-  - test/aoj/ntl/division.test.cpp
-  - test/aoj/ntl/remainder.test.cpp
-  - test/aoj/ntl/difference.test.cpp
-  - test/aoj/ntl/multiplication.test.cpp
-  - test/aoj/ntl/power.test.cpp
-  - test/aoj/ntl/addition.test.cpp
-  - test/aoj/jag/aho_corasick.test.cpp
-  - test/aoj/dpl/stirling.test.cpp
-  - test/aoj/dpl/bell.test.cpp
 documentation_of: lib/math/modint.hpp
 layout: document
 redirect_from:

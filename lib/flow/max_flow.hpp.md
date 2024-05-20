@@ -141,9 +141,9 @@ data:
   timestamp: '2024-04-17 15:00:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/graph/matching_on_bipartite_garph.test.cpp
   - test/aoj/grl/max_flow.test.cpp
   - test/aoj/grl/bipartite_matching.test.cpp
+  - test/yosupo/graph/matching_on_bipartite_garph.test.cpp
 documentation_of: lib/flow/max_flow.hpp
 layout: document
 redirect_from:

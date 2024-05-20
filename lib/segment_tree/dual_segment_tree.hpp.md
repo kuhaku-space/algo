@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/monoid.hpp
     title: lib/segment_tree/monoid.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -30,8 +27,8 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: internal/internal_bit.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"internal/internal_bit.hpp\"\r\n#include \"segment_tree/monoid.hpp\"\
-    \r\n#include \"template/template.hpp\"\r\n\r\n/**\r\n * @brief \u53CC\u5BFE\u30BB\
+  code: "#include <cassert>\r\n#include <vector>\r\n#include \"internal/internal_bit.hpp\"\
+    \r\n#include \"segment_tree/monoid.hpp\"\r\n\r\n/**\r\n * @brief \u53CC\u5BFE\u30BB\
     \u30B0\u30E1\u30F3\u30C8\u6728\r\n *\r\n * @tparam M \u30E2\u30CE\u30A4\u30C9\r\
     \n */\r\ntemplate <class M>\r\nstruct dual_segment_tree {\r\n  private:\r\n  \
     \  using T = typename M::value_type;\r\n\r\n  public:\r\n    dual_segment_tree()\
@@ -58,11 +55,10 @@ data:
   dependsOn:
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/segment_tree/dual_segment_tree.hpp
   requiredBy: []
-  timestamp: '2024-02-21 23:45:35+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/ruq.test.cpp

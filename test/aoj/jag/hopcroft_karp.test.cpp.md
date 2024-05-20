@@ -49,12 +49,12 @@ data:
   dependsOn:
   - lib/flow/hopcroft_karp.hpp
   - lib/graph/matrix_graph.hpp
-  - lib/template/template.hpp
   - lib/graph/warshall_floyd.hpp
+  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/jag/hopcroft_karp.test.cpp
   requiredBy: []
-  timestamp: '2023-12-09 13:20:54+09:00'
+  timestamp: '2024-05-03 20:12:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/jag/hopcroft_karp.test.cpp

@@ -7,9 +7,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/random/xorshift.hpp
     title: "\u64EC\u4F3C\u4E71\u6570\u751F\u6210\u5668"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -41,11 +38,10 @@ data:
   dependsOn:
   - lib/data_structure/skip_list.hpp
   - lib/random/xorshift.hpp
-  - lib/template/template.hpp
   isVerificationFile: true
   path: test/aoj/itp2/skip_list.test.cpp
   requiredBy: []
-  timestamp: '2023-11-14 23:34:20+09:00'
+  timestamp: '2024-05-03 19:32:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/itp2/skip_list.test.cpp

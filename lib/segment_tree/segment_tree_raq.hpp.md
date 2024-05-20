@@ -10,9 +10,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/segment_tree/segment_tree.hpp
     title: "\u30BB\u30B0\u30E1\u30F3\u30C8\u6728"
-  - icon: ':heavy_check_mark:'
-    path: lib/template/template.hpp
-    title: lib/template/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -35,7 +32,7 @@ data:
     , line 260, in _resolve\n    raise BundleErrorAt(path, -1, \"no such header\"\
     )\nonlinejudge_verify.languages.cplusplus_bundle.BundleErrorAt: segment_tree/segment_tree.hpp:\
     \ line -1: no such header\n"
-  code: "#include \"segment_tree/segment_tree.hpp\"\r\n#include \"template/template.hpp\"\
+  code: "#include <algorithm>\r\n#include <utility>\r\n#include \"segment_tree/segment_tree.hpp\"\
     \r\n\r\ntemplate <class T>\r\nstruct segment_tree_range_add_range_max {\r\n  private:\r\
     \n    struct Monoid {\r\n        using value_type = std::pair<T, T>;\r\n     \
     \   static constexpr std::pair<T, T> id = std::make_pair(T(), T());\r\n      \
@@ -81,11 +78,10 @@ data:
   - lib/segment_tree/segment_tree.hpp
   - lib/internal/internal_bit.hpp
   - lib/segment_tree/monoid.hpp
-  - lib/template/template.hpp
   isVerificationFile: false
   path: lib/segment_tree/segment_tree_raq.hpp
   requiredBy: []
-  timestamp: '2024-02-27 00:57:12+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/raq_rmq.test.cpp

@@ -51,8 +51,8 @@ data:
   timestamp: '2024-01-23 17:21:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
   - test/aoj/rupc/lazy_segment_tree.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.test.cpp
 documentation_of: lib/tree/eular_tour.hpp
 layout: document
 redirect_from:

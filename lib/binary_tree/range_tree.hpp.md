@@ -81,7 +81,7 @@ data:
   isVerificationFile: false
   path: lib/binary_tree/range_tree.hpp
   requiredBy: []
-  timestamp: '2024-04-19 12:27:28+09:00'
+  timestamp: '2024-05-06 21:20:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/data_structure/point_add_rectangle_sum.test.cpp

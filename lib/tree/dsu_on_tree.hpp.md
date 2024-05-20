@@ -78,9 +78,9 @@ data:
   timestamp: '2024-04-28 00:39:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
   - test/aoj/jag/dynamic_union_find.test.cpp
   - test/aoj/jag/dsu_on_tree.test.cpp
+  - test/yosupo/data_structure/vertex_add_subtree_sum.2.test.cpp
 documentation_of: lib/tree/dsu_on_tree.hpp
 layout: document
 redirect_from:
