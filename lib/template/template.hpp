@@ -14,4 +14,4 @@ constexpr bool chmin(T &a, const U &b) {
 constexpr std::int64_t INF = 1000000000000000003;
 constexpr int Inf = 1000000003;
 constexpr double EPS = 1e-7;
-constexpr double PI = M_PI;
+constexpr double PI = 3.14159265358979323846;
