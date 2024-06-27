@@ -59,7 +59,8 @@ struct li_chao_tree {
      * @param r
      */
     void add_segment(std::int64_t a, std::int64_t b, std::int64_t l, std::int64_t r) {
-        assert(xl <= l && l < r && r <= xr);
+        assert(xl <= l && l <= r && r <= xr);
+        if (l == r) return;
         line_type line = line_type{a, b};
         root = add_segment(l, r, root, line, xl, xr);
     }
