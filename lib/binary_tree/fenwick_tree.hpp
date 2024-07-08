@@ -17,7 +17,7 @@ struct fenwick_tree {
         build(v);
     }
 
-    T operator[](int i) const { return sum(i + 1) - sum(i); }
+    T operator[](int i) const { return sum(i, i + 1); }
     T at(int k) const { return operator[](k); }
     T get(int k) const { return operator[](k); }
 
@@ -95,7 +95,20 @@ struct fenwick_tree {
      * @param b last index of array
      * @return T
      */
-    T sum(int a, int b) const { return a < b ? sum(b) - sum(a) : 0; }
+    T sum(int a, int b) const {
+        if (a >= b) return T();
+        T sa = T(), sb = T();
+        while (a != b) {
+            if (a < b) {
+                sb += data[b];
+                b -= b & -b;
+            } else {
+                sa += data[a];
+                a -= a & -a;
+            }
+        }
+        return sb - sa;
+    }
 
     /**
      * @brief binary search on fenwick_tree
