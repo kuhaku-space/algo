@@ -1,8 +1,12 @@
 #pragma once
-#pragma GCC target("sse4.2,avx2,bmi2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
+#ifdef ATCODER
+#pragma GCC target("sse4.2,avx512f,avx512dq,avx512ifma,avx512cd,avx512bw,avx512vl,bmi2")
+#endif
+#pragma GCC optimize("Ofast,fast-math,unroll-all-loops")
 #include <bits/stdc++.h>
+#ifndef ATCODER
+#pragma GCC target("sse4.2,avx2,bmi2")
+#endif
 template <class T, class U>
 constexpr bool chmax(T &a, const U &b) {
     return a < (T)b ? a = (T)b, true : false;
