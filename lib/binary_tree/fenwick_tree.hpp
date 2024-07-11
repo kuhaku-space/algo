@@ -26,22 +26,26 @@ struct fenwick_tree {
         for (int i = 0, n = v.size(); i < n; ++i) add(i, v[i]);
     }
 
-    void update(int k, T val) { add(k, val - at(k)); }
+    void set(int k, T val) { add(k, val - at(k)); }
+    void update(int k, T val) { set(k); }
     void add(int k, T val) {
         assert(0 <= k && k < _size);
         for (++k; k < _size; k += k & -k) data[k] += val;
     }
     bool chmax(int k, T val) {
         if (at(k) >= val) return false;
-        update(k, val);
+        set(k, val);
         return true;
     }
     bool chmin(int k, T val) {
         if (at(k) <= val) return false;
-        update(k, val);
+        set(k, val);
         return true;
     }
 
+    T all_prod() const { return prod(_size); }
+    T prod(int k) const { return sum(k); }
+    T prod(int a, int b) const { return sum(a, b); }
     T all_sum() const { return sum(_size); }
     T sum(int k) const {
         assert(0 <= k && k <= _size);
@@ -50,7 +54,7 @@ struct fenwick_tree {
         return res;
     }
     T sum(int a, int b) const {
-        if (a >= b) return T();
+        assert(0 <= a && a <= b && b <= _size);
         T sa = T(), sb = T();
         while (a != b) {
             if (a < b) {
