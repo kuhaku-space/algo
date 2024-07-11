@@ -17,7 +17,7 @@ struct fenwick_tree {
         build(v);
     }
 
-    T operator[](int i) const { return sum(i + 1) - sum(i); }
+    T operator[](int i) const { return sum(i, i + 1); }
     T at(int k) const { return operator[](k); }
     T get(int k) const { return operator[](k); }
 
@@ -26,83 +26,48 @@ struct fenwick_tree {
         for (int i = 0, n = v.size(); i < n; ++i) add(i, v[i]);
     }
 
-    /**
-     * @brief v[k] = val
-     *
-     * @param k index of array
-     * @param val new value
-     * @return void
-     */
-    void update(int k, T val) { add(k, val - at(k)); }
-    /**
-     * @brief v[k] += val
-     *
-     * @param k index of array
-     * @param val new value
-     * @return void
-     */
+    void set(int k, T val) { add(k, val - at(k)); }
+    void update(int k, T val) { set(k); }
     void add(int k, T val) {
         assert(0 <= k && k < _size);
         for (++k; k < _size; k += k & -k) data[k] += val;
     }
-    /**
-     * @brief chmax(v[k], val)
-     *
-     * @param k index of array
-     * @param val new value
-     * @return bool
-     */
     bool chmax(int k, T val) {
         if (at(k) >= val) return false;
-        update(k, val);
+        set(k, val);
         return true;
     }
-    /**
-     * @brief chmin(v[k], val)
-     *
-     * @param k index of value
-     * @param val new value
-     * @return bool
-     */
     bool chmin(int k, T val) {
         if (at(k) <= val) return false;
-        update(k, val);
+        set(k, val);
         return true;
     }
 
-    /**
-     * @brief v[0] + ... + v[n - 1]
-     *
-     * @return T
-     */
+    T all_prod() const { return prod(_size); }
+    T prod(int k) const { return sum(k); }
+    T prod(int a, int b) const { return sum(a, b); }
     T all_sum() const { return sum(_size); }
-    /**
-     * @brief v[0] + ... + v[k - 1]
-     *
-     * @param k index of array
-     * @return T
-     */
     T sum(int k) const {
         assert(0 <= k && k <= _size);
         T res = 0;
         for (; k > 0; k -= k & -k) res += data[k];
         return res;
     }
-    /**
-     * @brief v[a] + ... + v[b - 1]
-     *
-     * @param a first index of array
-     * @param b last index of array
-     * @return T
-     */
-    T sum(int a, int b) const { return a < b ? sum(b) - sum(a) : 0; }
+    T sum(int a, int b) const {
+        assert(0 <= a && a <= b && b <= _size);
+        T sa = T(), sb = T();
+        while (a != b) {
+            if (a < b) {
+                sb += data[b];
+                b -= b & -b;
+            } else {
+                sa += data[a];
+                a -= a & -a;
+            }
+        }
+        return sb - sa;
+    }
 
-    /**
-     * @brief binary search on fenwick_tree
-     *
-     * @param val target value
-     * @return int
-     */
     int lower_bound(T val) const {
         if (val <= 0) return 0;
         int k = 1;

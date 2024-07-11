@@ -114,9 +114,7 @@ struct link_cut_tree {
     using node_ptr = typename _node::pointer;
 
     link_cut_tree(int n) : nodes(n, nullptr) {
-        for (int i = 0; i < n; ++i) {
-            this->nodes[i] = new _node();
-        }
+        for (int i = 0; i < n; ++i) { this->nodes[i] = new _node(); }
     }
 
     void set(int v, T val) {

@@ -8,6 +8,16 @@
 namespace fps {
 
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
+    int n = f.size(), m = g.size();
+    int s = std::max(n, m);
+    std::vector<mint> res = f;
+    res.resize(s);
+    for (int i = 0; i < m; ++i) res[i] += g[i];
+    return res;
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] != mint(0));
     std::vector<mint> res(deg);
@@ -135,6 +145,77 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std::vector<mint> g) {
+    while (!f.empty() && f.back() == mint()) f.pop_back();
+    while (!g.empty() && g.back() == mint()) g.pop_back();
+    assert(!g.empty());
+    int n = f.size(), m = g.size();
+    if (n < m) return {std::vector<mint>(), f};
+    std::reverse(f.begin(), f.end());
+    std::reverse(g.begin(), g.end());
+    std::vector<mint> q = convolution(f, inv(g, n - m + 1));
+    q.resize(n - m + 1);
+    std::reverse(f.begin(), f.end());
+    std::reverse(g.begin(), g.end());
+    std::reverse(q.begin(), q.end());
+    std::vector<mint> p = convolution(g, q);
+    std::vector<mint> r = f;
+    r.resize(std::min(n, m - 1));
+    for (int i = 0; i < std::min(n, m - 1); ++i) r[i] -= p[i];
+    while (!q.empty() && q.back() == mint()) q.pop_back();
+    while (!r.empty() && r.back() == mint()) r.pop_back();
+    return {q, r};
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::vector<mint> div(const std::vector<mint> &f, const std::vector<mint> &g) {
+    return div_mod(f, g).first;
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
+    return div_mod(f, g).second;
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
+    int n = x.size();
+    int m = internal::bit_ceil(n);
+    std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
+    for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
+    for (int i = m - 1; i >= 1; --i) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
+
+    g[1] = mod(f, mul[1]);
+    for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
+    std::vector<mint> res(n);
+    for (int i = 0; i < n; ++i) {
+        if (!g[m + i].empty()) res[i] = g[m + i].front();
+    }
+    return res;
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
+    int n = x.size();
+    int m = internal::bit_ceil(n);
+    std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
+    for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
+    for (int i = m; i-- > 1;) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
+
+    std::vector<mint> f = mul[1];
+    f.erase(f.begin());
+    for (int i = 0; i < n; ++i) f[i] *= i + 1;
+
+    g[1] = mod(f, mul[1]);
+    for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
+    for (int i = 0; i < n; ++i) g[m + i] = {y[i] / g[m + i][0]};
+    for (int i = m; i--;)
+        g[i] = plus(convolution(g[i << 1 | 0], mul[i << 1 | 1]),
+                    convolution(g[i << 1 | 1], mul[i << 1 | 0]));
+    return g[1];
 }
 
 }  // namespace fps
