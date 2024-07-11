@@ -26,6 +26,10 @@ struct segment_tree {
             self.set(k, x);
             return *this;
         }
+        _segment_tree_reference &operator=(T &&x) {
+            self.set(k, std::move(x));
+            return *this;
+        }
         operator T() const { return self.get(k); }
     };
 
