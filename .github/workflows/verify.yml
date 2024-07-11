@@ -2,7 +2,8 @@ name: verify
 on:
   push:
     branches:
-      - "main"
+      - main
+      - develop
   workflow_dispatch:
     inputs:
       ignore_prev_result:
