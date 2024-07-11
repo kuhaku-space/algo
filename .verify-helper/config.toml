@@ -7,6 +7,4 @@ CXXFLAGS = [
     "-Wextra",
     "-mtune=native",
     "-march=native",
-    "-I",
-    "./lib",
 ]
