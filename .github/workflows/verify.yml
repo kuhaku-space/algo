@@ -34,8 +34,6 @@ jobs:
         with:
           output-path: verify_files.json
           # Specify patterns
-          include: |
-                lib/
           exclude: |
                 .github/
           # If you have config.toml
