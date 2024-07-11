@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2251"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2251
 #include "flow/hopcroft_karp.hpp"
 #include <algorithm>
 #include <iostream>

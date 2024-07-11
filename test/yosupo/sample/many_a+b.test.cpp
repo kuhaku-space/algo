@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/many_aplusb"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/many_aplusb
 #include "template/atcoder.hpp"
 
 int main(void) {

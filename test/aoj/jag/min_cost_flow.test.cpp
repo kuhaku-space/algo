@@ -1,5 +1,5 @@
 #define IGNORE
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2429"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2429
 #include "flow/min_cost_flow.hpp"
 #include <iostream>
 #include <string>

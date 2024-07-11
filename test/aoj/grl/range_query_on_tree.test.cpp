@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D
 #include <cstdint>
 #include <iostream>
 #include "binary_tree/fenwick_tree.hpp"
