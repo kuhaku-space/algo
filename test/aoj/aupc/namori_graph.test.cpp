@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2891"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2891
 
 #include "graph/namori_graph.hpp"
 #include <iostream>

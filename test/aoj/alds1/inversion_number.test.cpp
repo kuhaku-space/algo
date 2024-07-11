@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D
 #include "algorithm/inversion_number.hpp"
 #include <algorithm>
 #include <iostream>

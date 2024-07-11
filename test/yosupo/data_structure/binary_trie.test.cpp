@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/set_xor_min"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/set_xor_min
 #include "binary_tree/binary_trie.hpp"
 #include <iostream>
 

@@ -1,5 +1,5 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_B"
-#define ERROR 0.00000001
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_B
+// competitive-verifier: ERROR 0.00000001
 #include <iostream>
 #include "geometry/geometry.hpp"
 #include "template/sonic.hpp"

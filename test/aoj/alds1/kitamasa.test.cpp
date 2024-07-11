@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_10_A"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_10_A
 #include "math/kitamasa.hpp"
 #include <iostream>
 #include <vector>

@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_F"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_F
 #include <iostream>
 #include <limits>
 #include "segment_tree/lazy_segment_tree.hpp"

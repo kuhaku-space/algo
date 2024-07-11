@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/persistent_unionfind"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/persistent_unionfind
 #include "tree/undo_union_find.hpp"
 #include <iostream>
 #include <utility>

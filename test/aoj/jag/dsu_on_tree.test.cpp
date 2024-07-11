@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2995"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2995
 #include "tree/dsu_on_tree.hpp"
 #include <iostream>
 #include <unordered_map>

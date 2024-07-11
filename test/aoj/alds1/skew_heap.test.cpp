@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
 #include "heap/skew_heap.hpp"
 #include <iostream>
 #include <string>
