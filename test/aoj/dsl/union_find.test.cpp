@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A
 #include "tree/union_find.hpp"
 #include <iostream>
 

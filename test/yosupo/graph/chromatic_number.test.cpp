@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/chromatic_number"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/chromatic_number
 #include "graph/chromatic_number.hpp"
 #include <iostream>
 

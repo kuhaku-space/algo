@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2763"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2763
 #include "string/kmp.hpp"
 #include <iostream>
 #include <string>

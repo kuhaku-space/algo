@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_H"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_H
 #include <cstdint>
 #include <iostream>
 #include "segment_tree/segment_tree_raq.hpp"

@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/1208"
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1208
 #include "tree/stern_brocot_tree.hpp"
 #include <cstdint>
 #include <iostream>
