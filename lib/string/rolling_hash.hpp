@@ -8,9 +8,8 @@
  * @see https://qiita.com/keymoon/items/11fac5627672a6d6a9f6
  */
 struct rolling_hash {
-    rolling_hash(const std::string &_s) : len(_s.size() + 1), base(), data(1), p(1, 1) {
-        std::mt19937 rnd((std::random_device::result_type)std::random_device()());
-        base = rnd() + 2;
+    rolling_hash(const std::string &_s, uint64_t base = (std::uint64_t)std::random_device()() + 2)
+        : len(_s.size() + 1), base(base), data(1), p(1, 1) {
         std::uint64_t x = 0, t = 1;
         for (const auto c : _s) {
             x = _mod(_mul(x, base) + c);
@@ -19,6 +18,8 @@ struct rolling_hash {
             p.emplace_back(t);
         }
     }
+
+    std::uint64_t get_base() const { return base; }
 
     /**
      * @brief get hash of s[l...r]
