@@ -21,23 +21,12 @@ struct rolling_hash {
 
     std::uint64_t get_base() const { return base; }
 
-    /**
-     * @brief get hash of s[l...r]
-     *
-     * @param l first index
-     * @param r last index
-     * @return std::uint64_t
-     */
+    /// get hash of s[l...r]
     std::uint64_t get(int l, int r) const {
         return _mod(data[r] + mod * 4 - _mul(data[l], p[r - l]));
     }
 
-    /**
-     * @brief search string
-     *
-     * @param s
-     * @return std::vector<int>
-     */
+    /// search string
     std::vector<int> search(const std::string &s) {
         std::vector<int> res;
         int n = s.size();
