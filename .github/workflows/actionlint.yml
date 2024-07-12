@@ -1,4 +1,4 @@
-name: Actionlint
+name: actionlint
 
 on:
   push:
