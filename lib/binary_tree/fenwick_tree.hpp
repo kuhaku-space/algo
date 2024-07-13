@@ -58,17 +58,17 @@ struct fenwick_tree {
     }
     T sum(int a, int b) const {
         assert(0 <= a && a <= b && b <= _size);
-        T sa = T(), sb = T();
+        T res = T();
         while (a != b) {
             if (a < b) {
-                sb += data[b];
+                res += data[b];
                 b -= b & -b;
             } else {
-                sa += data[a];
+                res -= data[a];
                 a -= a & -a;
             }
         }
-        return sb - sa;
+        return res;
     }
 
     int lower_bound(T val) const {
