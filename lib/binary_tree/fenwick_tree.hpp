@@ -23,7 +23,10 @@ struct fenwick_tree {
 
     template <class U>
     void build(const std::vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) add(i, v[i]);
+        for (int i = 0, n = v.size(); i < n; ++i) data[i + 1] = v[i];
+        for (int i = 1; i < _size; ++i) {
+            if (i + (i & -i) < _size) data[i + (i & -i)] += data[i];
+        }
     }
 
     void set(int k, T val) { add(k, val - at(k)); }
@@ -55,17 +58,17 @@ struct fenwick_tree {
     }
     T sum(int a, int b) const {
         assert(0 <= a && a <= b && b <= _size);
-        T sa = T(), sb = T();
+        T res = T();
         while (a != b) {
             if (a < b) {
-                sb += data[b];
+                res += data[b];
                 b -= b & -b;
             } else {
-                sa += data[a];
+                res -= data[a];
                 a -= a & -a;
             }
         }
-        return sb - sa;
+        return res;
     }
 
     int lower_bound(T val) const {
