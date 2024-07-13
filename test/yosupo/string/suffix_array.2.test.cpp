@@ -4,7 +4,6 @@
 #include <numeric>
 #include <string>
 #include <vector>
-
 #include "string/rolling_hash.hpp"
 
 int main(void) {
@@ -22,10 +21,8 @@ int main(void) {
             int m = (l + r) / 2;
             auto h1 = rh.substr(x, m);
             auto h2 = rh.substr(y, m);
-            if (h1 == h2)
-                l = m;
-            else
-                r = m;
+            if (h1 == h2) l = m;
+            else r = m;
         }
 
         return s[x + l] < s[y + l];
