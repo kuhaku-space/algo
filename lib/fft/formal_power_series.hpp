@@ -1,9 +1,9 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
 #include <vector>
 #include "fft/ntt.hpp"
-#include "math/sqrt.hpp"
 
 namespace fps {
 
