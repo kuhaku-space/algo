@@ -3,6 +3,11 @@
 #include <vector>
 #include "internal/internal_bit.hpp"
 
+/**
+ * @brief merge-sort tree
+ *
+ * @tparam T
+ */
 template <class T>
 struct merge_sort_tree {
     merge_sort_tree() = default;
