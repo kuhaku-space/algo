@@ -108,6 +108,15 @@ struct Affine {
     }
 };
 
+template <class T>
+struct Gcd {
+    using value_type = T;
+    static constexpr T id = std::numeric_limits<T>::max();
+    static constexpr T op(const T &lhs, const T &rhs) {
+        return lhs == Gcd::id ? rhs : (rhs == Gcd::id ? lhs : std::gcd(lhs, rhs));
+    }
+};
+
 template <class M>
 struct Rev {
     using T = typename M::value_type;
