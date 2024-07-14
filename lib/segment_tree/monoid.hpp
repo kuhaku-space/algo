@@ -6,7 +6,7 @@
 template <class T>
 struct Add {
     using value_type = T;
-    static constexpr T id = T(0);
+    static constexpr T id = T();
     static constexpr T op(const T &lhs, const T &rhs) { return lhs + rhs; }
 
     template <class U>
@@ -42,7 +42,7 @@ struct And {
 template <class T>
 struct Or {
     using value_type = T;
-    static constexpr T id = T(0);
+    static constexpr T id = T();
     static constexpr T op(const T &lhs, const T &rhs) { return lhs | rhs; }
 
     template <class U>
@@ -54,7 +54,7 @@ struct Or {
 template <class T>
 struct Xor {
     using value_type = T;
-    static constexpr T id = T(0);
+    static constexpr T id = T();
     static constexpr T op(const T &lhs, const T &rhs) { return lhs ^ rhs; }
 
     template <class U>
@@ -78,7 +78,7 @@ struct Min {
 template <class T>
 struct Max {
     using value_type = T;
-    static constexpr T id = std::numeric_limits<T>::min();
+    static constexpr T id = std::numeric_limits<T>::lowest();
     static constexpr T op(const T &lhs, const T &rhs) { return std::max(lhs, rhs); }
 
     template <class U>
