@@ -2,6 +2,11 @@
 #include <stack>
 #include "segment_tree/monoid.hpp"
 
+/**
+ * @brief Sliding Window Aggregation
+ *
+ * @tparam M モノイド
+ */
 template <class M>
 struct sliding_window_aggregation {
   private:
@@ -10,7 +15,10 @@ struct sliding_window_aggregation {
   public:
     sliding_window_aggregation() : back_total(M::id), front(), back() { front.emplace(M::id); }
 
-    T top() const { return M::op(back_total, front.top()); }
+    bool empty() const { return front.empty() && back.empty(); }
+    int size() const { return front.size() + back.size() - 1; }
+
+    T fold() const { return M::op(back_total, front.top()); }
 
     void emplace(T val) {
         back.emplace(val);
