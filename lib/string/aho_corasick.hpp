@@ -24,48 +24,48 @@ struct aho_corasick {
   public:
     using node_type = _node;
 
-    aho_corasick() : nodes(), failure() { nodes.emplace_back(); }
+    aho_corasick() : _nodes(), _failures() { _nodes.emplace_back(); }
 
-    int size() const noexcept { return nodes.size(); }
+    int size() const { return _nodes.size(); }
+
+    int failure(int k) const { return _failures[k]; }
+
+    std::vector<int> failures() const { return _failures; }
 
     std::vector<int> build() {
-        failure = std::vector<int>(size(), 0);
-        std::queue<int> que;
-        for (int i = 0; i < char_size; ++i) {
-            int next_root = nodes[0].next(i);
-            if (next_root != -1) { que.emplace(next_root); }
-        }
-
-        while (!que.empty()) {
-            int x = que.front();
-            que.pop();
+        _failures = std::vector<int>(size(), 0);
+        std::vector<int> ord;
+        ord.emplace_back(0);
+        for (int k = 0; k < size(); ++k) {
+            int x = ord[k];
             for (int i = 0; i < char_size; ++i) {
-                int next_x = nodes[x].next(i);
+                int next_x = _nodes[x].next(i);
                 if (next_x != -1) {
-                    que.emplace(next_x);
+                    ord.emplace_back(next_x);
+                    if (k == 0) continue;
                     int y = x;
                     do {
-                        y = failure[y];
-                        int next_y = nodes[y].next(i);
+                        y = _failures[y];
+                        int next_y = _nodes[y].next(i);
                         if (next_y != -1) {
-                            failure[next_x] = next_y;
+                            _failures[next_x] = next_y;
                             break;
                         }
                     } while (y != 0);
                 }
             }
         }
-        return failure;
+        return ord;
     }
 
     std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
-            int &next_id = nodes[node_id].next_node[word[i] - base];
+            int &next_id = _nodes[node_id].next_node[word[i] - base];
             if (next_id == -1) {
-                next_id = nodes.size();
-                nodes.emplace_back();
+                next_id = _nodes.size();
+                _nodes.emplace_back();
             }
             node_id = next_id;
             res.emplace_back(node_id);
@@ -74,10 +74,10 @@ struct aho_corasick {
     }
 
     int search(const char c, int now = 0) {
-        int next_id = nodes[now].next(c - base);
+        int next_id = _nodes[now].next(c - base);
         while (next_id == -1 && now != 0) {
-            now = failure[now];
-            next_id = nodes[now].next(c - base);
+            now = _failures[now];
+            next_id = _nodes[now].next(c - base);
         }
         return next_id != -1 ? next_id : 0;
     }
@@ -93,11 +93,11 @@ struct aho_corasick {
     }
 
     node_type get_node(int node_id) const {
-        assert(0 <= node_id && node_id < (int)nodes.size());
-        return nodes[node_id];
+        assert(0 <= node_id && node_id < size());
+        return _nodes[node_id];
     }
 
   private:
-    std::vector<node_type> nodes;
-    std::vector<int> failure;
+    std::vector<node_type> _nodes;
+    std::vector<int> _failures;
 };
