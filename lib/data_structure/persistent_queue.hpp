@@ -14,7 +14,10 @@ struct persistent_queue {
         T val;
         std::vector<pointer> prev;
 
-        _node(T _val) : val(_val), prev() {}
+        _node(const T &_val) : val(_val), prev() {}
+        _node(T &&_val) : val(std::move(_val)), prev() {}
+        template <typename... Args>
+        _node(Args &&...args) : val(std::forward<Args>(args)...), prev() {}
     };
 
   public:
@@ -36,8 +39,27 @@ struct persistent_queue {
     }
     T front() const { return top(); }
 
-    persistent_queue push(T val) const {
+    persistent_queue push(const T &val) const {
         node_ptr new_node = new _node(val);
+        return push_node(new_node);
+    }
+    persistent_queue push(T &&val) const {
+        node_ptr new_node = new _node(std::move(val));
+        return push_node(new_node);
+    }
+    template <typename... Args>
+    persistent_queue emplace(Args &&...args) const {
+        node_ptr new_node = new _node(std::forward<Args>(args)...);
+        return push_node(new_node);
+    }
+
+    persistent_queue pop() const { return persistent_queue(_size - 1, root); }
+
+  private:
+    int _size;
+    node_ptr root;
+
+    persistent_queue push_node(node_ptr new_node) const {
         node_ptr node = root;
         new_node->prev.emplace_back(node);
         int k = 0;
@@ -48,11 +70,4 @@ struct persistent_queue {
         }
         return persistent_queue(_size + 1, new_node);
     }
-    persistent_queue emplace(T val) const { return push(val); }
-
-    persistent_queue pop() const { return persistent_queue(_size - 1, root); }
-
-  private:
-    int _size;
-    node_ptr root;
 };
