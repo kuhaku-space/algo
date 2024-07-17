@@ -22,7 +22,8 @@ int main(void) {
         correct.resize(aho.size());
         correct[v.back()].emplace_back(i);
     }
-    auto failure = aho.build();
+    aho.build();
+    auto failure = aho.failures();
     auto bfs = tree_bfs(failure);
     for (auto x : bfs) {
         int y = failure[x];

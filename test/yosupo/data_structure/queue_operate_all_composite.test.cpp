@@ -21,7 +21,7 @@ int main(void) {
         } else {
             int x;
             std::cin >> x;
-            auto p = swag.top();
+            auto p = swag.fold();
             std::cout << (p.first * x + p.second) << '\n';
         }
     }

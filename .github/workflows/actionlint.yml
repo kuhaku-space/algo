@@ -3,8 +3,9 @@ name: actionlint
 on:
   push:
     branches:
-      - main
       - develop
+    paths:
+      - ".github/**"
   pull_request:
 
 jobs:
