@@ -13,15 +13,15 @@ struct persistent_queue {
     };
 
   public:
-    using node_pointer = typename _node::pointer;
+    using node_ptr = typename _node::pointer;
 
     constexpr persistent_queue() : _size(), root() {}
-    constexpr persistent_queue(int n, node_pointer _root) : _size(n), root(_root) {}
+    constexpr persistent_queue(int n, node_ptr _root) : _size(n), root(_root) {}
 
     constexpr int size() const { return _size; }
 
     T top() const {
-        node_pointer node = root;
+        node_ptr node = root;
         int k = 0;
         while ((_size - 1) >> k) {
             if ((_size - 1) >> k & 1) { node = node->prev[k]; }
@@ -32,8 +32,8 @@ struct persistent_queue {
     T front() const { return top(); }
 
     persistent_queue push(T val) const {
-        node_pointer new_node = new _node(val);
-        node_pointer node = root;
+        node_ptr new_node = new _node(val);
+        node_ptr node = root;
         new_node->prev.emplace_back(node);
         int k = 0;
         while (node) {
@@ -49,5 +49,5 @@ struct persistent_queue {
 
   private:
     int _size;
-    node_pointer root;
+    node_ptr root;
 };
