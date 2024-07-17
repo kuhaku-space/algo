@@ -1,6 +1,11 @@
 #pragma once
 #include <vector>
 
+/**
+ * @brief 永続キュー
+ *
+ * @tparam T
+ */
 template <class T>
 struct persistent_queue {
   private:
