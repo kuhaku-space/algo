@@ -22,9 +22,9 @@ int main(void) {
     int q;
     std::cin >> q;
     while (q--) {
-        int id;
-        std::cin >> id;
-        if (id == 0) {
+        int t;
+        std::cin >> t;
+        if (t == 0) {
             int v, w;
             std::cin >> v >> w;
             auto f = [&](int a, int b) { ft.add(a, b, w); };
