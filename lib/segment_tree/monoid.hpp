@@ -91,11 +91,11 @@ template <class T>
 struct Update {
     using value_type = T;
     static constexpr T id() { return std::numeric_limits<T>::max(); }
-    static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id ? rhs : lhs; }
+    static constexpr T op(const T &lhs, const T &rhs) { return lhs == Update::id() ? rhs : lhs; }
 
     template <class U>
     static constexpr U f(T lhs, U rhs) {
-        return lhs == Update::id ? rhs : lhs;
+        return lhs == Update::id() ? rhs : lhs;
     }
 };
 
@@ -113,6 +113,6 @@ template <class M>
 struct Rev {
     using T = typename M::value_type;
     using value_type = T;
-    static constexpr T id() { return M::id; }
+    static constexpr T id() { return M::id(); }
     static constexpr T op(T lhs, T rhs) { return M::op(rhs, lhs); }
 };
