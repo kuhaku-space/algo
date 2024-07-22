@@ -35,9 +35,9 @@ struct ReRooting {
     }
 
     Value dfs(int v, int p = -1) {
-        Value res = M::id;
+        Value res = M::id();
         int deg = graph[v].size();
-        dp[v] = std::vector<Value>(deg, M::id);
+        dp[v] = std::vector<Value>(deg, M::id());
         for (int i = 0; i < deg; ++i) {
             auto e = graph[v][i];
             if (e.to() == p) continue;
@@ -46,15 +46,15 @@ struct ReRooting {
         }
         return M::g(res, v);
     }
-    void bfs(int v, int p = -1, Value dp_p = M::id) {
+    void bfs(int v, int p = -1, Value dp_p = M::id()) {
         int deg = graph[v].size();
-        std::vector<Value> dp_r(deg + 1, M::id);
+        std::vector<Value> dp_r(deg + 1, M::id());
         for (int i = deg - 1; i >= 0; --i) {
             auto e = graph[v][i];
             if (e.to() == p) dp[v][i] = M::f(dp_p, e.weight());
             dp_r[i] = M::op(dp[v][i], dp_r[i + 1]);
         }
-        Value dp_l = M::id;
+        Value dp_l = M::id();
         for (int i = 0; i < deg; ++i) {
             int u = graph[v][i].to();
             if (u != p) this->bfs(u, v, M::g(M::op(dp_l, dp_r[i + 1]), v));

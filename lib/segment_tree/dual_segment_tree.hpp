@@ -15,12 +15,12 @@ struct dual_segment_tree {
 
   public:
     dual_segment_tree() : dual_segment_tree(0) {}
-    explicit dual_segment_tree(int n, T e = M::id) : dual_segment_tree(std::vector<T>(n, e)) {}
+    explicit dual_segment_tree(int n, T e = M::id()) : dual_segment_tree(std::vector<T>(n, e)) {}
     template <class U>
     explicit dual_segment_tree(const std::vector<U> &v) : _n(v.size()) {
         _size = internal::bit_ceil(_n);
         _log = internal::countr_zero(_size);
-        data = std::vector<T>(_size << 1, M::id);
+        data = std::vector<T>(_size << 1, M::id());
         for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
     }
 
@@ -56,6 +56,6 @@ struct dual_segment_tree {
     void push(int k) {
         all_apply(2 * k, data[k]);
         all_apply(2 * k + 1, data[k]);
-        data[k] = M::id;
+        data[k] = M::id();
     }
 };

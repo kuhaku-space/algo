@@ -6,10 +6,10 @@ template <class T>
 struct segment_tree_range_add_range_max {
   private:
     struct Monoid {
-        using value_type = std::pair<T, T>;
-        static constexpr std::pair<T, T> id = std::make_pair(T(), T());
-        static constexpr std::pair<T, T> op(const std::pair<T, T> &lhs,
-                                            const std::pair<T, T> &rhs) {
+        using P = std::pair<T, T>;
+        using value_type = P;
+        static constexpr P id() { return P(); }
+        static constexpr P op(const P &lhs, const P &rhs) {
             return std::make_pair(std::max(lhs.first, lhs.second + rhs.first),
                                   lhs.second + rhs.second);
         }
@@ -45,10 +45,10 @@ template <class T>
 struct segment_tree_range_add_range_min {
   private:
     struct Monoid {
-        using value_type = std::pair<T, T>;
-        static constexpr std::pair<T, T> id = std::make_pair(T(), T());
-        static constexpr std::pair<T, T> op(const std::pair<T, T> &lhs,
-                                            const std::pair<T, T> &rhs) {
+        using P = std::pair<T, T>;
+        using value_type = P;
+        static constexpr P id() { return P(); }
+        static constexpr P op(const P &lhs, const P &rhs) {
             return std::make_pair(std::min(lhs.first, lhs.second + rhs.first),
                                   lhs.second + rhs.second);
         }

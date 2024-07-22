@@ -52,7 +52,7 @@ struct range_tree {
                                       std::lower_bound(_pts.begin(), _pts.end(), Pt{xl, yr}, comp));
         int r = _size + std::distance(_pts.begin(),
                                       std::lower_bound(_pts.begin(), _pts.end(), Pt{xr, yr}, comp));
-        value_type res = M::id;
+        value_type res = M::id();
         while (l < r) {
             if (l & 1) res = M::op(res, prod(l++, yl, yr));
             if (r & 1) res = M::op(res, prod(--r, yl, yr));
@@ -62,7 +62,7 @@ struct range_tree {
     }
     value_type get(T x, T y) const {
         int i = std::distance(_pts.begin(), std::lower_bound(_pts.begin(), _pts.end(), Pt{x, y}));
-        return i < _size && _pts[i] == std::make_pair(x, y) ? segtrees[_size + i].get(0) : M::id;
+        return i < _size && _pts[i] == std::make_pair(x, y) ? segtrees[_size + i].get(0) : M::id();
     }
 
   private:

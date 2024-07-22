@@ -36,7 +36,7 @@ int main(void) {
         } else {
             int u, v, x;
             std::cin >> u >> v >> x;
-            auto l = M::id, r = M::id;
+            auto l = M::id(), r = M::id();
             auto f = [&](int u, int v) { l = M::op(st1.prod(u, v), l); };
             auto g = [&](int u, int v) { r = RM::op(st2.prod(u, v), r); };
             int lca = hld.lca(u, v);

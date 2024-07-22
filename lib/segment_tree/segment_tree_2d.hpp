@@ -33,12 +33,12 @@ struct segment_tree_2d {
         node_ptr node = root;
         std::int64_t l = 0, r = _h;
         while (r - l > 1) {
-            if (!node) return M::id;
+            if (!node) return M::id();
             std::int64_t m = (l + r) >> 1;
             if (x < m) r = m, node = node->left;
             else l = m, node = node->right;
         }
-        return node ? node->segtree.get(y) : M::id;
+        return node ? node->segtree.get(y) : M::id();
     }
     T get(std::int64_t x, std::int64_t y) const { return at(x, y); }
 
@@ -63,13 +63,13 @@ struct segment_tree_2d {
 
         std::reverse(std::begin(nodes), std::end(nodes));
         for (auto node : nodes) {
-            node->segtree.set(y, M::op(node->left ? node->left->segtree.get(y) : M::id,
-                                       node->right ? node->right->segtree.get(y) : M::id));
+            node->segtree.set(y, M::op(node->left ? node->left->segtree.get(y) : M::id(),
+                                       node->right ? node->right->segtree.get(y) : M::id()));
         }
     }
-    void reset(std::int64_t x, std::int64_t y) { set(x, y, M::id); }
+    void reset(std::int64_t x, std::int64_t y) { set(x, y, M::id()); }
 
-    T all_prod() const { return root ? root->segtree.all_prod() : M::id; }
+    T all_prod() const { return root ? root->segtree.all_prod() : M::id(); }
     T prod(std::int64_t l, std::int64_t r, std::int64_t d, std::int64_t u) const {
         assert(0 <= l && l <= r && r <= _h);
         assert(0 <= d && d <= u && u <= _w);
@@ -82,7 +82,7 @@ struct segment_tree_2d {
 
     T prod(std::int64_t l, std::int64_t r, std::int64_t d, std::int64_t u, node_ptr node,
            std::int64_t x, std::int64_t y) const {
-        if (!node || y <= l || r <= x) return M::id;
+        if (!node || y <= l || r <= x) return M::id();
         if (l <= x && y <= r) return node->segtree.prod(d, u);
 
         return M::op(prod(l, r, d, u, node->left, x, (x + y) >> 1),

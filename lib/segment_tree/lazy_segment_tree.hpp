@@ -19,12 +19,12 @@ struct lazy_segment_tree {
 
   public:
     lazy_segment_tree() : lazy_segment_tree(0) {}
-    explicit lazy_segment_tree(int n, T e = S::id) : lazy_segment_tree(std::vector<T>(n, e)) {}
+    explicit lazy_segment_tree(int n, T e = S::id()) : lazy_segment_tree(std::vector<T>(n, e)) {}
     explicit lazy_segment_tree(const std::vector<T> &v) : _n(int(v.size())) {
         _size = internal::bit_ceil(_n);
         _log = internal::countr_zero(_size);
-        data = std::vector<T>(2 * _size, S::id);
-        lazy = std::vector<U>(_size, F::id);
+        data = std::vector<T>(2 * _size, S::id());
+        lazy = std::vector<U>(_size, F::id());
         for (int i = 0; i < _n; i++) data[_size + i] = v[i];
         for (int i = _size - 1; i >= 1; --i) update(i);
     }
@@ -79,7 +79,7 @@ struct lazy_segment_tree {
 
     T prod(int l, int r) {
         assert(0 <= l && l <= r && r <= _n);
-        if (l == r) return S::id;
+        if (l == r) return S::id();
 
         l += _size, r += _size;
 
@@ -88,7 +88,7 @@ struct lazy_segment_tree {
             if (((r >> i) << i) != r) push((r - 1) >> i);
         }
 
-        T sml = S::id, smr = S::id;
+        T sml = S::id(), smr = S::id();
         while (l < r) {
             if (l & 1) sml = S::op(sml, data[l++]);
             if (r & 1) smr = S::op(data[--r], smr);
@@ -113,6 +113,6 @@ struct lazy_segment_tree {
     void push(int k) {
         all_apply(2 * k, lazy[k]);
         all_apply(2 * k + 1, lazy[k]);
-        lazy[k] = F::id;
+        lazy[k] = F::id();
     }
 };

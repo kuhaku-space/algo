@@ -41,7 +41,7 @@ struct dynamic_segment_tree {
             if (k < m) r = m, node = node->left;
             else l = m, node = node->right;
         }
-        return M::id;
+        return M::id();
     }
     T at(std::int64_t k) const { return operator[](k); }
     T get(std::int64_t k) const { return operator[](k); }
@@ -81,13 +81,13 @@ struct dynamic_segment_tree {
 
         std::reverse(std::begin(nodes), std::end(nodes));
         for (auto node : nodes) {
-            node->product = M::op(M::op(node->left ? node->left->product : M::id, node->value),
-                                  node->right ? node->right->product : M::id);
+            node->product = M::op(M::op(node->left ? node->left->product : M::id(), node->value),
+                                  node->right ? node->right->product : M::id());
         }
     }
-    void reset(std::int64_t k) { set(k, M::id); }
+    void reset(std::int64_t k) { set(k, M::id()); }
 
-    T all_prod() const { return root ? root->product : M::id; }
+    T all_prod() const { return root ? root->product : M::id(); }
     T prod(std::int64_t a, std::int64_t b) const {
         assert(0 <= a && a <= _size);
         assert(0 <= b && b <= _size);
@@ -96,10 +96,10 @@ struct dynamic_segment_tree {
 
     template <class F>
     std::int64_t max_right(F f) const {
-        assert(f(M::id));
+        assert(f(M::id()));
         if (root == nullptr || f(root->value)) return _size;
         node_ptr node = root;
-        T sm = M::id;
+        T sm = M::id();
         std::int64_t l = 0, r = _size;
         while (r - l > 1) {
             std::int64_t m = (l + r) >> 1;
@@ -117,10 +117,10 @@ struct dynamic_segment_tree {
 
     template <class F>
     std::int64_t min_left(F f) const {
-        assert(f(M::id));
+        assert(f(M::id()));
         if (root == nullptr || f(root->value)) return 0;
         node_ptr node = root;
-        T sm = M::id;
+        T sm = M::id();
         std::int64_t l = 0, r = _size;
         while (r - l > 1) {
             std::int64_t m = (l + r) >> 1;
@@ -141,11 +141,11 @@ struct dynamic_segment_tree {
     std::int64_t _size;
 
     T prod(std::int64_t a, std::int64_t b, node_ptr node, std::int64_t l, std::int64_t r) const {
-        if (!node || r <= a || b <= l) return M::id;
+        if (!node || r <= a || b <= l) return M::id();
         if (a <= l && r <= b) return node->product;
 
         return M::op(M::op(prod(a, b, node->left, l, (l + r) >> 1),
-                           a <= node->index && node->index < b ? node->value : M::id),
+                           a <= node->index && node->index < b ? node->value : M::id()),
                      prod(a, b, node->right, (l + r) >> 1, r));
     }
 };
