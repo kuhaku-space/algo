@@ -13,19 +13,20 @@ std::istream &operator>>(std::istream &is, std::pair<T, U> &p) {
 }
 
 struct Monoid {
-    using value_type = std::pair<Mint, Mint>;
-    static constexpr value_type id = {0, 0};
+    using T = std::pair<Mint, Mint>;
+    using value_type = T;
+    static constexpr T id() { return T(); }
     static inline std::vector<Mint> a = std::vector<Mint>();
-    static constexpr value_type op(const value_type &lhs, const value_type &rhs) {
+    static constexpr T op(const T &lhs, const T &rhs) {
         return {lhs.first + rhs.first, lhs.second + rhs.second};
     }
 
-    template <class T>
-    static constexpr value_type f(const value_type &v, T u) {
+    template <class U>
+    static constexpr T f(const T &v, U u) {
         return {u.first * v.first + u.second * v.second, v.second};
     }
 
-    static value_type g(const value_type &v, int u) { return {v.first + a[u], v.second + 1}; }
+    static T g(const T &v, int u) { return {v.first + a[u], v.second + 1}; }
 };
 
 int main(void) {

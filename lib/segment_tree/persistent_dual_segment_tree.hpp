@@ -21,7 +21,7 @@ struct persistent_dual_segment_tree {
 
     constexpr persistent_dual_segment_tree() : _size(), root() {}
     constexpr persistent_dual_segment_tree(int n, node_pointer _root) : _size(n), root(_root) {}
-    persistent_dual_segment_tree(int n, T e = M::id) : _size(n), root(this->build(0, n, e)) {}
+    persistent_dual_segment_tree(int n, T e = M::id()) : _size(n), root(this->build(0, n, e)) {}
     template <class U>
     persistent_dual_segment_tree(const std::vector<U> &v)
         : _size(v.size()), root(this->build(0, v.size(), v)) {}
@@ -34,7 +34,7 @@ struct persistent_dual_segment_tree {
     persistent_dual_segment_tree apply(int a, int b, T val) const {
         assert(0 <= a && b <= this->_size);
         return persistent_dual_segment_tree(
-            this->_size, this->apply(0, this->_size, a, b, val, M::id, this->root));
+            this->_size, this->apply(0, this->_size, a, b, val, M::id(), this->root));
     }
 
   private:
@@ -69,7 +69,7 @@ struct persistent_dual_segment_tree {
             return new Node(M::op(val, M::op(prop, node->val)), node->left, node->right);
         if (b <= l || r <= a) return new Node(M::op(prop, node->val), node->left, node->right);
         int m = (l + r) >> 1;
-        return new Node(M::id, this->apply(l, m, a, b, val, M::op(prop, node->val), node->left),
+        return new Node(M::id(), this->apply(l, m, a, b, val, M::op(prop, node->val), node->left),
                         this->apply(m, r, a, b, val, M::op(prop, node->val), node->right));
     }
 };

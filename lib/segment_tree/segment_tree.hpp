@@ -35,12 +35,12 @@ struct segment_tree {
 
   public:
     segment_tree() : segment_tree(0) {}
-    explicit segment_tree(int n, T e = M::id) : segment_tree(std::vector<T>(n, e)) {}
+    explicit segment_tree(int n, T e = M::id()) : segment_tree(std::vector<T>(n, e)) {}
     template <class U>
     explicit segment_tree(const std::vector<U> &v) : _n(v.size()) {
         _size = internal::bit_ceil(_n);
         _log = internal::countr_zero(_size);
-        data = std::vector<T>(_size << 1, M::id);
+        data = std::vector<T>(_size << 1, M::id());
         for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
         for (int i = _size - 1; i >= 1; --i) update(i);
     }
@@ -56,12 +56,12 @@ struct segment_tree {
         data[k] = val;
         for (int i = 1; i <= _log; ++i) update(k >> i);
     }
-    void reset(int k) { set(k, M::id); }
+    void reset(int k) { set(k, M::id()); }
 
     T all_prod() const { return data[1]; }
     T prod(int a, int b) const {
         assert(0 <= a && b <= _n);
-        T l = M::id, r = M::id;
+        T l = M::id(), r = M::id();
         for (a += _size, b += _size; a < b; a >>= 1, b >>= 1) {
             if (a & 1) l = M::op(l, data[a++]);
             if (b & 1) r = M::op(data[--b], r);
@@ -77,10 +77,10 @@ struct segment_tree {
     template <class F>
     int max_right(int l, F f) const {
         assert(0 <= l && l <= _n);
-        assert(f(M::id));
+        assert(f(M::id()));
         if (l == _n) return _n;
         l += _size;
-        T sm = M::id;
+        T sm = M::id();
         do {
             while (l % 2 == 0) l >>= 1;
             if (!f(M::op(sm, data[l]))) {
@@ -107,10 +107,10 @@ struct segment_tree {
     template <class F>
     int min_left(int r, F f) const {
         assert(0 <= r && r <= _n);
-        assert(f(M::id));
+        assert(f(M::id()));
         if (r == 0) return 0;
         r += _size;
-        T sm = M::id;
+        T sm = M::id();
         do {
             r--;
             while (r > 1 && (r % 2)) r >>= 1;

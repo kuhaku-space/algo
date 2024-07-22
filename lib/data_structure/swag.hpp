@@ -13,7 +13,7 @@ struct sliding_window_aggregation {
     using T = typename M::value_type;
 
   public:
-    sliding_window_aggregation() : back_total(M::id), front(), back() { front.emplace(M::id); }
+    sliding_window_aggregation() : back_total(M::id()), front(), back() { front.emplace(M::id()); }
 
     bool empty() const { return front.empty() && back.empty(); }
     int size() const { return front.size() + back.size() - 1; }
@@ -32,7 +32,7 @@ struct sliding_window_aggregation {
                 front.emplace(M::op(front.top(), back.top()));
                 back.pop();
             }
-            back_total = M::id;
+            back_total = M::id();
         }
         front.pop();
     }

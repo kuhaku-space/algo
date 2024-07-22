@@ -10,20 +10,17 @@ struct S {
 
 struct M {
     using value_type = S;
-    static constexpr value_type id = S{0, 0};
-    static constexpr value_type op(const value_type &lhs, const value_type &rhs) {
-        return S{lhs.g + rhs.g, lhs.w + rhs.w};
-    }
+    static constexpr S id() { return S{0, 0}; }
+    static constexpr S op(const S &lhs, const S &rhs) { return S{lhs.g + rhs.g, lhs.w + rhs.w}; }
 };
 
 struct F {
+    using T = int;
     using value_type = int;
-    static constexpr value_type id = 0;
-    static constexpr value_type op(const value_type &lhs, const value_type &rhs) {
-        return lhs ^ rhs;
-    }
+    static constexpr T id() { return 0; }
+    static constexpr T op(const T &lhs, const T &rhs) { return lhs ^ rhs; }
 
-    static S f(const value_type &lhs, S rhs) {
+    static S f(const T &lhs, S rhs) {
         if (lhs == 0) return rhs;
         std::swap(rhs.g, rhs.w);
         return rhs;

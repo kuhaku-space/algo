@@ -22,7 +22,7 @@ struct Doubling {
     std::pair<int, T> jump(int f, std::uint64_t k) { return solve(f, k); }
     std::pair<int, T> solve(int f, std::uint64_t k) {
         assert(-1 <= f && f < _size);
-        T res = Monoid::id;
+        T res = Monoid::id();
         for (int cnt = 0; k > 0; k >>= 1, ++cnt) {
             if ((k & 1) && f != -1) {
                 res = Monoid::op(res, data[cnt][f]);

@@ -20,7 +20,7 @@ struct disjoint_sparse_table {
     disjoint_sparse_table(const std::vector<U> &v) {
         int b = 1;
         while (1 << b < (int)v.size()) ++b;
-        data.resize(b, std::vector<T>(v.size(), M::id));
+        data.resize(b, std::vector<T>(v.size(), M::id()));
         for (int i = 0; i < (int)v.size(); i++) data[0][i] = v[i];
         for (int i = 1; i < b; i++) {
             int shift = 1 << i;
@@ -38,7 +38,7 @@ struct disjoint_sparse_table {
 
     T prod(int l, int r) const {
         assert(l <= r);
-        if (l == r) return M::id;
+        if (l == r) return M::id();
         if (l == --r) return data[0][l];
         int p = 31 - internal::countl_zero(unsigned(l ^ r));
         return M::op(data[p][l], data[p][r]);

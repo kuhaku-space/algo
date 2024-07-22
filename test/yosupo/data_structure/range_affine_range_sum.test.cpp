@@ -10,14 +10,14 @@ using Mint = modint998;
 struct M1 {
     using T = std::pair<Mint, Mint>;
     using value_type = T;
-    static constexpr T id = T(0, 0);
+    static constexpr T id() { return T(); }
     static constexpr T op(T lhs, T rhs) { return {lhs.first + rhs.first, rhs.second + lhs.second}; }
 };
 
 struct M2 {
     using T = std::pair<Mint, Mint>;
     using value_type = T;
-    static constexpr T id = T(1, 0);
+    static constexpr T id() { return T(1, 0); }
     static constexpr T op(T lhs, T rhs) {
         return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};
     }

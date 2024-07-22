@@ -6,11 +6,10 @@
 #include "template/template.hpp"
 
 struct Monoid {
-    using value_type = std::int64_t;
-    static constexpr std::int64_t id = 0;
-    static constexpr std::int64_t op(const std::int64_t &lhs, const std::int64_t &rhs) {
-        return lhs + rhs;
-    }
+    using T = std::int64_t;
+    using value_type = T;
+    static constexpr T id() { return 0; }
+    static constexpr T op(const T &lhs, const T &rhs) { return lhs + rhs; }
 };
 
 int main(void) {
