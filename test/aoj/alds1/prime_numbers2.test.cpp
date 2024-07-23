@@ -13,7 +13,7 @@ int main(void) {
         std::cin >> a;
         ans += pn.is_prime(a);
     }
-    std::cout << ans << std::endl;
+    std::cout << ans << '\n';
 
     return 0;
 }

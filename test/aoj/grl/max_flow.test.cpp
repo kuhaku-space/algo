@@ -12,7 +12,7 @@ int main(void) {
         std::cin >> a >> b >> c;
         mf.add_edge(a, b, c);
     }
-    std::cout << mf.flow(0, n - 1) << std::endl;
+    std::cout << mf.flow(0, n - 1) << '\n';
 
     return 0;
 }

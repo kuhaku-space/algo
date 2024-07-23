@@ -9,7 +9,7 @@ int main(void) {
     knuth_morris_pratt kmp(t);
     auto ans = kmp.search(s);
     for (int i = 0; i < (int)s.size(); ++i) {
-        if (ans[i] == (int)t.size()) std::cout << i - t.size() + 1 << std::endl;
+        if (ans[i] == (int)t.size()) std::cout << i - t.size() + 1 << '\n';
     }
 
     return 0;

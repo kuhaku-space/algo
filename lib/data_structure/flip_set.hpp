@@ -1,5 +1,10 @@
 #include <set>
 
+/**
+ * @brief flip set
+ *
+ * @tparam T
+ */
 template <class T>
 struct flip_set {
     flip_set() : data() {}

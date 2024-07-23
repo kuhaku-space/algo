@@ -2,7 +2,7 @@
 #include <numeric>
 #include <tuple>
 #include <vector>
-#include "data_structure/bit_vector.hpp"
+#include "internal/internal_bit_vector.hpp"
 
 template <class T, class U = T, int L = 30>
 struct wavelet_matrix_rectangle_sum {
@@ -14,7 +14,7 @@ struct wavelet_matrix_rectangle_sum {
         std::vector<int> l(length), r(length), ord(length);
         std::iota(ord.begin(), ord.end(), 0);
         for (int level = L - 1; level >= 0; level--) {
-            matrix[level] = bit_vector(length + 1);
+            matrix[level] = internal::bit_vector(length + 1);
             int left = 0, right = 0;
             for (int i = 0; i < length; i++) {
                 if ((v[ord[i]] >> level) & 1) {
@@ -60,7 +60,7 @@ struct wavelet_matrix_rectangle_sum {
 
   private:
     int length;
-    bit_vector matrix[L];
+    internal::bit_vector matrix[L];
     int mid[L];
     std::vector<U> cs[L];
 

@@ -22,7 +22,7 @@ int main(void) {
     while (q--) {
         int u, v;
         std::cin >> u >> v;
-        std::cout << hld.lca(u, v) << std::endl;
+        std::cout << hld.lca(u, v) << '\n';
     }
 
     return 0;

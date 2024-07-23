@@ -7,18 +7,18 @@
 struct M1 {
     using T = std::pair<int, int>;
     using value_type = T;
-    static constexpr T id = T(0, 0);
+    static constexpr T id() { return T(); }
     static constexpr T op(T lhs, T rhs) { return {lhs.first + rhs.first, lhs.second + rhs.second}; }
 };
 
 struct M2 {
     using T = int;
     using value_type = T;
-    static constexpr T id = std::numeric_limits<int>::max();
-    static constexpr T op(T lhs, T rhs) { return lhs == id ? rhs : lhs; }
+    static constexpr T id() { return std::numeric_limits<int>::max(); }
+    static constexpr T op(T lhs, T rhs) { return lhs == id() ? rhs : lhs; }
     template <class U>
     static constexpr U f(T lhs, U rhs) {
-        return lhs == id ? rhs : U{lhs * rhs.second, rhs.second};
+        return lhs == id() ? rhs : U{lhs * rhs.second, rhs.second};
     }
 };
 
@@ -36,7 +36,7 @@ int main(void) {
         } else {
             int s, t;
             std::cin >> s >> t;
-            std::cout << st.prod(s, t + 1).first << std::endl;
+            std::cout << st.prod(s, t + 1).first << '\n';
         }
     }
 

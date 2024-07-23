@@ -1,3 +1,4 @@
+#pragma once
 #include <cassert>
 #include <cstdint>
 #include <limits>
@@ -11,6 +12,8 @@
  * @see https://yosupo.hatenablog.com/entry/2023/08/06/181942
  */
 struct rolling_hash {
+    rolling_hash() : _size(), base((std::uint64_t)std::random_device()() + 2), data(), p() {}
+
     rolling_hash(const std::string &_s, uint64_t base = (std::uint64_t)std::random_device()() + 2)
         : _size(_s.size()), base(base), data(1), p(1, 1) {
         std::uint64_t x = 0, t = 1, y;

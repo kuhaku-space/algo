@@ -1,7 +1,7 @@
 #include <cassert>
 #include <tuple>
 #include <vector>
-#include "data_structure/bit_vector.hpp"
+#include "internal/internal_bit_vector.hpp"
 
 /**
  * @brief ウェーブレット行列
@@ -16,7 +16,7 @@ struct wavelet_matrix {
     wavelet_matrix(std::vector<T> v) : length(v.size()) {
         std::vector<T> l(length), r(length);
         for (int level = L - 1; level >= 0; --level) {
-            matrix[level] = bit_vector(length + 1);
+            matrix[level] = internal::bit_vector(length + 1);
             int left = 0, right = 0;
             for (int i = 0; i < length; ++i) {
                 if (v[i] >> level & 1) {
@@ -105,7 +105,7 @@ struct wavelet_matrix {
 
   private:
     int length;
-    bit_vector matrix[L];
+    internal::bit_vector matrix[L];
     int mid[L];
 
     std::pair<int, int> succ(bool f, int l, int r, int level) const {

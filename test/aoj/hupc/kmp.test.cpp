@@ -16,7 +16,7 @@ std::string solve(const std::string &s) {
 int main(void) {
     std::string s;
     std::cin >> s;
-    std::cout << solve(s) << std::endl;
+    std::cout << solve(s) << '\n';
 
     return 0;
 }

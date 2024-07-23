@@ -23,9 +23,9 @@ int main(void) {
     int q;
     std::cin >> q;
     while (q--) {
-        int id;
-        std::cin >> id;
-        if (id == 0) {
+        int t;
+        std::cin >> t;
+        if (t == 0) {
             int v, w;
             std::cin >> v >> w;
             auto f = [&](int a, int b) { ft.add(a, w); };
@@ -36,7 +36,7 @@ int main(void) {
             std::int64_t ans = 0;
             auto f = [&](int a, int b) { ans += ft.sum(a, b); };
             hld.for_each_edge(0, v, f);
-            std::cout << ans << std::endl;
+            std::cout << ans << '\n';
         }
     }
 

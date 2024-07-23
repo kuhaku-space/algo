@@ -19,7 +19,7 @@ int main(void) {
             if (s.substr(v[m], t.size()) < t) l = m;
             else r = m;
         }
-        std::cout << (s.substr(v[r], t.size()) == t) << std::endl;
+        std::cout << (s.substr(v[r], t.size()) == t) << '\n';
     }
 
     return 0;

@@ -10,7 +10,7 @@ int main(void) {
         int com, x, y;
         std::cin >> com >> x >> y;
         if (com == 0) ft.add(x - 1, y);
-        else std::cout << ft.sum(x - 1, y) << std::endl;
+        else std::cout << ft.sum(x - 1, y) << '\n';
     }
 
     return 0;

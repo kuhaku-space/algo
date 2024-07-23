@@ -1,4 +1,7 @@
+#pragma once
 #include <vector>
+
+namespace internal {
 
 /**
  * @brief 完備辞書
@@ -48,3 +51,5 @@ struct bit_vector {
     unsigned int length, blocks;
     std::vector<unsigned int> bit, sum;
 };
+
+}  // namespace internal

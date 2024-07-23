@@ -7,7 +7,7 @@ using Mint = modint107;
 int main(void) {
     int n, m;
     std::cin >> n >> m;
-    std::cout << Mint(n).pow(m) << std::endl;
+    std::cout << Mint(n).pow(m) << '\n';
 
     return 0;
 }

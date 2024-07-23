@@ -11,7 +11,7 @@ int main(void) {
         Point<double> a, b, c, d;
         std::cin >> a >> b >> c >> d;
         Line l(a, b), m(c, d);
-        std::cout << cross_point(l, m) << std::endl;
+        std::cout << cross_point(l, m) << '\n';
     }
 
     return 0;
