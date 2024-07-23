@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
-#include <iterator>
 #include <utility>
 #include <vector>
 #include "segment_tree/monoid.hpp"
@@ -18,28 +17,26 @@ struct dynamic_segment_tree {
     using T = typename M::value_type;
 
     struct _node {
-        using pointer = _node *;
         std::int64_t index;
-        pointer left, right;
+        int left, right;
         T value, product;
 
+        constexpr _node() = default;
         constexpr _node(std::int64_t _index, T _value)
-            : index(_index), left(nullptr), right(nullptr), value(_value), product(_value) {}
+            : index(_index), left(-1), right(-1), value(_value), product(_value) {}
     };
 
   public:
-    using node_ptr = typename _node::pointer;
-
-    dynamic_segment_tree(std::int64_t n) : root(), _size(n) {}
+    dynamic_segment_tree(std::int64_t n) : data(), _size(n) {}
 
     T operator[](std::int64_t k) const {
-        node_ptr node = root;
+        int idx = 0;
         std::int64_t l = 0, r = _size;
-        while (node) {
-            if (k == node->index) return node->value;
+        while (idx != -1) {
+            if (k == data[idx].index) return data[idx].value;
             std::int64_t m = (l + r) >> 1;
-            if (k < m) r = m, node = node->left;
-            else l = m, node = node->right;
+            if (k < m) r = m, idx = data[idx].left;
+            else l = m, idx = data[idx].right;
         }
         return M::id();
     }
@@ -48,104 +45,69 @@ struct dynamic_segment_tree {
 
     void set(std::int64_t k, T x) {
         assert(0 <= k && k < _size);
-        if (!root) {
-            root = new _node(k, x);
+        if (data.empty()) {
+            data.emplace_back(k, x);
             return;
         }
-        node_ptr node = root;
-        std::vector<node_ptr> nodes;
+        int idx = 0;
+        std::vector<int> nodes;
         std::int64_t l = 0, r = _size;
         while (true) {
-            nodes.emplace_back(node);
-            if (k == node->index) {
-                node->value = x;
+            nodes.emplace_back(idx);
+            if (k == data[idx].index) {
+                data[idx].value = x;
                 break;
             }
             std::int64_t m = (l + r) >> 1;
             if (k < m) {
-                if (node->index < k) std::swap(k, node->index), std::swap(x, node->value);
-                if (!node->left) {
-                    node->left = new _node(k, x);
+                if (data[idx].index < k)
+                    std::swap(k, data[idx].index), std::swap(x, data[idx].value);
+                if (data[idx].left == -1) {
+                    data[idx].left = data.size();
+                    data.emplace_back(k, x);
                     break;
                 }
-                r = m, node = node->left;
+                r = m, idx = data[idx].left;
             } else {
-                if (k < node->index) std::swap(k, node->index), std::swap(x, node->value);
-                if (!node->right) {
-                    node->right = new _node(k, x);
+                if (k < data[idx].index)
+                    std::swap(k, data[idx].index), std::swap(x, data[idx].value);
+                if (data[idx].right == -1) {
+                    data[idx].right = data.size();
+                    data.emplace_back(k, x);
                     break;
                 }
-                l = m, node = node->right;
+                l = m, idx = data[idx].right;
             }
         }
 
-        std::reverse(std::begin(nodes), std::end(nodes));
-        for (auto node : nodes) {
-            node->product = M::op(M::op(node->left ? node->left->product : M::id(), node->value),
-                                  node->right ? node->right->product : M::id());
+        std::reverse(nodes.begin(), nodes.end());
+        for (auto idx : nodes) {
+            data[idx].product =
+                M::op(M::op(data[idx].left != -1 ? data[data[idx].left].product : M::id(),
+                            data[idx].value),
+                      data[idx].right != -1 ? data[data[idx].right].product : M::id());
         }
     }
     void reset(std::int64_t k) { set(k, M::id()); }
 
-    T all_prod() const { return root ? root->product : M::id(); }
+    T all_prod() const { return !data.empty() ? data.front().product : M::id(); }
     T prod(std::int64_t a, std::int64_t b) const {
         assert(0 <= a && a <= _size);
         assert(0 <= b && b <= _size);
-        return prod(a, b, root, 0, _size);
-    }
-
-    template <class F>
-    std::int64_t max_right(F f) const {
-        assert(f(M::id()));
-        if (root == nullptr || f(root->value)) return _size;
-        node_ptr node = root;
-        T sm = M::id();
-        std::int64_t l = 0, r = _size;
-        while (r - l > 1) {
-            std::int64_t m = (l + r) >> 1;
-            if (node->left == nullptr || f(M::op(sm, node->left->value))) {
-                if (node->left != nullptr) sm = M::op(sm, node->left->value);
-                l = m;
-                node = node->right;
-            } else {
-                r = m;
-                node = node->left;
-            }
-        }
-        return f(M::op(sm, node->value)) ? r : l;
-    }
-
-    template <class F>
-    std::int64_t min_left(F f) const {
-        assert(f(M::id()));
-        if (root == nullptr || f(root->value)) return 0;
-        node_ptr node = root;
-        T sm = M::id();
-        std::int64_t l = 0, r = _size;
-        while (r - l > 1) {
-            std::int64_t m = (l + r) >> 1;
-            if (node->right == nullptr || f(M::op(node->right->value, sm))) {
-                if (node->right != nullptr) sm = M::op(node->right->value, sm);
-                r = m;
-                node = node->left;
-            } else {
-                l = m;
-                node = node->right;
-            }
-        }
-        return f(M::op(node->value, sm)) ? l : r;
+        if (data.empty()) return M::id();
+        return prod(a, b, 0, 0, _size);
     }
 
   private:
-    node_ptr root;
+    std::vector<_node> data;
     std::int64_t _size;
 
-    T prod(std::int64_t a, std::int64_t b, node_ptr node, std::int64_t l, std::int64_t r) const {
-        if (!node || r <= a || b <= l) return M::id();
-        if (a <= l && r <= b) return node->product;
+    T prod(std::int64_t a, std::int64_t b, int idx, std::int64_t l, std::int64_t r) const {
+        if (idx == -1 || r <= a || b <= l) return M::id();
+        if (a <= l && r <= b) return data[idx].product;
 
-        return M::op(M::op(prod(a, b, node->left, l, (l + r) >> 1),
-                           a <= node->index && node->index < b ? node->value : M::id()),
-                     prod(a, b, node->right, (l + r) >> 1, r));
+        return M::op(M::op(prod(a, b, data[idx].left, l, (l + r) >> 1),
+                           a <= data[idx].index && data[idx].index < b ? data[idx].value : M::id()),
+                     prod(a, b, data[idx].right, (l + r) >> 1, r));
     }
 };
