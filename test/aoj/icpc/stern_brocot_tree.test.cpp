@@ -23,7 +23,7 @@ int main(void) {
             else sbt = sbt.get_left();
         }
 
-        std::cout << x << "/" << y << " " << u << "/" << v << std::endl;
+        std::cout << x << "/" << y << " " << u << "/" << v << '\n';
     }
 
     return 0;

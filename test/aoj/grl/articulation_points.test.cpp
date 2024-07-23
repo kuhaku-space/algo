@@ -13,7 +13,7 @@ int main(void) {
     LowLink llink(g);
     auto ans = llink.get_articulation_points();
     std::sort(ans.begin(), ans.end());
-    for (auto e : ans) std::cout << e << std::endl;
+    for (auto e : ans) std::cout << e << '\n';
 
     return 0;
 }

@@ -17,7 +17,7 @@ int main(void) {
         } else {
             int s, t;
             std::cin >> s >> t;
-            std::cout << ft.sum(s - 1, t) << std::endl;
+            std::cout << ft.sum(s - 1, t) << '\n';
         }
     }
 

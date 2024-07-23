@@ -14,7 +14,7 @@ int main(void) {
         Point<double> p;
         std::cin >> p;
         auto ans = l.proj(p);
-        std::cout << ans << std::endl;
+        std::cout << ans << '\n';
     }
 
     return 0;

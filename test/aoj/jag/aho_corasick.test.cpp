@@ -41,7 +41,7 @@ int main(void) {
     for (int i = 0; i < n + 1; ++i) {
         for (auto y : correct[res[i]]) dp[i] += dp[i - t[y].size()];
     }
-    std::cout << dp.back() << std::endl;
+    std::cout << dp.back() << '\n';
 
     return 0;
 }

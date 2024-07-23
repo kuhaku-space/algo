@@ -21,8 +21,8 @@ int main(void) {
         std::cin >> sx >> tx >> sy >> ty;
         auto v = kd.find(sx, tx + 1, sy, ty + 1);
         std::sort(v.begin(), v.end());
-        for (auto e : v) std::cout << e << std::endl;
-        std::cout << std::endl;
+        for (auto e : v) std::cout << e << '\n';
+        std::cout << '\n';
     }
 
     return 0;

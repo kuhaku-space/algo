@@ -10,7 +10,7 @@ int main(void) {
     std::cin >> n;
     std::vector<int> a(n);
     std::copy_n(std::istream_iterator<int>(std::cin), n, std::begin(a));
-    std::cout << inversion_number(a) << std::endl;
+    std::cout << inversion_number(a) << '\n';
 
     return 0;
 }

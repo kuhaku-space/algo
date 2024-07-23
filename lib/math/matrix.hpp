@@ -135,7 +135,7 @@ struct Matrix {
         for (auto u : v) {
             std::cerr << "[";
             for (auto x : u) std::cerr << x << ", ";
-            std::cerr << "]" << std::endl;
+            std::cerr << "]\n";
         }
     }
 

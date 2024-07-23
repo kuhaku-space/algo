@@ -20,7 +20,7 @@ int main(void) {
     }
 
     std::sort(ans.begin(), ans.end());
-    for (auto e : ans) std::cout << e.first << ' ' << e.second << std::endl;
+    for (auto e : ans) std::cout << e.first << ' ' << e.second << '\n';
 
     return 0;
 }

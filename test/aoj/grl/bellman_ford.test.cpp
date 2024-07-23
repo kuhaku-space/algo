@@ -12,13 +12,13 @@ int main(void) {
     auto dist = bellman_ford(g, r, Inf);
     for (int i = 0; i < n; ++i) {
         if (dist[i] == -Inf) {
-            std::cout << "NEGATIVE CYCLE" << std::endl;
+            std::cout << "NEGATIVE CYCLE\n";
             return 0;
         }
     }
     for (int i = 0; i < n; ++i) {
-        if (dist[i] != Inf) std::cout << dist[i] << std::endl;
-        else std::cout << "INF" << std::endl;
+        if (dist[i] != Inf) std::cout << dist[i] << '\n';
+        else std::cout << "INF\n";
     }
 
     return 0;

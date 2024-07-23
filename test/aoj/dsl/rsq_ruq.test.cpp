@@ -36,7 +36,7 @@ int main(void) {
         } else {
             int s, t;
             std::cin >> s >> t;
-            std::cout << st.prod(s, t + 1).first << std::endl;
+            std::cout << st.prod(s, t + 1).first << '\n';
         }
     }
 

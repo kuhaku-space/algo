@@ -12,9 +12,9 @@ int main(void) {
         std::cin >> x >> y;
         if (x == 0) {
             if (!treap.contains(y)) treap.insert(y), ++size;
-            std::cout << size << std::endl;
+            std::cout << size << '\n';
         } else if (x == 1) {
-            std::cout << treap.contains(y) << std::endl;
+            std::cout << treap.contains(y) << '\n';
         } else if (x == 2) {
             if (treap.contains(y)) treap.erase(y), --size;
         }

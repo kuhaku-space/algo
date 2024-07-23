@@ -17,7 +17,7 @@ int main(void) {
         } else {
             int x;
             std::cin >> x;
-            std::cout << st.get(x) << std::endl;
+            std::cout << st.get(x) << '\n';
         }
     }
 

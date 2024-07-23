@@ -37,7 +37,7 @@ int main(void) {
                 chmin(ans, sum);
             }
         }
-        std::cout << ans << std::endl;
+        std::cout << ans << '\n';
     }
 
     return 0;

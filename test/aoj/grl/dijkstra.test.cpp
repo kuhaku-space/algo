@@ -12,8 +12,8 @@ int main(void) {
 
     auto dist = dijkstra(g, r, Inf);
     for (int i = 0; i < n; ++i) {
-        if (dist[i] != Inf) std::cout << dist[i] << std::endl;
-        else std::cout << "INF" << std::endl;
+        if (dist[i] != Inf) std::cout << dist[i] << '\n';
+        else std::cout << "INF\n";
     }
 
     return 0;

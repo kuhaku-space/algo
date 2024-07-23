@@ -17,7 +17,7 @@ int main(void) {
     warshall_floyd(g);
     for (int i = 0; i < v; ++i) {
         if (g[i][i] < 0) {
-            std::cout << "NEGATIVE CYCLE" << std::endl;
+            std::cout << "NEGATIVE CYCLE\n";
             return 0;
         }
     }
@@ -26,7 +26,7 @@ int main(void) {
         for (int j = 0; j < v; ++j) {
             if (g[i][j] >= INF / 2) std::cout << "INF";
             else std::cout << g[i][j];
-            if (j == v - 1) std::cout << std::endl;
+            if (j == v - 1) std::cout << '\n';
             else std::cout << ' ';
         }
     }
