@@ -128,7 +128,7 @@ struct dynamic_sequence {
     }
 
     T prod(node_ptr t, int r) const {
-        assert(0 <= r && r < node_t::count(t));
+        assert(0 <= r && r <= node_t::count(t));
         T res = M::id();
         while (r) {
             if (r == node_t::count(t)) {
