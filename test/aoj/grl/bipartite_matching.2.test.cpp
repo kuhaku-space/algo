@@ -11,7 +11,7 @@ int main(void) {
         std::cin >> u >> v;
         g.add_edge(u, v);
     }
-    std::cout << g.matching() << std::endl;
+    std::cout << g.matching() << '\n';
 
     return 0;
 }

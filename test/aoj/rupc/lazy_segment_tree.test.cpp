@@ -51,8 +51,8 @@ int main(void) {
         --x;
         lst.apply(et.get_l(x), et.get_r(x), 1);
         auto [g, w] = lst.all_prod();
-        if (g >= w) std::cout << "broccoli" << std::endl;
-        else std::cout << "cauliflower" << std::endl;
+        if (g >= w) std::cout << "broccoli\n";
+        else std::cout << "cauliflower\n";
     }
 
     return 0;

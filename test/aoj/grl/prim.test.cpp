@@ -10,7 +10,7 @@ int main(void) {
     auto v = prim(g);
     int ans = 0;
     for (auto &e : v) ans += e.weight();
-    std::cout << ans << std::endl;
+    std::cout << ans << '\n';
 
     return 0;
 }

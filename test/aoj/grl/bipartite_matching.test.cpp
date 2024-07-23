@@ -15,7 +15,7 @@ int main(void) {
     int s = x + y, t = s + 1;
     for (int i = 0; i < x; ++i) mf.add_edge(s, i, 1);
     for (int i = 0; i < y; ++i) mf.add_edge(x + i, t, 1);
-    std::cout << mf.flow(s, t) << std::endl;
+    std::cout << mf.flow(s, t) << '\n';
 
     return 0;
 }

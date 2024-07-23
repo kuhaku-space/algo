@@ -12,7 +12,7 @@ int main(void) {
     for (auto p : v) {
         for (int i = 0; i < p.second; ++i) std::cout << ' ' << p.first;
     }
-    std::cout << std::endl;
+    std::cout << '\n';
 
     return 0;
 }

@@ -15,7 +15,7 @@ int main(void) {
             std::cin >> x;
             heap.push(x);
         } else {
-            std::cout << heap.top() << std::endl;
+            std::cout << heap.top() << '\n';
             heap.pop();
         }
     }

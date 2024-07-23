@@ -12,7 +12,7 @@ int main(void) {
 
     int ans = 0;
     for (auto &e : v) ans += e.weight();
-    std::cout << ans << std::endl;
+    std::cout << ans << '\n';
 
     return 0;
 }

@@ -12,9 +12,9 @@ int main(void) {
         std::cin >> x >> y;
         if (x == 0) {
             if (!st.contains(y)) st.insert(y), ++size;
-            std::cout << size << std::endl;
+            std::cout << size << '\n';
         } else if (x == 1) {
-            std::cout << st.contains(y) << std::endl;
+            std::cout << st.contains(y) << '\n';
         } else if (x == 2) {
             if (st.contains(y)) st.erase(y), --size;
         }

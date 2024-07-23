@@ -10,7 +10,7 @@ int main(void) {
     g.input_edge(m, 0);
 
     auto v = topological_sort(g);
-    for (auto &e : v) std::cout << e << std::endl;
+    for (auto &e : v) std::cout << e << '\n';
 
     return 0;
 }

@@ -15,7 +15,7 @@ int main(void) {
             std::cin >> x;
             heap.push(x);
         } else {
-            std::cout << heap.get_max() << std::endl;
+            std::cout << heap.get_max() << '\n';
             heap.pop_max();
         }
     }

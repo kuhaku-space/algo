@@ -57,7 +57,7 @@ int main(void) {
         ans %= w * 4;
         y = ans / 4;
         d = ans % 4;
-        std::cout << x + 1 << ' ' << y + 1 << ' ' << dir[d] << std::endl;
+        std::cout << x + 1 << ' ' << y + 1 << ' ' << dir[d] << '\n';
     }
 
     return 0;

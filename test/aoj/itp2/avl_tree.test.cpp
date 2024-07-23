@@ -12,9 +12,9 @@ int main(void) {
         std::cin >> x >> y;
         if (x == 0) {
             if (!at.contains(y)) at.insert(y), ++size;
-            std::cout << size << std::endl;
+            std::cout << size << '\n';
         } else if (x == 1) {
-            std::cout << at.contains(y) << std::endl;
+            std::cout << at.contains(y) << '\n';
         } else if (x == 2) {
             if (at.contains(y)) at.erase(y), --size;
         }

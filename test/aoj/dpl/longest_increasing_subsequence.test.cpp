@@ -10,7 +10,7 @@ int main(void) {
     std::cin >> n;
     std::vector<int> a(n);
     for (int &e : a) std::cin >> e;
-    std::cout << longest_increasing_subsequence(a) << std::endl;
+    std::cout << longest_increasing_subsequence(a) << '\n';
 
     return 0;
 }

@@ -15,7 +15,7 @@ int main(void) {
     while (q--) {
         int s, t;
         std::cin >> s >> t;
-        std::cout << (v[s] == v[t]) << std::endl;
+        std::cout << (v[s] == v[t]) << '\n';
     }
 
     return 0;

@@ -9,7 +9,7 @@ int main(void) {
         Point<double> a, b, c, d;
         std::cin >> a >> b >> c >> d;
         Line l(a, b), r(c, d);
-        std::cout << intersection(l, r) << std::endl;
+        std::cout << intersection(l, r) << '\n';
     }
 
     return 0;

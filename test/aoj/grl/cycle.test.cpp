@@ -7,7 +7,7 @@ int main(void) {
     std::cin >> n >> m;
     Graph<void> g(n);
     g.input_edge(m, 0);
-    std::cout << has_cycle(g) << std::endl;
+    std::cout << has_cycle(g) << '\n';
 
     return 0;
 }

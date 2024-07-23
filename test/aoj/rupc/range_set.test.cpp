@@ -27,7 +27,7 @@ int main(void) {
         if (b == 0) ans[c] = d > e || rs.same(d, e);
         else rs.insert(d, e);
     }
-    for (auto f : ans) std::cout << (f ? "Yes" : "No") << std::endl;
+    for (auto f : ans) std::cout << (f ? "Yes\n" : "No\n");
 
     return 0;
 }

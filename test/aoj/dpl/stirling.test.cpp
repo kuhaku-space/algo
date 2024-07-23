@@ -6,7 +6,7 @@ int main(void) {
     int n, k;
     std::cin >> n >> k;
     Enumeration<modint107> enume;
-    std::cout << enume.stirling(n, k) << std::endl;
+    std::cout << enume.stirling(n, k) << '\n';
 
     return 0;
 }

@@ -28,7 +28,7 @@ int main(void) {
                 if (b + g[a][c] <= d) hk.add_edge(i, j);
             }
         }
-        std::cout << l - hk.matching() << std::endl;
+        std::cout << l - hk.matching() << '\n';
     }
 
     return 0;

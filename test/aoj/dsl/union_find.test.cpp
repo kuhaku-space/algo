@@ -10,7 +10,7 @@ int main(void) {
         int com, x, y;
         std::cin >> com >> x >> y;
         if (com == 0) uf.unite(x, y);
-        else std::cout << uf.same(x, y) << std::endl;
+        else std::cout << uf.same(x, y) << '\n';
     }
 
     return 0;
