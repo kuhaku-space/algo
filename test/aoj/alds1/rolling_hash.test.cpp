@@ -1,5 +1,4 @@
-// competitive-verifier: PROBLEM
-// https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
 #include "string/rolling_hash.hpp"
 #include <iostream>
 #include <string>
