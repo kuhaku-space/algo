@@ -1,7 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_range_frequency
 #include <iostream>
 #include <vector>
-
 #include "data_structure/dynamic_wavelet_matrix.hpp"
 #include "segment_tree/monoid.hpp"
 
