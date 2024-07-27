@@ -67,11 +67,11 @@ struct HashInt {
     constexpr explicit operator unsigned long long() const noexcept { return x; }
 
     constexpr HashInt inverse() const noexcept {
-        std::int64_t a = x, b = mod, u = 1, v = 0, t = 0;
+        std::int64_t a = x, b = mod, u = 1, v = 0, t = 0, tmp = 0;
         while (b > 0) {
             t = a / b;
-            std::swap(a -= t * b, b);
-            std::swap(u -= t * v, v);
+            tmp = a - t * b, a = b, b = tmp;  // std::swap(a -= t * b, b);
+            tmp = u - t * v, u = v, v = tmp;  // std::swap(u -= t * v, v);
         }
         return HashInt(u);
     }
