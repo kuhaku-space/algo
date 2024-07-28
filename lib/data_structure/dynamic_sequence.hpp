@@ -121,14 +121,19 @@ struct dynamic_sequence {
     }
 
     node_ptr erase(node_ptr t, int k) {
-        if (!k) return split(t, 1).second;
-        std::pair<node_ptr, node_ptr> s1 = split(t, k);
-        std::pair<node_ptr, node_ptr> s2 = split(s1.second, 1);
-        return merge(s1.first, s2.second);
+        int c = node_t::count(t->ch[0]);
+        if (k == c) return merge(t->ch[0], t->ch[1]);
+        if (k < c) {
+            t->ch[0] = erase(t->ch[0], k);
+            return update(t);
+        } else {
+            t->ch[1] = erase(t->ch[1], k - c - 1);
+            return update(t);
+        }
     }
 
     T prod(node_ptr t, int r) const {
-        assert(0 <= r && r < node_t::count(t));
+        assert(0 <= r && r <= node_t::count(t));
         T res = M::id();
         while (r) {
             if (r == node_t::count(t)) {

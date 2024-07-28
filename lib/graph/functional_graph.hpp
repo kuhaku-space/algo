@@ -71,6 +71,21 @@ struct functional_graph {
         return res;
     }
 
+    int dist(int u, int v) {
+        if (root[u] != root[v]) return -1;
+        if (u == v) return 0;
+        int du = hld.get_depth(u);
+        int dv = hld.get_depth(v);
+        if (du > dv) return du - dv;
+        int c = hld.get_depth(to[root[u]]);
+        return dv > c ? -1 : c - dv + du;
+    }
+
+    int cycle(int v) const {
+        v = root[v];
+        return hld.get_depth(to[v]);
+    }
+
     std::vector<std::vector<int>> get_cycles() const {
         std::vector<std::vector<int>> res;
         for (int v = 0; v < _size; ++v) {
