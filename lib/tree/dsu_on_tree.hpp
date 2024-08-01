@@ -50,7 +50,7 @@ struct dsu_on_tree {
             for (int i = right[hp]; i < right[v]; ++i) query(query_order[i]);
             rem(v);
         };
-        dsu(dsu, 0);
+        dsu(dsu, root);
     }
 
   private:
