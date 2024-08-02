@@ -18,7 +18,7 @@ constexpr int calc_c(int n) {
 
 }  // namespace internal
 
-template <int N, class D = void>
+template <int N>
 struct tree64 {
     tree64() : map(0), child() {}
 
@@ -77,7 +77,7 @@ struct tree64 {
 };
 
 template <int N>
-struct tree64<N, typename std::enable_if<(N <= 64)>::type> {
+requires(N <= 64) struct tree64<N> {
     tree64() : map(0) {}
 
     bool insert(const int key) {
