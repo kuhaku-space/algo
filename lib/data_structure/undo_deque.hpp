@@ -2,6 +2,7 @@
 #include <stack>
 #include <utility>
 
+/// @brief Undo可能両端キュー
 template <class T>
 struct undo_deque {
     T front() const { return data.front(); }
