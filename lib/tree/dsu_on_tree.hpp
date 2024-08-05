@@ -1,3 +1,4 @@
+#pragma once
 #include <cassert>
 #include <vector>
 #include "graph/graph.hpp"
