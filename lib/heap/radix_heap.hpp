@@ -5,6 +5,7 @@
 #include <unordered_set>
 #include <vector>
 
+/// @brief 基数ヒープ
 template <class Key, class Value = void>
 struct radix_heap {
   private:
