@@ -19,10 +19,10 @@ struct persistent_dual_segment_tree {
     };
 
   public:
-    using node_pointer = typename _node::pointer;
+    using node_ptr = typename _node::pointer;
 
     constexpr persistent_dual_segment_tree() : _size(), root() {}
-    constexpr persistent_dual_segment_tree(int n, node_pointer _root) : _size(n), root(_root) {}
+    constexpr persistent_dual_segment_tree(int n, node_ptr _root) : _size(n), root(_root) {}
     persistent_dual_segment_tree(int n, T e = M::id()) : _size(n), root(this->build(0, n, e)) {}
     template <class U>
     persistent_dual_segment_tree(const std::vector<U> &v)
@@ -41,32 +41,32 @@ struct persistent_dual_segment_tree {
 
   private:
     int _size;
-    node_pointer root;
+    node_ptr root;
 
-    static node_pointer merge(node_pointer left, node_pointer right) {
+    static node_ptr merge(node_ptr left, node_ptr right) {
         return new _node(M::op(left->val, right->val), left, right);
     }
 
-    node_pointer build(int l, int r, T val) const {
+    node_ptr build(int l, int r, T val) const {
         if (l + 1 == r) return new _node(val);
         int m = (l + r) >> 1;
         return this->merge(this->build(l, m, val), this->build(m, r, val));
     }
     template <class U>
-    node_pointer build(int l, int r, const std::vector<U> &v) const {
+    node_ptr build(int l, int r, const std::vector<U> &v) const {
         if (l + 1 == r) return new _node(v[l]);
         int m = (l + r) >> 1;
         return this->merge(this->build(l, m, v), this->build(m, r, v));
     }
 
-    T get(int l, int r, int k, node_pointer node) const {
+    T get(int l, int r, int k, node_ptr node) const {
         if (l + 1 == r) return node->val;
         int m = (l + r) >> 1;
         if (k < m) return M::op(node->val, this->get(l, m, k, node->left));
         else return M::op(node->val, this->get(m, r, k, node->right));
     }
 
-    node_pointer apply(int l, int r, int a, int b, T val, T prop, node_pointer node) const {
+    node_ptr apply(int l, int r, int a, int b, T val, T prop, node_ptr node) const {
         if (a <= l && r <= b)
             return new _node(M::op(val, M::op(prop, node->val)), node->left, node->right);
         if (b <= l || r <= a) return new _node(M::op(prop, node->val), node->left, node->right);
