@@ -1,9 +1,11 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 #include <limits>
 #include <set>
 #include <utility>
 
+/// @brief 区間をsetで管理するテク
 template <class T>
 struct range_set {
     range_set() = default;

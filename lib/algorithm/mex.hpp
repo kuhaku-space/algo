@@ -1,3 +1,4 @@
+#pragma once
 #include <algorithm>
 #include <iterator>
 #include <vector>
@@ -17,16 +18,14 @@ struct minimum_excluded {
         ++_size;
         if (_size == (int)exists.size()) {
             exists.resize(_size << 1);
-            v.erase(std::remove_if(v.begin(), v.end(),
-                                   [&](int y) {
-                                       if (y < (int)exists.size()) {
-                                           if (exists[y]) --_size;
-                                           else exists[y] = true;
-                                           return true;
-                                       }
-                                       return false;
-                                   }),
-                    v.end());
+            std::erase_if(v, [&](int y) {
+                if (y < (int)exists.size()) {
+                    if (exists[y]) --_size;
+                    else exists[y] = true;
+                    return true;
+                }
+                return false;
+            });
         }
         if (x < (int)exists.size()) {
             if (exists[x]) --_size;

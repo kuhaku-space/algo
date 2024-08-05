@@ -1,8 +1,10 @@
+#pragma once
 #include <cassert>
 #include <vector>
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
+/// @brief DSU on Tree
 template <class T>
 struct dsu_on_tree {
     dsu_on_tree(const Graph<T> &_g, const std::vector<int> &query, int r = 0)
@@ -50,7 +52,7 @@ struct dsu_on_tree {
             for (int i = right[hp]; i < right[v]; ++i) query(query_order[i]);
             rem(v);
         };
-        dsu(dsu, 0);
+        dsu(dsu, root);
     }
 
   private:

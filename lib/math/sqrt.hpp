@@ -1,3 +1,4 @@
+#pragma once
 #include "math/modint.hpp"
 
 template <class mint, internal::is_modint_t<mint> * = nullptr>

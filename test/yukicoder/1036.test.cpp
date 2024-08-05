@@ -5,15 +5,6 @@
 #include <vector>
 #include "data_structure/swag.hpp"
 
-template <class T>
-struct Gcd {
-    using value_type = T;
-    static constexpr T id() { return std::numeric_limits<T>::max(); }
-    static constexpr T op(const T &lhs, const T &rhs) {
-        return lhs == Gcd::id() ? rhs : (rhs == Gcd::id() ? lhs : std::gcd(lhs, rhs));
-    }
-};
-
 int main(void) {
     int n;
     std::cin >> n;

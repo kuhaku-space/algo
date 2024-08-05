@@ -2,6 +2,7 @@
 #include <vector>
 #include "graph/graph.hpp"
 
+/// @brief なもりグラフ上のサイクル検出
 template <class T>
 std::vector<int> cycle_detection_on_namori_graph(const Graph<T> &g) {
     int n = g.size();

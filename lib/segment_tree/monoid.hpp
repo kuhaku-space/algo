@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <limits>
+#include <numeric>
 #include <utility>
 
 template <class T>
@@ -84,6 +85,24 @@ struct Max {
     template <class U>
     static constexpr U f(T lhs, U rhs) {
         return std::max((U)lhs, rhs);
+    }
+};
+
+template <class T>
+struct Gcd {
+    using value_type = T;
+    static constexpr T id() { return std::numeric_limits<T>::max(); }
+    static constexpr T op(const T &lhs, const T &rhs) {
+        return lhs == Gcd::id() ? rhs : (rhs == Gcd::id() ? lhs : std::gcd(lhs, rhs));
+    }
+};
+
+template <class T>
+struct Lcm {
+    using value_type = T;
+    static constexpr T id() { return std::numeric_limits<T>::max(); }
+    static constexpr T op(const T &lhs, const T &rhs) {
+        return lhs == Lcm::id() ? rhs : (rhs == Lcm::id() ? lhs : std::lcm(lhs, rhs));
     }
 };
 
