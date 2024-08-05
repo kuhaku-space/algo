@@ -1,3 +1,4 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 #include <limits>
@@ -5,6 +6,7 @@
 #include <unordered_set>
 #include <vector>
 
+/// @brief 基数ヒープ
 template <class Key, class Value = void>
 struct radix_heap {
   private:
