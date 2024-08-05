@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "segment_tree/monoid.hpp"
 
