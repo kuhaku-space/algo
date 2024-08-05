@@ -3,6 +3,7 @@
 #include <random>
 #include <utility>
 
+/// @brief 動的配列
 template <class M, class UniformRandomBitGenerator = std::mt19937>
 struct dynamic_sequence {
   private:
