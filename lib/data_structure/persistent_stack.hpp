@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 
+/// @brief 永続スタック
 template <class T>
 struct persistent_stack {
   private:
