@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 
+/// @brief 永続スタック
 template <class T>
 struct persistent_stack {
   private:
@@ -11,10 +12,10 @@ struct persistent_stack {
     };
 
   public:
-    using node_pointer = _node::pointer;
+    using node_ptr = _node::pointer;
 
     constexpr persistent_stack() : root(nullptr) {}
-    constexpr persistent_stack(node_pointer _root) : root(_root) {}
+    constexpr persistent_stack(node_ptr _root) : root(_root) {}
 
     T top() const {
         assert(root);
@@ -29,5 +30,5 @@ struct persistent_stack {
     }
 
   private:
-    node_pointer root;
+    node_ptr root;
 };
