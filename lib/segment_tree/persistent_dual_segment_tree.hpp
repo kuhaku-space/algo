@@ -1,6 +1,7 @@
 #include <vector>
 #include "segment_tree/monoid.hpp"
 
+/// @brief 永続双対セグメント木
 template <class M>
 struct persistent_dual_segment_tree {
   private:
