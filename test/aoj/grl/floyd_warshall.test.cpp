@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_C
-#include "graph/warshall_floyd.hpp"
+#include "graph/floyd_warshall.hpp"
 #include <cstdint>
 #include <iostream>
 #include <string>
