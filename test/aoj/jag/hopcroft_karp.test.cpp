@@ -16,7 +16,7 @@ int main(void) {
             std::cin >> u >> v >> w;
             g.add_edges(u, v, w);
         }
-        warshall_floyd(g);
+        floyd_warshall(g);
         std::vector<std::pair<int, int>> q(l);
         for (auto &[a, b] : q) std::cin >> a >> b;
         std::sort(q.begin(), q.end(), [](auto l, auto r) { return l.second < r.second; });

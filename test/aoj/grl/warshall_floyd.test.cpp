@@ -14,7 +14,7 @@ int main(void) {
         std::cin >> s >> t >> d;
         g.add_edge(s, t, d);
     }
-    warshall_floyd(g);
+    floyd_warshall(g);
     for (int i = 0; i < v; ++i) {
         if (g[i][i] < 0) {
             std::cout << "NEGATIVE CYCLE\n";

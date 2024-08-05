@@ -4,7 +4,7 @@
 
 /// @brief ワーシャルフロイド法
 template <class T>
-void warshall_floyd(matrix_graph<T> &g) {
+void floyd_warshall(matrix_graph<T> &g) {
     int n = g.size();
     for (int i = 0; i < n; ++i) g[i][i] = T();
     for (int k = 0; k < n; ++k) {
