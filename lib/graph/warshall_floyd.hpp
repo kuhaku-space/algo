@@ -2,6 +2,7 @@
 #include "graph/matrix_graph.hpp"
 #include "template/template.hpp"
 
+/// @brief ワーシャルフロイド法
 template <class T>
 void warshall_floyd(matrix_graph<T> &g) {
     int n = g.size();
