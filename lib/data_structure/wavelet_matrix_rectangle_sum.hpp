@@ -34,6 +34,32 @@ struct wavelet_matrix_rectangle_sum {
         }
     }
 
+    /// k-th smallest number in v[l ... r-1]
+    T kth_smallest_sum(int l, int r, int k) const {
+        assert(0 <= k && k <= r - l);
+        T val = T();
+        U res = U();
+        for (int level = L - 1; level >= 0; --level) {
+            int cnt = matrix[level].rank(false, r) - matrix[level].rank(false, l);
+            bool f = cnt <= k;
+            if (f) {
+                val |= T(1) << level;
+                res += cs[level][matrix[level].rank(false, r)] -
+                       cs[level][matrix[level].rank(false, l)];
+                k -= cnt;
+            }
+            std::tie(l, r) = succ(f, l, r, level);
+        }
+        return res + val * k;
+    }
+
+    /// k-th largest number in v[l ... r-1]
+    T kth_largest_sum(int l, int r, int k) const {
+        return cs[L - 1][matrix[L - 1].rank(false, r)] + cs[L - 1][matrix[L - 1].rank(true, r)] -
+               cs[L - 1][matrix[L - 1].rank(false, l)] - cs[L - 1][matrix[L - 1].rank(true, l)] -
+               kth_smallest_sum(l, r, r - l - k);
+    }
+
     U range_sum(int r, T x) const { return range_sum(0, r, x); }
 
     U range_sum(int l, int r, T x) const {
