@@ -77,14 +77,14 @@ struct linear_sparse_table {
             }
             word_data[b] = bits;
         }
-        block_data = sparse_table<M>(u);
+        block_table = sparse_table<M>(u);
     }
 
     T prod(int l, int r) {
         assert(0 <= l && l < r && r <= _size);
         int lb = (l + W - 1) / W, rb = r / W;
         if (lb > rb) return word_prod(l, r);
-        T res = (lb == rb ? M::id() : block_data.prod(lb, rb));
+        T res = (lb == rb ? M::id() : block_table.prod(lb, rb));
         if (l < lb * W) res = M::op(res, word_prod(l, lb * W));
         if (rb * W < r) res = M::op(res, word_prod(rb * W, r));
         return res;
@@ -101,6 +101,6 @@ struct linear_sparse_table {
   private:
     int _size;
     std::vector<T> data;
-    sparse_table<M> block_data;
+    sparse_table<M> block_table;
     std::vector<std::vector<std::uint64_t>> word_data;
 };
