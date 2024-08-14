@@ -39,6 +39,8 @@ struct linear_sparse_table {
     static constexpr int W = 64;
 
   public:
+    linear_sparse_table() = default;
+
     linear_sparse_table(const std::vector<T> &v) : _size(v.size()), data(v) {
         int n = v.size();
         int b = n / W;
