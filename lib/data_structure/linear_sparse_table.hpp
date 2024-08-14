@@ -39,6 +39,8 @@ struct linear_sparse_table {
     static constexpr int W = 64;
 
   public:
+    linear_sparse_table() = default;
+
     linear_sparse_table(const std::vector<T> &v) : _size(v.size()), data(v) {
         int n = v.size();
         int b = n / W;
@@ -79,6 +81,8 @@ struct linear_sparse_table {
         }
         block_table = sparse_table<M>(u);
     }
+
+    const T &operator[](int k) const { return data[k]; }
 
     T prod(int l, int r) {
         assert(0 <= l && l < r && r <= _size);
