@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <bit>
 #include <cassert>
 #include <cstdint>
 #include <vector>
@@ -50,12 +51,12 @@ struct linear_sparse_table {
             std::vector<std::uint64_t> bits(W);
             for (int j = 0; j < W; ++j) {
                 m = M::op(m, v[i * W + j]);
-                while (!st.empty() && v[i * W + st.top()] >= v[i * W + j]) {
-                    bit ^= 1ul << st.top();
+                while (!st.empty() && M::op(v[i * W + st.top()], v[i * W + j]) == v[i * W + j]) {
+                    bit ^= std::uint64_t(1) << st.top();
                     st.pop();
                 }
                 bits[j] = bit;
-                bit |= 1ul << j;
+                bit |= std::uint64_t(1) << j;
                 st.emplace(j);
             }
             u[i] = m;
@@ -66,12 +67,12 @@ struct linear_sparse_table {
             std::uint64_t bit = 0;
             std::vector<std::uint64_t> bits(n - b * W);
             for (int j = 0; j < n - b * W; ++j) {
-                while (!st.empty() && v[b * W + st.top()] >= v[b * W + j]) {
-                    bit ^= 1 << st.top();
+                while (!st.empty() && M::op(v[b * W + st.top()], v[b * W + j]) == v[b * W + j]) {
+                    bit ^= std::uint64_t(1) << st.top();
                     st.pop();
                 }
                 bits[j] = bit;
-                bit |= 1ul << j;
+                bit |= std::uint64_t(1) << j;
                 st.emplace(j);
             }
             word_data[b] = bits;
@@ -83,7 +84,7 @@ struct linear_sparse_table {
         assert(0 <= l && l < r && r <= _size);
         int lb = (l + W - 1) / W, rb = r / W;
         if (lb > rb) return word_prod(l, r);
-        int res = (lb == rb ? M::id() : block_data.prod(lb, rb));
+        T res = (lb == rb ? M::id() : block_data.prod(lb, rb));
         if (l < lb * W) res = M::op(res, word_prod(l, lb * W));
         if (rb * W < r) res = M::op(res, word_prod(rb * W, r));
         return res;
@@ -94,7 +95,7 @@ struct linear_sparse_table {
         int b = l / W;
         int lw = l - b * W, rw = r - b * W;
         if ((word_data[b][rw - 1] >> lw) == 0ul) return data[r - 1];
-        return data[l + __builtin_ctzl(word_data[b][rw - 1] >> lw)];
+        return data[l + std::countr_zero(word_data[b][rw - 1] >> lw)];
     }
 
   private:
