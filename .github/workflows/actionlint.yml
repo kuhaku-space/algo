@@ -7,6 +7,8 @@ on:
     paths:
       - ".github/**"
   pull_request:
+    paths:
+      - ".github/**"
 
 jobs:
   actionlint:
