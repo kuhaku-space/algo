@@ -6,7 +6,7 @@
 ![C++](https://img.shields.io/badge/C++-20-green)
 [![kuhaku](https://img.shields.io/endpoint?url=https%3A%2F%2Fatcoder-badges.now.sh%2Fapi%2Fatcoder%2Fjson%2Fkuhaku)](https://atcoder.jp/users/kuhaku)
 
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kuhaku-space/algo)
+![GitHub repo size](https://img.shields.io/github/repo-size/kuhaku-space/algo)
 
 競プロ用ライブラリ
 
@@ -22,4 +22,4 @@ verify 用ファイルをフォーマットしたときにヘッダファイル�
 
 ## ライセンス
 
-This project is licensed under the [MIT License](https://github.com/kuhaku-space/algo/blob/main/LICENSE)
+This project is licensed under the [MIT License](https://github.com/kuhaku-space/algo/blob/main/LICENSE).
