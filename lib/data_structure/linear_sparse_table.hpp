@@ -94,6 +94,12 @@ struct linear_sparse_table {
         return res;
     }
 
+  private:
+    int _size;
+    std::vector<T> data;
+    sparse_table<M> block_table;
+    std::vector<std::vector<std::uint64_t>> word_data;
+
     T word_prod(int l, int r) {
         if (l == r) return M::id();
         int b = l / W;
@@ -101,10 +107,4 @@ struct linear_sparse_table {
         if ((word_data[b][rw - 1] >> lw) == 0ul) return data[r - 1];
         return data[l + std::countr_zero(word_data[b][rw - 1] >> lw)];
     }
-
-  private:
-    int _size;
-    std::vector<T> data;
-    sparse_table<M> block_table;
-    std::vector<std::vector<std::uint64_t>> word_data;
 };
