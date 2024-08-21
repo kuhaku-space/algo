@@ -1,6 +1,7 @@
+#pragma once
 #include <vector>
-#include "graph/graph.hpp"
 #include "graph/scc.hpp"
+#include "internal/internal_csr.hpp"
 
 /**
  * @brief 2-SAT
@@ -15,6 +16,7 @@ struct two_sat {
     }
 
     std::vector<int> solve() {
+        G.build();
         auto res = scc(G);
         return res;
     }
@@ -34,5 +36,5 @@ struct two_sat {
 
   private:
     int _size;
-    Graph<void> G;
+    internal::graph_csr G;
 };
