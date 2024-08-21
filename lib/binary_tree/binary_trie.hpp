@@ -61,7 +61,7 @@ struct binary_trie {
         if (!node) node = new _node();
         ++node->count;
         if (b < 0) return node;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         node->ch[f] = insert(node->ch[f], val, b - 1);
         return node;
     }
@@ -70,16 +70,16 @@ struct binary_trie {
         --node->count;
         if (!node->count) return nullptr;
         if (b < 0) return node;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         node->ch[f] = erase(node->ch[f], val, b - 1);
         return node;
     }
     T get_min(node_ptr node, T val, int b = B - 1) const {
         assert(node);
         if (b < 0) return 0;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         f ^= !node->ch[f];
-        return get_min(node->ch[f], val, b - 1) | ((T)f << (T)b);
+        return get_min(node->ch[f], val, b - 1) | ((T)f << b);
     }
     T get(node_ptr node, int k, int b = B - 1) const {
         if (b < 0) return 0;
@@ -139,7 +139,7 @@ struct multi_binary_trie {
         if (!root) return 0;
         node_ptr node = root;
         for (int i = B - 1; i >= 0; i--) {
-            node = node->ch[val >> i & (T)1];
+            node = node->ch[val >> i & 1];
             if (!node) return 0;
         }
         return node->count;
@@ -152,7 +152,7 @@ struct multi_binary_trie {
         if (!node) node = new _node();
         ++node->count;
         if (b < 0) return node;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         node->ch[f] = insert(node->ch[f], val, b - 1);
         return node;
     }
@@ -161,16 +161,16 @@ struct multi_binary_trie {
         --node->count;
         if (!node->count) return nullptr;
         if (b < 0) return node;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         node->ch[f] = erase(node->ch[f], val, b - 1);
         return node;
     }
     T get_min(node_ptr node, T val, int b = B - 1) const {
         assert(node);
         if (b < 0) return 0;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         f ^= !node->ch[f];
-        return get_min(node->ch[f], val, b - 1) | ((T)f << (T)b);
+        return get_min(node->ch[f], val, b - 1) | ((T)f << b);
     }
     T get(node_ptr node, int k, int b = B - 1) const {
         if (b < 0) return 0;
@@ -179,7 +179,7 @@ struct multi_binary_trie {
     }
     int count_lower(node_ptr node, T val, int b = B - 1) {
         if (!node || b < 0) return 0;
-        bool f = val >> b & (T)1;
+        bool f = val >> b & 1;
         return (f && node->ch[0] ? node->ch[0]->count : 0) + count_lower(node->ch[f], val, b - 1);
     }
 };
