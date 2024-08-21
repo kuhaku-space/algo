@@ -1,26 +1,27 @@
 #pragma once
-#include <cassert>
 #include <cstdint>
 #include <utility>
 #include <vector>
 #include "internal/internal_csr.hpp"
 #include "tree/hld.hpp"
-#include "tree/union_find.hpp"
 
 /// @brief functional graph
 struct functional_graph {
     functional_graph() = default;
     functional_graph(const std::vector<int> &_to) : functional_graph(_to.size(), _to) {
-        union_find uf(_size);
         for (int i = 0; i < _size; ++i) {
-            assert(0 <= to[i] && to[i] < _size);
-            if (!uf.unite(i, to[i])) root[i] = i;
+            int x = i;
+            while (root[x] == -1) {
+                root[x] = i;
+                x = to[x];
+            }
+            int r = (root[x] == i ? x : root[x]);
+            x = i;
+            while (r != i && root[x] == i) {
+                root[x] = r;
+                x = to[x];
+            }
         }
-        for (int i = 0; i < _size; ++i) {
-            if (root[i] == i) root[uf.root(i)] = root[i];
-        }
-        for (int i = 0; i < _size; ++i) root[i] = root[uf.root(i)];
-
         for (int i = 0; i < _size; ++i) {
             if (root[i] == i) g.add_edge(_size, i);
             else g.add_edge(to[i], i);
