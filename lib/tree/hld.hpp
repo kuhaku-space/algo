@@ -1,4 +1,5 @@
 #pragma once
+#include <stack>
 #include "graph/graph.hpp"
 #include "internal/internal_csr.hpp"
 
