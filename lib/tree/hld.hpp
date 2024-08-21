@@ -52,6 +52,47 @@ struct heavy_light_decomposition {
         }
     }
 
+    heavy_light_decomposition(const internal::graph_csr &g, int r = 0)
+        : heavy_light_decomposition(g.size()) {
+        std::vector<int> heavy_path(_size, -1), sub_size(_size, 1);
+        std::stack<int> st;
+        st.emplace(r);
+        int pos = 0;
+        while (!st.empty()) {
+            int v = st.top();
+            st.pop();
+            vid[pos++] = v;
+            for (int u : g[v]) {
+                if (u == par[v]) continue;
+                par[u] = v, dep[u] = dep[v] + 1, st.emplace(u);
+            }
+        }
+        for (int i = _size - 1; i >= 0; --i) {
+            int v = vid[i];
+            int max_sub = 0;
+            for (int u : g[v]) {
+                if (u == par[v]) continue;
+                sub_size[v] += sub_size[u];
+                if (max_sub < sub_size[u]) max_sub = sub_size[u], heavy_path[v] = u;
+            }
+        }
+        nxt[r] = r;
+        pos = 0;
+        st.emplace(r);
+        while (!st.empty()) {
+            int v = st.top();
+            st.pop();
+            vid[v] = pos++;
+            inv[vid[v]] = v;
+            int hp = heavy_path[v];
+            for (int u : g[v]) {
+                if (u == par[v] || u == hp) continue;
+                nxt[u] = u, st.emplace(u);
+            }
+            if (hp != -1) nxt[hp] = nxt[v], st.emplace(hp);
+        }
+    }
+
     constexpr int size() const { return _size; }
 
     int get(int v) const { return vid[v]; }
