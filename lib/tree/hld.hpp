@@ -1,6 +1,6 @@
 #pragma once
 #include "graph/graph.hpp"
-#include "template/template.hpp"
+#include "internal/internal_csr.hpp"
 
 /**
  * @brief HL分解
@@ -10,14 +10,53 @@ struct heavy_light_decomposition {
     heavy_light_decomposition() = default;
     template <class T>
     heavy_light_decomposition(const Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {
-        build(g, r);
+        std::vector<int> heavy_path(_size, -1), sub_size(_size, 1);
+        std::stack<int> st;
+        st.emplace(r);
+        int pos = 0;
+        while (!st.empty()) {
+            int v = st.top();
+            st.pop();
+            vid[pos++] = v;
+            for (auto &e : g[v]) {
+                int u = e.to();
+                if (u == par[v]) continue;
+                par[u] = v, dep[u] = dep[v] + 1, st.emplace(u);
+            }
+        }
+        for (int i = _size - 1; i >= 0; --i) {
+            int v = vid[i];
+            int max_sub = 0;
+            for (auto &e : g[v]) {
+                int u = e.to();
+                if (u == par[v]) continue;
+                sub_size[v] += sub_size[u];
+                if (max_sub < sub_size[u]) max_sub = sub_size[u], heavy_path[v] = u;
+            }
+        }
+        nxt[r] = r;
+        pos = 0;
+        st.emplace(r);
+        while (!st.empty()) {
+            int v = st.top();
+            st.pop();
+            vid[v] = pos++;
+            inv[vid[v]] = v;
+            int hp = heavy_path[v];
+            for (auto &e : g[v]) {
+                int u = e.to();
+                if (u == par[v] || u == hp) continue;
+                nxt[u] = u, st.emplace(u);
+            }
+            if (hp != -1) nxt[hp] = nxt[v], st.emplace(hp);
+        }
     }
 
     constexpr int size() const { return _size; }
 
     int get(int v) const { return vid[v]; }
     int get_parent(int v) const { return par[v]; }
-    int get_depth(int v) const { return depth[v]; }
+    int get_depth(int v) const { return dep[v]; }
 
     int dist(int u, int v) const {
         int d = 0;
@@ -80,48 +119,7 @@ struct heavy_light_decomposition {
 
   private:
     int _size;
-    std::vector<int> vid, nxt, sub, par, depth, inv;
+    std::vector<int> vid, nxt, par, dep, inv;
 
-    heavy_light_decomposition(int n)
-        : _size(n), vid(n, -1), nxt(n), sub(n, 1), par(n, -1), depth(n), inv(n) {}
-
-    template <class T>
-    void build(const Graph<T> &g, int r = 0) {
-        std::vector<int> heavy_path(_size, -1);
-        dfs_sz(g, r, heavy_path);
-        nxt[r] = r;
-        int pos = 0;
-        dfs_hld(g, r, pos, heavy_path);
-    }
-
-    template <class T>
-    void dfs_sz(const Graph<T> &g, int v, std::vector<int> &heavy_path) {
-        int max_sub = 0;
-        for (auto &e : g[v]) {
-            int u = e.to();
-            if (u == par[v]) continue;
-            par[u] = v;
-            depth[u] = depth[v] + 1;
-            dfs_sz(g, u, heavy_path);
-            sub[v] += sub[u];
-            if (chmax(max_sub, sub[u])) heavy_path[v] = u;
-        }
-    }
-
-    template <class T>
-    void dfs_hld(const Graph<T> &g, int v, int &pos, const std::vector<int> &heavy_path) {
-        vid[v] = pos++;
-        inv[vid[v]] = v;
-        int hp = heavy_path[v];
-        if (hp != -1) {
-            nxt[hp] = nxt[v];
-            dfs_hld(g, hp, pos, heavy_path);
-        }
-        for (auto &e : g[v]) {
-            int u = e.to();
-            if (u == par[v] || u == heavy_path[v]) continue;
-            nxt[u] = u;
-            dfs_hld(g, u, pos, heavy_path);
-        }
-    }
+    heavy_light_decomposition(int n) : _size(n), vid(n, -1), nxt(n), par(n, -1), dep(n), inv(n) {}
 };
