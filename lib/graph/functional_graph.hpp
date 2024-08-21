@@ -3,9 +3,11 @@
 #include <cstdint>
 #include <utility>
 #include <vector>
+#include "internal/internal_csr.hpp"
 #include "tree/hld.hpp"
 #include "tree/union_find.hpp"
 
+/// @brief functional graph
 struct functional_graph {
     functional_graph() = default;
     functional_graph(const std::vector<int> &_to) : functional_graph(_to.size(), _to) {
@@ -23,6 +25,7 @@ struct functional_graph {
             if (root[i] == i) g.add_edge(_size, i);
             else g.add_edge(to[i], i);
         }
+        g.build();
         hld = heavy_light_decomposition(g, _size);
     }
 
@@ -42,12 +45,14 @@ struct functional_graph {
 
     std::vector<int> jump_all(std::uint64_t step) const {
         std::vector<int> res(_size, -1);
-        std::vector<std::vector<std::pair<int, int>>> query(_size);
+        std::vector<std::pair<int, int>> query;
+        internal::graph_csr csr(_size);
         for (int v = 0; v < _size; ++v) {
             int d = hld.get_depth(v);
             int r = root[v];
             if ((std::uint64_t)d - 1 > step) {
-                query[v].emplace_back(v, step);
+                csr.add_edge(v, query.size());
+                query.emplace_back(v, step);
             } else {
                 std::int64_t k = step - (d - 1);
                 int bottom = to[r];
@@ -57,18 +62,20 @@ struct functional_graph {
                     res[v] = r;
                     continue;
                 }
-                query[bottom].emplace_back(v, k - 1);
+                csr.add_edge(bottom, query.size());
+                query.emplace_back(v, k - 1);
             }
         }
+        csr.build();
 
         std::vector<int> path;
         auto dfs = [&](auto self, int v) -> void {
             path.emplace_back(v);
-            for (auto &&[w, k] : query[v]) res[w] = path[path.size() - 1 - k];
-            for (auto &&e : g[v]) self(self, e.to());
+            for (int id : csr[v]) res[query[id].first] = path[path.size() - 1 - query[id].second];
+            for (int u : g[v]) self(self, u);
             path.pop_back();
         };
-        for (auto e : g[_size]) dfs(dfs, e.to());
+        for (int u : g[_size]) dfs(dfs, u);
         return res;
     }
 
@@ -99,7 +106,7 @@ struct functional_graph {
     int _size;
     const std::vector<int> &to;
     std::vector<int> root;
-    Graph<void> g;
+    internal::graph_csr g;
     heavy_light_decomposition hld;
 
     functional_graph(int n, const std::vector<int> &_to)
