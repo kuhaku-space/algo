@@ -30,6 +30,8 @@ struct dynamic_segment_tree {
     dynamic_segment_tree(std::int64_t n) : data(), _size(n) {}
 
     T operator[](std::int64_t k) const {
+        assert(0 <= k && k < _size);
+        if (data.empty()) return M::id();
         int idx = 0;
         std::int64_t l = 0, r = _size;
         while (idx != -1) {
