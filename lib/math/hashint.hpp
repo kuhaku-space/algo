@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
 #include <utility>
 
 struct HashInt {
@@ -66,6 +67,14 @@ struct HashInt {
     constexpr explicit operator unsigned long() const noexcept { return x; }
     constexpr explicit operator long long() const noexcept { return x; }
     constexpr explicit operator unsigned long long() const noexcept { return x; }
+
+    friend std::istream &operator>>(std::istream &is, HashInt &rhs) {
+        std::int64_t t;
+        is >> t;
+        rhs = HashInt(t);
+        return is;
+    }
+    friend std::ostream &operator<<(std::ostream &os, const HashInt &rhs) { return os << rhs.x; }
 
     constexpr HashInt inverse() const noexcept {
         std::int64_t a = x, b = mod, u = 1, v = 0, t = 0, tmp = 0;
