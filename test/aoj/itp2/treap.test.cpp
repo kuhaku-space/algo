@@ -6,17 +6,17 @@ int main(void) {
     int q;
     std::cin >> q;
     int size = 0;
-    Treap<int> treap;
+    treap<int> tr;
     while (q--) {
         int x, y;
         std::cin >> x >> y;
         if (x == 0) {
-            if (!treap.contains(y)) treap.insert(y), ++size;
+            if (!tr.contains(y)) tr.insert(y), ++size;
             std::cout << size << '\n';
         } else if (x == 1) {
-            std::cout << treap.contains(y) << '\n';
+            std::cout << tr.contains(y) << '\n';
         } else if (x == 2) {
-            if (treap.contains(y)) treap.erase(y), --size;
+            if (tr.contains(y)) tr.erase(y), --size;
         }
     }
 

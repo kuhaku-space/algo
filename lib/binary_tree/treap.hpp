@@ -10,7 +10,7 @@
  * @tparam UniformRandomBitGenerator 疑似乱数生成器
  */
 template <class T, class UniformRandomBitGenerator = std::mt19937>
-struct Treap {
+struct treap {
   private:
     struct node_t {
         using pointer = node_t *;
@@ -29,7 +29,7 @@ struct Treap {
   public:
     using node_ptr = typename node_t::pointer;
 
-    constexpr Treap() : root(nullptr) {}
+    constexpr treap() : root(nullptr) {}
 
     bool empty() const { return root == nullptr; }
 
@@ -67,7 +67,7 @@ struct Treap {
 
     int count(T val) const { return count(root, val); }
 
-    void merge(Treap treap) { root = merge(root, treap.root); }
+    void merge(treap treap) { root = merge(root, treap.root); }
 
   private:
     static inline UniformRandomBitGenerator gen = UniformRandomBitGenerator();
