@@ -20,8 +20,8 @@ int main(void) {
         if (t == 0) {
             int d, x;
             std::cin >> d >> x;
-            if (d == 0) ds.insert(0, x);
-            else ds.insert(ds.size(), x);
+            if (d == 0) ds.push_front(x);
+            else ds.push_back(x);
         } else if (t == 1) {
             int p;
             std::cin >> p;
