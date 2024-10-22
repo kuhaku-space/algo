@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 #include <random>
+#include <tuple>
 #include <utility>
 
 /// @brief 動的配列
@@ -16,7 +17,9 @@ struct dynamic_sequence {
         static int count(pointer t) { return !t ? 0 : t->cnt; }
         static T composition(pointer t) { return !t ? M::id() : t->acc; }
 
-        node_t(T v, priority_type p)
+        node_t(const T &v, priority_type p)
+            : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
+        node_t(T &&v, priority_type p)
             : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
 
         T val, acc;
@@ -30,10 +33,12 @@ struct dynamic_sequence {
 
   public:
     dynamic_sequence() : root(nullptr) {}
+    dynamic_sequence(node_ptr p) : root(p) {}
 
     int size() const { return node_t::count(root); }
 
     T get(int k) const {
+        assert(k < node_t::count(root));
         node_ptr node = root;
         while (true) {
             int c = node_t::count(node->ch[0]);
@@ -45,6 +50,26 @@ struct dynamic_sequence {
     }
 
     void insert(int k, T val) { root = insert(root, k, val); }
+
+    void push_front(const T &val) {
+        node_ptr node = new node_t(val, gen());
+        root = merge(node, root);
+    }
+
+    void push_front(T &&val) {
+        node_ptr node = new node_t(std::move(val), gen());
+        root = merge(node, root);
+    }
+
+    void push_back(const T &val) {
+        node_ptr node = new node_t(val, gen());
+        root = merge(root, node);
+    }
+
+    void push_back(T &&val) {
+        node_ptr node = new node_t(std::move(val), gen());
+        root = merge(root, node);
+    }
 
     void erase(int k) { root = erase(root, k); }
 
@@ -66,8 +91,34 @@ struct dynamic_sequence {
         root = merge(root, sr.second);
     }
 
+    int lower_bound(T key) {
+        node_ptr node = root;
+        int res = 0;
+        while (node) {
+            int c = node_t::count(node->ch[0]);
+            if (node->acc < key) node = node->ch[1], res += c + 1;
+            else node = node->ch[0];
+        }
+        return res;
+    }
+
+    std::pair<dynamic_sequence, dynamic_sequence> split(int k) {
+        auto [pl, pr] = split(root, k);
+        return std::make_pair(dynamic_sequence(pl), dynamic_sequence(pr));
+    }
+
+    std::tuple<dynamic_sequence, dynamic_sequence, dynamic_sequence> split(int l, int r) {
+        auto [pl, pr] = split(root, r);
+        auto [ql, qr] = split(pl, l);
+        return std::make_tuple(dynamic_sequence(ql), dynamic_sequence(qr), dynamic_sequence(pr));
+    }
+
+    void merge_left(dynamic_sequence lhs) { root = merge(lhs.root, root); }
+
+    void merge_right(dynamic_sequence rhs) { root = merge(root, rhs.root); }
+
   private:
-    UniformRandomBitGenerator gen;
+    static inline UniformRandomBitGenerator gen = UniformRandomBitGenerator();
     node_ptr root;
 
     void push(node_ptr t) {
