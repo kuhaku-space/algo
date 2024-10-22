@@ -30,6 +30,7 @@ struct treap {
     using node_ptr = typename node_t::pointer;
 
     constexpr treap() : root(nullptr) {}
+    constexpr treap(node_ptr p) : root(p) {}
 
     bool empty() const { return root == nullptr; }
 
@@ -49,6 +50,17 @@ struct treap {
         return node->val;
     }
 
+    int lower_bound(T val) const {
+        int res = 0;
+        node_ptr node = root;
+        while (node) {
+            int c = node_t::count(node->left);
+            if (node->val < val) node = node->right, res += c + 1;
+            else node = node->left;
+        }
+        return res;
+    }
+
     void insert(T val) {
         node_ptr t = new node_t(val, gen());
         root = merge(root, t);
@@ -66,6 +78,11 @@ struct treap {
     }
 
     int count(T val) const { return count(root, val); }
+
+    std::pair<treap, treap> split(T val) {
+        auto [l, r] = split(root, val);
+        return std::make_pair(treap(l), treap(r));
+    }
 
     void merge(treap treap) { root = merge(root, treap.root); }
 
