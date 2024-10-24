@@ -38,7 +38,7 @@ struct dynamic_sequence {
 
     int size() const { return node_t::count(root); }
 
-    T get(int k) const {
+    T get(int k) {
         assert(k < node_t::count(root));
         node_ptr node = root;
         while (true) {
@@ -91,6 +91,9 @@ struct dynamic_sequence {
     }
 
     void erase(int k) { root = erase(root, k); }
+
+    void pop_front() { root = erase(root, 0); }
+    void pop_back() { root = erase(root, node_t::count(root) - 1); }
 
     T prod(int r) const { return prod(root, r); }
 
@@ -192,6 +195,7 @@ struct dynamic_sequence {
     }
 
     node_ptr erase(node_ptr t, int k) {
+        push(t);
         int c = node_t::count(t->ch[0]);
         if (k == c) return merge(t->ch[0], t->ch[1]);
         if (k < c) {
