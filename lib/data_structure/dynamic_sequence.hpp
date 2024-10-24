@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <cassert>
 #include <random>
 #include <tuple>
@@ -37,16 +38,34 @@ struct dynamic_sequence {
 
     int size() const { return node_t::count(root); }
 
-    T get(int k) const {
+    T get(int k) {
         assert(k < node_t::count(root));
         node_ptr node = root;
         while (true) {
+            push(node);
             int c = node_t::count(node->ch[0]);
             if (c == k) break;
             if (k < c) node = node->ch[0];
             else node = node->ch[1], k -= c + 1;
         }
         return node->val;
+    }
+
+    void set(int k, T val) {
+        assert(k < node_t::count(root));
+        node_ptr node = root;
+        std::vector<node_ptr> nodes;
+        while (true) {
+            push(node);
+            nodes.emplace_back(node);
+            int c = node_t::count(node->ch[0]);
+            if (c == k) break;
+            if (k < c) node = node->ch[0];
+            else node = node->ch[1], k -= c + 1;
+        }
+        node->val = val;
+        std::reverse(nodes.begin(), nodes.end());
+        for (auto t : nodes) update(t);
     }
 
     void insert(int k, T val) { root = insert(root, k, val); }
@@ -73,10 +92,13 @@ struct dynamic_sequence {
 
     void erase(int k) { root = erase(root, k); }
 
+    void pop_front() { root = erase(root, 0); }
+    void pop_back() { root = erase(root, node_t::count(root) - 1); }
+
     T prod(int r) const { return prod(root, r); }
 
     T prod(int l, int r) {
-        assert(0 <= l && l <= r && r < node_t::count(root));
+        assert(0 <= l && l <= r && r <= node_t::count(root));
         std::pair<node_ptr, node_ptr> p = split(root, l);
         T res = prod(p.second, r - l);
         root = merge(p.first, p.second);
@@ -173,6 +195,7 @@ struct dynamic_sequence {
     }
 
     node_ptr erase(node_ptr t, int k) {
+        push(t);
         int c = node_t::count(t->ch[0]);
         if (k == c) return merge(t->ch[0], t->ch[1]);
         if (k < c) {
