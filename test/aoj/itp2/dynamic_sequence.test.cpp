@@ -3,17 +3,10 @@
 #include <iostream>
 #include "segment_tree/monoid.hpp"
 
-struct Monoid {
-    using T = int;
-    using value_type = T;
-    static constexpr T id() { return 0; }
-    static constexpr T op(const T &lhs, const T &rhs) { return lhs; }
-};
-
 int main(void) {
     int q;
     std::cin >> q;
-    dynamic_sequence<Monoid> ds;
+    dynamic_sequence<Add<int>> ds;
     while (q--) {
         int t;
         std::cin >> t;
@@ -29,8 +22,8 @@ int main(void) {
         } else {
             int d;
             std::cin >> d;
-            if (d == 0) ds.erase(0);
-            else ds.erase(ds.size() - 1);
+            if (d == 0) ds.pop_front();
+            else ds.pop_back();
         }
     }
 
