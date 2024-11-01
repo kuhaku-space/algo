@@ -12,7 +12,6 @@ AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: All
 DerivePointerAlignment: false
-ForEachMacros: ["FOR", "FORR", "rep", "repn", "repr", "repnr"]
 IncludeBlocks: Merge
 PackConstructorInitializers: BinPack
 PointerAlignment: Right
