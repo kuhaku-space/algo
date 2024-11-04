@@ -15,6 +15,8 @@ struct mcf_graph {
     mcf_graph() {}
     explicit mcf_graph(int n) : _n(n) {}
 
+    int size() const { return _n; }
+
     int add_edge(int from, int to, Cap cap, Cost cost) {
         assert(0 <= from && from < _n);
         assert(0 <= to && to < _n);
