@@ -105,37 +105,24 @@ struct treap {
         return update(l);
     }
 
-    node_ptr simple_merge(node_ptr l, node_ptr r) {
-        if (!l || !r) return !l ? r : l;
-        if (l->priority > r->priority) {
-            if (l->val < r->val) l->right = simple_merge(l->right, r);
-            else l->left = simple_merge(l->left, r);
-            return update(l);
-        } else {
-            if (l->val < r->val) r->left = simple_merge(l, r->left);
-            else r->right = simple_merge(l, r->right);
-            return update(r);
-        }
-    }
-
     std::pair<node_ptr, node_ptr> split(node_ptr node, T val) {
         if (node == nullptr) return {nullptr, nullptr};
         if (node->val < val) {
             auto [l, r] = split(node->right, val);
             node->right = nullptr;
             update(node);
-            return {simple_merge(node, l), r};
+            return {merge(node, l), r};
         } else {
             auto [l, r] = split(node->left, val);
             node->left = nullptr;
             update(node);
-            return {l, simple_merge(r, node)};
+            return {l, merge(r, node)};
         }
     }
 
     node_ptr erase(node_ptr node, T val) {
         if (node == nullptr) return nullptr;
-        if (val == node->val) return simple_merge(node->left, node->right);
+        if (val == node->val) return merge(node->left, node->right);
         if (val < node->val) node->left = erase(node->left, val);
         else node->right = erase(node->right, val);
         return update(node);
