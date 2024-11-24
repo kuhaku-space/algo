@@ -37,7 +37,7 @@ std::vector<int> tree_bfs(const std::vector<int> &parents) {
 template <class T>
 std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
     std::vector<int> res;
-    auto dfs = [&g, &res](auto self, int index, int parent) {
+    auto dfs = [&g, &res](auto self, int index, int parent) -> void {
         res.emplace_back(index);
         for (auto &e : g[index]) {
             if (e.to() == parent) continue;
@@ -83,6 +83,7 @@ std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
  * @param r 根
  * @return std::vector<int>
  */
+
 template <class T>
 std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size(), -1);
