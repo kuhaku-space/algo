@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1549
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2834
 #include "graph/dijkstra.hpp"
 #include <cstdint>
 #include <iostream>
