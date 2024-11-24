@@ -1,3 +1,4 @@
+#pragma once
 #include <stack>
 #include <vector>
 #include "graph/graph.hpp"
@@ -37,7 +38,7 @@ std::vector<int> tree_bfs(const std::vector<int> &parents) {
 template <class T>
 std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
     std::vector<int> res;
-    auto dfs = [&g, &res](auto self, int index, int parent) {
+    auto dfs = [&g, &res](auto self, int index, int parent) -> void {
         res.emplace_back(index);
         for (auto &e : g[index]) {
             if (e.to() == parent) continue;
@@ -48,15 +49,7 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
     return res;
 }
 
-/**
- * @brief 木の距離を求める
- *
- * @tparam T 辺の重みの型
- * @tparam U 距離の型
- * @param g 木
- * @param r 根
- * @return std::vector<U> 各頂点の根からの距離
- */
+/// @brief 木の距離を求める
 template <class T, class U = T>
 std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
     std::vector<U> res(g.size(), -1);
@@ -75,14 +68,7 @@ std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
     return res;
 }
 
-/**
- * @brief 木の頂点の親を求める
- *
- * @tparam T 辺の重みの型
- * @param g 木
- * @param r 根
- * @return std::vector<int>
- */
+/// @brief 木の頂点の親を求める
 template <class T>
 std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size(), -1);
@@ -102,14 +88,7 @@ std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
     return res;
 }
 
-/**
- * @brief 部分木の大きさを求める
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @param r 根
- * @return std::vector<int>
- */
+/// @brief 部分木の大きさを求める
 template <class T>
 std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size());
