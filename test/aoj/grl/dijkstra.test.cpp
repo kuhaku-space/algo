@@ -10,9 +10,10 @@ int main(void) {
     Graph<int> g(n);
     g.input_edge(m, 0);
 
-    auto dist = dijkstra(g, r, Inf);
+    int inf = std::numeric_limits<int>::max();
+    auto dist = dijkstra(g, r, inf);
     for (int i = 0; i < n; ++i) {
-        if (dist[i] != Inf) std::cout << dist[i] << '\n';
+        if (dist[i] != inf) std::cout << dist[i] << '\n';
         else std::cout << "INF\n";
     }
 
