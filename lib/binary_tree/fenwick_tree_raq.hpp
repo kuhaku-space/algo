@@ -1,3 +1,4 @@
+#pragma once
 #include "binary_tree/fenwick_tree.hpp"
 
 /// @brief フェニック木（区間加算、区間総和）
