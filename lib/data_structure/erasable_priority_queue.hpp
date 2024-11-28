@@ -2,11 +2,7 @@
 #include <queue>
 #include <utility>
 
-/**
- * @brief 削除可能優先度付きキュー
- *
- * @tparam T
- */
+/// @brief 削除可能優先度付きキュー
 template <class T, class Comp = std::less<>>
 struct erasable_priority_queue {
     bool empty() const { return a.empty(); }
