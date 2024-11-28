@@ -2,14 +2,7 @@
 #include "graph/graph.hpp"
 #include "template/template.hpp"
 
-/**
- * @brief 閉路検出
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @retval true 閉路あり
- * @retval false 閉路なし
- */
+/// @brief 閉路検出
 template <class T>
 bool has_cycle(const Graph<T> &g) {
     int n = g.size();
