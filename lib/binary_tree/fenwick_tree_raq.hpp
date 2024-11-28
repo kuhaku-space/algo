@@ -8,7 +8,7 @@
 template <class T>
 struct fenwick_tree_raq {
     fenwick_tree_raq() = default;
-    fenwick_tree_raq(int n) : p(n + 1), q(n + 1) {}
+    fenwick_tree_raq(int _n) : n(_n), p(n + 1), q(n + 1) {}
 
     auto operator[](int i) const { return sum(i + 1) - sum(i); }
     auto at(int k) const { return operator[](k); }
@@ -41,6 +41,7 @@ struct fenwick_tree_raq {
      * @param val
      */
     void add(int a, int b, T val) {
+        assert(0 <= a && a <= b && b <= n);
         p.add(a, -val * a);
         p.add(b, val * b);
         q.add(a, val);
@@ -53,7 +54,10 @@ struct fenwick_tree_raq {
      * @param k index of array
      * @return T
      */
-    T sum(int k) const { return p.sum(k) + q.sum(k) * k; }
+    T sum(int k) const {
+        assert(0 <= k && k <= n);
+        return p.sum(k) + q.sum(k) * k;
+    }
     /**
      * @brief v[a] + ... + v[b - 1]
      *
@@ -64,5 +68,6 @@ struct fenwick_tree_raq {
     T sum(int a, int b) const { return sum(b) - sum(a); }
 
   private:
+    int n;
     fenwick_tree<T> p, q;
 };
