@@ -1,11 +1,7 @@
 #include <utility>
 #include <vector>
 
-/**
- * @brief 重み付き素集合データ構造
- *
- * @tparam T
- */
+/// @brief 重み付き素集合データ構造
 template <class T>
 struct weighted_union_find {
     weighted_union_find() {}
@@ -28,25 +24,11 @@ struct weighted_union_find {
 
     int size(int x) { return -_data[find(x)]; }
 
-    /**
-     * @brief get diff between x and y
-     *
-     * @param x
-     * @param y
-     * @return T v[y] - v[x]
-     */
+    /// @brief v[y] - v[x]
     T diff(int x, int y) { return get_weight(y) - get_weight(x); }
     T get_diff(int x, int y) { return diff(x, y); }
 
-    /**
-     * @brief v[y] = v[x] + w
-     *
-     * @param x
-     * @param y
-     * @param w
-     * @return true unite correctly
-     * @return false already united
-     */
+    /// @brief v[y] = v[x] + w
     bool unite(int x, int y, T w) {
         w += get_weight(x) - get_weight(y);
         x = find(x), y = find(y);
