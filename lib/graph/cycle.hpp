@@ -1,6 +1,6 @@
 #pragma once
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
 /// @brief 閉路検出
 template <class T>
