@@ -24,8 +24,12 @@ struct erasable_priority_queue {
 
     void pop() { erase(a.top()); }
 
-    void erase(T x) {
-        b.emplace(x);
+    void erase(const T &x) {
+        b.push(x);
+        while (!b.empty() && a.top() == b.top()) { a.pop(), b.pop(); }
+    }
+    void erase(T &&x) {
+        b.push(std::move(x));
         while (!b.empty() && a.top() == b.top()) { a.pop(), b.pop(); }
     }
 
