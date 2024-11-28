@@ -10,7 +10,8 @@ int main(void) {
     g.input_edges(m, 0);
     auto ans = maximum_independent_set(g);
     std::cout << ans.size() << '\n';
-    for (auto &&e : ans) std::cout << e << '\n';
+    for (int i = 0; i < (int)ans.size(); ++i)
+        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }
