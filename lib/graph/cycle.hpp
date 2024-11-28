@@ -1,22 +1,15 @@
 #pragma once
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
-/**
- * @brief 閉路検出
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @retval true 閉路あり
- * @retval false 閉路なし
- */
+/// @brief 閉路検出
 template <class T>
 bool has_cycle(const Graph<T> &g) {
     int n = g.size();
     std::vector<bool> seen(n), finished(n);
     bool res = false;
 
-    auto dfs = [&](auto self, int index) {
+    auto dfs = [&](auto self, int index) -> void {
         if (finished[index]) return;
         seen[index] = true;
         for (auto &e : g[index]) {
