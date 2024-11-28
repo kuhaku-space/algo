@@ -9,7 +9,7 @@ bool has_cycle(const Graph<T> &g) {
     std::vector<bool> seen(n), finished(n);
     bool res = false;
 
-    auto dfs = [&](auto self, int index) {
+    auto dfs = [&](auto self, int index) -> void {
         if (finished[index]) return;
         seen[index] = true;
         for (auto &e : g[index]) {
