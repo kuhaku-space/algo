@@ -1,19 +1,12 @@
 #pragma once
 #include <algorithm>
 #include <cassert>
+#include <cstdint>
 #include <iterator>
 #include <utility>
 #include <vector>
 
-/**
- * @brief きたまさ法
- *
- * @tparam T
- * @param a
- * @param d
- * @param n
- * @return T
- */
+/// @brief きたまさ法
 template <class T>
 T kitamasa(const std::vector<T> &a, const std::vector<T> &d, std::int64_t n) {
     assert(a.size() == d.size());
