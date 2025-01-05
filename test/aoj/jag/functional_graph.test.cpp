@@ -19,7 +19,7 @@ int main(void) {
             std::cout << -1 << '\n';
             return 0;
         }
-        m[i] = fg.cycle(i);
+        m[i] = fg.cycle_length(i);
     }
     auto [x, y] = chinese_rem(b, m);
     std::cout << (y == -1 ? -1 : x) << '\n';
