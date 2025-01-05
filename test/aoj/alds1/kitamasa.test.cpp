@@ -1,5 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_10_A
 #include "math/kitamasa.hpp"
+#include <cstdint>
 #include <iostream>
 #include <vector>
 
