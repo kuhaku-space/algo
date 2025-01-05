@@ -81,6 +81,13 @@ struct Doubling<L, void> {
         return f;
     }
 
+    int lca(int u, int v) {
+        for (int i = L - 1; i >= 0; --i) {
+            if (table[u][i] != table[v][i]) u = table[u][i], v = table[v][i];
+        }
+        return table[u][0];
+    }
+
   private:
     int _size;
     std::vector<std::vector<int>> table;
