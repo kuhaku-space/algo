@@ -59,6 +59,6 @@ struct ReRooting {
             if (u != p) bfs(u, v, M::g(M::op(dp_l, dp_r[i + 1]), data[v]));
             dp_l = M::op(dp_l, dp[v][i]);
         }
-        values[v] = M::g(dp_l, v);
+        values[v] = M::g(dp_l, data[v]);
     }
 };
