@@ -1,37 +1,36 @@
 #pragma once
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
-/**
- * @brief 全方位木dp
- * @see https://algo-logic.info/tree-dp/
- *
- * @tparam M モノイド
- * @tparam T 辺の重みの型
- */
-template <class M, class T>
+/// @brief 全方位木dp
+/// @see https://algo-logic.info/tree-dp/
+template <class M, class T, class U>
 struct ReRooting {
   private:
     using Value = typename M::value_type;
 
   public:
-    ReRooting(const Graph<T> &g) : graph(g), dp(g.size()), data(g.size()) { this->build(); }
+    ReRooting(const Graph<T> &g, const std::vector<U> &v)
+        : graph(g), data(v), dp(g.size()), values(g.size()) {
+        build();
+    }
 
-    const auto &operator[](int i) const { return this->data[i]; }
-    auto &operator[](int i) { return this->data[i]; }
-    const auto begin() const { return this->data.begin(); }
-    auto begin() { return this->data.begin(); }
-    const auto end() const { return this->data.end(); }
-    auto end() { return this->data.end(); }
+    const auto &operator[](int i) const { return values[i]; }
+    auto &operator[](int i) { return values[i]; }
+    const auto begin() const { return values.begin(); }
+    auto begin() { return values.begin(); }
+    const auto end() const { return values.end(); }
+    auto end() { return values.end(); }
 
   private:
     Graph<T> graph;
+    const std::vector<U> &data;
     std::vector<std::vector<Value>> dp;
-    std::vector<Value> data;
+    std::vector<Value> values;
 
     void build() {
-        this->dfs(0);
-        this->bfs(0);
+        dfs(0);
+        bfs(0);
     }
 
     Value dfs(int v, int p = -1) {
@@ -44,7 +43,7 @@ struct ReRooting {
             dp[v][i] = M::f(dfs(e.to(), v), e.weight());
             res = M::op(res, dp[v][i]);
         }
-        return M::g(res, v);
+        return M::g(res, data[v]);
     }
     void bfs(int v, int p = -1, Value dp_p = M::id()) {
         int deg = graph[v].size();
@@ -57,9 +56,9 @@ struct ReRooting {
         Value dp_l = M::id();
         for (int i = 0; i < deg; ++i) {
             int u = graph[v][i].to();
-            if (u != p) this->bfs(u, v, M::g(M::op(dp_l, dp_r[i + 1]), v));
+            if (u != p) bfs(u, v, M::g(M::op(dp_l, dp_r[i + 1]), data[v]));
             dp_l = M::op(dp_l, dp[v][i]);
         }
-        data[v] = M::g(dp_l, v);
+        values[v] = M::g(dp_l, v);
     }
 };
