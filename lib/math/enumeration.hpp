@@ -29,7 +29,7 @@ struct Enumeration {
     std::vector<mint> data;
 
     void _init(int n) {
-        if (data.size() > n) return;
+        if ((int)data.size() > n) return;
         int m = data.size();
         data.resize(n + 1);
         for (int i = m; i <= n; ++i) {
