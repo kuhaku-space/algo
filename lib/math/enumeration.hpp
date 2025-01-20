@@ -5,37 +5,37 @@
 
 template <class mint = modint998, internal::is_modint_t<mint> * = nullptr>
 struct Enumeration {
-    Enumeration() : combi(), data() {}
+    Enumeration() : _binom(), _data() {}
 
     mint stirling(int n, int k) {
         mint res = 0;
         for (int i = 0; i < k; ++i) {
-            if (i & 1) res -= combi(k, k - i) * mint(k - i).pow(n);
-            else res += combi(k, k - i) * mint(k - i).pow(n);
+            if (i & 1) res -= _binom(k, k - i) * mint(k - i).pow(n);
+            else res += _binom(k, k - i) * mint(k - i).pow(n);
         }
-        res *= combi.finv(k);
+        res *= _binom.finv(k);
         return res;
     }
 
     mint bell(int n, int k) {
         _init(k);
         mint res = 0;
-        for (int i = 0; i <= k; ++i) res += mint(i).pow(n) * combi.finv(i) * data[k - i];
+        for (int i = 0; i <= k; ++i) res += mint(i).pow(n) * _binom.finv(i) * _data[k - i];
         return res;
     }
 
   private:
-    Combination<mint> combi;
-    std::vector<mint> data;
+    Combination<mint> _binom;
+    std::vector<mint> _data;
 
     void _init(int n) {
-        if ((int)data.size() > n) return;
-        int m = data.size();
-        data.resize(n + 1);
+        if ((int)_data.size() > n) return;
+        int m = _data.size();
+        _data.resize(n + 1);
         for (int i = m; i <= n; ++i) {
-            if (i == 0) data[i] = 1;
-            else if (i & 1) data[i] = data[i - 1] - combi.finv(i);
-            else data[i] = data[i - 1] + combi.finv(i);
+            if (i == 0) _data[i] = 1;
+            else if (i & 1) _data[i] = _data[i - 1] - _binom.finv(i);
+            else _data[i] = _data[i - 1] + _binom.finv(i);
         }
     }
 };
