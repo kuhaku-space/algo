@@ -51,12 +51,12 @@ std::vector<mint> inv(const std::vector<mint> &h) {
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 std::vector<mint> log(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] == 1);
-    std::vector<mint> f(h.begin() + 1, h.end());
-    for (int i = 0; i < (int)f.size(); ++i) f[i] *= i + 1;
+    std::vector<mint> f(h.size() - 1);
+    for (int i = 0; i < (int)f.size(); ++i) f[i] = h[i + 1] * (i + 1);
     f = convolution(f, inv(h));
-    f.emplace(f.begin(), 0);
     f.resize(deg);
-    for (int i = 1; i < deg; ++i) f[i] /= i;
+    for (int i = deg - 1; i >= 1; --i) f[i] = f[i - 1] / i;
+    f[0] = 0;
     return f;
 }
 
