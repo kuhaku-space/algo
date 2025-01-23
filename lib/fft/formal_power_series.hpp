@@ -55,7 +55,7 @@ std::vector<mint> log(const std::vector<mint> &h, int deg) {
     for (int i = 0; i < (int)f.size(); ++i) f[i] = h[i + 1] * (i + 1);
     f = convolution(f, inv(h));
     f.resize(deg);
-    for (int i = deg - 1; i >= 1; --i) f[i] = f[i - 1] * i;
+    for (int i = deg - 1; i >= 1; --i) f[i] = f[i - 1] / i;
     f[0] = 0;
     return f;
 }
