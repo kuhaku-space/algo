@@ -3,9 +3,10 @@
 #include <vector>
 #include "math/modint.hpp"
 
+/// @brief 二項係数
 template <class mint = modint998, internal::is_modint_t<mint> * = nullptr>
 struct Combination {
-    Combination() : _fact(), _finv() {}
+    Combination() : _fact(), _inv(), _finv() {}
 
     mint operator()(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
@@ -43,7 +44,8 @@ struct Combination {
     }
 
   private:
-    std::vector<mint> _fact, _finv;
+    static constexpr int _mod = mint::mod();
+    std::vector<mint> _fact, _inv, _finv;
 
     void _init(int n) {
         if ((int)_fact.size() > n) return;
@@ -53,8 +55,15 @@ struct Combination {
             if (i == 0) _fact[i] = 1;
             else _fact[i] = _fact[i - 1] * i;
         }
+        _inv.resize(n + 1);
+        for (int i = m; i <= n; ++i) {
+            if (i <= 1) _inv[i] = 1;
+            else _inv[i] = -_inv[_mod % i] * (_mod / i);
+        }
         _finv.resize(n + 1);
-        _finv[n] = _fact[n].inv();
-        for (int i = n - 1; i >= m; --i) _finv[i] = _finv[i + 1] * (i + 1);
+        for (int i = m; i <= n; ++i) {
+            if (i == 0) _finv[i] = 1;
+            else _finv[i] = _finv[i - 1] * _inv[i];
+        }
     }
 };
