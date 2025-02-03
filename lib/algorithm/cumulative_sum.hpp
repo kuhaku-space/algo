@@ -4,7 +4,11 @@
 
 template <class T>
 struct cumulative_sum_2d {
+    cumulative_sum_2d(int _n, int _m) : v(_n, std::vector<T>(_m)), n(_n), m(_m) {}
     cumulative_sum_2d(const std::vector<std::vector<T>> &_v) : v(_v) { build(); }
+
+    void set(int x, int y, T val) { v[x][y] = val; }
+    void add(int x, int y, T val) { v[x][y] += val; }
 
     void build() {
         n = v.size();
