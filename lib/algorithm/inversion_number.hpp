@@ -1,16 +1,11 @@
+#pragma once
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
 #include "algorithm/compress.hpp"
 #include "binary_tree/fenwick_tree.hpp"
 
-/**
- * @brief 転倒数を求める
- *
- * @tparam T 配列の型
- * @param v 配列
- * @retval std::int64_t 転倒数
- */
+/// @brief 転倒数
 template <class T>
 std::int64_t inversion_number(const std::vector<T> &v) {
     if (v.empty()) return 0;
