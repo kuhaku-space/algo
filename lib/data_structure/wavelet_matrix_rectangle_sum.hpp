@@ -4,6 +4,7 @@
 #include <vector>
 #include "internal/internal_bit_vector.hpp"
 
+/// @brief 重み付きウェーブレット行列
 template <class T, class U = T, int L = 30>
 struct wavelet_matrix_rectangle_sum {
     wavelet_matrix_rectangle_sum() = default;
@@ -34,7 +35,6 @@ struct wavelet_matrix_rectangle_sum {
         }
     }
 
-    /// k-th smallest number in v[l ... r-1]
     U kth_smallest_sum(int l, int r, int k) const {
         assert(0 <= k && k <= r - l);
         T val = T();
@@ -53,7 +53,6 @@ struct wavelet_matrix_rectangle_sum {
         return res + val * k;
     }
 
-    /// k-th largest number in v[l ... r-1]
     U kth_largest_sum(int l, int r, int k) const {
         return cs[L - 1][matrix[L - 1].rank(false, r)] + cs[L - 1][matrix[L - 1].rank(true, r)] -
                cs[L - 1][matrix[L - 1].rank(false, l)] - cs[L - 1][matrix[L - 1].rank(true, l)] -
