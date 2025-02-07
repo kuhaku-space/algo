@@ -2,6 +2,7 @@
 #include <cassert>
 #include <vector>
 
+/// @brief 二次元累積和
 template <class T>
 struct cumulative_sum_2d {
     cumulative_sum_2d(int _n, int _m) : v(_n, std::vector<T>(_m)), n(_n), m(_m) {}
