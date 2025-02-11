@@ -11,6 +11,7 @@ AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: All
+CommentPragmas: 'competitive-verifier:'
 DerivePointerAlignment: false
 IncludeBlocks: Merge
 PackConstructorInitializers: BinPack
