@@ -1,16 +1,12 @@
+#pragma once
 #include <algorithm>
+#include <cassert>
 #include <iterator>
 #include <utility>
 #include "segment_tree/segment_tree.hpp"
 
-/**
- * @brief 領域木
- *
- * @tparam M
- * @tparam T
- *
- * @see https://hitonanode.github.io/cplib-cpp/segmenttree/rangetree.hpp.html
- */
+/// @brief 領域木
+/// @see https://hitonanode.github.io/cplib-cpp/segmenttree/rangetree.hpp.html
 template <class M, class T = int>
 struct range_tree {
   private:
