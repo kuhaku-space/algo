@@ -1,33 +1,23 @@
+#pragma once
 #include <algorithm>
 #include <iterator>
 #include <vector>
 
-/**
- * @brief 最長増加部分列
- *
- * @tparam T 配列の型
- * @param v 配列
- * @retval int 最長増加部分列の長さ
- */
+/// @brief 最長増加部分列
 template <class T>
-int longest_increasing_subsequence(const std::vector<T> &v) {
+int longest_increasing_subsequence(const std::vector<T> &v, bool strict = true) {
     int n = v.size();
     std::vector<T> dp;
     for (auto x : v) {
-        auto it = std::lower_bound(std::begin(dp), std::end(dp), x);
-        if (it == std::end(dp)) dp.emplace_back(x);
+        auto it = (strict ? std::lower_bound(dp.begin(), dp.end(), x)
+                          : std::upper_bound(dp.begin(), dp.end(), x));
+        if (it == dp.end()) dp.emplace_back(x);
         else *it = x;
     }
     return dp.size();
 }
 
-/**
- * @brief 最長増加部分列
- *
- * @tparam T 配列の型
- * @param v 配列
- * @retval std::vector<int> 最長増加部分列のインデックス
- */
+/// @brief 最長増加部分列
 template <class T>
 std::vector<int> make_lis(const std::vector<T> &v) {
     int n = v.size();
@@ -35,9 +25,9 @@ std::vector<int> make_lis(const std::vector<T> &v) {
     std::vector<int> pos;
     pos.reserve(n);
     for (auto x : v) {
-        auto it = std::lower_bound(std::begin(dp), std::end(dp), x);
-        pos.emplace_back(std::distance(std::begin(dp), it));
-        if (it == std::end(dp)) dp.emplace_back(x);
+        auto it = std::lower_bound(dp.begin(), dp.end(), x);
+        pos.emplace_back(std::distance(dp.begin(), it));
+        if (it == dp.end()) dp.emplace_back(x);
         else *it = x;
     }
 
