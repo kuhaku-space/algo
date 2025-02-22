@@ -1,13 +1,9 @@
 #pragma once
+#include <bit>
 #include <cassert>
 #include <vector>
-#include "internal/internal_bit.hpp"
 
-/**
- * @brief スパーステーブル
- *
- * @tparam M モノイド
- */
+/// @brief スパーステーブル
 template <class M>
 struct sparse_table {
   private:
@@ -16,7 +12,7 @@ struct sparse_table {
   public:
     sparse_table() = default;
     sparse_table(const std::vector<T> &v) : _size(v.size()), data() {
-        int b = std::max(1, internal::countr_zero(internal::bit_ceil(_size)));
+        int b = std::max(1, std::countr_zero(std::bit_ceil<unsigned>(_size)));
         data.emplace_back(v);
         for (int i = 1; i < b; ++i) data.emplace_back(_size + 1 - (1 << i));
         for (int i = 1; i < b; ++i) {
@@ -27,9 +23,10 @@ struct sparse_table {
     }
 
     T prod(int l, int r) const {
-        assert(0 <= l && l < r && r <= _size);
+        assert(0 <= l && l <= r && r <= _size);
+        if (l == r) return M::id();
         if (l + 1 == r) return data[0][l];
-        int b = 31 - internal::countl_zero(r - l - 1);
+        int b = 31 - std::countl_zero<unsigned>(r - l - 1);
         return M::op(data[b][l], data[b][r - (1 << b)]);
     }
 
