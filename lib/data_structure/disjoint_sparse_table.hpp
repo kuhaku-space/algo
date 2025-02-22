@@ -1,15 +1,9 @@
+#pragma once
 #include <bit>
 #include <cassert>
 #include <vector>
-#include "internal/internal_bit.hpp"
 
-/**
- * @brief Disjoint Sparse Table
- * @see https://noshi91.hatenablog.com/entry/2018/05/08/183946
- * @see https://ei1333.github.io/library/structure/others/disjoint-sparse-table.hpp.html
- *
- * @tparam M
- */
+/// @brief Disjoint Sparse Table
 template <class M>
 struct disjoint_sparse_table {
   private:
@@ -40,7 +34,7 @@ struct disjoint_sparse_table {
         assert(l <= r);
         if (l == r) return M::id();
         if (l == --r) return data[0][l];
-        int p = 31 - internal::countl_zero(unsigned(l ^ r));
+        int p = 31 - std::countl_zero<unsigned>(l ^ r);
         return M::op(data[p][l], data[p][r]);
     }
 
