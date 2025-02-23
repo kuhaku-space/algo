@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2880
-#include "binary_tree/range_set.hpp"
 #include <algorithm>
 #include <iostream>
 #include <tuple>
 #include <vector>
+#include "binary_tree/range_set.hpp"
 
 int main(void) {
     int n, m, q;

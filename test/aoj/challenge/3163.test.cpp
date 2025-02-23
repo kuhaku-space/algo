@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/3163
-#include "tree/rerooting.hpp"
 #include <cstdint>
 #include <iostream>
 #include <utility>
 #include "graph/graph.hpp"
+#include "tree/rerooting.hpp"
 
 struct Monoid {
     using T = std::pair<std::int64_t, std::int64_t>;

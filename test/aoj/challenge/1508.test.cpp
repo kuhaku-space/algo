@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1508
-#include "data_structure/dynamic_sequence.hpp"
 #include <iostream>
+#include "data_structure/dynamic_sequence.hpp"
 #include "segment_tree/monoid.hpp"
 
 int main(void) {

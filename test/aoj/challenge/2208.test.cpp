@@ -2,15 +2,13 @@
 #include <iostream>
 #include <numeric>
 #include <vector>
-
 #include "heap/interval_heap.hpp"
 
 int main(void) {
     while (true) {
         int n;
         std::cin >> n;
-        if (!n)
-            break;
+        if (!n) break;
         std::vector<int> a(n), b(n);
         for (int &e : a) std::cin >> e;
         for (int &e : b) std::cin >> e;

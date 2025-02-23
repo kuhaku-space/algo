@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2934
-#include "string/manacher.hpp"
 #include <iostream>
 #include <string>
+#include "string/manacher.hpp"
 
 int solve(const std::string &s) {
     int n = s.size();
