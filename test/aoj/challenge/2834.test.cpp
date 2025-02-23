@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2834
-#include "graph/dijkstra.hpp"
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include "graph/dijkstra.hpp"
 #include "graph/graph.hpp"
 
 int main(void) {

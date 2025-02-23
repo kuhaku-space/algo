@@ -1,8 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2891
-
-#include "graph/namori_graph.hpp"
 #include <iostream>
 #include "graph/graph.hpp"
+#include "graph/namori_graph.hpp"
 
 int main(void) {
     int n;
@@ -10,7 +9,6 @@ int main(void) {
     Graph<void> g(n);
     g.input_edges(n);
     auto parent = cycle_detection_on_namori_graph(g);
-
     int q;
     std::cin >> q;
     while (q--) {

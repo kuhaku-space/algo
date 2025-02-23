@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2763
-#include "string/kmp.hpp"
 #include <iostream>
 #include <string>
+#include "string/kmp.hpp"
 
 std::string solve(const std::string &s) {
     int n = s.size();

@@ -3,7 +3,6 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
-
 #include "tree/weighted_union_find.hpp"
 
 std::tuple<std::string, std::string, int> input() {
@@ -18,22 +17,17 @@ int main(void) {
     while (true) {
         int n;
         std::cin >> n;
-        if (!n)
-            break;
+        if (!n) break;
         std::unordered_map<std::string, int> mp;
         int len = 0;
         weighted_union_find<int> uf(n * 2);
         bool ans = true;
         while (n--) {
             auto [s, t, x] = input();
-            if (!mp.count(s))
-                mp[s] = len++;
-            if (!mp.count(t))
-                mp[t] = len++;
+            if (!mp.count(s)) mp[s] = len++;
+            if (!mp.count(t)) mp[t] = len++;
             if (uf.same(mp[s], mp[t])) {
-                if (uf.diff(mp[s], mp[t]) != x) {
-                    ans = false;
-                }
+                if (uf.diff(mp[s], mp[t]) != x) { ans = false; }
             } else {
                 uf.unite(mp[s], mp[t], x);
             }
