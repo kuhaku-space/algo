@@ -2,8 +2,9 @@
 #include <iostream>
 #include "math/linear_sieve.hpp"
 
+linear_sieve<1300000> ls;
+
 int main(void) {
-    linear_sieve<1300000> ls;
     while (true) {
         int n;
         std::cin >> n;

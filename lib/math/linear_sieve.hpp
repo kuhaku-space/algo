@@ -4,7 +4,7 @@
 #include <vector>
 
 /// @brief 線形篩
-template <int N>
+template <int N = (1 << 22)>
 struct linear_sieve {
     linear_sieve() : lpf{}, pr() { build(); }
 
