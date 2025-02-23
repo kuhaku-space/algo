@@ -4,10 +4,8 @@
 #include <cstdint>
 #include <vector>
 
-/**
- * @brief エラトステネスの篩
- * @see https://qiita.com/peria/items/a4ff4ddb3336f7b81d50
- */
+/// @brief エラトステネスの篩
+/// @see https://qiita.com/peria/items/a4ff4ddb3336f7b81d50
 template <int N = (1 << 22)>
 struct eratosthenes {
   private:
@@ -56,12 +54,7 @@ struct eratosthenes {
         }
     }
 
-    /**
-     * @brief 素数判定
-     *
-     * @param x
-     * @return bool
-     */
+    /// @brief 素数判定
     bool is_prime(int x) const {
         switch (x % 30) {
             case 1: return prime_number[x / 30] >> 0 & 1;
