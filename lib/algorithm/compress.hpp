@@ -3,11 +3,7 @@
 #include <iterator>
 #include <vector>
 
-/**
- * @brief 座標圧縮
- *
- * @tparam T 要素の型
- */
+/// @brief 座標圧縮
 template <class T>
 struct coordinate_compression {
     coordinate_compression() = default;
@@ -28,8 +24,15 @@ struct coordinate_compression {
     }
 
     int get(T x) const {
-        auto it = std::lower_bound(data.begin(), data.end(), x);
-        return std::distance(data.begin(), it);
+        return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x));
+    }
+
+    int lower_bound(T x) const {
+        return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x));
+    }
+
+    int upper_bound(T x) const {
+        return std::distance(data.begin(), std::upper_bound(data.begin(), data.end(), x));
     }
 
     int size() const { return data.size(); }
@@ -38,13 +41,7 @@ struct coordinate_compression {
     std::vector<T> data;
 };
 
-/**
- * @brief 座標圧縮
- *
- * @tparam T 要素の型
- * @param v 配列
- * @return std::vector<T>
- */
+/// @brief 座標圧縮
 template <class T>
 std::vector<int> compress(const std::vector<T> &v) {
     coordinate_compression cps(v);
