@@ -3,7 +3,6 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
-#include "algorithm/compress.hpp"
 #include "data_structure/wavelet_matrix_rectangle_sum.hpp"
 
 int main(void) {
@@ -16,7 +15,6 @@ int main(void) {
     for (int i = 0; i < n; ++i) std::tie(x[i], y[i], z[i]) = a[i];
 
     wavelet_matrix_rectangle_sum<std::int64_t, std::int64_t, 30> wm(y, z);
-
     while (q--) {
         int l, d, r, u;
         std::cin >> l >> d >> r >> u;
