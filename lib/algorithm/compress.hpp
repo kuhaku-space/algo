@@ -35,6 +35,13 @@ struct coordinate_compression {
         return std::distance(data.begin(), std::upper_bound(data.begin(), data.end(), x));
     }
 
+    std::vector<int> compress(const std::vector<T> &v) const {
+        int n = v.size();
+        std::vector<int> res(n);
+        for (int i = 0; i < n; ++i) res[i] = get(v[i]);
+        return res;
+    }
+
     int size() const { return data.size(); }
 
   private:
