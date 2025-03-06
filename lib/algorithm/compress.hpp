@@ -28,8 +28,15 @@ struct coordinate_compression {
     }
 
     int get(T x) const {
-        auto it = std::lower_bound(data.begin(), data.end(), x);
-        return std::distance(data.begin(), it);
+        return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x));
+    }
+
+    int lower_bound(T x) const {
+        return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x));
+    }
+
+    int upper_bound(T x) const {
+        return std::distance(data.begin(), std::upper_bound(data.begin(), data.end(), x));
     }
 
     int size() const { return data.size(); }
