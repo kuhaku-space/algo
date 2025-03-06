@@ -29,7 +29,7 @@ bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
 
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
-    if (is_intersect(l1, r1, l2, r2)) return {std::max(l1, l2), std::min(r1, r2)};
+    if (is_intersect(l1, r1, l2, r2)) return std::pair{std::max(l1, l2), std::min(r1, r2)};
     else return std::nullopt;
 }
 
@@ -75,7 +75,7 @@ bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
 
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
-    if (is_intersect(l1, r1, l2, r2)) return {std::max(l1, l2), std::min(r1, r2)};
+    if (is_intersect(l1, r1, l2, r2)) return std::pair{std::max(l1, l2), std::min(r1, r2)};
     else return std::nullopt;
 }
 
