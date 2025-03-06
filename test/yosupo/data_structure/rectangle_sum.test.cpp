@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/rectangle_sum
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <tuple>
