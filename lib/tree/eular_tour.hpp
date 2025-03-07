@@ -1,25 +1,21 @@
+#pragma once
+#include <stack>
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 
-/**
- * @brief オイラーツアー
- * @see https://github.com/beet-aizu/library/blob/master/tree/eulertourforvertex.cpp
- *
- * @tparam T 辺の重みの型
- */
-template <class T>
+/// @brief オイラーツアー
 struct eular_tour {
-    eular_tour(const Graph<T> &_g, int r = 0) : g(_g), ls(_g.size()), rs(_g.size()), pos() {
-        build(r);
-    }
+    template <class T>
+    eular_tour(const Graph<T> &g, int r = 0) : eular_tour(g, g.size(), r) {}
 
     std::pair<int, int> operator[](int i) const { return std::make_pair(ls[i], rs[i]); }
 
-    int size() const { return pos; }
+    int size() const { return _size; }
 
-    int get_l(int i) const { return ls[i]; }
-    int get_r(int i) const { return rs[i]; }
+    int left(int i) const { return ls[i]; }
+    int right(int i) const { return rs[i]; }
+    int order(int i) const { return ord[i]; }
 
     template <class F>
     void query(int v, const F &f) const {
@@ -27,20 +23,29 @@ struct eular_tour {
     }
 
   private:
-    const Graph<T> &g;
-    std::vector<int> ls, rs;
-    int pos;
+    int _size;
+    std::vector<int> ord, ls, rs;
 
-    void build(int r = 0) {
-        pos = 0;
-        dfs(r, -1);
-    }
-
-    void dfs(int v, int p) {
-        ls[v] = pos++;
-        for (auto &e : g[v]) {
-            if (e.to() != p) dfs(e.to(), v);
+    template <class T>
+    eular_tour(const Graph<T> &g, int n, int r) : _size(n), ord(n, -1), ls(n), rs(n) {
+        int c = 0;
+        std::stack<int> st;
+        st.emplace(r);
+        while (!st.empty()) {
+            auto x = st.top();
+            st.pop();
+            if (x < 0) {
+                rs[~x] = c;
+                continue;
+            }
+            ls[x] = c;
+            ord[c++] = x;
+            rs[x] = c;
+            for (auto e : g[x]) {
+                if (ord[e.to()] != -1) continue;
+                st.emplace(~x);
+                st.emplace(e.to());
+            }
         }
-        rs[v] = pos;
     }
 };
