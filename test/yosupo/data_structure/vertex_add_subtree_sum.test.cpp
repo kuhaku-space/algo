@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "segment_tree/segment_tree.hpp"
-#include "tree/eular_tour.hpp"
+#include "tree/euler_tour.hpp"
 
 int main(void) {
     int n, q;
@@ -13,9 +13,9 @@ int main(void) {
     for (auto &e : p) std::cin >> e;
     Graph<void> g(n);
     for (int i = 0; i < n - 1; ++i) g.add_edges(i + 1, p[i]);
-    eular_tour et(g);
+    euler_tour et(g);
     segment_tree<Add<std::int64_t>> st(n);
-    for (int i = 0; i < n; ++i) st.set(et.get_l(i), a[i]);
+    for (int i = 0; i < n; ++i) st.set(et.left(i), a[i]);
 
     while (q--) {
         int c;
@@ -23,12 +23,12 @@ int main(void) {
         if (c == 0) {
             int v, x;
             std::cin >> v >> x;
-            st.set(et.get_l(v), st.get(et.get_l(v)) + x);
+            st.set(et.left(v), st.get(et.left(v)) + x);
         } else {
             int v;
             std::cin >> v;
-            auto f = [&](int l, int r) { std::cout << st.prod(l, r) << '\n'; };
-            et.query(v, f);
+            auto [l, r] = et[v];
+            std::cout << st.prod(l, r) << '\n';
         }
     }
 
