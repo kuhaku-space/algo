@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "segment_tree/lazy_segment_tree.hpp"
-#include "tree/eular_tour.hpp"
+#include "tree/euler_tour.hpp"
 
 struct S {
     int g, w;
@@ -36,20 +36,21 @@ int main(void) {
         std::cin >> p;
         g.add_edges(p - 1, i + 1);
     }
-    eular_tour et(g);
+    euler_tour et(g);
     std::vector<S> v(n);
     for (int i = 0; i < n; ++i) {
         char c;
         std::cin >> c;
-        if (c == 'G') v[et.get_l(i)] = S{1, 0};
-        else v[et.get_l(i)] = S{0, 1};
+        if (c == 'G') v[et.left(i)] = S{1, 0};
+        else v[et.left(i)] = S{0, 1};
     }
     lazy_segment_tree<M, F> lst(v);
     while (q--) {
         int x;
         std::cin >> x;
         --x;
-        lst.apply(et.get_l(x), et.get_r(x), 1);
+        auto [l, r] = et[x];
+        lst.apply(l, r, 1);
         auto [g, w] = lst.all_prod();
         if (g >= w) std::cout << "broccoli\n";
         else std::cout << "cauliflower\n";

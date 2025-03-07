@@ -5,9 +5,9 @@
 #include "graph/graph.hpp"
 
 /// @brief オイラーツアー
-struct eular_tour {
+struct euler_tour {
     template <class T>
-    eular_tour(const Graph<T> &g, int r = 0) : eular_tour(g, g.size(), r) {}
+    euler_tour(const Graph<T> &g, int r = 0) : euler_tour(g, g.size(), r) {}
 
     std::pair<int, int> operator[](int i) const { return std::make_pair(ls[i], rs[i]); }
 
@@ -27,7 +27,7 @@ struct eular_tour {
     std::vector<int> ord, ls, rs;
 
     template <class T>
-    eular_tour(const Graph<T> &g, int n, int r) : _size(n), ord(n, -1), ls(n), rs(n) {
+    euler_tour(const Graph<T> &g, int n, int r) : _size(n), ord(n, -1), ls(n), rs(n) {
         int c = 0;
         std::stack<int> st;
         st.emplace(r);
