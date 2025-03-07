@@ -27,7 +27,7 @@ struct euler_tour {
     std::vector<int> ord, ls, rs;
 
     template <class T>
-    euler_tour(const Graph<T> &g, int n, int r) : _size(n), ord(n, -1), ls(n), rs(n) {
+    euler_tour(const Graph<T> &g, int n, int r) : _size(n), ord(n), ls(n, -1), rs(n) {
         int c = 0;
         std::stack<int> st;
         st.emplace(r);
@@ -42,7 +42,7 @@ struct euler_tour {
             ord[c++] = x;
             rs[x] = c;
             for (auto e : g[x]) {
-                if (ord[e.to()] != -1) continue;
+                if (ls[e.to()] != -1) continue;
                 st.emplace(~x);
                 st.emplace(e.to());
             }
