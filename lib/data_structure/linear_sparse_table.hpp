@@ -84,7 +84,7 @@ struct linear_sparse_table {
 
     const T &operator[](int k) const { return data[k]; }
 
-    T prod(int l, int r) {
+    T prod(int l, int r) const {
         assert(0 <= l && l < r && r <= _size);
         int lb = (l + W - 1) / W, rb = r / W;
         if (lb > rb) return word_prod(l, r);
@@ -100,7 +100,7 @@ struct linear_sparse_table {
     sparse_table<M> block_table;
     std::vector<std::vector<std::uint64_t>> word_data;
 
-    T word_prod(int l, int r) {
+    T word_prod(int l, int r) const {
         if (l == r) return M::id();
         int b = l / W;
         int lw = l - b * W, rw = r - b * W;

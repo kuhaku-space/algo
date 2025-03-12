@@ -39,7 +39,7 @@ struct euler_tour {
                 continue;
             }
             ls[x] = c;
-            ord[c++] = x;
+            ord[x] = c++;
             rs[x] = c;
             for (auto e : g[x]) {
                 if (ls[e.to()] != -1) continue;

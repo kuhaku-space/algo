@@ -46,7 +46,9 @@ struct linear_lca {
         lst = linear_sparse_table<M>(v);
     }
 
-    int lca(int u, int v) {
+    int operator()(int u, int v) const { return lca(u, v); }
+
+    int lca(int u, int v) const {
         auto [l, r] = std::minmax(ord[u], ord[v]);
         return lst.prod(l, r + 1).index;
     }
