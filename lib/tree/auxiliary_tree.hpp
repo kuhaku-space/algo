@@ -6,29 +6,20 @@
 #include "tree/euler_tour.hpp"
 #include "tree/linear_lca.hpp"
 
-struct auxiliary_tree {
+struct auxiliary_tree : public Graph<void> {
     auxiliary_tree(const std::vector<int> &_ord, const std::vector<int> &_par,
                    const std::vector<bool> &_f)
-        : g(_par.size()), ord(_ord), f(_f) {
+        : Graph::Graph(_par.size()), ord(_ord), f(_f) {
         int n = _par.size();
         for (int i = 0; i < n; ++i) {
-            if (_par[i] != -1) g.add_edges(_par[i], i);
+            if (_par[i] != -1) add_edges(_par[i], i);
         }
     }
 
-    const auto &operator[](int i) const { return g[i]; }
-    auto &operator[](int i) { return g[i]; }
-    const auto begin() const { return g.begin(); }
-    auto begin() { return g.begin(); }
-    const auto end() const { return g.end(); }
-    auto end() { return g.end(); }
-
     int vertex(int x) const { return ord[x]; }
-
     bool contains(int x) const { return f[x]; }
 
   private:
-    Graph<void> g;
     std::vector<int> ord;
     std::vector<bool> f;
 };
