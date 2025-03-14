@@ -1,13 +1,9 @@
+#pragma once
 #include <functional>
 #include <utility>
 
-/**
- * @brief leftist heap
- *
- * @tparam T 要素の型
- *
- * @see http://hos.ac/blog/#blog0001
- */
+/// @brief leftist heap
+/// @see http://hos.ac/blog/#blog0001
 template <class T, class Comp = std::less<>>
 struct leftist_heap {
   private:
@@ -19,8 +15,8 @@ struct leftist_heap {
         T _val;
 
         constexpr _node() : _left(), _right(), _rank(), _val() {}
-        constexpr _node(const T &_val) : _left(), _right(), _rank(), _val(_val) {}
-        constexpr _node(T &&_val) : _left(), _right(), _rank(), _val(_val) {}
+        constexpr _node(const T &val) : _left(), _right(), _rank(), _val(val) {}
+        constexpr _node(T &&val) : _left(), _right(), _rank(), _val(val) {}
         template <typename... Args>
         constexpr _node(Args &&...args)
             : _left(), _right(), _rank(), _val(std::forward<Args>(args)...) {}
@@ -28,7 +24,7 @@ struct leftist_heap {
 
   public:
     using value_type = T;
-    using node_pointer = typename _node::pointer;
+    using node_ptr = typename _node::pointer;
 
     leftist_heap() : _root() {}
 
@@ -54,10 +50,10 @@ struct leftist_heap {
     constexpr void meld(const leftist_heap<T, Comp> &rhs) { _root = meld(_root, rhs._root); }
 
   private:
-    node_pointer _root;
+    node_ptr _root;
     Comp _comp;
 
-    constexpr node_pointer meld(node_pointer a, node_pointer b) {
+    constexpr node_ptr meld(node_ptr a, node_ptr b) {
         if (!a) return b;
         if (!b) return a;
         if (_comp(a->_val, b->_val)) std::swap(a, b);
