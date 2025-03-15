@@ -1,12 +1,10 @@
+#pragma once
 #include <algorithm>
 #include <iterator>
 #include <utility>
 #include <vector>
 
-/**
- * @brief 部分永続Union-Find
- *
- */
+/// @brief 部分永続Union-Find
 struct partially_persistent_union_find {
     partially_persistent_union_find(int _n)
         : _now(0), _data(_n, std::vector<std::pair<int, int>>(1, {0, -1})) {}

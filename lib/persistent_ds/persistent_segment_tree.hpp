@@ -1,15 +1,13 @@
+#pragma once
+#include <cassert>
 #include <vector>
 #include "segtree/monoid.hpp"
 
-/**
- * @brief 永続セグメント木
- *
- * @tparam Monoid モノイド
- */
-template <class Monoid>
+/// @brief 永続セグメント木
+template <class M>
 struct persistent_segment_tree {
   private:
-    using T = typename Monoid::value_type;
+    using T = typename M::value_type;
 
     struct _node {
         using pointer = _node *;
@@ -26,7 +24,7 @@ struct persistent_segment_tree {
 
     constexpr persistent_segment_tree() : _size(), _root() {}
     constexpr persistent_segment_tree(int n, node_pointer _root) : _size(n), _root(_root) {}
-    persistent_segment_tree(int n, T e = Monoid::id()) : _size(n), _root(build(0, n, e)) {}
+    persistent_segment_tree(int n, T e = M::id()) : _size(n), _root(build(0, n, e)) {}
     template <class U>
     persistent_segment_tree(const std::vector<U> &v)
         : _size(v.size()), _root(build(0, v.size(), v)) {}
@@ -39,7 +37,7 @@ struct persistent_segment_tree {
         assert(0 <= k && k < _size);
         return persistent_segment_tree(_size, set(0, _size, k, val, _root));
     }
-    persistent_segment_tree reset(int k) { return set(k, Monoid::id()); }
+    persistent_segment_tree reset(int k) { return set(k, M::id()); }
 
     T all_prod() const { return _root->val; }
     T prod(int a, int b) const {
@@ -52,7 +50,7 @@ struct persistent_segment_tree {
     node_pointer _root;
 
     static node_pointer merge(node_pointer left, node_pointer right) {
-        return new _node(Monoid::op(left->val, right->val), left, right);
+        return new _node(M::op(left->val, right->val), left, right);
     }
 
     node_pointer build(int l, int r, T val) const {
@@ -76,8 +74,8 @@ struct persistent_segment_tree {
 
     T prod(int l, int r, int a, int b, node_pointer node) const {
         if (a <= l && r <= b) return node->val;
-        if (b <= l || r <= a) return Monoid::id();
+        if (b <= l || r <= a) return M::id();
         int m = (l + r) >> 1;
-        return Monoid::op(prod(l, m, a, b, node->left), prod(m, r, a, b, node->right));
+        return M::op(prod(l, m, a, b, node->left), prod(m, r, a, b, node->right));
     }
 };
