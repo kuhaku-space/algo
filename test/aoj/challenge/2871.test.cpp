@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2871
 #include <iostream>
 #include <vector>
-#include "segment_tree/lazy_segment_tree.hpp"
+#include "segtree/lazy_segment_tree.hpp"
 #include "tree/euler_tour.hpp"
 
 struct S {

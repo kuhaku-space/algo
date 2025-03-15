@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <iterator>
 #include <vector>
-#include "segment_tree/dynamic_segment_tree.hpp"
+#include "segtree/dynamic_segment_tree.hpp"
 
 /**
  * @brief 二次元セグメント木

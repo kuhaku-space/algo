@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "data_structure/disjoint_sparse_table.hpp"
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 int main(void) {
     int n, q;

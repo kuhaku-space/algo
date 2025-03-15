@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A
 #include <iostream>
-#include "segment_tree/dynamic_segment_tree.hpp"
+#include "segtree/dynamic_segment_tree.hpp"
 
 int main(void) {
     int n, q;

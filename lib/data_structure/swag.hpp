@@ -1,6 +1,6 @@
 #pragma once
 #include <stack>
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 /**
  * @brief Sliding Window Aggregation

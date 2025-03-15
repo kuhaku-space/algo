@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <utility>
 #include <vector>
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 /**
  * @brief 動的セグメント木

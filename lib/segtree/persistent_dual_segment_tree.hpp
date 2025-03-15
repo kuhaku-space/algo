@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 /// @brief 永続双対セグメント木
 template <class M>

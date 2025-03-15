@@ -2,7 +2,7 @@
 #include <cassert>
 #include <vector>
 #include "internal/internal_bit.hpp"
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 /**
  * @brief セグメント木

@@ -1,5 +1,5 @@
 #pragma once
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 #include "template/template.hpp"
 
 /**

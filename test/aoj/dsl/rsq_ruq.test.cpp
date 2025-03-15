@@ -2,7 +2,7 @@
 #include <iostream>
 #include <limits>
 #include <utility>
-#include "segment_tree/lazy_segment_tree.hpp"
+#include "segtree/lazy_segment_tree.hpp"
 
 struct M1 {
     using T = std::pair<int, int>;

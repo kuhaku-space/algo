@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_F
 #include <iostream>
 #include <limits>
-#include "segment_tree/lazy_segment_tree.hpp"
+#include "segtree/lazy_segment_tree.hpp"
 
 int main(void) {
     int n, q;
