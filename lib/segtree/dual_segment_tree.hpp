@@ -1,13 +1,10 @@
+#pragma once
+#include <bit>
 #include <cassert>
 #include <vector>
-#include "internal/internal_bit.hpp"
 #include "segtree/monoid.hpp"
 
-/**
- * @brief 双対セグメント木
- *
- * @tparam M モノイド
- */
+/// @brief 双対セグメント木
 template <class M>
 struct dual_segment_tree {
   private:
@@ -18,8 +15,8 @@ struct dual_segment_tree {
     explicit dual_segment_tree(int n, T e = M::id()) : dual_segment_tree(std::vector<T>(n, e)) {}
     template <class U>
     explicit dual_segment_tree(const std::vector<U> &v) : _n(v.size()) {
-        _size = internal::bit_ceil(_n);
-        _log = internal::countr_zero(_size);
+        _size = std::bit_ceil<unsigned>(_n);
+        _log = std::countr_zero<unsigned>(_size);
         data = std::vector<T>(_size << 1, M::id());
         for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
     }

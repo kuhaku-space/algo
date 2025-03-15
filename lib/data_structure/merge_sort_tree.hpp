@@ -1,20 +1,16 @@
 #pragma once
 #include <algorithm>
+#include <bit>
 #include <vector>
-#include "internal/internal_bit.hpp"
 
-/**
- * @brief merge-sort tree
- *
- * @tparam T
- */
+/// @brief merge-sort tree
 template <class T>
 struct merge_sort_tree {
     merge_sort_tree() = default;
     template <class U>
     explicit merge_sort_tree(const std::vector<U> &v) : _n(v.size()) {
-        _size = internal::bit_ceil(_n);
-        _log = internal::countr_zero(_size);
+        _size = std::bit_ceil<unsigned>(_n);
+        _log = std::countr_zero<unsigned>(_size);
         data.resize(_size << 1);
         for (int i = 0; i < _n; ++i) data[_size + i].emplace_back(v[i]);
         for (int i = _size - 1; i >= 1; --i) {

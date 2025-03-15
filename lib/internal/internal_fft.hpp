@@ -1,15 +1,24 @@
+#pragma once
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <cassert>
 #include <cstdint>
 #include <type_traits>
 #include <vector>
-#include "internal/internal_bit.hpp"
 #include "internal/internal_math.hpp"
 #include "internal/internal_type_traits.hpp"
 #include "math/modint.hpp"
 
 namespace internal {
+
+// @param n `1 <= n`
+// @return same with std::bit::countr_zero
+constexpr int countr_zero_constexpr(unsigned int n) {
+    int x = 0;
+    while (!(n & (1 << x))) x++;
+    return x;
+}
 
 template <class mint, int g = internal::primitive_root<mint::mod()>,
           internal::is_static_modint_t<mint> * = nullptr>
@@ -51,7 +60,7 @@ struct fft_info {
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 void butterfly(std::vector<mint> &a) {
     int n = int(a.size());
-    int h = internal::countr_zero((unsigned int)n);
+    int h = std::countr_zero<unsigned>(n);
     static const fft_info<mint> info;
     int len = 0;
     while (len < h) {
@@ -64,7 +73,7 @@ void butterfly(std::vector<mint> &a) {
                     auto l = a[i + offset], r = a[i + offset + p] * rot;
                     a[i + offset] = l + r, a[i + offset + p] = l - r;
                 }
-                if (s + 1 != (1 << len)) rot *= info.rate2[countr_zero(~(unsigned int)(s))];
+                if (s + 1 != (1 << len)) rot *= info.rate2[std::countr_zero(~(unsigned int)(s))];
             }
             len++;
         } else {
@@ -87,7 +96,7 @@ void butterfly(std::vector<mint> &a) {
                     a[i + offset + 2 * p] = a0 + na2 + a1na3imag;
                     a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);
                 }
-                if (s + 1 != (1 << len)) rot *= info.rate3[countr_zero(~(unsigned int)(s))];
+                if (s + 1 != (1 << len)) rot *= info.rate3[std::countr_zero(~(unsigned int)(s))];
             }
             len += 2;
         }
@@ -97,7 +106,7 @@ void butterfly(std::vector<mint> &a) {
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 void butterfly_inv(std::vector<mint> &a) {
     int n = int(a.size());
-    int h = internal::countr_zero((unsigned int)n);
+    int h = std::countr_zero<unsigned>(n);
 
     static const fft_info<mint> info;
 
@@ -115,7 +124,8 @@ void butterfly_inv(std::vector<mint> &a) {
                         (std::uint64_t)(mint::mod() + l.val() - r.val()) * irot.val();
                     ;
                 }
-                if (s + 1 != (1 << (len - 1))) irot *= info.irate2[countr_zero(~(unsigned int)(s))];
+                if (s + 1 != (1 << (len - 1)))
+                    irot *= info.irate2[std::countr_zero(~(unsigned int)(s))];
             }
             len--;
         } else {
@@ -140,7 +150,8 @@ void butterfly_inv(std::vector<mint> &a) {
                     a[i + offset + 3 * p] =
                         (a0 + (mint::mod() - a1) + (mint::mod() - a2na3iimag)) * irot3.val();
                 }
-                if (s + 1 != (1 << (len - 2))) irot *= info.irate3[countr_zero(~(unsigned int)(s))];
+                if (s + 1 != (1 << (len - 2)))
+                    irot *= info.irate3[std::countr_zero(~(unsigned int)(s))];
             }
             len -= 2;
         }
@@ -166,7 +177,7 @@ std::vector<mint> convolution_naive(const std::vector<mint> &a, const std::vecto
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 std::vector<mint> convolution_fft(std::vector<mint> a, std::vector<mint> b) {
     int n = int(a.size()), m = int(b.size());
-    int z = (int)internal::bit_ceil((unsigned int)(n + m - 1));
+    int z = std::bit_ceil<unsigned>(n + m - 1);
     a.resize(z);
     internal::butterfly(a);
     b.resize(z);

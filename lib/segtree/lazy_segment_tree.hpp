@@ -1,16 +1,11 @@
 #pragma once
+#include <bit>
 #include <cassert>
 #include <vector>
-#include "internal/internal_bit.hpp"
 #include "segtree/monoid.hpp"
 
-/**
- * @brief 遅延評価セグメント木
- * @see https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp
- *
- * @tparam S モノイド
- * @tparam F モノイド
- */
+/// @brief 遅延評価セグメント木
+/// @see https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp
 template <class S, class F>
 struct lazy_segment_tree {
   private:
@@ -21,8 +16,8 @@ struct lazy_segment_tree {
     lazy_segment_tree() : lazy_segment_tree(0) {}
     explicit lazy_segment_tree(int n, T e = S::id()) : lazy_segment_tree(std::vector<T>(n, e)) {}
     explicit lazy_segment_tree(const std::vector<T> &v) : _n(int(v.size())) {
-        _size = internal::bit_ceil(_n);
-        _log = internal::countr_zero(_size);
+        _size = std::bit_ceil<unsigned>(_n);
+        _log = std::countr_zero<unsigned>(_size);
         data = std::vector<T>(2 * _size, S::id());
         lazy = std::vector<U>(_size, F::id());
         for (int i = 0; i < _n; i++) data[_size + i] = v[i];

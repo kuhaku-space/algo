@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <bit>
 #include <cassert>
 #include <cstdint>
 #include <vector>
@@ -183,7 +184,7 @@ std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
-    int m = internal::bit_ceil(n);
+    int m = std::bit_ceil<unsigned>(n);
     std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
     for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
     for (int i = m - 1; i >= 1; --i) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
@@ -200,7 +201,7 @@ std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::v
 template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
-    int m = internal::bit_ceil(n);
+    int m = std::bit_ceil<unsigned>(n);
     std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
     for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
     for (int i = m; i-- > 1;) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
