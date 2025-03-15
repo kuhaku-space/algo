@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "graph/graph.hpp"
-#include "segment_tree/segment_tree.hpp"
+#include "segtree/segment_tree.hpp"
 #include "tree/auxiliary_tree.hpp"
 #include "tree/hld.hpp"
 

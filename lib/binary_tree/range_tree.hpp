@@ -3,7 +3,7 @@
 #include <cassert>
 #include <iterator>
 #include <utility>
-#include "segment_tree/segment_tree.hpp"
+#include "segtree/segment_tree.hpp"
 
 /// @brief 領域木
 /// @see https://hitonanode.github.io/cplib-cpp/segmenttree/rangetree.hpp.html

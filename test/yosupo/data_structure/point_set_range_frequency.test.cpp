@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "data_structure/dynamic_wavelet_matrix.hpp"
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 int main(void) {
     int n, q;

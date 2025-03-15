@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A
 #include <iostream>
 #include <limits>
-#include "segment_tree/segment_tree_raq.hpp"
+#include "segtree/segment_tree_raq.hpp"
 
 int main(void) {
     int n, q;

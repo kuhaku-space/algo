@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP2_1_B
 #include "data_structure/dynamic_sequence.hpp"
 #include <iostream>
-#include "segment_tree/monoid.hpp"
+#include "segtree/monoid.hpp"
 
 int main(void) {
     int q;

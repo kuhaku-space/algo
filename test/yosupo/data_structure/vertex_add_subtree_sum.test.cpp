@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "segment_tree/segment_tree.hpp"
+#include "segtree/segment_tree.hpp"
 #include "tree/euler_tour.hpp"
 
 int main(void) {
