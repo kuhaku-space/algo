@@ -1,15 +1,11 @@
 #pragma once
+#include <bit>
 #include <cassert>
 #include <vector>
-#include "internal/internal_bit.hpp"
 #include "segtree/monoid.hpp"
 
-/**
- * @brief セグメント木
- * @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
- *
- * @tparam M モノイド
- */
+/// @brief セグメント木
+/// @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
 template <class M>
 struct segment_tree {
   private:
@@ -38,8 +34,8 @@ struct segment_tree {
     explicit segment_tree(int n, T e = M::id()) : segment_tree(std::vector<T>(n, e)) {}
     template <class U>
     explicit segment_tree(const std::vector<U> &v) : _n(v.size()) {
-        _size = internal::bit_ceil(_n);
-        _log = internal::countr_zero(_size);
+        _size = std::bit_ceil<unsigned>(_n);
+        _log = std::countr_zero<unsigned>(_size);
         data = std::vector<T>(_size << 1, M::id());
         for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
         for (int i = _size - 1; i >= 1; --i) update(i);

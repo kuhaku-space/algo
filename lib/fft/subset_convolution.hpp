@@ -6,7 +6,7 @@
 template <class T>
 std::vector<T> subset_convolution(const std::vector<T> &a, const std::vector<T> &b) {
     int n = std::bit_ceil(std::max(a.size(), b.size()));
-    int k = std::countr_zero((unsigned)n);
+    int k = std::countr_zero<unsigned>(n);
     std::vector c(n, 0);
     for (int i = 0; i < n; ++i) c[i] = std::popcount((unsigned)i);
     std::vector u(n, std::vector(k + 1, T())), v(n, std::vector(k + 1, T()));

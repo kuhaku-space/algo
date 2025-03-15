@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <bit>
 #include <cassert>
 #include <type_traits>
 #include <vector>
@@ -19,7 +20,7 @@ std::vector<mint> convolution(std::vector<mint> &&a, std::vector<mint> &&b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
 
-    int z = (int)internal::bit_ceil((unsigned int)(n + m - 1));
+    int z = std::bit_ceil<unsigned>(n + m - 1);
     assert((mint::mod() - 1) % z == 0);
 
     if (std::min(n, m) <= 60) return convolution_naive(a, b);
@@ -30,7 +31,7 @@ std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
 
-    int z = (int)internal::bit_ceil((unsigned int)(n + m - 1));
+    int z = std::bit_ceil<unsigned>(n + m - 1);
     assert((mint::mod() - 1) % z == 0);
 
     if (std::min(n, m) <= 60) return convolution_naive(a, b);
@@ -45,7 +46,7 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
 
     using mint = static_modint<mod>;
 
-    int z = (int)internal::bit_ceil((unsigned int)(n + m - 1));
+    int z = std::bit_ceil<unsigned>(n + m - 1);
     assert((mint::mod() - 1) % z == 0);
 
     std::vector<mint> a2(n), b2(m);
