@@ -1,14 +1,10 @@
 #pragma once
 #include <cassert>
 #include <iostream>
+#include <optional>
 #include <random>
 
-/**
- * @brief Treap
- *
- * @tparam T 要素の型
- * @tparam UniformRandomBitGenerator 疑似乱数生成器
- */
+/// @brief Treap
 template <class T, class UniformRandomBitGenerator = std::mt19937>
 struct treap {
   private:
@@ -32,11 +28,10 @@ struct treap {
     constexpr treap() : root(nullptr) {}
     constexpr treap(node_ptr p) : root(p) {}
 
-    bool empty() const { return root == nullptr; }
+    constexpr bool empty() const { return root == nullptr; }
+    constexpr int size() const { return node_t::count(root); }
 
-    int size() const { return node_t::count(root); }
-
-    T top() { return root->val; }
+    constexpr T top() { return root->val; }
 
     T get(int k) const {
         assert(0 <= k && k < size());
@@ -57,6 +52,39 @@ struct treap {
             int c = node_t::count(node->left);
             if (node->val < val) node = node->right, res += c + 1;
             else node = node->left;
+        }
+        return res;
+    }
+
+    int upper_bound(T val) const {
+        int res = 0;
+        node_ptr node = root;
+        while (node) {
+            int c = node_t::count(node->left);
+            if (!(val < node->val)) node = node->right, res += c + 1;
+            else node = node->left;
+        }
+        return res;
+    }
+
+    std::optional<T> floor(T val) const {
+        std::optional<T> res = std::nullopt;
+        node_ptr node = root;
+        while (node) {
+            if (!(val < node->val)) res = node->val;
+            if (!(val < node->val)) node = node->right;
+            else node = node->left;
+        }
+        return res;
+    }
+
+    std::optional<T> ceil(T val) const {
+        std::optional<T> res = std::nullopt;
+        node_ptr node = root;
+        while (node) {
+            if (!(node->val < val)) res = node->val;
+            if (!(node->val < val)) node = node->left;
+            else node = node->right;
         }
         return res;
     }
