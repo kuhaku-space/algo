@@ -1,6 +1,6 @@
 #pragma once
 #include <utility>
-#include "data_structure/persistent_array.hpp"
+#include "persistent_ds/persistent_array.hpp"
 
 /// @brief 永続Union-Find
 struct persistent_union_find {

@@ -5,7 +5,7 @@
 #include <set>
 #include <utility>
 #include <vector>
-#include "tree/partially_persistent_union_find.hpp"
+#include "persistent_ds/partially_persistent_union_find.hpp"
 
 int main(void) {
     int n, m, q;

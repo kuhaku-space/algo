@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/persistent_queue
-#include "data_structure/persistent_queue.hpp"
+#include "persistent_ds/persistent_queue.hpp"
 #include <iostream>
 #include <vector>
 
