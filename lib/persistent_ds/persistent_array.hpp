@@ -1,4 +1,5 @@
 #pragma once
+#include <cstring>
 #include <vector>
 
 /// @brief 永続配列
@@ -49,8 +50,8 @@ struct persistent_array {
     node_ptr set(int k, T val, node_ptr node) const noexcept {
         node_ptr res = new _node();
         if (node) {
-            memcpy(res->ch, node->ch, sizeof(node->ch));
             res->val = node->val;
+            std::memcpy(res->ch, node->ch, sizeof(node->ch));
         }
         if (k == 0) res->val = val;
         else --k, res->ch[k & MASK] = set(k >> B, val, res->ch[k & MASK]);
