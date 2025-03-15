@@ -4,12 +4,7 @@
 #include <optional>
 #include <random>
 
-/**
- * @brief Treap
- *
- * @tparam T 要素の型
- * @tparam UniformRandomBitGenerator 疑似乱数生成器
- */
+/// @brief Treap
 template <class T, class UniformRandomBitGenerator = std::mt19937>
 struct treap {
   private:
