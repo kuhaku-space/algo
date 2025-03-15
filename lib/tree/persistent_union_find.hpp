@@ -1,10 +1,8 @@
+#pragma once
 #include <utility>
 #include "data_structure/persistent_array.hpp"
 
-/**
- * @brief 永続Union-Find
- *
- */
+/// @brief 永続Union-Find
 struct persistent_union_find {
     constexpr persistent_union_find() : data() {}
     persistent_union_find(const persistent_array<int> &_data) : data(_data) {}
