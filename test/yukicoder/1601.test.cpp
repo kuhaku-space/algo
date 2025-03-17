@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://yukicoder.me/problems/1601
+// competitive-verifier: PROBLEM https://yukicoder.me/problems/no/674
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
