@@ -1,0 +1,10 @@
+[tools]
+python = "latest"
+
+[tasks.setup]
+description = "Setup project"
+run = [
+    "mise i",
+    "pip3 install --quiet --upgrade pip",
+    "pip3 install --quiet online-judge-tools online-judge-verify-helper setuptools",
+]
