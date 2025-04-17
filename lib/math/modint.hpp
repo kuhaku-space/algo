@@ -1,9 +1,9 @@
 #pragma once
+#include <concepts>
 #include <cstdint>
 #include <iostream>
 #include <type_traits>
 #include "internal/internal_math.hpp"
-#include "internal/internal_type_traits.hpp"
 
 namespace internal {
 
@@ -30,13 +30,13 @@ struct static_modint : internal::static_modint_base {
     }
 
     constexpr static_modint() : _v(0) {}
-    template <class T, internal::is_signed_int_t<T> * = nullptr>
+    template <std::integral T>
     constexpr static_modint(T v) : _v(0) {
         std::int64_t x = (std::int64_t)(v % (std::int64_t)(umod()));
         if (x < 0) x += umod();
         _v = (unsigned int)(x);
     }
-    template <class T, internal::is_unsigned_int_t<T> * = nullptr>
+    template <std::unsigned_integral T>
     constexpr static_modint(T v) : _v(0) {
         _v = (unsigned int)(v % umod());
     }
@@ -80,7 +80,7 @@ struct static_modint : internal::static_modint_base {
         _v = (unsigned int)(z % umod());
         return *this;
     }
-    constexpr mint &operator/=(const mint &rhs) { return *this = *this * rhs.inv(); }
+    constexpr mint &operator/=(const mint &rhs) { return *this *= rhs.inv(); }
 
     constexpr mint operator+() const { return *this; }
     constexpr mint operator-() const { return mint() - *this; }
@@ -145,13 +145,13 @@ struct dynamic_modint : internal::modint_base {
     }
 
     dynamic_modint() : _v(0) {}
-    template <class T, internal::is_signed_int_t<T> * = nullptr>
+    template <std::integral T>
     dynamic_modint(T v) {
         std::int64_t x = (std::int64_t)(v % (std::int64_t)(mod()));
         if (x < 0) x += mod();
         _v = (unsigned int)(x);
     }
-    template <class T, internal::is_unsigned_int_t<T> * = nullptr>
+    template <std::unsigned_integral T>
     dynamic_modint(T v) {
         _v = (unsigned int)(v % mod());
     }
@@ -193,7 +193,7 @@ struct dynamic_modint : internal::modint_base {
         _v = bt.mul(_v, rhs._v);
         return *this;
     }
-    mint &operator/=(const mint &rhs) { return *this = *this * rhs.inv(); }
+    mint &operator/=(const mint &rhs) { return *this *= rhs.inv(); }
 
     mint operator+() const { return *this; }
     mint operator-() const { return mint() - *this; }
