@@ -19,7 +19,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<int> to(n);
     for (int i = 0; i < n; ++i) to[i] = (i + l) % n;
-    Doubling<40, Monoid> db(to, a);
+    doubling<40, Monoid> db(to, a);
     std::int64_t r = (n * m) % l;
     std::int64_t k = (n * m) / l;
     std::int64_t ans = -INF;

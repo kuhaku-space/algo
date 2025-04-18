@@ -6,13 +6,13 @@
 
 /// @brief ダブリング
 template <int L = 20, class M = void>
-struct Doubling {
+struct doubling {
   private:
     using T = typename M::value_type;
 
   public:
     template <class U>
-    Doubling(const std::vector<int> &to, const std::vector<U> &v) : Doubling(to.size()) {
+    doubling(const std::vector<int> &to, const std::vector<U> &v) : doubling(to.size()) {
         build(to, v);
     }
     std::pair<int, T> jump(int f, std::uint64_t k) { return solve(f, k); }
@@ -33,7 +33,7 @@ struct Doubling {
     std::vector<std::vector<int>> table;
     std::vector<std::vector<T>> data;
 
-    Doubling(int n) : _size(n), table(L, std::vector<int>(n)), data(L, std::vector<T>(n)) {}
+    doubling(int n) : _size(n), table(L, std::vector<int>(n)), data(L, std::vector<T>(n)) {}
 
     template <class U>
     void build(const std::vector<int> &to, const std::vector<U> &v) {
@@ -61,8 +61,8 @@ struct Doubling {
 
 /// @brief ダブリング
 template <int L>
-struct Doubling<L, void> {
-    Doubling(const std::vector<int> &v) : Doubling(v.size()) { build(v); }
+struct doubling<L, void> {
+    doubling(const std::vector<int> &v) : doubling(v.size()) { build(v); }
 
     int jump(int f, std::uint64_t k) { return solve(f, k); }
     int solve(int f, std::uint64_t k) {
@@ -77,7 +77,7 @@ struct Doubling<L, void> {
     int _size;
     std::vector<std::vector<int>> table;
 
-    Doubling(int n) : _size(n), table(L, std::vector<int>(n)) {}
+    doubling(int n) : _size(n), table(L, std::vector<int>(n)) {}
 
     void build(const std::vector<int> &v) {
         for (int i = 0; i < _size; ++i) {
