@@ -1,31 +1,27 @@
+#pragma once
 #include <cassert>
 #include <cstdint>
 #include <utility>
 #include <vector>
 
-/**
- * @brief ダブリング
- *
- * @tparam L
- * @tparam Monoid モノイド
- */
-template <int L, class Monoid = void>
-struct Doubling {
+/// @brief ダブリング
+template <int L = 20, class M = void>
+struct doubling {
   private:
-    using T = typename Monoid::value_type;
+    using T = typename M::value_type;
 
   public:
     template <class U>
-    Doubling(const std::vector<int> &to, const std::vector<U> &v) : Doubling(to.size()) {
+    doubling(const std::vector<int> &to, const std::vector<U> &v) : doubling(to.size()) {
         build(to, v);
     }
     std::pair<int, T> jump(int f, std::uint64_t k) { return solve(f, k); }
     std::pair<int, T> solve(int f, std::uint64_t k) {
         assert(-1 <= f && f < _size);
-        T res = Monoid::id();
+        T res = M::id();
         for (int cnt = 0; k > 0; k >>= 1, ++cnt) {
             if ((k & 1) && f != -1) {
-                res = Monoid::op(res, data[cnt][f]);
+                res = M::op(res, data[cnt][f]);
                 f = table[cnt][f];
             }
         }
@@ -37,7 +33,7 @@ struct Doubling {
     std::vector<std::vector<int>> table;
     std::vector<std::vector<T>> data;
 
-    Doubling(int n) : _size(n), table(L, std::vector<int>(n)), data(L, std::vector<T>(n)) {}
+    doubling(int n) : _size(n), table(L, std::vector<int>(n)), data(L, std::vector<T>(n)) {}
 
     template <class U>
     void build(const std::vector<int> &to, const std::vector<U> &v) {
@@ -53,7 +49,7 @@ struct Doubling {
                 int k = table[i][j];
                 if (k != -1) {
                     table[i + 1][j] = table[i][k];
-                    data[i + 1][j] = Monoid::op(data[i][j], data[i][k]);
+                    data[i + 1][j] = M::op(data[i][j], data[i][k]);
                 } else {
                     table[i + 1][j] = table[i][j];
                     data[i + 1][j] = data[i][j];
@@ -63,14 +59,10 @@ struct Doubling {
     }
 };
 
-/**
- * @brief ダブリング
- *
- * @tparam L
- */
+/// @brief ダブリング
 template <int L>
-struct Doubling<L, void> {
-    Doubling(const std::vector<int> &v) : Doubling(v.size()) { build(v); }
+struct doubling<L, void> {
+    doubling(const std::vector<int> &v) : doubling(v.size()) { build(v); }
 
     int jump(int f, std::uint64_t k) { return solve(f, k); }
     int solve(int f, std::uint64_t k) {
@@ -81,18 +73,11 @@ struct Doubling<L, void> {
         return f;
     }
 
-    int lca(int u, int v) {
-        for (int i = L - 1; i >= 0; --i) {
-            if (table[u][i] != table[v][i]) u = table[u][i], v = table[v][i];
-        }
-        return table[u][0];
-    }
-
   private:
     int _size;
     std::vector<std::vector<int>> table;
 
-    Doubling(int n) : _size(n), table(L, std::vector<int>(n)) {}
+    doubling(int n) : _size(n), table(L, std::vector<int>(n)) {}
 
     void build(const std::vector<int> &v) {
         for (int i = 0; i < _size; ++i) {

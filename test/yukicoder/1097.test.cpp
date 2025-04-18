@@ -18,7 +18,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<int> to(n);
     for (int i = 0; i < n; ++i) to[i] = (i + a[i]) % n;
-    Doubling<40, Monoid> db(to, a);
+    doubling<40, Monoid> db(to, a);
     int q;
     std::cin >> q;
     while (q--) {

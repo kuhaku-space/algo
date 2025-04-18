@@ -18,7 +18,7 @@ int main(void) {
         for (int i = 0; i < 3; ++i) f |= (bit >> i & 1) && (bit >> (5 - i) & 1);
         to[bit] = ((bit << 1) | f) & ((1 << 6) - 1);
     }
-    Doubling<60> db(to);
+    doubling<60> db(to);
     int cur = 1;
     for (int i = 0; i < k - 1; ++i) {
         cur = db.solve(cur, a[i] - a[i + 1]);

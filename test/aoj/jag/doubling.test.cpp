@@ -42,7 +42,7 @@ int main(void) {
         }
 
         std::string dir = "NESW";
-        Doubling<64> db(to);
+        doubling<64> db(to);
         int x, y, d;
         for (int i = 0; i < h; ++i) {
             for (int j = 0; j < w; ++j) {
