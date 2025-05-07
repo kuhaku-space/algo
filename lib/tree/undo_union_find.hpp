@@ -12,16 +12,16 @@ struct undo_union_find {
     undo_union_find() : data(), history() {}
     undo_union_find(int _n) : data(_n, -1), history() {}
 
-    int root(int x) { return data[x] < 0 ? x : root(data[x]); }
-    int get_root(int k) { return root(k); }
+    int root(int x) const { return data[x] < 0 ? x : root(data[x]); }
+    int get_root(int k) const { return root(k); }
 
     bool is_root(int k) const { return data[k] < 0; }
 
-    bool same(int x, int y) { return root(x) == root(y); }
-    bool is_same(int x, int y) { return same(x, y); }
+    bool same(int x, int y) const { return root(x) == root(y); }
+    bool is_same(int x, int y) const { return same(x, y); }
 
-    int size(int k) { return -data[root(k)]; }
-    int get_size(int k) { return size(k); }
+    int size(int k) const { return -data[root(k)]; }
+    int get_size(int k) const { return size(k); }
 
     bool unite(int x, int y) {
         x = root(x), y = root(y);
