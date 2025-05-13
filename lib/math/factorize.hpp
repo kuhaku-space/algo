@@ -17,7 +17,7 @@ std::uint64_t pollard_rho(std::uint64_t n) {
     auto f = [&](std::uint64_t x) -> std::uint64_t { return ((__uint128_t)x * x + r) % n; };
     std::uniform_int_distribution<std::uint64_t> gen(2, n - 1);
     while (true) {
-        std::uint64_t x, y, ys, q = 1;
+        std::uint64_t x, y, z, ys, q = 1;
         r = gen(rnd), y = gen(rnd);
         g = 1;
         constexpr int m = 128;
@@ -32,9 +32,9 @@ std::uint64_t pollard_rho(std::uint64_t n) {
         }
         if (g == n) {
             do {
-                x += n - (ys = f(ys));
-                if (x >= n) x -= n;
-                g = std::gcd(x, n);
+                z = x + n - (ys = f(ys));
+                if (z >= n) z -= n;
+                g = std::gcd(z, n);
             } while (g == 1);
         }
         if (g != n) break;
