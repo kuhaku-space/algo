@@ -1,19 +1,15 @@
+#pragma once
 #include <cassert>
 #include <utility>
 #include <vector>
 
-/**
- * @brief Interval Heap
- *
- * @tparam T
- *
- * @see https://scrapbox.io/data-structures/Interval_Heap
- */
+/// @brief Interval Heap
+/// @see https://scrapbox.io/data-structures/Interval_Heap
 template <class T>
 struct interval_heap {
     constexpr interval_heap() : _size(), data(1) {}
 
-    constexpr int empty() const { return _size == 0; }
+    constexpr bool empty() const { return _size == 0; }
     constexpr int size() const { return _size; }
 
     T get_max() const {
