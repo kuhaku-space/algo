@@ -1,16 +1,17 @@
 #pragma once
 #include <algorithm>
+#include <bit>
 #include <cassert>
 #include <cstdint>
-#include <random>
 #include <vector>
+#include "random/xoroshiro128.hpp"
 
 namespace internal {
 
 /// @brief 動的完備辞書
 struct dynamic_bit_vector {
   private:
-    using priority_type = std::mt19937::result_type;
+    using priority_type = xoroshiro128::result_type;
 
     struct node_t {
         using pointer = node_t *;
@@ -18,8 +19,7 @@ struct dynamic_bit_vector {
         static unsigned int count(pointer t) { return !t ? 0 : t->cnt; }
         static unsigned int composition(pointer t) { return !t ? 0 : t->sum; }
 
-        node_t(bool v, priority_type p)
-            : val(v), sum(v), ch{nullptr, nullptr}, priority(p), cnt(1), len(1) {}
+        node_t(bool v, priority_type p) : val(v), sum(v), ch{nullptr, nullptr}, priority(p), cnt(1), len(1) {}
 
         std::uint64_t val;
         unsigned int sum;
@@ -59,6 +59,54 @@ struct dynamic_bit_vector {
             root = new node_t(f, gen());
             return;
         }
+        if (!insert_without_split(k, f)) insert_with_split(k, f);
+    }
+
+    void erase(unsigned int k) { root = erase(root, k); }
+
+    node_ptr get_root() const { return root; }
+
+  private:
+    node_ptr root;
+    xoroshiro128 gen;
+
+    bool insert_without_split(unsigned int k, bool f) {
+        return false;
+        node_ptr t = root;
+        if (!t) return false;
+        std::vector<node_ptr> nodes;
+        while (t) {
+            nodes.emplace_back(t);
+            auto c = node_t::count(t->ch[0]);
+            if (c <= k && k <= c + t->len) {
+                if (t->len == 64) {
+                    if (k == c) {
+                        t = t->ch[0];
+                        continue;
+                    } else if (k == c + t->len) {
+                        k -= c + t->len;
+                        t = t->ch[0];
+                        continue;
+                    }
+                    return false;
+                }
+                t->val = insert_bit(t->val, k - c, f);
+                ++t->len;
+                std::reverse(nodes.begin(), nodes.end());
+                for (auto node : nodes) update_light(node, f);
+                return true;
+            }
+            if (k < c) {
+                t = t->ch[0];
+            } else {
+                k -= c + t->len;
+                t = t->ch[1];
+            }
+        }
+        return false;
+    }
+
+    void insert_with_split(unsigned int k, bool f) {
         auto [sl, sr] = split(root, k);
         k -= node_t::count(sl);
         node_ptr t = sl, tmp = nullptr;
@@ -74,10 +122,10 @@ struct dynamic_bit_vector {
             ++t->cnt;
             ++t->len;
         } else {
-            std::uint64_t ml = (1ul << 32) - 1;
+            constexpr std::uint64_t ml = (1ul << 32) - 1;
             tmp = new node_t(0, gen());
-            tmp->val = (t->val >> 32) & ml;
-            tmp->sum = __builtin_popcountl(tmp->val);
+            tmp->val = t->val >> 32;
+            tmp->sum = std::popcount(tmp->val);
             tmp->cnt = 32;
             tmp->len = 32;
             t->val &= ml;
@@ -101,14 +149,6 @@ struct dynamic_bit_vector {
         root = merge(sl, sr);
     }
 
-    void erase(unsigned int k) { root = erase(root, k); }
-
-    node_ptr get_root() const { return root; }
-
-  private:
-    node_ptr root;
-    std::mt19937 gen;
-
     std::uint64_t insert_bit(std::uint64_t val, unsigned int k, bool f) const {
         std::uint64_t ml = (1ul << k) - 1, mr = ~ml;
         std::uint64_t res = std::uint64_t(f) << k;
@@ -127,9 +167,13 @@ struct dynamic_bit_vector {
     node_ptr update(node_ptr t) {
         if (!t) return t;
         t->cnt = node_t::count(t->ch[0]) + node_t::count(t->ch[1]) + t->len;
-        t->sum = node_t::composition(t->ch[0]) + __builtin_popcountl(t->val) +
-                 node_t::composition(t->ch[1]);
+        t->sum = node_t::composition(t->ch[0]) + std::popcount(t->val) + node_t::composition(t->ch[1]);
         return t;
+    }
+
+    void update_light(node_ptr t, bool f) {
+        ++t->cnt;
+        t->sum += f;
     }
 
     node_ptr merge(node_ptr l, node_ptr r) {
@@ -200,7 +244,7 @@ struct dynamic_bit_vector {
             r -= c;
             unsigned int m = std::min(r, t->len);
             if (m) {
-                res += __builtin_popcountl((t->val) & ((1ul << m) - 1));
+                res += std::popcount((t->val) & ((1ul << m) - 1));
                 r -= m;
             }
             t = t->ch[1];
