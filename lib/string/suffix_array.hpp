@@ -1,7 +1,9 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 #include <numeric>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace internal {
@@ -40,6 +42,10 @@ std::vector<int> sa_doubling(const std::vector<int> &s) {
     return sa;
 }
 
+// SA-IS, linear-time suffix array construction
+// Reference:
+// G. Nong, S. Zhang, and W. H. Chan,
+// Two Efficient Algorithms for Linear Time Suffix Array Construction
 template <int THRESHOLD_NAIVE = 10, int THRESHOLD_DOUBLING = 40>
 std::vector<int> sa_is(const std::vector<int> &s, int upper) {
     int n = int(s.size());
@@ -54,7 +60,7 @@ std::vector<int> sa_is(const std::vector<int> &s, int upper) {
 
     std::vector<int> sa(n);
     std::vector<bool> ls(n);
-    for (int i = n - 2; i >= 0; i--) ls[i] = (s[i] == s[i + 1]) ? ls[i + 1] : (s[i] < s[i + 1]);
+    for (int i = n - 2; i >= 0; --i) ls[i] = (s[i] == s[i + 1]) ? ls[i + 1] : (s[i] < s[i + 1]);
     std::vector<int> sum_l(upper + 1), sum_s(upper + 1);
     for (int i = 0; i < n; ++i) {
         if (!ls[i]) ++sum_s[s[i]];
@@ -80,7 +86,7 @@ std::vector<int> sa_is(const std::vector<int> &s, int upper) {
             if (v >= 1 && !ls[v - 1]) sa[buf[s[v - 1]]++] = v - 1;
         }
         std::copy(sum_l.begin(), sum_l.end(), buf.begin());
-        for (int i = n - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; --i) {
             int v = sa[i];
             if (v >= 1 && ls[v - 1]) sa[--buf[s[v - 1] + 1]] = v - 1;
         }
@@ -134,13 +140,7 @@ std::vector<int> sa_is(const std::vector<int> &s, int upper) {
 
 }  // namespace internal
 
-/**
- * @brief Suffix Array
- *
- * @param s 配列
- * @param upper 最大値
- * @return std::vector<int>
- */
+/// @brief Suffix Array
 std::vector<int> suffix_array(const std::vector<int> &s, int upper) {
     assert(0 <= upper);
     for (int d : s) assert(0 <= d && d <= upper);
@@ -148,13 +148,7 @@ std::vector<int> suffix_array(const std::vector<int> &s, int upper) {
     return sa;
 }
 
-/**
- * @brief Suffix Array
- *
- * @tparam T 配列の型
- * @param s 配列
- * @retval std::vector<int> Suffix Array
- */
+/// @brief Suffix Array
 template <class T>
 std::vector<int> suffix_array(const std::vector<T> &s) {
     int n = int(s.size());
@@ -170,12 +164,7 @@ std::vector<int> suffix_array(const std::vector<T> &s) {
     return internal::sa_is(s2, now);
 }
 
-/**
- * @brief Suffix Array
- *
- * @param s 文字列
- * @retval std::vector<int> Suffix Array
- */
+/// @brief Suffix Array
 std::vector<int> suffix_array(const std::string &s) {
     int n = int(s.size());
     std::vector<int> s2(n);
@@ -183,12 +172,19 @@ std::vector<int> suffix_array(const std::string &s) {
     return internal::sa_is(s2, 255);
 }
 
+// Reference:
+// T. Kasai, G. Lee, H. Arimura, S. Arikawa, and K. Park,
+// Linear-Time Longest-Common-Prefix Computation in Suffix Arrays and Its Applications
 template <class T>
 std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa) {
+    assert(s.size() == sa.size());
     int n = int(s.size());
     assert(n >= 1);
     std::vector<int> rnk(n);
-    for (int i = 0; i < n; ++i) { rnk[sa[i]] = i; }
+    for (int i = 0; i < n; ++i) {
+        assert(0 <= sa[i] && sa[i] < n);
+        rnk[sa[i]] = i;
+    }
     std::vector<int> lcp(n - 1);
     int h = 0;
     for (int i = 0; i < n; ++i) {
@@ -206,6 +202,6 @@ std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa) 
 std::vector<int> lcp_array(const std::string &s, const std::vector<int> &sa) {
     int n = int(s.size());
     std::vector<int> s2(n);
-    for (int i = 0; i < n; ++i) { s2[i] = s[i]; }
+    for (int i = 0; i < n; ++i) s2[i] = s[i];
     return lcp_array(s2, sa);
 }
