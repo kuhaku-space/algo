@@ -1,5 +1,7 @@
 /.devcontainer/
 /.vscode/
 /docs/
-/Doxyfile
-/workspace/
+/Doxyfile/
+/workspace/*
+!/workspace/
+!/workspace/.clang-format
