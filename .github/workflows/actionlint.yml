@@ -3,7 +3,7 @@ name: actionlint
 on:
   push:
     branches:
-      - develop
+      - main
     paths:
       - ".github/**"
   pull_request:
