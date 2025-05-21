@@ -1,14 +1,33 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 #include <limits>
 #include <queue>
+#include <utility>
 #include <vector>
 
-/**
- * @brief 最大流
- *
- * @tparam Cap
- */
+namespace internal {
+
+template <class T>
+struct simple_queue {
+    simple_queue() : payload(), pos() {}
+    void reserve(int n) { payload.reserve(n); }
+    int size() const { return int(payload.size()) - pos; }
+    bool empty() const { return pos == int(payload.size()); }
+    void push(const T &t) { payload.push_back(t); }
+    void push(T &&t) { payload.push_back(std::move(t)); }
+    T &front() { return payload[pos]; }
+    void clear() { payload.clear(), pos = 0; }
+    void pop() { ++pos; }
+
+  private:
+    std::vector<T> payload;
+    int pos;
+};
+
+}  // namespace internal
+
+/// @brief 最大流
 template <class Cap>
 struct mf_graph {
     mf_graph() : _n(0) {}
@@ -65,11 +84,12 @@ struct mf_graph {
         assert(s != t);
 
         std::vector<int> level(_n), iter(_n);
+        internal::simple_queue<int> que;
         auto bfs = [&]() {
             std::fill(level.begin(), level.end(), -1);
             level[s] = 0;
-            std::queue<int> que;
-            que.emplace(s);
+            que.clear();
+            que.push(s);
             while (!que.empty()) {
                 int v = que.front();
                 que.pop();
@@ -77,7 +97,7 @@ struct mf_graph {
                     if (e.cap == 0 || level[e.to] >= 0) continue;
                     level[e.to] = level[v] + 1;
                     if (e.to == t) return;
-                    que.emplace(e.to);
+                    que.push(e.to);
                 }
             }
         };
@@ -113,8 +133,8 @@ struct mf_graph {
 
     std::vector<bool> min_cut(int s) {
         std::vector<bool> visited(_n);
-        std::queue<int> que;
-        que.emplace(s);
+        internal::simple_queue<int> que;
+        que.push(s);
         while (!que.empty()) {
             int p = que.front();
             que.pop();
@@ -122,7 +142,7 @@ struct mf_graph {
             for (auto e : g[p]) {
                 if (e.cap && !visited[e.to]) {
                     visited[e.to] = true;
-                    que.emplace(e.to);
+                    que.push(e.to);
                 }
             }
         }
