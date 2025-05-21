@@ -18,7 +18,8 @@ using is_modint_t = std::enable_if_t<is_modint<T>::value>;
 
 }  // namespace internal
 
-template <int m, std::enable_if_t<(1 <= m)> * = nullptr>
+template <int m>
+requires(m >= 1)
 struct static_modint : internal::static_modint_base {
     using mint = static_modint;
 
@@ -119,9 +120,7 @@ struct static_modint : internal::static_modint_base {
         rhs = mint(t);
         return is;
     }
-    friend constexpr std::ostream &operator<<(std::ostream &os, const mint &rhs) {
-        return os << rhs._v;
-    }
+    friend constexpr std::ostream &operator<<(std::ostream &os, const mint &rhs) { return os << rhs._v; }
 
   private:
     unsigned int _v;
@@ -227,9 +226,7 @@ struct dynamic_modint : internal::modint_base {
         rhs = mint(t);
         return is;
     }
-    friend constexpr std::ostream &operator<<(std::ostream &os, const mint &rhs) {
-        return os << rhs._v;
-    }
+    friend constexpr std::ostream &operator<<(std::ostream &os, const mint &rhs) { return os << rhs._v; }
 
   private:
     unsigned int _v;

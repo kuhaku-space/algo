@@ -14,5 +14,6 @@ AllowShortLambdasOnASingleLine: All
 CommentPragmas: 'competitive-verifier:'
 DerivePointerAlignment: false
 IncludeBlocks: Merge
+IndentRequiresClause: false
 PackConstructorInitializers: BinPack
 PointerAlignment: Right
