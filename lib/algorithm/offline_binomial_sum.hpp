@@ -1,10 +1,12 @@
 #pragma once
+#include <concepts>
 #include <vector>
 #include "algorithm/mo.hpp"
 #include "math/combination.hpp"
 #include "math/modint.hpp"
 
 template <class mint = modint998>
+requires(std::derived_from<mint, internal::modint_base>)
 std::vector<mint> offline_binomial_sum(const std::vector<std::pair<int, int>> &queries) {
     std::vector<mint> res(queries.size());
     if (queries.empty()) return res;
