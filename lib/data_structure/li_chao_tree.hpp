@@ -4,64 +4,47 @@
 #include <functional>
 #include <limits>
 
-/**
- * @brief Li Chao Tree
- *
- * @tparam Comp 比較関数
- * @tparam Inf
- */
+/// @brief Li Chao Tree
 template <class Comp = std::less<>, std::int64_t Inf = std::numeric_limits<std::int64_t>::max()>
 struct li_chao_tree {
   private:
-    struct _line {
+    struct line_t {
         std::int64_t a, b;
 
-        constexpr _line(std::int64_t _a, std::int64_t _b) : a(_a), b(_b) {}
+        constexpr line_t(std::int64_t _a, std::int64_t _b) : a(_a), b(_b) {}
         constexpr std::int64_t operator()(std::int64_t x) const { return a * x + b; }
     };
 
-    const _line inf_line = {0, Inf};
+    const line_t inf_line = {0, Inf};
 
-    struct _node {
-        using pointer = _node *;
+    struct node_t {
+        using pointer = node_t *;
         pointer left, right;
-        _line line;
+        line_t line;
 
-        constexpr _node(_line line) : left(nullptr), right(nullptr), line(line) {}
+        constexpr node_t(line_t line) : left(nullptr), right(nullptr), line(line) {}
     };
 
   public:
-    using line_type = _line;
-    using node_ptr = typename _node::pointer;
+    using line_type = line_t;
+    using node_ptr = typename node_t::pointer;
 
     static constexpr std::int64_t inf = Inf;
 
     constexpr li_chao_tree(std::int64_t _xr) : root(nullptr), xl(0), xr(_xr) {}
     constexpr li_chao_tree(std::int64_t _xl, std::int64_t _xr) : root(nullptr), xl(_xl), xr(_xr) {}
 
-    /**
-     * @brief Add line ($ax+b$)
-     *
-     * @param a
-     * @param b
-     */
+    /// @brief Add line ($ax+b$)
     void add_line(std::int64_t a, std::int64_t b) {
-        line_type line = line_type{a, b};
+        line_t line = line_t{a, b};
         root = add_line(root, line, xl, xr);
     }
 
-    /**
-     * @brief Add segment ($ax+b$)
-     *
-     * @param a
-     * @param b
-     * @param l
-     * @param r
-     */
+    /// @brief Add segment ($ax+b$)
     void add_segment(std::int64_t a, std::int64_t b, std::int64_t l, std::int64_t r) {
         assert(xl <= l && l <= r && r <= xr);
         if (l == r) return;
-        line_type line = line_type{a, b};
+        line_t line = line_t{a, b};
         root = add_segment(l, r, root, line, xl, xr);
     }
 
@@ -75,8 +58,8 @@ struct li_chao_tree {
     std::int64_t xl, xr;
     Comp comp;
 
-    node_ptr add_line(node_ptr node, line_type line, std::int64_t l, std::int64_t r) {
-        if (node == nullptr) return new _node(line);
+    node_ptr add_line(node_ptr node, line_t line, std::int64_t l, std::int64_t r) {
+        if (node == nullptr) return new node_t(line);
         if (l + 1 == r) {
             if (comp(line(l), node->line(l))) node->line = line;
             return node;
@@ -96,11 +79,10 @@ struct li_chao_tree {
         return node;
     }
 
-    node_ptr add_segment(std::int64_t a, std::int64_t b, node_ptr node, line_type line,
-                         std::int64_t l, std::int64_t r) {
+    node_ptr add_segment(std::int64_t a, std::int64_t b, node_ptr node, line_t line, std::int64_t l, std::int64_t r) {
         if (r <= a || b <= l) return node;
         if (a <= l && r <= b) return add_line(node, line, l, r);
-        if (node == nullptr) node = new _node(inf_line);
+        if (node == nullptr) node = new node_t(inf_line);
         std::int64_t m = (l + r) >> 1;
         node->left = add_segment(a, b, node->left, line, l, m);
         node->right = add_segment(a, b, node->right, line, m, r);
