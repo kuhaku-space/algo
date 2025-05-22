@@ -12,18 +12,9 @@
 
 namespace internal {
 
-// @param n `1 <= n`
-// @return same with std::bit::countr_zero
-constexpr int countr_zero_constexpr(unsigned int n) {
-    int x = 0;
-    while (!(n & (1 << x))) x++;
-    return x;
-}
-
-template <class mint, int g = internal::primitive_root<mint::mod()>,
-          internal::is_static_modint_t<mint> * = nullptr>
+template <class mint, int g = internal::primitive_root<mint::mod()>, internal::is_static_modint_t<mint> * = nullptr>
 struct fft_info {
-    static constexpr int rank2 = countr_zero_constexpr(mint::mod() - 1);
+    static constexpr int rank2 = std::countr_zero<unsigned>(mint::mod() - 1);
     std::array<mint, rank2 + 1> root, iroot;
     std::array<mint, std::max(0, rank2 - 2 + 1)> rate2, irate2;
     std::array<mint, std::max(0, rank2 - 3 + 1)> rate3, irate3;
@@ -84,12 +75,12 @@ void butterfly(std::vector<mint> &a) {
                 mint rot3 = rot2 * rot;
                 int offset = s << (h - len);
                 for (int i = 0; i < p; i++) {
-                    auto mod2 = 1ULL * mint::mod() * mint::mod();
-                    auto a0 = 1ULL * a[i + offset].val();
-                    auto a1 = 1ULL * a[i + offset + p].val() * rot.val();
-                    auto a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();
-                    auto a3 = 1ULL * a[i + offset + 3 * p].val() * rot3.val();
-                    auto a1na3imag = 1ULL * mint(a1 + mod2 - a3).val() * imag.val();
+                    auto mod2 = 1ull * mint::mod() * mint::mod();
+                    auto a0 = 1ull * a[i + offset].val();
+                    auto a1 = 1ull * a[i + offset + p].val() * rot.val();
+                    auto a2 = 1ull * a[i + offset + 2 * p].val() * rot2.val();
+                    auto a3 = 1ull * a[i + offset + 3 * p].val() * rot3.val();
+                    auto a1na3imag = 1ull * mint(a1 + mod2 - a3).val() * imag.val();
                     auto na2 = mod2 - a2;
                     a[i + offset] = a0 + a2 + a1 + a3;
                     a[i + offset + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));
@@ -107,9 +98,7 @@ template <class mint, internal::is_static_modint_t<mint> * = nullptr>
 void butterfly_inv(std::vector<mint> &a) {
     int n = int(a.size());
     int h = std::countr_zero<unsigned>(n);
-
     static const fft_info<mint> info;
-
     int len = h;
     while (len) {
         if (len == 1) {
@@ -120,12 +109,9 @@ void butterfly_inv(std::vector<mint> &a) {
                 for (int i = 0; i < p; i++) {
                     auto l = a[i + offset], r = a[i + offset + p];
                     a[i + offset] = l + r;
-                    a[i + offset + p] =
-                        (std::uint64_t)(mint::mod() + l.val() - r.val()) * irot.val();
-                    ;
+                    a[i + offset + p] = (std::uint64_t)(mint::mod() + l.val() - r.val()) * irot.val();
                 }
-                if (s + 1 != (1 << (len - 1)))
-                    irot *= info.irate2[std::countr_zero(~(unsigned int)(s))];
+                if (s + 1 != (1 << (len - 1))) irot *= info.irate2[std::countr_zero(~(unsigned int)(s))];
             }
             len--;
         } else {
@@ -136,22 +122,17 @@ void butterfly_inv(std::vector<mint> &a) {
                 mint irot3 = irot2 * irot;
                 int offset = s << (h - len + 2);
                 for (int i = 0; i < p; i++) {
-                    auto a0 = 1ULL * a[i + offset + 0 * p].val();
-                    auto a1 = 1ULL * a[i + offset + 1 * p].val();
-                    auto a2 = 1ULL * a[i + offset + 2 * p].val();
-                    auto a3 = 1ULL * a[i + offset + 3 * p].val();
-
-                    auto a2na3iimag = 1ULL * mint((mint::mod() + a2 - a3) * iimag.val()).val();
-
+                    auto a0 = 1ull * a[i + offset + 0 * p].val();
+                    auto a1 = 1ull * a[i + offset + 1 * p].val();
+                    auto a2 = 1ull * a[i + offset + 2 * p].val();
+                    auto a3 = 1ull * a[i + offset + 3 * p].val();
+                    auto a2na3iimag = 1ull * mint((mint::mod() + a2 - a3) * iimag.val()).val();
                     a[i + offset] = a0 + a1 + a2 + a3;
                     a[i + offset + 1 * p] = (a0 + (mint::mod() - a1) + a2na3iimag) * irot.val();
-                    a[i + offset + 2 * p] =
-                        (a0 + a1 + (mint::mod() - a2) + (mint::mod() - a3)) * irot2.val();
-                    a[i + offset + 3 * p] =
-                        (a0 + (mint::mod() - a1) + (mint::mod() - a2na3iimag)) * irot3.val();
+                    a[i + offset + 2 * p] = (a0 + a1 + (mint::mod() - a2) + (mint::mod() - a3)) * irot2.val();
+                    a[i + offset + 3 * p] = (a0 + (mint::mod() - a1) + (mint::mod() - a2na3iimag)) * irot3.val();
                 }
-                if (s + 1 != (1 << (len - 2)))
-                    irot *= info.irate3[std::countr_zero(~(unsigned int)(s))];
+                if (s + 1 != (1 << (len - 2))) irot *= info.irate3[std::countr_zero(~(unsigned int)(s))];
             }
             len -= 2;
         }
