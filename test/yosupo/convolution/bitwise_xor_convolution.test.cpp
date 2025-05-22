@@ -1,7 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/bitwise_xor_convolution
-#include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <vector>
 #include "math/modint.hpp"
 
@@ -38,8 +36,8 @@ int main(void) {
     std::cin >> n;
     n = 1 << n;
     std::vector<Mint> a(n), b(n);
-    std::copy_n(std::istream_iterator<Mint>(std::cin), n, std::begin(a));
-    std::copy_n(std::istream_iterator<Mint>(std::cin), n, std::begin(b));
+    for (auto &e : a) std::cin >> e;
+    for (auto &e : b) std::cin >> e;
     fwt(a), fwt(b);
     std::vector<Mint> c(n);
     for (int i = 0; i < n; ++i) c[i] = a[i] * b[i];

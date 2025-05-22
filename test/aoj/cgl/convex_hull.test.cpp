@@ -2,23 +2,20 @@
 #include "geometry/convex_hull.hpp"
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <vector>
 
 int main(void) {
     int n;
     std::cin >> n;
     std::vector<Point<int>> ps(n);
-    std::copy_n(std::istream_iterator<Point<int>>(std::cin), n, std::begin(ps));
+    for (auto &e : ps) std::cin >> e;
     auto v = convex_hull(ps);
-    std::cout << std::size(v) << '\n';
-
+    std::cout << v.size() << '\n';
     int t = 0;
     for (int i = 0; i < n; ++i) {
         if (v[i].y < v[t].y || (v[i].y == v[t].y && v[i].x < v[i].y)) t = i;
     }
-
-    std::rotate(std::begin(v), std::begin(v) + t, std::end(v));
+    std::rotate(v.begin(), v.begin() + t, v.end());
     for (auto &[x, y] : v) std::cout << x << ' ' << y << '\n';
 
     return 0;
