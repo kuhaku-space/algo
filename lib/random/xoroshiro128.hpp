@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <bit>
 #include <cstdint>
 #include <limits>
 #include <utility>
@@ -18,9 +19,9 @@ struct xoroshiro128 {
     constexpr result_type operator()() {
         const std::uint64_t s0 = state[0];
         std::uint64_t s1 = state[1];
-        const std::uint64_t result = rotl(s0 + s1, 17) + s0;
+        const std::uint64_t result = std::rotl(s0 + s1, 17) + s0;
         s1 ^= s0;
-        state[0] = rotl(s0, 49) ^ s1 ^ (s1 << 21), state[1] = rotl(s1, 28);
+        state[0] = std::rotl(s0, 49) ^ s1 ^ (s1 << 21), state[1] = std::rotl(s1, 28);
         return result;
     }
     bool operator==(const xoroshiro128 &rhs) noexcept { return (state == rhs.state); }
@@ -31,10 +32,8 @@ struct xoroshiro128 {
     constexpr void deserialize(state_type &&data) noexcept { state = std::move(data); }
 
     /// @brief a以上b以下の整数を生成
-    /// @param a
-    /// @param b
-    /// @return int [a, b]
-    int rand_range(std::uint64_t a, std::uint64_t b) {
+    /// @return uint64_t [a, b]
+    std::uint64_t rand_range(std::uint64_t a, std::uint64_t b) {
         if (a == xoroshiro128::min() && b == xoroshiro128::max()) return operator()();
         return a + operator()() % (b - a + 1);
     }
@@ -45,8 +44,4 @@ struct xoroshiro128 {
 
   private:
     state_type state;
-
-    static constexpr std::uint64_t rotl(const std::uint64_t x, const int s) noexcept {
-        return (x << s) | (x >> (64 - s));
-    }
 };

@@ -4,10 +4,7 @@
 #include <limits>
 #include <utility>
 
-/**
- * @brief 擬似乱数生成器
- * @details 周期：$2^128-1$
- */
+/// @brief 擬似乱数生成器 Xorshift
 struct Xorshift {
     using state_type = std::array<std::uint32_t, 4>;
     using result_type = std::uint32_t;
@@ -27,20 +24,15 @@ struct Xorshift {
     constexpr void deserialize(const state_type &data) noexcept { state = data; }
     constexpr void deserialize(state_type &&data) noexcept { state = std::move(data); }
 
-    /**
-     * @brief a以上b以下の整数を生成
-     *
-     * @param a
-     * @param b
-     * @return int [a, b]
-     */
-    int rand_range(int a, int b) { return a + operator()() % (b - a + 1); }
+    /// @brief a以上b以下の整数を生成
+    /// @return uint32_t [a, b]
+    std::uint32_t rand_range(std::uint32_t a, std::uint32_t b) {
+        if (a == Xorshift::min() && b == Xorshift::max()) return operator()();
+        return a + operator()() % (b - a + 1);
+    }
 
-    /**
-     * @brief 0.0以上1.0未満の浮動小数点数を生成
-     *
-     * @return double [0.0, 1.0)
-     */
+    /// @brief 0.0以上1.0未満の浮動小数点数を生成
+    /// @return double [0, 1)
     double random() { return (double)operator()() / max(); }
 
   private:

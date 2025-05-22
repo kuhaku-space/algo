@@ -35,20 +35,15 @@ struct split_mix_64 {
         return seeds;
     }
 
-    /**
-     * @brief a以上b以下の整数を生成
-     *
-     * @param a
-     * @param b
-     * @return int [a, b]
-     */
-    int rand_range(int a, int b) { return a + operator()() % (b - a + 1); }
+    /// @brief a以上b以下の整数を生成
+    /// @return uint64_t [a, b]
+    std::uint64_t rand_range(std::uint64_t a, std::uint64_t b) {
+        if (a == split_mix_64::min() && b == split_mix_64::max()) return operator()();
+        return a + operator()() % (b - a + 1);
+    }
 
-    /**
-     * @brief 0.0以上1.0未満の浮動小数点数を生成
-     *
-     * @return double [0, 1)
-     */
+    /// @brief 0.0以上1.0未満の浮動小数点数を生成
+    /// @return double [0, 1)
     double random() { return (double)operator()() / max(); }
 
   private:
