@@ -2,7 +2,6 @@
 #include "string/aho_corasick.hpp"
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <string>
 #include <vector>
 #include "math/modint.hpp"
@@ -14,7 +13,7 @@ int main(void) {
     int m;
     std::cin >> m;
     std::vector<std::string> t(m);
-    std::copy_n(std::istream_iterator<std::string>(std::cin), m, t.begin());
+    for (auto &e : t) std::cin >> e;
     aho_corasick<26, 'a'> aho;
     std::vector<std::vector<int>> correct;
     for (int i = 0; i < m; ++i) {
