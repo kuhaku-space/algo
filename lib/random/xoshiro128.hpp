@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <bit>
 #include <cstdint>
 #include <limits>
 #include <utility>
@@ -22,14 +23,14 @@ struct xoshiro128 {
     static constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min(); }
     static constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max(); }
     constexpr result_type operator()() {
-        const std::uint32_t result = rotl(state[0] + state[3], 7) + state[0];
+        const std::uint32_t result = std::rotl(state[0] + state[3], 7) + state[0];
         const std::uint32_t t = state[1] << 9;
         state[2] ^= state[0];
         state[3] ^= state[1];
         state[1] ^= state[2];
         state[0] ^= state[3];
         state[2] ^= t;
-        state[3] = rotl(state[3], 11);
+        state[3] = std::rotl(state[3], 11);
         return result;
     }
     bool operator==(const xoshiro128 &rhs) noexcept { return (state == rhs.state); }
@@ -40,8 +41,8 @@ struct xoshiro128 {
     constexpr void deserialize(state_type &&data) noexcept { state = std::move(data); }
 
     /// @brief a以上b以下の整数を生成
-    /// @return int [a, b]
-    int rand_range(std::uint32_t a, std::uint32_t b) {
+    /// @return uint32_t [a, b]
+    std::uint32_t rand_range(std::uint32_t a, std::uint32_t b) {
         if (a == xoshiro128::min() && b == xoshiro128::max()) return operator()();
         return a + operator()() % (b - a + 1);
     }
@@ -52,8 +53,4 @@ struct xoshiro128 {
 
   private:
     state_type state;
-
-    static constexpr std::uint32_t rotl(const std::uint32_t x, const int s) noexcept {
-        return (x << s) | (x >> (32 - s));
-    }
 };
