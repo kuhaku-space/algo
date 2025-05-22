@@ -1,15 +1,11 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 #include <limits>
-#include <queue>
 #include <vector>
+#include "internal/internal_csr.hpp"
 
-/**
- * @brief 最小費用流
- *
- * @tparam Cap
- * @tparam Cost
- */
+/// @brief 最小費用流
 template <class Cap, class Cost>
 struct mcf_graph {
     mcf_graph() {}
@@ -44,12 +40,8 @@ struct mcf_graph {
     std::vector<edge> edges() { return _edges; }
 
     std::pair<Cap, Cost> flow(int s, int t) { return flow(s, t, std::numeric_limits<Cap>::max()); }
-    std::pair<Cap, Cost> flow(int s, int t, Cap flow_limit) {
-        return slope(s, t, flow_limit).back();
-    }
-    std::vector<std::pair<Cap, Cost>> slope(int s, int t) {
-        return slope(s, t, std::numeric_limits<Cap>::max());
-    }
+    std::pair<Cap, Cost> flow(int s, int t, Cap flow_limit) { return slope(s, t, flow_limit).back(); }
+    std::vector<std::pair<Cap, Cost>> slope(int s, int t) { return slope(s, t, std::numeric_limits<Cap>::max()); }
     std::vector<std::pair<Cap, Cost>> slope(int s, int t, Cap flow_limit) {
         assert(0 <= s && s < _n);
         assert(0 <= t && t < _n);
@@ -69,7 +61,7 @@ struct mcf_graph {
                 elist.emplace_back(e.from, _edge(e.to, -1, e.cap - e.flow, e.cost));
                 elist.emplace_back(e.to, _edge(e.from, -1, e.flow, -e.cost));
             }
-            auto _g = csr<_edge>(_n, elist);
+            auto _g = internal::csr<_edge>(_n, elist);
             for (int i = 0; i < m; ++i) {
                 auto e = _edges[i];
                 edge_idx[i] += _g.start[e.from];
@@ -82,7 +74,7 @@ struct mcf_graph {
 
         auto result = slope(g, s, t, flow_limit);
 
-        for (int i = 0; i < m; ++i) {
+        for (int i = 0; i < m; i++) {
             auto e = g.elist[edge_idx[i]];
             _edges[i].flow = _edges[i].cap - e.cap;
         }
@@ -100,24 +92,10 @@ struct mcf_graph {
         Cost cost;
 
         constexpr _edge() : to(), rev(), cap(), cost() {}
-        constexpr _edge(int _to, int _rev, Cap _cap, Cost _cost)
-            : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
+        constexpr _edge(int _to, int _rev, Cap _cap, Cost _cost) : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
     };
 
-    template <class E>
-    struct csr {
-        std::vector<int> start;
-        std::vector<E> elist;
-        explicit csr(int n, const std::vector<std::pair<int, E>> &edges)
-            : start(n + 1), elist(edges.size()) {
-            for (auto e : edges) start[e.first + 1]++;
-            for (int i = 1; i <= n; i++) start[i] += start[i - 1];
-            auto counter = start;
-            for (auto e : edges) elist[counter[e.first]++] = e.second;
-        }
-    };
-
-    std::vector<std::pair<Cap, Cost>> slope(csr<_edge> &g, int s, int t, Cap flow_limit) {
+    std::vector<std::pair<Cap, Cost>> slope(internal::csr<_edge> &g, int s, int t, Cap flow_limit) {
         std::vector<std::pair<Cost, Cost>> dual_dist(_n);
         std::vector<int> prev_e(_n);
         std::vector<bool> vis(_n);
@@ -125,7 +103,7 @@ struct mcf_graph {
             Cost key;
             int to;
             constexpr Q(Cost _key, int _to) : key(_key), to(_to) {}
-            bool operator<(Q r) const { return key > r.key; }
+            constexpr bool operator<(Q r) const { return key > r.key; }
         };
         std::vector<int> que_min;
         std::vector<Q> que;
@@ -152,7 +130,7 @@ struct mcf_graph {
                     v = que.front().to;
                     std::pop_heap(que.begin(), que.end());
                     que.pop_back();
-                    heap_r--;
+                    --heap_r;
                 }
                 if (vis[v]) continue;
                 vis[v] = true;
@@ -166,11 +144,8 @@ struct mcf_graph {
                         Cost dist_to = dist_v + cost;
                         dual_dist[e.to].second = dist_to;
                         prev_e[e.to] = e.rev;
-                        if (dist_to == dist_v) {
-                            que_min.emplace_back(e.to);
-                        } else {
-                            que.emplace_back(dist_to, e.to);
-                        }
+                        if (dist_to == dist_v) que_min.emplace_back(e.to);
+                        else que.emplace_back(dist_to, e.to);
                     }
                 }
             }
@@ -188,9 +163,7 @@ struct mcf_graph {
         while (flow < flow_limit) {
             if (!dual_ref()) break;
             Cap c = flow_limit - flow;
-            for (int v = t; v != s; v = g.elist[prev_e[v]].to) {
-                c = std::min(c, g.elist[g.elist[prev_e[v]].rev].cap);
-            }
+            for (int v = t; v != s; v = g.elist[prev_e[v]].to) c = std::min(c, g.elist[g.elist[prev_e[v]].rev].cap);
             for (int v = t; v != s; v = g.elist[prev_e[v]].to) {
                 auto &e = g.elist[prev_e[v]];
                 e.cap += c;
