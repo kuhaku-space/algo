@@ -1,11 +1,11 @@
+#pragma once
+#include <algorithm>
 #include <cassert>
 #include <utility>
 #include <vector>
 
-/**
- * @brief Hopcroft-Karp algorithm
- * @see https://judge.yosupo.jp/submission/99577
- */
+/// @brief Hopcroft-Karp algorithm
+/// @see https://judge.yosupo.jp/submission/99577
 struct hopcroft_karp {
     hopcroft_karp(int _n, int _m) : n(_n), m(_m), g(_n), match_left(_n, -1), match_right(_m, -1) {}
 
@@ -31,14 +31,12 @@ struct hopcroft_karp {
                 if (match_left[root[u]] != -1) continue;
                 for (int v : g[u]) {
                     if (match_right[v] == -1) {
-                        while (v != -1)
-                            match_right[v] = u, std::swap(match_left[u], v), u = prev[u];
+                        while (v != -1) match_right[v] = u, std::swap(match_left[u], v), u = prev[u];
                         updated = true, flow++;
                         break;
                     }
 
-                    if (prev[match_right[v]] == -1)
-                        v = match_right[v], prev[v] = u, root[v] = root[u], qq[qj++] = v;
+                    if (prev[match_right[v]] == -1) v = match_right[v], prev[v] = u, root[v] = root[u], qq[qj++] = v;
                 }
             }
         }
