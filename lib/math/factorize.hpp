@@ -54,8 +54,26 @@ std::vector<std::uint64_t> inner_factorize(std::uint64_t n) {
 
 }  // namespace internal
 
+/// @brief 素因数分解
 std::vector<std::uint64_t> factorize(std::uint64_t n) {
     auto res = internal::inner_factorize(n);
     std::sort(res.begin(), res.end());
     return res;
 }
+
+std::uint64_t number_of_divisors(std::vector<std::uint64_t> v) {
+    std::sort(v.begin(), v.end());
+    int c = 0;
+    std::uint64_t res = 1;
+    for (int i = 0; i < (int)v.size(); ++i) {
+        if (i == 0 || v[i] == v[i - 1]) {
+            ++c;
+        } else {
+            res *= c + 1;
+            c = 1;
+        }
+    }
+    return res * (c + 1);
+}
+
+std::uint64_t number_of_divisors(std::uint64_t n) { return number_of_divisors(internal::inner_factorize(n)); }
