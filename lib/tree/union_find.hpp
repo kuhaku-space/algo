@@ -3,11 +3,9 @@
 #include <utility>
 #include <vector>
 
-/**
- * @brief 素集合データ構造
- * @details Implement (union by size) + (path compression)
- * @see https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
- */
+/// @brief 素集合データ構造
+/// @details Implement (union by size) + (path compression)
+/// @see https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
 struct union_find {
     union_find() = default;
     explicit union_find(int _n) : _rank(_n), data(_n, -1) {}
