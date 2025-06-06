@@ -1,12 +1,11 @@
 #pragma once
+#include <concepts>
 #include <utility>
 #include <vector>
 
-/**
- * @brief 素集合データ構造
- * @details Implement (union by size) + (path compression)
- * @see https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
- */
+/// @brief 素集合データ構造
+/// @details Implement (union by size) + (path compression)
+/// @see https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
 struct union_find {
     union_find() = default;
     explicit union_find(int _n) : _rank(_n), data(_n, -1) {}
@@ -46,6 +45,21 @@ struct union_find {
     }
 
     template <class F>
+    requires std::invocable<F, int, int, bool>
+    bool unite(int x, int y, F f) {
+        x = root(x), y = root(y);
+        bool swapped = false;
+        if (x != y) {
+            if (data[x] > data[y]) std::swap(x, y), swapped = true;
+            data[x] += data[y];
+            data[y] = x;
+        }
+        f(x, y, swapped);
+        return x != y;
+    }
+
+    template <class F>
+    requires std::invocable<F, int, int>
     bool unite(int x, int y, F f) {
         x = root(x), y = root(y);
         if (x != y) {
