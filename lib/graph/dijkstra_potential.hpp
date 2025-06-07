@@ -1,7 +1,11 @@
 #pragma once
+#include <functional>
+#include <limits>
+#include <queue>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
+/// @brief ダイクストラ法
 template <class T, class U>
 std::vector<T> dijkstra(const Graph<T> &g, const std::vector<U> &potentials, int s = 0,
                         T inf = std::numeric_limits<T>::max()) {
@@ -29,7 +33,10 @@ std::vector<T> dijkstra(const Graph<T> &g, const std::vector<U> &potentials, int
         if (dists[node.to()] < node.dist()) continue;
         for (auto &e : g[node.to()]) {
             auto next_dist = node.dist() + e.weight() + potentials[node.to()] - potentials[e.to()];
-            if (chmin(dists[e.to()], next_dist)) p_que.emplace(e.to(), next_dist);
+            if (next_dist < dists[e.to()]) {
+                dists[e.to()] = next_dist;
+                p_que.emplace(e.to(), next_dist);
+            }
         }
     }
     for (int i = 0; i < n; ++i) dists[i] += potentials[i] - potentials[s];
