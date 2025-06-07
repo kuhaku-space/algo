@@ -1,38 +1,32 @@
+#pragma once
 #include <algorithm>
 #include <cassert>
 
-/**
- * @brief AVL木
- * @see https://tjkendev.github.io/procon-library/cpp/binary_search_tree/avl-tree.html
- *
- * @tparam T 要素の型
- */
+/// @brief AVL木
+/// @see https://tjkendev.github.io/procon-library/cpp/binary_search_tree/avl-tree.html
 template <class T>
 struct avl_tree {
   private:
-    struct _node {
-        using pointer = _node *;
+    struct node_t {
+        using pointer = node_t *;
         T val;
         int height;
         pointer left, right;
 
-        constexpr _node(T _val) : val(_val), height(1), left(nullptr), right(nullptr) {}
+        constexpr node_t(T _val) : val(_val), height(1), left(nullptr), right(nullptr) {}
 
         static constexpr int get_height(pointer node) { return node == nullptr ? 0 : node->height; }
         static constexpr int get_balance_factor(pointer node) {
-            return node == nullptr ? 0
-                                   : _node::get_height(node->left) - _node::get_height(node->right);
+            return node == nullptr ? 0 : node_t::get_height(node->left) - node_t::get_height(node->right);
         }
 
-        constexpr void set_height() {
-            height = std::max(_node::get_height(left), _node::get_height(right)) + 1;
-        }
+        constexpr void set_height() { height = std::max(node_t::get_height(left), node_t::get_height(right)) + 1; }
         constexpr bool is_leaf() const { return left == nullptr && right == nullptr; }
     };
 
   public:
-    using node_type = _node;
-    using node_ptr = typename _node::pointer;
+    using node_type = node_t;
+    using node_ptr = typename node_t::pointer;
 
     constexpr avl_tree() : root(nullptr) {}
 
@@ -135,7 +129,7 @@ struct avl_tree {
     }
 
     constexpr node_ptr insert(node_ptr node, T val) {
-        if (node == nullptr) return new _node(val);
+        if (node == nullptr) return new node_t(val);
         if (val < node->val) node->left = insert(node->left, val);
         else node->right = insert(node->right, val);
 
