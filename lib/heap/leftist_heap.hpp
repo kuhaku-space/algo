@@ -18,8 +18,7 @@ struct leftist_heap {
         constexpr _node(const T &val) : _left(), _right(), _rank(), _val(val) {}
         constexpr _node(T &&val) : _left(), _right(), _rank(), _val(val) {}
         template <typename... Args>
-        constexpr _node(Args &&...args)
-            : _left(), _right(), _rank(), _val(std::forward<Args>(args)...) {}
+        constexpr _node(Args &&...args) : _left(), _right(), _rank(), _val(std::forward<Args>(args)...) {}
     };
 
   public:

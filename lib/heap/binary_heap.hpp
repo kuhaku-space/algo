@@ -1,14 +1,9 @@
+#pragma once
 #include <functional>
 #include <utility>
 #include <vector>
 
-/**
- * @brief 二分ヒープ
- *
- * @tparam Key キーの型
- * @tparam Value 値の型
- * @tparam Comp 比較オブジェクト
- */
+/// @brief 二分ヒープ
 template <class Key, class Value, class Comp = std::less<>>
 struct binary_heap {
   private:
@@ -41,7 +36,7 @@ struct binary_heap {
         auto node = new _node(key, value);
         nodes.emplace_back(node);
 
-        int index = increment_size();
+        int index = ++_size;
         while (index > 1 && comp(nodes[index >> 1]->value, nodes[index]->value)) {
             std::swap(nodes[index], nodes[index >> 1]);
             nodes[index]->set_index(index);
@@ -54,7 +49,7 @@ struct binary_heap {
     node_pointer emplace(Key key, Value value) { return push(key, value); }
 
     void pop() {
-        nodes[1] = nodes[decrement_size()];
+        nodes[1] = nodes[_size--];
         nodes.pop_back();
 
         int index = 1 << 1;
@@ -84,7 +79,4 @@ struct binary_heap {
     int _size;
     std::vector<node_pointer> nodes;
     Comp comp;
-
-    constexpr int increment_size() { return ++_size; }
-    constexpr int decrement_size() { return _size--; }
 };

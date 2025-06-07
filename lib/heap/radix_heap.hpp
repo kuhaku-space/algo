@@ -17,8 +17,7 @@ struct radix_heap {
         int index;
 
         constexpr _node(Key _key, Value _value) : key(_key), value(_value), index() {}
-        constexpr _node(Key _key, Value _value, int _index)
-            : key(_key), value(_value), index(_index) {}
+        constexpr _node(Key _key, Value _value, int _index) : key(_key), value(_value), index(_index) {}
 
         constexpr bool operator<(const _node &rhs) const { return value < rhs.value; }
 
@@ -69,9 +68,7 @@ struct radix_heap {
     Value _last;
     int _size;
 
-    int find_bucket(Value value) const {
-        return value == 0 ? 0 : std::numeric_limits<Value>::digits - clz(value);
-    }
+    int find_bucket(Value value) const { return value == 0 ? 0 : std::numeric_limits<Value>::digits - clz(value); }
 
     template <class U>
     int clz(U x) const {
@@ -92,10 +89,9 @@ struct radix_heap {
     void relocate() {
         int index = 1;
         while (data[index].empty()) ++index;
-        auto new_last =
-            (*std::min_element(data[index].begin(), data[index].end(),
-                               [](const auto &a, const auto &b) { return a->value < b->value; }))
-                ->value;
+        auto new_last = (*std::min_element(data[index].begin(), data[index].end(), [](const auto &a, const auto &b) {
+                            return a->value < b->value;
+                        }))->value;
         for (auto node : data[index]) {
             node->index = find_bucket(node->value ^ new_last);
             data[find_bucket(node->value ^ new_last)].emplace(node);
