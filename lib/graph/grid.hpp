@@ -39,18 +39,18 @@ template <int Index>
 struct Grid {
     template <class... Args>
     constexpr Grid(Args &&...args) : entity(std::forward<Args>(args)...) {
-        static_assert(sizeof...(Args == Index));
+        static_assert(sizeof...(Args) == Index);
     }
 
     template <class... Args>
     constexpr bool in_field(Args &&...args) const {
-        static_assert(sizeof...(Args == Index));
+        static_assert(sizeof...(Args) == Index);
         return entity.in_field(std::forward<Args>(args)...);
     }
 
     template <class... Args>
     constexpr std::int64_t flatten(Args &&...args) const {
-        static_assert(sizeof...(Args == Index));
+        static_assert(sizeof...(Args) == Index);
         return entity.flatten(std::forward<Args>(args)...);
     }
 
