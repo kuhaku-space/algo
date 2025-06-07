@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 
-/// @brief Interval Heap
+/// @brief interval heap
 /// @see https://scrapbox.io/data-structures/Interval_Heap
 template <class T>
 struct interval_heap {
@@ -64,63 +64,63 @@ struct interval_heap {
     int _size;
     std::vector<T> data;
 
-    std::pair<int, int> next(int idx) {
-        assert(idx != 2 && _size >= 2);
-        if (idx & 1) {
-            if (idx * 2 + 1 <= _size) {
-                idx = idx * 2 + 1;
-                return std::make_pair(idx, idx + 2 <= _size ? idx + 2 : idx);
+    std::pair<int, int> next(int k) {
+        assert(k != 2 && _size >= 2);
+        if (k & 1) {
+            if (k * 2 + 1 <= _size) {
+                k = k * 2 + 1;
+                return std::make_pair(k, k + 2 <= _size ? k + 2 : k);
             }
-            ++idx;
-            if (idx <= _size) return std::make_pair(idx, idx);
+            ++k;
+            if (k <= _size) return std::make_pair(k, k);
         }
-        idx = (idx / 2) & ~1;
-        return std::make_pair(idx, idx);
+        k = (k / 2) & ~1;
+        return std::make_pair(k, k);
     }
 
-    std::pair<int, int> prev(int idx) {
-        assert(idx != 1);
-        if (~idx & 1) {
-            if (idx * 2 - 1 <= _size) {
-                idx = idx * 2;
-                if (idx + 2 <= _size) return std::make_pair(idx, idx + 2);
-                if (idx <= _size) return std::make_pair(idx, idx);
+    std::pair<int, int> prev(int k) {
+        assert(k != 1);
+        if (~k & 1) {
+            if (k * 2 - 1 <= _size) {
+                k *= 2;
+                if (k + 2 <= _size) return std::make_pair(k, k + 2);
+                if (k <= _size) return std::make_pair(k, k);
             }
-            --idx;
-            return std::make_pair(idx, idx);
+            --k;
+            return std::make_pair(k, k);
         }
-        idx = (idx / 2 - 1) | 1;
-        return std::make_pair(idx, idx);
+        k = (k / 2 - 1) | 1;
+        return std::make_pair(k, k);
     }
 
-    int down(int idx) {
-        while (idx != 2) {
-            auto &&[x, y] = next(idx);
+    int down(int k) {
+        while (k != 2) {
+            auto &&[x, y] = next(k);
             if (x != y && data[x] < data[y]) std::swap(x, y);
-            if (data[x] < data[idx]) break;
-            std::swap(data[x], data[idx]);
-            idx = x;
+            if (data[x] < data[k]) break;
+            std::swap(data[x], data[k]);
+            k = x;
         }
-        return idx;
+        return k;
     }
 
-    int up(int idx) {
-        while (idx != 1) {
-            auto &&[x, y] = prev(idx);
+    int up(int k) {
+        while (k != 1) {
+            auto &&[x, y] = prev(k);
             if (x != y && data[y] < data[x]) std::swap(x, y);
-            if (data[idx] < data[x]) break;
-            std::swap(data[idx], data[x]);
-            idx = x;
+            if (data[k] < data[x]) break;
+            std::swap(data[k], data[x]);
+            k = x;
         }
-        return idx;
+        return k;
     }
 
     void apply() {
         ++_size;
         if (_size >= 3) {
-            int idx = _size;
-            idx = down(idx);
-            idx = up(idx);
+            int k = _size;
+            k = down(k);
+            k = up(k);
         } else if (_size == 2 && data[1] < data[2]) {
             std::swap(data[1], data[2]);
         }

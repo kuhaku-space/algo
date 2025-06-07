@@ -1,13 +1,8 @@
+#pragma once
 #include <functional>
 #include <utility>
 
-/**
- * @brief フィボナッチヒープ
- *
- * @tparam Key キーの型
- * @tparam Value 値の型
- * @tparam Comp 関数オブジェクト
- */
+/// @brief フィボナッチヒープ
 template <class Key, class Value, class Comp = std::less<>>
 struct fibonacci_heap {
   private:
@@ -22,8 +17,7 @@ struct fibonacci_heap {
 
         _node() : key(), value(), order(), left(this), right(this), parent(), child(), damaged() {}
         _node(Key _key, Value _value)
-            : key(_key), value(_value), order(), left(this), right(this), parent(), child(),
-              damaged() {}
+            : key(_key), value(_value), order(), left(this), right(this), parent(), child(), damaged() {}
 
         void add_child(pointer node) {
             node->parent = this;
