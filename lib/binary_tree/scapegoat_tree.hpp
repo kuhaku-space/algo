@@ -1,32 +1,29 @@
+#pragma once
 #include <cassert>
 #include <cmath>
 #include <vector>
 
-/**
- * @brief スケープゴート木
- * @see https://kopricky.github.io/code/BinarySearchTree/scapegoat_tree.html
- *
- * @tparam T 要素の型
- */
+/// @brief スケープゴート木
+/// @see https://kopricky.github.io/code/BinarySearchTree/scapegoat_tree.html
 template <class T>
 struct scapegoat_tree {
   private:
-    struct Node {
-        using pointer = Node *;
+    struct node_t {
+        using pointer = node_t *;
 
         T val;
         unsigned int size;
         pointer left, right;
 
-        Node(T _val) : val(_val), size(1), left(nullptr), right(nullptr) {}
+        node_t(T _val) : val(_val), size(1), left(nullptr), right(nullptr) {}
 
         static constexpr int get_size(pointer node) { return node ? node->size : 0; }
 
-        void eval() { size = 1 + Node::get_size(left) + Node::get_size(right); }
+        void eval() { size = 1 + node_t::get_size(left) + node_t::get_size(right); }
     };
 
   public:
-    using node_ptr = typename Node::pointer;
+    using node_ptr = typename node_t::pointer;
 
     scapegoat_tree(const double _alpha = 2.0 / 3.0)
         : root(nullptr), alpha(_alpha), log_val(-1.0 / std::log2(_alpha)), max_element_size(0) {}
@@ -48,14 +45,9 @@ struct scapegoat_tree {
         assert(k < size());
         node_ptr node = root;
         while (node) {
-            if (Node::get_size(node->left) == k) {
-                break;
-            } else if (k < Node::get_size(node->left)) {
-                node = node->left;
-            } else {
-                k -= Node::get_size(node->left) + 1;
-                node = node->right;
-            }
+            if (node_t::get_size(node->left) == k) break;
+            else if (k < node_t::get_size(node->left)) node = node->left;
+            else k -= node_t::get_size(node->left) + 1, node = node->right;
         }
         return node->val;
     }
@@ -77,7 +69,7 @@ struct scapegoat_tree {
         int res = 0;
         node_ptr node = root;
         while (node) {
-            if (node->val < val) res += Node::get_size(node->left) + 1;
+            if (node->val < val) res += node_t::get_size(node->left) + 1;
             node = (val <= node->val ? node->left : node->right);
         }
         return res;
@@ -119,7 +111,7 @@ struct scapegoat_tree {
     node_ptr insert(node_ptr node, T val, int depth, bool &balanced) {
         if (!node) {
             balanced = (depth <= std::floor(log_val * std::log2(max_element_size)));
-            return new Node(val);
+            return new node_t(val);
         } else if (val < node->val) {
             node->left = insert(node->left, val, depth + 1, balanced);
             node->eval();
