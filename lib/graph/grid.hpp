@@ -1,13 +1,13 @@
+#pragma once
 #include <cstdint>
 #include <utility>
 
 namespace internal {
 
-template <int Idx>
+template <int Index>
 struct grid_impl {
     template <class Head, class... Tail>
-    constexpr grid_impl(Head &&head, Tail &&...tail)
-        : limit(head), impl(std::forward<Tail>(tail)...) {}
+    constexpr grid_impl(Head &&head, Tail &&...tail) : limit(head), impl(std::forward<Tail>(tail)...) {}
 
     template <class Head, class... Tail>
     constexpr bool in_field(Head x, Tail &&...tail) const {
@@ -21,7 +21,7 @@ struct grid_impl {
 
   private:
     std::int64_t limit;
-    grid_impl<Idx - 1> impl;
+    grid_impl<Index - 1> impl;
 };
 
 template <>
@@ -35,21 +35,25 @@ struct grid_impl<0> {
 
 }  // namespace internal
 
-template <int Idx>
+template <int Index>
 struct Grid {
-    template <class... Args, std::enable_if_t<(sizeof...(Args) == Idx)> * = nullptr>
-    constexpr Grid(Args &&...args) : entity(std::forward<Args>(args)...) {}
+    template <class... Args>
+    constexpr Grid(Args &&...args) : entity(std::forward<Args>(args)...) {
+        static_assert(sizeof...(Args) == Index);
+    }
 
-    template <class... Args, std::enable_if_t<(sizeof...(Args) == Idx)> * = nullptr>
+    template <class... Args>
     constexpr bool in_field(Args &&...args) const {
+        static_assert(sizeof...(Args) == Index);
         return entity.in_field(std::forward<Args>(args)...);
     }
 
-    template <class... Args, std::enable_if_t<(sizeof...(Args) == Idx)> * = nullptr>
+    template <class... Args>
     constexpr std::int64_t flatten(Args &&...args) const {
+        static_assert(sizeof...(Args) == Index);
         return entity.flatten(std::forward<Args>(args)...);
     }
 
   private:
-    internal::grid_impl<Idx> entity;
+    internal::grid_impl<Index> entity;
 };
