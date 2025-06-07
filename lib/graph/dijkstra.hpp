@@ -5,15 +5,7 @@
 #include <vector>
 #include "graph/graph.hpp"
 
-/**
- * @brief ダイクストラ法
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @param s 始点
- * @param inf 正の無限表現
- * @retval std::vector<T> 各頂点までの最短距離
- */
+/// @brief ダイクストラ法
 template <class T>
 std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
     struct _node {
@@ -47,8 +39,8 @@ std::vector<T> dijkstra(const Graph<T> &g, int s = 0, T inf = std::numeric_limit
     return dists;
 }
 
-std::vector<int> dijkstra(const Graph<void> &g, int s = 0,
-                          int inf = std::numeric_limits<int>::max()) {
+/// @brief ダイクストラ法
+std::vector<int> dijkstra(const Graph<void> &g, int s = 0, int inf = std::numeric_limits<int>::max()) {
     std::vector<int> dists(g.size(), inf);
     std::queue<int> que;
     dists[s] = 0;
