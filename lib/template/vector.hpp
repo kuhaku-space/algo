@@ -1,5 +1,6 @@
 #pragma once
-#include "template/template.hpp"
+#include <algorithm>
+#include <vector>
 
 struct increment_impl {
     template <class T>
@@ -8,7 +9,6 @@ struct increment_impl {
         return *this;
     }
 } Inc;
-
 struct decrement_impl {
     template <class T>
     const decrement_impl &operator>>(std::vector<T> &v) const {
@@ -16,7 +16,6 @@ struct decrement_impl {
         return *this;
     }
 } Dec;
-
 struct sort_impl {
     template <class T>
     const sort_impl &operator>>(std::vector<T> &v) const {
@@ -24,7 +23,6 @@ struct sort_impl {
         return *this;
     }
 } Sort;
-
 struct unique_impl {
     template <class T>
     const unique_impl &operator>>(std::vector<T> &v) const {
