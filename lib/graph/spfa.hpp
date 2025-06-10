@@ -1,6 +1,8 @@
 #pragma once
+#include <limits>
+#include <queue>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
 /// @brief SPFA
 /// @see https://hogloid.hatenablog.com/entry/20120409/1333973448
