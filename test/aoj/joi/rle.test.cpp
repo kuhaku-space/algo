@@ -2,6 +2,8 @@
 #include "algorithm/rle.hpp"
 #include <algorithm>
 #include <iostream>
+#include <stack>
+#include <utility>
 #include <vector>
 #include "template/vector.hpp"
 
