@@ -1,14 +1,10 @@
+#pragma once
 #include <vector>
 #include "algorithm/compress.hpp"
 #include "data_structure/wavelet_matrix.hpp"
 
-/**
- * @brief ウェーブレット行列
- * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
- *
- * @tparam T
- * @tparam L
- */
+/// @brief ウェーブレット行列
+/// @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
 template <class T, int L = 20>
 struct compressed_wavelet_matrix {
     compressed_wavelet_matrix() = default;
