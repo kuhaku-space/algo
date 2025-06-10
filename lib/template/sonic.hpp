@@ -1,5 +1,8 @@
 #pragma once
-#include "template/template.hpp"
+#include <iomanip>
+#include <ios>
+#include <iostream>
+
 struct Sonic {
     Sonic() {
         std::ios::sync_with_stdio(false);
