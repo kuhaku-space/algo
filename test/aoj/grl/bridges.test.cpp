@@ -11,7 +11,7 @@ int main(void) {
     Graph<void> g(n);
     g.input_edges(m, 0);
 
-    LowLink llink(g);
+    low_link llink(g);
     auto bridges = llink.get_bridges();
     std::vector<std::pair<int, int>> ans;
     for (auto &e : bridges) {

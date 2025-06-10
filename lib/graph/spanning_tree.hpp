@@ -1,16 +1,9 @@
+#pragma once
 #include <queue>
 #include <vector>
 #include "graph/graph.hpp"
 
-/**
- * @brief 全域木
- * @details 全域木を構築する
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @param r 始点
- * @return Graph<T>
- */
+/// @brief 全域木
 template <class T>
 Graph<T> spanning_tree(const Graph<T> &g, int r = 0) {
     int n = g.size();

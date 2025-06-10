@@ -1,29 +1,16 @@
+#pragma once
+#include <algorithm>
+#include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
-/**
- * @brief LowLink
- *
- * @tparam T
- */
+/// @brief LowLink
 template <class T>
-struct LowLink {
-    LowLink(const Graph<T> &_graph)
-        : g(_graph), ord(_graph.size()), low(_graph.size()), used(_graph.size()) {
-        build();
-    }
+struct low_link {
+    low_link(const Graph<T> &_g) : low_link(_g, _g.size()) {}
 
-    /**
-     * @brief Get the articulation points object
-     *
-     * @return std::vector<int>
-     */
+    /// @brief Get the articulation points object
     auto get_articulation_points() { return articulation_points; }
-    /**
-     * @brief Get the bridges object
-     *
-     * @return std::vector<typename Graph<T>::edge_type>
-     */
+    /// @brief Get the bridges object
     auto get_bridges() { return bridges; }
 
   private:
@@ -32,6 +19,8 @@ struct LowLink {
     std::vector<bool> used;
     std::vector<int> articulation_points;               // 関節点
     std::vector<typename Graph<T>::edge_type> bridges;  // 橋
+
+    low_link(const Graph<T> &_g, int n) : g(_g), ord(n), low(n), used(n) { build(); }
 
     void build() {
         int number = 0;
@@ -50,11 +39,11 @@ struct LowLink {
             if (!used[e.to()]) {
                 ++count;
                 number = dfs(e.to(), number, index);
-                chmin(low[index], low[e.to()]);
+                low[index] = std::min(low[index], low[e.to()]);
                 is_articulation_point |= ~parent && low[e.to()] >= ord[index];
                 if (ord[index] < low[e.to()]) bridges.emplace_back(e);
             } else if (e.to() != parent) {
-                chmin(low[index], ord[e.to()]);
+                low[index] = std::min(low[index], ord[e.to()]);
             }
         }
         is_articulation_point |= parent == -1 && count > 1;

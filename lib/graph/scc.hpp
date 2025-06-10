@@ -4,13 +4,7 @@
 #include "graph/graph.hpp"
 #include "internal/internal_csr.hpp"
 
-/**
- * @brief 強連結成分分解
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @return std::vector<int> 各頂点が属する強連結成分の番号
- */
+/// @brief 強連結成分分解
 template <class T>
 std::vector<int> scc(const Graph<T> &g) {
     int n = g.size();
@@ -78,14 +72,7 @@ std::vector<int> scc(const internal::graph_csr &g) {
     return comp;
 };
 
-/**
- * @brief 有向非巡回グラフの構築
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @param v 各頂点が属する強連結成分の番号
- * @return Graph<T> 有向非巡回グラフ
- */
+/// @brief 有向非巡回グラフの構築
 template <class T>
 Graph<T> make_directed_acyclic_graph(const Graph<T> &g, const std::vector<int> &v) {
     Graph<T> res(*std::max_element(v.begin(), v.end()) + 1);
