@@ -4,14 +4,8 @@
 #include <vector>
 #include "graph/graph.hpp"
 
-/**
- * @brief 最大独立集合
- * @see https://www.slideshare.net/wata_orz/ss-12131479
- *
- * @tparam T 辺の重みの型
- * @param graph グラフ
- * @return std::vector<int> 最大独立集合
- */
+/// @brief 最大独立集合
+/// @see https://www.slideshare.net/wata_orz/ss-12131479
 template <class T>
 std::vector<int> maximum_independent_set(const Graph<T> &graph) {
     int n = graph.size();

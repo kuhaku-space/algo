@@ -3,9 +3,7 @@
 #include "graph/scc.hpp"
 #include "internal/internal_csr.hpp"
 
-/**
- * @brief 2-SAT
- */
+/// @brief 2-SAT
 struct two_sat {
     two_sat(int n) : _size(n), G(n * 2) {}
 

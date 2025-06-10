@@ -1,17 +1,10 @@
 #pragma once
+#include <functional>
 #include <queue>
 #include <vector>
 #include "graph/graph.hpp"
 
-/**
- * @brief プリム法
- * @details 最小全域木を求める
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @param r 始点
- * @return std::vector<typename Graph<T>::edge_type>
- */
+/// @brief プリム法
 template <class T>
 std::vector<typename Graph<T>::edge_type> prim(const Graph<T> &g, int r = 0) {
     using _edge = typename Graph<T>::edge_type;

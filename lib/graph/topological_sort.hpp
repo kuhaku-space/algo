@@ -3,13 +3,7 @@
 #include <vector>
 #include "graph/graph.hpp"
 
-/**
- * @brief トポロジカルソート
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @return std::vector<int> 頂点の順序
- */
+/// @brief トポロジカルソート
 template <class T>
 std::vector<int> topological_sort(const Graph<T> &g) {
     int n = g.size();

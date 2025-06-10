@@ -115,16 +115,12 @@ struct functional_graph {
     internal::graph_csr g;
     heavy_light_decomposition hld;
 
-    functional_graph(int n, const std::vector<int> &_to)
-        : _size(n), to(_to), _root(n, -1), g(n + 1), hld() {}
+    functional_graph(int n, const std::vector<int> &_to) : _size(n), to(_to), _root(n, -1), g(n + 1), hld() {}
 
     std::vector<int> get_cycle(int v) const {
         std::vector<int> res(1, v);
         int u = to[v];
-        while (u != v) {
-            res.emplace_back(u);
-            u = to[u];
-        }
+        while (u != v) res.emplace_back(u), u = to[u];
         return res;
     }
 };

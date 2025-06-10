@@ -2,11 +2,7 @@
 #include <iostream>
 #include <vector>
 
-/**
- * @brief 隣接行列
- *
- * @tparam T
- */
+/// @brief 隣接行列
 template <class T>
 struct matrix_graph {
     matrix_graph(int v, T e = T()) : _size(v), m(v, std::vector<T>(v, e)) {}

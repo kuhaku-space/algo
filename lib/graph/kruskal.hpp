@@ -1,16 +1,10 @@
+#pragma once
 #include <algorithm>
 #include <vector>
 #include "graph/graph.hpp"
 #include "tree/union_find.hpp"
 
-/**
- * @brief クラスカル法
- * @details 最小全域木を求める
- *
- * @tparam T 辺の重みの型
- * @param g グラフ
- * @return std::vector<typename Graph<T>::edge_type>
- */
+/// @brief クラスカル法
 template <class T>
 std::vector<typename Graph<T>::edge_type> kruskal(const Graph<T> &g) {
     using _edge = typename Graph<T>::edge_type;

@@ -2,11 +2,7 @@
 #include <iostream>
 #include <vector>
 
-/**
- * @brief 重み付きグラフ
- *
- * @tparam T 辺の重みの型
- */
+/// @brief 重み付きグラフ
 template <class T>
 struct Graph {
   private:
@@ -68,6 +64,7 @@ struct Graph {
     std::vector<std::vector<edge_type>> edges;
 };
 
+/// @brief 重みなしグラフ
 template <>
 struct Graph<void> {
   private:
