@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <cstdint>
 #define FOR(i, m, n) for (int i = (m); i < int(n); ++i)
 #define FORR(i, m, n) for (int i = (m) - 1; i >= int(n); --i)
 #define FORL(i, m, n) for (std::int64_t i = (m); i < std::int64_t(n); ++i)

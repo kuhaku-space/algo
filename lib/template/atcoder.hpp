@@ -1,7 +1,7 @@
 #pragma once
+#include "template/template.hpp"
 #include "template/macro.hpp"
 #include "template/sonic.hpp"
-#include "template/template.hpp"
 #include "template/vector.hpp"
 using namespace std;
 using ll = std::int64_t;
