@@ -12,3 +12,6 @@ AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: Empty
 CommentPragmas: 'competitive-verifier:'
 ForEachMacros: ["FOR", "FORR", "rep", "repn", "repr", "repnr"]
+IncludeCategories:
+  - Regex:           '^"template/'
+    Priority:        -1
