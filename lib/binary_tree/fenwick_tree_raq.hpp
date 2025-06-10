@@ -16,8 +16,7 @@ struct fenwick_tree_raq {
     }
 
     /// @brief v[k] = val
-    void update(int k, T val) { add(k, k + 1, val - at(k)); }
-
+    void set(int k, T val) { add(k, k + 1, val - at(k)); }
     /// @brief v[k] += val
     void add(int k, T val) { add(k, k + 1, val); }
     /// @brief v[a ... b-1] += val
@@ -29,7 +28,7 @@ struct fenwick_tree_raq {
         q.add(b, -val);
     }
 
-    /// @brief v[0] + ... v[k - 1]
+    /// @brief v[0] + ... + v[k - 1]
     T sum(int k) const {
         assert(0 <= k && k <= n);
         return p.sum(k) + q.sum(k) * k;

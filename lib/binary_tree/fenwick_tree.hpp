@@ -2,12 +2,8 @@
 #include <cassert>
 #include <vector>
 
-/**
- * @brief フェニック木
- * @see http://hos.ac/slides/20140319_bit.pdf
- *
- * @tparam T
- */
+/// @brief フェニック木
+/// @see http://hos.ac/slides/20140319_bit.pdf
 template <class T>
 struct fenwick_tree {
     fenwick_tree() : _size(), data() {}
@@ -29,33 +25,42 @@ struct fenwick_tree {
         }
     }
 
+    /// @brief v[k] = val
     void set(int k, T val) { add(k, val - at(k)); }
-    void update(int k, T val) { set(k); }
+    /// @brief v[k] += val
     void add(int k, T val) {
         assert(0 <= k && k < _size - 1);
         for (++k; k < _size; k += k & -k) data[k] += val;
     }
+    /// @brief chmax(v[k], val)
     bool chmax(int k, T val) {
         if (at(k) >= val) return false;
         set(k, val);
         return true;
     }
+    /// @brief chmin(v[k], val)
     bool chmin(int k, T val) {
         if (at(k) <= val) return false;
         set(k, val);
         return true;
     }
 
+    /// @brief v[0] + ... + v[n - 1]
     T all_prod() const { return prod(_size - 1); }
+    /// @brief v[0] + ... + v[k - 1]
     T prod(int k) const { return sum(k); }
+    /// @brief v[a] + ... + v[b - 1]
     T prod(int a, int b) const { return sum(a, b); }
+    /// @brief v[0] + ... + v[n - 1]
     T all_sum() const { return sum(_size - 1); }
+    /// @brief v[0] + ... + v[k - 1]
     T sum(int k) const {
         assert(0 <= k && k < _size);
         T res = 0;
         for (; k > 0; k -= k & -k) res += data[k];
         return res;
     }
+    /// @brief v[a] + ... + v[b - 1]
     T sum(int a, int b) const {
         assert(0 <= a && a <= b && b < _size);
         T res = T();
