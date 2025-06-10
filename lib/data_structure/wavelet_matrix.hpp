@@ -1,15 +1,11 @@
+#pragma once
 #include <cassert>
 #include <tuple>
 #include <vector>
 #include "internal/internal_bit_vector.hpp"
 
-/**
- * @brief ウェーブレット行列
- * @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
- *
- * @tparam T
- * @tparam L
- */
+/// @brief ウェーブレット行列
+/// @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
 template <class T, int L = 20>
 struct wavelet_matrix {
     wavelet_matrix() = default;
@@ -47,9 +43,7 @@ struct wavelet_matrix {
     /// count i s.t. (0 <= i < r) && v[i] == x
     int rank(int r, T x) const {
         int l = 0;
-        for (int level = L - 1; level >= 0; --level) {
-            std::tie(l, r) = succ((x >> level) & 1, l, r, level);
-        }
+        for (int level = L - 1; level >= 0; --level) { std::tie(l, r) = succ((x >> level) & 1, l, r, level); }
         return r - l;
     }
 
@@ -87,9 +81,7 @@ struct wavelet_matrix {
     }
 
     /// count i s.t. (l <= i < r) && (lower <= v[i] < upper)
-    int range_freq(int l, int r, T lower, T upper) const {
-        return range_freq(l, r, upper) - range_freq(l, r, lower);
-    }
+    int range_freq(int l, int r, T lower, T upper) const { return range_freq(l, r, upper) - range_freq(l, r, lower); }
 
     /// max v[i] s.t. (l <= i < r) && (v[i] < upper)
     T prev_value(int l, int r, T upper) const {
@@ -109,7 +101,6 @@ struct wavelet_matrix {
     int mid[L];
 
     std::pair<int, int> succ(bool f, int l, int r, int level) const {
-        return {matrix[level].rank(f, l) + mid[level] * f,
-                matrix[level].rank(f, r) + mid[level] * f};
+        return {matrix[level].rank(f, l) + mid[level] * f, matrix[level].rank(f, r) + mid[level] * f};
     }
 };
