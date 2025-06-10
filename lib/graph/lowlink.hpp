@@ -43,7 +43,7 @@ struct low_link {
                 is_articulation_point |= ~parent && low[e.to()] >= ord[index];
                 if (ord[index] < low[e.to()]) bridges.emplace_back(e);
             } else if (e.to() != parent) {
-                low[index] = std::min(low[index], low[e.to()]);
+                low[index] = std::min(low[index], ord[e.to()]);
             }
         }
         is_articulation_point |= parent == -1 && count > 1;
