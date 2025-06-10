@@ -1,14 +1,13 @@
+#pragma once
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <numeric>
 #include <vector>
 
-/**
- * @brief Mo's algorithm (rollback)
- * @see https://ei1333.hateblo.jp/entry/2017/09/11/211011
- * @see https://snuke.hatenablog.com/entry/2016/07/01/000000
- */
+/// @brief Mo's algorithm (rollback)
+/// @see https://ei1333.hateblo.jp/entry/2017/09/11/211011
+/// @see https://snuke.hatenablog.com/entry/2016/07/01/000000
 struct rollback_mo {
     rollback_mo(int n) : _left(), _right(), _order(), _size(n) {}
 
