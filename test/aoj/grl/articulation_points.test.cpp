@@ -10,7 +10,7 @@ int main(void) {
     Graph<void> g(n);
     g.input_edges(m, 0);
 
-    LowLink llink(g);
+    low_link llink(g);
     auto ans = llink.get_articulation_points();
     std::sort(ans.begin(), ans.end());
     for (auto e : ans) std::cout << e << '\n';
