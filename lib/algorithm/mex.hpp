@@ -3,10 +3,7 @@
 #include <iterator>
 #include <vector>
 
-/**
- * @brief Mex
- *
- */
+/// @brief Mex
 struct minimum_excluded {
     minimum_excluded() : n(), _size(), exists(64), v() {}
 
