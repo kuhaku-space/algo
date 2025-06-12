@@ -7,16 +7,16 @@
 template <std::integral T, int B = 31, bool Multi = false>
 struct patricia_binary_trie {
   private:
-    struct _node {
-        using pointer = _node *;
+    struct node_t {
+        using pointer = node_t *;
         T val;
         int len, count;
         pointer ch[2];
-        _node(T _val, int _len, int _count = 0) : val(_val), len(_len), count(_count), ch{nullptr, nullptr} {}
+        node_t(T _val, int _len, int _count = 0) : val(_val), len(_len), count(_count), ch{nullptr, nullptr} {}
     };
 
   public:
-    using node_ptr = typename _node::pointer;
+    using node_ptr = typename node_t::pointer;
 
     patricia_binary_trie() : root(nullptr) {}
 
@@ -65,7 +65,7 @@ struct patricia_binary_trie {
     node_ptr root;
 
     node_ptr insert(node_ptr node, T val, int b = B - 1) {
-        if (!node) node = new _node(val, b + 1);
+        if (!node) node = new node_t(val, b + 1);
         ++node->count;
         if (b < 0) return node;
         int len = node->len;
@@ -79,7 +79,7 @@ struct patricia_binary_trie {
         b -= len;
         node_ptr itr = node;
         if (len != node->len) {
-            itr = new _node(val, len, node->count);
+            itr = new node_t(val, len, node->count);
             node->len -= len;
             --node->count;
             itr->ch[node->val >> b & 1] = node;
