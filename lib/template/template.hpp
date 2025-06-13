@@ -1,10 +1,7 @@
 #pragma once
-#ifdef ATCODER
-#pragma GCC target("sse4.2,avx512f,avx512dq,avx512ifma,avx512cd,avx512bw,avx512vl,bmi2")
-#endif
 #pragma GCC optimize("Ofast,fast-math,unroll-all-loops")
 #include <bits/stdc++.h>
-#ifndef ATCODER
+#if !defined(ATCODER) && !defined(EVAL)
 #pragma GCC target("sse4.2,avx2,bmi2")
 #endif
 template <class T, class U>
