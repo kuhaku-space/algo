@@ -16,8 +16,7 @@ struct merge_sort_tree {
         for (int i = _size - 1; i >= 1; --i) {
             data[i] = data[2 * i];
             data[i].insert(data[i].end(), data[2 * i + 1].begin(), data[2 * i + 1].end());
-            std::inplace_merge(data[i].begin(), data[i].begin() + data[2 * i].size(),
-                               data[i].end());
+            std::inplace_merge(data[i].begin(), data[i].begin() + data[2 * i].size(), data[i].end());
         }
     }
 
@@ -59,9 +58,7 @@ struct merge_sort_tree {
     }
 
     /// count i s.t. (l <= i < r) && (lower <= v[i] < upper)
-    int range_freq(int l, int r, T lower, T upper) const {
-        return range_freq(l, r, upper) - range_freq(l, r, lower);
-    }
+    int range_freq(int l, int r, T lower, T upper) const { return range_freq(l, r, upper) - range_freq(l, r, lower); }
 
   private:
     int _n, _size, _log;
