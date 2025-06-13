@@ -1,12 +1,7 @@
+#pragma once
 #include "random/xorshift.hpp"
 
-/**
- * @brief スキップリスト
- *
- * @tparam T 要素の型
- * @tparam B リンクサイズ
- * @tparam UniformRandomBitGenerator 擬似乱数生成器
- */
+/// @brief スキップリスト
 template <class T, int B = 20, class UniformRandomBitGenerator = Xorshift>
 struct skip_list {
   private:
@@ -25,7 +20,7 @@ struct skip_list {
   public:
     using node_ptr = typename _node::pointer;
 
-    skip_list() : head(), gen() { head = new _node(); }
+    skip_list() : head(new _node()) {}
 
     template <typename... Args>
     void emplace(Args &&...args) {
@@ -72,12 +67,12 @@ struct skip_list {
     }
 
   private:
+    static inline UniformRandomBitGenerator gen = UniformRandomBitGenerator();
     node_ptr head;
-    UniformRandomBitGenerator gen;
 
     int create_height() {
         int height = 0;
-        int rand_num = gen();
+        auto rand_num = gen();
         for (int i = 0; i < B - 1; ++i) {
             if (rand_num >> i & 1) break;
             ++height;
