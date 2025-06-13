@@ -1,10 +1,8 @@
+#pragma once
 #include <set>
+#include <utility>
 
-/**
- * @brief flip set
- *
- * @tparam T
- */
+/// @brief flip set
 template <class T>
 struct flip_set {
     flip_set() : data() {}
