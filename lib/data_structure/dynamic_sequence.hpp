@@ -1,12 +1,13 @@
 #pragma once
 #include <algorithm>
 #include <cassert>
-#include <random>
 #include <tuple>
 #include <utility>
+#include <vector>
+#include "random/xoroshiro128.hpp"
 
 /// @brief 動的配列
-template <class M, class UniformRandomBitGenerator = std::mt19937>
+template <class M, class UniformRandomBitGenerator = xoroshiro128>
 struct dynamic_sequence {
   private:
     using T = typename M::value_type;
@@ -18,10 +19,8 @@ struct dynamic_sequence {
         static int count(pointer t) { return !t ? 0 : t->cnt; }
         static T composition(pointer t) { return !t ? M::id() : t->acc; }
 
-        node_t(const T &v, priority_type p)
-            : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
-        node_t(T &&v, priority_type p)
-            : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
+        node_t(const T &v, priority_type p) : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
+        node_t(T &&v, priority_type p) : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
 
         T val, acc;
         pointer ch[2];
@@ -69,34 +68,28 @@ struct dynamic_sequence {
     }
 
     void insert(int k, T val) { root = insert(root, k, val); }
-
     void push_front(const T &val) {
         node_ptr node = new node_t(val, gen());
         root = merge(node, root);
     }
-
     void push_front(T &&val) {
         node_ptr node = new node_t(std::move(val), gen());
         root = merge(node, root);
     }
-
     void push_back(const T &val) {
         node_ptr node = new node_t(val, gen());
         root = merge(root, node);
     }
-
     void push_back(T &&val) {
         node_ptr node = new node_t(std::move(val), gen());
         root = merge(root, node);
     }
 
     void erase(int k) { root = erase(root, k); }
-
     void pop_front() { root = erase(root, 0); }
     void pop_back() { root = erase(root, node_t::count(root) - 1); }
 
     T prod(int r) const { return prod(root, r); }
-
     T prod(int l, int r) {
         assert(0 <= l && l <= r && r <= node_t::count(root));
         std::pair<node_ptr, node_ptr> p = split(root, l);
@@ -128,7 +121,6 @@ struct dynamic_sequence {
         auto [pl, pr] = split(root, k);
         return std::make_pair(dynamic_sequence(pl), dynamic_sequence(pr));
     }
-
     std::tuple<dynamic_sequence, dynamic_sequence, dynamic_sequence> split(int l, int r) {
         auto [pl, pr] = split(root, r);
         auto [ql, qr] = split(pl, l);
@@ -136,7 +128,6 @@ struct dynamic_sequence {
     }
 
     void merge_left(dynamic_sequence lhs) { root = merge(lhs.root, root); }
-
     void merge_right(dynamic_sequence rhs) { root = merge(root, rhs.root); }
 
   private:
