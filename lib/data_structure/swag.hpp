@@ -2,11 +2,7 @@
 #include <stack>
 #include "segtree/monoid.hpp"
 
-/**
- * @brief Sliding Window Aggregation
- *
- * @tparam M モノイド
- */
+/// @brief Sliding Window Aggregation
 template <class M>
 struct sliding_window_aggregation {
   private:
