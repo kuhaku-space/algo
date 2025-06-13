@@ -27,11 +27,7 @@ struct fixed_stack {
 
 }  // namespace internal
 
-/**
- * @brief 線形 Sparse Table
- *
- * @tparam M
- */
+/// @brief 線形 Sparse Table
 template <class M>
 struct linear_sparse_table {
   private:
