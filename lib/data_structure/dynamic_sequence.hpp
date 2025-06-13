@@ -18,10 +18,8 @@ struct dynamic_sequence {
         static int count(pointer t) { return !t ? 0 : t->cnt; }
         static T composition(pointer t) { return !t ? M::id() : t->acc; }
 
-        node_t(const T &v, priority_type p)
-            : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
-        node_t(T &&v, priority_type p)
-            : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
+        node_t(const T &v, priority_type p) : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
+        node_t(T &&v, priority_type p) : val(v), acc(v), ch{nullptr, nullptr}, priority(p), cnt(1), rev() {}
 
         T val, acc;
         pointer ch[2];
