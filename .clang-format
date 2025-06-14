@@ -8,9 +8,11 @@ Standard: c++20
 AccessModifierOffset: -2
 AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: true
+AllowShortCompoundRequirementOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: All
+BreakBeforeConceptDeclarations: Always
 CommentPragmas: 'competitive-verifier:'
 DerivePointerAlignment: false
 IncludeBlocks: Merge
