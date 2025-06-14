@@ -2,6 +2,7 @@
 #include "heap/skew_heap.hpp"
 #include <iostream>
 #include <string>
+#include "template/sonic.hpp"
 
 int main(void) {
     skew_heap<int> heap;
