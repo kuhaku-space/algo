@@ -2,6 +2,7 @@
 #include "heap/interval_heap.hpp"
 #include <iostream>
 #include <string>
+#include "template/sonic.hpp"
 
 int main(void) {
     interval_heap<int> heap;

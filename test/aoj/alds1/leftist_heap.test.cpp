@@ -2,6 +2,7 @@
 #include "heap/leftist_heap.hpp"
 #include <iostream>
 #include <string>
+#include "template/sonic.hpp"
 
 int main(void) {
     leftist_heap<int> heap;
