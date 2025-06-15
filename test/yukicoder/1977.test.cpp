@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/1977
 #include <cstdint>
 #include <iostream>
+#include <limits>
 #include <vector>
 #include "algorithm/doubling.hpp"
-#include "template/template.hpp"
 
 struct Monoid {
     using T = std::int64_t;
@@ -22,9 +22,9 @@ int main(void) {
     doubling<40, Monoid> db(to, a);
     std::int64_t r = (n * m) % l;
     std::int64_t k = (n * m) / l;
-    std::int64_t ans = -INF;
-    for (int i = 0; i < std::min(r, n); ++i) chmax(ans, db.solve(i, k + 1).second);
-    for (int i = 0; i < std::min(l - r, n); ++i) chmax(ans, db.solve((r + i) % n, k).second);
+    std::int64_t ans = std::numeric_limits<std::int64_t>::min();
+    for (int i = 0; i < std::min(r, n); ++i) ans = std::max(ans, db.solve(i, k + 1).second);
+    for (int i = 0; i < std::min(l - r, n); ++i) ans = std::max(ans, db.solve((r + i) % n, k).second);
     std::cout << ans << '\n';
 
     return 0;
