@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 #include <cmath>
+#include <optional>
 #include <vector>
 
 /// @brief スケープゴート木
@@ -12,25 +13,23 @@ struct scapegoat_tree {
         using pointer = node_t *;
 
         T val;
-        unsigned int size;
+        int count;
         pointer left, right;
 
-        node_t(T _val) : val(_val), size(1), left(nullptr), right(nullptr) {}
+        node_t(T _val) : val(_val), count(1), left(nullptr), right(nullptr) {}
 
-        static constexpr int get_size(pointer node) { return node ? node->size : 0; }
+        static constexpr int get_count(pointer node) { return node ? node->count : 0; }
 
-        void eval() { size = 1 + node_t::get_size(left) + node_t::get_size(right); }
+        void update() { count = 1 + node_t::get_count(left) + node_t::get_count(right); }
     };
 
   public:
     using node_ptr = typename node_t::pointer;
 
-    scapegoat_tree(const double _alpha = 2.0 / 3.0)
-        : root(nullptr), alpha(_alpha), log_val(-1.0 / std::log2(_alpha)), max_element_size(0) {}
+    scapegoat_tree(double a = 2.0 / 3.0) : root(nullptr), alpha(a), log_val(-1.0 / std::log2(a)), max_element_size(0) {}
 
     constexpr bool empty() const { return !(root); }
-
-    constexpr int size() const { return empty() ? 0 : root->size; }
+    constexpr int size() const { return empty() ? 0 : root->count; }
 
     constexpr bool contains(T val) const {
         node_ptr node = root;
@@ -41,17 +40,17 @@ struct scapegoat_tree {
         return false;
     }
 
-    constexpr T index(int k) const {
+    constexpr T get(int k) const {
         assert(k < size());
         node_ptr node = root;
         while (node) {
-            if (node_t::get_size(node->left) == k) break;
-            else if (k < node_t::get_size(node->left)) node = node->left;
-            else k -= node_t::get_size(node->left) + 1, node = node->right;
+            if (node_t::get_count(node->left) == k) break;
+            else if (k < node_t::get_count(node->left)) node = node->left;
+            else k -= node_t::get_count(node->left) + 1, node = node->right;
         }
         return node->val;
     }
-    constexpr T kth_element(int k) const { return index(k); }
+    constexpr T kth_element(int k) const { return get(k); }
 
     void insert(T val) {
         max_element_size = std::max(max_element_size, size() + 1);
@@ -65,12 +64,46 @@ struct scapegoat_tree {
         check();
     }
 
-    int count(T val) {
+    int count(T val) const { return upper_bound(val) - lower_bound(val); }
+
+    int lower_bound(T val) const {
         int res = 0;
         node_ptr node = root;
         while (node) {
-            if (node->val < val) res += node_t::get_size(node->left) + 1;
-            node = (val <= node->val ? node->left : node->right);
+            if (!(node->val < val)) node = node->left;
+            else res += node_t::get_count(node->left) + 1, node = node->right;
+        }
+        return res;
+    }
+
+    int upper_bound(T val) const {
+        int res = 0;
+        node_ptr node = root;
+        while (node) {
+            if (val < node->val) node = node->left;
+            else res += node_t::get_count(node->left) + 1, node = node->right;
+        }
+        return res;
+    }
+
+    std::optional<T> floor(T val) const {
+        std::optional<T> res = std::nullopt;
+        node_ptr node = root;
+        while (node) {
+            if (!(val < node->val)) res = node->val;
+            if (!(val < node->val)) node = node->right;
+            else node = node->left;
+        }
+        return res;
+    }
+
+    std::optional<T> ceil(T val) const {
+        std::optional<T> res = std::nullopt;
+        node_ptr node = root;
+        while (node) {
+            if (!(node->val < val)) res = node->val;
+            if (!(node->val < val)) node = node->left;
+            else node = node->right;
         }
         return res;
     }
@@ -91,14 +124,14 @@ struct scapegoat_tree {
         } else if (r - l == 1) {
             node_ptr node = nodes[l];
             node->left = node->right = nullptr;
-            node->eval();
+            node->update();
             return node;
         }
         int mid = (l + r) >> 1;
         node_ptr node = nodes[mid];
         node->left = build_pbbt_rec(l, mid, nodes);
         node->right = build_pbbt_rec(mid + 1, r, nodes);
-        node->eval();
+        node->update();
         return node;
     }
     node_ptr build_pbbt(node_ptr node) {
@@ -114,12 +147,12 @@ struct scapegoat_tree {
             return new node_t(val);
         } else if (val < node->val) {
             node->left = insert(node->left, val, depth + 1, balanced);
-            node->eval();
-            if (balanced || node->left->size <= alpha * node->size) return node;
+            node->update();
+            if (balanced || node->left->count <= alpha * node->count) return node;
         } else {
             node->right = insert(node->right, val, depth + 1, balanced);
-            node->eval();
-            if (balanced || node->right->size <= alpha * node->size) return node;
+            node->update();
+            if (balanced || node->right->count <= alpha * node->count) return node;
         }
         balanced = true;
         return build_pbbt(node);
@@ -128,13 +161,13 @@ struct scapegoat_tree {
     node_ptr join(node_ptr left, node_ptr right) {
         if (!left || !right) {
             return left ? left : right;
-        } else if (left->size < right->size) {
+        } else if (left->count < right->count) {
             right->left = join(left, right->left);
-            right->eval();
+            right->update();
             return right;
         } else {
             left->right = join(left->right, right);
-            left->eval();
+            left->update();
             return left;
         }
     }
@@ -146,11 +179,11 @@ struct scapegoat_tree {
             return join(node->left, node->right);
         } else if (val < node->val) {
             node->left = erase(node->left, val);
-            node->eval();
+            node->update();
             return node;
         } else {
             node->right = erase(node->right, val);
-            node->eval();
+            node->update();
             return node;
         }
     }
