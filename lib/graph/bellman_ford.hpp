@@ -5,7 +5,8 @@
 
 /// @brief ベルマンフォード法
 template <class T>
-std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = std::numeric_limits<T>::max()) {
+std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = std::numeric_limits<T>::max(),
+                            T ninf = std::numeric_limits<T>::lowest()) {
     int n = graph.size();
     std::vector<T> dists(n, inf);
     dists[s] = T();
@@ -15,10 +16,10 @@ std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = std::numer
         for (int i = 0; i < n; ++i) {
             if (dists[i] == inf) continue;
             for (auto &e : graph[i]) {
-                if (dists[i] == -inf || dists[i] + e.weight() < dists[e.to()]) {
-                    if (dists[e.to()] == -inf) continue;
+                if (dists[i] == ninf || dists[i] + e.weight() < dists[e.to()]) {
+                    if (dists[e.to()] == ninf) continue;
                     updated = true;
-                    if (count >= n) dists[e.to()] = -inf;
+                    if (count >= n) dists[e.to()] = ninf;
                     else dists[e.to()] = dists[i] + e.weight();
                 }
             }
