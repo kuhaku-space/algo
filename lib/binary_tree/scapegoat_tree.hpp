@@ -16,11 +16,11 @@ struct scapegoat_tree {
         int count;
         pointer left, right;
 
-        node_t(T _val) : val(_val), count(1), left(nullptr), right(nullptr) {}
+        constexpr node_t(T _val) : val(_val), count(1), left(nullptr), right(nullptr) {}
 
         static constexpr int get_count(pointer node) { return node ? node->count : 0; }
 
-        void update() { count = 1 + node_t::get_count(left) + node_t::get_count(right); }
+        constexpr void update() { count = 1 + node_t::get_count(left) + node_t::get_count(right); }
     };
 
   public:
@@ -28,29 +28,8 @@ struct scapegoat_tree {
 
     scapegoat_tree(double a = 2.0 / 3.0) : root(nullptr), alpha(a), log_val(-1.0 / std::log2(a)), max_element_size(0) {}
 
-    constexpr bool empty() const { return !(root); }
-    constexpr int size() const { return empty() ? 0 : root->count; }
-
-    constexpr bool contains(T val) const {
-        node_ptr node = root;
-        while (node) {
-            if (node->val == val) return true;
-            node = (val < node->val ? node->left : node->right);
-        }
-        return false;
-    }
-
-    constexpr T get(int k) const {
-        assert(k < size());
-        node_ptr node = root;
-        while (node) {
-            if (node_t::get_count(node->left) == k) break;
-            else if (k < node_t::get_count(node->left)) node = node->left;
-            else k -= node_t::get_count(node->left) + 1, node = node->right;
-        }
-        return node->val;
-    }
-    constexpr T kth_element(int k) const { return get(k); }
+    constexpr bool empty() const { return root == nullptr; }
+    constexpr int size() const { return node_t::get_count(root); }
 
     void insert(T val) {
         max_element_size = std::max(max_element_size, size() + 1);
@@ -64,7 +43,37 @@ struct scapegoat_tree {
         check();
     }
 
+    T front() {
+        assert(root);
+        node_ptr node = root;
+        while (node->left) node = node->left;
+        return node->val;
+    }
+    T back() {
+        assert(root);
+        node_ptr node = root;
+        while (node->right) node = node->right;
+        return node->val;
+    }
+
+    T get(int k) const {
+        assert(k < size());
+        node_ptr node = root;
+        while (node) {
+            if (node_t::get_count(node->left) == k) break;
+            else if (k < node_t::get_count(node->left)) node = node->left;
+            else k -= node_t::get_count(node->left) + 1, node = node->right;
+        }
+        return node->val;
+    }
+
     int count(T val) const { return upper_bound(val) - lower_bound(val); }
+
+    bool contains(T val) const {
+        node_ptr node = root;
+        while (node && node->val != val) node = (val < node->val ? node->left : node->right);
+        return node != nullptr;
+    }
 
     int lower_bound(T val) const {
         int res = 0;

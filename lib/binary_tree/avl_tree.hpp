@@ -10,6 +10,7 @@ struct avl_tree {
   private:
     struct node_t {
         using pointer = node_t *;
+
         T val;
         int height, count;
         pointer left, right;
@@ -38,6 +39,23 @@ struct avl_tree {
     constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return node_t::get_count(root); }
 
+    void insert(T val) { root = insert(root, val); }
+
+    void erase(T val) { root = erase(root, val); }
+
+    T front() {
+        assert(root);
+        node_ptr node = root;
+        while (node->left) node = node->left;
+        return node->val;
+    }
+    T back() {
+        assert(root);
+        node_ptr node = root;
+        while (node->right) node = node->right;
+        return node->val;
+    }
+
     T get(int k) const {
         assert(0 <= k && k < size());
         node_ptr node = root;
@@ -50,20 +68,13 @@ struct avl_tree {
         return node->val;
     }
 
-    void insert(T val) { root = insert(root, val); }
-
-    void erase(T val) { root = erase(root, val); }
+    int count(T val) const { return upper_bound(val) - lower_bound(val); }
 
     bool contains(T val) const {
         node_ptr node = root;
-        while (node && node->val != val) {
-            if (val < node->val) node = node->left;
-            else node = node->right;
-        }
+        while (node && node->val != val) node = (val < node->val ? node->left : node->right);
         return node != nullptr;
     }
-
-    int count(T val) const { return upper_bound(val) - lower_bound(val); }
 
     int lower_bound(T val) const {
         int res = 0;
