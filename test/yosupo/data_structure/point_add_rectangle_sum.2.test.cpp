@@ -2,12 +2,11 @@
 #include <cstdint>
 #include <iostream>
 #include "segtree/segment_tree_2d.hpp"
-#include "template/template.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    segment_tree_2d<Add<std::int64_t>> st(Inf, Inf);
+    segment_tree_2d<Add<std::int64_t>> st(1000000001, 1000000001);
     while (n--) {
         int x, y, w;
         std::cin >> x >> y >> w;

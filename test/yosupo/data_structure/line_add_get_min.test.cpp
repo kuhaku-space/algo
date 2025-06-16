@@ -2,12 +2,11 @@
 #include <cstdint>
 #include <iostream>
 #include "data_structure/li_chao_tree.hpp"
-#include "template/template.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    li_chao_tree lct(-Inf, Inf);
+    li_chao_tree lct(-1000000000, 1000000001);
     while (n--) {
         std::int64_t a, b;
         std::cin >> a >> b;
