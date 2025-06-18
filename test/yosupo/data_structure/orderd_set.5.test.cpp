@@ -1,18 +1,21 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 #include <iostream>
-#include "binary_tree/avl_tree.hpp"
+#include "binary_tree/binary_trie.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    std::vector<int> a(n);
-    for (auto &e : a) std::cin >> e;
-    avl_tree<int> tr(a);
+    binary_trie<int> tr;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        tr.insert(x);
+    }
     while (q--) {
         int t, x;
         std::cin >> t >> x;
         if (t == 0) {
-            if (!tr.contains(x)) tr.insert(x);
+            tr.insert(x);
         } else if (t == 1) {
             tr.erase(x);
         } else if (t == 2) {

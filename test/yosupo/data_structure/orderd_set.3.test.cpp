@@ -5,19 +5,16 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    scapegoat_tree<int> tr;
-    for (int i = 0; i < n; ++i) {
-        int x;
-        std::cin >> x;
-        tr.insert(x);
-    }
+    std::vector<int> a(n);
+    for (auto &e : a) std::cin >> e;
+    scapegoat_tree<int> tr(a);
     while (q--) {
         int t, x;
         std::cin >> t >> x;
         if (t == 0) {
             if (!tr.contains(x)) tr.insert(x);
         } else if (t == 1) {
-            if (tr.contains(x)) tr.erase(x);
+            tr.erase(x);
         } else if (t == 2) {
             if (tr.size() < x) std::cout << -1 << '\n';
             else std::cout << tr.get(x - 1) << '\n';
