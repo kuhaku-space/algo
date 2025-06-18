@@ -26,7 +26,21 @@ struct scapegoat_tree {
   public:
     using node_ptr = typename node_t::pointer;
 
-    scapegoat_tree(double a = 2.0 / 3.0) : root(nullptr), alpha(a), log_val(-1.0 / std::log2(a)), max_element_size(0) {}
+    constexpr scapegoat_tree(double a = 2.0 / 3.0)
+        : root(nullptr), alpha(a), log_val(-1.0 / std::log2(a)), max_element_size(0) {}
+    constexpr scapegoat_tree(const std::vector<T> &v, double a = 2.0 / 3.0)
+        : root(nullptr), alpha(a), log_val(-1.0 / std::log2(a)), max_element_size(0) {
+        auto build = [&v](auto self, int l, int r) -> node_ptr {
+            if (l == r) return nullptr;
+            int m = (l + r) >> 1;
+            auto node = new node_t(v[m]);
+            node->left = self(self, l, m);
+            node->right = self(self, m + 1, r);
+            node->count = r - l;
+            return node;
+        };
+        root = build(build, 0, v.size());
+    }
 
     constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return node_t::get_count(root); }

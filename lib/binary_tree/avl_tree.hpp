@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cassert>
 #include <optional>
+#include <vector>
 
 /// @brief AVL木
 /// @see https://tjkendev.github.io/procon-library/cpp/binary_search_tree/avl-tree.html
@@ -35,6 +36,18 @@ struct avl_tree {
     using node_ptr = typename node_t::pointer;
 
     constexpr avl_tree() : root(nullptr) {}
+    constexpr avl_tree(const std::vector<T> &v) : root(nullptr) {
+        auto build = [&v](auto self, int l, int r) -> node_ptr {
+            if (l == r) return nullptr;
+            int m = (l + r) >> 1;
+            auto node = new node_t(v[m]);
+            node->left = self(self, l, m);
+            node->right = self(self, m + 1, r);
+            node->update();
+            return node;
+        };
+        root = build(build, 0, v.size());
+    }
 
     constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return node_t::get_count(root); }
@@ -100,8 +113,7 @@ struct avl_tree {
         std::optional<T> res = std::nullopt;
         node_ptr node = root;
         while (node) {
-            if (!(val < node->val)) res = node->val;
-            if (!(val < node->val)) node = node->right;
+            if (!(val < node->val)) res = node->val, node = node->right;
             else node = node->left;
         }
         return res;
@@ -111,8 +123,7 @@ struct avl_tree {
         std::optional<T> res = std::nullopt;
         node_ptr node = root;
         while (node) {
-            if (!(node->val < val)) res = node->val;
-            if (!(node->val < val)) node = node->left;
+            if (!(node->val < val)) res = node->val, node = node->left;
             else node = node->right;
         }
         return res;
@@ -189,12 +200,8 @@ struct avl_tree {
         } else if (node->val < val) {
             node->right = erase(node->right, val);
         } else {
-            if (node->right == nullptr) {
-                return node->left;
-            } else {
-                node->val = get_min_val(node->right);
-                node->right = erase_min(node->right);
-            }
+            if (node->right == nullptr) return node->left;
+            else node->val = get_min_val(node->right), node->right = erase_min(node->right);
         }
         return rotate(node);
     }
