@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP2_1_B
-#include "data_structure/dynamic_sequence.hpp"
 #include <iostream>
+#include "data_structure/dynamic_sequence.hpp"
 #include "segtree/monoid.hpp"
 
 int main(void) {
