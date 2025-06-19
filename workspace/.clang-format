@@ -14,5 +14,7 @@ CommentPragmas: 'competitive-verifier:'
 ForEachMacros: ["FOR", "FORR", "rep", "repn", "repr", "repnr"]
 IncludeBlocks: Merge
 IncludeCategories:
+  - Regex:           '^"template/template.hpp'
+    Priority:        -2
   - Regex:           '^"template/'
     Priority:        -1
