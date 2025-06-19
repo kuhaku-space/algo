@@ -81,7 +81,8 @@ struct linear_sparse_table {
     const T &operator[](int k) const { return data[k]; }
 
     T prod(int l, int r) const {
-        assert(0 <= l && l < r && r <= _size);
+        assert(0 <= l && l <= r && r <= _size);
+        if (l == r) return M::id();
         int lb = (l + W - 1) / W, rb = r / W;
         if (lb > rb) return word_prod(l, r);
         T res = (lb == rb ? M::id() : block_table.prod(lb, rb));
