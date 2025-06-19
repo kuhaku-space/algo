@@ -2,7 +2,9 @@
 #include <cassert>
 #include <iostream>
 #include <optional>
+#include <vector>
 #include "random/xoroshiro128.hpp"
+#include "tree/cartesian_tree.hpp"
 
 /// @brief Treap
 template <class T, class UniformRandomBitGenerator = xoroshiro128>
@@ -19,7 +21,9 @@ struct treap {
         constexpr node_t(T _val, typename UniformRandomBitGenerator::result_type _priority)
             : val(_val), priority(_priority), count(1), left(nullptr), right(nullptr) {}
 
-        static int get_count(pointer t) { return t ? t->count : 0; }
+        static constexpr int get_count(pointer t) { return t ? t->count : 0; }
+
+        constexpr void update() { count = 1 + node_t::get_count(left) + node_t::get_count(right); }
     };
 
   public:
@@ -27,6 +31,26 @@ struct treap {
 
     constexpr treap() : root(nullptr) {}
     constexpr treap(node_ptr p) : root(p) {}
+    constexpr treap(const std::vector<T> &v) : root(nullptr) {
+        if (v.empty()) return;
+        int n = v.size();
+        std::vector<typename UniformRandomBitGenerator::result_type> u(n);
+        for (auto &e : u) e = gen();
+        auto tree = cartesian_tree_fully(u);
+        int rt = -1;
+        for (int i = 0; i < n; ++i) {
+            if (tree[i].parent == -1) rt = i;
+        }
+        auto build = [&v, &u, &tree](auto self, int x) -> node_ptr {
+            if (x == -1) return nullptr;
+            auto node = new node_t(v[x], u[x]);
+            node->left = self(self, tree[x].left);
+            node->right = self(self, tree[x].right);
+            node->update();
+            return node;
+        };
+        root = build(build, rt);
+    }
 
     constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return node_t::get_count(root); }
@@ -97,8 +121,7 @@ struct treap {
         std::optional<T> res = std::nullopt;
         node_ptr node = root;
         while (node) {
-            if (!(val < node->val)) res = node->val;
-            if (!(val < node->val)) node = node->right;
+            if (!(val < node->val)) res = node->val, node = node->right;
             else node = node->left;
         }
         return res;
@@ -108,8 +131,7 @@ struct treap {
         std::optional<T> res = std::nullopt;
         node_ptr node = root;
         while (node) {
-            if (!(node->val < val)) res = node->val;
-            if (!(node->val < val)) node = node->left;
+            if (!(node->val < val)) res = node->val, node = node->left;
             else node = node->right;
         }
         return res;
