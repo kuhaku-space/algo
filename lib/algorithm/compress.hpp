@@ -10,6 +10,8 @@ struct coordinate_compression {
     coordinate_compression(const std::vector<T> &_data) : data(_data) { build(); }
 
     const T &operator[](int i) const { return data[i]; }
+    T front() const { return data.front(); }
+    T back() const { return data.back(); }
 
     void add(T x) { data.emplace_back(x); }
 
@@ -23,17 +25,9 @@ struct coordinate_compression {
         return it != data.end() && *it == x;
     }
 
-    int get(T x) const {
-        return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x));
-    }
-
-    int lower_bound(T x) const {
-        return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x));
-    }
-
-    int upper_bound(T x) const {
-        return std::distance(data.begin(), std::upper_bound(data.begin(), data.end(), x));
-    }
+    int get(T x) const { return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x)); }
+    int lower_bound(T x) const { return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x)); }
+    int upper_bound(T x) const { return std::distance(data.begin(), std::upper_bound(data.begin(), data.end(), x)); }
 
     std::vector<int> compress(const std::vector<T> &v) const {
         int n = v.size();
