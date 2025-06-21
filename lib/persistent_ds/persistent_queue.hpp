@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -12,10 +13,10 @@ struct persistent_queue {
         T val;
         std::vector<pointer> prev;
 
-        _node(const T &_val) : val(_val), prev() {}
-        _node(T &&_val) : val(std::move(_val)), prev() {}
+        constexpr _node(const T &_val) : val(_val), prev() {}
+        constexpr _node(T &&_val) : val(std::move(_val)), prev() {}
         template <typename... Args>
-        _node(Args &&...args) : val(std::forward<Args>(args)...), prev() {}
+        constexpr _node(Args &&...args) : val(std::forward<Args>(args)...), prev() {}
     };
 
   public:
@@ -25,17 +26,19 @@ struct persistent_queue {
     constexpr persistent_queue(int n, node_ptr _root) : _size(n), root(_root) {}
 
     constexpr int size() const { return _size; }
+    constexpr bool empty() const { return _size == 0; }
 
-    T top() const {
+    constexpr T top() const {
+        assert(!empty());
         node_ptr node = root;
         int k = 0;
         while ((_size - 1) >> k) {
-            if ((_size - 1) >> k & 1) { node = node->prev[k]; }
+            if ((_size - 1) >> k & 1) node = node->prev[k];
             ++k;
         }
         return node->val;
     }
-    T front() const { return top(); }
+    constexpr T front() const { return top(); }
 
     persistent_queue push(const T &val) const {
         node_ptr new_node = new _node(val);
@@ -51,7 +54,10 @@ struct persistent_queue {
         return push_node(new_node);
     }
 
-    persistent_queue pop() const { return persistent_queue(_size - 1, root); }
+    persistent_queue pop() const {
+        assert(!empty());
+        return persistent_queue(_size - 1, root);
+    }
 
   private:
     int _size;
@@ -62,7 +68,7 @@ struct persistent_queue {
         new_node->prev.emplace_back(node);
         int k = 0;
         while (node) {
-            if (node->prev.size() > k) node = node->prev[k++];
+            if (k < (int)node->prev.size()) node = node->prev[k++];
             else node = nullptr;
             new_node->prev.emplace_back(node);
         }
