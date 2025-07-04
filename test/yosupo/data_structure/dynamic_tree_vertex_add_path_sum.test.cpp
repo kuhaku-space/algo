@@ -30,7 +30,7 @@ int main(void) {
         } else if (t == 1) {
             int p, x;
             std::cin >> p >> x;
-            lct.set(p, lct.get_val(p) + x);
+            lct.set(p, lct.get_value(p) + x);
         } else if (t == 2) {
             int u, v;
             std::cin >> u >> v;
