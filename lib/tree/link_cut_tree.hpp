@@ -2,136 +2,140 @@
 #include "segtree/monoid.hpp"
 #include "template/template.hpp"
 
-/**
- * @brief Link-Cut Tree
- *
- * @tparam M 可換モノイド
- */
+/// @brief Link-Cut Tree
 template <class M>
 struct link_cut_tree {
   private:
     using T = typename M::value_type;
 
-    struct _node {
-        using pointer = _node *;
+    struct node_t {
+        using pointer = node_t *;
 
-        pointer pp, lp, rp;
-        bool flip;
-        T val, total;
+        constexpr node_t() : parent(), left(), right(), is_flip(), value(), total() {}
+        constexpr node_t(const T &val) : parent(), left(), right(), is_flip(), value(val), total(val) {}
+        constexpr node_t(T &&val) : parent(), left(), right(), is_flip(), value(val), total(val) {}
 
-        constexpr bool is_root() { return !pp || (pp->lp != this && pp->rp != this); }
+        constexpr T get_value() const { return value; }
+        constexpr T get_total() const { return total; }
+
+        constexpr bool is_root() { return !parent || (parent->left != this && parent->right != this); }
 
         void set(T val) {
-            this->val = val;
-            this->update();
+            value = val;
+            update();
         }
         void update() {
-            this->total = val;
-            if (this->lp) this->total = M::op(this->lp->total, this->total);
-            if (this->rp) this->total = M::op(this->total, this->rp->total);
+            total = value;
+            if (left) total = M::op(left->total, total);
+            if (right) total = M::op(total, right->total);
         }
 
-        void do_flip() {
-            this->flip = !this->flip;
-            std::swap(this->lp, this->rp);
+        void flip() {
+            is_flip = !is_flip;
+            std::swap(left, right);
         }
         void propagate() {
-            if (this->flip) {
-                this->flip = false;
-                if (this->lp) this->lp->do_flip();
-                if (this->rp) this->rp->do_flip();
+            if (is_flip) {
+                is_flip = false;
+                if (left) left->flip();
+                if (right) right->flip();
             }
         }
         void propagate_all() {
-            if (!this->is_root()) this->pp->propagate_all();
-            this->propagate();
+            if (!is_root()) parent->propagate_all();
+            propagate();
         }
 
-        void rot() {
-            int x = (this->pp->rp == this);
-            pointer pa = this->pp;
-            pointer ch = (x ? this->lp : this->rp);
+        void rotate() {
+            bool is_right_child = (parent->right == this);
+            pointer pa = parent;
+            pointer ch = (is_right_child ? left : right);
 
             if (!pa->is_root()) {
-                if (pa->pp->rp == pa) pa->pp->rp = this;
-                else pa->pp->lp = this;
+                if (pa->parent->right == pa) pa->parent->right = this;
+                else pa->parent->left = this;
             }
-            this->pp = pa->pp;
+            parent = pa->parent;
 
-            (x ? this->lp : this->rp) = pa;
-            pa->pp = this;
-            (!x ? pa->lp : pa->rp) = ch;
-            if (ch) ch->pp = pa;
+            (is_right_child ? left : right) = pa;
+            pa->parent = this;
+            (!is_right_child ? pa->left : pa->right) = ch;
+            if (ch) ch->parent = pa;
 
             pa->update();
-            this->update();
+            update();
         }
         void splay() {
-            this->propagate_all();
-            while (!this->is_root()) {
-                if (!this->pp->is_root()) {
-                    if ((this->pp->rp == this) == (this->pp->pp->rp == pp)) {
-                        this->pp->rot();
-                    } else {
-                        this->rot();
-                    }
+            propagate_all();
+            while (!is_root()) {
+                if (!parent->is_root()) {
+                    if ((parent->right == this) == (parent->parent->right == parent)) parent->rotate();
+                    else rotate();
                 }
-                this->rot();
+                rotate();
             }
         }
 
         void expose() {
-            this->splay();
-            while (this->pp) {
-                this->pp->splay();
-                this->pp->rp = this;
-                this->rot();
+            splay();
+            while (parent) {
+                parent->splay();
+                parent->right = this;
+                rotate();
             }
-            this->rp = nullptr;
-            this->update();
+            right = nullptr;
+            update();
         }
 
         void make_root() {
-            this->expose();
-            this->do_flip();
+            expose();
+            flip();
         }
 
         void link(pointer v) {
-            this->make_root();
-            this->pp = v;
+            make_root();
+            parent = v;
         }
 
         void cut() {
-            this->expose();
-            this->lp->pp = nullptr;
-            this->lp = nullptr;
-            this->update();
+            expose();
+            left->parent = nullptr;
+            left = nullptr;
+            update();
         }
+
+      private:
+        pointer parent, left, right;
+        bool is_flip;
+        T value, total;
     };
 
   public:
-    using node_type = _node;
-    using node_ptr = typename _node::pointer;
+    using node_type = node_t;
+    using node_ptr = typename node_t::pointer;
 
     link_cut_tree(int n) : nodes(n, nullptr) {
-        for (int i = 0; i < n; ++i) { this->nodes[i] = new _node(); }
+        for (int i = 0; i < n; ++i) nodes[i] = new node_t();
+    }
+    link_cut_tree(const std::vector<T> &v) : nodes(v.size(), nullptr) {
+        for (int i = 0; i < (int)v.size(); ++i) nodes[i] = new node_t(v[i]);
     }
 
     void set(int v, T val) {
-        this->nodes[v]->splay();
-        this->nodes[v]->set(val);
+        nodes[v]->splay();
+        nodes[v]->set(val);
     }
-    T get_val(int v) { return this->nodes[v]->val; }
-    T get_total(int v) { return this->nodes[v]->total; }
-    void link(int u, int v) { this->nodes[u]->link(nodes[v]); }
+    T get_value(int v) { return nodes[v]->get_value(); }
+    T get_total(int v) { return nodes[v]->get_total(); }
+    void link(int u, int v) { nodes[u]->link(nodes[v]); }
     void cut(int u, int v) {
-        this->nodes[u]->make_root();
-        this->nodes[v]->cut();
+        nodes[u]->make_root();
+        nodes[v]->cut();
     }
-    void cut(int v) { this->nodes[v]->cut(); }
-    void splay(int v) { this->nodes[v]->splay(); }
-    void make_root(int v) { this->nodes[v]->make_root(); }
-    void expose(int v) { this->nodes[v]->expose(); }
+    void cut(int v) { nodes[v]->cut(); }
+    void splay(int v) { nodes[v]->splay(); }
+    void make_root(int v) { nodes[v]->make_root(); }
+    void expose(int v) { nodes[v]->expose(); }
 
   private:
     std::vector<node_ptr> nodes;
