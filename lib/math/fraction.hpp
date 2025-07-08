@@ -1,26 +1,13 @@
 #pragma once
 #include <cstdint>
 #include <iostream>
+#include <numeric>
 #include <utility>
 
-/**
- * @brief 分数ライブラリ
- *
- */
+/// @brief 分数ライブラリ
 struct Fraction {
-    std::int64_t x, y;
-
     Fraction() : x(0), y(1) {}
-
     Fraction(std::int64_t _x, std::int64_t _y = 1) : x(_x), y(_y) { common(); }
-
-    std::int64_t gcd(std::int64_t a, std::int64_t b) const {
-        while (b) {
-            a %= b;
-            std::swap(a, b);
-        }
-        return a;
-    }
 
     Fraction &operator+=(const Fraction &rhs) {
         x = x * rhs.y + y * rhs.x;
@@ -76,9 +63,7 @@ struct Fraction {
     bool operator<(const Fraction &rhs) const { return x * rhs.y < rhs.x * y; }
     bool operator>(const Fraction &rhs) const { return x * rhs.y > rhs.x * y; }
 
-    friend std::ostream &operator<<(std::ostream &os, const Fraction &rhs) {
-        return os << rhs.to_double();
-    }
+    friend std::ostream &operator<<(std::ostream &os, const Fraction &rhs) { return os << rhs.to_double(); }
 
     friend std::istream &operator>>(std::istream &is, Fraction &a) {
         std::string s;
@@ -101,8 +86,14 @@ struct Fraction {
     double to_double() const { return (double)x / y; }
 
   private:
+    std::int64_t x, y;
+
     void common() {
-        std::int64_t g = gcd(x, y);
+        if (x == 0) {
+            y = 1;
+            return;
+        }
+        auto g = std::gcd(x, y);
         if (g) x /= g, y /= g;
         if (y < 0) x *= -1, y *= -1;
     }
