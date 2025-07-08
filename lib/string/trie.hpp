@@ -1,21 +1,12 @@
+#pragma once
 #include <cassert>
 #include <string>
 #include <vector>
 
-/**
- * @brief Trie
- *
- * @tparam char_size 文字種
- * @tparam base
- *
- * @see https://algo-logic.info/trie-tree/
- * @see https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
- *
- * Usage:
- * Trie<26, 'a'> trie;
- * Trie<96, ' '> trie;
- */
-template <int char_size, int base>
+/// @brief Trie
+/// @see https://algo-logic.info/trie-tree/
+/// @see https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
+template <int char_size = 96, int base = ' '>
 struct Trie {
   private:
     struct _node {

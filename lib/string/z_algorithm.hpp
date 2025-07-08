@@ -1,12 +1,9 @@
+#pragma once
 #include <vector>
 
-/**
- * @brief Z algorithm
- * @details Z[i] := S[i:Z[i]] == S[0:Z[i]-i]
- * @see https://snuke.hatenablog.com/entry/2014/12/03/214243
- *
- * @tparam Container
- */
+/// @brief Z algorithm
+/// @details Z[i] := S[i:Z[i]] == S[0:Z[i]-i]
+/// @see https://snuke.hatenablog.com/entry/2014/12/03/214243
 template <class Container>
 std::vector<int> z_algorithm(const Container &s) {
     int n = s.size();

@@ -6,15 +6,13 @@
 #include <string>
 #include <vector>
 
-/**
- * @brief ローリングハッシュ
- * @see https://qiita.com/keymoon/items/11fac5627672a6d6a9f6
- * @see https://yosupo.hatenablog.com/entry/2023/08/06/181942
- */
+/// @brief ローリングハッシュ
+/// @see https://qiita.com/keymoon/items/11fac5627672a6d6a9f6
+/// @see https://yosupo.hatenablog.com/entry/2023/08/06/181942
 struct rolling_hash {
     rolling_hash() : _size(), base((std::uint64_t)std::random_device()() + 2), data(), p() {}
 
-    rolling_hash(const std::string &_s, uint64_t base = (std::uint64_t)std::random_device()() + 2)
+    rolling_hash(const std::string &_s, std::uint64_t base = (std::uint64_t)std::random_device()() + 2)
         : _size(_s.size()), base(base), data(1), p(1, 1) {
         std::uint64_t x = 0, t = 1, y;
         for (const auto c : _s) {

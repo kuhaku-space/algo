@@ -1,11 +1,8 @@
+#pragma once
 #include <vector>
 
-/**
- * @brief Manacher
- * @details R[i] := S[i-R[i]:i] == S[i:i+R[i]]
- *
- * @tparam Container
- */
+/// @brief Manacher
+/// @details R[i] := S[i-R[i]:i] == S[i:i+R[i]]
 template <typename Container>
 struct Manacher {
     Manacher(const Container &_s) : _size(_s.size()), s(_s), r(_s.size()) {
