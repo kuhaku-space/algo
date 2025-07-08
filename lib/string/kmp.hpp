@@ -1,12 +1,9 @@
+#pragma once
 #include <algorithm>
 #include <vector>
 
-/**
- * @brief KMP法
- * @see https://snuke.hatenablog.com/entry/2014/12/01/235807
- *
- * @tparam Container
- */
+/// @brief KMP法
+/// @see https://snuke.hatenablog.com/entry/2014/12/01/235807
 template <class Container>
 struct knuth_morris_pratt {
     knuth_morris_pratt(const Container &_t) : t(_t), data(_t.size() + 1) {
@@ -21,12 +18,7 @@ struct knuth_morris_pratt {
 
     const int operator[](int i) const { return data[i]; }
 
-    /**
-     * @brief 検索
-     *
-     * @param s 対象列
-     * @return std::vector<int>
-     */
+    /// @brief 検索
     std::vector<int> search(const Container &s) {
         int n = s.size(), m = t.size();
         std::vector<int> res(n);
