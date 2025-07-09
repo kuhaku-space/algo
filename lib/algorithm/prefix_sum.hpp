@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 #include <cstdint>
+#include <numeric>
 #include <vector>
 
 /// @brief 累積和
@@ -9,8 +10,7 @@ struct prefix_sum {
     prefix_sum(int _n) : n(_n), data(_n + 1) {}
     template <class U>
     prefix_sum(const std::vector<U> &v) : n(v.size()), data(v.size() + 1) {
-        for (int i = 0; i < n; ++i) data[i] = v[i];
-        build();
+        std::inclusive_scan(v.rbegin(), v.rend(), data.rbegin() + 1);
     }
 
     void build() {
