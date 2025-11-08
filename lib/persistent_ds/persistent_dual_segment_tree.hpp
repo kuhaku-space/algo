@@ -14,8 +14,7 @@ struct persistent_dual_segment_tree {
         pointer left, right;
 
         constexpr _node(T _val) : val(_val), left(), right() {}
-        constexpr _node(T _val, pointer _left, pointer _right)
-            : val(_val), left(_left), right(_right) {}
+        constexpr _node(T _val, pointer _left, pointer _right) : val(_val), left(_left), right(_right) {}
     };
 
   public:
@@ -25,8 +24,7 @@ struct persistent_dual_segment_tree {
     constexpr persistent_dual_segment_tree(int n, node_ptr _root) : _size(n), root(_root) {}
     persistent_dual_segment_tree(int n, T e = M::id()) : _size(n), root(build(0, n, e)) {}
     template <class U>
-    persistent_dual_segment_tree(const std::vector<U> &v)
-        : _size(v.size()), root(build(0, v.size(), v)) {}
+    persistent_dual_segment_tree(const std::vector<U> &v) : _size(v.size()), root(build(0, v.size(), v)) {}
 
     T operator[](int i) const { return get(0, _size, i, root); }
     T at(int k) const { return operator[](k); }
@@ -66,8 +64,7 @@ struct persistent_dual_segment_tree {
     }
 
     node_ptr apply(int l, int r, int a, int b, T val, T prop, node_ptr node) const {
-        if (a <= l && r <= b)
-            return new _node(M::op(val, M::op(prop, node->val)), node->left, node->right);
+        if (a <= l && r <= b) return new _node(M::op(val, M::op(prop, node->val)), node->left, node->right);
         if (b <= l || r <= a) return new _node(M::op(prop, node->val), node->left, node->right);
         int m = (l + r) >> 1;
         return new _node(M::id(), apply(l, m, a, b, val, M::op(prop, node->val), node->left),
