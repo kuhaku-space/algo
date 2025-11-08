@@ -87,6 +87,8 @@ struct fenwick_tree {
         return res;
     }
 
+    int lower_bound(int k, T val) const { return lower_bound(val + sum(k)); }
+
   private:
     int _size;
     std::vector<T> data;
