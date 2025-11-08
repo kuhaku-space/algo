@@ -28,8 +28,7 @@ struct persistent_lazy_segment_tree {
     constexpr persistent_lazy_segment_tree(int n, node_ptr _root) : _size(n), _root(_root) {}
     persistent_lazy_segment_tree(int n, T e = S::id()) : _size(n), _root(build(0, n, e)) {}
     template <class U>
-    persistent_lazy_segment_tree(const std::vector<U> &v)
-        : _size(v.size()), _root(build(0, v.size(), v)) {}
+    persistent_lazy_segment_tree(const std::vector<U> &v) : _size(v.size()), _root(build(0, v.size(), v)) {}
 
     T operator[](int i) { return prod(i, i + 1); }
     T at(int k) { return operator[](k); }
@@ -102,8 +101,7 @@ struct persistent_lazy_segment_tree {
         node = push(node);
         node_cp = push(node_cp);
         int m = (l + r) >> 1;
-        return merge(copy(l, m, a, b, node_cp->left, node->left),
-                     copy(m, r, a, b, node_cp->right, node->right));
+        return merge(copy(l, m, a, b, node_cp->left, node->left), copy(m, r, a, b, node_cp->right, node->right));
     }
 
     std::pair<T, node_ptr> prod(int l, int r, int a, int b, node_ptr node) const {
@@ -123,7 +121,6 @@ struct persistent_lazy_segment_tree {
 
     node_ptr push(node_ptr node) const {
         if (node == nullptr) return nullptr;
-        return new _node(node->val, F::id(), all_apply(node->left, node->lazy),
-                         all_apply(node->right, node->lazy));
+        return new _node(node->val, F::id(), all_apply(node->left, node->lazy), all_apply(node->right, node->lazy));
     }
 };

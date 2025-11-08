@@ -15,8 +15,7 @@ struct persistent_segment_tree {
         pointer left, right;
 
         constexpr _node(T _val) : val(_val), left(), right() {}
-        constexpr _node(T _val, pointer _left, pointer _right)
-            : val(_val), left(_left), right(_right) {}
+        constexpr _node(T _val, pointer _left, pointer _right) : val(_val), left(_left), right(_right) {}
     };
 
   public:
@@ -26,8 +25,7 @@ struct persistent_segment_tree {
     constexpr persistent_segment_tree(int n, node_ptr _root) : _size(n), _root(_root) {}
     persistent_segment_tree(int n, T e = M::id()) : _size(n), _root(build(0, n, e)) {}
     template <class U>
-    persistent_segment_tree(const std::vector<U> &v)
-        : _size(v.size()), _root(build(0, v.size(), v)) {}
+    persistent_segment_tree(const std::vector<U> &v) : _size(v.size()), _root(build(0, v.size(), v)) {}
 
     T operator[](int i) const { return prod(i, i + 1); }
     T at(int k) const { return operator[](k); }

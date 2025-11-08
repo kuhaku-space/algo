@@ -40,9 +40,7 @@ struct persistent_array {
     constexpr T at(int k) const noexcept { return operator[](k); }
     constexpr T get(int k) const noexcept { return operator[](k); }
 
-    persistent_array set(int k, T val) const noexcept {
-        return persistent_array(set(k, val, root));
-    }
+    persistent_array set(int k, T val) const noexcept { return persistent_array(set(k, val, root)); }
 
   private:
     node_ptr root;
