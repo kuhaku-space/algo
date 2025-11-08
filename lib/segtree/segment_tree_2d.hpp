@@ -80,12 +80,11 @@ struct segment_tree_2d {
     node_ptr root;
     std::int64_t _h, _w;
 
-    T prod(std::int64_t l, std::int64_t r, std::int64_t d, std::int64_t u, node_ptr node,
-           std::int64_t x, std::int64_t y) const {
+    T prod(std::int64_t l, std::int64_t r, std::int64_t d, std::int64_t u, node_ptr node, std::int64_t x,
+           std::int64_t y) const {
         if (!node || y <= l || r <= x) return M::id();
         if (l <= x && y <= r) return node->segtree.prod(d, u);
 
-        return M::op(prod(l, r, d, u, node->left, x, (x + y) >> 1),
-                     prod(l, r, d, u, node->right, (x + y) >> 1, y));
+        return M::op(prod(l, r, d, u, node->left, x, (x + y) >> 1), prod(l, r, d, u, node->right, (x + y) >> 1, y));
     }
 };
