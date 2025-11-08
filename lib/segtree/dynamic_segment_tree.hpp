@@ -62,8 +62,7 @@ struct dynamic_segment_tree {
             }
             std::int64_t m = (l + r) >> 1;
             if (k < m) {
-                if (data[idx].index < k)
-                    std::swap(k, data[idx].index), std::swap(x, data[idx].value);
+                if (data[idx].index < k) std::swap(k, data[idx].index), std::swap(x, data[idx].value);
                 if (data[idx].left == -1) {
                     data[idx].left = data.size();
                     data.emplace_back(k, x);
@@ -71,8 +70,7 @@ struct dynamic_segment_tree {
                 }
                 r = m, idx = data[idx].left;
             } else {
-                if (k < data[idx].index)
-                    std::swap(k, data[idx].index), std::swap(x, data[idx].value);
+                if (k < data[idx].index) std::swap(k, data[idx].index), std::swap(x, data[idx].value);
                 if (data[idx].right == -1) {
                     data[idx].right = data.size();
                     data.emplace_back(k, x);
@@ -85,8 +83,7 @@ struct dynamic_segment_tree {
         std::reverse(nodes.begin(), nodes.end());
         for (auto idx : nodes) {
             data[idx].product =
-                M::op(M::op(data[idx].left != -1 ? data[data[idx].left].product : M::id(),
-                            data[idx].value),
+                M::op(M::op(data[idx].left != -1 ? data[data[idx].left].product : M::id(), data[idx].value),
                       data[idx].right != -1 ? data[data[idx].right].product : M::id());
         }
     }

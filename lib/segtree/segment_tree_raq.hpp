@@ -10,8 +10,7 @@ struct segment_tree_range_add_range_max {
         using value_type = P;
         static constexpr P id() { return P(); }
         static constexpr P op(const P &lhs, const P &rhs) {
-            return std::make_pair(std::max(lhs.first, lhs.second + rhs.first),
-                                  lhs.second + rhs.second);
+            return std::make_pair(std::max(lhs.first, lhs.second + rhs.first), lhs.second + rhs.second);
         }
     };
 
@@ -49,8 +48,7 @@ struct segment_tree_range_add_range_min {
         using value_type = P;
         static constexpr P id() { return P(); }
         static constexpr P op(const P &lhs, const P &rhs) {
-            return std::make_pair(std::min(lhs.first, lhs.second + rhs.first),
-                                  lhs.second + rhs.second);
+            return std::make_pair(std::min(lhs.first, lhs.second + rhs.first), lhs.second + rhs.second);
         }
     };
 

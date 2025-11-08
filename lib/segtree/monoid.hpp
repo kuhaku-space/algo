@@ -123,9 +123,7 @@ struct Affine {
     using P = std::pair<T, T>;
     using value_type = P;
     static constexpr P id() { return P(1, 0); }
-    static constexpr P op(P lhs, P rhs) {
-        return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};
-    }
+    static constexpr P op(P lhs, P rhs) { return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second}; }
 };
 
 template <class M>
