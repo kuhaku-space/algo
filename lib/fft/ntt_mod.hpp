@@ -14,8 +14,7 @@
  * @see https://math314.hateblo.jp/entry/2015/05/07/014908
  * @see https://asako.growi.cloud/compro/NTT
  */
-template <unsigned int mod = 998244353, class T,
-          std::enable_if_t<std::is_integral<T>::value> * = nullptr>
+template <unsigned int mod = 998244353, class T, std::enable_if_t<std::is_integral<T>::value> * = nullptr>
 std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
@@ -33,12 +32,9 @@ std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b)
     static constexpr std::uint64_t i3 = internal::inv_gcd(MOD1 * MOD2, MOD3).second;
 
     static constexpr int MAX_AB_BIT = 24;
-    static_assert(MOD1 % (1ull << MAX_AB_BIT) == 1,
-                  "MOD1 isn't enough to support an array length of 2^24.");
-    static_assert(MOD2 % (1ull << MAX_AB_BIT) == 1,
-                  "MOD2 isn't enough to support an array length of 2^24.");
-    static_assert(MOD3 % (1ull << MAX_AB_BIT) == 1,
-                  "MOD3 isn't enough to support an array length of 2^24.");
+    static_assert(MOD1 % (1ull << MAX_AB_BIT) == 1, "MOD1 isn't enough to support an array length of 2^24.");
+    static_assert(MOD2 % (1ull << MAX_AB_BIT) == 1, "MOD2 isn't enough to support an array length of 2^24.");
+    static_assert(MOD3 % (1ull << MAX_AB_BIT) == 1, "MOD3 isn't enough to support an array length of 2^24.");
     assert(n + m - 1 <= (1 << MAX_AB_BIT));
 
     auto c1 = convolution<MOD1>(a, b);

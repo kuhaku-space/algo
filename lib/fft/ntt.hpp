@@ -38,8 +38,7 @@ std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint
     return internal::convolution_fft(a, b);
 }
 
-template <unsigned int mod = 998244353, class T,
-          std::enable_if_t<std::is_integral<T>::value> * = nullptr>
+template <unsigned int mod = 998244353, class T, std::enable_if_t<std::is_integral<T>::value> * = nullptr>
 std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
@@ -58,8 +57,7 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     return c;
 }
 
-std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a,
-                                         const std::vector<std::int64_t> &b) {
+std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a, const std::vector<std::int64_t> &b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
 
@@ -76,12 +74,9 @@ std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a,
     static constexpr std::uint64_t i3 = internal::inv_gcd(MOD1 * MOD2, MOD3).second;
 
     static constexpr int MAX_AB_BIT = 24;
-    static_assert(MOD1 % (1ull << MAX_AB_BIT) == 1,
-                  "MOD1 isn't enough to support an array length of 2^24.");
-    static_assert(MOD2 % (1ull << MAX_AB_BIT) == 1,
-                  "MOD2 isn't enough to support an array length of 2^24.");
-    static_assert(MOD3 % (1ull << MAX_AB_BIT) == 1,
-                  "MOD3 isn't enough to support an array length of 2^24.");
+    static_assert(MOD1 % (1ull << MAX_AB_BIT) == 1, "MOD1 isn't enough to support an array length of 2^24.");
+    static_assert(MOD2 % (1ull << MAX_AB_BIT) == 1, "MOD2 isn't enough to support an array length of 2^24.");
+    static_assert(MOD3 % (1ull << MAX_AB_BIT) == 1, "MOD3 isn't enough to support an array length of 2^24.");
     assert(n + m - 1 <= (1 << MAX_AB_BIT));
 
     auto c1 = convolution<MOD1>(a, b);
