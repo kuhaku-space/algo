@@ -214,8 +214,7 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
     for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
     for (int i = 0; i < n; ++i) g[m + i] = {y[i] / g[m + i][0]};
     for (int i = m; i--;)
-        g[i] = plus(convolution(g[i << 1 | 0], mul[i << 1 | 1]),
-                    convolution(g[i << 1 | 1], mul[i << 1 | 0]));
+        g[i] = plus(convolution(g[i << 1 | 0], mul[i << 1 | 1]), convolution(g[i << 1 | 1], mul[i << 1 | 0]));
     return g[1];
 }
 
