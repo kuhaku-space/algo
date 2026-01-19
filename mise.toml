@@ -1,5 +1,5 @@
 [tools]
-python = "latest"
+python = "3.13.5"
 
 [tasks.setup]
 description = "Setup project"
@@ -7,5 +7,6 @@ run = [
     "mise i",
     "pip3 install --quiet --upgrade pip",
     "pip3 install --quiet online-judge-tools online-judge-verify-helper setuptools",
-    "sudo apt update -qq && sudo apt install -qq xclip g++-12",
+    "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
+    "which g++-12 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-12)",
 ]
