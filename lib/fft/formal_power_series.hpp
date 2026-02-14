@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include "fft/ntt.hpp"
+#include "math/combination.hpp"
 
 namespace fps {
 
@@ -216,6 +217,25 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
     for (int i = m; i--;)
         g[i] = plus(convolution(g[i << 1 | 0], mul[i << 1 | 1]), convolution(g[i << 1 | 1], mul[i << 1 | 0]));
     return g[1];
+}
+
+template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
+    int n = f.size();
+    static Combination<mint> comb;
+    for (int i = 0; i < n; ++i) f[i] *= comb.fact(i);
+    std::reverse(f.begin(), f.end());
+    std::vector<mint> g(n);
+    mint c_pow = 1;
+    for (int i = 0; i < n; ++i) {
+        g[i] = c_pow * comb.finv(i);
+        c_pow *= c;
+    }
+    f = convolution(f, g);
+    f.resize(n);
+    std::reverse(f.begin(), f.end());
+    for (int i = 0; i < n; ++i) f[i] *= comb.finv(i);
+    return f;
 }
 
 }  // namespace fps
