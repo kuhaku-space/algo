@@ -1,4 +1,5 @@
 [tools]
+jq = "latest"
 python = "3.13.5"
 
 [tasks.setup]
@@ -10,3 +11,32 @@ run = [
     "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
     "which g++-12 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-12)",
 ]
+
+[tasks.gen-tests]
+description = "クリップボードのJSONから入出力例ファイルを生成する"
+run = """
+#!/bin/bash
+if command -v xclip > /dev/null; then
+    CONTENT=$(xclip -selection clipboard -o)
+else
+    echo "エラー: クリップボード取得コマンドが見つかりません (xclipをインストールしてください)"
+    exit 1
+fi
+# JSONのバリデーション
+if ! echo "$CONTENT" | jq empty 2>/dev/null; then
+    echo "Error: Clipboard does not contain valid JSON."
+    exit 1
+fi
+
+rm -f ./workspace/test/*
+
+# JSONの配列の長さを取得してループ
+length=$(echo "$CONTENT" | jq '. | length')
+
+for ((i=0; i<$length; i++)); do
+    num=$((i+1))
+    echo "$CONTENT" | jq -r ".[$i].input" > "./workspace/test/sample-${num}.in"
+    echo "$CONTENT" | jq -r ".[$i].output" > "./workspace/test/sample-${num}.out"
+    echo "  - in${num}.txt / out${num}.txt を作成しました。"
+done
+"""
