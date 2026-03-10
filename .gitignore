@@ -2,6 +2,8 @@
 /.vscode/
 /docs/
 /Doxyfile/
+/tools/*
+!/tools/random_checker.py
 /workspace/*
 !/workspace/
 !/workspace/.clang-format
