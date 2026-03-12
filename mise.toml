@@ -28,6 +28,7 @@ if ! echo "$CONTENT" | jq empty 2>/dev/null; then
     exit 1
 fi
 
+mkdir ./workspace/test
 rm -f ./workspace/test/*
 
 # JSONの配列の長さを取得してループ
