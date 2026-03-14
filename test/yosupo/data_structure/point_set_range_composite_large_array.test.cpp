@@ -8,7 +8,7 @@ using Mint = modint998;
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    dynamic_segment_tree<Rev<Affine<Mint>>> dst(n);
+    dynamic_segment_tree<Affine<Mint>> dst(n);
     while (q--) {
         int t;
         std::cin >> t;
