@@ -8,7 +8,7 @@ using Mint = modint998;
 int main(void) {
     int q;
     std::cin >> q;
-    sliding_window_aggregation<Affine<Mint>> swag;
+    sliding_window_aggregation<Rev<Affine<Mint>>> swag;
     while (q--) {
         int c;
         std::cin >> c;

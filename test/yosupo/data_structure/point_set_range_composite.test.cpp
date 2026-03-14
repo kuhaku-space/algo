@@ -12,7 +12,7 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<std::pair<Mint, Mint>> p(n);
     for (auto &[a, b] : p) std::cin >> a >> b;
-    segment_tree<Rev<Affine<Mint>>> st(p);
+    segment_tree<Affine<Mint>> st(p);
 
     while (q--) {
         int c;
