@@ -86,8 +86,19 @@ struct fenwick_tree {
         }
         return res;
     }
-
     int lower_bound(int k, T val) const { return lower_bound(val + sum(k)); }
+
+    int upper_bound(T val) const {
+        if (val <= 0) return 0;
+        int k = 1;
+        while (k < _size) k <<= 1;
+        int res = 0;
+        for (; k > 0; k >>= 1) {
+            if (res + k < _size && !(val < data[res + k])) val -= data[res += k];
+        }
+        return res;
+    }
+    int upper_bound(int k, T val) const { return upper_bound(val + sum(k)); }
 
   private:
     int _size;

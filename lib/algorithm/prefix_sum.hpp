@@ -7,6 +7,7 @@
 /// @brief 累積和
 template <class T = std::int64_t>
 struct prefix_sum {
+    prefix_sum() = default;
     prefix_sum(int _n) : n(_n), data(_n + 1) {}
     template <class U>
     prefix_sum(const std::vector<U> &v) : n(v.size()), data(v.size() + 1) {
@@ -34,26 +35,26 @@ struct prefix_sum {
         return data[l] - data[r];
     }
 
-    int min_left(T x) const { return min_left(0, x); }
-    int min_left(int l, T x) const {
+    int lower_bound(T x) const { return lower_bound(0, x); }
+    int lower_bound(int l, T x) const {
         assert(0 <= l && l <= n);
         int left = l, right = n + 1;
         while (right - left > 1) {
-            int mid = (left + right) / 2;
+            int mid = std::midpoint(left, right);
             (data[l] - data[mid] >= x ? right : left) = mid;
         }
         return right;
     }
 
-    int max_right(T x) const { return max_right(n, x); }
-    int max_right(int r, T x) const {
-        assert(0 <= r && r <= n);
-        int left = -1, right = r;
+    int upper_bound(T x) const { return upper_bound(n, x); }
+    int upper_bound(int r, T x) const {
+        assert(0 <= l && l <= n);
+        int left = l, right = n + 1;
         while (right - left > 1) {
-            int mid = (left + right) / 2;
-            (data[mid] - data[r] >= x ? left : right) = mid;
+            int mid = std::midpoint(left, right);
+            (data[l] - data[mid] > x ? right : left) = mid;
         }
-        return left;
+        return right;
     }
 
   private:
