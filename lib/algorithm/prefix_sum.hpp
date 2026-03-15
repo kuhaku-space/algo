@@ -46,8 +46,8 @@ struct prefix_sum {
         return right;
     }
 
-    int upper_bound(T x) const { return upper_bound(n, x); }
-    int upper_bound(int r, T x) const {
+    int upper_bound(T x) const { return upper_bound(0, x); }
+    int upper_bound(int l, T x) const {
         assert(0 <= l && l <= n);
         int left = l, right = n + 1;
         while (right - left > 1) {
