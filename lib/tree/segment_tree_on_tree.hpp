@@ -1,8 +1,8 @@
 #pragma once
-#include <stack>
-#include <vector>
 #include <algorithm>
+#include <stack>
 #include <utility>
+#include <vector>
 #include "segtree/segment_tree.hpp"
 
 /**
@@ -25,8 +25,7 @@ struct segment_tree_on_tree {
   public:
     segment_tree_on_tree() : _n(0), _st_size(0) {}
 
-    explicit segment_tree_on_tree(int n)
-        : _n(n), _st_size(n == 0 ? 0 : 2 * n - 1), g(n), vid(n, -1), nxt(n) {}
+    explicit segment_tree_on_tree(int n) : _n(n), _st_size(n == 0 ? 0 : 2 * n - 1), g(n), vid(n, -1), nxt(n) {}
 
     void add_edge(int u, int v) {
         g[u].push_back(v);
@@ -112,15 +111,15 @@ struct segment_tree_on_tree {
         for (int i = 0; i < _n; ++i) {
             if (i < (int)v_vals.size()) a[v_in[i]] = v_vals[i];
         }
-        for (int i = 0; i < (int)e_vals.size(); ++i) {
-            a[edge_in[i]] = e_vals[i];
-        }
+        for (int i = 0; i < (int)e_vals.size(); ++i) a[edge_in[i]] = e_vals[i];
         st = segment_tree<M>(a);
 
         std::vector<T> rev_a(_st_size);
         for (int i = 0; i < _st_size; ++i) rev_a[_st_size - 1 - i] = a[i];
         rev_st = segment_tree<M>(rev_a);
     }
+
+    T get_vertex(int u) { return st.get(v_in[u]); }
 
     void set_vertex(int u, T val) {
         st.set(v_in[u], val);
