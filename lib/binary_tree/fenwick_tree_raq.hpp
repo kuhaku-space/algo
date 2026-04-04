@@ -9,6 +9,7 @@ struct fenwick_tree_raq {
 
     auto operator[](int i) const { return sum(i + 1) - sum(i); }
     auto at(int k) const { return operator[](k); }
+    auto get(int k) const { return operator[](k); }
 
     template <class U>
     void build(const std::vector<U> &v) {
