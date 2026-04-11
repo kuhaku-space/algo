@@ -9,7 +9,7 @@ struct knuth_morris_pratt {
     knuth_morris_pratt(const Container &_t) : t(_t), data(_t.size() + 1) {
         data[0] = -1;
         int j = -1;
-        for (int i = 0; i < t.size(); ++i) {
+        for (int i = 0; i < (int)t.size(); ++i) {
             while (j >= 0 && t[i] != t[j]) j = data[j];
             if (t[i + 1] == t[++j]) data[i + 1] = data[j];
             else data[i + 1] = j;
