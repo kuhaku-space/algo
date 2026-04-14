@@ -13,13 +13,13 @@ int main(void) {
     std::vector<slope_trick<int>> v(n);
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            v[a[i][j] - 1].add(j);
-            v[a[i][j] - 1].add_f(i + j);
-            v[a[i][j] - 1].add_g(i - j);
+            v[a[i][j] - 1].add_const(j);
+            v[a[i][j] - 1].add_x_minus_a(i + j);
+            v[a[i][j] - 1].add_a_minus_x(i - j);
         }
     }
     int ans = 0;
-    for (int i = 0; i < n; ++i) ans += v[i].get();
+    for (int i = 0; i < n; ++i) ans += v[i].min_value();
     std::cout << ans << '\n';
 
     return 0;
