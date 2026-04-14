@@ -11,15 +11,15 @@ struct knuth_morris_pratt {
         int j = -1;
         for (int i = 0; i < (int)t.size(); ++i) {
             while (j >= 0 && t[i] != t[j]) j = data[j];
-            if (t[i + 1] == t[++j]) data[i + 1] = data[j];
+            if (i + 1 < (int)t.size() && t[i + 1] == t[++j]) data[i + 1] = data[j];
             else data[i + 1] = j;
         }
     }
 
-    const int operator[](int i) const { return data[i]; }
+    int operator[](int i) const { return data[i]; }
 
     /// @brief 検索
-    std::vector<int> search(const Container &s) {
+    std::vector<int> search(const Container &s) const {
         int n = s.size(), m = t.size();
         std::vector<int> res(n);
         int i = 0, j = 0;
@@ -30,7 +30,7 @@ struct knuth_morris_pratt {
                 continue;
             }
             i += j - data[j];
-            j = std::max(data[j], int(0));
+            j = std::max(data[j], 0);
         }
         return res;
     }
