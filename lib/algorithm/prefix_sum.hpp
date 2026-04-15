@@ -38,7 +38,7 @@ struct prefix_sum {
     int lower_bound(T x) const { return lower_bound(0, x); }
     int lower_bound(int l, T x) const {
         assert(0 <= l && l <= n);
-        int left = l, right = n + 1;
+        int left = l - 1, right = n + 1;
         while (right - left > 1) {
             int mid = std::midpoint(left, right);
             (data[l] - data[mid] >= x ? right : left) = mid;
@@ -49,7 +49,7 @@ struct prefix_sum {
     int upper_bound(T x) const { return upper_bound(0, x); }
     int upper_bound(int l, T x) const {
         assert(0 <= l && l <= n);
-        int left = l, right = n + 1;
+        int left = l - 1, right = n + 1;
         while (right - left > 1) {
             int mid = std::midpoint(left, right);
             (data[l] - data[mid] > x ? right : left) = mid;
