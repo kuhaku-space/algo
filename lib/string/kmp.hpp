@@ -12,6 +12,7 @@ struct knuth_morris_pratt {
         for (int i = 0; i < (int)t.size(); ++i) {
             while (j >= 0 && t[i] != t[j]) j = data[j];
             if (i + 1 < (int)t.size() && t[i + 1] == t[++j]) data[i + 1] = data[j];
+            else if (i + 1 == (int)t.size() && i + 1 == ++j) data[i + 1] = data[j];
             else data[i + 1] = j;
         }
     }
