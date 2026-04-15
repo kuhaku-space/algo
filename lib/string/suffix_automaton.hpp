@@ -45,7 +45,8 @@ struct suffix_automaton {
                 nodes[cur].link = q;
             } else {
                 int clone = nodes.size();
-                nodes.emplace_back(nodes[p].len + 1, nodes[q].link);
+                int q_link = nodes[q].link;
+                nodes.emplace_back(nodes[p].len + 1, q_link);
                 nodes[clone].next = nodes[q].next;
 
                 while (p != -1) {
@@ -61,6 +62,18 @@ struct suffix_automaton {
             }
         }
         last = cur;
+    }
+
+    std::pair<int, int> next_state(int state, int len, T c) const {
+        while (state != 0 && nodes[state].next.find(c) == nodes[state].next.end()) {
+            state = nodes[state].link;
+            len = nodes[state].len;
+        }
+        if (nodes[state].next.find(c) != nodes[state].next.end()) {
+            state = nodes[state].next.at(c);
+            len++;
+        }
+        return {state, len};
     }
 
     int size() const { return nodes.size(); }
@@ -110,7 +123,8 @@ struct string_suffix_automaton {
                 nodes[cur].link = q;
             } else {
                 int clone = nodes.size();
-                nodes.emplace_back(nodes[p].len + 1, nodes[q].link);
+                int q_link = nodes[q].link;
+                nodes.emplace_back(nodes[p].len + 1, q_link);
                 nodes[clone].next = nodes[q].next;
 
                 while (p != -1 && nodes[p].next[v] == q) {
@@ -121,6 +135,19 @@ struct string_suffix_automaton {
             }
         }
         last = cur;
+    }
+
+    std::pair<int, int> next_state(int state, int len, char c) const {
+        int v = c - BASE;
+        while (state != 0 && nodes[state].next[v] == -1) {
+            state = nodes[state].link;
+            len = nodes[state].len;
+        }
+        if (nodes[state].next[v] != -1) {
+            state = nodes[state].next[v];
+            len++;
+        }
+        return {state, len};
     }
 
     int size() const { return nodes.size(); }
