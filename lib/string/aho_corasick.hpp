@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <cassert>
 #include <queue>
 #include <string>
@@ -11,8 +12,8 @@ template <int char_size, int base>
 struct aho_corasick {
   private:
     struct _node {
-        std::vector<int> next_node;
-        _node() : next_node(char_size, -1) {}
+        std::array<int, char_size> next_node;
+        _node() { next_node.fill(-1); }
 
         int next(int x) const { return next_node[x]; }
     };
@@ -58,10 +59,11 @@ struct aho_corasick {
         std::vector<int> res;
         int node_id = 0;
         for (int i = 0; i < (int)word.size(); ++i) {
-            int &next_id = _nodes[node_id].next_node[word[i] - base];
+            int next_id = _nodes[node_id].next_node[word[i] - base];
             if (next_id == -1) {
                 next_id = _nodes.size();
                 _nodes.emplace_back();
+                _nodes[node_id].next_node[word[i] - base] = next_id;
             }
             node_id = next_id;
             res.emplace_back(node_id);
