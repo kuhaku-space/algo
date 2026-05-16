@@ -4,6 +4,8 @@ on:
     branches:
       - main
   pull_request:
+  schedule:
+    - cron: "0 18 * * 0"
   workflow_dispatch:
     inputs:
       ignore_prev_result:
@@ -163,7 +165,18 @@ jobs:
           verify-result: ${{github.workspace}}/merged-result.json
           destination: _jekyll
           write-summary: true
+      - name: Check merged result
+        id: check-merged-result
+        run: |
+          if grep -q '"status":"failure"' "$MERGED"; then
+            echo "all-success=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "all-success=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          MERGED: ${{github.workspace}}/merged-result.json
       - name: Save result
+        if: steps.check-merged-result.outputs.all-success == 'true'
         uses: actions/cache/save@v5
         with:
           path: ${{github.workspace}}/merged-result.json
