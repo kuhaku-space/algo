@@ -6,7 +6,6 @@
 /// @brief 最長増加部分列
 template <class T>
 int longest_increasing_subsequence(const std::vector<T> &v, bool strict = true) {
-    int n = v.size();
     std::vector<T> dp;
     for (auto x : v) {
         auto it = (strict ? std::lower_bound(dp.begin(), dp.end(), x) : std::upper_bound(dp.begin(), dp.end(), x));
