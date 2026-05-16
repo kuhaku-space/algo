@@ -9,10 +9,7 @@ namespace internal {
 
 constexpr int calc_c(int n) {
     int res = 1;
-    while (n > 64) {
-        res *= 64;
-        n /= 64;
-    }
+    while (n > 64) res *= 64, n /= 64;
     return res;
 }
 

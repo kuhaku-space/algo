@@ -4,6 +4,8 @@ on:
     branches:
       - main
   pull_request:
+  schedule:
+    - cron: "0 18 * * 0"
   workflow_dispatch:
     inputs:
       ignore_prev_result:
@@ -15,6 +17,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 # Allow one concurrent deployment
 concurrency:
@@ -157,13 +160,116 @@ jobs:
         with:
           result-files: ${{ steps.all-artifacts.outputs.artifacts-root }}/Result-*/result.json
           output-path: ${{github.workspace}}/merged-result.json
+      - name: Reclassify transient AOJ timeouts as skipped
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGED: ${{github.workspace}}/merged-result.json
+          RUN_ID: ${{ github.run_id }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 <<'PY'
+          import json, os, re, subprocess, sys
+
+          merged_path = os.environ["MERGED"]
+          run_id = os.environ["RUN_ID"]
+          repo = os.environ["REPO"]
+
+          with open(merged_path) as f:
+              merged = json.load(f)
+
+          failed_files = {
+              p for p, fr in merged.get("files", {}).items()
+              if any(v.get("status") == "failure" for v in fr.get("verifications", []))
+          }
+          if not failed_files:
+              print("No failures; nothing to reclassify.")
+              sys.exit(0)
+
+          jobs = json.loads(subprocess.check_output(
+              ["gh", "api", "--paginate",
+               f"repos/{repo}/actions/runs/{run_id}/jobs"]
+          ))["jobs"]
+          verify_jobs = [j for j in jobs if j["name"].startswith("verify (")]
+
+          timeout_pattern = re.compile(
+              r"judgedat\.u-aizu\.ac\.jp.*Read timed out|"
+              r"handshake operation timed out"
+          )
+          failure_pattern = re.compile(
+              r"Failed to download:.*'(test/[^']+\.test\.cpp)'"
+          )
+
+          timeout_files = set()
+          for job in verify_jobs:
+              try:
+                  log = subprocess.check_output(
+                      ["gh", "api",
+                       f"repos/{repo}/actions/jobs/{job['id']}/logs"],
+                      text=True, stderr=subprocess.DEVNULL,
+                  )
+              except subprocess.CalledProcessError:
+                  continue
+              lines = log.splitlines()
+              for i, line in enumerate(lines):
+                  if not timeout_pattern.search(line):
+                      continue
+                  for j in range(i, min(i + 30, len(lines))):
+                      m = failure_pattern.search(lines[j])
+                      if m:
+                          timeout_files.add(m.group(1))
+
+          reclassified = []
+          for p in failed_files & timeout_files:
+              for v in merged["files"][p]["verifications"]:
+                  if v.get("status") == "failure":
+                      v["status"] = "skipped"
+                      reclassified.append(p)
+
+          if reclassified:
+              with open(merged_path, "w") as f:
+                  json.dump(merged, f)
+              print(f"Reclassified {len(reclassified)} timeout failures as skipped:")
+              for p in reclassified:
+                  print(f"  - {p}")
+          else:
+              print("No transient AOJ timeouts detected.")
+          PY
+      - name: Re-emit per-job result.json with reclassification
+        env:
+          ARTIFACTS_ROOT: ${{ steps.all-artifacts.outputs.artifacts-root }}
+          MERGED: ${{github.workspace}}/merged-result.json
+        run: |
+          python3 <<'PY'
+          import json, os, glob
+
+          merged = json.load(open(os.environ["MERGED"]))
+          merged_files = merged.get("files", {})
+          for path in glob.glob(os.path.join(os.environ["ARTIFACTS_ROOT"], "Result-*/result.json")):
+              data = json.load(open(path))
+              for p, fr in data.get("files", {}).items():
+                  if p in merged_files:
+                      data["files"][p] = merged_files[p]
+              with open(path, "w") as f:
+                  json.dump(data, f)
+          PY
       - name: Docs
         uses: competitive-verifier/actions/docs@v2
         with:
           verify-result: ${{github.workspace}}/merged-result.json
           destination: _jekyll
           write-summary: true
+      - name: Check merged result
+        id: check-merged-result
+        run: |
+          if grep -q '"status":"failure"' "$MERGED"; then
+            echo "all-success=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "all-success=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          MERGED: ${{github.workspace}}/merged-result.json
       - name: Save result
+        if: steps.check-merged-result.outputs.all-success == 'true'
         uses: actions/cache/save@v5
         with:
           path: ${{github.workspace}}/merged-result.json
@@ -178,7 +284,7 @@ jobs:
           destination: _site
       - name: Upload artifact
         id: upload-pages
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -196,4 +302,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

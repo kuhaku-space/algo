@@ -43,6 +43,9 @@ struct priority_k_sum {
         modify();
     }
 
+    T last_in() const { return in.top(); }
+    T last_out() const { return out.top(); }
+
   private:
     int _k;
     T _sum;

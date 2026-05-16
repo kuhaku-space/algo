@@ -97,6 +97,8 @@ struct HashInt {
         return *this;
     }
 
+    constexpr std::uint64_t val() const noexcept { return x; }
+
   private:
     std::uint64_t x;
 
