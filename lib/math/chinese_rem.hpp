@@ -25,8 +25,7 @@ std::int64_t extended_euclidean(std::int64_t a, std::int64_t b, std::int64_t &x,
 /// @details 任意の i において、x % m_i = b_i となる x を求める
 /// @return std::pair<std::int64_t, std::int64_t> (r, M) ($x = r + M * k$ (kは整数))
 template <class T, class U>
-std::pair<std::int64_t, std::int64_t> chinese_rem(const std::vector<T> &b,
-                                                  const std::vector<U> &m) {
+std::pair<std::int64_t, std::int64_t> chinese_rem(const std::vector<T> &b, const std::vector<U> &m) {
     std::int64_t r = 0, M = 1;
     int n = b.size();
     for (int i = 0; i < n; ++i) {

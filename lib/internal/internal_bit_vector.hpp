@@ -36,7 +36,7 @@ struct bit_vector {
         unsigned int bl = 0, br = 32;
         while (br - bl > 1) {
             unsigned int m = (bl + br) >> 1;
-            if (std::popcount(bit[sl] & ((1u << m) - 1)) < k) bl = m;
+            if ((unsigned int)std::popcount(bit[sl] & ((1u << m) - 1)) < k) bl = m;
             else br = m;
         }
         return (sl << 5) + bl;
