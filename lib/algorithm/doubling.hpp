@@ -28,6 +28,30 @@ struct doubling {
         return std::make_pair(f, res);
     }
 
+    /// @brief check(M::op(init, accumulated)) が真である最大ステップ数を返す
+    /// @details check は単調 (真→偽に一度だけ変化) を仮定する
+    template <class F>
+    std::uint64_t max_step(int f, T init, F check) {
+        assert(-1 <= f && f < _size);
+        T acc = init;
+        std::uint64_t steps = 0;
+        for (int i = L - 1; i >= 0; --i) {
+            if (f == -1) break;
+            T next_acc = M::op(acc, data[i][f]);
+            if (check(next_acc)) {
+                acc = next_acc;
+                f = table[i][f];
+                steps |= std::uint64_t(1) << i;
+            }
+        }
+        return steps;
+    }
+
+    template <class F>
+    std::uint64_t max_step(int f, F check) {
+        return max_step(f, M::id(), check);
+    }
+
   private:
     int _size;
     std::vector<std::vector<int>> table;
