@@ -1,5 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/product_of_polynomial_sequence
+#include <functional>
 #include <iostream>
+#include <queue>
 #include <utility>
 #include <vector>
 
