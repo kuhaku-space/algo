@@ -7,7 +7,10 @@ CXXFLAGS = [
     "-fconstexpr-depth=1024",
     "-fconstexpr-loop-limit=524288",
     "-fconstexpr-ops-limit=2097152",
-    "-flto=auto",
+    # LTO is omitted intentionally: it dominated CI compile time (e.g. the
+    # pow-of-FPS test took ~107s to compile vs ~19s to run) while adding no
+    # value for correctness verification. -O2 is kept so TLE judgments stay
+    # representative of real submissions.
     "-march=native",
     "--std=gnu++23",
     "-I./lib",
