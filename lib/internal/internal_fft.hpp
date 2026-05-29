@@ -12,7 +12,7 @@
 
 namespace internal {
 
-template <class mint, int g = internal::primitive_root<mint::mod()>, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint, int g = internal::primitive_root<mint::mod()>>
 struct fft_info {
     static constexpr int rank2 = std::countr_zero<unsigned>(mint::mod() - 1);
     std::array<mint, rank2 + 1> root, iroot;
@@ -48,7 +48,7 @@ struct fft_info {
     }
 };
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 void butterfly(std::vector<mint> &a) {
     int n = int(a.size());
     int h = std::countr_zero<unsigned>(n);
@@ -94,7 +94,7 @@ void butterfly(std::vector<mint> &a) {
     }
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 void butterfly_inv(std::vector<mint> &a) {
     int n = int(a.size());
     int h = std::countr_zero<unsigned>(n);
@@ -139,7 +139,7 @@ void butterfly_inv(std::vector<mint> &a) {
     }
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> convolution_naive(const std::vector<mint> &a, const std::vector<mint> &b) {
     int n = int(a.size()), m = int(b.size());
     std::vector<mint> ans(n + m - 1);
@@ -155,7 +155,7 @@ std::vector<mint> convolution_naive(const std::vector<mint> &a, const std::vecto
     return ans;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> convolution_fft(std::vector<mint> a, std::vector<mint> b) {
     int n = int(a.size()), m = int(b.size());
     int z = std::bit_ceil<unsigned>(n + m - 1);

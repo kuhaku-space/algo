@@ -2,7 +2,7 @@
 #include <vector>
 #include "fft/formal_power_series.hpp"
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> bell(int n) {
     if (n == 0) return std::vector<mint>(1, mint(1));
     std::vector<mint> res(n + 1);

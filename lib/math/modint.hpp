@@ -9,87 +9,65 @@
 namespace internal {
 
 struct modint_base {};
-struct static_modint_base : modint_base {};
+struct static_modint_base {};
 
 template <class T>
-using is_modint = std::is_base_of<modint_base, T>;
-template <class T>
-using is_modint_t = std::enable_if_t<is_modint<T>::value>;
+concept modint = std::is_base_of_v<modint_base, T>;
 
-}  // namespace internal
-
-template <int m>
-requires(m >= 1)
-struct static_modint : internal::static_modint_base {
-    using mint = static_modint;
-
-  public:
-    static constexpr int mod() { return m; }
-    static constexpr mint raw(int v) {
-        mint x;
-        x._v = v;
-        return x;
-    }
-
-    constexpr static_modint() : _v(0) {}
-    template <std::integral T>
-    constexpr static_modint(T v) : _v(0) {
-        std::int64_t x = (std::int64_t)(v % (std::int64_t)(umod()));
-        if (x < 0) x += umod();
-        _v = (unsigned int)(x);
-    }
-    template <std::unsigned_integral T>
-    constexpr static_modint(T v) : _v(0) {
-        _v = (unsigned int)(v % umod());
-    }
+/// CRTP base sharing operator logic between static_modint and dynamic_modint.
+/// Derived must provide:
+///   static {constexpr} unsigned int umod();
+///   static {constexpr} unsigned int mul(unsigned int a, unsigned int b);
+///   static {constexpr} bool is_prime_mod();
+template <class Derived>
+struct modint_common : modint_base {
+    using mint = Derived;
 
     constexpr unsigned int val() const { return _v; }
 
     constexpr mint &operator++() {
-        _v++;
-        if (_v == umod()) _v = 0;
-        return *this;
+        ++_v;
+        if (_v == Derived::umod()) _v = 0;
+        return derived();
     }
     constexpr mint &operator--() {
-        if (_v == 0) _v = umod();
-        _v--;
-        return *this;
+        if (_v == 0) _v = Derived::umod();
+        --_v;
+        return derived();
     }
     constexpr mint operator++(int) {
-        mint result = *this;
+        mint result = derived();
         ++*this;
         return result;
     }
     constexpr mint operator--(int) {
-        mint result = *this;
+        mint result = derived();
         --*this;
         return result;
     }
 
     constexpr mint &operator+=(const mint &rhs) {
         _v += rhs._v;
-        if (_v >= umod()) _v -= umod();
-        return *this;
+        if (_v >= Derived::umod()) _v -= Derived::umod();
+        return derived();
     }
     constexpr mint &operator-=(const mint &rhs) {
-        _v -= rhs._v;
-        if (_v >= umod()) _v += umod();
-        return *this;
+        _v += Derived::umod() - rhs._v;
+        if (_v >= Derived::umod()) _v -= Derived::umod();
+        return derived();
     }
     constexpr mint &operator*=(const mint &rhs) {
-        std::uint64_t z = _v;
-        z *= rhs._v;
-        _v = (unsigned int)(z % umod());
-        return *this;
+        _v = Derived::mul(_v, rhs._v);
+        return derived();
     }
     constexpr mint &operator/=(const mint &rhs) { return *this *= rhs.inv(); }
 
-    constexpr mint operator+() const { return *this; }
-    constexpr mint operator-() const { return mint() - *this; }
+    constexpr mint operator+() const { return derived(); }
+    constexpr mint operator-() const { return mint() - derived(); }
 
     constexpr mint pow(std::int64_t n) const {
         assert(0 <= n);
-        mint x = *this, r = 1;
+        mint x = derived(), r = 1;
         while (n) {
             if (n & 1) r *= x;
             x *= x;
@@ -98,11 +76,11 @@ struct static_modint : internal::static_modint_base {
         return r;
     }
     constexpr mint inv() const {
-        if (prime) {
+        if (Derived::is_prime_mod()) {
             assert(_v);
-            return pow(umod() - 2);
+            return pow(Derived::umod() - 2);
         } else {
-            auto eg = internal::inv_gcd(_v, m);
+            auto eg = internal::inv_gcd(_v, Derived::umod());
             assert(eg.first == 1);
             return eg.second;
         }
@@ -120,19 +98,63 @@ struct static_modint : internal::static_modint_base {
         rhs = mint(t);
         return is;
     }
-    friend constexpr std::ostream &operator<<(std::ostream &os, const mint &rhs) { return os << rhs._v; }
+    friend std::ostream &operator<<(std::ostream &os, const mint &rhs) { return os << rhs._v; }
+
+  protected:
+    unsigned int _v = 0;
 
   private:
-    unsigned int _v;
+    constexpr mint &derived() { return *static_cast<mint *>(this); }
+    constexpr const mint &derived() const { return *static_cast<const mint *>(this); }
+};
+
+}  // namespace internal
+
+template <int m>
+requires(m >= 1)
+struct static_modint : internal::static_modint_base, internal::modint_common<static_modint<m>> {
+    using mint = static_modint;
+    using base = internal::modint_common<static_modint>;
+    using base::_v;
+
+  public:
     static constexpr unsigned int umod() { return m; }
-    static constexpr bool prime = internal::is_prime<m>;
+    static constexpr bool is_prime_mod() { return internal::is_prime<m>; }
+    static constexpr unsigned int mul(unsigned int a, unsigned int b) {
+        return (unsigned int)((std::uint64_t)a * b % umod());
+    }
+
+    static constexpr int mod() { return m; }
+    static constexpr mint raw(int v) {
+        mint x;
+        x._v = v;
+        return x;
+    }
+
+    constexpr static_modint() = default;
+    template <std::integral T>
+    constexpr static_modint(T v) {
+        std::int64_t x = (std::int64_t)(v % (std::int64_t)(umod()));
+        if (x < 0) x += umod();
+        _v = (unsigned int)(x);
+    }
+    template <std::unsigned_integral T>
+    constexpr static_modint(T v) {
+        _v = (unsigned int)(v % umod());
+    }
 };
 
 template <int id>
-struct dynamic_modint : internal::modint_base {
+struct dynamic_modint : internal::modint_common<dynamic_modint<id>> {
     using mint = dynamic_modint;
+    using base = internal::modint_common<dynamic_modint>;
+    using base::_v;
 
   public:
+    static unsigned int umod() { return bt.umod(); }
+    static bool is_prime_mod() { return false; }
+    static unsigned int mul(unsigned int a, unsigned int b) { return bt.mul(a, b); }
+
     static int mod() { return (int)(bt.umod()); }
     static void set_mod(int m) {
         assert(1 <= m);
@@ -144,7 +166,7 @@ struct dynamic_modint : internal::modint_base {
         return x;
     }
 
-    dynamic_modint() : _v(0) {}
+    dynamic_modint() = default;
     template <std::integral T>
     dynamic_modint(T v) {
         std::int64_t x = (std::int64_t)(v % (std::int64_t)(mod()));
@@ -156,82 +178,8 @@ struct dynamic_modint : internal::modint_base {
         _v = (unsigned int)(v % mod());
     }
 
-    unsigned int val() const { return _v; }
-
-    mint &operator++() {
-        _v++;
-        if (_v == umod()) _v = 0;
-        return *this;
-    }
-    mint &operator--() {
-        if (_v == 0) _v = umod();
-        _v--;
-        return *this;
-    }
-    mint operator++(int) {
-        mint result = *this;
-        ++*this;
-        return result;
-    }
-    mint operator--(int) {
-        mint result = *this;
-        --*this;
-        return result;
-    }
-
-    mint &operator+=(const mint &rhs) {
-        _v += rhs._v;
-        if (_v >= umod()) _v -= umod();
-        return *this;
-    }
-    mint &operator-=(const mint &rhs) {
-        _v += mod() - rhs._v;
-        if (_v >= umod()) _v -= umod();
-        return *this;
-    }
-    mint &operator*=(const mint &rhs) {
-        _v = bt.mul(_v, rhs._v);
-        return *this;
-    }
-    mint &operator/=(const mint &rhs) { return *this *= rhs.inv(); }
-
-    mint operator+() const { return *this; }
-    mint operator-() const { return mint() - *this; }
-
-    mint pow(std::int64_t n) const {
-        assert(0 <= n);
-        mint x = *this, r = 1;
-        while (n) {
-            if (n & 1) r *= x;
-            x *= x;
-            n >>= 1;
-        }
-        return r;
-    }
-    mint inv() const {
-        auto eg = internal::inv_gcd(_v, mod());
-        assert(eg.first == 1);
-        return eg.second;
-    }
-
-    friend mint operator+(const mint &lhs, const mint &rhs) { return mint(lhs) += rhs; }
-    friend mint operator-(const mint &lhs, const mint &rhs) { return mint(lhs) -= rhs; }
-    friend mint operator*(const mint &lhs, const mint &rhs) { return mint(lhs) *= rhs; }
-    friend mint operator/(const mint &lhs, const mint &rhs) { return mint(lhs) /= rhs; }
-    friend bool operator==(const mint &lhs, const mint &rhs) { return lhs._v == rhs._v; }
-    friend bool operator!=(const mint &lhs, const mint &rhs) { return lhs._v != rhs._v; }
-    friend std::istream &operator>>(std::istream &is, mint &rhs) {
-        std::int64_t t;
-        is >> t;
-        rhs = mint(t);
-        return is;
-    }
-    friend constexpr std::ostream &operator<<(std::ostream &os, const mint &rhs) { return os << rhs._v; }
-
   private:
-    unsigned int _v;
     static internal::barrett bt;
-    static unsigned int umod() { return bt.umod(); }
 };
 template <int id>
 internal::barrett dynamic_modint<id>::bt(998244353);
@@ -243,17 +191,14 @@ using modint = dynamic_modint<-1>;
 namespace internal {
 
 template <class T>
-using is_static_modint = std::is_base_of<internal::static_modint_base, T>;
-
-template <class T>
-using is_static_modint_t = std::enable_if_t<is_static_modint<T>::value>;
+concept static_modint_c = std::is_base_of_v<static_modint_base, T>;
 
 template <class>
-struct is_dynamic_modint : public std::false_type {};
+inline constexpr bool is_dynamic_modint_v = false;
 template <int id>
-struct is_dynamic_modint<dynamic_modint<id>> : public std::true_type {};
+inline constexpr bool is_dynamic_modint_v<dynamic_modint<id>> = true;
 
 template <class T>
-using is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;
+concept dynamic_modint_c = is_dynamic_modint_v<T>;
 
 }  // namespace internal

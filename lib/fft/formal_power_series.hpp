@@ -9,7 +9,7 @@
 
 namespace fps {
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
     int n = f.size(), m = g.size();
     int s = std::max(n, m);
@@ -19,7 +19,7 @@ std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
     return res;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] != mint(0));
     std::vector<mint> res(deg);
@@ -45,12 +45,12 @@ std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     return res;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h) {
     return inv(h, h.size());
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] == 1);
     std::vector<mint> f(h.size() - 1);
@@ -62,12 +62,12 @@ std::vector<mint> log(const std::vector<mint> &h, int deg) {
     return f;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h) {
     return log(h, h.size());
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h, int deg) {
     std::vector<mint> f(deg), g(deg);
     f[0] = 1;
@@ -111,12 +111,12 @@ std::vector<mint> exp(const std::vector<mint> &h, int deg) {
     return f;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h) {
     return exp(h, h.size());
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     if (m == 0) {
         std::vector<mint> res(deg, 0);
@@ -144,12 +144,12 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     return res;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std::vector<mint> g) {
     while (!f.empty() && f.back() == mint()) f.pop_back();
     while (!g.empty() && g.back() == mint()) g.pop_back();
@@ -172,17 +172,17 @@ std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std
     return {q, r};
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> div(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).first;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).second;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
     int m = std::bit_ceil<unsigned>(n);
@@ -199,7 +199,7 @@ std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::v
     return res;
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
     int m = std::bit_ceil<unsigned>(n);
@@ -219,7 +219,7 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
     return g[1];
 }
 
-template <class mint, internal::is_static_modint_t<mint> * = nullptr>
+template <internal::static_modint_c mint>
 std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
     int n = f.size();
     static Combination<mint> comb;

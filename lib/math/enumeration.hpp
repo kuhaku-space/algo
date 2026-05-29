@@ -1,11 +1,9 @@
 #pragma once
-#include <concepts>
 #include <vector>
 #include "math/combination.hpp"
 #include "math/modint.hpp"
 
-template <class mint = modint998>
-requires(std::derived_from<mint, internal::modint_base>)
+template <internal::modint mint = modint998>
 struct Enumeration {
     Enumeration() : _binom(), _data() {}
 
