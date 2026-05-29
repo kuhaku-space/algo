@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2971
 #include <iostream>
 #include "math/hashint.hpp"
-#include "tree/weighted_union_find.hpp"
+#include "data_structure/weighted_union_find.hpp"
 
 struct S {
     HashInt x;

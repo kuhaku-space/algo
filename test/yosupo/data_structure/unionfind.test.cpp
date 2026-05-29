@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/unionfind
 #include <iostream>
-#include "tree/union_find.hpp"
+#include "data_structure/union_find.hpp"
 
 int main(void) {
     int n, q;
