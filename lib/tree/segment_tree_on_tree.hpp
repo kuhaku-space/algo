@@ -5,10 +5,8 @@
 #include <vector>
 #include "segtree/segment_tree.hpp"
 
-/**
- * @brief Segment Tree on Tree
- */
-template <class M>
+/// @brief Segment Tree on Tree
+template <monoid M>
 struct segment_tree_on_tree {
   private:
     using T = typename M::value_type;

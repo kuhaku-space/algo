@@ -2,9 +2,10 @@
 #include <bit>
 #include <cassert>
 #include <vector>
+#include "segtree/monoid.hpp"
 
 /// @brief スパーステーブル
-template <class M>
+template <monoid M>
 struct sparse_table {
   private:
     using T = typename M::value_type;

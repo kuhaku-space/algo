@@ -3,7 +3,7 @@
 #include "segtree/monoid.hpp"
 
 /// @brief Sliding Window Aggregation
-template <class M>
+template <monoid M>
 struct sliding_window_aggregation {
   private:
     using T = typename M::value_type;

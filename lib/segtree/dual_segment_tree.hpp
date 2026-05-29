@@ -5,7 +5,7 @@
 #include "segtree/monoid.hpp"
 
 /// @brief 双対セグメント木
-template <class M>
+template <monoid M>
 struct dual_segment_tree {
   private:
     using T = typename M::value_type;

@@ -3,7 +3,7 @@
 #include "template/template.hpp"
 
 /// @brief Link-Cut Tree
-template <class M>
+template <monoid M>
 struct link_cut_tree {
   private:
     using T = typename M::value_type;

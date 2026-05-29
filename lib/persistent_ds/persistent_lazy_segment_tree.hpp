@@ -4,7 +4,10 @@
 #include "segtree/monoid.hpp"
 
 /// @brief 永続遅延評価セグメント木
+/// @tparam S データのモノイド
+/// @tparam F 作用素モノイド（op が作用素の合成、f が値への作用）
 template <class S, class F>
+requires monoid<S> && monoid<F> && acts_on<F, typename S::value_type>
 struct persistent_lazy_segment_tree {
   private:
     using T = typename S::value_type;

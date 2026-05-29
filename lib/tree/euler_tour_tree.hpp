@@ -5,8 +5,8 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
-// Euler Tour Tree
-template <class M>
+/// @brief Euler Tour Tree
+template <monoid M>
 struct euler_tour_tree {
     using T = typename M::value_type;
 

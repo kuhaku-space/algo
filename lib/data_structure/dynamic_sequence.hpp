@@ -5,9 +5,11 @@
 #include <utility>
 #include <vector>
 #include "random/xoroshiro128.hpp"
+#include "segtree/monoid.hpp"
 
 /// @brief 動的配列
-template <class M, class UniformRandomBitGenerator = xoroshiro128>
+/// @tparam UniformRandomBitGenerator 平衡用の優先度を生成する乱数生成器
+template <monoid M, class UniformRandomBitGenerator = xoroshiro128>
 struct dynamic_sequence {
   private:
     using T = typename M::value_type;

@@ -6,7 +6,7 @@
 
 /// @brief セグメント木
 /// @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
-template <class M>
+template <monoid M>
 struct segment_tree {
   private:
     using T = typename M::value_type;

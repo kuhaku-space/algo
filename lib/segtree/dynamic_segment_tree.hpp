@@ -6,12 +6,8 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
-/**
- * @brief 動的セグメント木
- *
- * @tparam M モノイド
- */
-template <class M>
+/// @brief 動的セグメント木
+template <monoid M>
 struct dynamic_segment_tree {
   private:
     using T = typename M::value_type;

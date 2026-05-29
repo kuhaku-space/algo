@@ -4,7 +4,7 @@
 #include "segtree/monoid.hpp"
 
 /// @brief 永続セグメント木
-template <class M>
+template <monoid M>
 struct persistent_segment_tree {
   private:
     using T = typename M::value_type;

@@ -2,9 +2,10 @@
 #include <bit>
 #include <cassert>
 #include <vector>
+#include "segtree/monoid.hpp"
 
 /// @brief Disjoint Sparse Table
-template <class M>
+template <monoid M>
 struct disjoint_sparse_table {
   private:
     using T = typename M::value_type;
