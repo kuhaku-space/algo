@@ -1,15 +1,12 @@
 #pragma once
-#include <concepts>
 #include "math/modint.hpp"
 
-template <class mint>
-requires(std::derived_from<mint, internal::modint_base>)
+template <internal::modint mint>
 bool has_sqrt_mod(mint x) {
     return x == 0 || x.pow(mint::mod() / 2) == 1;
 }
 
-template <class mint>
-requires(std::derived_from<mint, internal::modint_base>)
+template <internal::modint mint>
 mint sqrt_mod(mint x) {
     const int p = mint::mod();
     if (x == 0 || x == 1) return x;

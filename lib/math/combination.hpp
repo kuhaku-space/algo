@@ -1,12 +1,10 @@
 #pragma once
 #include <cassert>
-#include <concepts>
 #include <vector>
 #include "math/modint.hpp"
 
 /// @brief 二項係数
-template <class mint = modint998>
-requires(std::derived_from<mint, internal::modint_base>)
+template <internal::modint mint = modint998>
 struct Combination {
     Combination() : _fact(), _inv(), _finv() {}
 
