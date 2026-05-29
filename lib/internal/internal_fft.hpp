@@ -171,4 +171,24 @@ std::vector<mint> convolution_fft(std::vector<mint> a, std::vector<mint> b) {
     return a;
 }
 
+/// 任意 mod / 任意係数の畳み込みで使う 3 つの NTT-friendly 素数と Garner 法用の定数。
+/// MOD1 < MOD2 < MOD3 で、いずれも 2^24 まで NTT 可能 (最小は MOD1 の 2^24)。
+struct convolution_mod_constants {
+    static constexpr std::uint64_t MOD1 = 754974721;  // 45 * 2^24 + 1, NTT 可能長 2^24
+    static constexpr std::uint64_t MOD2 = 167772161;  // 5  * 2^25 + 1, NTT 可能長 2^25
+    static constexpr std::uint64_t MOD3 = 469762049;  // 7  * 2^26 + 1, NTT 可能長 2^26
+    static constexpr std::uint64_t M2M3 = MOD2 * MOD3;
+    static constexpr std::uint64_t M1M3 = MOD1 * MOD3;
+    static constexpr std::uint64_t M1M2 = MOD1 * MOD2;
+    // MOD_jM_l を法とした MOD_kの逆元 (Garner 復元用)。inv_gcd は非負を返す。
+    static constexpr std::uint64_t i1 = internal::inv_gcd(MOD2 * MOD3, MOD1).second;
+    static constexpr std::uint64_t i2 = internal::inv_gcd(MOD1 * MOD3, MOD2).second;
+    static constexpr std::uint64_t i3 = internal::inv_gcd(MOD1 * MOD2, MOD3).second;
+    // 畳み込み可能な最大長は min(各素数の NTT 可能長) = MOD1 の 2^24。
+    static constexpr int MAX_AB_BIT = 24;
+    static_assert(MOD1 % (1ull << MAX_AB_BIT) == 1, "MOD1 isn't enough to support an array length of 2^24.");
+    static_assert(MOD2 % (1ull << MAX_AB_BIT) == 1, "MOD2 isn't enough to support an array length of 2^24.");
+    static_assert(MOD3 % (1ull << MAX_AB_BIT) == 1, "MOD3 isn't enough to support an array length of 2^24.");
+};
+
 }  // namespace internal
