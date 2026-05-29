@@ -77,12 +77,13 @@ jobs:
     needs: [setup]
     env:
       # SPLIT_SIZE must equal the number of matrix indices below.
-      SPLIT_SIZE: "10"
+      SPLIT_SIZE: "20"
     strategy:
       matrix:
         # prettier-ignore
         index:
-          ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09"]
+          ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
+           "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -103,6 +104,21 @@ jobs:
             ${{ runner.os }}-verify-result-main-
             ${{ runner.os }}-verify-result-
 
+      # Cache downloaded test cases (and compiled binaries) under
+      # .competitive-verifier/cache. Re-verifying a heavy test otherwise
+      # re-downloads its cases from the judge, which dominated wall-clock
+      # (~107s of download for a single yosupo test on a recent run).
+      # Per-shard key because each split downloads a different set of problems;
+      # a single shared key would let the last shard's save clobber the rest.
+      - name: Restore problem cache
+        uses: actions/cache/restore@v5
+        id: restore-problem-cache
+        with:
+          path: ${{github.workspace}}/.competitive-verifier/cache
+          key: ${{ runner.os }}-verify-problems-${{ matrix.index }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-verify-problems-${{ matrix.index }}-
+
       - name: Download verify_files.json
         uses: competitive-verifier/actions/download-verify-artifact@v2
 
@@ -121,6 +137,16 @@ jobs:
           prev-result: ${{ steps.restore-cached-results.outputs.cache-hit && 'merged-result.json' || ''}}
         env:
           YUKICODER_TOKEN: ${{secrets.YUKICODER_TOKEN}}
+
+      # Always save (even if Verify failed) so a partial download cache still
+      # carries forward. run_id in the key makes each save a fresh immutable
+      # entry that the next run picks up via the restore-keys prefix.
+      - name: Save problem cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: ${{github.workspace}}/.competitive-verifier/cache
+          key: ${{ runner.os }}-verify-problems-${{ matrix.index }}-${{ github.run_id }}
 
       - name: Upload result artifact
         uses: actions/upload-artifact@v7
