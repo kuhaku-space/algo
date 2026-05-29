@@ -109,6 +109,10 @@ jobs:
       # (~107s of download for a single yosupo test on a recent run).
       # Per-shard key because each split downloads a different set of problems;
       # a single shared key would let the last shard's save clobber the rest.
+      # run_id makes every save a new immutable entry (caches can't be
+      # overwritten), so entries accumulate over time. That's intentional: we
+      # rely on GitHub's per-repo 10GB LRU eviction to retire old generations
+      # rather than deleting them explicitly.
       - name: Restore problem cache
         uses: actions/cache/restore@v5
         id: restore-problem-cache
