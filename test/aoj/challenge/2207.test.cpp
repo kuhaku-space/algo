@@ -3,7 +3,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
-#include "tree/weighted_union_find.hpp"
+#include "data_structure/weighted_union_find.hpp"
 
 std::tuple<std::string, std::string, int> input() {
     int tmp, x;

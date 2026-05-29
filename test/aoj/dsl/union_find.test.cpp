@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_A
-#include "tree/union_find.hpp"
+#include "data_structure/union_find.hpp"
 #include <iostream>
 
 int main(void) {

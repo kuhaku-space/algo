@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include "graph/graph.hpp"
-#include "tree/union_find.hpp"
+#include "data_structure/union_find.hpp"
 
 /// @brief クラスカル法
 template <class T>

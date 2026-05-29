@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "math/modint.hpp"
-#include "tree/weighted_union_find.hpp"
+#include "data_structure/weighted_union_find.hpp"
 
 using Mint = modint998;
 

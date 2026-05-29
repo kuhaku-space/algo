@@ -5,7 +5,7 @@
 #include "binary_tree/fenwick_tree.hpp"
 #include "graph/graph.hpp"
 #include "tree/dsu_on_tree.hpp"
-#include "tree/union_find.hpp"
+#include "data_structure/union_find.hpp"
 
 int main(void) {
     int n, q;

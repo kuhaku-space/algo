@@ -4,7 +4,7 @@
 #include <set>
 #include <utility>
 #include <vector>
-#include "tree/union_find.hpp"
+#include "data_structure/union_find.hpp"
 
 int main(void) {
     int n, m;
