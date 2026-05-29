@@ -6,7 +6,10 @@
 
 /// @brief 遅延評価セグメント木
 /// @see https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp
+/// @tparam S データのモノイド
+/// @tparam F 作用素モノイド（op が作用素の合成、f が値への作用）
 template <class S, class F>
+requires monoid<S> && monoid<F> && acts_on<F, typename S::value_type>
 struct lazy_segment_tree {
   private:
     using T = typename S::value_type;

@@ -3,7 +3,7 @@
 #include "segtree/monoid.hpp"
 
 /// @brief 永続双対セグメント木
-template <class M>
+template <monoid M>
 struct persistent_dual_segment_tree {
   private:
     using T = typename M::value_type;

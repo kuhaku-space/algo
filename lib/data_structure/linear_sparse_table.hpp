@@ -28,7 +28,7 @@ struct fixed_stack {
 }  // namespace internal
 
 /// @brief 線形 Sparse Table
-template <class M>
+template <monoid M>
 struct linear_sparse_table {
   private:
     using T = M::value_type;

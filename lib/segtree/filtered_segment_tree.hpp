@@ -6,8 +6,8 @@
 #include "segtree/segment_tree.hpp"
 
 /// @brief 要素を特定のキー（条件）でフィルタリングして区間取得を行えるセグメント木
-/// @tparam M モノイド
-template <class K, class M>
+/// @tparam K フィルタリングに用いるキーの型
+template <class K, monoid M>
 struct filtered_segment_tree {
   private:
     using T = typename M::value_type;

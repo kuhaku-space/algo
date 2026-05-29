@@ -3,14 +3,8 @@
 #include <string>
 #include "algorithm/binary_search.hpp"
 #include "data_structure/linear_sparse_table.hpp"
+#include "segtree/monoid.hpp"
 #include "string/suffix_array.hpp"
-
-template <class T>
-struct Min {
-    using value_type = T;
-    static constexpr T id() { return std::numeric_limits<T>::max(); }
-    static constexpr T op(const T &lhs, const T &rhs) { return std::min(lhs, rhs); }
-};
 
 int main(void) {
     std::string s;
