@@ -21,6 +21,20 @@ struct Trie {
 
     int size() const { return nodes.size(); }
 
+    /// @brief ノード node_id の子 ch をたどる。無ければ新規作成する。
+    /// @return 子ノードの id
+    int add(int node_id, char ch) {
+        assert(0 <= node_id && node_id < (int)nodes.size());
+        int c = ch - base;
+        assert(0 <= c && c < char_size);
+        int &next_id = nodes[node_id].next_node[c];
+        if (next_id == -1) {
+            next_id = nodes.size();
+            nodes.emplace_back();
+        }
+        return next_id;
+    }
+
     std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
         int node_id = 0;
