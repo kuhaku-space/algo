@@ -11,7 +11,7 @@ struct heavy_light_decomposition {
     heavy_light_decomposition() = default;
     template <class T>
     heavy_light_decomposition(const Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {
-        std::vector<int> heavy_path(_size, -1), sub_size(_size, 1);
+        std::vector<int> heavy_path(_size, -1);
         std::stack<int> st;
         st.emplace(r);
         int pos = 0;
@@ -31,8 +31,8 @@ struct heavy_light_decomposition {
             for (auto &e : g[v]) {
                 int u = e.to();
                 if (u == par[v]) continue;
-                sub_size[v] += sub_size[u];
-                if (max_sub < sub_size[u]) max_sub = sub_size[u], heavy_path[v] = u;
+                sub[v] += sub[u];
+                if (max_sub < sub[u]) max_sub = sub[u], heavy_path[v] = u;
             }
         }
         nxt[r] = r;
@@ -55,7 +55,7 @@ struct heavy_light_decomposition {
 
     heavy_light_decomposition(const internal::graph_csr &g, int r = 0)
         : heavy_light_decomposition(g.size()) {
-        std::vector<int> heavy_path(_size, -1), sub_size(_size, 1);
+        std::vector<int> heavy_path(_size, -1);
         std::stack<int> st;
         st.emplace(r);
         int pos = 0;
@@ -73,8 +73,8 @@ struct heavy_light_decomposition {
             int max_sub = 0;
             for (int u : g[v]) {
                 if (u == par[v]) continue;
-                sub_size[v] += sub_size[u];
-                if (max_sub < sub_size[u]) max_sub = sub_size[u], heavy_path[v] = u;
+                sub[v] += sub[u];
+                if (max_sub < sub[u]) max_sub = sub[u], heavy_path[v] = u;
             }
         }
         nxt[r] = r;
@@ -159,9 +159,25 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// 頂点 v を根とする部分木に対応する vid 区間 [l, r) を f(l, r) に渡す。
+    template <class F>
+    void for_subtree(int v, const F &f) const {
+        f(vid[v], vid[v] + sub[v]);
+    }
+
+    /// 頂点 v を根とする部分木（v を含む）に対応する vid 区間 [l, r) を返す。
+    std::pair<int, int> subtree(int v) const { return {vid[v], vid[v] + sub[v]}; }
+
+    /// 頂点 v を根とする部分木から v を除いた辺集合に対応する vid 区間 [l, r) を f(l, r) に渡す。
+    template <class F>
+    void for_subtree_edge(int v, const F &f) const {
+        if (sub[v] > 1) f(vid[v] + 1, vid[v] + sub[v]);
+    }
+
   private:
     int _size;
-    std::vector<int> vid, nxt, par, dep, inv;
+    std::vector<int> vid, nxt, par, dep, inv, sub;
 
-    heavy_light_decomposition(int n) : _size(n), vid(n, -1), nxt(n), par(n, -1), dep(n), inv(n) {}
+    heavy_light_decomposition(int n)
+        : _size(n), vid(n, -1), nxt(n), par(n, -1), dep(n), inv(n), sub(n, 1) {}
 };
