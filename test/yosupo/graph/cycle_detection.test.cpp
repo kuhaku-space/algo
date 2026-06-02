@@ -9,7 +9,7 @@ int main() {
     Graph<void> g(n);
     g.input_edge(m, 0);  // 有向辺。各辺 ID は入力順 0..m-1
 
-    auto cycle = cycle_detection(g);
+    auto cycle = cycle_detection_directed(g);
     if (cycle.empty()) {
         std::cout << -1 << '\n';
     } else {

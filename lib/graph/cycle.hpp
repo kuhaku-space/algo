@@ -8,7 +8,7 @@
 /// @return 閉路を構成する辺 ID の列（入力順で連結する）。閉路が無ければ空。
 /// @note 各辺 ID は `Graph::add_edge` の追加順（= 入力順）。多重辺・自己ループに対応。
 template <class T>
-std::vector<int> cycle_detection(const Graph<T> &g) {
+std::vector<int> cycle_detection_directed(const Graph<T> &g) {
     int n = g.size();
     enum { unvisited, on_stack, done };
     std::vector<int> state(n, unvisited);
