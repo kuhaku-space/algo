@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 
@@ -59,6 +60,72 @@ std::vector<int> cycle_detection(const Graph<T> &g) {
         }
     }
     return cycle;
+}
+
+/// @brief 無向グラフの閉路検出（閉路を構成する頂点列と辺 ID 列を返す）
+/// @return {頂点列, 辺 ID 列}。閉路が無ければ両方空。
+/// @note 無向辺は `Graph::add_edges` で追加し、往復 2 本に同じ ID が振られていること。
+///       自己ループは長さ 1、多重辺は長さ 2 の閉路として検出する。
+template <class T>
+std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const Graph<T> &g) {
+    int n = g.size();
+    // 自己ループは長さ 1 の閉路
+    for (int v = 0; v < n; ++v) {
+        for (auto &e : g[v]) {
+            if (e.to() == v) return {{v}, {e.id()}};
+        }
+    }
+
+    enum { unvisited, on_stack, done };
+    std::vector<int> state(n, unvisited);
+    // 探索パス: vertices[i] へ入ってきた辺 ID が in_edge[i]（根は -1）
+    std::vector<int> vertices, in_edge;
+    std::vector<int> cyc_v, cyc_e;
+
+    for (int s = 0; s < n && cyc_v.empty(); ++s) {
+        if (state[s] != unvisited) continue;
+        std::vector<int> idx_stack;
+        vertices.emplace_back(s);
+        in_edge.emplace_back(-1);
+        idx_stack.emplace_back(0);
+        state[s] = on_stack;
+        while (!vertices.empty()) {
+            int v = vertices.back();
+            if (idx_stack.back() < (int)g[v].size()) {
+                const auto &e = g[v][idx_stack.back()++];
+                int to = e.to();
+                int eid = e.id();
+                // 親へ戻る辺（来た辺そのもの）は無視。多重辺は ID が異なるので
+                // ここでは弾かれず、下の back edge 検出で長さ 2 の閉路になる。
+                if (eid == in_edge.back()) continue;
+                if (state[to] == unvisited) {
+                    state[to] = on_stack;
+                    vertices.emplace_back(to);
+                    in_edge.emplace_back(eid);
+                    idx_stack.emplace_back(0);
+                } else if (state[to] == on_stack) {
+                    // back edge 発見: パス上の to から現在の v までが閉路。
+                    int pos = (int)vertices.size() - 1;
+                    while (vertices[pos] != to) --pos;
+                    for (int i = pos; i < (int)vertices.size(); ++i) cyc_v.emplace_back(vertices[i]);
+                    for (int i = pos + 1; i < (int)vertices.size(); ++i)
+                        cyc_e.emplace_back(in_edge[i]);
+                    cyc_e.emplace_back(eid);
+                    break;
+                }
+            } else {
+                state[v] = done;
+                vertices.pop_back();
+                in_edge.pop_back();
+                idx_stack.pop_back();
+            }
+        }
+        if (cyc_v.empty()) {
+            vertices.clear();
+            in_edge.clear();
+        }
+    }
+    return {cyc_v, cyc_e};
 }
 
 /// @brief 閉路検出
