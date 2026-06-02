@@ -2,12 +2,13 @@
 #include <iostream>
 #include <vector>
 #include "graph/cycle.hpp"
+#include "graph/edge_input.hpp"
 
 int main() {
     int n, m;
     std::cin >> n >> m;
-    Graph<void> g(n);
-    g.input_edge(m, 0);  // 有向辺。各辺 ID は入力順 0..m-1
+    edge_input<void> ei(m, 0);
+    auto g = ei.to_directed_graph(n);  // 各辺 ID は入力順 0..m-1
 
     auto cycle = cycle_detection_directed(g);
     if (cycle.empty()) {

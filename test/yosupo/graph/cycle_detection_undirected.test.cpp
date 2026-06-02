@@ -2,12 +2,13 @@
 #include <iostream>
 #include <vector>
 #include "graph/cycle.hpp"
+#include "graph/edge_input.hpp"
 
 int main() {
     int n, m;
     std::cin >> n >> m;
-    Graph<void> g(n);
-    g.input_edges(m, 0);  // 無向辺。往復 2 本に同じ ID（= 入力辺番号）が振られる
+    edge_input<void> ei(m, 0);
+    auto g = ei.to_undirected_graph(n);  // 往復 2 本に同じ ID（= 入力辺番号）が振られる
 
     auto [vs, es] = cycle_detection_undirected(g);
     if (vs.empty()) {
