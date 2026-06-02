@@ -20,8 +20,9 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - **標準ヘッダは明示 include**（`<bits/stdc++.h>` や `template/template.hpp` に依存しない）。
 - **`namespace` は snake_case**。
 - C++20/23 機能を使う: SFINAE より **concept**、サイズは **`std::bit_ceil`**、円周率は **`std::numbers::pi`**。
-- コメントは **`///` 行コメント形式**で統一する。Doxygen も通常コメントも `///` を使い、
-  **`/** */` や `/* */` などのブロックコメントは使わない**。
+- コメントは行コメントで統一し、**ブロックコメント（`/** */` や `/* */`）は使わない**。
+  - **Doxygen ドキュメントコメントは `///`**（`@brief` などを付ける説明）。
+  - **通常の実装コメントは `//`**。
 - 浮動小数点→整数の丸めは **`std::llround`**（`T(x + 0.5)` は負値で誤る）。
 
 ## 注意
