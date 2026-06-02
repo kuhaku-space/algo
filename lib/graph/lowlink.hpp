@@ -24,34 +24,32 @@ struct low_link {
 
     void build() {
         int number = 0;
-        for (int i = 0; i < g.size(); i++) {
-            if (!used[i]) number = dfs(i, number, -1);
-        }
-    }
-
-    /// @param parent_edge_id index に入ってきた辺の ID（根は -1）。
-    ///        親へ戻る辺は「同じ ID の辺」で除外する。多重辺は ID が異なるため
-    ///        back edge として正しく扱われ、橋・関節点の誤判定を防ぐ。
-    int dfs(int index, int number, int parent_edge_id) {
-        used[index] = true;
-        ord[index] = number++;
-        low[index] = ord[index];
-        bool is_articulation_point = false;
-        int count = 0;
-        for (auto &e : g[index]) {
-            if (e.id() == parent_edge_id) continue;  // 親へ来た辺そのものは無視
-            if (!used[e.to()]) {
-                ++count;
-                number = dfs(e.to(), number, e.id());
-                low[index] = std::min(low[index], low[e.to()]);
-                is_articulation_point |= parent_edge_id != -1 && low[e.to()] >= ord[index];
-                if (ord[index] < low[e.to()]) bridges.emplace_back(e.id());
-            } else {
-                low[index] = std::min(low[index], ord[e.to()]);
+        // parent_edge_id: index に入ってきた辺の ID（根は -1）。
+        // 親へ戻る辺は「同じ ID の辺」で除外する。多重辺は ID が異なるため
+        // back edge として正しく扱われ、橋・関節点の誤判定を防ぐ。
+        auto dfs = [&](auto self, int index, int parent_edge_id) -> void {
+            used[index] = true;
+            ord[index] = number++;
+            low[index] = ord[index];
+            bool is_articulation_point = false;
+            int count = 0;
+            for (auto &e : g[index]) {
+                if (e.id() == parent_edge_id) continue;  // 親へ来た辺そのものは無視
+                if (!used[e.to()]) {
+                    ++count;
+                    self(self, e.to(), e.id());
+                    low[index] = std::min(low[index], low[e.to()]);
+                    is_articulation_point |= parent_edge_id != -1 && low[e.to()] >= ord[index];
+                    if (ord[index] < low[e.to()]) bridges.emplace_back(e.id());
+                } else {
+                    low[index] = std::min(low[index], ord[e.to()]);
+                }
             }
+            is_articulation_point |= parent_edge_id == -1 && count > 1;
+            if (is_articulation_point) articulation_points.emplace_back(index);
+        };
+        for (int i = 0; i < g.size(); i++) {
+            if (!used[i]) dfs(dfs, i, -1);
         }
-        is_articulation_point |= parent_edge_id == -1 && count > 1;
-        if (is_articulation_point) articulation_points.emplace_back(index);
-        return number;
     }
 };
