@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <iostream>
 #include <ranges>
 #include <type_traits>
@@ -43,8 +44,14 @@ struct Graph {
     Graph() : _size(), _edge_count(), edges() {}
     explicit Graph(int v) : _size(v), _edge_count(), edges(v) {}
 
-    const auto &operator[](int i) const { return edges[i]; }
-    auto &operator[](int i) { return edges[i]; }
+    const auto &operator[](int i) const {
+        assert(0 <= i && i < _size);
+        return edges[i];
+    }
+    auto &operator[](int i) {
+        assert(0 <= i && i < _size);
+        return edges[i];
+    }
     auto begin() const { return edges.begin(); }
     auto begin() { return edges.begin(); }
     auto end() const { return edges.end(); }
@@ -59,17 +66,26 @@ struct Graph {
     auto all_edges() { return edges | std::views::join; }
 
     /// @brief 各頂点の隣接リストにまとめて容量を予約する
-    void reserve(int from, int degree) { edges[from].reserve(degree); }
+    void reserve(int from, int degree) {
+        assert(0 <= from && from < _size);
+        edges[from].reserve(degree);
+    }
 
     void add_edge(const edge_type &e) {
+        assert(0 <= e.from() && e.from() < _size);
+        assert(0 <= e.to() && e.to() < _size);
         edges[e.from()].emplace_back(e);
         ++_edge_count;
     }
     void add_edge(int from, int to, weight_type weight = weight_type(1)) {
+        assert(0 <= from && from < _size);
+        assert(0 <= to && to < _size);
         edges[from].emplace_back(from, to, weight);
         ++_edge_count;
     }
     void add_edges(int from, int to, weight_type weight = weight_type(1)) {
+        assert(0 <= from && from < _size);
+        assert(0 <= to && to < _size);
         edges[from].emplace_back(from, to, weight);
         edges[to].emplace_back(to, from, weight);
         _edge_count += 2;
