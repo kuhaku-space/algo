@@ -85,18 +85,6 @@ Graph<T> make_directed_acyclic_graph(const Graph<T> &g, const std::vector<int> &
     return res;
 }
 
-template <>
-Graph<void> make_directed_acyclic_graph(const Graph<void> &g, const std::vector<int> &v) {
-    Graph<void> res(*std::max_element(v.begin(), v.end()) + 1);
-    for (auto &es : g) {
-        for (auto &e : es) {
-            int x = v[e.from()], y = v[e.to()];
-            if (x != y) res.add_edge(x, y);
-        }
-    }
-    return res;
-}
-
 internal::graph_csr make_directed_acyclic_graph(internal::graph_csr &g, const std::vector<int> &v) {
     int n = *std::max_element(v.begin(), v.end()) + 1;
     internal::graph_csr res(n);
