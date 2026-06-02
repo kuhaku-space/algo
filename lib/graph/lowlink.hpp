@@ -8,10 +8,10 @@ template <class T>
 struct low_link {
     low_link(const Graph<T> &_g) : low_link(_g, _g.size()) {}
 
-    /// @brief Get the articulation points object
-    auto get_articulation_points() { return articulation_points; }
-    /// @brief Get the bridges object
-    auto get_bridges() { return bridges; }
+    /// @brief 関節点の一覧を取得する
+    const std::vector<int> &get_articulation_points() const { return articulation_points; }
+    /// @brief 橋の一覧を取得する（各辺は e.id() で入力辺番号を取得できる）
+    const std::vector<typename Graph<T>::edge_type> &get_bridges() const { return bridges; }
 
   private:
     const Graph<T> &g;
@@ -29,24 +29,28 @@ struct low_link {
         }
     }
 
-    int dfs(int index, int number, int parent) {
+    /// @param parent_edge_id index に入ってきた辺の ID（根は -1）。
+    ///        親へ戻る辺は「同じ ID の辺」で除外する。多重辺は ID が異なるため
+    ///        back edge として正しく扱われ、橋・関節点の誤判定を防ぐ。
+    int dfs(int index, int number, int parent_edge_id) {
         used[index] = true;
         ord[index] = number++;
         low[index] = ord[index];
         bool is_articulation_point = false;
         int count = 0;
         for (auto &e : g[index]) {
+            if (e.id() == parent_edge_id) continue;  // 親へ来た辺そのものは無視
             if (!used[e.to()]) {
                 ++count;
-                number = dfs(e.to(), number, index);
+                number = dfs(e.to(), number, e.id());
                 low[index] = std::min(low[index], low[e.to()]);
-                is_articulation_point |= ~parent && low[e.to()] >= ord[index];
+                is_articulation_point |= parent_edge_id != -1 && low[e.to()] >= ord[index];
                 if (ord[index] < low[e.to()]) bridges.emplace_back(e);
-            } else if (e.to() != parent) {
+            } else {
                 low[index] = std::min(low[index], ord[e.to()]);
             }
         }
-        is_articulation_point |= parent == -1 && count > 1;
+        is_articulation_point |= parent_edge_id == -1 && count > 1;
         if (is_articulation_point) articulation_points.emplace_back(index);
         return number;
     }
