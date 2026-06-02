@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <ranges>
 #include <type_traits>
 #include <vector>
 
@@ -39,8 +40,8 @@ struct Graph {
   public:
     using edge_type = typename Graph<T>::_edge;
 
-    Graph() : _size(), edges() {}
-    explicit Graph(int v) : _size(v), edges(v) {}
+    Graph() : _size(), _edge_count(), edges() {}
+    explicit Graph(int v) : _size(v), _edge_count(), edges(v) {}
 
     const auto &operator[](int i) const { return edges[i]; }
     auto &operator[](int i) { return edges[i]; }
@@ -50,13 +51,28 @@ struct Graph {
     auto end() { return edges.end(); }
     constexpr int size() const { return _size; }
 
-    void add_edge(const edge_type &e) { edges[e.from()].emplace_back(e); }
+    /// @brief 辺数（有向辺として数える。無向辺は 2 本としてカウントされる）
+    constexpr int edge_count() const { return _edge_count; }
+
+    /// @brief 全辺を平坦に走査する view
+    auto all_edges() const { return edges | std::views::join; }
+    auto all_edges() { return edges | std::views::join; }
+
+    /// @brief 各頂点の隣接リストにまとめて容量を予約する
+    void reserve(int from, int degree) { edges[from].reserve(degree); }
+
+    void add_edge(const edge_type &e) {
+        edges[e.from()].emplace_back(e);
+        ++_edge_count;
+    }
     void add_edge(int from, int to, weight_type weight = weight_type(1)) {
         edges[from].emplace_back(from, to, weight);
+        ++_edge_count;
     }
     void add_edges(int from, int to, weight_type weight = weight_type(1)) {
         edges[from].emplace_back(from, to, weight);
         edges[to].emplace_back(to, from, weight);
+        _edge_count += 2;
     }
 
     void input_edge(int m, int base = 1) {
@@ -87,6 +103,6 @@ struct Graph {
     }
 
   private:
-    int _size;
+    int _size, _edge_count;
     std::vector<std::vector<edge_type>> edges;
 };

@@ -12,9 +12,7 @@ std::vector<int> scc(const Graph<T> &g) {
     std::vector<bool> used(n);
 
     internal::graph_csr rg(n);
-    for (auto &es : g) {
-        for (auto &e : es) rg.add_edge(e.to(), e.from());
-    }
+    for (auto &e : g.all_edges()) rg.add_edge(e.to(), e.from());
     rg.build();
 
     auto dfs = [&](auto self, int index) {
@@ -76,11 +74,9 @@ std::vector<int> scc(const internal::graph_csr &g) {
 template <class T>
 Graph<T> make_directed_acyclic_graph(const Graph<T> &g, const std::vector<int> &v) {
     Graph<T> res(*std::max_element(v.begin(), v.end()) + 1);
-    for (auto &es : g) {
-        for (auto &e : es) {
-            int x = v[e.from()], y = v[e.to()];
-            if (x != y) res.add_edge(x, y, e.weight());
-        }
+    for (auto &e : g.all_edges()) {
+        int x = v[e.from()], y = v[e.to()];
+        if (x != y) res.add_edge(x, y, e.weight());
     }
     return res;
 }
