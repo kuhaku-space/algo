@@ -23,26 +23,27 @@ struct Graph {
     using weight_type = std::conditional_t<std::is_void_v<T>, Unweighted, T>;
 
     struct _edge {
-        constexpr _edge() : _from(), _to(), _weight() {}
-        constexpr _edge(int from, int to, weight_type weight)
-            : _from(from), _to(to), _weight(weight) {}
+        constexpr _edge() : _from(), _to(), _id(-1), _weight() {}
+        constexpr _edge(int from, int to, weight_type weight, int id = -1)
+            : _from(from), _to(to), _id(id), _weight(weight) {}
         constexpr bool operator<(const _edge &rhs) const { return weight() < rhs.weight(); }
         constexpr bool operator>(const _edge &rhs) const { return rhs < *this; }
 
         constexpr int from() const { return _from; }
         constexpr int to() const { return _to; }
+        constexpr int id() const { return _id; }
         constexpr weight_type weight() const { return _weight; }
 
       private:
-        int _from, _to;
+        int _from, _to, _id;
         [[no_unique_address]] weight_type _weight;
     };
 
   public:
     using edge_type = typename Graph<T>::_edge;
 
-    Graph() : _size(), _edge_count(), edges() {}
-    explicit Graph(int v) : _size(v), _edge_count(), edges(v) {}
+    Graph() : _size(), _edge_count(), _num_edges(), edges(), edge_list_() {}
+    explicit Graph(int v) : _size(v), _edge_count(), _num_edges(), edges(v), edge_list_() {}
 
     const auto &operator[](int i) const {
         assert(0 <= i && i < _size);
@@ -58,8 +59,17 @@ struct Graph {
     auto end() { return edges.end(); }
     constexpr int size() const { return _size; }
 
-    /// @brief 辺数（有向辺として数える。無向辺は 2 本としてカウントされる）
+    /// @brief 格納された有向辺数（無向辺は 2 本としてカウントされる）
     constexpr int edge_count() const { return _edge_count; }
+
+    /// @brief 辺 ID の個数（add_edge / add_edges の呼び出し回数）
+    constexpr int num_edges() const { return _num_edges; }
+
+    /// @brief ID から辺を取得する（無向辺は from→to 側を返す）
+    const edge_type &get_edge(int id) const {
+        assert(0 <= id && id < _num_edges);
+        return edge_list_[id];
+    }
 
     /// @brief 全辺を平坦に走査する view
     auto all_edges() const { return edges | std::views::join; }
@@ -71,23 +81,26 @@ struct Graph {
         edges[from].reserve(degree);
     }
 
-    void add_edge(const edge_type &e) {
-        assert(0 <= e.from() && e.from() < _size);
-        assert(0 <= e.to() && e.to() < _size);
-        edges[e.from()].emplace_back(e);
-        ++_edge_count;
-    }
+    /// @brief 有向辺を追加する。重みは e のものを使い、ID は新たに振り直す。
+    void add_edge(const edge_type &e) { add_edge(e.from(), e.to(), e.weight()); }
+    /// @brief 有向辺を追加する。
     void add_edge(int from, int to, weight_type weight = weight_type(1)) {
         assert(0 <= from && from < _size);
         assert(0 <= to && to < _size);
-        edges[from].emplace_back(from, to, weight);
+        int id = _num_edges++;
+        edge_type e(from, to, weight, id);
+        edges[from].emplace_back(e);
+        edge_list_.emplace_back(e);
         ++_edge_count;
     }
+    /// @brief 無向辺を追加する。往復 2 本には同じ ID を振る。
     void add_edges(int from, int to, weight_type weight = weight_type(1)) {
         assert(0 <= from && from < _size);
         assert(0 <= to && to < _size);
-        edges[from].emplace_back(from, to, weight);
-        edges[to].emplace_back(to, from, weight);
+        int id = _num_edges++;
+        edges[from].emplace_back(from, to, weight, id);
+        edges[to].emplace_back(to, from, weight, id);
+        edge_list_.emplace_back(from, to, weight, id);
         _edge_count += 2;
     }
 
@@ -119,6 +132,7 @@ struct Graph {
     }
 
   private:
-    int _size, _edge_count;
+    int _size, _edge_count, _num_edges;
     std::vector<std::vector<edge_type>> edges;
+    std::vector<edge_type> edge_list_;  // ID 順の辺リスト（ID→辺の逆引き）
 };
