@@ -54,8 +54,8 @@ struct edge_input {
     auto end() const { return edges.end(); }
 
     /// @brief 有向辺として graph に流し込む（add_edge を呼ぶ）
-    template <class Graph>
-    void build_directed(Graph &g) const {
+    template <class G>
+    void build_directed(G &g) const {
         for (auto &e : edges) {
             if constexpr (weighted) g.add_edge(e.from, e.to, e.weight);
             else g.add_edge(e.from, e.to);
@@ -63,12 +63,26 @@ struct edge_input {
     }
 
     /// @brief 無向辺として graph に流し込む（add_edges を呼ぶ）
-    template <class Graph>
-    void build_undirected(Graph &g) const {
+    template <class G>
+    void build_undirected(G &g) const {
         for (auto &e : edges) {
             if constexpr (weighted) g.add_edges(e.from, e.to, e.weight);
             else g.add_edges(e.from, e.to);
         }
+    }
+
+    /// @brief n 頂点の有向 Graph<T> を構築して返す
+    Graph<T> to_directed_graph(int n) const {
+        Graph<T> g(n);
+        build_directed(g);
+        return g;
+    }
+
+    /// @brief n 頂点の無向 Graph<T> を構築して返す
+    Graph<T> to_undirected_graph(int n) const {
+        Graph<T> g(n);
+        build_undirected(g);
+        return g;
     }
 
   private:

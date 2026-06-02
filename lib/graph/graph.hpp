@@ -93,7 +93,13 @@ struct Graph {
         edge_list_.emplace_back(e);
         ++_edge_count;
     }
-    /// @brief 無向辺を追加する。往復 2 本には同じ ID を振る。
+    /// @brief 無向辺を追加する。往復 2 本（from→to, to→from）には同じ ID を振る。
+    /// @note 「add_edges 1 回 = 論理辺 1 個 = ID 1 個」で、ID は入力辺番号に一致する
+    ///       （ACL mf_graph が add_edge 1 回に 1 ID を割り当てるのと同じ思想）。
+    ///       この方式により無向グラフの辺 ID アルゴリズムが正しく成立する:
+    ///       - 橋・閉路検出の出力を入力辺番号でそのまま返せる
+    ///       - 多重辺は別 ID になるため長さ 2 の閉路として検出される
+    ///       - 単一辺の往復は同 ID なので「来た辺そのもの」として親辺除外できる
     void add_edges(int from, int to, weight_type weight = weight_type(1)) {
         assert(0 <= from && from < _size);
         assert(0 <= to && to < _size);
