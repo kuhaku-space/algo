@@ -1,6 +1,65 @@
 #pragma once
+#include <algorithm>
 #include <vector>
 #include "graph/graph.hpp"
+
+/// @brief 有向グラフの閉路検出（閉路を構成する辺 ID 列を返す）
+/// @return 閉路を構成する辺 ID の列（入力順で連結する）。閉路が無ければ空。
+/// @note 各辺 ID は `Graph::add_edge` の追加順（= 入力順）。多重辺・自己ループに対応。
+template <class T>
+std::vector<int> cycle_detection(const Graph<T> &g) {
+    int n = g.size();
+    enum { unvisited, on_stack, done };
+    std::vector<int> state(n, unvisited);
+    // 現在の探索パス: vertices[i] へ入ってきた辺 ID が in_edge[i]（根は -1）
+    std::vector<int> vertices, in_edge;
+    std::vector<int> cycle;
+
+    // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）
+    for (int s = 0; s < n && cycle.empty(); ++s) {
+        if (state[s] != unvisited) continue;
+        std::vector<int> idx_stack;  // 各頂点の隣接リスト走査位置
+        vertices.emplace_back(s);
+        in_edge.emplace_back(-1);
+        idx_stack.emplace_back(0);
+        state[s] = on_stack;
+        while (!vertices.empty()) {
+            int v = vertices.back();
+            if (idx_stack.back() < (int)g[v].size()) {
+                const auto &e = g[v][idx_stack.back()++];
+                int to = e.to();
+                int eid = e.id();
+                if (state[to] == unvisited) {
+                    state[to] = on_stack;
+                    vertices.emplace_back(to);
+                    in_edge.emplace_back(eid);
+                    idx_stack.emplace_back(0);
+                } else if (state[to] == on_stack) {
+                    // back edge 発見: パス上の to から現在の v までが閉路。
+                    // vertices 上で to の位置を探し、そこから末尾までの in_edge と
+                    // 今の辺 e を連結する。
+                    int pos = (int)vertices.size() - 1;
+                    while (vertices[pos] != to) --pos;
+                    for (int i = pos + 1; i < (int)vertices.size(); ++i)
+                        cycle.emplace_back(in_edge[i]);
+                    cycle.emplace_back(eid);
+                    break;
+                }
+                // state[to] == done なら無視
+            } else {
+                state[v] = done;
+                vertices.pop_back();
+                in_edge.pop_back();
+                idx_stack.pop_back();
+            }
+        }
+        if (cycle.empty()) {
+            vertices.clear();
+            in_edge.clear();
+        }
+    }
+    return cycle;
+}
 
 /// @brief 閉路検出
 template <class T>
