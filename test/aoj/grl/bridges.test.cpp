@@ -12,9 +12,9 @@ int main(void) {
     g.input_edges(m, 0);
 
     low_link llink(g);
-    auto bridges = llink.get_bridges();
     std::vector<std::pair<int, int>> ans;
-    for (auto &e : bridges) {
+    for (int id : llink.get_bridges()) {
+        auto &e = g.get_edge(id);
         if (e.from() < e.to()) ans.emplace_back(e.from(), e.to());
         else ans.emplace_back(e.to(), e.from());
     }

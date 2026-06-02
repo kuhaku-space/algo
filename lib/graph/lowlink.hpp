@@ -8,17 +8,17 @@ template <class T>
 struct low_link {
     low_link(const Graph<T> &_g) : low_link(_g, _g.size()) {}
 
-    /// @brief 関節点の一覧を取得する
+    /// @brief 関節点（頂点番号）の一覧を取得する
     const std::vector<int> &get_articulation_points() const { return articulation_points; }
-    /// @brief 橋の一覧を取得する（各辺は e.id() で入力辺番号を取得できる）
-    const std::vector<typename Graph<T>::edge_type> &get_bridges() const { return bridges; }
+    /// @brief 橋の一覧を辺 ID で取得する（頂点は g.get_edge(id) で引ける）
+    const std::vector<int> &get_bridges() const { return bridges; }
 
   private:
     const Graph<T> &g;
     std::vector<int> ord, low;
     std::vector<bool> used;
-    std::vector<int> articulation_points;               // 関節点
-    std::vector<typename Graph<T>::edge_type> bridges;  // 橋
+    std::vector<int> articulation_points;  // 関節点（頂点番号）
+    std::vector<int> bridges;              // 橋（辺 ID）
 
     low_link(const Graph<T> &_g, int n) : g(_g), ord(n), low(n), used(n) { build(); }
 
@@ -45,7 +45,7 @@ struct low_link {
                 number = dfs(e.to(), number, e.id());
                 low[index] = std::min(low[index], low[e.to()]);
                 is_articulation_point |= parent_edge_id != -1 && low[e.to()] >= ord[index];
-                if (ord[index] < low[e.to()]) bridges.emplace_back(e);
+                if (ord[index] < low[e.to()]) bridges.emplace_back(e.id());
             } else {
                 low[index] = std::min(low[index], ord[e.to()]);
             }
