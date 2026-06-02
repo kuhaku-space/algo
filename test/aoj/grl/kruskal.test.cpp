@@ -8,8 +8,7 @@ int main(void) {
     int n, m;
     std::cin >> n >> m;
     edge_input<int> ei(m, 0);
-    Graph<int> g(n);
-    ei.build_undirected(g);
+    auto g = ei.to_undirected_graph(n);
     auto v = kruskal(g);
 
     int ans = 0;
