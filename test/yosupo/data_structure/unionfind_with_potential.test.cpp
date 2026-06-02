@@ -2,14 +2,14 @@
 #include <iostream>
 #include <vector>
 #include "math/modint.hpp"
-#include "data_structure/weighted_union_find.hpp"
+#include "data_structure/potentialized_union_find.hpp"
 
 using Mint = modint998;
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    weighted_union_find<Mint> uf(n);
+    potentialized_union_find<Mint> uf(n);
     while (q--) {
         int t;
         std::cin >> t;

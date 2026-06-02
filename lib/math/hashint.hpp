@@ -31,7 +31,7 @@ struct HashInt {
         return *this;
     }
     constexpr HashInt &operator/=(const HashInt &rhs) noexcept {
-        *this *= rhs.inverse();
+        *this *= rhs.inv();
         return *this;
     }
 
@@ -76,7 +76,7 @@ struct HashInt {
     }
     friend std::ostream &operator<<(std::ostream &os, const HashInt &rhs) { return os << rhs.x; }
 
-    constexpr HashInt inverse() const noexcept {
+    constexpr HashInt inv() const noexcept {
         std::int64_t a = x, b = mod, u = 1, v = 0, t = 0, tmp = 0;
         while (b > 0) {
             t = a / b;
