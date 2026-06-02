@@ -3,7 +3,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
-#include "data_structure/weighted_union_find.hpp"
+#include "data_structure/potentialized_union_find.hpp"
 
 std::tuple<std::string, std::string, int> input() {
     int tmp, x;
@@ -20,7 +20,7 @@ int main(void) {
         if (!n) break;
         std::unordered_map<std::string, int> mp;
         int len = 0;
-        weighted_union_find<int> uf(n * 2);
+        potentialized_union_find<int> uf(n * 2);
         bool ans = true;
         while (n--) {
             auto [s, t, x] = input();

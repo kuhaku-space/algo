@@ -1,11 +1,11 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B
-#include "data_structure/weighted_union_find.hpp"
+#include "data_structure/potentialized_union_find.hpp"
 #include <iostream>
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    weighted_union_find<int> uf(n);
+    potentialized_union_find<int> uf(n);
     while (q--) {
         int com;
         std::cin >> com;
