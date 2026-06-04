@@ -3,10 +3,8 @@
 #include "graph/graph.hpp"
 #include "internal/internal_csr.hpp"
 
-/**
- * @brief HL分解
- * @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
- */
+/// @brief HL分解
+/// @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
 struct heavy_light_decomposition {
     heavy_light_decomposition() = default;
     template <class T>
