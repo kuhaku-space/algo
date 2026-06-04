@@ -23,7 +23,7 @@ int main(void) {
     };
     f(f, 0, -1);
 
-    auxiliary_tree_builder at(g);
+    auxiliary_tree at(g);
     int q;
     std::cin >> q;
     while (q--) {
@@ -37,7 +37,7 @@ int main(void) {
         auto dfs = [&](auto self, int v, int p) -> void {
             for (auto e : tr[v]) {
                 if (e.to() == p) continue;
-                hld.for_each_edge(tr.vertex(v), tr.vertex(e.to()), g);
+                hld.for_each_edge(tr.get_vertex(v), tr.get_vertex(e.to()), g);
                 self(self, e.to(), v);
             }
         };
