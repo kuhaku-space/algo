@@ -25,7 +25,7 @@ int main(void) {
         if (!pn.is_prime(p)) continue;
         for (int i = 1; i * p <= n; ++i) a[i] -= a[i * p];
     }
-    for (int i = 1; i <= n; ++i) std::cout << a[i] << (i == n ? '\n' : ' ');
+    for (int i = 1; i <= n; ++i) std::cout << a[i] << " \n"[i == n];
 
     return 0;
 }
