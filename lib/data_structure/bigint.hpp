@@ -21,6 +21,10 @@ struct BigInt {
     static constexpr int BASE_DIGITS = 6;
     /// 除数がこの桁数以下なら Burnikel-Ziegler 再帰をやめて古典除算に切り替える。
     static constexpr int BZ_THRESHOLD = 64;
+    /// 乗算で 2 素数 NTT (convolution_ll2) を使える最大畳み込み長。
+    /// 係数積は高々 (BASE-1)^2 * len なので、これが MOD1*MOD3 (約 3.5e17) 未満となる
+    /// len の上限。これを超える巨大乗算のみ 3 素数版 (convolution_ll) へ落とす。
+    static constexpr int MUL_2PRIME_MAX_LEN = 354659;
 
     BigInt() : data(1, 0), sign(false) {}
     explicit BigInt(std::int64_t x) : data(), sign(x < 0) {
@@ -187,14 +191,18 @@ struct BigInt {
         }
         trim(a);
     }
-    /// a *= b (絶対値同士の乗算)。畳み込みは真値を返す convolution_ll を使う。
+    /// a *= b (絶対値同士の乗算)。畳み込みは真値を返す convolution を使う。
+    /// 畳み込み長が MUL_2PRIME_MAX_LEN 以下なら 2 素数版 (convolution_ll2) で十分速く、
+    /// それを超える巨大乗算のみ 3 素数版 (convolution_ll) へフォールバックする。
     static void mul(std::vector<int> &a, const std::vector<int> &b) {
         if ((a.size() == 1 && a[0] == 0) || (b.size() == 1 && b[0] == 0)) {
             a.assign(1, 0);
             return;
         }
         std::vector<std::int64_t> x(a.begin(), a.end()), y(b.begin(), b.end());
-        std::vector<std::int64_t> c = convolution_ll(x, y);
+        std::vector<std::int64_t> c = (x.size() + y.size() <= MUL_2PRIME_MAX_LEN)
+                                          ? convolution_ll2(x, y)
+                                          : convolution_ll(x, y);
         std::int64_t carry = 0;
         a.assign(c.size() + 1, 0);
         for (int i = 0; i < (int)c.size(); ++i) {

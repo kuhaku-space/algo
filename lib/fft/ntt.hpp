@@ -89,6 +89,42 @@ std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a, con
     return c;
 }
 
+/// @brief 係数積が小さいときの畳み込み (2 つの NTT + CRT)
+/// @details MOD1 (= 754974721) と MOD3 (= 469762049) の 2 素数だけで畳み込み、
+///          CRT で復元する。NTT が 1 回少ない分 convolution_ll より速い。
+/// @warning 真値が MOD1 * MOD3 (約 3.5e17) 未満であること。畳み込み長 L について
+///          各係数は高々 (max|a_i|)*(max|b_j|)*L になるので、これがこの上限を超えない
+///          範囲でのみ使う (例: 各係数が 10^5 未満なら長さ 2^24 まで安全)。
+///          係数は非負であること (CRT 復元は [0, MOD1*MOD3) を返す)。
+/// @note 畳み込み後の長さは 2^24 (約 1.6e7) 以下でなければならない。
+/// @param a 入力多項式の係数列
+/// @param b 入力多項式の係数列
+/// @return std::vector<std::int64_t> a と b の畳み込み (長さ a.size() + b.size() - 1)
+std::vector<std::int64_t> convolution_ll2(const std::vector<std::int64_t> &a, const std::vector<std::int64_t> &b) {
+    int n = int(a.size()), m = int(b.size());
+    if (!n || !m) return {};
+
+    using C = internal::convolution_mod_constants;
+    assert(n + m - 1 <= (1 << C::MAX_AB_BIT));
+    // MOD3 を法とした MOD1 の逆元 (CRT 復元用)。
+    static constexpr std::int64_t inv1 = internal::inv_gcd(C::MOD1, C::MOD3).second;
+
+    auto c1 = convolution<C::MOD1>(a, b);
+    auto c3 = convolution<C::MOD3>(a, b);
+
+    std::vector<std::int64_t> c(n + m - 1);
+    for (int i = 0; i < n + m - 1; i++) {
+        // x ≡ c1 (mod MOD1), x ≡ c3 (mod MOD3) を満たす [0, MOD1*MOD3) の値を求める。
+        // x = c1 + MOD1 * t, t = (c3 - c1) * inv1 mod MOD3。
+        std::int64_t t = (c3[i] - c1[i]) % (std::int64_t)C::MOD3;
+        if (t < 0) t += (std::int64_t)C::MOD3;
+        t = (std::int64_t)((__int128)t * inv1 % (std::int64_t)C::MOD3);
+        c[i] = c1[i] + (std::int64_t)C::MOD1 * t;
+    }
+
+    return c;
+}
+
 /// @brief 任意 mod 畳み込み (3 つの NTT + Garner 法)
 /// @details 3 つの NTT-friendly 素数で畳み込み、Garner 法で復元した値を mod で取る。
 ///          mod は NTT-friendly でなくてもよい。
