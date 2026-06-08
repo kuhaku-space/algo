@@ -36,7 +36,7 @@ int main(void) {
     std::vector<Mint> c(n);
     for (int i = 0; i < n; ++i) c[i] = a[i] * b[i];
     ifwt(c);
-    for (int i = 0; i < n; ++i) std::cout << c[i] << (i == n - 1 ? '\n' : ' ');
+    for (int i = 0; i < n; ++i) std::cout << c[i] << " \n"[i == n - 1];
 
     return 0;
 }

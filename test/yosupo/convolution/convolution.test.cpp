@@ -10,7 +10,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     for (auto &e : b) std::cin >> e;
     auto ans = convolution(a, b);
-    for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
+    for (int i = 0; i < n + m - 1; ++i) std::cout << ans[i] << " \n"[i == n + m - 2];
 
     return 0;
 }
