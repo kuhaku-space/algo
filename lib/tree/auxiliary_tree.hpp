@@ -1,6 +1,5 @@
 #pragma once
 #include <algorithm>
-#include <stack>
 #include <vector>
 #include "graph/graph.hpp"
 #include "tree/euler_tour.hpp"
@@ -47,11 +46,12 @@ struct auxiliary_tree {
 
         int m = ord.size();
         std::vector<int> par(m);
-        std::stack<int> st;
+        std::vector<int> stk;
+        stk.reserve(m);
         for (int i = 0; i < m; ++i) {
-            while (!st.empty() && et.right(ord[st.top()]) <= et.left(ord[i])) st.pop();
-            par[i] = (st.empty() ? -1 : st.top());
-            st.emplace(i);
+            while (!stk.empty() && et.right(ord[stk.back()]) <= et.left(ord[i])) stk.pop_back();
+            par[i] = (stk.empty() ? -1 : stk.back());
+            stk.emplace_back(i);
         }
         std::vector<bool> f(m);
         int x = 0;

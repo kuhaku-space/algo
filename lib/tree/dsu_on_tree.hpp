@@ -45,15 +45,16 @@ struct dsu_on_tree {
             int v, idx;
             bool heavy_done, pending_clear;
         };
-        std::vector<frame> st;
-        st.push_back({root, 0, false, false});
-        while (!st.empty()) {
-            frame &f = st.back();
+        std::vector<frame> stk;
+        stk.reserve(size);
+        stk.push_back({root, 0, false, false});
+        while (!stk.empty()) {
+            frame &f = stk.back();
             int v = f.v, hp = heavy_path[v];
             if (hp == -1) {
                 for (int i = left[v]; i < right[v]; ++i) query(query_order[i]);
                 rem(v);
-                st.pop_back();
+                stk.pop_back();
                 continue;
             }
             // 直前に light 子から戻っていれば、その都度 clear する
@@ -67,21 +68,21 @@ struct dsu_on_tree {
                 int u = g[v][f.idx++].to();
                 if (u == par[v] || u == hp) continue;
                 f.pending_clear = true;
-                st.push_back({u, 0, false, false});
+                stk.push_back({u, 0, false, false});
                 descended = true;
                 break;
             }
             if (descended) continue;  // light 子の dsu へ降りる
             if (!f.heavy_done) {
                 f.heavy_done = true;
-                st.push_back({hp, 0, false, false});
+                stk.push_back({hp, 0, false, false});
                 continue;
             }
             // heavy 子の処理完了後: 残り区間を query して rem
             for (int i = left[v]; i < left[hp]; ++i) query(query_order[i]);
             for (int i = right[hp]; i < right[v]; ++i) query(query_order[i]);
             rem(v);
-            st.pop_back();
+            stk.pop_back();
         }
     }
 
@@ -93,19 +94,20 @@ struct dsu_on_tree {
     // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
     // 帰りがけに部分木サイズを集計し、最大の子を heavy_path に記録する。
     void dfs_sz(int v) {
-        std::vector<std::pair<int, int>> st;  // (頂点, 隣接走査位置)
+        std::vector<std::pair<int, int>> stk;  // (頂点, 隣接走査位置)
+        stk.reserve(size);
         std::vector<int> max_sub(size, 0);
-        st.emplace_back(v, 0);
-        while (!st.empty()) {
-            auto &[u, idx] = st.back();
+        stk.emplace_back(v, 0);
+        while (!stk.empty()) {
+            auto &[u, idx] = stk.back();
             if (idx < (int)g[u].size()) {
                 int w = g[u][idx++].to();
                 if (w == par[u]) continue;
                 par[w] = u;
-                st.emplace_back(w, 0);
+                stk.emplace_back(w, 0);
             } else {
                 int p = par[u];
-                st.pop_back();
+                stk.pop_back();
                 if (p != -1) {
                     sub[p] += sub[u];
                     if (chmax(max_sub[p], sub[u])) heavy_path[p] = u;
@@ -121,10 +123,11 @@ struct dsu_on_tree {
             int v, idx;
             bool entered;
         };
-        std::vector<frame> st;
-        st.push_back({v, 0, false});
-        while (!st.empty()) {
-            frame &f = st.back();
+        std::vector<frame> stk;
+        stk.reserve(size);
+        stk.push_back({v, 0, false});
+        while (!stk.empty()) {
+            frame &f = stk.back();
             int u = f.v;
             if (!f.entered) {
                 f.entered = true;
@@ -134,11 +137,11 @@ struct dsu_on_tree {
                 len += query_size[u];
                 if (heavy_path[u] == -1) {
                     right[u] = len;
-                    st.pop_back();
+                    stk.pop_back();
                     continue;
                 }
                 // heavy 子を最初に処理する
-                st.push_back({heavy_path[u], 0, false});
+                stk.push_back({heavy_path[u], 0, false});
                 continue;
             }
             // heavy 子の処理が終わった後、light 子を左から順に処理する
@@ -147,11 +150,11 @@ struct dsu_on_tree {
             while (f.idx < (int)g[u].size()) {
                 int w = g[u][f.idx++].to();
                 if (w == par[u] || w == hp) continue;
-                st.push_back({w, 0, false});
+                stk.push_back({w, 0, false});
                 descended = true;
                 break;
             }
-            if (!descended) st.pop_back();
+            if (!descended) stk.pop_back();
         }
     }
 };

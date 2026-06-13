@@ -20,6 +20,7 @@ std::vector<int> scc(const Graph<T> &g) {
     // stk には頂点と隣接リストの走査位置を積む。子を処理し終えた後に
     // order へ push することで、再帰版と同じ帰りがけ順を再現する。
     std::vector<std::pair<int, int>> stk;
+    stk.reserve(n);
     for (int s = 0; s < n; ++s) {
         if (used[s]) continue;
         used[s] = true;
@@ -42,6 +43,7 @@ std::vector<int> scc(const Graph<T> &g) {
 
     // 逆グラフ上の反復 DFS で連結成分番号を振る
     std::vector<int> rstk;
+    rstk.reserve(n);
     int ptr = 0;
     for (auto i : order) {
         if (~comp[i]) continue;
@@ -78,6 +80,7 @@ std::vector<int> scc(const internal::graph_csr &g) {
     // order へ push することで、再帰版と同じ帰りがけ順を再現する。
     using cit = std::vector<int>::const_iterator;
     std::vector<std::pair<int, std::pair<cit, cit>>> stk;
+    stk.reserve(n);
     for (int s = 0; s < n; ++s) {
         if (used[s]) continue;
         used[s] = true;
@@ -100,6 +103,7 @@ std::vector<int> scc(const internal::graph_csr &g) {
 
     // 逆グラフ上の反復 DFS で連結成分番号を振る
     std::vector<int> rstk;
+    rstk.reserve(n);
     int ptr = 0;
     for (auto i : order) {
         if (~comp[i]) continue;

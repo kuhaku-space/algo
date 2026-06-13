@@ -1,5 +1,4 @@
 #pragma once
-#include <stack>
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
@@ -41,16 +40,17 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
     std::vector<int> res;
     // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
     // 行きがけ順を保つため (頂点, 親) を積み、子は左から処理する。
-    std::stack<std::pair<int, int>> st;
-    st.emplace(r, -1);
-    while (!st.empty()) {
-        auto [index, parent] = st.top();
-        st.pop();
+    std::vector<std::pair<int, int>> stk;
+    stk.reserve(g.size());
+    stk.emplace_back(r, -1);
+    while (!stk.empty()) {
+        auto [index, parent] = stk.back();
+        stk.pop_back();
         res.emplace_back(index);
         // 元の左→右の行きがけ順にするため逆順に積む
         for (auto it = g[index].rbegin(); it != g[index].rend(); ++it) {
             if (it->to() == parent) continue;
-            st.emplace(it->to(), index);
+            stk.emplace_back(it->to(), index);
         }
     }
     return res;
@@ -60,16 +60,17 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
 template <class T, class U = T>
 std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
     std::vector<U> res(g.size(), -1);
-    std::stack<int> st;
+    std::vector<int> stk;
+    stk.reserve(g.size());
     res[r] = 0;
-    st.emplace(r);
-    while (!st.empty()) {
-        auto index = st.top();
-        st.pop();
+    stk.emplace_back(r);
+    while (!stk.empty()) {
+        auto index = stk.back();
+        stk.pop_back();
         for (auto &e : g[index]) {
             if (res[e.to()] != -1) continue;
             res[e.to()] = res[index] + e.weight();
-            st.emplace(e.to());
+            stk.emplace_back(e.to());
         }
     }
     return res;
@@ -79,16 +80,17 @@ std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
 template <class T>
 std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size(), -1);
-    std::stack<int> st;
+    std::vector<int> stk;
+    stk.reserve(g.size());
     res[r] = r;
-    st.emplace(r);
-    while (!st.empty()) {
-        auto index = st.top();
-        st.pop();
+    stk.emplace_back(r);
+    while (!stk.empty()) {
+        auto index = stk.back();
+        stk.pop_back();
         for (auto &e : g[index]) {
             if (res[e.to()] != -1) continue;
             res[e.to()] = index;
-            st.emplace(e.to());
+            stk.emplace_back(e.to());
         }
     }
     res[r] = -1;
@@ -105,19 +107,20 @@ std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
     struct frame {
         int v, parent, idx;
     };
-    std::stack<frame> st;
-    st.push({r, -1, 0});
+    std::vector<frame> stk;
+    stk.reserve(g.size());
+    stk.push_back({r, -1, 0});
     res[r] = 1;
-    while (!st.empty()) {
-        frame &f = st.top();
+    while (!stk.empty()) {
+        frame &f = stk.back();
         if (f.idx < (int)g[f.v].size()) {
             int to = g[f.v][f.idx++].to();
             if (to == f.parent) continue;
             res[to] = 1;
-            st.push({to, f.v, 0});
+            stk.push_back({to, f.v, 0});
         } else {
             int v = f.v, p = f.parent;
-            st.pop();
+            stk.pop_back();
             if (p != -1) res[p] += res[v];
         }
     }

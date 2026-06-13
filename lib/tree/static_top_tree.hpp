@@ -42,19 +42,20 @@ struct static_top_tree {
         // 帰りがけに部分木サイズを集計し、最大の子を heavy に記録する。
         {
             std::vector<int> max_sub(n, 0);
-            std::vector<std::pair<int, int>> st;  // (頂点, 隣接走査位置)
+            std::vector<std::pair<int, int>> stk;  // (頂点, 隣接走査位置)
+            stk.reserve(n);
             par[_root] = -1;
-            st.emplace_back(_root, 0);
-            while (!st.empty()) {
-                auto &[u, idx] = st.back();
+            stk.emplace_back(_root, 0);
+            while (!stk.empty()) {
+                auto &[u, idx] = stk.back();
                 if (idx < (int)g[u].size()) {
                     int v = get_to(g[u][idx++]);
                     if (v == par[u]) continue;
                     par[v] = u;
-                    st.emplace_back(v, 0);
+                    stk.emplace_back(v, 0);
                 } else {
                     int p = par[u];
-                    st.pop_back();
+                    stk.pop_back();
                     if (p != -1) {
                         sz[p] += sz[u];
                         if (max_sub[p] < sz[u]) {

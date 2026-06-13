@@ -37,6 +37,7 @@ struct low_link {
             bool is_articulation;
         };
         std::vector<frame> stk;
+        stk.reserve(g.size());
         for (int s = 0; s < g.size(); ++s) {
             if (used[s]) continue;
             used[s] = true;

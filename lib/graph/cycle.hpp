@@ -139,6 +139,7 @@ bool has_cycle(const Graph<T> &g) {
     // seen はパス上（灰）を、finished は探索完了（黒）を表し、
     // パス上の頂点へ戻る辺を見つけたら閉路あり。
     std::vector<std::pair<int, int>> stk;
+    stk.reserve(n);
     for (int i = 0; i < n && !res; ++i) {
         if (finished[i] || seen[i]) continue;
         seen[i] = true;

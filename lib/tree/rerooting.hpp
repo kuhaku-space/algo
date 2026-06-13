@@ -45,11 +45,12 @@ struct ReRooting {
         struct frame {
             int v, p, idx;
         };
-        std::vector<frame> st;
+        std::vector<frame> stk;
+        stk.reserve(n);
         for (int i = 0; i < n; ++i) dp[i] = std::vector<Value>(graph[i].size(), M::id());
-        st.push_back({0, -1, 0});
-        while (!st.empty()) {
-            frame &f = st.back();
+        stk.push_back({0, -1, 0});
+        while (!stk.empty()) {
+            frame &f = stk.back();
             int v = f.v;
             if (f.idx < (int)graph[v].size()) {
                 int i = f.idx++;
@@ -57,11 +58,11 @@ struct ReRooting {
                 if (e.to() == f.p) continue;
                 par[e.to()] = v;
                 pe[e.to()] = i;
-                st.push_back({e.to(), v, 0});
+                stk.push_back({e.to(), v, 0});
             } else {
                 ret[v] = M::g(res[v], data[v]);
                 int p = par[v];
-                st.pop_back();
+                stk.pop_back();
                 if (p != -1) {
                     dp[p][pe[v]] = M::f(ret[v], graph[p][pe[v]].weight());
                     res[p] = M::op(res[p], dp[p][pe[v]]);
@@ -75,11 +76,13 @@ struct ReRooting {
         int n = graph.size();
         std::vector<int> par(n, -1);
         std::vector<Value> dp_p_of(n, M::id());  // 各頂点が親から受け取る dp_p
-        std::vector<int> st = {0};
+        std::vector<int> stk;
+        stk.reserve(n);
+        stk.push_back(0);
         // 行きがけ順に処理（スタックでも順序非依存: values は各頂点 1 回書く）
-        while (!st.empty()) {
-            int v = st.back();
-            st.pop_back();
+        while (!stk.empty()) {
+            int v = stk.back();
+            stk.pop_back();
             int p = par[v];
             Value dp_p = dp_p_of[v];
             int deg = graph[v].size();
@@ -95,7 +98,7 @@ struct ReRooting {
                 if (u != p) {
                     par[u] = v;
                     dp_p_of[u] = M::g(M::op(dp_l, dp_r[i + 1]), data[v]);
-                    st.push_back(u);
+                    stk.push_back(u);
                 }
                 dp_l = M::op(dp_l, dp[v][i]);
             }
