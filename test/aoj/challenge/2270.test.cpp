@@ -4,7 +4,7 @@
 #include "algorithm/binary_search.hpp"
 #include "algorithm/compress.hpp"
 #include "data_structure/wavelet_matrix_rectangle_sum.hpp"
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "tree/linear_lca.hpp"
 
 int main(void) {
@@ -12,8 +12,8 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    Graph<void> g(n);
-    g.input_edges(n - 1);
+    edge_input<void> ei(n - 1);
+    auto g = ei.to_undirected(n);
     coordinate_compression cps(a);
     a = cps.compress(a);
     std::vector<int> in(n), val(n * 2), w(n * 2);

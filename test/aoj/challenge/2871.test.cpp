@@ -1,6 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2871
 #include <iostream>
 #include <vector>
+#include "graph/edge_input.hpp"
 #include "segtree/lazy_segment_tree.hpp"
 #include "tree/euler_tour.hpp"
 
@@ -30,12 +31,13 @@ struct F {
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    Graph<void> g(n);
+    edge_input<void> ei;
     for (int i = 0; i < n - 1; ++i) {
         int p;
         std::cin >> p;
-        g.add_edges(p - 1, i + 1);
+        ei.emplace(p - 1, i + 1);
     }
+    auto g = ei.to_undirected(n);
     euler_tour et(g);
     std::vector<S> v(n);
     for (int i = 0; i < n; ++i) {

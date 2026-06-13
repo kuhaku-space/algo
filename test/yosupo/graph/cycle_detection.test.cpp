@@ -8,7 +8,7 @@ int main() {
     int n, m;
     std::cin >> n >> m;
     edge_input<void> ei(m, 0);
-    auto g = ei.to_directed_graph(n);  // 各辺 ID は入力順 0..m-1
+    auto g = ei.to_directed(n);  // 各辺 ID は入力順 0..m-1
 
     auto cycle = cycle_detection_directed(g);
     if (cycle.empty()) {

@@ -1,11 +1,12 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_C
+#include "graph/graph.hpp"
 #include "tree/hld.hpp"
 #include <iostream>
 
 int main(void) {
     int n;
     std::cin >> n;
-    Graph<void> g(n);
+    list_graph<void> g(n);
     for (int i = 0; i < n; ++i) {
         int k;
         std::cin >> k;

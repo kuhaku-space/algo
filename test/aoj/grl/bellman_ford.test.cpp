@@ -1,12 +1,13 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
+#include "graph/edge_input.hpp"
 #include "graph/bellman_ford.hpp"
 #include <iostream>
 
 int main(void) {
     int n, m, r;
     std::cin >> n >> m >> r;
-    Graph<int> g(n);
-    g.input_edge(m, 0);
+    edge_input<int> ei(m, 0);
+    auto g = ei.to_directed(n);
 
     auto dist = bellman_ford(g, r);
     for (int i = 0; i < n; ++i) {

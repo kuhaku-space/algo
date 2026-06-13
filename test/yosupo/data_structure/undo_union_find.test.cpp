@@ -12,7 +12,7 @@ struct S {
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    Graph<std::pair<int, int>> g(q + 1);
+    list_graph<std::pair<int, int>> g(q + 1);
     std::vector<std::vector<S>> querys(q + 1);
     for (int i = 0; i < q; ++i) {
         int t, k, u, v;

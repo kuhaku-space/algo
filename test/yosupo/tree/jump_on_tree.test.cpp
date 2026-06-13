@@ -1,12 +1,13 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/jump_on_tree
 #include <iostream>
+#include "graph/edge_input.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    Graph<void> g(n);
-    g.input_edges(n - 1, 0);
+    edge_input<void> ei(n - 1, 0);
+    auto g = ei.to_undirected(n);
     heavy_light_decomposition hld(g);
     while (q--) {
         int u, v, k;

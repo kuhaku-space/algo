@@ -6,8 +6,9 @@
 #include "internal/internal_csr.hpp"
 
 /// @brief 強連結成分分解
-template <class T>
-std::vector<int> scc(const Graph<T> &g) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> scc(const G &g) {
     int n = g.size();
     std::vector<int> comp(n, -1), order;
     std::vector<bool> used(n);
@@ -125,9 +126,10 @@ std::vector<int> scc(const internal::graph_csr &g) {
 };
 
 /// @brief 有向非巡回グラフの構築
-template <class T>
-Graph<T> make_directed_acyclic_graph(const Graph<T> &g, const std::vector<int> &v) {
-    Graph<T> res(*std::max_element(v.begin(), v.end()) + 1);
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G>
+list_graph<graph_weight_t<G>> make_directed_acyclic_graph(const G &g, const std::vector<int> &v) {
+    list_graph<graph_weight_t<G>> res(*std::max_element(v.begin(), v.end()) + 1);
     for (auto &e : g.all_edges()) {
         int x = v[e.from()], y = v[e.to()];
         if (x != y) res.add_edge(x, y, e.weight());

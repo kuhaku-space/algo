@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/maximum_independent_set
+#include "graph/edge_input.hpp"
 #include "graph/maximum_independent_set.hpp"
 #include <iostream>
 #include <vector>
@@ -6,8 +7,8 @@
 int main(void) {
     int n, m;
     std::cin >> n >> m;
-    Graph<void> g(n);
-    g.input_edges(m, 0);
+    edge_input<void> ei(m, 0);
+    auto g = ei.to_undirected(n);
     auto ans = maximum_independent_set(g);
     std::cout << ans.size() << '\n';
     for (int i = 0; i < (int)ans.size(); ++i)

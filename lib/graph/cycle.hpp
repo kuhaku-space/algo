@@ -6,9 +6,10 @@
 
 /// @brief 有向グラフの閉路検出（閉路を構成する辺 ID 列を返す）
 /// @return 閉路を構成する辺 ID の列（入力順で連結する）。閉路が無ければ空。
-/// @note 各辺 ID は `Graph::add_edge` の追加順（= 入力順）。多重辺・自己ループに対応。
-template <class T>
-std::vector<int> cycle_detection_directed(const Graph<T> &g) {
+/// @note 各辺 ID は `list_graph::add_edge` の追加順（= 入力順）。多重辺・自己ループに対応。
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> cycle_detection_directed(const G &g) {
     int n = g.size();
     enum { unvisited, on_stack, done };
     std::vector<int> state(n, unvisited);
@@ -27,7 +28,7 @@ std::vector<int> cycle_detection_directed(const Graph<T> &g) {
         while (!vertices.empty()) {
             int v = vertices.back();
             if (idx_stack.back() < (int)g[v].size()) {
-                const auto &e = g[v][idx_stack.back()++];
+                auto e = g[v][idx_stack.back()++];
                 int to = e.to();
                 int eid = e.id();
                 if (state[to] == unvisited) {
@@ -64,10 +65,11 @@ std::vector<int> cycle_detection_directed(const Graph<T> &g) {
 
 /// @brief 無向グラフの閉路検出（閉路を構成する頂点列と辺 ID 列を返す）
 /// @return {頂点列, 辺 ID 列}。閉路が無ければ両方空。
-/// @note 無向辺は `Graph::add_edges` で追加し、往復 2 本に同じ ID が振られていること。
+/// @note 無向辺は `list_graph::add_edges` で追加し、往復 2 本に同じ ID が振られていること。
 ///       自己ループは長さ 1、多重辺は長さ 2 の閉路として検出する。
-template <class T>
-std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const Graph<T> &g) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const G &g) {
     int n = g.size();
     // 自己ループは長さ 1 の閉路
     for (int v = 0; v < n; ++v) {
@@ -92,7 +94,7 @@ std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const G
         while (!vertices.empty()) {
             int v = vertices.back();
             if (idx_stack.back() < (int)g[v].size()) {
-                const auto &e = g[v][idx_stack.back()++];
+                auto e = g[v][idx_stack.back()++];
                 int to = e.to();
                 int eid = e.id();
                 // 親へ戻る辺（来た辺そのもの）は無視。多重辺は ID が異なるので
@@ -129,8 +131,9 @@ std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const G
 }
 
 /// @brief 閉路検出
-template <class T>
-bool has_cycle(const Graph<T> &g) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+bool has_cycle(const G &g) {
     int n = g.size();
     std::vector<bool> seen(n), finished(n);
     bool res = false;

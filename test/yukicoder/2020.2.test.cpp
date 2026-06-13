@@ -38,7 +38,7 @@ int main() {
     }
 
     int m = trie.size();
-    Graph<int> g(m);
+    list_graph<int> g(m);
     for (int v = 0; v < m; ++v) {
         const auto node = trie.get_node(v);
         for (int c = 0; c < 26; ++c) {

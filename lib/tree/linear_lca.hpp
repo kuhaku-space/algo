@@ -23,8 +23,8 @@ struct linear_lca {
     };
 
   public:
-    template <class T>
-    linear_lca(const Graph<T> &g, int r = 0) : ord(g.size(), -1), lst() {
+    template <graph_type G>
+    linear_lca(const G &g, int r = 0) : ord(g.size(), -1), lst() {
         std::vector<S> v;
         std::vector<std::pair<int, int>> stk;
         stk.reserve(2 * g.size());

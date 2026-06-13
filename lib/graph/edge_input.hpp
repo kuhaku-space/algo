@@ -7,7 +7,7 @@
 /// @brief 辺の列を読み込んで保持する入力中間型
 /// @tparam T 辺の重みの型。`void` で重みなし（入力から重みを読まない）。
 ///
-/// 標準入力から `(from, to[, weight])` を base 補正して読み込み、
+/// 標準入力から `(from, to[, weight])` を origin 補正して読み込み、
 /// グラフ表現に依存しない生の辺データとして保持する。
 /// `build_directed(graph)` / `build_undirected(graph)` で任意のグラフ型に
 /// 流し込める（`add_edge` / `add_edges` を持つ型なら何でも受け取れる）。
@@ -24,11 +24,11 @@ struct edge_input {
 
     edge_input() = default;
 
-    /// @brief 標準入力から m 本の辺を読み込む（頂点番号は base から）
-    explicit edge_input(int m, int base = 1) { input(m, base); }
+    /// @brief 標準入力から m 本の辺を読み込む（頂点番号は origin から）
+    explicit edge_input(int m, int origin = 1) { input(m, origin); }
 
     /// @brief 標準入力から m 本の辺を追加で読み込む
-    void input(int m, int base = 1) {
+    void input(int m, int origin = 1) {
         edges.reserve(edges.size() + m);
         for (int i = 0; i < m; ++i) {
             int from, to;
@@ -36,17 +36,15 @@ struct edge_input {
             if constexpr (weighted) {
                 T weight;
                 std::cin >> weight;
-                edges.emplace_back(from - base, to - base, weight);
+                edges.emplace_back(from - origin, to - origin, weight);
             } else {
-                edges.emplace_back(from - base, to - base, weight_type());
+                edges.emplace_back(from - origin, to - origin, weight_type());
             }
         }
     }
 
     /// @brief 1 本の辺を追加する
-    void emplace(int from, int to, weight_type weight = weight_type()) {
-        edges.emplace_back(from, to, weight);
-    }
+    void emplace(int from, int to, weight_type weight = weight_type()) { edges.emplace_back(from, to, weight); }
 
     int size() const { return (int)edges.size(); }
     const raw_edge &operator[](int i) const { return edges[i]; }
@@ -71,17 +69,29 @@ struct edge_input {
         }
     }
 
-    /// @brief n 頂点の有向 Graph<T> を構築して返す
-    Graph<T> to_directed_graph(int n) const {
-        Graph<T> g(n);
+    /// @brief n 頂点の有向グラフを構築して返す
+    /// @tparam GraphT 構築するグラフ型テンプレート（`csr_graph`（既定）/ `list_graph`）
+    ///
+    /// `csr_graph` の場合は辺数（有向辺 = m 本）を予約してから `build()` まで行う。
+    template <template <class> class GraphT = csr_graph>
+    GraphT<T> to_directed(int n) const {
+        GraphT<T> g(n);
+        if constexpr (std::is_same_v<GraphT<T>, csr_graph<T>>) g.reserve_edges(size(), size());
         build_directed(g);
+        if constexpr (std::is_same_v<GraphT<T>, csr_graph<T>>) g.build();
         return g;
     }
 
-    /// @brief n 頂点の無向 Graph<T> を構築して返す
-    Graph<T> to_undirected_graph(int n) const {
-        Graph<T> g(n);
+    /// @brief n 頂点の無向グラフを構築して返す
+    /// @tparam GraphT 構築するグラフ型テンプレート（`csr_graph`（既定）/ `list_graph`）
+    ///
+    /// `csr_graph` の場合は辺数（辺 ID = m 個・有向辺 = 2m 本）を予約してから `build()` まで行う。
+    template <template <class> class GraphT = csr_graph>
+    GraphT<T> to_undirected(int n) const {
+        GraphT<T> g(n);
+        if constexpr (std::is_same_v<GraphT<T>, csr_graph<T>>) g.reserve_edges(size(), 2 * size());
         build_undirected(g);
+        if constexpr (std::is_same_v<GraphT<T>, csr_graph<T>>) g.build();
         return g;
     }
 

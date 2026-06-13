@@ -1,13 +1,13 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2891
 #include <iostream>
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "graph/namori_graph.hpp"
 
 int main(void) {
     int n;
     std::cin >> n;
-    Graph<void> g(n);
-    g.input_edges(n);
+    edge_input<void> ei(n);
+    auto g = ei.to_undirected(n);
     auto parent = cycle_detection_on_namori_graph(g);
     int q;
     std::cin >> q;

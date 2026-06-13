@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "segtree/segment_tree.hpp"
 #include "tree/auxiliary_tree.hpp"
 #include "tree/hld.hpp"
@@ -10,8 +10,8 @@
 int main(void) {
     int n;
     std::cin >> n;
-    Graph<std::int64_t> g(n);
-    g.input_edges(n - 1, 0);
+    edge_input<std::int64_t> ei(n - 1, 0);
+    auto g = ei.to_undirected(n);
     heavy_light_decomposition hld(g);
     segment_tree<Add<std::int64_t>> st(n);
     auto f = [&](auto self, int x, int p) -> void {

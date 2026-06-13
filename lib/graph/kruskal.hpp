@@ -5,9 +5,10 @@
 #include "data_structure/union_find.hpp"
 
 /// @brief クラスカル法
-template <class T>
-std::vector<typename Graph<T>::edge_type> kruskal(const Graph<T> &g) {
-    using _edge = typename Graph<T>::edge_type;
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G>
+std::vector<graph_edge_t<G>> kruskal(const G &g) {
+    using _edge = graph_edge_t<G>;
     union_find uf(g.size());
     std::vector<_edge> res;
     std::vector<_edge> edge_list;

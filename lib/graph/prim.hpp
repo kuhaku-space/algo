@@ -5,9 +5,10 @@
 #include "graph/graph.hpp"
 
 /// @brief プリム法
-template <class T>
-std::vector<typename Graph<T>::edge_type> prim(const Graph<T> &g, int r = 0) {
-    using _edge = typename Graph<T>::edge_type;
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G>
+std::vector<graph_edge_t<G>> prim(const G &g, int r = 0) {
+    using _edge = graph_edge_t<G>;
     std::vector<_edge> res;
     std::vector<bool> visited(g.size());
     visited[r] = true;
