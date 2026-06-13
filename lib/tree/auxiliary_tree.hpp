@@ -10,9 +10,9 @@
 ///          圧縮木を何度でも構築できる。Σ|vs| が小さければ各 build は O(|vs| log N)。
 struct auxiliary_tree {
     /// @brief build が返す圧縮木。元の木の頂点番号・親・指定頂点フラグを保持する。
-    struct tree : public Graph<void> {
+    struct tree : public list_graph<void> {
         tree(const std::vector<int> &_ord, const std::vector<int> &_par, const std::vector<bool> &_f)
-            : Graph::Graph(_par.size()), ord(_ord), par(_par), f(_f) {
+            : list_graph::list_graph(_par.size()), ord(_ord), par(_par), f(_f) {
             int n = _par.size();
             for (int i = 0; i < n; ++i) {
                 if (par[i] != -1) add_edges(par[i], i);
@@ -31,8 +31,8 @@ struct auxiliary_tree {
         std::vector<bool> f;
     };
 
-    template <class T>
-    auxiliary_tree(const Graph<T> &g, int r = 0) : lca(g, r), et(g, r) {}
+    template <graph_type G>
+    auxiliary_tree(const G &g, int r = 0) : lca(g, r), et(g, r) {}
 
     /// @brief 指定頂点集合 v に対する圧縮木を構築する。
     tree build(std::vector<int> v) {

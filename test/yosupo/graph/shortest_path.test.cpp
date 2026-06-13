@@ -5,11 +5,11 @@
 #include <queue>
 #include <utility>
 #include <vector>
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "template/template.hpp"
 
 template <class T>
-std::pair<std::vector<T>, std::vector<int>> dijkstra(const Graph<T> &g, int s = 0,
+std::pair<std::vector<T>, std::vector<int>> dijkstra(const csr_graph<T> &g, int s = 0,
                                                      T inf = std::numeric_limits<T>::max()) {
     struct _node {
         constexpr _node() : _to(), _dist() {}
@@ -47,8 +47,8 @@ std::pair<std::vector<T>, std::vector<int>> dijkstra(const Graph<T> &g, int s = 
 int main(void) {
     int n, m, s, t;
     std::cin >> n >> m >> s >> t;
-    Graph<std::int64_t> g(n);
-    g.input_edge(m, 0);
+    edge_input<std::int64_t> ei(m, 0);
+    auto g = ei.to_directed(n);
     auto &&[dist, v] = dijkstra(g, s, INF);
     if (dist[t] == INF) {
         std::cout << -1 << '\n';

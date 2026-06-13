@@ -5,8 +5,9 @@
 #include "graph/graph.hpp"
 
 /// @brief トポロジカルソート
-template <class T>
-std::vector<int> topological_sort(const Graph<T> &g) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> topological_sort(const G &g) {
     int n = g.size();
     std::vector<int> res;
     std::vector<bool> seen(n);

@@ -55,7 +55,7 @@ int main() {
 
     std::vector<int> U(n - 1), V(n - 1);
     std::vector<Mint> b(n - 1), c(n - 1);
-    Graph<int> orig_g(n);
+    list_graph<int> orig_g(n);
     for (int i = 0; i < n - 1; ++i) {
         std::cin >> U[i] >> V[i] >> b[i] >> c[i];
         orig_g.add_edges(U[i], V[i], i);

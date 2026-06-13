@@ -4,10 +4,11 @@
 #include "graph/graph.hpp"
 
 /// @brief ベルマンフォード法
-template <class T>
-std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = std::numeric_limits<T>::max(),
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G, class T = graph_weight_t<G>>
+std::vector<T> bellman_ford(const G &g, int s = 0, T inf = std::numeric_limits<T>::max(),
                             T ninf = std::numeric_limits<T>::lowest()) {
-    int n = graph.size();
+    int n = g.size();
     std::vector<T> dists(n, inf);
     dists[s] = T();
     bool updated = true;
@@ -15,7 +16,7 @@ std::vector<T> bellman_ford(const Graph<T> &graph, int s = 0, T inf = std::numer
         updated = false;
         for (int i = 0; i < n; ++i) {
             if (dists[i] == inf) continue;
-            for (auto &e : graph[i]) {
+            for (auto &e : g[i]) {
                 if (dists[i] == ninf || dists[i] + e.weight() < dists[e.to()]) {
                     if (dists[e.to()] == ninf) continue;
                     updated = true;

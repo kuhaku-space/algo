@@ -4,14 +4,14 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "data_structure/union_find.hpp"
 
 int main(void) {
     int n, k;
     std::cin >> n >> k;
-    Graph<void> g(n);
-    g.input_edges(n - 1);
+    edge_input<void> ei(n - 1);
+    auto g = ei.to_undirected(n);
     dsu_on_tree dsu(g);
     std::vector<std::pair<int, int>> a(n);
     for (auto &[x, y] : a) std::cin >> x >> y, --x, --y;

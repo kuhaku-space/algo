@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
+#include "graph/edge_input.hpp"
 #include "graph/spfa.hpp"
 #include <iostream>
 #include <limits>
@@ -7,8 +8,8 @@
 int main(void) {
     int n, m, r;
     std::cin >> n >> m >> r;
-    Graph<int> g(n);
-    g.input_edge(m, 0);
+    edge_input<int> ei(m, 0);
+    auto g = ei.to_directed(n);
 
     auto dist = shortest_path_faster_algorithm(g, r);
     if (dist.empty()) {

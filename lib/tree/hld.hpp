@@ -7,8 +7,8 @@
 /// @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
 struct heavy_light_decomposition {
     heavy_light_decomposition() = default;
-    template <class T>
-    heavy_light_decomposition(const Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {
+    template <graph_type G>
+    heavy_light_decomposition(const G &g, int r = 0) : heavy_light_decomposition(g.size()) {
         std::vector<int> heavy_path(_size, -1);
         std::vector<int> stk;
         stk.reserve(_size);

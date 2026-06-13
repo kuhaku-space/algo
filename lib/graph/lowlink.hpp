@@ -4,9 +4,10 @@
 #include "graph/graph.hpp"
 
 /// @brief LowLink
-template <class T>
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
 struct low_link {
-    low_link(const Graph<T> &_g) : low_link(_g, _g.size()) {}
+    low_link(const G &_g) : low_link(_g, _g.size()) {}
 
     /// @brief 関節点（頂点番号）の一覧を取得する
     const std::vector<int> &get_articulation_points() const { return articulation_points; }
@@ -14,13 +15,13 @@ struct low_link {
     const std::vector<int> &get_bridges() const { return bridges; }
 
   private:
-    const Graph<T> &g;
+    const G &g;
     std::vector<int> ord, low;
     std::vector<bool> used;
     std::vector<int> articulation_points;  // 関節点（頂点番号）
     std::vector<int> bridges;              // 橋（辺 ID）
 
-    low_link(const Graph<T> &_g, int n) : g(_g), ord(n), low(n), used(n) { build(); }
+    low_link(const G &_g, int n) : g(_g), ord(n), low(n), used(n) { build(); }
 
     void build() {
         int number = 0;
@@ -47,7 +48,7 @@ struct low_link {
                 frame &f = stk.back();
                 int v = f.v;
                 if (f.idx < (int)g[v].size()) {
-                    const auto &e = g[v][f.idx++];
+                    auto e = g[v][f.idx++];
                     if (e.id() == f.parent_edge_id) continue;  // 親へ来た辺そのものは無視
                     int to = e.to();
                     if (!used[to]) {

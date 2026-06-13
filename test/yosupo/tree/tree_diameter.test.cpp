@@ -3,16 +3,17 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include "graph/edge_input.hpp"
 #include "tree/tree_function.hpp"
 
 int main(void) {
     int n;
     std::cin >> n;
-    Graph<int> g(n);
-    g.input_edges(n - 1, 0);
-    auto d = tree_dist<int, std::int64_t>(g, 0);
+    edge_input<int> ei(n - 1, 0);
+    auto g = ei.to_undirected(n);
+    auto d = tree_dist<csr_graph<int>, std::int64_t>(g, 0);
     int st = std::max_element(d.begin(), d.end()) - d.begin();
-    d = tree_dist<int, std::int64_t>(g, st);
+    d = tree_dist<csr_graph<int>, std::int64_t>(g, st);
     auto p = tree_parent(g, st);
     int gl = std::max_element(d.begin(), d.end()) - d.begin();
     std::vector<int> ans;

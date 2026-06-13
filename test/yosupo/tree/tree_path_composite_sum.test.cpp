@@ -2,6 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include "graph/graph.hpp"
 #include "math/modint.hpp"
 #include "tree/rerooting.hpp"
 
@@ -36,9 +37,9 @@ int main(void) {
     std::cin >> n;
     std::vector<Mint> a(n);
     for (auto &e : a) std::cin >> e;
-    Graph<std::pair<Mint, Mint>> g(n);
+    list_graph<std::pair<Mint, Mint>> g(n);
     g.input_edges(n - 1, 0);
-    ReRooting<Monoid, std::pair<Mint, Mint>, Mint> rr(g, a);
+    ReRooting<Monoid, list_graph<std::pair<Mint, Mint>>, Mint> rr(g, a);
     std::vector<Mint> ans;
     for (int i = 0; i < n; ++i) ans.emplace_back(rr[i].first);
     for (int i = 0; i < (int)ans.size(); ++i)

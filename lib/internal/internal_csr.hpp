@@ -42,20 +42,20 @@ struct graph_csr {
         edges.emplace_back(v, u);
     }
 
-    void input_edge(int m, int base = 1) {
+    void input_edge(int m, int origin = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
             std::cin >> from >> to;
-            add_edge(from - base, to - base);
+            add_edge(from - origin, to - origin);
         }
         build();
     }
 
-    void input_edges(int m, int base = 1) {
+    void input_edges(int m, int origin = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
             std::cin >> from >> to;
-            add_edges(from - base, to - base);
+            add_edges(from - origin, to - origin);
         }
         build();
     }

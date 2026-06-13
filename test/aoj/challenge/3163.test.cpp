@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <utility>
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "tree/rerooting.hpp"
 
 struct Monoid {
@@ -29,10 +29,10 @@ int main(void) {
     std::cin >> n;
     std::vector<std::int64_t> a(n);
     for (auto &e : a) std::cin >> e;
-    Graph<void> g(n);
-    g.input_edges(n - 1);
+    edge_input<void> ei(n - 1);
+    auto g = ei.to_undirected(n);
 
-    ReRooting<Monoid, void, std::int64_t> rr(g, a);
+    ReRooting<Monoid, csr_graph<void>, std::int64_t> rr(g, a);
     for (int i = 0; i < n; ++i) std::cout << rr[i].first << '\n';
 
     return 0;

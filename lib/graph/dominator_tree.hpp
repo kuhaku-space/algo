@@ -10,11 +10,12 @@
 ///          すべての経路が必ず通る頂点のうち、v に最も近いものが idom[v]。
 ///          idom[root] = root とする。root から到達不能な頂点は idom = -1。
 ///          辺の重みは無視する。計算量はほぼ O((V + E) α(V))。
-template <class T>
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
 struct dominator_tree {
     /// @param g 有向グラフ
     /// @param root 支配関係の始点
-    dominator_tree(const Graph<T> &g, int root = 0) : _size(g.size()), _root(root), _idom(_size, -1) {
+    dominator_tree(const G &g, int root = 0) : _size(g.size()), _root(root), _idom(_size, -1) {
         std::vector<std::vector<int>> radj(_size);
         for (auto &e : g.all_edges()) radj[e.to()].emplace_back(e.from());
         build(g, radj);
@@ -29,7 +30,7 @@ struct dominator_tree {
     int _size, _root;
     std::vector<int> _idom;
 
-    void build(const Graph<T> &g, const std::vector<std::vector<int>> &radj) {
+    void build(const G &g, const std::vector<std::vector<int>> &radj) {
         std::vector<int> ord(_size, -1);       // 頂点 → DFS 番号
         std::vector<int> rev;                  // DFS 番号 → 頂点
         std::vector<int> par(_size, -1);       // DFS 木の親（DFS 番号）

@@ -1,6 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/lca
 #include <iostream>
 #include <vector>
+#include "graph/edge_input.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {
@@ -8,8 +9,9 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> p(n - 1);
     for (auto &e : p) std::cin >> e;
-    Graph<void> g(n);
-    for (int i = 0; i < n - 1; ++i) g.add_edges(p[i], i + 1);
+    edge_input<void> ei;
+    for (int i = 0; i < n - 1; ++i) ei.emplace(p[i], i + 1);
+    auto g = ei.to_undirected(n);
     heavy_light_decomposition hld(g);
     while (q--) {
         int u, v;

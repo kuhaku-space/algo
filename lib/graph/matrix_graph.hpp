@@ -19,20 +19,20 @@ struct matrix_graph {
     void add_edge(int a, int b, T d = T(1)) { m[a][b] = d; }
     void add_edges(int a, int b, T d = T(1)) { m[a][b] = m[b][a] = d; }
 
-    void input_edge(int m, int base = 1) {
+    void input_edge(int m, int origin = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
             T weight;
             std::cin >> from >> to >> weight;
-            add_edge(from - base, to - base, weight);
+            add_edge(from - origin, to - origin, weight);
         }
     }
-    void input_edges(int m, int base = 1) {
+    void input_edges(int m, int origin = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
             T weight;
             std::cin >> from >> to >> weight;
-            add_edges(from - base, to - base, weight);
+            add_edges(from - origin, to - origin, weight);
         }
     }
 
@@ -57,18 +57,18 @@ struct matrix_graph<void> {
     void add_edge(int a, int b) { m[a][b] = true; }
     void add_edges(int a, int b) { m[a][b] = m[b][a] = true; }
 
-    void input_edge(int m, int base = 1) {
+    void input_edge(int m, int origin = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
             std::cin >> from >> to;
-            add_edge(from - base, to - base);
+            add_edge(from - origin, to - origin);
         }
     }
-    void input_edges(int m, int base = 1) {
+    void input_edges(int m, int origin = 1) {
         for (int i = 0; i < m; ++i) {
             int from, to;
             std::cin >> from >> to;
-            add_edges(from - base, to - base);
+            add_edges(from - origin, to - origin);
         }
     }
 

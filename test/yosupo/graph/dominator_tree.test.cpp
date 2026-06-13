@@ -7,7 +7,7 @@ int main() {
     int n, m, s;
     std::cin >> n >> m >> s;
     edge_input<void> ei(m, 0);
-    auto g = ei.to_directed_graph(n);
+    auto g = ei.to_directed(n);
 
     dominator_tree dt(g, s);
     for (int i = 0; i < n; ++i) std::cout << dt.idom(i) << " \n"[i + 1 == n];

@@ -3,8 +3,9 @@
 #include <vector>
 #include "graph/graph.hpp"
 
-template <class T>
-std::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> tree_bfs(const G &g, int r = 0) {
     int pos = 0;
     std::vector<int> res;
     std::vector<bool> visited(g.size());
@@ -23,7 +24,7 @@ std::vector<int> tree_bfs(const Graph<T> &g, int r = 0) {
 
 std::vector<int> tree_bfs(const std::vector<int> &parents) {
     int n = parents.size();
-    Graph<void> g(n);
+    list_graph<void> g(n);
     int r = 0;
     for (int i = 0; i < n; ++i) {
         if (parents[i] == -1 || parents[i] == i) {
@@ -35,8 +36,9 @@ std::vector<int> tree_bfs(const std::vector<int> &parents) {
     return tree_bfs(g, r);
 }
 
-template <class T>
-std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> tree_dfs(const G &g, int r = 0) {
     std::vector<int> res;
     // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
     // 行きがけ順を保つため (頂点, 親) を積み、子は左から処理する。
@@ -57,8 +59,9 @@ std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
 }
 
 /// @brief 木の距離を求める
-template <class T, class U = T>
-std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G, class U = graph_weight_t<G>>
+std::vector<U> tree_dist(const G &g, int r = 0) {
     std::vector<U> res(g.size(), -1);
     std::vector<int> stk;
     stk.reserve(g.size());
@@ -77,8 +80,9 @@ std::vector<U> tree_dist(const Graph<T> &g, int r = 0) {
 }
 
 /// @brief 木の頂点の親を求める
-template <class T>
-std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> tree_parent(const G &g, int r = 0) {
     std::vector<int> res(g.size(), -1);
     std::vector<int> stk;
     stk.reserve(g.size());
@@ -98,8 +102,9 @@ std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
 }
 
 /// @brief 部分木の大きさを求める
-template <class T>
-std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> tree_subtree(const G &g, int r = 0) {
     std::vector<int> res(g.size());
     // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
     // 各フレームは (頂点, 親, 隣接走査位置)。隣接の再走査を避けるため位置を保持し、

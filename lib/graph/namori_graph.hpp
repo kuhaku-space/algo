@@ -3,8 +3,9 @@
 #include "graph/graph.hpp"
 
 /// @brief なもりグラフ上のサイクル検出
-template <class T>
-std::vector<int> cycle_detection_on_namori_graph(const Graph<T> &g) {
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> cycle_detection_on_namori_graph(const G &g) {
     int n = g.size();
     std::vector<int> cnt(n);
     std::vector<int> st;

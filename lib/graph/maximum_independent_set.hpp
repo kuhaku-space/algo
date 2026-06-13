@@ -6,12 +6,13 @@
 
 /// @brief 最大独立集合
 /// @see https://www.slideshare.net/wata_orz/ss-12131479
-template <class T>
-std::vector<int> maximum_independent_set(const Graph<T> &graph) {
-    int n = graph.size();
-    std::vector<std::uint64_t> g(n);
-    for (auto es : graph) {
-        for (auto e : es) g[e.from()] |= std::uint64_t(1) << e.to();
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> maximum_independent_set(const G &g) {
+    int n = g.size();
+    std::vector<std::uint64_t> adj(n);
+    for (int i = 0; i < n; ++i) {
+        for (auto &e : g[i]) adj[e.from()] |= std::uint64_t(1) << e.to();
     }
 
     std::uint64_t max_v = 0, v = 0;
@@ -24,7 +25,7 @@ std::vector<int> maximum_independent_set(const Graph<T> &graph) {
         int deg = 0, x = -1;
         for (int i = 0; i < n; ++i) {
             if (used >> i & 1) continue;
-            int d = std::popcount(~used & g[i]);
+            int d = std::popcount(~used & adj[i]);
             if (d <= 1) {
                 x = i;
                 break;
@@ -37,7 +38,7 @@ std::vector<int> maximum_independent_set(const Graph<T> &graph) {
 
         v ^= std::uint64_t(1) << x;
         ++sz;
-        used |= g[x];
+        used |= adj[x];
         self(self, used);
         v ^= std::uint64_t(1) << x;
         --sz;
