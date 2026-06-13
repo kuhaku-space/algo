@@ -16,20 +16,21 @@ constexpr std::int64_t safe_mod(std::int64_t x, std::int64_t m) {
 /// Fast modular multiplication by barrett reduction
 /// Reference: https://en.wikipedia.org/wiki/Barrett_reduction
 /// NOTE: reconsider after Ice Lake
+/// NOTE: 法は 32bit (`unsigned int`) 前提。64bit 法には montgomery を使う
 struct barrett {
     unsigned int _m;
     std::uint64_t im;
 
-    // @param m `1 <= m`
-    explicit barrett(unsigned int m) : _m(m), im((std::uint64_t)(-1) / m + 1) {}
+    /// @param m `1 <= m`
+    explicit constexpr barrett(unsigned int m) : _m(m), im((std::uint64_t)(-1) / m + 1) {}
 
-    // @return m
-    unsigned int umod() const { return _m; }
+    /// @return m
+    constexpr unsigned int umod() const { return _m; }
 
-    // @param a `0 <= a < m`
-    // @param b `0 <= b < m`
-    // @return `a * b % m`
-    unsigned int mul(unsigned int a, unsigned int b) const {
+    /// @param a `0 <= a < m`
+    /// @param b `0 <= b < m`
+    /// @return `a * b % m`
+    constexpr unsigned int mul(unsigned int a, unsigned int b) const {
         std::uint64_t z = a;
         z *= b;
         std::uint64_t x = (std::uint64_t)(((__uint128_t)(z)*im) >> 64);
@@ -79,12 +80,19 @@ struct montgomery {
   private:
     std::uint64_t _m, im, r, r2;
 
+    // Montgomery 簡約。入力 t < _m * 2^64 を t * 2^-64 mod _m に写す。
+    // _m >= 2^63 のとき t + (lo * _m) が 2^128 を超え得るので、
+    // 128bit 加算のキャリーを検出して上位へ反映する（これを欠くと大 mod で誤る）。
     constexpr std::uint64_t mr(std::uint64_t x) const {
-        std::uint64_t res = (__uint128_t(x * im) * _m + x) >> 64;
+        __uint128_t sum = __uint128_t(x * im) * _m + x;
+        std::uint64_t res = sum >> 64;
+        if (sum < (__uint128_t)x) res -= _m;
         return res >= _m ? res - _m : res;
     }
     constexpr std::uint64_t mr(__uint128_t x) const {
-        std::uint64_t res = (__uint128_t(std::uint64_t(x) * im) * _m + x) >> 64;
+        __uint128_t sum = __uint128_t(std::uint64_t(x) * im) * _m + x;
+        std::uint64_t res = sum >> 64;
+        if (sum < x) res -= _m;
         return res >= _m ? res - _m : res;
     }
     constexpr std::uint64_t mr(std::uint64_t a, std::uint64_t b) const {
@@ -132,7 +140,7 @@ constexpr bool is_prime_constexpr(std::uint32_t x) {
     h = ((h >> 16) ^ h) * 0x45d9f3b;
     h = ((h >> 16) ^ h) * 0x45d9f3b;
     h = ((h >> 16) ^ h) & 255;
-    constexpr uint16_t bases[] = {
+    constexpr std::uint16_t bases[] = {
         15591, 2018,  166,  7429, 8064,  16045, 10503, 4399,  1949,  1295,  2776, 3620,  560,   3128,  5212,  2657,
         2300,  2021,  4652, 1471, 9336,  4018,  2398,  20462, 10277, 8028,  2213, 6219,  620,   3763,  4852,  5012,
         3185,  1333,  6227, 5298, 1074,  2391,  5113,  7061,  803,   1269,  3875, 422,   751,   580,   4729,  10239,
@@ -168,6 +176,9 @@ constexpr bool is_prime_constexpr(std::int64_t x) {
     return is_prime_constexpr(std::uint64_t(x));
 }
 
+template <int n>
+constexpr bool is_prime = is_prime_constexpr((std::uint32_t)n);
+
 /// @param n `0 <= n`
 /// @param m `1 <= m`
 /// @return `(x ** n) % m`
@@ -183,31 +194,6 @@ constexpr std::int64_t pow_mod_constexpr(std::int64_t x, std::int64_t n, int m) 
     }
     return r;
 }
-
-/// Reference:
-/// M. Forisek and J. Jancina,
-/// Fast Primality Testing for Integers That Fit into a Machine Word
-/// @param n `0 <= n`
-constexpr bool is_prime_constexpr(int n) {
-    if (n <= 1) return false;
-    if (n == 2 || n == 7 || n == 61) return true;
-    if (n % 2 == 0) return false;
-    std::int64_t d = n - 1;
-    while (d % 2 == 0) d /= 2;
-    constexpr std::int64_t bases[3] = {2, 7, 61};
-    for (std::int64_t a : bases) {
-        std::int64_t t = d;
-        std::int64_t y = pow_mod_constexpr(a, t, n);
-        while (t != n - 1 && y != 1 && y != n - 1) {
-            y = y * y % n;
-            t <<= 1;
-        }
-        if (y != n - 1 && t % 2 == 0) { return false; }
-    }
-    return true;
-}
-template <int n>
-constexpr bool is_prime = is_prime_constexpr(n);
 
 /// @param b `1 <= b`
 /// @return pair(g, x) s.t. g = gcd(a, b), xa = g (mod b), 0 <= x < b/g

@@ -43,6 +43,18 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - 破壊的変更の際は、リポジトリ全体（`lib/`・`test/`）から参照箇所を洗い出して
   **呼び出し側もすべて追随させる**。古い API を中途半端に残さない。
 
+## PR 運用
+
+- PR を作成したら必ず auto-merge を有効化する
+
+  ```sh
+  gh pr create --fill && gh pr merge --auto --squash
+  ```
+
+- リポジトリ側は auto-merge の前提が整っている（`allow_auto_merge` ON、必須チェック
+  `docs-and-check`、`pr-auto-approve.yml` が bot で自動承認）。これで「CI 通過 → bot 承認
+  → 自動マージ → ブランチ削除」まで全自動で完結する。
+
 ## 注意
 
 - `template.hpp` への暗黙依存を外すと、それ経由で標準ヘッダを得ていたテストが壊れることがある
