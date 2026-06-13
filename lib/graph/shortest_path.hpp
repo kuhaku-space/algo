@@ -2,6 +2,7 @@
 #include <functional>
 #include <limits>
 #include <queue>
+#include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 
@@ -10,31 +11,82 @@
 /// @note 重みなしグラフ（`*_graph<void>`）は下の BFS 版が選ばれる。
 template <properly_weighted_graph_type G, class T = graph_weight_t<G>>
 std::vector<T> shortest_path(const G &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
-    struct _node {
-        constexpr _node() : _to(), _dist() {}
-        constexpr _node(int to, T dist) : _to(to), _dist(dist) {}
-        constexpr bool operator<(const _node &rhs) const { return this->dist() < rhs.dist(); }
-        constexpr bool operator>(const _node &rhs) const { return rhs < *this; }
-
-        constexpr int to() const { return this->_to; }
-        constexpr T dist() const { return this->_dist; }
-
-      private:
-        int _to;
-        T _dist;
-    };
+    // pair は first（距離）優先で比較されるので greater<> で最小ヒープになる。
+    using node = std::pair<T, int>;
     std::vector<T> dists(g.size(), inf);
-    std::priority_queue<_node, std::vector<_node>, std::greater<>> p_que;
+    std::priority_queue<node, std::vector<node>, std::greater<>> p_que;
     dists[s] = T();
-    p_que.emplace(s, T());
+    p_que.emplace(T(), s);
     while (!p_que.empty()) {
-        auto node = p_que.top();
+        auto [d, v] = p_que.top();
         p_que.pop();
-        if (dists[node.to()] < node.dist()) continue;
-        for (auto &e : g[node.to()]) {
-            if (node.dist() + e.weight() < dists[e.to()]) {
-                dists[e.to()] = node.dist() + e.weight();
-                p_que.emplace(e.to(), dists[e.to()]);
+        if (dists[v] < d) continue;
+        for (auto &e : g[v]) {
+            if (d + e.weight() < dists[e.to()]) {
+                dists[e.to()] = d + e.weight();
+                p_que.emplace(dists[e.to()], e.to());
+            }
+        }
+    }
+    return dists;
+}
+
+/// @brief 単一始点最短路（負辺ありはベルマンフォード法）
+/// @note 負閉路から到達できる頂点の距離は `ninf`（既定で `lowest()`）になる。
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G, class T = graph_weight_t<G>>
+std::vector<T> shortest_path_negative(const G &g, int s = 0, T inf = std::numeric_limits<T>::max(),
+                                      T ninf = std::numeric_limits<T>::lowest()) {
+    int n = g.size();
+    std::vector<T> dists(n, inf);
+    dists[s] = T();
+    // 前半 n-1 回で最短距離を確定、後半 n-1 回で負閉路の影響を ninf として伝播する。
+    bool updated = true;
+    for (int count = 0; updated && count < 2 * n - 1; ++count) {
+        updated = false;
+        for (int i = 0; i < n; ++i) {
+            if (dists[i] == inf) continue;
+            for (auto &e : g[i]) {
+                if (dists[i] == ninf || dists[i] + e.weight() < dists[e.to()]) {
+                    if (dists[e.to()] == ninf) continue;
+                    updated = true;
+                    // n 回目以降の更新は負閉路に由来するので ninf にする。
+                    if (count >= n - 1) dists[e.to()] = ninf;
+                    else dists[e.to()] = dists[i] + e.weight();
+                }
+            }
+        }
+    }
+    return dists;
+}
+
+/// @brief 単一始点最短路（負辺ありは SPFA）
+/// @note 負閉路を検出した場合は空の `vector` を返す。
+/// @see https://hogloid.hatenablog.com/entry/20120409/1333973448
+/// @see https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G, class T = graph_weight_t<G>>
+std::vector<T> shortest_path_spfa(const G &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
+    int n = g.size();
+    std::vector<T> dists(n, inf);
+    std::vector<bool> pending(n, false);
+    std::vector<int> times(n, 0);
+    std::queue<int> que;
+    dists[s] = T();
+    pending[s] = true;
+    ++times[s];
+    que.emplace(s);
+    while (!que.empty()) {
+        int p = que.front();
+        que.pop();
+        pending[p] = false;
+        for (auto &e : g[p]) {
+            if (!(dists[p] + e.weight() < dists[e.to()])) continue;
+            dists[e.to()] = dists[p] + e.weight();
+            if (!pending[e.to()]) {
+                if (++times[e.to()] >= n) return std::vector<T>();
+                pending[e.to()] = true;
+                que.emplace(e.to());
             }
         }
     }
@@ -52,11 +104,11 @@ std::vector<int> shortest_path(const G &g, int s = 0, int inf = std::numeric_lim
     dists[s] = 0;
     que.emplace(s);
     while (!que.empty()) {
-        auto index = que.front();
+        auto v = que.front();
         que.pop();
-        for (auto &e : g[index]) {
-            if (dists[index] + 1 < dists[e.to()]) {
-                dists[e.to()] = dists[index] + 1;
+        for (auto &e : g[v]) {
+            if (dists[v] + 1 < dists[e.to()]) {
+                dists[e.to()] = dists[v] + 1;
                 que.emplace(e.to());
             }
         }
