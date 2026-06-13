@@ -358,7 +358,7 @@ concept graph_type = requires(const G &g, int v) {
 
 /// @brief 重み付きグラフの要件
 /// @details `graph_type` に加えて、隣接辺が `weighted_graph_edge`（重み付き）であること。
-///          辺重みを参照する最短路系アルゴリズム（shortest_path / bellman_ford / prim 等）で使う。
+///          辺重みを参照する最短路系アルゴリズム（shortest_path / prim 等）で使う。
 /// @tparam G 判定対象のグラフ型
 template <class G>
 concept weighted_graph_type =
