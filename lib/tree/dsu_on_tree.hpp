@@ -6,9 +6,10 @@
 #include "template/template.hpp"
 
 /// @brief DSU on Tree
-template <class T>
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
 struct dsu_on_tree {
-    dsu_on_tree(const Graph<T> &_g, const std::vector<int> &query, int r = 0)
+    dsu_on_tree(const G &_g, const std::vector<int> &query, int r = 0)
         : g(_g), size(_g.size()), root(r), par(size, -1), sub(), euler(size), left(size),
           right(size), heavy_path(size, -1), query_order(query.size()), query_size(size) {
         if (size == 0) return;
@@ -22,7 +23,7 @@ struct dsu_on_tree {
         std::vector<int> cnt = left;
         for (int i = 0; i < (int)query.size(); ++i) query_order[cnt[query[i]]++] = i;
     }
-    dsu_on_tree(const Graph<T> &_g, int r = 0)
+    dsu_on_tree(const G &_g, int r = 0)
         : g(_g), size(_g.size()), root(r), par(size, -1), sub(size, 1), euler(size), left(size),
           right(size), heavy_path(size, -1), query_order(), query_size(size, 1) {
         if (size == 0) return;
@@ -34,8 +35,8 @@ struct dsu_on_tree {
         query_order = euler;
     }
 
-    template <class F, class G, class H>
-    void solve(F &rem, G &clear, H &query) {
+    template <class F, class Clr, class H>
+    void solve(F &rem, Clr &clear, H &query) {
         if (size == 0) return;
         // 反復版（再帰だと深い木でスタックオーバーフローしうる）。
         // 各フレームは light 子を走査する idx と heavy 再帰済みフラグ heavy_done を持つ。
@@ -87,7 +88,7 @@ struct dsu_on_tree {
     }
 
   private:
-    const Graph<T> &g;
+    const G &g;
     int size, root;
     std::vector<int> par, sub, euler, left, right, heavy_path, query_order, query_size;
 

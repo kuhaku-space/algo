@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include "graph/edge_input.hpp"
 #include "segtree/segment_tree.hpp"
 #include "tree/euler_tour.hpp"
 
@@ -11,8 +12,9 @@ int main(void) {
     std::vector<int> a(n), p(n - 1);
     for (auto &e : a) std::cin >> e;
     for (auto &e : p) std::cin >> e;
-    Graph<void> g(n);
-    for (int i = 0; i < n - 1; ++i) g.add_edges(i + 1, p[i]);
+    edge_input<void> ei;
+    for (int i = 0; i < n - 1; ++i) ei.emplace(i + 1, p[i]);
+    auto g = ei.to_undirected(n);
     euler_tour et(g);
     segment_tree<Add<std::int64_t>> st(n);
     for (int i = 0; i < n; ++i) st.set(et.left(i), a[i]);

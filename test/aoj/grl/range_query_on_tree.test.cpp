@@ -1,13 +1,14 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D
 #include <cstdint>
 #include <iostream>
+#include "graph/graph.hpp"
 #include "binary_tree/fenwick_tree.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {
     int n;
     std::cin >> n;
-    Graph<void> g(n);
+    list_graph<void> g(n);
     for (int i = 0; i < n; ++i) {
         int k;
         std::cin >> k;

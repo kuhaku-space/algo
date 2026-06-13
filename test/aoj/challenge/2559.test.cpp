@@ -23,7 +23,7 @@ int main(void) {
     std::int64_t sum = 0;
     union_find uf(n);
     std::vector<skew_heap<std::pair<int, int>, std::greater<>>> heap(n);
-    Graph<int> g(n);
+    list_graph<int> g(n);
     std::vector<bool> used(m);
     for (auto x : ord) {
         auto [u, v, w] = edges[x];

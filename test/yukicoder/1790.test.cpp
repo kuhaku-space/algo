@@ -15,7 +15,7 @@ int main(void) {
         --u, --v;
     }
 
-    Graph<void> g(2 * n - 1);
+    list_graph<void> g(2 * n - 1);
     std::vector<std::int64_t> a(2 * n - 1);
     for (int i = 0; i < n - 1; ++i) {
         auto [u, v, x] = edge[i];

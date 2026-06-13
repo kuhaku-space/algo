@@ -11,8 +11,8 @@
 ///          - 重心分解木の再帰は深さ O(log n) なので再帰で実装する。
 ///          - 連結成分の走査・部分木サイズ計算・距離計算は深さ n になりうるため
 ///            すべて BFS 反復で行い、鎖状の木でもスタックオーバーフローしない。
-/// @tparam T 辺の重みの型（`void` で重みなし。距離は辺数で数える）
-template <class T>
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可。距離は辺数で数える）
+template <graph_type G>
 struct centroid_decomposition {
     /// @brief ある重心 `c` の回で渡される連結成分の情報。
     /// @details いずれの配列も頂点番号で添字付けされる。`order` に現れない頂点
@@ -28,7 +28,7 @@ struct centroid_decomposition {
 
     /// @brief 重心分解を実行する。
     /// @param g 木（無向辺で構築されていること）
-    explicit centroid_decomposition(const Graph<T> &g)
+    explicit centroid_decomposition(const G &g)
         : g_(g), n_(g.size()), par_(n_, -1), used_(n_, false), comp_par_(n_), comp_dep_(n_), comp_top_(n_),
           comp_sub_(n_) {
         order_.reserve(n_);
@@ -50,7 +50,7 @@ struct centroid_decomposition {
     }
 
   private:
-    const Graph<T> &g_;
+    const G &g_;
     int n_;
     std::vector<int> par_;
     std::vector<bool> used_;
@@ -155,7 +155,8 @@ struct centroid_decomposition {
 /// @brief 重心分解木の親配列だけを返す簡易版。
 /// @param g 木
 /// @return std::vector<int> 重心分解木における各頂点の親（根は -1）
-template <class T>
-std::vector<int> centroid_decomposition_par(const Graph<T> &g) {
-    return centroid_decomposition<T>(g).par();
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <graph_type G>
+std::vector<int> centroid_decomposition_par(const G &g) {
+    return centroid_decomposition<G>(g).par();
 }

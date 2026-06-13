@@ -3,13 +3,14 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include "graph/edge_input.hpp"
 #include "graph/lowlink.hpp"
 
 int main(void) {
     int n, m;
     std::cin >> n >> m;
-    Graph<void> g(n);
-    g.input_edges(m, 0);
+    edge_input<void> ei(m, 0);
+    auto g = ei.to_undirected(n);
 
     low_link llink(g);
     std::vector<std::pair<int, int>> ans;

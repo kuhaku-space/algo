@@ -8,7 +8,7 @@ int main() {
     int n, m;
     std::cin >> n >> m;
     edge_input<void> ei(m, 0);
-    auto g = ei.to_undirected_graph(n);  // 往復 2 本に同じ ID（= 入力辺番号）が振られる
+    auto g = ei.to_undirected(n);  // 往復 2 本に同じ ID（= 入力辺番号）が振られる
 
     auto [vs, es] = cycle_detection_undirected(g);
     if (vs.empty()) {

@@ -3,21 +3,22 @@
 #include <utility>
 #include <vector>
 #include "binary_tree/fenwick_tree.hpp"
-#include "graph/graph.hpp"
+#include "graph/edge_input.hpp"
 #include "tree/dsu_on_tree.hpp"
 #include "data_structure/union_find.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    Graph<void> g(n);
     std::vector<int> a(n);
     for (int &x : a) std::cin >> x;
+    edge_input<void> ei;
     for (int i = 0; i < n - 1; ++i) {
         int p;
         std::cin >> p;
-        g.add_edge(p, i + 1);
+        ei.emplace(p, i + 1);
     }
+    auto g = ei.to_directed(n);
     std::vector<std::vector<std::pair<int, int>>> sol(n);
     std::vector<std::pair<int, int>> queries;
     int solve_count = 0;

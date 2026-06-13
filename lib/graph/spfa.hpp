@@ -7,8 +7,9 @@
 /// @brief SPFA
 /// @see https://hogloid.hatenablog.com/entry/20120409/1333973448
 /// @see https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html
-template <class T>
-std::vector<T> shortest_path_faster_algorithm(Graph<T> &g, int s, T inf = std::numeric_limits<T>::max()) {
+/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+template <weighted_graph_type G, class T = graph_weight_t<G>>
+std::vector<T> shortest_path_faster_algorithm(G &g, int s, T inf = std::numeric_limits<T>::max()) {
     int n = g.size();
     std::vector<T> dists(n, inf);
     std::vector<int> pending(n, 0), times(n, 0);

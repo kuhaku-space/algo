@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include "graph/edge_input.hpp"
 #include "binary_tree/fenwick_tree.hpp"
 #include "tree/hld.hpp"
 
@@ -10,8 +11,8 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    Graph<void> g(n);
-    g.input_edges(n - 1, 0);
+    edge_input<void> ei(n - 1, 0);
+    auto g = ei.to_undirected(n);
     heavy_light_decomposition hld(g);
     fenwick_tree<std::int64_t> ft(n);
     for (int i = 0; i < n; ++i) ft.add(hld.get(i), a[i]);
