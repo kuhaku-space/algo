@@ -38,21 +38,33 @@ struct static_top_tree {
         nodes.assign(n, {-1, -1, -1, Vertex});
         std::vector<int> par(n, -1), sz(n, 1), heavy(n, -1);
 
-        auto dfs_sz = [&](auto self, int u, int p) -> void {
-            par[u] = p;
-            int max_sub = 0;
-            for (auto &&e : g[u]) {
-                int v = get_to(e);
-                if (v == p) continue;
-                self(self, v, u);
-                sz[u] += sz[v];
-                if (max_sub < sz[v]) {
-                    max_sub = sz[v];
-                    heavy[u] = v;
+        // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
+        // 帰りがけに部分木サイズを集計し、最大の子を heavy に記録する。
+        {
+            std::vector<int> max_sub(n, 0);
+            std::vector<std::pair<int, int>> st;  // (頂点, 隣接走査位置)
+            par[_root] = -1;
+            st.emplace_back(_root, 0);
+            while (!st.empty()) {
+                auto &[u, idx] = st.back();
+                if (idx < (int)g[u].size()) {
+                    int v = get_to(g[u][idx++]);
+                    if (v == par[u]) continue;
+                    par[v] = u;
+                    st.emplace_back(v, 0);
+                } else {
+                    int p = par[u];
+                    st.pop_back();
+                    if (p != -1) {
+                        sz[p] += sz[u];
+                        if (max_sub[p] < sz[u]) {
+                            max_sub[p] = sz[u];
+                            heavy[p] = u;
+                        }
+                    }
                 }
             }
-        };
-        dfs_sz(dfs_sz, _root, -1);
+        }
 
         auto new_node = [&](int l, int r, Type type) -> int {
             int id = nodes.size();

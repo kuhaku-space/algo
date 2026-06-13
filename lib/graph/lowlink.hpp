@@ -27,29 +27,53 @@ struct low_link {
         // parent_edge_id: index に入ってきた辺の ID（根は -1）。
         // 親へ戻る辺は「同じ ID の辺」で除外する。多重辺は ID が異なるため
         // back edge として正しく扱われ、橋・関節点の誤判定を防ぐ。
-        auto dfs = [&](auto self, int index, int parent_edge_id) -> void {
-            used[index] = true;
-            ord[index] = number++;
-            low[index] = ord[index];
-            bool is_articulation_point = false;
-            int count = 0;
-            for (auto &e : g[index]) {
-                if (e.id() == parent_edge_id) continue;  // 親へ来た辺そのものは無視
-                if (!used[e.to()]) {
-                    ++count;
-                    self(self, e.to(), e.id());
-                    low[index] = std::min(low[index], low[e.to()]);
-                    is_articulation_point |= parent_edge_id != -1 && low[e.to()] >= ord[index];
-                    if (ord[index] < low[e.to()]) bridges.emplace_back(e.id());
+        //
+        // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）。
+        // 各フレームは頂点・親辺 ID・隣接走査位置・子の本数・関節点フラグを持つ。
+        // 子から戻った直後の処理（low の更新・橋/関節点判定）は、どの辺で
+        // 降りたかを覚えておき復帰時に行う。
+        struct frame {
+            int v, parent_edge_id, idx, count;
+            bool is_articulation;
+        };
+        std::vector<frame> stk;
+        for (int s = 0; s < g.size(); ++s) {
+            if (used[s]) continue;
+            used[s] = true;
+            ord[s] = low[s] = number++;
+            stk.push_back({s, -1, 0, 0, false});
+            while (!stk.empty()) {
+                frame &f = stk.back();
+                int v = f.v;
+                if (f.idx < (int)g[v].size()) {
+                    const auto &e = g[v][f.idx++];
+                    if (e.id() == f.parent_edge_id) continue;  // 親へ来た辺そのものは無視
+                    int to = e.to();
+                    if (!used[to]) {
+                        ++f.count;
+                        used[to] = true;
+                        ord[to] = low[to] = number++;
+                        // 復帰時に f.idx-1 の辺で子を処理するため、子フレームを積む
+                        stk.push_back({to, e.id(), 0, 0, false});
+                    } else {
+                        low[v] = std::min(low[v], ord[to]);
+                    }
                 } else {
-                    low[index] = std::min(low[index], ord[e.to()]);
+                    // v の探索完了。親フレームへ戻って子処理を反映する。
+                    bool is_art = f.is_articulation;
+                    is_art |= f.parent_edge_id == -1 && f.count > 1;
+                    if (is_art) articulation_points.emplace_back(v);
+                    int low_v = low[v], pe = f.parent_edge_id;
+                    stk.pop_back();
+                    if (!stk.empty()) {
+                        frame &pf = stk.back();
+                        int p = pf.v;
+                        low[p] = std::min(low[p], low_v);
+                        pf.is_articulation |= pf.parent_edge_id != -1 && low_v >= ord[p];
+                        if (ord[p] < low_v) bridges.emplace_back(pe);
+                    }
                 }
             }
-            is_articulation_point |= parent_edge_id == -1 && count > 1;
-            if (is_articulation_point) articulation_points.emplace_back(index);
-        };
-        for (int i = 0; i < g.size(); i++) {
-            if (!used[i]) dfs(dfs, i, -1);
         }
     }
 };

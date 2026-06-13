@@ -1,5 +1,6 @@
 #pragma once
 #include <stack>
+#include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 
@@ -38,14 +39,20 @@ std::vector<int> tree_bfs(const std::vector<int> &parents) {
 template <class T>
 std::vector<int> tree_dfs(const Graph<T> &g, int r = 0) {
     std::vector<int> res;
-    auto dfs = [&g, &res](auto self, int index, int parent) -> void {
+    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
+    // 行きがけ順を保つため (頂点, 親) を積み、子は左から処理する。
+    std::stack<std::pair<int, int>> st;
+    st.emplace(r, -1);
+    while (!st.empty()) {
+        auto [index, parent] = st.top();
+        st.pop();
         res.emplace_back(index);
-        for (auto &e : g[index]) {
-            if (e.to() == parent) continue;
-            self(self, e.to(), index);
+        // 元の左→右の行きがけ順にするため逆順に積む
+        for (auto it = g[index].rbegin(); it != g[index].rend(); ++it) {
+            if (it->to() == parent) continue;
+            st.emplace(it->to(), index);
         }
-    };
-    dfs(dfs, r, -1);
+    }
     return res;
 }
 
@@ -92,14 +99,27 @@ std::vector<int> tree_parent(const Graph<T> &g, int r = 0) {
 template <class T>
 std::vector<int> tree_subtree(const Graph<T> &g, int r = 0) {
     std::vector<int> res(g.size());
-    auto dfs = [&g, &res](auto self, int index) -> int {
-        res[index] = 1;
-        for (auto &e : g[index]) {
-            if (res[e.to()] != 0) continue;
-            res[index] += self(self, e.to());
-        }
-        return res[index];
+    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
+    // 各フレームは (頂点, 親, 隣接走査位置)。隣接の再走査を避けるため位置を保持し、
+    // 帰りがけに子の部分木サイズを親へ加算する。
+    struct frame {
+        int v, parent, idx;
     };
-    dfs(dfs, r);
+    std::stack<frame> st;
+    st.push({r, -1, 0});
+    res[r] = 1;
+    while (!st.empty()) {
+        frame &f = st.top();
+        if (f.idx < (int)g[f.v].size()) {
+            int to = g[f.v][f.idx++].to();
+            if (to == f.parent) continue;
+            res[to] = 1;
+            st.push({to, f.v, 0});
+        } else {
+            int v = f.v, p = f.parent;
+            st.pop();
+            if (p != -1) res[p] += res[v];
+        }
+    }
     return res;
 }
