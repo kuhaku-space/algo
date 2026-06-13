@@ -14,6 +14,17 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 
 正しさはランダムテストで naive 実装と突き合わせて確認する。
 
+### verify 用問題を探す優先順位
+
+ライブラリの verify 用問題は次の優先順位で探す:
+
+1. **Library Checker**（<https://judge.yosupo.jp/>）
+2. **yukicoder**（<https://yukicoder.me/>）
+3. **AOJ**（Aizu Online Judge）
+
+どのジャッジにも素直に対応する問題がなければ verify は保留する
+（competitive-verifier の UNIT_TEST は使わない）。
+
 ## コーディング規約
 
 - 全ヘッダ先頭に **`#pragma once`**。
