@@ -5,3 +5,5 @@
 /workspace/*
 !/workspace/
 !/workspace/.clang-format
+!/workspace/template/
+!/workspace/template/*
