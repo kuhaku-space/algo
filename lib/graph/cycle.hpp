@@ -135,20 +135,31 @@ bool has_cycle(const Graph<T> &g) {
     std::vector<bool> seen(n), finished(n);
     bool res = false;
 
-    auto dfs = [&](auto self, int index) -> void {
-        if (finished[index]) return;
-        seen[index] = true;
-        for (auto &e : g[index]) {
-            if (res |= seen[e.to()]) return;
-            self(self, e.to());
+    // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）。
+    // seen はパス上（灰）を、finished は探索完了（黒）を表し、
+    // パス上の頂点へ戻る辺を見つけたら閉路あり。
+    std::vector<std::pair<int, int>> stk;
+    for (int i = 0; i < n && !res; ++i) {
+        if (finished[i] || seen[i]) continue;
+        seen[i] = true;
+        stk.emplace_back(i, 0);
+        while (!stk.empty() && !res) {
+            auto &[v, idx] = stk.back();
+            if (idx < (int)g[v].size()) {
+                int to = g[v][idx++].to();
+                if (seen[to]) {
+                    res = true;
+                } else if (!finished[to]) {
+                    seen[to] = true;
+                    stk.emplace_back(to, 0);
+                }
+            } else {
+                seen[v] = false;
+                finished[v] = true;
+                stk.pop_back();
+            }
         }
-        seen[index] = false;
-        finished[index] = true;
-    };
-
-    for (int i = 0; i < n; ++i) {
         if (res) break;
-        dfs(dfs, i);
     }
     return res;
 }

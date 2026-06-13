@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 #include "internal/internal_csr.hpp"
@@ -15,23 +16,47 @@ std::vector<int> scc(const Graph<T> &g) {
     for (auto &e : g.all_edges()) rg.add_edge(e.to(), e.from());
     rg.build();
 
-    auto dfs = [&](auto self, int index) {
-        if (used[index]) return;
-        used[index] = true;
-        for (auto &e : g[index]) self(self, e.to());
-        order.emplace_back(index);
-    };
-    auto rdfs = [&](auto self, int index, int count) {
-        if (~comp[index]) return;
-        comp[index] = count;
-        for (int u : rg[index]) self(self, u, count);
-    };
-
-    for (int i = 0; i < n; ++i) dfs(dfs, i);
+    // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）
+    // stk には頂点と隣接リストの走査位置を積む。子を処理し終えた後に
+    // order へ push することで、再帰版と同じ帰りがけ順を再現する。
+    std::vector<std::pair<int, int>> stk;
+    for (int s = 0; s < n; ++s) {
+        if (used[s]) continue;
+        used[s] = true;
+        stk.emplace_back(s, 0);
+        while (!stk.empty()) {
+            auto &[v, idx] = stk.back();
+            if (idx < (int)g[v].size()) {
+                int to = g[v][idx++].to();
+                if (!used[to]) {
+                    used[to] = true;
+                    stk.emplace_back(to, 0);
+                }
+            } else {
+                order.emplace_back(v);
+                stk.pop_back();
+            }
+        }
+    }
     std::reverse(order.begin(), order.end());
+
+    // 逆グラフ上の反復 DFS で連結成分番号を振る
+    std::vector<int> rstk;
     int ptr = 0;
     for (auto i : order) {
-        if (comp[i] == -1) rdfs(rdfs, i, ptr++);
+        if (~comp[i]) continue;
+        comp[i] = ptr;
+        rstk.emplace_back(i);
+        while (!rstk.empty()) {
+            int v = rstk.back();
+            rstk.pop_back();
+            for (int u : rg[v]) {
+                if (~comp[u]) continue;
+                comp[u] = ptr;
+                rstk.emplace_back(u);
+            }
+        }
+        ++ptr;
     }
 
     return comp;
@@ -48,23 +73,48 @@ std::vector<int> scc(const internal::graph_csr &g) {
     }
     rg.build();
 
-    auto dfs = [&](auto self, int index) {
-        if (used[index]) return;
-        used[index] = true;
-        for (int u : g[index]) self(self, u);
-        order.emplace_back(index);
-    };
-    auto rdfs = [&](auto self, int index, int count) {
-        if (~comp[index]) return;
-        comp[index] = count;
-        for (int u : rg[index]) self(self, u, count);
-    };
-
-    for (int i = 0; i < n; ++i) dfs(dfs, i);
+    // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）
+    // CSR は隣接リストの走査をイテレータで進める。子を処理し終えた後に
+    // order へ push することで、再帰版と同じ帰りがけ順を再現する。
+    using cit = std::vector<int>::const_iterator;
+    std::vector<std::pair<int, std::pair<cit, cit>>> stk;
+    for (int s = 0; s < n; ++s) {
+        if (used[s]) continue;
+        used[s] = true;
+        stk.emplace_back(s, std::make_pair(g[s].begin(), g[s].end()));
+        while (!stk.empty()) {
+            auto &[v, it] = stk.back();
+            if (it.first != it.second) {
+                int to = *it.first++;
+                if (!used[to]) {
+                    used[to] = true;
+                    stk.emplace_back(to, std::make_pair(g[to].begin(), g[to].end()));
+                }
+            } else {
+                order.emplace_back(v);
+                stk.pop_back();
+            }
+        }
+    }
     std::reverse(order.begin(), order.end());
+
+    // 逆グラフ上の反復 DFS で連結成分番号を振る
+    std::vector<int> rstk;
     int ptr = 0;
     for (auto i : order) {
-        if (comp[i] == -1) rdfs(rdfs, i, ptr++);
+        if (~comp[i]) continue;
+        comp[i] = ptr;
+        rstk.emplace_back(i);
+        while (!rstk.empty()) {
+            int v = rstk.back();
+            rstk.pop_back();
+            for (int u : rg[v]) {
+                if (~comp[u]) continue;
+                comp[u] = ptr;
+                rstk.emplace_back(u);
+            }
+        }
+        ++ptr;
     }
 
     return comp;
