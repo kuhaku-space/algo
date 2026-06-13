@@ -1,19 +1,60 @@
 [tools]
 jq = "latest"
-python = "3.13.5"
+# pipx バックエンドの実体。uv が pipx 系の隔離 venv 用 Python も自前で用意するので
+# python を別途宣言する必要はない（uv tool install / uvx が高速）。
+uv = "latest"
+
+# oj 系は import するライブラリではなく CLI アプリ（oj / oj-bundle / oj-verify）。
+# CLI アプリは pip（共有環境を汚す・PEP 668 で弾かれる）ではなく pipx で
+# アプリごとの隔離 venv に入れ、entry point を PATH に通すのが正道。
+# online-judge-tools  -> oj
+# online-judge-verify-helper -> oj-bundle / oj-verify
+# oj は distutils / pkg_resources（どちらも setuptools 提供）を実行時に import するが、
+# Python 3.12+ では stdlib から外れたため各 venv に setuptools を同梱する。
+# ただし setuptools>=81 は pkg_resources を同梱しなくなったので "<81" に固定する
+#（oj-verify が pkg_resources を import するため）。
+# mise は uv があれば uv 経由で入れるので uvx_args（--with）と pipx_args（--preinstall）
+# の両方を指定しておく（使われない側は無視される）。
+"pipx:online-judge-tools" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
+"pipx:online-judge-verify-helper" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
+# Daily Problems の CLI クライアント -> daily（git+ 直インストール、stdlib のみで依存なし）
+"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"
 
 [tasks.setup]
-description = "Setup project"
+description = "Setup project（ツール・oj-tools・shim を一括導入）"
 run = [
-    "mise i",
-    "pip3 install --quiet --upgrade pip",
-    "pip3 install --quiet online-judge-tools online-judge-verify-helper setuptools",
+    # [tools] 宣言（jq / uv / pipx:oj 系）をまとめて導入。
+    "mise install",
+    # CLI でしか入らないシステムパッケージ。
     "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
     "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
+    "mise run install-shims",
 ]
+
+[tasks.install-shims]
+description = "oj 系コマンドの shim を ~/.local/bin に生成（どこからでも ojb 等を実行可能に）"
+run = """
+#!/bin/bash
+# どのクローン先でも正しいパスになるよう config_root を埋め込む。
+# shim は `mise -C <repo> run <task>` を exec するだけの薄いラッパー。
+ROOT="{{config_root}}"
+BIN="$HOME/.local/bin"
+mkdir -p "$BIN"
+case ":$PATH:" in
+  *":$BIN:"*) ;;
+  *) echo "警告: $BIN が PATH に含まれていません。ログインシェルの PATH に追加してください。" >&2 ;;
+esac
+for t in ojd ojn ojx ojc ojg ojb ojt ojs ojtc ojrc; do
+  printf '#!/bin/sh\\nexec mise -C "%s" run %s "$@"\\n' "$ROOT" "$t" > "$BIN/$t"
+  chmod +x "$BIN/$t"
+  echo "  installed: $BIN/$t -> mise run $t"
+done
+"""
 
 [tasks.gen-tests]
 description = "クリップボードのJSONから入出力例ファイルを生成する"
+alias = "ojg"
+dir = "{{config_root}}/workspace"
 run = """
 #!/bin/bash
 if command -v xclip > /dev/null; then
@@ -28,16 +69,220 @@ if ! echo "$CONTENT" | jq empty 2>/dev/null; then
     exit 1
 fi
 
-mkdir ./workspace/test
-rm -f ./workspace/test/*
+mkdir -p test
+rm -f test/*
 
 # JSONの配列の長さを取得してループ
 length=$(echo "$CONTENT" | jq '. | length')
 
 for ((i=0; i<$length; i++)); do
     num=$((i+1))
-    echo "$CONTENT" | jq -r ".[$i].input" > "./workspace/test/sample-${num}.in"
-    echo "$CONTENT" | jq -r ".[$i].output" > "./workspace/test/sample-${num}.out"
-    echo "  - in${num}.txt / out${num}.txt を作成しました。"
+    echo "$CONTENT" | jq -r ".[$i].input" > "test/sample-${num}.in"
+    echo "$CONTENT" | jq -r ".[$i].output" > "test/sample-${num}.out"
+    echo "  - sample-${num}.in / sample-${num}.out を作成しました。"
 done
+"""
+
+# online-judge-tools 用タスク（.aliases の oj 系から移行）
+# https://github.com/online-judge-tools/verification-helper
+#
+# 正名は動詞（download/build/test/submit/test-clip/random-check）、
+# 旧エイリアス互換の短縮名（ojd/ojb/ojt/ojs/ojtc/ojrc）は alias で併設。
+# shim（~/.local/bin、install-shims タスク）は短縮名で生成する。
+#
+# 注: mise タスクはタスク定義位置（config_root）ではなく `dir` で指定した
+# ディレクトリで実行される。oj 系は workspace/ で動かす前提なので各タスクに
+# `dir = "{{config_root}}/workspace"` を設定している。
+# bundle / compile はヘルパ関数として各タスク内にインライン定義し、
+# CWD をまたぐネストした `mise run` を避ける（random-check は checker/ 配下でも使う）。
+
+[tasks.download]
+description = "workspace でテストケースをダウンロード（oj d）"
+alias = "ojd"
+dir = "{{config_root}}/workspace"
+usage = '''
+arg "<url>" help="問題ページの URL" required=#true
+'''
+run = """
+#!/bin/bash
+rm -rf test/ && oj d "$usage_url"
+"""
+
+[tasks.new]
+description = "URL からテストを取得し a.cpp をテンプレートから用意（download + 雛形）"
+alias = "ojn"
+dir = "{{config_root}}/workspace"
+usage = '''
+arg "<url>" help="問題ページの URL" required=#true
+'''
+run = """
+#!/bin/bash
+# 新しい問題を始める前提なので a.cpp は常にテンプレートで上書きする。
+# テストだけ取り直したい（a.cpp を残したい）場合は ojd（download）を使う。
+mise run download "$usage_url" || exit 1
+# テンプレートから生成し、competitive-verifier の PROBLEM 行に URL を埋め込む。
+# URL に sed のメタ文字が含まれても安全なよう awk で先頭の PROBLEM 行のみ追記する。
+awk -v url="$usage_url" '
+  !done && /^\\/\\/ competitive-verifier: PROBLEM/ { print $0 " " url; done=1; next }
+  { print }
+' template/template.cpp > a.cpp && echo "a.cpp をテンプレートから生成しました（PROBLEM に URL を埋め込み）。"
+"""
+
+[tasks.solve]
+description = "new（テスト取得 + 雛形）して a.cpp を編集 → test を回す一連の周回"
+alias = "ojx"
+dir = "{{config_root}}/workspace"
+usage = '''
+arg "<url>" help="問題ページの URL" required=#true
+'''
+run = """
+#!/bin/bash
+mise run new "$usage_url" || exit 1
+echo "a.cpp を編集してから 'ojt'（テスト）/ 'ojs'（提出）を実行してください。"
+"""
+
+[tasks.clean]
+description = "生成物（main.cpp / a.out / test/）を掃除"
+alias = "ojc"
+dir = "{{config_root}}/workspace"
+run = """
+#!/bin/bash
+rm -rf main.cpp a.out test/ checker/test/main.cpp checker/test/a.out
+echo "クリーンアップしました。"
+"""
+
+[tasks.build]
+description = "ソース（既定 a.cpp）を bundle して main.cpp をコンパイル（-g でサニタイザ）"
+alias = "ojb"
+dir = "{{config_root}}/workspace"
+usage = '''
+flag "-g --debug" help="サニタイザ付きデバッグビルド（ASan/UBSan + _GLIBCXX_DEBUG）"
+arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
+'''
+run = """
+#!/bin/bash
+LIB="{{config_root}}/lib"
+oj_bundle() {
+  oj-bundle -I "$LIB" "$1" 2>/dev/null \\
+    | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
+}
+oj_compile() {
+  # 共通フラグ。デバッグ時は最適化・LTO を外しサニタイザを足す。
+  local opt_args=(-O2 -flto=auto -ftrivial-auto-var-init=zero)
+  if [[ "$usage_debug" == "true" ]]; then
+    opt_args=(-O1 -g -fsanitize=address,undefined -D_GLIBCXX_DEBUG)
+  fi
+  g++-14 "$1" \\
+    -DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS \\
+    -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER \\
+    -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\
+    -Wall -Wextra "${opt_args[@]}" \\
+    -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152 \\
+    -march=native -pthread \\
+    -std=gnu++23 -Wl,--as-needed -fopenmp
+}
+[[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
+oj_bundle "$usage_src" >main.cpp || exit 1
+oj_compile main.cpp
+"""
+
+[tasks.test]
+description = "ソース（既定 a.cpp）を bundle・compile して oj t（-e で誤差ジャッジ）"
+alias = "ojt"
+dir = "{{config_root}}/workspace"
+usage = '''
+flag "-e --error" help="誤差ジャッジ（許容誤差 1e-9）を有効化"
+arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
+'''
+run = """
+#!/bin/bash
+mise run build "$usage_src" || exit 1
+
+oj_args=(-N)
+[[ "$usage_error" == "true" ]] && oj_args+=(-e 1e-9)
+oj t "${oj_args[@]}"
+"""
+
+[tasks.submit]
+description = "test 通過後に main.cpp を提出（-f でテスト省略、-y で確認省略）"
+alias = "ojs"
+dir = "{{config_root}}/workspace"
+usage = '''
+flag "-e --error" help="誤差ジャッジ（許容誤差 1e-9）でテスト"
+flag "-f --force" help="提出前のローカルテストを省略する"
+flag "-y --yes" help="確認プロンプトを省略する"
+arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
+'''
+run = """
+#!/bin/bash
+# 既定では提出前にローカルテストを走らせ、落ちたら止める（誤提出ガード）。
+if [[ "$usage_force" == "true" ]]; then
+  mise run build "$usage_src" || exit 1
+else
+  test_args=()
+  [[ "$usage_error" == "true" ]] && test_args+=(-e)
+  if ! mise run test "${test_args[@]}" "$usage_src"; then
+    echo "ローカルテストが失敗しました。提出するには -f を付けてください。" >&2
+    exit 1
+  fi
+fi
+
+if [[ "$usage_yes" != "true" ]]; then
+  read -r -p "$usage_src を提出しますか? [y/N] " ans
+  [[ "$ans" == [yY] ]] || { echo "中止しました。"; exit 1; }
+fi
+oj s main.cpp
+"""
+
+[tasks.test-clip]
+description = "test（既定 a.cpp）後に main.cpp をクリップボードへコピー"
+alias = "ojtc"
+dir = "{{config_root}}/workspace"
+usage = '''
+flag "-e --error" help="誤差ジャッジ（許容誤差 1e-9）を有効化"
+arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
+'''
+run = """
+#!/bin/bash
+test_args=()
+[[ "$usage_error" == "true" ]] && test_args+=(-e)
+mise run test "${test_args[@]}" "$usage_src" || exit 1
+xclip -selection clipboard < main.cpp
+"""
+
+[tasks.random-check]
+description = "ランダムチェッカー（解答（既定 a.cpp）と checker/test.cpp を回す）"
+alias = "ojrc"
+dir = "{{config_root}}/workspace"
+usage = '''
+arg "<src>" help="解答ソースファイル（省略時 a.cpp）" default="a.cpp"
+'''
+run = """
+#!/bin/bash
+LIB="{{config_root}}/lib"
+oj_bundle() {
+  oj-bundle -I "$LIB" "$1" 2>/dev/null \\
+    | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
+}
+oj_compile() {
+  g++-14 "$1" \\
+    -DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS \\
+    -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER \\
+    -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\
+    -O2 -Wall -Wextra \\
+    -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152 \\
+    -flto=auto -ftrivial-auto-var-init=zero -march=native -pthread \\
+    -std=gnu++23 -Wl,--as-needed -fopenmp
+}
+[[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
+oj_bundle "$usage_src" >main.cpp || exit 1
+oj_compile main.cpp || exit 1
+(
+  cd checker || exit 1
+  [[ -f test.cpp ]] || exit 1
+  oj_bundle test.cpp >test/main.cpp || exit 1
+  cd test || exit 1
+  oj_compile main.cpp || exit 1
+  ./a.out
+)
 """
