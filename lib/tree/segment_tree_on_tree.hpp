@@ -33,17 +33,17 @@ struct segment_tree_on_tree {
     void build(int r = 0) {
         if (_n == 0) return;
         std::vector<int> heavy_path(_n, -1), sub_size(_n, 1), par(_n, -1), dep(_n, 0);
-        std::vector<int> s;
-        s.reserve(_n);
-        s.emplace_back(r);
+        std::vector<int> stk;
+        stk.reserve(_n);
+        stk.emplace_back(r);
         int pos = 0;
-        while (!s.empty()) {
-            int v = s.back();
-            s.pop_back();
+        while (!stk.empty()) {
+            int v = stk.back();
+            stk.pop_back();
             vid[pos++] = v;
             for (int u : g[v]) {
                 if (u == par[v]) continue;
-                par[u] = v, dep[u] = dep[v] + 1, s.emplace_back(u);
+                par[u] = v, dep[u] = dep[v] + 1, stk.emplace_back(u);
             }
         }
         for (int i = _n - 1; i >= 0; --i) {
@@ -57,17 +57,17 @@ struct segment_tree_on_tree {
         }
         nxt[r] = r;
         pos = 0;
-        s.emplace_back(r);
-        while (!s.empty()) {
-            int v = s.back();
-            s.pop_back();
+        stk.emplace_back(r);
+        while (!stk.empty()) {
+            int v = stk.back();
+            stk.pop_back();
             vid[v] = pos++;
             int hp = heavy_path[v];
             for (int u : g[v]) {
                 if (u == par[v] || u == hp) continue;
-                nxt[u] = u, s.emplace_back(u);
+                nxt[u] = u, stk.emplace_back(u);
             }
-            if (hp != -1) nxt[hp] = nxt[v], s.emplace_back(hp);
+            if (hp != -1) nxt[hp] = nxt[v], stk.emplace_back(hp);
         }
 
         head_par.resize(_n);

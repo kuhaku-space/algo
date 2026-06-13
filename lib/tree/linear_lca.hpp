@@ -26,12 +26,12 @@ struct linear_lca {
     template <class T>
     linear_lca(const Graph<T> &g, int r = 0) : ord(g.size(), -1), lst() {
         std::vector<S> v;
-        std::vector<std::pair<int, int>> st;
-        st.reserve(2 * g.size());
-        st.emplace_back(r, 0);
-        while (!st.empty()) {
-            auto [x, d] = st.back();
-            st.pop_back();
+        std::vector<std::pair<int, int>> stk;
+        stk.reserve(2 * g.size());
+        stk.emplace_back(r, 0);
+        while (!stk.empty()) {
+            auto [x, d] = stk.back();
+            stk.pop_back();
             if (x < 0) {
                 v.emplace_back(d, ~x);
                 continue;
@@ -40,20 +40,20 @@ struct linear_lca {
             v.emplace_back(d, x);
             for (auto e : g[x]) {
                 if (ord[e.to()] != -1) continue;
-                st.emplace_back(~x, d);
-                st.emplace_back(e.to(), d + 1);
+                stk.emplace_back(~x, d);
+                stk.emplace_back(e.to(), d + 1);
             }
         }
         lst = linear_sparse_table<M>(v);
     }
     linear_lca(const internal::graph_csr &g, int r = 0) : ord(g.size(), -1), lst() {
         std::vector<S> v;
-        std::vector<std::pair<int, int>> st;
-        st.reserve(2 * g.size());
-        st.emplace_back(r, 0);
-        while (!st.empty()) {
-            auto [x, d] = st.back();
-            st.pop_back();
+        std::vector<std::pair<int, int>> stk;
+        stk.reserve(2 * g.size());
+        stk.emplace_back(r, 0);
+        while (!stk.empty()) {
+            auto [x, d] = stk.back();
+            stk.pop_back();
             if (x < 0) {
                 v.emplace_back(d, ~x);
                 continue;
@@ -62,8 +62,8 @@ struct linear_lca {
             v.emplace_back(d, x);
             for (int y : g[x]) {
                 if (ord[y] != -1) continue;
-                st.emplace_back(~x, d);
-                st.emplace_back(y, d + 1);
+                stk.emplace_back(~x, d);
+                stk.emplace_back(y, d + 1);
             }
         }
         lst = linear_sparse_table<M>(v);

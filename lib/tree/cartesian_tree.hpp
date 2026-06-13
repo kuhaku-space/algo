@@ -6,17 +6,17 @@ template <typename T>
 std::vector<int> cartesian_tree(const std::vector<T> &v) {
     int n = v.size();
     std::vector<int> res(n, -1);
-    std::vector<int> st;
-    st.reserve(n);
+    std::vector<int> stk;
+    stk.reserve(n);
     for (int i = 0; i < n; ++i) {
         int p = -1;
-        while (!st.empty() && v[i] < v[st.back()]) {
-            p = st.back();
-            st.pop_back();
+        while (!stk.empty() && v[i] < v[stk.back()]) {
+            p = stk.back();
+            stk.pop_back();
         }
         if (p != -1) res[p] = i;
-        if (!st.empty()) res[i] = st.back();
-        st.emplace_back(i);
+        if (!stk.empty()) res[i] = stk.back();
+        stk.emplace_back(i);
     }
     return res;
 }
@@ -36,14 +36,14 @@ template <typename T>
 std::vector<internal::node_t> cartesian_tree_fully(const std::vector<T> &v) {
     int n = v.size();
     std::vector<internal::node_t> res(n);
-    std::vector<int> st;
-    st.reserve(n);
+    std::vector<int> stk;
+    stk.reserve(n);
     for (int i = 0; i < n; ++i) {
         int p = -1;
-        while (!st.empty() && v[i] < v[st.back()]) p = st.back(), st.pop_back();
+        while (!stk.empty() && v[i] < v[stk.back()]) p = stk.back(), stk.pop_back();
         if (p != -1) res[p].parent = i, res[i].left = p;
-        if (!st.empty()) res[i].parent = st.back(), res[st.back()].right = i;
-        st.emplace_back(i);
+        if (!stk.empty()) res[i].parent = stk.back(), res[stk.back()].right = i;
+        stk.emplace_back(i);
     }
     return res;
 }
