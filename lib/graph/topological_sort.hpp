@@ -13,6 +13,7 @@ std::vector<int> topological_sort(const Graph<T> &g) {
     // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）。
     // 子を処理し終えた後に res へ push する帰りがけ順を再現し、最後に反転する。
     std::vector<std::pair<int, int>> stk;
+    stk.reserve(n);
     for (int i = 0; i < n; ++i) {
         if (seen[i]) continue;
         seen[i] = true;

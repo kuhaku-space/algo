@@ -1,5 +1,5 @@
 #pragma once
-#include <stack>
+#include <vector>
 #include "graph/graph.hpp"
 #include "internal/internal_csr.hpp"
 
@@ -10,17 +10,18 @@ struct heavy_light_decomposition {
     template <class T>
     heavy_light_decomposition(const Graph<T> &g, int r = 0) : heavy_light_decomposition(g.size()) {
         std::vector<int> heavy_path(_size, -1);
-        std::stack<int> st;
-        st.emplace(r);
+        std::vector<int> st;
+        st.reserve(_size);
+        st.emplace_back(r);
         int pos = 0;
         while (!st.empty()) {
-            int v = st.top();
-            st.pop();
+            int v = st.back();
+            st.pop_back();
             vid[pos++] = v;
             for (auto &e : g[v]) {
                 int u = e.to();
                 if (u == par[v]) continue;
-                par[u] = v, dep[u] = dep[v] + 1, st.emplace(u);
+                par[u] = v, dep[u] = dep[v] + 1, st.emplace_back(u);
             }
         }
         for (int i = _size - 1; i >= 0; --i) {
@@ -35,35 +36,36 @@ struct heavy_light_decomposition {
         }
         nxt[r] = r;
         pos = 0;
-        st.emplace(r);
+        st.emplace_back(r);
         while (!st.empty()) {
-            int v = st.top();
-            st.pop();
+            int v = st.back();
+            st.pop_back();
             vid[v] = pos++;
             inv[vid[v]] = v;
             int hp = heavy_path[v];
             for (auto &e : g[v]) {
                 int u = e.to();
                 if (u == par[v] || u == hp) continue;
-                nxt[u] = u, st.emplace(u);
+                nxt[u] = u, st.emplace_back(u);
             }
-            if (hp != -1) nxt[hp] = nxt[v], st.emplace(hp);
+            if (hp != -1) nxt[hp] = nxt[v], st.emplace_back(hp);
         }
     }
 
     heavy_light_decomposition(const internal::graph_csr &g, int r = 0)
         : heavy_light_decomposition(g.size()) {
         std::vector<int> heavy_path(_size, -1);
-        std::stack<int> st;
-        st.emplace(r);
+        std::vector<int> st;
+        st.reserve(_size);
+        st.emplace_back(r);
         int pos = 0;
         while (!st.empty()) {
-            int v = st.top();
-            st.pop();
+            int v = st.back();
+            st.pop_back();
             vid[pos++] = v;
             for (int u : g[v]) {
                 if (u == par[v]) continue;
-                par[u] = v, dep[u] = dep[v] + 1, st.emplace(u);
+                par[u] = v, dep[u] = dep[v] + 1, st.emplace_back(u);
             }
         }
         for (int i = _size - 1; i >= 0; --i) {
@@ -77,18 +79,18 @@ struct heavy_light_decomposition {
         }
         nxt[r] = r;
         pos = 0;
-        st.emplace(r);
+        st.emplace_back(r);
         while (!st.empty()) {
-            int v = st.top();
-            st.pop();
+            int v = st.back();
+            st.pop_back();
             vid[v] = pos++;
             inv[vid[v]] = v;
             int hp = heavy_path[v];
             for (int u : g[v]) {
                 if (u == par[v] || u == hp) continue;
-                nxt[u] = u, st.emplace(u);
+                nxt[u] = u, st.emplace_back(u);
             }
-            if (hp != -1) nxt[hp] = nxt[v], st.emplace(hp);
+            if (hp != -1) nxt[hp] = nxt[v], st.emplace_back(hp);
         }
     }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <algorithm>
-#include <stack>
 #include <utility>
 #include <vector>
 #include "segtree/segment_tree.hpp"
@@ -34,16 +33,17 @@ struct segment_tree_on_tree {
     void build(int r = 0) {
         if (_n == 0) return;
         std::vector<int> heavy_path(_n, -1), sub_size(_n, 1), par(_n, -1), dep(_n, 0);
-        std::stack<int> s;
-        s.emplace(r);
+        std::vector<int> s;
+        s.reserve(_n);
+        s.emplace_back(r);
         int pos = 0;
         while (!s.empty()) {
-            int v = s.top();
-            s.pop();
+            int v = s.back();
+            s.pop_back();
             vid[pos++] = v;
             for (int u : g[v]) {
                 if (u == par[v]) continue;
-                par[u] = v, dep[u] = dep[v] + 1, s.emplace(u);
+                par[u] = v, dep[u] = dep[v] + 1, s.emplace_back(u);
             }
         }
         for (int i = _n - 1; i >= 0; --i) {
@@ -57,17 +57,17 @@ struct segment_tree_on_tree {
         }
         nxt[r] = r;
         pos = 0;
-        s.emplace(r);
+        s.emplace_back(r);
         while (!s.empty()) {
-            int v = s.top();
-            s.pop();
+            int v = s.back();
+            s.pop_back();
             vid[v] = pos++;
             int hp = heavy_path[v];
             for (int u : g[v]) {
                 if (u == par[v] || u == hp) continue;
-                nxt[u] = u, s.emplace(u);
+                nxt[u] = u, s.emplace_back(u);
             }
-            if (hp != -1) nxt[hp] = nxt[v], s.emplace(hp);
+            if (hp != -1) nxt[hp] = nxt[v], s.emplace_back(hp);
         }
 
         head_par.resize(_n);

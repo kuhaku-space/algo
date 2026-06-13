@@ -43,6 +43,7 @@ struct static_top_tree {
         {
             std::vector<int> max_sub(n, 0);
             std::vector<std::pair<int, int>> st;  // (頂点, 隣接走査位置)
+            st.reserve(n);
             par[_root] = -1;
             st.emplace_back(_root, 0);
             while (!st.empty()) {

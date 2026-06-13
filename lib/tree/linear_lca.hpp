@@ -1,7 +1,6 @@
 #pragma once
 #include <algorithm>
 #include <limits>
-#include <stack>
 #include <utility>
 #include <vector>
 #include "data_structure/linear_sparse_table.hpp"
@@ -27,11 +26,12 @@ struct linear_lca {
     template <class T>
     linear_lca(const Graph<T> &g, int r = 0) : ord(g.size(), -1), lst() {
         std::vector<S> v;
-        std::stack<std::pair<int, int>> st;
-        st.emplace(r, 0);
+        std::vector<std::pair<int, int>> st;
+        st.reserve(2 * g.size());
+        st.emplace_back(r, 0);
         while (!st.empty()) {
-            auto [x, d] = st.top();
-            st.pop();
+            auto [x, d] = st.back();
+            st.pop_back();
             if (x < 0) {
                 v.emplace_back(d, ~x);
                 continue;
@@ -40,19 +40,20 @@ struct linear_lca {
             v.emplace_back(d, x);
             for (auto e : g[x]) {
                 if (ord[e.to()] != -1) continue;
-                st.emplace(~x, d);
-                st.emplace(e.to(), d + 1);
+                st.emplace_back(~x, d);
+                st.emplace_back(e.to(), d + 1);
             }
         }
         lst = linear_sparse_table<M>(v);
     }
     linear_lca(const internal::graph_csr &g, int r = 0) : ord(g.size(), -1), lst() {
         std::vector<S> v;
-        std::stack<std::pair<int, int>> st;
-        st.emplace(r, 0);
+        std::vector<std::pair<int, int>> st;
+        st.reserve(2 * g.size());
+        st.emplace_back(r, 0);
         while (!st.empty()) {
-            auto [x, d] = st.top();
-            st.pop();
+            auto [x, d] = st.back();
+            st.pop_back();
             if (x < 0) {
                 v.emplace_back(d, ~x);
                 continue;
@@ -61,8 +62,8 @@ struct linear_lca {
             v.emplace_back(d, x);
             for (int y : g[x]) {
                 if (ord[y] != -1) continue;
-                st.emplace(~x, d);
-                st.emplace(y, d + 1);
+                st.emplace_back(~x, d);
+                st.emplace_back(y, d + 1);
             }
         }
         lst = linear_sparse_table<M>(v);

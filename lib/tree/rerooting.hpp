@@ -46,6 +46,7 @@ struct ReRooting {
             int v, p, idx;
         };
         std::vector<frame> st;
+        st.reserve(n);
         for (int i = 0; i < n; ++i) dp[i] = std::vector<Value>(graph[i].size(), M::id());
         st.push_back({0, -1, 0});
         while (!st.empty()) {
@@ -75,7 +76,9 @@ struct ReRooting {
         int n = graph.size();
         std::vector<int> par(n, -1);
         std::vector<Value> dp_p_of(n, M::id());  // 各頂点が親から受け取る dp_p
-        std::vector<int> st = {0};
+        std::vector<int> st;
+        st.reserve(n);
+        st.push_back(0);
         // 行きがけ順に処理（スタックでも順序非依存: values は各頂点 1 回書く）
         while (!st.empty()) {
             int v = st.back();

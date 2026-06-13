@@ -1,5 +1,4 @@
 #pragma once
-#include <stack>
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
@@ -38,11 +37,12 @@ struct euler_tour {
     template <class G>
     euler_tour(const G &g, int n, int r) : _size(n), ord(n), ls(n, -1), rs(n) {
         int c = 0;
-        std::stack<int> st;
-        st.emplace(r);
+        std::vector<int> st;
+        st.reserve(2 * n);
+        st.emplace_back(r);
         while (!st.empty()) {
-            auto x = st.top();
-            st.pop();
+            auto x = st.back();
+            st.pop_back();
             if (x < 0) {
                 rs[~x] = c;
                 continue;
@@ -53,8 +53,8 @@ struct euler_tour {
             for (auto e : g[x]) {
                 int to = to_of(e);
                 if (ls[to] != -1) continue;
-                st.emplace(~x);
-                st.emplace(to);
+                st.emplace_back(~x);
+                st.emplace_back(to);
             }
         }
     }

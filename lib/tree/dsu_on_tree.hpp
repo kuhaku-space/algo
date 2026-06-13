@@ -46,6 +46,7 @@ struct dsu_on_tree {
             bool heavy_done, pending_clear;
         };
         std::vector<frame> st;
+        st.reserve(size);
         st.push_back({root, 0, false, false});
         while (!st.empty()) {
             frame &f = st.back();
@@ -94,6 +95,7 @@ struct dsu_on_tree {
     // 帰りがけに部分木サイズを集計し、最大の子を heavy_path に記録する。
     void dfs_sz(int v) {
         std::vector<std::pair<int, int>> st;  // (頂点, 隣接走査位置)
+        st.reserve(size);
         std::vector<int> max_sub(size, 0);
         st.emplace_back(v, 0);
         while (!st.empty()) {
@@ -122,6 +124,7 @@ struct dsu_on_tree {
             bool entered;
         };
         std::vector<frame> st;
+        st.reserve(size);
         st.push_back({v, 0, false});
         while (!st.empty()) {
             frame &f = st.back();

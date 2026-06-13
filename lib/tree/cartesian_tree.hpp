@@ -1,5 +1,4 @@
 #pragma once
-#include <stack>
 #include <vector>
 
 /// @brief Cartesian Tree
@@ -7,16 +6,17 @@ template <typename T>
 std::vector<int> cartesian_tree(const std::vector<T> &v) {
     int n = v.size();
     std::vector<int> res(n, -1);
-    std::stack<T> st;
+    std::vector<int> st;
+    st.reserve(n);
     for (int i = 0; i < n; ++i) {
         int p = -1;
-        while (!st.empty() && v[i] < v[st.top()]) {
-            p = st.top();
-            st.pop();
+        while (!st.empty() && v[i] < v[st.back()]) {
+            p = st.back();
+            st.pop_back();
         }
         if (p != -1) res[p] = i;
-        if (!st.empty()) res[i] = st.top();
-        st.emplace(i);
+        if (!st.empty()) res[i] = st.back();
+        st.emplace_back(i);
     }
     return res;
 }
@@ -36,13 +36,14 @@ template <typename T>
 std::vector<internal::node_t> cartesian_tree_fully(const std::vector<T> &v) {
     int n = v.size();
     std::vector<internal::node_t> res(n);
-    std::stack<T> st;
+    std::vector<int> st;
+    st.reserve(n);
     for (int i = 0; i < n; ++i) {
         int p = -1;
-        while (!st.empty() && v[i] < v[st.top()]) p = st.top(), st.pop();
+        while (!st.empty() && v[i] < v[st.back()]) p = st.back(), st.pop_back();
         if (p != -1) res[p].parent = i, res[i].left = p;
-        if (!st.empty()) res[i].parent = st.top(), res[st.top()].right = i;
-        st.emplace(i);
+        if (!st.empty()) res[i].parent = st.back(), res[st.back()].right = i;
+        st.emplace_back(i);
     }
     return res;
 }
