@@ -19,28 +19,27 @@ struct fibonacci_heap {
         _node(Key _key, Value _value)
             : key(_key), value(_value), order(), left(this), right(this), parent(), child(), damaged() {}
 
+        // node を子リストへ追加する。parent と order を更新する
         void add_child(pointer node) {
             node->parent = this;
             if (child) child->insert_left(node);
             else child = node;
             ++order;
         }
+        // node を自分の左隣（前）へ挿入する
         void insert_left(pointer node) {
             node->right = this;
             node->left = left;
             left->right = node;
             left = node;
         }
-        void insert_right(pointer node) {
-            node->left = this;
-            node->right = right;
-            right->left = node;
-            right = node;
-        }
-
-        pointer erase() {
-            parent = nullptr;
-            if (left == this) return nullptr;
+        // 自分を兄弟リストから外す（parent は触らない）。
+        // 外したあと参照できる兄弟（なければ nullptr）を返す
+        pointer unlink() {
+            if (left == this) {
+                left = right = this;
+                return nullptr;
+            }
             left->right = right;
             right->left = left;
             auto res = left;
@@ -67,7 +66,7 @@ struct fibonacci_heap {
             _root = node;
         } else {
             _root->insert_left(node);
-            if (comp(_root->value, value)) _root = _root->left;
+            if (comp(_root->value, value)) _root = node;
         }
         return node;
     }
@@ -75,21 +74,31 @@ struct fibonacci_heap {
 
     void pop() {
         --_size;
+        // _root の子をすべてルートリストへ昇格する（parent を nullptr に戻す）
         if (_root->child) {
-            auto child = _root->child, left = child->left;
+            auto child = _root->child;
+            do {
+                child->parent = nullptr;
+                child = child->right;
+            } while (child != _root->child);
+            // _root と child の双方向リストを連結する
+            auto left = child->left;
             _root->left->right = child;
             child->left->right = _root;
             child->left = _root->left;
             _root->left = left;
+            _root->child = nullptr;
         }
-        _root = _root->erase();
+        _root = _root->unlink();
         if (!_root) return;
 
-        node_ptr nodes[30] = {};
+        // 同じ order の木を併合する（consolidate）
+        node_ptr nodes[64] = {};
         while (_root) {
             auto node = _root;
-            auto order = node->order;
-            _root = _root->erase();
+            _root = _root->unlink();
+            node->damaged = false;
+            int order = node->order;
             while (nodes[order]) {
                 if (comp(node->value, nodes[order]->value)) std::swap(node, nodes[order]);
                 node->add_child(nodes[order]);
@@ -99,40 +108,60 @@ struct fibonacci_heap {
             nodes[order] = node;
         }
 
+        // 併合後の木をルートリストへ繋ぎ直し、最大を _root にする
         for (auto node : nodes) {
-            if (node && (!_root || comp(_root->value, node->value))) _root = node;
-        }
-        for (auto node : nodes) {
-            if (node && node != _root) _root->insert_left(node);
+            if (!node) continue;
+            if (!_root) {
+                _root = node;
+            } else {
+                _root->insert_left(node);
+                if (comp(_root->value, node->value)) _root = node;
+            }
         }
     }
 
+    // node の値を value に更新する（max-heap なので増加方向のみ反映）
     void update(node_ptr node, Value value) {
         if (comp(node->value, value)) node->value = value;
         else return;
-        if (!node->parent) {
-            if (comp(_root->value, value)) _root = node;
-            return;
-        } else if (!comp(node->parent->value, node->value)) {
+        auto parent = node->parent;
+        // ルート上のノードなら最大判定のみ
+        if (!parent) {
+            if (comp(_root->value, node->value)) _root = node;
             return;
         }
-        while (node->parent) {
-            auto parent = node->parent;
-            node->damaged = false;
-            parent->child = node->erase();
-            --(parent->order);
-            _root->insert_left(node);
-            if (comp(_root->value, _root->left->value)) _root = _root->left;
-            if (!parent->damaged) {
-                parent->damaged = true;
-                break;
-            }
-            node = parent;
-        }
+        // ヒープ条件を満たしているなら何もしない
+        if (!comp(parent->value, node->value)) return;
+        // node を切り離し、親へカスケードカットを伝播させる
+        cut(node, parent);
+        cascading_cut(parent);
+        if (comp(_root->value, node->value)) _root = node;
     }
 
   private:
     node_ptr _root;
     int _size;
     Comp comp;
+
+    // node を親 parent から切り離してルートリストへ移す
+    void cut(node_ptr node, node_ptr parent) {
+        auto sibling = node->unlink();
+        if (parent->child == node) parent->child = sibling;
+        --(parent->order);
+        node->parent = nullptr;
+        node->damaged = false;
+        _root->insert_left(node);
+    }
+
+    // 親方向へカスケードカットを伝播させる
+    void cascading_cut(node_ptr node) {
+        while (auto parent = node->parent) {
+            if (!node->damaged) {
+                node->damaged = true;
+                break;
+            }
+            cut(node, parent);
+            node = parent;
+        }
+    }
 };

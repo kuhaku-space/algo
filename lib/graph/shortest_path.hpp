@@ -6,25 +6,81 @@
 #include <vector>
 #include "graph/graph.hpp"
 
+/// @brief shortest_path の既定ヒープ（`std::priority_queue` ベースの最小ヒープ）
+/// @details `Key`（頂点）・`Value`（距離）を受け取り、`Value` 最小をルートにする。
+///          `binary_heap` / `fibonacci_heap` と同じ template-template 形式
+///          （`Heap<Key, Value, Comp>`）で渡せるよう薄く包む。decrease-key は持たない。
+template <class Key, class Value, class Comp = std::less<>>
+struct dijkstra_priority_queue {
+    using node = std::pair<Value, Key>;
+    std::priority_queue<node, std::vector<node>, std::greater<>> que;
+
+    bool empty() const { return que.empty(); }
+    void push(Key key, Value value) { que.emplace(value, key); }
+    std::pair<Key, Value> top() const {
+        auto [value, key] = que.top();
+        return {key, value};
+    }
+    void pop() { que.pop(); }
+};
+
+/// @brief decrease-key（`update`）を持つヒープか
+/// @details `binary_heap` / `fibonacci_heap` は満たし、`dijkstra_priority_queue` は満たさない。
+template <class Heap, class Key, class Value>
+concept decrease_key_heap = requires(Heap &h, Key key, Value value) {
+    requires requires(decltype(h.push(key, value)) handle) { h.update(handle, value); };
+};
+
 /// @brief 単一始点最短路（実重み付きグラフはダイクストラ法）
+/// @tparam Heap 使用するヒープ。既定は `std::priority_queue` ベースの最小ヒープ。
+///         `binary_heap` / `fibonacci_heap` を渡すと decrease-key 方式に切り替わる。
+///         いずれも `Heap<Key, Value, Comp>` 形式で `push(key, value)` /
+///         `top() -> pair<key, value>` / `pop` / `empty` を持つこと。
 /// @tparam G 実重み付きグラフ型（`list_graph<T>` / `csr_graph<T>`、T は非 void）
 /// @note 重みなしグラフ（`*_graph<void>`）は下の BFS 版が選ばれる。
-template <properly_weighted_graph_type G, class T = graph_weight_t<G>>
+/// @note `update` を持つヒープでは頂点ごとにハンドルを保持して decrease-key し、
+///       ヒープ内要素を高々 V 個に保つ。持たないヒープでは緩和のたびに push して
+///       取り出し時に stale をスキップする lazy-deletion 方式になる。
+template <template <class...> class Heap = dijkstra_priority_queue, properly_weighted_graph_type G,
+          class T = graph_weight_t<G>>
 std::vector<T> shortest_path(const G &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
-    // pair は first（距離）優先で比較されるので greater<> で最小ヒープになる。
-    using node = std::pair<T, int>;
-    std::vector<T> dists(g.size(), inf);
-    std::priority_queue<node, std::vector<node>, std::greater<>> p_que;
+    int n = g.size();
+    // key = 頂点、value = 距離。greater<> で距離最小をルートにする最小ヒープ。
+    using heap_type = Heap<int, T, std::greater<>>;
+    std::vector<T> dists(n, inf);
+    heap_type heap;
     dists[s] = T();
-    p_que.emplace(T(), s);
-    while (!p_que.empty()) {
-        auto [d, v] = p_que.top();
-        p_que.pop();
-        if (dists[v] < d) continue;
-        for (auto &e : g[v]) {
-            if (d + e.weight() < dists[e.to()]) {
-                dists[e.to()] = d + e.weight();
-                p_que.emplace(dists[e.to()], e.to());
+
+    if constexpr (decrease_key_heap<heap_type, int, T>) {
+        // decrease-key 方式: 頂点ごとにハンドルを保持する。
+        using node_ptr = decltype(heap.push(0, T()));
+        std::vector<node_ptr> handle(n, node_ptr{});
+        handle[s] = heap.push(s, T());
+        while (!heap.empty()) {
+            auto [v, d] = heap.top();
+            heap.pop();
+            handle[v] = node_ptr{};  // 確定済みの印（再度ヒープに入れない）
+            for (auto &e : g[v]) {
+                int to = e.to();
+                if (dists[to] <= d + e.weight()) continue;
+                dists[to] = d + e.weight();
+                if (handle[to]) heap.update(handle[to], dists[to]);
+                else handle[to] = heap.push(to, dists[to]);
+            }
+        }
+    } else {
+        // lazy-deletion 方式: 緩和のたびに push し、取り出し時に stale をスキップする。
+        heap.push(s, T());
+        while (!heap.empty()) {
+            auto [v, d] = heap.top();
+            heap.pop();
+            if (dists[v] < d) continue;
+            for (auto &e : g[v]) {
+                int to = e.to();
+                if (d + e.weight() < dists[to]) {
+                    dists[to] = d + e.weight();
+                    heap.push(to, dists[to]);
+                }
             }
         }
     }
