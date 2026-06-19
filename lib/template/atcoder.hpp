@@ -1,8 +1,17 @@
 #pragma once
 #include "template/template.hpp"
-#include "template/macro.hpp"
 #include "template/sonic.hpp"
 #include "template/vector.hpp"
+// rep は引数の数でオーバーロードする: rep(i, n) は [0, n)、rep(i, l, r) は [l, r)。
+// __VA_ARGS__ を (a, b, c, NAME, ...) に流し、4 番目のトークンで呼ぶマクロを選ぶ。
+#define OVERLOAD_REP(a, b, c, NAME, ...) NAME
+#define rep(...) OVERLOAD_REP(__VA_ARGS__, rep3, rep2)(__VA_ARGS__)
+#define rep2(i, n) for (int i = 0; i < int(n); ++i)
+#define rep3(i, l, r) for (int i = int(l); i < int(r); ++i)
+#define repn(i, n) for (int i = 1; i < int(n) + 1; ++i)
+#define repr(i, n) for (int i = int(n) - 1; i >= 0; --i)
+#define repnr(i, n) for (int i = int(n); i >= 1; --i)
+#define all(s) (s).begin(), (s).end()
 using namespace std;
 using ll = std::int64_t;
 using ld = long double;
