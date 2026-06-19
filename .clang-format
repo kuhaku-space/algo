@@ -15,7 +15,14 @@ AllowShortLambdasOnASingleLine: All
 BreakBeforeConceptDeclarations: Always
 CommentPragmas: 'competitive-verifier:'
 DerivePointerAlignment: false
+# atcoder.hpp のループマクロ。範囲 for と同様に整形させる（`rep (...) { ... }` の括弧前空白など）。
+ForEachMacros: ['rep', 'repn', 'repr', 'repnr']
 IncludeBlocks: Merge
+# template/{atcoder,library_checker}.hpp は template/template.hpp（<bits/stdc++.h> を引く）を
+# 必ず先頭に置く必要がある。include ソートは効かせたまま最優先（負 Priority）で先頭固定する。
+IncludeCategories:
+  - Regex:    '"template/template\.hpp"'
+    Priority: -1
 IndentRequiresClause: false
 PackConstructorInitializers: BinPack
 PointerAlignment: Right
