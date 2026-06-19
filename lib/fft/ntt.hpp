@@ -23,7 +23,26 @@ std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint
     assert((mint::mod() - 1) % std::bit_ceil<unsigned>(n + m - 1) == 0);
 
     if (std::min(n, m) <= CONVOLUTION_NAIVE_THRESHOLD) return internal::convolution_naive(a, b);
+    // 同一列同士の畳み込みは順変換が 1 回で済む (3 NTT -> 2 NTT)。比較は O(n) で NTT より十分軽い。
+    if (n == m && a == b) return internal::convolution_fft_square(a);
     return internal::convolution_fft(a, b);
+}
+
+/// @brief 自乗畳み込み (a と a の畳み込み, modint 版)
+/// @details a を自身と畳み込む。順変換を 1 回に削減できるため convolution(a, a) より速い。
+/// @tparam mint NTT-friendly な static modint
+/// @param a 入力多項式の係数列
+/// @return std::vector<mint> a と a の畳み込み (長さ 2 * a.size() - 1)
+/// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348
+template <internal::static_modint_c mint>
+std::vector<mint> convolution_square(const std::vector<mint> &a) {
+    int n = int(a.size());
+    if (!n) return {};
+
+    assert((mint::mod() - 1) % std::bit_ceil<unsigned>(2 * n - 1) == 0);
+
+    if (n <= CONVOLUTION_NAIVE_THRESHOLD) return internal::convolution_naive(a, a);
+    return internal::convolution_fft_square(a);
 }
 
 /// @brief NTT による畳み込み (整数版)
@@ -49,6 +68,27 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     std::vector<T> c(n + m - 1);
     for (int i = 0; i < n + m - 1; i++) { c[i] = c2[i].val(); }
     return c;
+}
+
+/// @brief middle product / 転置乗算 (modint 版)
+/// @details a (長さ n) と b (長さ m, m <= n) に対し c[i] = sum_j a[i+j] * b[j]
+///          (i = 0 .. n-m) を返す (長さ n-m+1)。a と rev(b) のフル積の中央部に等しく、
+///          変換長が bit_ceil(n) で済む。多項式補間・分割統治など「ずらし内積」が要る場面で使う。
+/// @tparam mint NTT-friendly な static modint
+/// @param a 長さ n の係数列
+/// @param b 長さ m (m <= n) の係数列
+/// @return std::vector<mint> c[i] = sum_j a[i+j]*b[j] (長さ n - m + 1)
+/// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348
+template <internal::static_modint_c mint>
+std::vector<mint> middle_product(const std::vector<mint> &a, const std::vector<mint> &b) {
+    int n = int(a.size()), m = int(b.size());
+    assert(m <= n);
+    if (!m) return {};
+
+    assert((mint::mod() - 1) % std::bit_ceil<unsigned>(n) == 0);
+
+    if (std::min(n, m) <= CONVOLUTION_NAIVE_THRESHOLD) return internal::middle_product_naive(a, b);
+    return internal::middle_product_fft(a, b);
 }
 
 /// @brief 任意係数の畳み込み (3 つの NTT + Garner 法)
