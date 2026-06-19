@@ -238,40 +238,92 @@ std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).second;
 }
 
+namespace internal_fps {
+
+// 多点評価のしきい値。残り点数がこれ以下の部分木は、剰余の再帰をやめて
+// Horner 法で直接評価した方が速い (NTT の定数倍を避ける)。
+static constexpr int MULTIPOINT_NAIVE_THRESHOLD = 64;
+
+// 部分積木: 葉 leaf[m+i] = (x - x_i)、内部節点はその子の積 (いずれもモニック)。
+// up[1] は全積 prod_i (x - x_i)。葉数 m = bit_ceil(n)。空葉は定数 1。
+template <internal::static_modint_c mint>
+std::vector<std::vector<mint>> subproduct_tree(const std::vector<mint> &x, int m) {
+    int n = x.size();
+    std::vector<std::vector<mint>> up(m << 1, {mint(1)});
+    for (int i = 0; i < n; ++i) up[m + i] = {-x[i], mint(1)};
+    for (int i = m; i-- > 1;) up[i] = convolution(up[i << 1 | 0], up[i << 1 | 1]);
+    return up;
+}
+
+// Horner 法で f を x[off..off+cnt) の各点で評価して res[off..] に書き込む。
+template <internal::static_modint_c mint>
+void evaluate_naive(const std::vector<mint> &f, const std::vector<mint> &x, int off, int cnt, std::vector<mint> &res) {
+    for (int k = 0; k < cnt; ++k) {
+        mint xi = x[off + k], acc = mint();
+        for (int j = (int)f.size(); j-- > 0;) acc = acc * xi + f[j];
+        res[off + k] = acc;
+    }
+}
+
+// 剰余木の下降パス: 節点 i で g = f mod up[i] を持ち、子へ g mod up[child] と下ろす。
+// 残り点数がしきい値以下の部分木に達したら、剰余の再帰をやめて Horner 法で直接評価する。
+// (下位の木では mod 1 回あたりの NTT 定数倍が点数に見合わないため。)
+// up を共有することで補間と評価で部分積木を一度しか作らない。
+template <internal::static_modint_c mint>
+void evaluate_down(const std::vector<std::vector<mint>> &up, const std::vector<mint> &x, int m, int n, int i,
+                   std::vector<mint> f, std::vector<mint> &res) {
+    int lo = i, hi = i;
+    while (lo < m) lo <<= 1, hi = hi << 1 | 1;
+    int off = lo - m;
+    int cnt = std::min(hi - m, n - 1) - off + 1;  // この部分木が覆う点数
+    if (cnt <= 0) return;
+    if (cnt <= MULTIPOINT_NAIVE_THRESHOLD) {
+        evaluate_naive(f, x, off, cnt, res);
+        return;
+    }
+    evaluate_down(up, x, m, n, i << 1 | 0, mod(f, up[i << 1 | 0]), res);
+    evaluate_down(up, x, m, n, i << 1 | 1, mod(std::move(f), up[i << 1 | 1]), res);
+}
+
+}  // namespace internal_fps
+
 template <internal::static_modint_c mint>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
-    int m = std::bit_ceil<unsigned>(n);
-    std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
-    for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
-    for (int i = m - 1; i >= 1; --i) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
-
-    g[1] = mod(f, mul[1]);
-    for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
-    std::vector<mint> res(n);
-    for (int i = 0; i < n; ++i) {
-        if (!g[m + i].empty()) res[i] = g[m + i].front();
+    if (n == 0) return {};
+    if (n <= internal_fps::MULTIPOINT_NAIVE_THRESHOLD) {
+        std::vector<mint> res(n);
+        internal_fps::evaluate_naive(f, x, 0, n, res);
+        return res;
     }
+    int m = std::bit_ceil<unsigned>(n);
+    auto up = internal_fps::subproduct_tree(x, m);
+    std::vector<mint> res(n);
+    internal_fps::evaluate_down(up, x, m, n, 1, mod(f, up[1]), res);
     return res;
 }
 
 template <internal::static_modint_c mint>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
+    if (n == 0) return {};
     int m = std::bit_ceil<unsigned>(n);
-    std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
-    for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
-    for (int i = m; i-- > 1;) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
+    auto up = internal_fps::subproduct_tree(x, m);
 
-    std::vector<mint> f = mul[1];
+    // f = (prod (x - x_i))' を各 x_i で評価すると prod_{j!=i}(x_i - x_j) になる。
+    std::vector<mint> f = up[1];
     f.erase(f.begin());
     for (int i = 0; i < n; ++i) f[i] *= i + 1;
 
-    g[1] = mod(f, mul[1]);
-    for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
-    for (int i = 0; i < n; ++i) g[m + i] = {y[i] / g[m + i][0]};
+    // d[i] = f(x_i)。剰余木の下降で全点まとめて評価する (しきい値以下は Horner)。
+    std::vector<mint> d(n);
+    internal_fps::evaluate_down(up, x, m, n, 1, mod(f, up[1]), d);
+
+    // 葉に y_i / d_i を置き、上に向かって sum g_child * up[sibling] で畳み込んで復元。
+    std::vector<std::vector<mint>> g(m << 1);
+    for (int i = 0; i < n; ++i) g[m + i] = {y[i] / d[i]};
     for (int i = m; i--;)
-        g[i] = plus(convolution(g[i << 1 | 0], mul[i << 1 | 1]), convolution(g[i << 1 | 1], mul[i << 1 | 0]));
+        g[i] = plus(convolution(g[i << 1 | 0], up[i << 1 | 1]), convolution(g[i << 1 | 1], up[i << 1 | 0]));
     return g[1];
 }
 
