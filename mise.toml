@@ -102,15 +102,18 @@ done
 # CWD をまたぐネストした `mise run` を避ける（random-check は checker/ 配下でも使う）。
 
 [tasks.download]
-description = "workspace でテストケースをダウンロード（oj d）"
+description = "workspace でテストケースをダウンロード（oj d、-a でシステムテスト）"
 alias = "ojd"
 dir = "{{config_root}}/workspace"
 usage = '''
+flag "-a --system" help="システムテスト（全テストケース）をダウンロードする"
 arg "<url>" help="問題ページの URL" required=#true
 '''
 run = """
 #!/bin/bash
-rm -rf test/ && oj d "$usage_url"
+oj_args=()
+[[ "$usage_system" == "true" ]] && oj_args+=(-a)
+rm -rf test/ && oj d "${oj_args[@]}" "$usage_url"
 """
 
 [tasks.new]
