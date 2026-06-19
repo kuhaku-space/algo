@@ -58,6 +58,9 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 
 ## PR 運用
 
+- **`main` には直接コミットしない**。ブランチ保護で `main` への push は弾かれるため、
+  作業は必ず新しいブランチを切ってそこにコミットする（`git switch -c <branch>`）。
+
 - **コミットは指示なしで行ってよいが、PR の作成はユーザが明示的に指示したときのみ**。
   指示があるまで作業はコミットまでで止め、`gh pr create` / push / auto-merge は実行しない。
   （以下は PR を作成する場合の手順であって、PR 作成自体を自動で行う指示ではない）
