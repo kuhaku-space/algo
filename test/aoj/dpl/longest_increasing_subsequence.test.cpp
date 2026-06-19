@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
-#include "algorithm/lis.hpp"
+#include "string/misc.hpp"
 
 int main(void) {
     int n;

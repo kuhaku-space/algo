@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/273
 #include <iostream>
 #include <string>
-#include "algorithm/palindrome.hpp"
+#include "string/misc.hpp"
 
 int main(void) {
     std::string s;
