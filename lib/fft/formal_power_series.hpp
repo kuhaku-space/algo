@@ -5,9 +5,45 @@
 #include <cstdint>
 #include <vector>
 #include "fft/ntt.hpp"
+#include "fft/ntt_avx2.hpp"
+#include "internal/internal_fps_avx2.hpp"
 #include "math/combination.hpp"
 
 namespace fps {
+
+namespace internal_fps {
+
+// AVX2 + Montgomery 版 (inv/exp/log) を使える条件: NTT-friendly な素数 mod < 2^30 で、
+// かつ実行時に CPU が AVX2 をサポートしていること。
+template <internal::static_modint_c mint>
+inline bool use_avx2() {
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod >= (1u << 30)) {
+        return false;
+    } else {
+        return mint::is_prime_mod() && internal::has_avx2();
+    }
+}
+
+// mint 列 -> Montgomery u32 列。
+template <internal::static_modint_c mint>
+std::vector<std::uint32_t> to_mont(const std::vector<mint> &a) {
+    using s = internal::avx2::mont<(unsigned int)mint::mod()>;
+    std::vector<std::uint32_t> r(a.size());
+    for (std::size_t i = 0; i < a.size(); ++i) r[i] = s::to((std::uint32_t)a[i].val());
+    return r;
+}
+
+// Montgomery u32 列 -> mint 列。
+template <internal::static_modint_c mint>
+std::vector<mint> from_mont(const std::vector<std::uint32_t> &a) {
+    using s = internal::avx2::mont<(unsigned int)mint::mod()>;
+    std::vector<mint> r(a.size());
+    for (std::size_t i = 0; i < a.size(); ++i) r[i] = mint::raw((int)s::from(a[i]));
+    return r;
+}
+
+}  // namespace internal_fps
 
 template <internal::static_modint_c mint>
 std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
@@ -22,6 +58,11 @@ std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] != mint(0));
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod < (1u << 30)) {
+        if (internal_fps::use_avx2<mint>())
+            return internal_fps::from_mont<mint>(internal::avx2::inv<mod>(internal_fps::to_mont(h), deg));
+    }
     std::vector<mint> res(deg);
     res[0] = h[0].inv();
     for (int d = 1; d < deg; d <<= 1) {
@@ -53,9 +94,14 @@ std::vector<mint> inv(const std::vector<mint> &h) {
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] == 1);
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod < (1u << 30)) {
+        if (internal_fps::use_avx2<mint>())
+            return internal_fps::from_mont<mint>(internal::avx2::log<mod>(internal_fps::to_mont(h), deg));
+    }
     std::vector<mint> f(h.size() - 1);
     for (int i = 0; i < (int)f.size(); ++i) f[i] = h[i + 1] * (i + 1);
-    f = convolution(f, inv(h));
+    f = convolution(f, inv(h, deg));
     f.resize(deg);
     for (int i = deg - 1; i >= 1; --i) f[i] = f[i - 1] / i;
     f[0] = 0;
@@ -69,6 +115,11 @@ std::vector<mint> log(const std::vector<mint> &h) {
 
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h, int deg) {
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod < (1u << 30)) {
+        if (internal_fps::use_avx2<mint>())
+            return internal_fps::from_mont<mint>(internal::avx2::exp<mod>(internal_fps::to_mont(h), deg));
+    }
     std::vector<mint> f(deg), g(deg);
     f[0] = 1;
     g[0] = 1;
@@ -123,13 +174,18 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
         res[0] = 1;
         return res;
     }
-    if (m == 1) return h;
+    if (m == 1) {
+        std::vector<mint> res = h;
+        res.resize(deg);
+        return res;
+    }
     if (m < 0) return inv(pow(h, -m, deg));
 
     int n = h.size();
     int k = 0;
     while (k < n && h[k] == 0) ++k;
-    if (k >= (deg + m - 1) / m) return std::vector<mint>(deg);
+    // 全係数 0、または最低次 x^k が m 乗で deg 以上に押し出される場合は全 0。
+    if (k == n || (std::int64_t)k >= (deg + m - 1) / m) return std::vector<mint>(deg);
     mint c = h[k];
     mint ic = c.inv();
     mint pc = c.pow(m);
@@ -137,7 +193,7 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     res.erase(res.begin(), res.begin() + k);
     for (int i = 0; i < n - k; ++i) res[i] *= ic;
     res = log(res, deg - k * m);
-    for (int i = 0; i < deg; ++i) res[i] *= m;
+    for (int i = 0; i < deg - k * m; ++i) res[i] *= m;
     res = exp(res, deg - k * m);
     for (int i = 0; i < deg - k * m; ++i) res[i] *= pc;
     res.insert(res.begin(), k * m, mint());
