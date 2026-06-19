@@ -1,4 +1,0 @@
-# template/ は AtCoder 提出用テンプレート。include 順が load-bearing
-# （template.hpp が <bits/stdc++.h> を引くので macro.hpp 等より前に来る必要がある）で、
-# clang-format の include ソート（IncludeBlocks: Merge）が並べ替えると壊れるため除外する。
-lib/template/*
