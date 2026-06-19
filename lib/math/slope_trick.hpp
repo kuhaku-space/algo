@@ -19,9 +19,7 @@ struct slope_trick {
 
     /// @brief Add f(x) = max(0, x - a)
     void add_x_minus_a(T a) {
-        if (!l.empty() && l.top() > a) {
-            min_f += l.top() - a;
-        }
+        if (!l.empty() && l.top() > a) { min_f += l.top() - a; }
         l.push(a);
         r.push(l.top());
         l.pop();
@@ -29,9 +27,7 @@ struct slope_trick {
 
     /// @brief Add f(x) = max(0, a - x)
     void add_a_minus_x(T a) {
-        if (!r.empty() && a > r.top()) {
-            min_f += a - r.top();
-        }
+        if (!r.empty() && a > r.top()) { min_f += a - r.top(); }
         r.push(a);
         l.push(r.top());
         r.pop();

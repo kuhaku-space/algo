@@ -10,9 +10,7 @@ int main(void) {
 
     string_suffix_automaton<> sa(s);
     std::int64_t ans = 0;
-    for (int i = 1; i < sa.size(); ++i) {
-        ans += sa.nodes[i].len - sa.nodes[sa.nodes[i].link].len;
-    }
+    for (int i = 1; i < sa.size(); ++i) { ans += sa.nodes[i].len - sa.nodes[sa.nodes[i].link].len; }
     std::cout << ans << '\n';
 
     return 0;

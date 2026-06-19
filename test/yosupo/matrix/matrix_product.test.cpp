@@ -19,8 +19,7 @@ int main(void) {
     Matrix<Mint> x(a), y(b);
     auto z = x * y;
     for (auto &&v : z) {
-        for (int i = 0; i < (int)v.size(); ++i)
-            std::cout << v[i] << (i == (int)v.size() - 1 ? '\n' : ' ');
+        for (int i = 0; i < (int)v.size(); ++i) std::cout << v[i] << (i == (int)v.size() - 1 ? '\n' : ' ');
     }
 
     return 0;

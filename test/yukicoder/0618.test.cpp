@@ -14,12 +14,8 @@ struct S {
 struct M {
     using T = S;
     using value_type = T;
-    static constexpr T id() {
-        return T(std::numeric_limits<std::int64_t>::max() / 2, 0);
-    }
-    static constexpr T op(const T& lhs, const T& rhs) {
-        return S{std::min(lhs.x, rhs.x), lhs.s + rhs.s};
-    }
+    static constexpr T id() { return T(std::numeric_limits<std::int64_t>::max() / 2, 0); }
+    static constexpr T op(const T &lhs, const T &rhs) { return S{std::min(lhs.x, rhs.x), lhs.s + rhs.s}; }
 };
 
 int main(void) {
@@ -31,10 +27,8 @@ int main(void) {
     std::int64_t s = 0;
     std::vector<std::int64_t> a;
     for (int i = 0; i < q; ++i) {
-        if (t[i] == 1)
-            a.emplace_back(x[i] - s);
-        else if (t[i] == 3)
-            s += x[i];
+        if (t[i] == 1) a.emplace_back(x[i] - s);
+        else if (t[i] == 3) s += x[i];
     }
 
     s = 0;
@@ -52,9 +46,7 @@ int main(void) {
         } else {
             s += x[i];
         }
-        auto f = [&](S y) {
-            return y.x + s >= y.s;
-        };
+        auto f = [&](S y) { return y.x + s >= y.s; };
         int k = st.min_left(f);
         auto t = st.prod(k, cps.size());
         std::int64_t ans = std::min(t.x + s, t.s);

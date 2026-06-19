@@ -2,8 +2,8 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "graph/shortest_path.hpp"
 #include "graph/graph.hpp"
+#include "graph/shortest_path.hpp"
 
 int main(void) {
     int n, m, s, t;

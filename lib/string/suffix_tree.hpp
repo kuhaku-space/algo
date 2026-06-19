@@ -26,17 +26,13 @@ struct suffix_tree {
     suffix_tree(const std::vector<T> &_s)
         : s(_s), root(0), active_node(0), active_edge(0), active_len(0), remainder(0) {
         nodes.emplace_back(-1, -1);
-        for (int i = 0; i < (int)s.size(); ++i) {
-            extend(i);
-        }
+        for (int i = 0; i < (int)s.size(); ++i) { extend(i); }
     }
 
     suffix_tree(const std::string &_s) : root(0), active_node(0), active_edge(0), active_len(0), remainder(0) {
         for (auto c : _s) s.emplace_back(c);
         nodes.emplace_back(-1, -1);
-        for (int i = 0; i < (int)s.size(); ++i) {
-            extend(i);
-        }
+        for (int i = 0; i < (int)s.size(); ++i) { extend(i); }
     }
 
     void extend(int pos) {
@@ -58,7 +54,7 @@ struct suffix_tree {
             } else {
                 int next = nodes[active_node].next[s[active_edge]];
                 int len = nodes[next].len();
-                if (nodes[next].end == -1) len = s.size() - nodes[next].start; // Open edge
+                if (nodes[next].end == -1) len = s.size() - nodes[next].start;  // Open edge
 
                 if (active_len >= len) {
                     active_edge += len;
@@ -87,9 +83,7 @@ struct suffix_tree {
                 nodes[next].start += active_len;
                 nodes[split].next[s[nodes[next].start]] = next;
 
-                if (last_new_node != 0) {
-                    nodes[last_new_node].link = split;
-                }
+                if (last_new_node != 0) { nodes[last_new_node].link = split; }
                 last_new_node = split;
             }
 

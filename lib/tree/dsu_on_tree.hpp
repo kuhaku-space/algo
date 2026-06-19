@@ -10,8 +10,8 @@
 template <graph_type G>
 struct dsu_on_tree {
     dsu_on_tree(const G &_g, const std::vector<int> &query, int r = 0)
-        : g(_g), size(_g.size()), root(r), par(size, -1), sub(), euler(size), left(size),
-          right(size), heavy_path(size, -1), query_order(query.size()), query_size(size) {
+        : g(_g), size(_g.size()), root(r), par(size, -1), sub(), euler(size), left(size), right(size),
+          heavy_path(size, -1), query_order(query.size()), query_size(size) {
         if (size == 0) return;
         for (int x : query) ++query_size[x];
         sub = query_size;
@@ -24,8 +24,8 @@ struct dsu_on_tree {
         for (int i = 0; i < (int)query.size(); ++i) query_order[cnt[query[i]]++] = i;
     }
     dsu_on_tree(const G &_g, int r = 0)
-        : g(_g), size(_g.size()), root(r), par(size, -1), sub(size, 1), euler(size), left(size),
-          right(size), heavy_path(size, -1), query_order(), query_size(size, 1) {
+        : g(_g), size(_g.size()), root(r), par(size, -1), sub(size, 1), euler(size), left(size), right(size),
+          heavy_path(size, -1), query_order(), query_size(size, 1) {
         if (size == 0) return;
         dfs_sz(root);
         if (size > 1) {

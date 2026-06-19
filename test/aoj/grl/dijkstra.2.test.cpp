@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_A
-#include "graph/shortest_path.hpp"
 #include <iostream>
 #include <vector>
 #include "graph/edge_input.hpp"
+#include "graph/shortest_path.hpp"
 #include "heap/fibonacci_heap.hpp"
 
 int main(void) {

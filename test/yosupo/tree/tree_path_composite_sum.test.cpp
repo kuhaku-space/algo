@@ -17,9 +17,7 @@ struct Monoid {
     using T = std::pair<Mint, Mint>;
     using value_type = T;
     static constexpr T id() { return T(); }
-    static constexpr T op(const T &lhs, const T &rhs) {
-        return {lhs.first + rhs.first, lhs.second + rhs.second};
-    }
+    static constexpr T op(const T &lhs, const T &rhs) { return {lhs.first + rhs.first, lhs.second + rhs.second}; }
 
     template <class U>
     static constexpr T f(const T &v, U u) {
@@ -42,8 +40,7 @@ int main(void) {
     ReRooting<Monoid, list_graph<std::pair<Mint, Mint>>, Mint> rr(g, a);
     std::vector<Mint> ans;
     for (int i = 0; i < n; ++i) ans.emplace_back(rr[i].first);
-    for (int i = 0; i < (int)ans.size(); ++i)
-        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
+    for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }

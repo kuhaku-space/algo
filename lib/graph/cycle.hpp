@@ -42,8 +42,7 @@ std::vector<int> cycle_detection_directed(const G &g) {
                     // 今の辺 e を連結する。
                     int pos = (int)vertices.size() - 1;
                     while (vertices[pos] != to) --pos;
-                    for (int i = pos + 1; i < (int)vertices.size(); ++i)
-                        cycle.emplace_back(in_edge[i]);
+                    for (int i = pos + 1; i < (int)vertices.size(); ++i) cycle.emplace_back(in_edge[i]);
                     cycle.emplace_back(eid);
                     break;
                 }
@@ -110,8 +109,7 @@ std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const G
                     int pos = (int)vertices.size() - 1;
                     while (vertices[pos] != to) --pos;
                     for (int i = pos; i < (int)vertices.size(); ++i) cyc_v.emplace_back(vertices[i]);
-                    for (int i = pos + 1; i < (int)vertices.size(); ++i)
-                        cyc_e.emplace_back(in_edge[i]);
+                    for (int i = pos + 1; i < (int)vertices.size(); ++i) cyc_e.emplace_back(in_edge[i]);
                     cyc_e.emplace_back(eid);
                     break;
                 }

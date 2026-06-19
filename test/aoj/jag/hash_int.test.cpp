@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2971
 #include <iostream>
-#include "math/hashint.hpp"
 #include "data_structure/potentialized_union_find.hpp"
+#include "math/hashint.hpp"
 
 /// HashInt の乗法群（単位元 1・合成 `*`・逆元 `inv()`）としての薄いラッパ
 struct S {
