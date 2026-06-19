@@ -5,10 +5,11 @@
 #include <iostream>
 #include <type_traits>
 #include "internal/internal_math.hpp"
+#include "internal/internal_type_traits.hpp"
 
 namespace internal {
 
-struct modint_base {};
+struct modint_base : field_base {};
 struct static_modint_base {};
 
 template <class T>
