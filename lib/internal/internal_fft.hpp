@@ -171,6 +171,54 @@ std::vector<mint> convolution_fft(std::vector<mint> a, std::vector<mint> b) {
     return a;
 }
 
+/// 自乗畳み込み (a と a の畳み込み)。順変換が 1 回で済むため通常の 3 NTT に対し 2 NTT で計算できる。
+/// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348 (DFT の使いまわし)
+template <internal::static_modint_c mint>
+std::vector<mint> convolution_fft_square(std::vector<mint> a) {
+    int n = int(a.size());
+    int z = std::bit_ceil<unsigned>(2 * n - 1);
+    a.resize(z);
+    internal::butterfly(a);
+    for (int i = 0; i < z; i++) { a[i] *= a[i]; }
+    internal::butterfly_inv(a);
+    a.resize(2 * n - 1);
+    mint iz = mint(z).inv();
+    for (int i = 0; i < 2 * n - 1; i++) a[i] *= iz;
+    return a;
+}
+
+/// middle product (転置乗算): a (長さ n) と b (長さ m, n >= m) に対し
+/// c[i] = sum_{j=0}^{m-1} a[i+j] * b[j]  (i = 0 .. n-m) を返す (長さ n-m+1)。
+/// これは a と rev(b) のフル積 a*rev(b) の添字 m-1 .. n-1 にあたる。
+/// サイズ bit_ceil(n) の巡回畳み込み 1 回で求まる。z >= n より該当範囲には巻き込みが起きない。
+/// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348 (Middle Product)
+template <internal::static_modint_c mint>
+std::vector<mint> middle_product_fft(std::vector<mint> a, std::vector<mint> b) {
+    int n = int(a.size()), m = int(b.size());
+    std::reverse(b.begin(), b.end());
+    int z = std::bit_ceil<unsigned>(n);
+    a.resize(z);
+    b.resize(z);
+    internal::butterfly(a);
+    internal::butterfly(b);
+    for (int i = 0; i < z; i++) { a[i] *= b[i]; }
+    internal::butterfly_inv(a);
+    mint iz = mint(z).inv();
+    std::vector<mint> c(n - m + 1);
+    for (int i = 0; i < n - m + 1; i++) c[i] = a[i + m - 1] * iz;
+    return c;
+}
+
+template <internal::static_modint_c mint>
+std::vector<mint> middle_product_naive(const std::vector<mint> &a, const std::vector<mint> &b) {
+    int n = int(a.size()), m = int(b.size());
+    std::vector<mint> c(n - m + 1);
+    for (int i = 0; i < n - m + 1; i++) {
+        for (int j = 0; j < m; j++) c[i] += a[i + j] * b[j];
+    }
+    return c;
+}
+
 /// 任意 mod / 任意係数の畳み込みで使う 3 つの NTT-friendly 素数と Garner 法用の定数。
 /// MOD1 < MOD2 < MOD3 で、いずれも 2^24 まで NTT 可能 (最小は MOD1 の 2^24)。
 struct convolution_mod_constants {
