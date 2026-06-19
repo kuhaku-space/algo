@@ -7,9 +7,9 @@
 #include <tuple>
 #include <utility>
 #include <vector>
+#include "data_structure/union_find.hpp"
 #include "graph/graph.hpp"
 #include "heap/skew_heap.hpp"
-#include "data_structure/union_find.hpp"
 
 int main(void) {
     int n, m;
@@ -18,8 +18,7 @@ int main(void) {
     for (auto &[u, v, w] : edges) std::cin >> u >> v >> w, --u, --v;
     std::vector<int> ord(m);
     std::iota(ord.begin(), ord.end(), 0);
-    std::sort(ord.begin(), ord.end(),
-              [&](int x, int y) { return std::get<2>(edges[x]) < std::get<2>(edges[y]); });
+    std::sort(ord.begin(), ord.end(), [&](int x, int y) { return std::get<2>(edges[x]) < std::get<2>(edges[y]); });
     std::int64_t sum = 0;
     union_find uf(n);
     std::vector<skew_heap<std::pair<int, int>, std::greater<>>> heap(n);
@@ -50,8 +49,7 @@ int main(void) {
         for (auto e : g[x]) {
             if (e.to() == p) continue;
             self(self, e.to(), x);
-            while (!heap[e.to()].empty() && uf.same(e.to(), heap[e.to()].top().second))
-                heap[e.to()].pop();
+            while (!heap[e.to()].empty() && uf.same(e.to(), heap[e.to()].top().second)) heap[e.to()].pop();
             if (!heap[e.to()].empty()) {
                 auto [u, v, w] = edges[e.weight()];
                 ans[e.weight()] = sum - w + heap[e.to()].top().first;

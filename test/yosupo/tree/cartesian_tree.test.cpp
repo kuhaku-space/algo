@@ -12,8 +12,7 @@ int main(void) {
     for (int i = 0; i < n; ++i) {
         if (ans[i] == -1) ans[i] = i;
     }
-    for (int i = 0; i < (int)ans.size(); ++i)
-        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
+    for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }

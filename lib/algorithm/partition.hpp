@@ -67,8 +67,8 @@ void enumerate_k(int n, int k, F f) {
             return;
         }
         // この位置の値 v を大きい順に試す。残り left - 1 個へは各 1 以上 v 以下で配る。
-        int hi = std::min(mx, rem - (left - 1));            // 残りを 1 ずつ確保
-        int lo = std::max(1, (rem + left - 1) / left);      // 残りが v*(left-1) 以下になる下限
+        int hi = std::min(mx, rem - (left - 1));        // 残りを 1 ずつ確保
+        int lo = std::max(1, (rem + left - 1) / left);  // 残りが v*(left-1) 以下になる下限
         for (int v = hi; v >= lo; --v) {
             part[idx] = v;
             self(self, idx + 1, rem - v, v);

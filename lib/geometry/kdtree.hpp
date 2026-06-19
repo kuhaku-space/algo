@@ -37,9 +37,7 @@ struct kdtree {
     std::int64_t find(int x, int y) { return this->find(0, x, y, 0, -1); }
 
     // [sx, tx) * [sy, ty)
-    std::vector<int> find(int sx, int tx, int sy, int ty) {
-        return this->find(0, sx, tx, sy, ty, 0);
-    }
+    std::vector<int> find(int sx, int tx, int sy, int ty) { return this->find(0, sx, tx, sy, ty, 0); }
 
   private:
     std::vector<_point> points;

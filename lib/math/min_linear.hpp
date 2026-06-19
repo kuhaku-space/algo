@@ -5,8 +5,8 @@ namespace internal {
 
 namespace min_linear {
 
-std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t b, bool is_min,
-                        std::int64_t p, std::int64_t q) {
+std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t b, bool is_min, std::int64_t p,
+                        std::int64_t q) {
     if (a == 0) return b;
     if (is_min) {
         if (b >= a) {

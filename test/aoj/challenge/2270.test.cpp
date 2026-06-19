@@ -37,8 +37,8 @@ int main(void) {
         std::cin >> u >> v >> k;
         --u, --v;
         auto f = [&](int y) {
-            return wm.rect_sum(0, in[u] + 1, y) + wm.rect_sum(0, in[v] + 1, y) -
-                       wm.rect_sum(0, in[lca(u, v)] + 1, y) - wm.rect_sum(0, in[lca(u, v)], y) <
+            return wm.rect_sum(0, in[u] + 1, y) + wm.rect_sum(0, in[v] + 1, y) - wm.rect_sum(0, in[lca(u, v)] + 1, y) -
+                       wm.rect_sum(0, in[lca(u, v)], y) <
                    k;
         };
         auto ans = meguru_binary_search(0, cps.size() + 1, f);

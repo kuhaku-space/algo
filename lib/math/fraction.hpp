@@ -3,9 +3,10 @@
 #include <iostream>
 #include <numeric>
 #include <utility>
+#include "internal/internal_type_traits.hpp"
 
 /// @brief 分数ライブラリ
-struct Fraction {
+struct Fraction : internal::field_base {
     Fraction() : x(0), y(1) {}
     Fraction(std::int64_t _x, std::int64_t _y = 1) : x(_x), y(_y) { common(); }
 

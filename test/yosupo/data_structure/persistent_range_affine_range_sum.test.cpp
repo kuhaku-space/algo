@@ -18,9 +18,7 @@ struct F {
     using T = std::pair<Mint, Mint>;
     using value_type = T;
     static constexpr T id() { return T(1, 0); }
-    static constexpr T op(T lhs, T rhs) {
-        return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second};
-    }
+    static constexpr T op(T lhs, T rhs) { return {lhs.first * rhs.first, lhs.first * rhs.second + lhs.second}; }
     template <class U>
     static constexpr U f(T lhs, U rhs) {
         return {lhs.first * rhs.first + lhs.second * rhs.second, rhs.second};

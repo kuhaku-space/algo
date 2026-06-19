@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E
 #include <cstdint>
 #include <iostream>
-#include "graph/graph.hpp"
 #include "binary_tree/fenwick_tree_raq.hpp"
+#include "graph/graph.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {

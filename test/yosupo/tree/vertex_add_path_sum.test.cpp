@@ -2,8 +2,8 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "graph/edge_input.hpp"
 #include "binary_tree/fenwick_tree.hpp"
+#include "graph/edge_input.hpp"
 #include "tree/hld.hpp"
 
 int main(void) {

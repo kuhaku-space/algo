@@ -319,10 +319,10 @@ struct csr_graph {
   private:
     int _size, _edge_count, _num_edges;
     bool _built;
-    std::vector<int> start;            // CSR の境界（start[v]..start[v+1]）
-    std::vector<edge_type> buf;        // build() 前に蓄積する辺（from でソート前）
-    std::vector<edge_type> elist;      // CSR 本体（from 昇順に詰めた有向辺）
-    std::vector<edge_type> edge_list_; // ID 順の辺リスト（ID→辺の逆引き）
+    std::vector<int> start;             // CSR の境界（start[v]..start[v+1]）
+    std::vector<edge_type> buf;         // build() 前に蓄積する辺（from でソート前）
+    std::vector<edge_type> elist;       // CSR 本体（from 昇順に詰めた有向辺）
+    std::vector<edge_type> edge_list_;  // ID 順の辺リスト（ID→辺の逆引き）
 };
 
 // ---- グラフの concept（list_graph<T> / csr_graph<T> を共通の契約で扱う） ----

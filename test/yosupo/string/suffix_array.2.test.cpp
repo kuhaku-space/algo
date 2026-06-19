@@ -28,8 +28,7 @@ int main(void) {
         return s[x + l] < s[y + l];
     });
 
-    for (int i = 0; i < (int)ord.size(); ++i)
-        std::cout << ord[i] << (i == (int)ord.size() - 1 ? '\n' : ' ');
+    for (int i = 0; i < (int)ord.size(); ++i) std::cout << ord[i] << (i == (int)ord.size() - 1 ? '\n' : ' ');
 
     return 0;
 }

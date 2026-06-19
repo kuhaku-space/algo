@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B
-#include "data_structure/potentialized_union_find.hpp"
 #include <iostream>
+#include "data_structure/potentialized_union_find.hpp"
 
 int main(void) {
     int n, q;

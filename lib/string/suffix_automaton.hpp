@@ -86,9 +86,7 @@ struct string_suffix_automaton {
         int link;
         std::array<int, ALPHABET_SIZE> next;
 
-        node(int _len, int _link) : len(_len), link(_link) {
-            next.fill(-1);
-        }
+        node(int _len, int _link) : len(_len), link(_link) { next.fill(-1); }
     };
 
     std::vector<node> nodes;

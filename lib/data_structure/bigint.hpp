@@ -200,9 +200,8 @@ struct BigInt {
             return;
         }
         std::vector<std::int64_t> x(a.begin(), a.end()), y(b.begin(), b.end());
-        std::vector<std::int64_t> c = (x.size() + y.size() <= MUL_2PRIME_MAX_LEN)
-                                          ? convolution_ll2(x, y)
-                                          : convolution_ll(x, y);
+        std::vector<std::int64_t> c =
+            (x.size() + y.size() <= MUL_2PRIME_MAX_LEN) ? convolution_ll2(x, y) : convolution_ll(x, y);
         std::int64_t carry = 0;
         a.assign(c.size() + 1, 0);
         for (int i = 0; i < (int)c.size(); ++i) {
@@ -272,8 +271,8 @@ struct BigInt {
 
     /// 古典筆算除算 (Knuth Algorithm D)。(商, 余り) を絶対値で返す。
     /// lhs >= rhs > 0 を前提とする (呼び出し側で短絡済み)。
-    static std::pair<std::vector<int>, std::vector<int>>
-    divmod_classic(const std::vector<int> &lhs, const std::vector<int> &rhs) {
+    static std::pair<std::vector<int>, std::vector<int>> divmod_classic(const std::vector<int> &lhs,
+                                                                        const std::vector<int> &rhs) {
         // 正規化: 最上位桁が BASE/2 以上になるよう両者を同じ係数倍する。
         std::vector<int> u = lhs, v = rhs;
         int norm = BASE / (v.back() + 1);
@@ -288,8 +287,7 @@ struct BigInt {
             std::int64_t num = (std::int64_t)u[j + n] * BASE + u[j + n - 1];
             std::int64_t qhat = num / v[n - 1];
             std::int64_t rhat = num % v[n - 1];
-            while (qhat >= BASE ||
-                   (n >= 2 && qhat * v[n - 2] > rhat * BASE + u[j + n - 2])) {
+            while (qhat >= BASE || (n >= 2 && qhat * v[n - 2] > rhat * BASE + u[j + n - 2])) {
                 --qhat;
                 rhat += v[n - 1];
                 if (rhat >= BASE) break;
@@ -353,8 +351,8 @@ struct BigInt {
     /// Burnikel-Ziegler の再帰除算。lhs >= rhs > 0、|rhs| > BZ_THRESHOLD を前提とする。
     /// 除数をブロック幅 blk (再帰の各段で偶数長になる) ちょうどに正規化し、被除数を
     /// blk 桁ブロックに分けて 2n/1n 除算を繰り返す。
-    static std::pair<std::vector<int>, std::vector<int>>
-    divmod_bz(const std::vector<int> &lhs, const std::vector<int> &rhs) {
+    static std::pair<std::vector<int>, std::vector<int>> divmod_bz(const std::vector<int> &lhs,
+                                                                   const std::vector<int> &rhs) {
         int n = (int)rhs.size();
         // ブロック幅 blk: 各再帰段で偶数長を保つため BZ_THRESHOLD*2^k 以上へ切り上げる。
         int m = 1;
@@ -392,27 +390,27 @@ struct BigInt {
     }
 
     /// a (高々 2n 桁) を b (n 桁、正規化済み・n は偶数) で割る。商 < BASE^n を前提。
-    static std::pair<std::vector<int>, std::vector<int>>
-    div_2n_1n(const std::vector<int> &a, const std::vector<int> &b) {
+    static std::pair<std::vector<int>, std::vector<int>> div_2n_1n(const std::vector<int> &a,
+                                                                   const std::vector<int> &b) {
         int n = (int)b.size();
         if (n <= BZ_THRESHOLD || (int)a.size() <= n) return divmod_classic(a, b);
         // 上位・下位 n/2 桁に分け、div_3n_2n を 2 回適用する (n は偶数)。
         int s = n / 2;
-        std::vector<int> a_lo = slice(a, 0, s);                    // 下位 s 桁
-        std::vector<int> a_hi = slice(a, s, (int)a.size() - s);    // 上位
+        std::vector<int> a_lo = slice(a, 0, s);                  // 下位 s 桁
+        std::vector<int> a_hi = slice(a, s, (int)a.size() - s);  // 上位
         auto [q1, r1] = div_3n_2n(a_hi, b, s);
-        std::vector<int> mid = combine(a_lo, r1, s);               // r1*BASE^s + a_lo
+        std::vector<int> mid = combine(a_lo, r1, s);  // r1*BASE^s + a_lo
         auto [q2, r2] = div_3n_2n(mid, b, s);
-        std::vector<int> q = combine(q2, q1, s);                   // q1*BASE^s + q2
+        std::vector<int> q = combine(q2, q1, s);  // q1*BASE^s + q2
         return {q, r2};
     }
 
     /// a (高々 3s 桁) を b (= 2s 桁) で割る。商 < BASE^s を前提とする。
     /// b = b1*BASE^s + b2 と分け、a の上位 2s 桁を b1 で見積もり b2 の積で補正する。
-    static std::pair<std::vector<int>, std::vector<int>>
-    div_3n_2n(const std::vector<int> &a, const std::vector<int> &b, int s) {
-        std::vector<int> b2 = slice(b, 0, s);          // 下位 s 桁
-        std::vector<int> b1 = slice(b, s, s);          // 上位 s 桁
+    static std::pair<std::vector<int>, std::vector<int>> div_3n_2n(const std::vector<int> &a, const std::vector<int> &b,
+                                                                   int s) {
+        std::vector<int> b2 = slice(b, 0, s);  // 下位 s 桁
+        std::vector<int> b1 = slice(b, s, s);  // 上位 s 桁
         // a = a12 * BASE^s + a3 (a3 は下位 s 桁、a12 は上位 2s 桁)。
         std::vector<int> a3 = slice(a, 0, s);
         std::vector<int> a12 = slice(a, s, (int)a.size() - s);

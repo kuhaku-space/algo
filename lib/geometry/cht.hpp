@@ -38,7 +38,6 @@ struct CHT {
 
     bool check(std::pair<T, T> l1, std::pair<T, T> l2, std::pair<T, T> l3) {
         if (l1 < l3) swap(l1, l3);
-        return (l3.second - l2.second) * (l2.first - l1.first) >=
-               (l2.second - l1.second) * (l3.first - l2.first);
+        return (l3.second - l2.second) * (l2.first - l1.first) >= (l2.second - l1.second) * (l3.first - l2.first);
     }
 };

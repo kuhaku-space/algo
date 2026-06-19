@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_C
-#include "graph/graph.hpp"
 #include "tree/hld.hpp"
 #include <iostream>
+#include "graph/graph.hpp"
 
 int main(void) {
     int n;

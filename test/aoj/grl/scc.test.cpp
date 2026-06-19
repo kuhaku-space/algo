@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_3_C
-#include "graph/edge_input.hpp"
 #include "graph/scc.hpp"
 #include <iostream>
 #include <vector>
+#include "graph/edge_input.hpp"
 
 int main(void) {
     int n, m;
