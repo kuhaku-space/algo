@@ -35,6 +35,19 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
   - **Doxygen ドキュメントコメントは `///`**（`@brief` などを付ける説明）。
   - **通常の実装コメントは `//`**。
 - 浮動小数点→整数の丸めは **`std::llround`**（`T(x + 0.5)` は負値で誤る）。
+- グラフアルゴリズムは具体型に依存せず **`graph_type` / `weighted_graph_type` concept** で書き、
+  `list_graph<T>`・`csr_graph<T>` の両方に対応させる。
+
+## フォーマット
+
+- 整形は **clang-format**（`.clang-format`、Google ベース）。clang-format は **mise 管理**
+  （`mise install` で導入）。
+- コミット時に **`.githooks/pre-commit`** がステージ済みの `.cpp`/`.hpp` を自動整形して
+  再 stage する。有効化は `git config core.hooksPath .githooks`（`mise run setup` に組込み済み）。
+- `lib/template/{atcoder,library_checker}.hpp` は `template/template.hpp`
+  （`<bits/stdc++.h>` を引く）を先頭に置く必要がある。`.clang-format` の `IncludeCategories`
+  で `template/template.hpp` に最優先（負 `Priority`）を与え、ソートを効かせたまま先頭固定して
+  いるので、`template/` も通常どおり整形してよい。
 
 ## ライブラリ変更の方針
 
@@ -44,6 +57,10 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
   **呼び出し側もすべて追随させる**。古い API を中途半端に残さない。
 
 ## PR 運用
+
+- **コミットは指示なしで行ってよいが、PR の作成はユーザが明示的に指示したときのみ**。
+  指示があるまで作業はコミットまでで止め、`gh pr create` / push / auto-merge は実行しない。
+  （以下は PR を作成する場合の手順であって、PR 作成自体を自動で行う指示ではない）
 
 - PR を作成したら必ず auto-merge を有効化する
 
