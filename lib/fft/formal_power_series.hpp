@@ -43,6 +43,17 @@ std::vector<mint> from_mont(const std::vector<std::uint32_t> &a) {
     return r;
 }
 
+// AVX2 が使えるなら AVX2 NTT 畳み込み、そうでなければ通常の convolution に振り分ける。
+// mod >= 2^30 では AVX2 NTT が使えないのでコンパイル時に通常版へ固定する。
+template <internal::static_modint_c mint>
+std::vector<mint> conv_auto(const std::vector<mint> &a, const std::vector<mint> &b) {
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod < (1u << 30)) {
+        if (use_avx2<mint>()) return convolution_avx2(a, b);
+    }
+    return convolution(a, b);
+}
+
 }  // namespace internal_fps
 
 template <internal::static_modint_c mint>
@@ -238,40 +249,112 @@ std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).second;
 }
 
+namespace internal_fps {
+
+// 多点評価のしきい値。残り点数がこれ以下の部分木は、剰余の再帰をやめて
+// Horner 法で直接評価した方が速い (NTT の定数倍を避ける)。
+static constexpr int MULTIPOINT_NAIVE_THRESHOLD = 64;
+
+// f mod g (g はモニック前提で正規化済み, 末尾 0 を含まない) を AVX2 対応畳み込みで求める。
+// 既存の div_mod と同じ手順だが、剰余だけを返し畳み込みを conv_auto に通す。
+// g は呼び出し側で末尾 0 を持たないことを保証する (部分積木のモニック多項式)。
+template <internal::static_modint_c mint>
+std::vector<mint> mod_monic(std::vector<mint> f, const std::vector<mint> &g) {
+    while (!f.empty() && f.back() == mint()) f.pop_back();
+    int n = f.size(), m = g.size();
+    if (n < m) return f;
+    std::vector<mint> fr(f.rbegin(), f.rend()), gr(g.rbegin(), g.rend());
+    std::vector<mint> q = conv_auto(fr, inv(gr, n - m + 1));
+    q.resize(n - m + 1);
+    std::reverse(q.begin(), q.end());
+    std::vector<mint> p = conv_auto(g, q);
+    std::vector<mint> r(std::min(n, m - 1));
+    for (int i = 0; i < (int)r.size(); ++i) r[i] = f[i] - p[i];
+    while (!r.empty() && r.back() == mint()) r.pop_back();
+    return r;
+}
+
+// 部分積木: 葉 leaf[m+i] = (x - x_i)、内部節点はその子の積 (いずれもモニック)。
+// up[1] は全積 prod_i (x - x_i)。葉数 m = bit_ceil(n)。空葉は定数 1。
+template <internal::static_modint_c mint>
+std::vector<std::vector<mint>> subproduct_tree(const std::vector<mint> &x, int m) {
+    int n = x.size();
+    std::vector<std::vector<mint>> up(m << 1, {mint(1)});
+    for (int i = 0; i < n; ++i) up[m + i] = {-x[i], mint(1)};
+    for (int i = m; i-- > 1;) up[i] = conv_auto(up[i << 1 | 0], up[i << 1 | 1]);
+    return up;
+}
+
+// Horner 法で f を x[off..off+cnt) の各点で評価して res[off..] に書き込む。
+template <internal::static_modint_c mint>
+void evaluate_naive(const std::vector<mint> &f, const std::vector<mint> &x, int off, int cnt, std::vector<mint> &res) {
+    for (int k = 0; k < cnt; ++k) {
+        mint xi = x[off + k], acc = mint();
+        for (int j = (int)f.size(); j-- > 0;) acc = acc * xi + f[j];
+        res[off + k] = acc;
+    }
+}
+
+// 剰余木の下降パス: 節点 i で g = f mod up[i] を持ち、子へ g mod up[child] と下ろす。
+// 残り点数がしきい値以下の部分木に達したら、剰余の再帰をやめて Horner 法で直接評価する。
+// (下位の木では mod 1 回あたりの NTT 定数倍が点数に見合わないため。)
+// up を共有することで補間と評価で部分積木を一度しか作らない。
+template <internal::static_modint_c mint>
+void evaluate_down(const std::vector<std::vector<mint>> &up, const std::vector<mint> &x, int m, int n, int i,
+                   std::vector<mint> f, std::vector<mint> &res) {
+    int lo = i, hi = i;
+    while (lo < m) lo <<= 1, hi = hi << 1 | 1;
+    int off = lo - m;
+    int cnt = std::min(hi - m, n - 1) - off + 1;  // この部分木が覆う点数
+    if (cnt <= 0) return;
+    if (cnt <= MULTIPOINT_NAIVE_THRESHOLD) {
+        evaluate_naive(f, x, off, cnt, res);
+        return;
+    }
+    evaluate_down(up, x, m, n, i << 1 | 0, mod_monic(f, up[i << 1 | 0]), res);
+    evaluate_down(up, x, m, n, i << 1 | 1, mod_monic(std::move(f), up[i << 1 | 1]), res);
+}
+
+}  // namespace internal_fps
+
 template <internal::static_modint_c mint>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
-    int m = std::bit_ceil<unsigned>(n);
-    std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
-    for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
-    for (int i = m - 1; i >= 1; --i) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
-
-    g[1] = mod(f, mul[1]);
-    for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
-    std::vector<mint> res(n);
-    for (int i = 0; i < n; ++i) {
-        if (!g[m + i].empty()) res[i] = g[m + i].front();
+    if (n == 0) return {};
+    if (n <= internal_fps::MULTIPOINT_NAIVE_THRESHOLD) {
+        std::vector<mint> res(n);
+        internal_fps::evaluate_naive(f, x, 0, n, res);
+        return res;
     }
+    int m = std::bit_ceil<unsigned>(n);
+    auto up = internal_fps::subproduct_tree(x, m);
+    std::vector<mint> res(n);
+    internal_fps::evaluate_down(up, x, m, n, 1, internal_fps::mod_monic(f, up[1]), res);
     return res;
 }
 
 template <internal::static_modint_c mint>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
+    if (n == 0) return {};
     int m = std::bit_ceil<unsigned>(n);
-    std::vector<std::vector<mint>> mul(m << 1, {1}), g(m << 1);
-    for (int i = 0; i < n; ++i) mul[m + i] = {-x[i], 1};
-    for (int i = m; i-- > 1;) mul[i] = convolution(mul[i << 1 | 0], mul[i << 1 | 1]);
+    auto up = internal_fps::subproduct_tree(x, m);
 
-    std::vector<mint> f = mul[1];
+    // f = (prod (x - x_i))' を各 x_i で評価すると prod_{j!=i}(x_i - x_j) になる。
+    std::vector<mint> f = up[1];
     f.erase(f.begin());
     for (int i = 0; i < n; ++i) f[i] *= i + 1;
 
-    g[1] = mod(f, mul[1]);
-    for (int i = 2; i < m + n; ++i) g[i] = mod(g[i >> 1], mul[i]);
-    for (int i = 0; i < n; ++i) g[m + i] = {y[i] / g[m + i][0]};
+    // d[i] = f(x_i)。剰余木の下降で全点まとめて評価する (しきい値以下は Horner)。
+    std::vector<mint> d(n);
+    internal_fps::evaluate_down(up, x, m, n, 1, internal_fps::mod_monic(f, up[1]), d);
+
+    // 葉に y_i / d_i を置き、上に向かって sum g_child * up[sibling] で畳み込んで復元。
+    std::vector<std::vector<mint>> g(m << 1);
+    for (int i = 0; i < n; ++i) g[m + i] = {y[i] / d[i]};
     for (int i = m; i--;)
-        g[i] = plus(convolution(g[i << 1 | 0], mul[i << 1 | 1]), convolution(g[i << 1 | 1], mul[i << 1 | 0]));
+        g[i] = plus(internal_fps::conv_auto(g[i << 1 | 0], up[i << 1 | 1]),
+                    internal_fps::conv_auto(g[i << 1 | 1], up[i << 1 | 0]));
     return g[1];
 }
 
