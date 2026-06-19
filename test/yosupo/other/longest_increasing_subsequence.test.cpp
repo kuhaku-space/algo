@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/longest_increasing_subsequence
 #include <iostream>
 #include <vector>
-#include "algorithm/lis.hpp"
+#include "string/misc.hpp"
 
 int main(void) {
     int n;

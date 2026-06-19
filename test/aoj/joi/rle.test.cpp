@@ -1,10 +1,10 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0534
-#include "algorithm/rle.hpp"
 #include <algorithm>
 #include <iostream>
 #include <stack>
 #include <utility>
 #include <vector>
+#include "string/misc.hpp"
 #include "template/vector.hpp"
 
 int main(void) {
