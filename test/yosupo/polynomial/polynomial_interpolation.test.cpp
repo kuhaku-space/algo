@@ -12,9 +12,7 @@ int main(void) {
     for (Mint &e : x) std::cin >> e;
     for (Mint &e : y) std::cin >> e;
     auto ans = fps::polynomial_interpolation(x, y);
-    for (int i = 0; i < (int)ans.size(); ++i) {
-        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
-    }
+    for (int i = 0; i < (int)ans.size(); ++i) { std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' '); }
 
     return 0;
 }

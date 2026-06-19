@@ -1,11 +1,12 @@
 #pragma once
 #include <utility>
 #include <vector>
+#include "internal/internal_type_traits.hpp"
 
 /// @brief Berlekamp-Massey 法
 /// 数列 s と矛盾しない最小位数の線形漸化式の係数 c を求める
 /// s_i = \sum_{j=1}^{L} c_{j-1} s_{i-j} (i >= L) を満たす
-template <class T>
+template <internal::field T>
 std::vector<T> berlekamp_massey(const std::vector<T> &s) {
     const int n = s.size();
     // c: 現在の漸化式の係数 (c[0] = 1)、b: 前回更新時の係数

@@ -38,9 +38,8 @@ struct Point {
 template <class T>
 std::vector<Point<T>> convex_hull(std::vector<Point<T>> points) {
     int n = points.size(), k = 0;
-    std::sort(std::begin(points), std::end(points), [](const Point<T> &a, const Point<T> &b) {
-        return a.x == b.x ? a.y < b.y : a.x < b.x;
-    });
+    std::sort(std::begin(points), std::end(points),
+              [](const Point<T> &a, const Point<T> &b) { return a.x == b.x ? a.y < b.y : a.x < b.x; });
     std::vector<Point<T>> res(n << 1);
     auto cross = [](Point<T> a, Point<T> b, const Point<T> &c) {
         a -= c, b -= c;

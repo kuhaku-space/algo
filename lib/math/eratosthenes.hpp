@@ -33,10 +33,10 @@ struct eratosthenes {
 
     // セグメントを跨いで篩い込み位置を持ち越すための小さい素数の情報。
     struct sieve_prime {
-        int i;       // 素数 p = 30*i + kMod30[ibit] のバイト位置
-        int ibit;    // p の mod30 wheel での位置
-        int j;       // 次に篩う合成数のバイト位置
-        int k;       // その合成数の wheel 位置
+        int i;     // 素数 p = 30*i + kMod30[ibit] のバイト位置
+        int ibit;  // p の mod30 wheel での位置
+        int j;     // 次に篩う合成数のバイト位置
+        int k;     // その合成数の wheel 位置
     };
 
   public:
@@ -68,9 +68,7 @@ struct eratosthenes {
                 std::uint64_t j = i * pm + (m * m) / 30;
                 int k = ibit;
                 // √N 以下の範囲（＝記録した素数の倍数が現れうる head 部分）はここで篩う。
-                for (; j < head; j += i * C1[k] + C0[ibit][k], k = (k + 1) & 7) {
-                    prime_number[j] &= kMask[ibit][k];
-                }
+                for (; j < head; j += i * C1[k] + C0[ibit][k], k = (k + 1) & 7) { prime_number[j] &= kMask[ibit][k]; }
                 if (j < static_cast<std::uint64_t>(SIZE)) {
                     primes.push_back({static_cast<int>(i), ibit, static_cast<int>(j), k});
                 }
@@ -81,35 +79,39 @@ struct eratosthenes {
         // 書き込みが常にキャッシュ常駐の区間に収まりキャッシュミスを抑える。
         for (int seg_lo = static_cast<int>(head); seg_lo < SIZE; seg_lo += kSegmentSize) {
             const int seg_hi = std::min(seg_lo + kSegmentSize, SIZE);
-            for (sieve_prime& sp : primes) {
+            for (sieve_prime &sp : primes) {
                 const int i = sp.i, ibit = sp.ibit;
-                const auto& mask = kMask[ibit];
-                const auto& c0 = C0[ibit];
+                const auto &mask = kMask[ibit];
+                const auto &c0 = C0[ibit];
                 int j = sp.j, k = sp.k;
                 // 前処理: メインループの起点を k == 0 に揃える。
-                for (; k != 0 && j < seg_hi; j += i * C1[k] + c0[k], k = (k + 1) & 7) {
-                    prime_number[j] &= mask[k];
-                }
+                for (; k != 0 && j < seg_hi; j += i * C1[k] + c0[k], k = (k + 1) & 7) { prime_number[j] &= mask[k]; }
                 // メインループ: wheel 1 周（8 ステップ）を展開して分岐を削減する。
                 // 8 ステップで進むバイト数は i*sum(C1) + sum(C0[ibit]) = 30*i + p。
                 // 8 番目の書き込み位置 j + (30*i + p) - C1[7] - c0[7] が seg_hi 未満なら展開可能。
                 if (k == 0) {
                     const int last8 = 30 * i + (30 * i + 2 * kMod30[ibit]) - (i * C1[7] + c0[7]);
                     while (j + last8 < seg_hi) {
-                        prime_number[j] &= mask[0]; j += i * C1[0] + c0[0];
-                        prime_number[j] &= mask[1]; j += i * C1[1] + c0[1];
-                        prime_number[j] &= mask[2]; j += i * C1[2] + c0[2];
-                        prime_number[j] &= mask[3]; j += i * C1[3] + c0[3];
-                        prime_number[j] &= mask[4]; j += i * C1[4] + c0[4];
-                        prime_number[j] &= mask[5]; j += i * C1[5] + c0[5];
-                        prime_number[j] &= mask[6]; j += i * C1[6] + c0[6];
-                        prime_number[j] &= mask[7]; j += i * C1[7] + c0[7];
+                        prime_number[j] &= mask[0];
+                        j += i * C1[0] + c0[0];
+                        prime_number[j] &= mask[1];
+                        j += i * C1[1] + c0[1];
+                        prime_number[j] &= mask[2];
+                        j += i * C1[2] + c0[2];
+                        prime_number[j] &= mask[3];
+                        j += i * C1[3] + c0[3];
+                        prime_number[j] &= mask[4];
+                        j += i * C1[4] + c0[4];
+                        prime_number[j] &= mask[5];
+                        j += i * C1[5] + c0[5];
+                        prime_number[j] &= mask[6];
+                        j += i * C1[6] + c0[6];
+                        prime_number[j] &= mask[7];
+                        j += i * C1[7] + c0[7];
                     }
                 }
                 // 後処理: セグメント末尾までの残りを 1 ステップずつ。
-                for (; j < seg_hi; j += i * C1[k] + c0[k], k = (k + 1) & 7) {
-                    prime_number[j] &= mask[k];
-                }
+                for (; j < seg_hi; j += i * C1[k] + c0[k], k = (k + 1) & 7) { prime_number[j] &= mask[k]; }
                 sp.j = j;
                 sp.k = k;
             }

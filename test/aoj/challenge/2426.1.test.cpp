@@ -19,8 +19,7 @@ int main(void) {
     for (int i = 0; i < m; ++i) {
         int x1, y1, x2, y2;
         std::cin >> x1 >> y1 >> x2 >> y2;
-        std::cout << cs.get(cps_x.get(x1), cps_y.get(y1), cps_x.get(x2 + 1), cps_y.get(y2 + 1))
-                  << '\n';
+        std::cout << cs.get(cps_x.get(x1), cps_y.get(y1), cps_x.get(x2 + 1), cps_y.get(y2 + 1)) << '\n';
     }
 
     return 0;

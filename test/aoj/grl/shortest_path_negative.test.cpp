@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
+#include <iostream>
 #include "graph/edge_input.hpp"
 #include "graph/shortest_path.hpp"
-#include <iostream>
 
 int main(void) {
     int n, m, r;

@@ -42,9 +42,7 @@ struct Point {
         rhs = Point<T>(x, y);
         return (is);
     }
-    friend std::ostream &operator<<(std::ostream &os, const Point<T> &rhs) {
-        return os << rhs.x << ' ' << rhs.y;
-    }
+    friend std::ostream &operator<<(std::ostream &os, const Point<T> &rhs) { return os << rhs.x << ' ' << rhs.y; }
 };
 
 template <class T>
@@ -91,9 +89,7 @@ struct Line {
     constexpr bool in_line(Point<T> p) const { return eq(cross(p - a, p - b), 0); }
 
     // 射影
-    constexpr Point<T> proj(const Point<T> &p) const {
-        return a + (b - a) * dot(b - a, p - a) / norm(b - a);
-    }
+    constexpr Point<T> proj(const Point<T> &p) const { return a + (b - a) * dot(b - a, p - a) / norm(b - a); }
     // 反射
     constexpr Point<T> refl(const Point<T> &p) const { return this->proj(p) * 2 - p; }
 
@@ -115,8 +111,7 @@ bool orthogonal(const Line<T> &a, const Line<T> &b) {
 }
 template <class T>
 bool intersection(const Line<T> &a, const Line<T> &b) {
-    return ccw(a.a, a.b, b.a) * ccw(a.a, a.b, b.b) <= 0 &&
-           ccw(b.a, b.b, a.a) * ccw(b.a, b.b, a.b) <= 0;
+    return ccw(a.a, a.b, b.a) * ccw(a.a, a.b, b.b) <= 0 && ccw(b.a, b.b, a.a) * ccw(b.a, b.b, a.b) <= 0;
 }
 template <class T>
 Point<T> cross_point(const Line<T> &a, const Line<T> &b) {

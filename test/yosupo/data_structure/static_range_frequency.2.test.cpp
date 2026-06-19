@@ -1,7 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/static_range_frequency
 #include <iostream>
 #include <vector>
-
 #include "data_structure/merge_sort_tree.hpp"
 
 int main(void) {

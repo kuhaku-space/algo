@@ -18,8 +18,7 @@ struct palindromic_tree {
         int count;
 
         _node() : link(), suffix_link(), len(), count() {}
-        _node(int _suffix_link, int _len, int _count)
-            : link(), suffix_link(_suffix_link), len(_len), count(_count) {}
+        _node(int _suffix_link, int _len, int _count) : link(), suffix_link(_suffix_link), len(_len), count(_count) {}
     };
 
   public:

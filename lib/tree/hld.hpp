@@ -52,8 +52,7 @@ struct heavy_light_decomposition {
         }
     }
 
-    heavy_light_decomposition(const internal::graph_csr &g, int r = 0)
-        : heavy_light_decomposition(g.size()) {
+    heavy_light_decomposition(const internal::graph_csr &g, int r = 0) : heavy_light_decomposition(g.size()) {
         std::vector<int> heavy_path(_size, -1);
         std::vector<int> stk;
         stk.reserve(_size);
@@ -178,6 +177,5 @@ struct heavy_light_decomposition {
     int _size;
     std::vector<int> vid, nxt, par, dep, inv, sub;
 
-    heavy_light_decomposition(int n)
-        : _size(n), vid(n, -1), nxt(n), par(n, -1), dep(n), inv(n), sub(n, 1) {}
+    heavy_light_decomposition(int n) : _size(n), vid(n, -1), nxt(n), par(n, -1), dep(n), inv(n), sub(n, 1) {}
 };

@@ -22,8 +22,7 @@ int main(void) {
         gl = p[gl];
     }
     std::cout << *std::max_element(d.begin(), d.end()) << ' ' << ans.size() << '\n';
-    for (int i = 0; i < (int)ans.size(); ++i)
-        std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
+    for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
 
     return 0;
 }

@@ -4,8 +4,8 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include "graph/edge_input.hpp"
 #include "data_structure/union_find.hpp"
+#include "graph/edge_input.hpp"
 
 int main(void) {
     int n, k;

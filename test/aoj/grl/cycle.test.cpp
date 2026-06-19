@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_A
 #include "graph/cycle.hpp"
-#include "graph/edge_input.hpp"
 #include <iostream>
+#include "graph/edge_input.hpp"
 
 int main(void) {
     int n, m;

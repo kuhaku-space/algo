@@ -9,9 +9,7 @@ struct Monoid {
     using T = std::pair<std::int64_t, std::int64_t>;
     using value_type = T;
     static constexpr T id() { return {0, 0}; };
-    static constexpr T op(const T &lhs, const T &rhs) {
-        return {lhs.first + rhs.first, lhs.second + rhs.second};
-    }
+    static constexpr T op(const T &lhs, const T &rhs) { return {lhs.first + rhs.first, lhs.second + rhs.second}; }
 
     template <class U>
     static constexpr T f(const T &v, U u) {

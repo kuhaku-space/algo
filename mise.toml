@@ -19,15 +19,20 @@ uv = "latest"
 "pipx:online-judge-verify-helper" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
 # Daily Problems の CLI クライアント -> daily（git+ 直インストール、stdlib のみで依存なし）
 "pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"
+# コミット前フック（.githooks/pre-commit）が lib/・test/ の C++ を整形するのに使う。
+# .clang-format（Google ベース）に従う。
+clang-format = "latest"
 
 [tasks.setup]
 description = "Setup project（ツール・oj-tools・shim を一括導入）"
 run = [
-    # [tools] 宣言（jq / uv / pipx:oj 系）をまとめて導入。
+    # [tools] 宣言（jq / uv / clang-format / pipx:oj 系）をまとめて導入。
     "mise install",
     # CLI でしか入らないシステムパッケージ。
     "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
     "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
+    # コミット前 clang-format フックを有効化（core.hooksPath はリポジトリ毎のローカル設定）。
+    "git config core.hooksPath .githooks",
     "mise run install-shims",
 ]
 

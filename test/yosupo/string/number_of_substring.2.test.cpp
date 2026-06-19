@@ -11,9 +11,7 @@ int main() {
     suffix_tree<char> st(s);
 
     long long ans = 0;
-    for (size_t i = 1; i < st.nodes.size(); ++i) {
-        ans += st.nodes[i].len();
-    }
+    for (size_t i = 1; i < st.nodes.size(); ++i) { ans += st.nodes[i].len(); }
 
     std::cout << ans << std::endl;
 

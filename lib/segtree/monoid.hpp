@@ -13,8 +13,7 @@ concept monoid = requires {
     typename M::value_type;
     { M::id() } -> std::same_as<typename M::value_type>;
     {
-        M::op(std::declval<const typename M::value_type &>(),
-              std::declval<const typename M::value_type &>())
+        M::op(std::declval<const typename M::value_type &>(), std::declval<const typename M::value_type &>())
     } -> std::same_as<typename M::value_type>;
 };
 
@@ -156,9 +155,7 @@ template <class T>
 struct Update {
     using value_type = T;
     static constexpr T id() noexcept { return std::numeric_limits<T>::max(); }
-    static constexpr T op(const T &lhs, const T &rhs) noexcept {
-        return lhs == id() ? rhs : lhs;
-    }
+    static constexpr T op(const T &lhs, const T &rhs) noexcept { return lhs == id() ? rhs : lhs; }
 
     template <class U>
     static constexpr U f(const T &lhs, const U &rhs) noexcept {
@@ -185,7 +182,5 @@ template <class M>
 struct Rev {
     using value_type = typename M::value_type;
     static constexpr value_type id() { return M::id(); }
-    static constexpr value_type op(const value_type &lhs, const value_type &rhs) {
-        return M::op(rhs, lhs);
-    }
+    static constexpr value_type op(const value_type &lhs, const value_type &rhs) { return M::op(rhs, lhs); }
 };

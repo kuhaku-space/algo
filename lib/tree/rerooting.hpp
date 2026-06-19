@@ -11,10 +11,7 @@ struct ReRooting {
     using Value = typename M::value_type;
 
   public:
-    ReRooting(const G &g, const std::vector<U> &v)
-        : g_(g), data(v), dp(g.size()), values(g.size()) {
-        build();
-    }
+    ReRooting(const G &g, const std::vector<U> &v) : g_(g), data(v), dp(g.size()), values(g.size()) { build(); }
 
     const auto &operator[](int i) const { return values[i]; }
     auto &operator[](int i) { return values[i]; }
@@ -41,7 +38,7 @@ struct ReRooting {
     void dfs_iter() {
         int n = g_.size();
         std::vector<Value> ret(n, M::id());
-        std::vector<Value> res(n, M::id());  // 各頂点の子 dp の op 集約
+        std::vector<Value> res(n, M::id());      // 各頂点の子 dp の op 集約
         std::vector<int> par(n, -1), pe(n, -1);  // 親と「親→自分」の辺添字
         struct frame {
             int v, p, idx;
