@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
-#include "math/bostan_mori.hpp"
 #include <iostream>
 #include <vector>
+#include "math/linear_recurrence.hpp"
 #include "math/modint.hpp"
 
 using Mint = modint998;
