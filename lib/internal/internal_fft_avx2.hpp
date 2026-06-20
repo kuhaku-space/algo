@@ -342,6 +342,54 @@ ALGO_AVX2_TARGET std::vector<u32> convolution(const std::vector<u32> &a, const s
     return c;
 }
 
+// Bostan-Mori の 1 ステップ (DFT 使い回し)。p, q は [0, mod) の通常表現。
+// q(-x) (= 奇数次のみ符号反転) の順変換を p*q(-x) と q*q(-x) で共有することで、
+// 素朴な 2 畳み込み (6 NTT) を 3 順変換 + 2 逆変換に削減する。
+// odd=true なら次の p に奇数次成分を、false なら偶数次成分を採る。
+template <u32 mod>
+ALGO_AVX2_TARGET void bostan_mori_step(std::vector<u32> &p, std::vector<u32> &q, bool odd) {
+    using s = mont<mod>;
+    int np = (int)p.size(), nq = (int)q.size();
+    int z = std::bit_ceil<unsigned>((unsigned)(2 * nq - 1));
+
+    std::vector<u32> P(z, 0), Q(z, 0), QM(z, 0);
+    for (int i = 0; i < np; ++i) P[i] = s::to(p[i]);
+    for (int i = 0; i < nq; ++i) {
+        u32 v = s::to(q[i]);  // [0, 2*mod)
+        Q[i] = v;
+        QM[i] = (i & 1) ? (v == 0 ? 0u : 2 * mod - v) : v;  // q(-x) の係数, [0, 2*mod)
+    }
+    butterfly<mod>(P.data(), z);
+    butterfly<mod>(Q.data(), z);
+    butterfly<mod>(QM.data(), z);
+    for (int i = 0; i < z; ++i) P[i] = s::mul(P[i], QM[i]);  // p(x) q(-x)
+    for (int i = 0; i < z; ++i) Q[i] = s::mul(Q[i], QM[i]);  // q(x) q(-x) (偶関数)
+    butterfly_inv<mod>(P.data(), z);
+    butterfly_inv<mod>(Q.data(), z);
+    u32 iz = s::inv(s::to((u32)z));
+
+    // p' は p(x)q(-x) (長さ np+nq-1) の偶/奇成分、q' は q(x)q(-x) (長さ 2nq-1) の偶成分。
+    int lp = np + nq - 1, lq = 2 * nq - 1;
+    std::vector<u32> rp((lp + (odd ? 0 : 1)) / 2), rq((lq + 1) / 2);
+    for (int i = odd ? 1 : 0, k = 0; i < lp; i += 2, ++k) rp[k] = s::from(s::mul(P[i], iz));
+    for (int i = 0, k = 0; i < lq; i += 2, ++k) rq[k] = s::from(s::mul(Q[i], iz));
+    p = std::move(rp);
+    q = std::move(rq);
+}
+
+// AVX2 Montgomery NTT による Bostan-Mori。p/q は [0, mod) の通常表現、戻り値も [0, mod)。
+// p(x)/q(x) (形式的冪級数) の x^n の係数を返す。n >= 0 を前提とする。
+template <u32 mod>
+ALGO_AVX2_TARGET u32 bostan_mori(std::vector<u32> p, std::vector<u32> q, std::int64_t n) {
+    using s = mont<mod>;
+    while (n > 0) {
+        if ((int)p.size() >= (int)q.size()) p.resize(q.size() - 1);
+        bostan_mori_step<mod>(p, q, n & 1);
+        n >>= 1;
+    }
+    return s::from(s::mul(s::to(p[0]), s::inv(s::to(q[0]))));  // p[0] / q[0]
+}
+
 }  // namespace avx2
 }  // namespace internal
 
