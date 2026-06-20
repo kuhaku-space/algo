@@ -2,7 +2,7 @@
 #pragma GCC optimize("Ofast,fast-math,unroll-all-loops")
 #include <bits/stdc++.h>
 #if !defined(ATCODER) && !defined(EVAL)
-#pragma GCC target("sse4.2,avx2,bmi2")
+#pragma GCC target("avx2,popcnt,lzcnt,bmi")
 #endif
 template <class T, class U>
 constexpr bool chmax(T &a, const U &b) {
