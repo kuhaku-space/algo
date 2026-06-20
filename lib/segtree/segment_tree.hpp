@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <bit>
 #include <cassert>
 #include <vector>
@@ -39,6 +40,17 @@ struct segment_tree {
         data = std::vector<T>(_size << 1, M::id());
         for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
         for (int i = _size - 1; i >= 1; --i) update(i);
+    }
+
+    // 確保済みの領域を保ったまま全要素を e で埋め直す（再確保せず木を再利用）
+    void assign(int n, T e = M::id()) {
+        assert(n <= _size);
+        _n = n;
+        std::fill(data.begin(), data.end(), M::id());
+        if (e != M::id()) {
+            std::fill(data.begin() + _size, data.begin() + _size + _n, e);
+            for (int i = _size - 1; i >= 1; --i) update(i);
+        }
     }
 
     const T &operator[](int k) const { return data[k + _size]; }
