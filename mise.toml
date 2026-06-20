@@ -49,7 +49,7 @@ case ":$PATH:" in
   *":$BIN:"*) ;;
   *) echo "警告: $BIN が PATH に含まれていません。ログインシェルの PATH に追加してください。" >&2 ;;
 esac
-for t in ojd ojn ojx ojc ojg ojb ojt ojs ojtc ojrc; do
+for t in ojd ojn ojc ojg ojb ojt ojs ojtc ojrc; do
   printf '#!/bin/sh\\nexec mise -C "%s" run %s "$@"\\n' "$ROOT" "$t" > "$BIN/$t"
   chmod +x "$BIN/$t"
   echo "  installed: $BIN/$t -> mise run $t"
@@ -127,26 +127,32 @@ run = """
 #!/bin/bash
 # 新しい問題を始める前提なので a.cpp は常にテンプレートで上書きする。
 # テストだけ取り直したい（a.cpp を残したい）場合は ojd（download）を使う。
-mise run download "$usage_url" || exit 1
-# テンプレートから生成し、competitive-verifier の PROBLEM 行に URL を埋め込む。
+#
+# 手順:
+#   1. a.cpp をテンプレートから上書き（PROBLEM 行に URL を埋め込む）。
+#   2. サンプルをダウンロードできるか確認する（取得できなければ test/ を触らず中断）。
+#   3. 確認後に test/ の中身を入れ替える（既存を消して取得分で置き換え）。
+
+# 1. テンプレートから生成し、competitive-verifier の PROBLEM 行に URL を埋め込む。
 # URL に sed のメタ文字が含まれても安全なよう awk で先頭の PROBLEM 行のみ追記する。
 awk -v url="$usage_url" '
   !done && /^\\/\\/ competitive-verifier: PROBLEM/ { print $0 " " url; done=1; next }
   { print }
 ' template/template.cpp > a.cpp && echo "a.cpp をテンプレートから生成しました（PROBLEM に URL を埋め込み）。"
-"""
 
-[tasks.solve]
-description = "new（テスト取得 + 雛形）して a.cpp を編集 → test を回す一連の周回"
-alias = "ojx"
-dir = "{{config_root}}/workspace"
-usage = '''
-arg "<url>" help="問題ページの URL" required=#true
-'''
-run = """
-#!/bin/bash
-mise run new "$usage_url" || exit 1
-echo "a.cpp を編集してから 'ojt'（テスト）/ 'ojs'（提出）を実行してください。"
+# 2. サンプルをダウンロードできるか確認する。
+#    既存 test/ を壊さないよう一時ディレクトリへ取得し、成功した場合のみ後段で差し替える。
+tmp_test=$(mktemp -d) || exit 1
+trap 'rm -rf "$tmp_test"' EXIT
+if ! oj d -d "$tmp_test" "$usage_url"; then
+  echo "サンプルのダウンロードに失敗しました。test/ は変更していません。" >&2
+  exit 1
+fi
+
+# 3. test/ の中身を変更する（既存を消して取得分で置き換える）。
+rm -rf test/
+mv "$tmp_test" test/
+echo "test/ をダウンロードしたサンプルで更新しました。"
 """
 
 [tasks.clean]
