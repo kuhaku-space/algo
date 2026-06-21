@@ -37,6 +37,14 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - 浮動小数点→整数の丸めは **`std::llround`**（`T(x + 0.5)` は負値で誤る）。
 - グラフアルゴリズムは具体型に依存せず **`graph_type` / `weighted_graph_type` concept** で書き、
   `list_graph<T>`・`csr_graph<T>` の両方に対応させる。
+- ヒープ（`lib/heap/`）の `Key`/`Value` 規約: **`Key` が順序基準**（`Comp` で比較する側・
+  radix の整数キー）、**`Value` が付随データ**。`push(key, value)` / `top() -> pair<key, value>` /
+  `update(handle, key)`。`shortest_path` では `Heap<距離, 頂点, Comp>` として使う。
+- **「付随データなし」を型引数 `void` で受ける場合、本体は `void` 部分特殊化で分けず
+  `std::conditional_t<is_void_v<V>, std::monostate, V>` に正規化して 1 本に保つ**
+  （`if constexpr` で API を出し分け、空メンバは `[[no_unique_address]]`）。例: `radix_heap`、
+  `doubling`。ただし `void` で**別のデータ構造**を選ぶ場合（`matrix_graph<void>` の
+  `vector<vector<bool>>` 最適化など）は、正規化せず部分特殊化のままにする。
 
 ## フォーマット
 
@@ -71,8 +79,10 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
   移ったり `git stash` で退避したりするのは、ユーザが明示的に指示したとき
   （ブランチ統合など）だけにする。
 
-- **コミットは指示なしで行ってよいが、PR の作成はユーザが明示的に指示したときのみ**。
-  指示があるまで作業はコミットまでで止め、`gh pr create` / push / auto-merge は実行しない。
+- **作業がひと区切りしたらコミットまでは自動で行う**。指示を待たずに、意味のある
+  単位でコミットメッセージを付けてコミットする（`main` 以外のブランチ上で）。
+  ただし **PR の作成はユーザが明示的に指示したときのみ**。指示があるまで作業は
+  コミットまでで止め、`gh pr create` / push / auto-merge は実行しない。
   （以下は PR を作成する場合の手順であって、PR 作成自体を自動で行う指示ではない）
 
 - PR を作成したら必ず auto-merge を有効化する

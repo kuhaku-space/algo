@@ -1,62 +1,75 @@
 #pragma once
 #include <functional>
 #include <utility>
+#include <vector>
 
-/// @brief skew heap
+/// @brief skew heap（融合可能ヒープ）
 /// @see http://hos.ac/blog/#blog0001
+/// @details ノードを `std::vector` のプールに置き `int` インデックスで連結する index-pool
+///          実装で、`new`/`delete` を一切行わない（コピー・ムーブも自動で正しい）。
+///          `Comp = std::less<>` で最大ヒープ、`std::greater<>` で最小ヒープ。
+/// @note `meld` は引数のヒープを空にして要素を取り込む破壊的操作。
 template <class T, class Comp = std::less<>>
 struct skew_heap {
   private:
     struct _node {
-        using pointer = _node *;
-
-        pointer _left, _right;
-        T _val;
-
-        constexpr _node() : _left(), _right(), _val() {}
-        constexpr _node(const T &val) : _left(), _right(), _val(val) {}
-        constexpr _node(T &&val) : _left(), _right(), _val(std::move(val)) {}
-        template <typename... Args>
-        constexpr _node(Args &&...args) : _left(), _right(), _val(std::forward<Args>(args)...) {}
+        T val;
+        int left, right;  // 子のプールインデックス（-1 で null）
     };
+    static constexpr int nil = -1;
 
   public:
     using value_type = T;
-    using node_ptr = typename _node::pointer;
 
-    constexpr skew_heap() : _root(), _comp() {}
+    skew_heap() : pool(), root(nil), _size(), comp() {}
 
-    constexpr bool empty() const { return !_root; }
-    constexpr T top() const { return _root->_val; }
+    constexpr bool empty() const { return root == nil; }
+    constexpr int size() const { return _size; }
+    T top() const { return pool[root].val; }
 
-    constexpr void push(const T &val) {
-        auto node = new _node(val);
-        _root = meld(_root, node);
-    }
-    constexpr void push(T &&val) {
-        auto node = new _node(std::move(val));
-        _root = meld(_root, node);
-    }
-    template <typename... Args>
-    constexpr void emplace(Args &&...args) {
-        auto node = new _node(std::forward<Args>(args)...);
-        _root = meld(_root, node);
+    void push(const T &val) { root = meld(root, make_node(val)), ++_size; }
+    void push(T &&val) { root = meld(root, make_node(std::move(val))), ++_size; }
+    template <class... Args>
+    void emplace(Args &&...args) {
+        root = meld(root, make_node(T(std::forward<Args>(args)...))), ++_size;
     }
 
-    constexpr void pop() { _root = meld(_root->_left, _root->_right); }
+    void pop() { root = meld(pool[root].left, pool[root].right), --_size; }
 
-    constexpr void meld(const skew_heap<T, Comp> &rhs) { _root = meld(_root, rhs._root); }
+    // rhs を空にして、その全要素を自分へ取り込む。
+    void meld(skew_heap &rhs) {
+        if (this == &rhs || rhs.root == nil) return;
+        int offset = (int)pool.size();
+        pool.insert(pool.end(), rhs.pool.begin(), rhs.pool.end());
+        // 取り込んだ側のインデックスを offset 分ずらす。
+        for (int i = offset; i < (int)pool.size(); ++i) {
+            if (pool[i].left != nil) pool[i].left += offset;
+            if (pool[i].right != nil) pool[i].right += offset;
+        }
+        root = meld(root, rhs.root + offset);
+        _size += rhs._size;
+        rhs.pool.clear();
+        rhs.root = nil;
+        rhs._size = 0;
+    }
 
   private:
-    node_ptr _root;
-    Comp _comp;
+    std::vector<_node> pool;
+    int root;
+    int _size;
+    Comp comp;
 
-    constexpr node_ptr meld(node_ptr a, node_ptr b) const {
-        if (!a) return b;
-        if (!b) return a;
-        if (_comp(a->_val, b->_val)) std::swap(a, b);
-        a->_right = meld(a->_right, b);
-        std::swap(a->_left, a->_right);
+    int make_node(T val) {
+        pool.push_back({std::move(val), nil, nil});
+        return (int)pool.size() - 1;
+    }
+
+    int meld(int a, int b) {
+        if (a == nil) return b;
+        if (b == nil) return a;
+        if (comp(pool[a].val, pool[b].val)) std::swap(a, b);
+        pool[a].right = meld(pool[a].right, b);
+        std::swap(pool[a].left, pool[a].right);
         return a;
     }
 };

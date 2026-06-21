@@ -7,20 +7,17 @@
 #include "graph/graph.hpp"
 
 /// @brief shortest_path の既定ヒープ（`std::priority_queue` ベースの最小ヒープ）
-/// @details `Key`（頂点）・`Value`（距離）を受け取り、`Value` 最小をルートにする。
-///          `binary_heap` / `fibonacci_heap` と同じ template-template 形式
+/// @details 順序基準 `Key`（距離）・付随データ `Value`（頂点）を受け取り、`Key` 最小を
+///          ルートにする。`binary_heap` / `fibonacci_heap` と同じ template-template 形式
 ///          （`Heap<Key, Value, Comp>`）で渡せるよう薄く包む。decrease-key は持たない。
 template <class Key, class Value, class Comp = std::less<>>
 struct dijkstra_priority_queue {
-    using node = std::pair<Value, Key>;
+    using node = std::pair<Key, Value>;
     std::priority_queue<node, std::vector<node>, std::greater<>> que;
 
     bool empty() const { return que.empty(); }
-    void push(Key key, Value value) { que.emplace(value, key); }
-    std::pair<Key, Value> top() const {
-        auto [value, key] = que.top();
-        return {key, value};
-    }
+    void push(Key key, Value value) { que.emplace(key, value); }
+    std::pair<Key, Value> top() const { return que.top(); }
     void pop() { que.pop(); }
 };
 
@@ -28,14 +25,14 @@ struct dijkstra_priority_queue {
 /// @details `binary_heap` / `fibonacci_heap` は満たし、`dijkstra_priority_queue` は満たさない。
 template <class Heap, class Key, class Value>
 concept decrease_key_heap = requires(Heap &h, Key key, Value value) {
-    requires requires(decltype(h.push(key, value)) handle) { h.update(handle, value); };
+    requires requires(decltype(h.push(key, value)) handle) { h.update(handle, key); };
 };
 
 /// @brief 単一始点最短路（実重み付きグラフはダイクストラ法）
 /// @tparam Heap 使用するヒープ。既定は `std::priority_queue` ベースの最小ヒープ。
 ///         `binary_heap` / `fibonacci_heap` を渡すと decrease-key 方式に切り替わる。
-///         いずれも `Heap<Key, Value, Comp>` 形式で `push(key, value)` /
-///         `top() -> pair<key, value>` / `pop` / `empty` を持つこと。
+///         いずれも `Heap<Key, Value, Comp>`（Key=順序基準, Value=付随データ）形式で
+///         `push(key, value)` / `top() -> pair<key, value>` / `pop` / `empty` を持つこと。
 /// @tparam G 実重み付きグラフ型（`list_graph<T>` / `csr_graph<T>`、T は非 void）
 /// @note 重みなしグラフ（`*_graph<void>`）は下の BFS 版が選ばれる。
 /// @note `update` を持つヒープでは頂点ごとにハンドルを保持して decrease-key し、
@@ -45,19 +42,19 @@ template <template <class...> class Heap = dijkstra_priority_queue, properly_wei
           class T = graph_weight_t<G>>
 std::vector<T> shortest_path(const G &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
     int n = g.size();
-    // key = 頂点、value = 距離。greater<> で距離最小をルートにする最小ヒープ。
-    using heap_type = Heap<int, T, std::greater<>>;
+    // key = 距離（順序基準）、value = 頂点（付随データ）。greater<> で距離最小をルートにする。
+    using heap_type = Heap<T, int, std::greater<>>;
     std::vector<T> dists(n, inf);
     heap_type heap;
     dists[s] = T();
 
-    if constexpr (decrease_key_heap<heap_type, int, T>) {
+    if constexpr (decrease_key_heap<heap_type, T, int>) {
         // decrease-key 方式: 頂点ごとにハンドルを保持する。
-        using node_ptr = decltype(heap.push(0, T()));
+        using node_ptr = decltype(heap.push(T(), 0));
         std::vector<node_ptr> handle(n, node_ptr{});
-        handle[s] = heap.push(s, T());
+        handle[s] = heap.push(T(), s);
         while (!heap.empty()) {
-            auto [v, d] = heap.top();
+            auto [d, v] = heap.top();
             heap.pop();
             handle[v] = node_ptr{};  // 確定済みの印（再度ヒープに入れない）
             for (auto &e : g[v]) {
@@ -65,21 +62,21 @@ std::vector<T> shortest_path(const G &g, int s = 0, T inf = std::numeric_limits<
                 if (dists[to] <= d + e.weight()) continue;
                 dists[to] = d + e.weight();
                 if (handle[to]) heap.update(handle[to], dists[to]);
-                else handle[to] = heap.push(to, dists[to]);
+                else handle[to] = heap.push(dists[to], to);
             }
         }
     } else {
         // lazy-deletion 方式: 緩和のたびに push し、取り出し時に stale をスキップする。
-        heap.push(s, T());
+        heap.push(T(), s);
         while (!heap.empty()) {
-            auto [v, d] = heap.top();
+            auto [d, v] = heap.top();
             heap.pop();
             if (dists[v] < d) continue;
             for (auto &e : g[v]) {
                 int to = e.to();
                 if (d + e.weight() < dists[to]) {
                     dists[to] = d + e.weight();
-                    heap.push(to, dists[to]);
+                    heap.push(dists[to], to);
                 }
             }
         }

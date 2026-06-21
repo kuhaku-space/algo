@@ -4,13 +4,7 @@
 #include <limits>
 #include <vector>
 #include "algorithm/doubling.hpp"
-
-struct Monoid {
-    using T = std::int64_t;
-    using value_type = T;
-    static constexpr T id() { return 0; }
-    static constexpr T op(const T &lhs, const T &rhs) { return lhs + rhs; }
-};
+#include "segtree/monoid.hpp"
 
 int main(void) {
     std::int64_t n, m, l;
@@ -19,7 +13,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<int> to(n);
     for (int i = 0; i < n; ++i) to[i] = (i + l) % n;
-    doubling<40, Monoid> db(to, a);
+    doubling<40, Add<std::int64_t>> db(to, a);
     std::int64_t r = (n * m) % l;
     std::int64_t k = (n * m) / l;
     std::int64_t ans = std::numeric_limits<std::int64_t>::min();
