@@ -35,7 +35,12 @@ struct stern_brocot_tree {
     constexpr stern_brocot_tree(fraction lo, fraction hi) : lo(lo), hi(hi) {}
 
     // p/q を含むノードを構成する (区間が p/q を含むまで降りる)。
-    static stern_brocot_tree from_fraction(fraction f) { return from_path(encode(f)); }
+    // パスの往復を避け、降下を直接 lo/hi に反映する。
+    static stern_brocot_tree from_fraction(fraction f) {
+        stern_brocot_tree t;
+        walk(f, [&](char c, std::int64_t k) { t.descend(c, k); });
+        return t;
+    }
 
     // パスを根から辿った先のノード。
     static stern_brocot_tree from_path(const path &pth) {
@@ -65,9 +70,10 @@ struct stern_brocot_tree {
     }
 
     // 根からの深さ (移動回数の総和)。根は 0。
+    // パスを構築せず連長を直接足し上げる。
     std::int64_t depth() const {
         std::int64_t res = 0;
-        for (auto [c, n] : path_from_root()) res += n;
+        walk(value(), [&](char, std::int64_t k) { res += k; });
         return res;
     }
 
@@ -78,19 +84,8 @@ struct stern_brocot_tree {
 
     // 1/1 から f までのパスを連長圧縮で求める。1/1 のとき空。
     static path encode(fraction f) {
-        std::int64_t a = f.p, b = f.q;
         path res;
-        while (a != 1 || b != 1) {
-            if (a > b) {
-                std::int64_t k = (a - 1) / b;
-                res.emplace_back('R', k);
-                a -= k * b;
-            } else {
-                std::int64_t k = (b - 1) / a;
-                res.emplace_back('L', k);
-                b -= k * a;
-            }
-        }
+        walk(f, [&](char c, std::int64_t k) { res.emplace_back(c, k); });
         return res;
     }
 
@@ -124,16 +119,21 @@ struct stern_brocot_tree {
         return {0, 0};
     }
 
-    // 目標有理数 target (= p/q, 既約でなくてよい。0/1 や 1/0 も可) に最も近い、
+    // 目標有理数 target (= p/q, 既約でなくてよい。0/1 は可) に最も近い、
     // 分母が max_denominator 以下の既約分数を返す。距離が等しいときは値が小さい方。
+    // target = 1/0 (+∞) は最近点が定義できない (分子上限がなく発散する) ため非対応。
     // SBT を target に向かって降りる過程で、各方向への連続ステップ数を
     // 「target を越えない最大回数」と「分母制約を超えない最大回数」の小さい方として
     // 閉じた式で一括計算するため O(log) で求まる。比較は __int128。
     static fraction nearest(fraction target, std::int64_t max_denominator) {
         using i128 = __int128;
         const i128 R = target.p, D = target.q, N = max_denominator;
-        // target との符号付きクロス差 p*D - R*q (0 で一致)。
+        // target との符号付きクロス差 p*D - R*q (0 で一致) と、その絶対値。
         auto diff = [&](i128 p, i128 q) { return p * D - R * q; };
+        auto adiff = [&](const fraction &f) {
+            i128 v = diff(f.p, f.q);
+            return v < 0 ? -v : v;
+        };
 
         stern_brocot_tree t;
         while (true) {
@@ -147,39 +147,25 @@ struct stern_brocot_tree {
                 if (m.q <= N) return m;
                 break;  // メディアントは target だが分母超過 -> 境界で判定
             }
-            if (dm < 0) {
-                // メディアント < target: 右へ lo += k*hi。
-                // k <= (R*lo.q - lo.p*D) / (hi.p*D - R*hi.q) で target を越えない。
-                i128 num = -diff(t.lo.p, t.lo.q);  // > 0
-                i128 den = diff(t.hi.p, t.hi.q);   // > 0 (hi > target)
-                i128 kr = num / den;
-                // hi.q == 0 (hi が +∞) のときは分母制約がかからない。
-                bool denom_free = (t.hi.q == 0);
-                i128 kn = denom_free ? kr : (N - t.lo.q) / t.hi.q;  // 分母 <= N
-                i128 k = denom_free ? kr : std::min(kr, kn);
-                if (k <= 0) break;
-                t.lo = {t.lo.p + (std::int64_t)k * t.hi.p, t.lo.q + (std::int64_t)k * t.hi.q};
-                if (!denom_free && k < kr) break;  // 分母制約で目標まで進めず終了
-            } else {
-                // メディアント > target: 左へ hi += k*lo。
-                i128 num = diff(t.hi.p, t.hi.q);   // > 0
-                i128 den = -diff(t.lo.p, t.lo.q);  // > 0 (lo < target)
-                i128 kr = num / den;
-                // lo.q == 0 はありえない (lo は常に有限) が、対称性のため同様に扱う。
-                bool denom_free = (t.lo.q == 0);
-                i128 kn = denom_free ? kr : (N - t.hi.q) / t.lo.q;
-                i128 k = denom_free ? kr : std::min(kr, kn);
-                if (k <= 0) break;
-                t.hi = {t.hi.p + (std::int64_t)k * t.lo.p, t.hi.q + (std::int64_t)k * t.lo.q};
-                if (!denom_free && k < kr) break;
-            }
+            // dm<0 なら右へ (near=lo, far=hi, descend 'R')、dm>0 なら左へ (near=hi, far=lo, 'L')。
+            // どちら向きでも near += k*far で target に寄せる。
+            char dir = dm < 0 ? 'R' : 'L';
+            fraction near = dm < 0 ? t.lo : t.hi;
+            fraction far = dm < 0 ? t.hi : t.lo;
+            // near は target と同じ側、far は反対側。k <= |diff(near)| / |diff(far)| で越えない。
+            // far がちょうど target (adiff(far)==0) ならこれ以上寄れない。target=1/0 (+∞) で
+            // far=hi が初期から +∞ のときもここに入り、0 除算を避ける。
+            i128 df = adiff(far);
+            if (df == 0) break;
+            i128 kr = adiff(near) / df;
+            // far.q == 0 (+∞) のときは分母制約がかからない。
+            i128 cap = far.q == 0 ? kr : std::min(kr, (i128)(N - near.q) / far.q);
+            if (cap <= 0) break;
+            t.descend(dir, (std::int64_t)cap);
+            if (far.q != 0 && cap < kr) break;  // 分母制約で目標まで進めず終了
         }
 
         // 残った両境界のうち分母 <= N のものから、target に近い方 (同距離なら小さい方) を選ぶ。
-        auto abs_diff = [&](fraction f) {
-            i128 v = diff(f.p, f.q);
-            return v < 0 ? -v : v;
-        };
         fraction best{0, 0};
         bool has = false;
         auto consider = [&](fraction f) {
@@ -188,8 +174,8 @@ struct stern_brocot_tree {
                 best = f, has = true;
                 return;
             }
-            // |target - f| vs |target - best| : abs_diff(f)/f.q vs abs_diff(best)/best.q
-            i128 l = abs_diff(f) * best.q, r = abs_diff(best) * f.q;
+            // |target - f| vs |target - best| : adiff(f)/f.q vs adiff(best)/best.q
+            i128 l = adiff(f) * best.q, r = adiff(best) * f.q;
             if (l < r || (l == r && f < best)) best = f;
         };
         consider(t.lo);
@@ -205,31 +191,49 @@ struct stern_brocot_tree {
     template <class F>
     static fraction search(F pred, std::int64_t max_denominator) {
         const std::int64_t N = max_denominator;
-        fraction lo{0, 1}, hi{1, 0};  // pred(lo) は真。lo を最大化していく。
+        stern_brocot_tree t;  // pred(lo) は真。lo を最大化していく。
         while (true) {
-            fraction m{lo.p + hi.p, lo.q + hi.q};  // mediant
-            if (m.q > N) break;                    // 分母上限を超える -> これ以上分割不可
-            if (pred(m.p, m.q)) {
-                // mediant が真 -> 答えは m 以上。右へ lo += k*hi を進める。
-                // lo + k*hi が真を保ち、かつ分母 lo.q + k*hi.q <= N となる最大 k (>=1)。
-                // hi.q==0 (hi=+∞) のときは分母が変わらないので分母制約なし -> 述語のみで止める。
-                std::int64_t hk = (hi.q == 0) ? step_cap(lo, hi) : (N - lo.q) / hi.q;
-                std::int64_t k = max_step(hk, [&](std::int64_t j) { return pred(lo.p + j * hi.p, lo.q + j * hi.q); });
-                lo = {lo.p + k * hi.p, lo.q + k * hi.q};
-                if (hi.q != 0 && k == hk) break;  // 分母上限に達した -> 確定
-            } else {
-                // mediant が偽 -> 答えは m 未満。左へ hi += k*lo を進める。
-                std::int64_t hk = (lo.q == 0) ? step_cap(hi, lo) : (N - hi.q) / lo.q;
-                std::int64_t k = max_step(hk, [&](std::int64_t j) { return !pred(hi.p + j * lo.p, hi.q + j * lo.q); });
-                hi = {hi.p + k * lo.p, hi.q + k * lo.q};
-                if (lo.q != 0 && k == hk) break;
-            }
+            fraction m = t.value();
+            if (m.q > N) break;  // 分母上限を超える -> これ以上分割不可
+            // mediant が真なら答えは m 以上 -> 右へ lo += k*hi。偽なら m 未満 -> 左へ hi += k*lo。
+            // どちら向きでも、進める境界 from に対し to += k*from を「規準が真の間」進める。
+            bool go_right = pred(m.p, m.q);
+            char dir = go_right ? 'R' : 'L';
+            const fraction &to = go_right ? t.lo : t.hi;    // 動かす境界
+            const fraction &from = go_right ? t.hi : t.lo;  // 加える境界
+            // to + k*from が規準を保ち、かつ分母 to.q + k*from.q <= N となる最大 k (>=1)。
+            // from.q==0 (+∞) のときは分母が変わらないので分母制約なし -> 規準のみで止める。
+            std::int64_t hk = (from.q == 0) ? step_cap(to, from) : (N - to.q) / from.q;
+            std::int64_t k = max_step(hk, [&](std::int64_t j) {
+                bool ok = pred(to.p + j * from.p, to.q + j * from.q);
+                return go_right ? ok : !ok;
+            });
+            t.descend(dir, k);
+            if (from.q != 0 && k == hk) break;  // 分母上限に達した -> 確定
         }
-        return lo;
+        return t.lo;
     }
 
   private:
     fraction lo, hi;  // 子孫区間の左端・右端
+
+    // 1/1 から f までの降下を連長圧縮で辿り、各ステップ (移動文字, 連続回数) を
+    // visit(c, k) に渡す。encode/from_fraction/depth が共有する。1/1 のとき何もしない。
+    template <class V>
+    static void walk(fraction f, V visit) {
+        std::int64_t a = f.p, b = f.q;
+        while (a != 1 || b != 1) {
+            if (a > b) {
+                std::int64_t k = (a - 1) / b;
+                visit('R', k);
+                a -= k * b;
+            } else {
+                std::int64_t k = (b - 1) / a;
+                visit('L', k);
+                b -= k * a;
+            }
+        }
+    }
 
     // base + k*step の分子・分母が int64 を溢れさせない最大 k。
     // step.q==0 (step=+∞) のときの右進み量の上限に使う。
