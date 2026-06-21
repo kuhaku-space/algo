@@ -5,6 +5,12 @@
 #include <utility>
 #include <variant>
 #include <vector>
+#include "segtree/monoid.hpp"
+
+/// @brief ダブリングで `M` が取れる型か（`void` または `monoid`）
+/// @details `void` は集約なし（遷移先のみ）、`monoid` は遷移に沿った値の集約を表す。
+template <class M>
+concept doubling_monoid = std::is_void_v<M> || monoid<M>;
 
 /// @brief ダブリング
 /// @details 各要素の「次の遷移先」を 2^k ステップ分前計算し、`jump`/`solve` で
@@ -15,7 +21,7 @@
 ///           扱い、`jump`/`solve` は `int` を返す（`max_step` は提供しない）。
 /// @note `void` は内部で `std::monostate` に正規化し、本体を 1 つに保つ。集約表は
 ///       モノイドがあるときだけ実体を持つ。
-template <int L = 20, class M = void>
+template <int L = 20, doubling_monoid M = void>
 struct doubling {
   private:
     static constexpr bool has_monoid = !std::is_void_v<M>;
