@@ -23,16 +23,16 @@ struct interval_heap {
 
     void push(const T &x) {
         data.push_back(x);
-        apply();
+        fix_up();
     }
     void push(T &&x) {
         data.push_back(std::move(x));
-        apply();
+        fix_up();
     }
     template <typename... Args>
     void emplace(Args &&...args) {
         data.emplace_back(std::forward<Args>(args)...);
-        apply();
+        fix_up();
     }
 
     void pop_max() {
@@ -44,7 +44,7 @@ struct interval_heap {
         } else {
             std::swap(data[1], data.back());
             data.pop_back();
-            down(1);
+            sift_down(1);
         }
     }
 
@@ -56,7 +56,7 @@ struct interval_heap {
         } else {
             std::swap(data[2], data.back());
             data.pop_back();
-            up(2);
+            sift_up(2);
         }
     }
 
@@ -64,7 +64,8 @@ struct interval_heap {
     int _size;
     std::vector<T> data;
 
-    std::pair<int, int> next(int k) {
+    // sift_down で下りる先の候補インデックス対を返す。
+    std::pair<int, int> down_pair(int k) {
         assert(k != 2 && _size >= 2);
         if (k & 1) {
             if (k * 2 + 1 <= _size) {
@@ -78,7 +79,8 @@ struct interval_heap {
         return std::make_pair(k, k);
     }
 
-    std::pair<int, int> prev(int k) {
+    // sift_up で上る先の候補インデックス対を返す。
+    std::pair<int, int> up_pair(int k) {
         assert(k != 1);
         if (~k & 1) {
             if (k * 2 - 1 <= _size) {
@@ -93,9 +95,9 @@ struct interval_heap {
         return std::make_pair(k, k);
     }
 
-    int down(int k) {
+    int sift_down(int k) {
         while (k != 2) {
-            auto &&[x, y] = next(k);
+            auto &&[x, y] = down_pair(k);
             if (x != y && data[x] < data[y]) std::swap(x, y);
             if (data[x] < data[k]) break;
             std::swap(data[x], data[k]);
@@ -104,9 +106,9 @@ struct interval_heap {
         return k;
     }
 
-    int up(int k) {
+    int sift_up(int k) {
         while (k != 1) {
-            auto &&[x, y] = prev(k);
+            auto &&[x, y] = up_pair(k);
             if (x != y && data[y] < data[x]) std::swap(x, y);
             if (data[k] < data[x]) break;
             std::swap(data[k], data[x]);
@@ -115,12 +117,13 @@ struct interval_heap {
         return k;
     }
 
-    void apply() {
+    // push 直後の末尾要素をヒープ条件へ整える。
+    void fix_up() {
         ++_size;
         if (_size >= 3) {
             int k = _size;
-            k = down(k);
-            k = up(k);
+            k = sift_down(k);
+            k = sift_up(k);
         } else if (_size == 2 && data[1] < data[2]) {
             std::swap(data[1], data[2]);
         }

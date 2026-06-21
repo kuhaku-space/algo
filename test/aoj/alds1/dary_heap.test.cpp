@@ -6,7 +6,7 @@
 
 int main(void) {
     // 既定の Comp = std::less<> でルートに最大値が来る最大ヒープ。
-    // key は使わないので value と同じ値を入れる。
+    // 順序基準 key で比較する。付随データ value は使わないので key と同じ値を入れる。
     dary_heap<int, int> heap;
     while (true) {
         std::string s;
@@ -18,7 +18,7 @@ int main(void) {
             std::cin >> x;
             heap.push(x, x);
         } else {
-            std::cout << heap.top().second << '\n';
+            std::cout << heap.top().first << '\n';
             heap.pop();
         }
     }
