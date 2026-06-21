@@ -19,17 +19,13 @@ template <int L = 20, class M = void>
 struct doubling {
   private:
     static constexpr bool has_monoid = !std::is_void_v<M>;
-    // M=void でも実体化できるよう値型を正規化する（void のときは monostate）。
-    template <class U>
-    struct value_of {
-        using type = std::monostate;
+    // M=void のときは value_type=monostate を持つ空モノイド型へ差し替える。
+    // conditional_t は型を選ぶだけで ::value_type の評価は選択後の 1 回なので、
+    // void::value_type のハードエラーは起きない。
+    struct void_monoid {
+        using value_type = std::monostate;
     };
-    template <class U>
-    requires(!std::is_void_v<U>)
-    struct value_of<U> {
-        using type = typename U::value_type;
-    };
-    using T = typename value_of<M>::type;
+    using T = typename std::conditional_t<has_monoid, M, void_monoid>::value_type;
 
   public:
     // モノイドなし: 遷移先のみ。
