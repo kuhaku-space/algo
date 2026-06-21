@@ -37,6 +37,9 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - 浮動小数点→整数の丸めは **`std::llround`**（`T(x + 0.5)` は負値で誤る）。
 - グラフアルゴリズムは具体型に依存せず **`graph_type` / `weighted_graph_type` concept** で書き、
   `list_graph<T>`・`csr_graph<T>` の両方に対応させる。
+- ヒープ（`lib/heap/`）の `Key`/`Value` 規約: **`Key` が順序基準**（`Comp` で比較する側・
+  radix の整数キー）、**`Value` が付随データ**。`push(key, value)` / `top() -> pair<key, value>` /
+  `update(handle, key)`。`shortest_path` では `Heap<距離, 頂点, Comp>` として使う。
 
 ## フォーマット
 
