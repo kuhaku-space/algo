@@ -3,13 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "algorithm/doubling.hpp"
-
-struct Monoid {
-    using T = std::int64_t;
-    using value_type = T;
-    static constexpr T id() { return 0; }
-    static constexpr T op(const T &lhs, const T &rhs) { return lhs + rhs; }
-};
+#include "segtree/monoid.hpp"
 
 int main(void) {
     int n, k;
@@ -18,7 +12,7 @@ int main(void) {
     for (auto &e : p) std::cin >> e;
     std::vector<int> to(n);
     for (int i = 0; i < n; ++i) to[i] = (i + p[i]) % n;
-    doubling<30, Monoid> db(to, p);
+    doubling<30, Add<std::int64_t>> db(to, p);
     for (int i = 0; i < n; ++i) std::cout << i + 1 + db.solve(i, k).second << '\n';
 
     return 0;
