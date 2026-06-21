@@ -1,13 +1,17 @@
 #pragma once
+#include <deque>
 #include <functional>
+#include <memory>
 #include <utility>
 #include <vector>
 
 /// @brief leftist heap（融合可能ヒープ）
 /// @see http://hos.ac/blog/#blog0001
-/// @details ノードを `std::vector` のプールに置き `int` インデックスで連結する index-pool
-///          実装で、`new`/`delete` を一切行わない（コピー・ムーブも自動で正しい）。
-///          各ノードの rank（右脊柱の長さ）でバランスを保ち、`meld` は O(log N)。
+/// @details ノードをポインタで連結し、`meld` は右脊柱を辿って O(log N) で融合する。
+///          ノード実体は `std::deque` のプールが所有する（要素アドレスが安定し、
+///          `new`/`delete` を一切行わずリークもしない）。`meld` で別ヒープの要素を
+///          取り込む際は相手のプールを `shared_ptr` で延命するだけなので、プールを
+///          コピーせず連結は O(log N) のまま。
 ///          `Comp = std::less<>` で最大ヒープ、`std::greater<>` で最小ヒープ。
 /// @note `meld` は引数のヒープを空にして要素を取り込む破壊的操作。
 template <class T, class Comp = std::less<>>
@@ -15,19 +19,18 @@ struct leftist_heap {
   private:
     struct _node {
         T val;
-        int left, right;  // 子のプールインデックス（-1 で null）
+        _node *left, *right;
         int rank;
     };
-    static constexpr int nil = -1;
 
   public:
     using value_type = T;
 
-    leftist_heap() : pool(), root(nil), _size(), comp() {}
+    leftist_heap() : pool(std::make_shared<std::deque<_node>>()), root(nullptr), _size(), comp() {}
 
-    constexpr bool empty() const { return root == nil; }
+    constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return _size; }
-    T top() const { return pool[root].val; }
+    T top() const { return root->val; }
 
     void push(const T &val) { root = meld(root, make_node(val)), ++_size; }
     void push(T &&val) { root = meld(root, make_node(std::move(val))), ++_size; }
@@ -36,45 +39,41 @@ struct leftist_heap {
         root = meld(root, make_node(T(std::forward<Args>(args)...))), ++_size;
     }
 
-    void pop() { root = meld(pool[root].left, pool[root].right), --_size; }
+    void pop() { root = meld(root->left, root->right), --_size; }
 
-    // rhs を空にして、その全要素を自分へ取り込む。
+    // rhs を空にして、その全要素を自分へ取り込む。rhs のノードは rhs のプールが
+    // 所有しているので、そのプールを shared_ptr で延命して以後も参照できるようにする。
     void meld(leftist_heap &rhs) {
-        if (this == &rhs || rhs.root == nil) return;
-        int offset = (int)pool.size();
-        pool.insert(pool.end(), rhs.pool.begin(), rhs.pool.end());
-        // 取り込んだ側のインデックスを offset 分ずらす。
-        for (int i = offset; i < (int)pool.size(); ++i) {
-            if (pool[i].left != nil) pool[i].left += offset;
-            if (pool[i].right != nil) pool[i].right += offset;
-        }
-        root = meld(root, rhs.root + offset);
+        if (this == &rhs || rhs.root == nullptr) return;
+        if (rhs.pool != pool) extra_pools.push_back(rhs.pool);
+        root = meld(root, rhs.root);
         _size += rhs._size;
-        rhs.pool.clear();
-        rhs.root = nil;
+        rhs.root = nullptr;
         rhs._size = 0;
     }
 
   private:
-    std::vector<_node> pool;
-    int root;
+    std::shared_ptr<std::deque<_node>> pool;
+    // meld で取り込んだ相手のプールを延命するための保持先。
+    std::vector<std::shared_ptr<std::deque<_node>>> extra_pools;
+    _node *root;
     int _size;
     Comp comp;
 
-    int make_node(T val) {
-        pool.push_back({std::move(val), nil, nil, 0});
-        return (int)pool.size() - 1;
+    _node *make_node(T val) {
+        pool->push_back({std::move(val), nullptr, nullptr, 0});
+        return &pool->back();
     }
 
-    int rank(int x) const { return x == nil ? 0 : pool[x].rank; }
+    static int rank(const _node *x) { return x == nullptr ? 0 : x->rank; }
 
-    int meld(int a, int b) {
-        if (a == nil) return b;
-        if (b == nil) return a;
-        if (comp(pool[a].val, pool[b].val)) std::swap(a, b);
-        pool[a].right = meld(pool[a].right, b);
-        if (rank(pool[a].left) < rank(pool[a].right)) std::swap(pool[a].left, pool[a].right);
-        pool[a].rank = rank(pool[a].right) + 1;
+    _node *meld(_node *a, _node *b) {
+        if (a == nullptr) return b;
+        if (b == nullptr) return a;
+        if (comp(a->val, b->val)) std::swap(a, b);
+        a->right = meld(a->right, b);
+        if (rank(a->left) < rank(a->right)) std::swap(a->left, a->right);
+        a->rank = rank(a->right) + 1;
         return a;
     }
 };
