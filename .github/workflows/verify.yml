@@ -79,6 +79,10 @@ jobs:
       # SPLIT_SIZE must equal the number of matrix indices below.
       SPLIT_SIZE: "10"
     strategy:
+      # 1 つの shard が失敗しても他をキャンセルしない。fail-fast で巻き添え
+      # キャンセルすると result.json が欠けたまま docs-and-check に渡り、
+      # 不完全な結果で Check が緑になりうる。
+      fail-fast: false
       matrix:
         # prettier-ignore
         index:
@@ -161,9 +165,22 @@ jobs:
   docs-and-check:
     runs-on: ubuntu-latest
     needs: [verify]
+    # verify が失敗しても必ず走らせ、Check ステップで失敗を集約して
+    # このジョブ自体の結論に伝播させる。これを必須チェックに据えることで
+    # CI 失敗時のマージを確実にブロックする。
+    if: always()
     outputs:
       upload-pages: ${{steps.upload-pages.outcome == 'success'}}
     steps:
+      # verify matrix が 1 つでも成功以外なら、ここで即失敗させる。
+      # competitive-verifier の Check は欠損 shard を検知しないため、
+      # ジョブ結論への失敗伝播はこのガードに依存する。
+      - name: Guard against failed verify shards
+        if: needs.verify.result != 'success'
+        run: |
+          echo "verify ジョブが success ではありません: ${{ needs.verify.result }}"
+          exit 1
+
       - uses: actions/checkout@v6
         with:
           fetch-depth: 2147483647
