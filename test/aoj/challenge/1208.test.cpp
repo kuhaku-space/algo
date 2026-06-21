@@ -17,10 +17,10 @@ int main(void) {
         };
         stern_brocot_tree sbt;
         while (true) {
-            auto [s, t] = sbt.get();
+            auto [s, t] = sbt.value();
             if (s > n || t > n) break;
-            if (f(s, t)) sbt = sbt.get_right();
-            else sbt = sbt.get_left();
+            if (f(s, t)) sbt = sbt.right();
+            else sbt = sbt.left();
         }
 
         std::cout << x << "/" << y << " " << u << "/" << v << '\n';
