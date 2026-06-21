@@ -4,8 +4,8 @@
 #include <vector>
 
 /// @brief フィボナッチヒープ（decrease-key 対応）
-/// @details `Key`・`Value` を保持し、`Comp` で `Value` を比較する。
-///          `Comp = std::greater<>` で `Value` 最小をルートにする最小ヒープになる
+/// @details 順序基準の `Key` と付随データ `Value` を保持し、`Comp` で `Key` を比較する。
+///          `Comp = std::greater<>` で `Key` 最小をルートにする最小ヒープになる
 ///          （`binary_heap` / `dary_heap` と同じ規約）。
 ///          ノードを `std::vector` のプールに置き `int` インデックスで連結する index-pool
 ///          実装で、`new`/`delete` を一切行わない（コピー・ムーブも自動で正しい）。
@@ -52,7 +52,7 @@ struct fibonacci_heap {
             _root = node;
         } else {
             insert_left(_root, node);
-            if (comp(pool[_root].value, pool[node].value)) _root = node;
+            if (comp(pool[_root].key, pool[node].key)) _root = node;
         }
         return handle(node);
     }
@@ -88,7 +88,7 @@ struct fibonacci_heap {
             pool[node].damaged = false;
             int order = pool[node].order;
             while (nodes[order] != nil) {
-                if (comp(pool[node].value, pool[nodes[order]].value)) std::swap(node, nodes[order]);
+                if (comp(pool[node].key, pool[nodes[order]].key)) std::swap(node, nodes[order]);
                 add_child(node, nodes[order]);
                 nodes[order] = nil;
                 ++order;
@@ -103,30 +103,30 @@ struct fibonacci_heap {
                 _root = node;
             } else {
                 insert_left(_root, node);
-                if (comp(pool[_root].value, pool[node].value)) _root = node;
+                if (comp(pool[_root].key, pool[node].key)) _root = node;
             }
         }
     }
 
-    /// @brief ハンドルの要素を `value` に更新する（ルート側へ近づく更新のみ反映）。
-    /// @details 最小ヒープ（`greater<>`）では「より小さい値」への更新、つまり
+    /// @brief ハンドルの順序基準 `key` を更新する（ルート側へ近づく更新のみ反映）。
+    /// @details 最小ヒープ（`greater<>`）では「より小さい key」への更新、つまり
     ///          decrease-key に対応する。逆向きの更新は無視する。
-    void update(handle h, Value value) {
+    void update(handle h, Key key) {
         int node = h.idx;
-        if (!comp(pool[node].value, value)) return;
-        pool[node].value = std::move(value);
+        if (!comp(pool[node].key, key)) return;
+        pool[node].key = std::move(key);
         int parent = pool[node].parent;
         // ルート上のノードなら最上位判定のみ
         if (parent == nil) {
-            if (comp(pool[_root].value, pool[node].value)) _root = node;
+            if (comp(pool[_root].key, pool[node].key)) _root = node;
             return;
         }
         // ヒープ条件を満たしているなら何もしない
-        if (!comp(pool[parent].value, pool[node].value)) return;
+        if (!comp(pool[parent].key, pool[node].key)) return;
         // node を切り離し、親へカスケードカットを伝播させる
         cut(node, parent);
         cascading_cut(parent);
-        if (comp(pool[_root].value, pool[node].value)) _root = node;
+        if (comp(pool[_root].key, pool[node].key)) _root = node;
     }
 
   private:

@@ -4,14 +4,16 @@
 #include <vector>
 
 /// @brief 二分ヒープ（decrease-key 対応）
-/// @details `Key`・`Value` を保持し、`Comp` で `Value` を比較する。
-///          `Comp = std::greater<>` で `Value` 最小をルートにする最小ヒープになる
+/// @details 順序基準の `Key` と付随データ `Value` を保持し、`Comp` で `Key` を比較する。
+///          `Comp = std::greater<>` で `Key` 最小をルートにする最小ヒープになる
 ///          （`dary_heap` / `fibonacci_heap` と同じ規約）。
 ///          連続領域（`std::vector`）に要素を並べる flat 実装で、`new`/`delete` を
 ///          一切行わない。`push` は安定なハンドルを返し、`pop`/`push`/`update` を
 ///          挟んでもそのハンドルで同じ要素を指し続けられる（要素はノード ID で
 ///          管理し、ヒープ配列の再配置から切り離す）。
-/// @tparam Comp `Value` の比較子。`comp(a, b) == true` のとき a が b より下位
+/// @tparam Key 順序基準。`Comp` で比較される側。
+/// @tparam Value 付随データ。順序には関与しない。
+/// @tparam Comp `Key` の比較子。`comp(a, b) == true` のとき a が b より下位
 ///              （ルートから遠い側）になる。
 template <class Key, class Value, class Comp = std::less<>>
 struct binary_heap {
@@ -42,6 +44,7 @@ struct binary_heap {
 
     constexpr bool empty() const { return heap.empty(); }
     constexpr int size() const { return (int)heap.size(); }
+    // 返値は {順序基準 key, 付随データ value} の順。
     std::pair<Key, Value> top() const {
         const _node &n = nodes[heap[0]];
         return {n.key, n.value};
@@ -64,14 +67,14 @@ struct binary_heap {
         if (!heap.empty()) sift_down(0);
     }
 
-    /// @brief ハンドルの要素を `value` に更新する（ルート側へ近づく更新のみ反映）。
-    /// @details `comp(現在値, value) == true`（= 現在値が下位）のときだけ値を上書きし
-    ///          sift-up する。最小ヒープ（`greater<>`）では「より小さい値」への
+    /// @brief ハンドルの順序基準 `key` を更新する（ルート側へ近づく更新のみ反映）。
+    /// @details `comp(現在の key, key) == true`（= 現在値が下位）のときだけ上書きし
+    ///          sift-up する。最小ヒープ（`greater<>`）では「より小さい key」への
     ///          更新、つまり decrease-key に対応する。逆向きの更新は無視する。
-    void update(handle h, Value value) {
+    void update(handle h, Key key) {
         _node &n = nodes[h.idx];
-        if (!comp(n.value, value)) return;
-        n.value = std::move(value);
+        if (!comp(n.key, key)) return;
+        n.key = std::move(key);
         sift_up(pos[h.idx]);
     }
 
@@ -87,7 +90,7 @@ struct binary_heap {
     void sift_up(int i) {
         while (i > 0) {
             int parent = (i - 1) >> 1;
-            if (!comp(nodes[heap[parent]].value, nodes[heap[i]].value)) break;
+            if (!comp(nodes[heap[parent]].key, nodes[heap[i]].key)) break;
             swap_heap(i, parent);
             i = parent;
         }
@@ -101,8 +104,8 @@ struct binary_heap {
             if (left >= n) break;
             int best = left;
             int right = left + 1;
-            if (right < n && comp(nodes[heap[best]].value, nodes[heap[right]].value)) best = right;
-            if (!comp(nodes[heap[i]].value, nodes[heap[best]].value)) break;
+            if (right < n && comp(nodes[heap[best]].key, nodes[heap[right]].key)) best = right;
+            if (!comp(nodes[heap[i]].key, nodes[heap[best]].key)) break;
             swap_heap(i, best);
             i = best;
         }

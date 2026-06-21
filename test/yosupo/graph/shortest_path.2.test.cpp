@@ -13,16 +13,17 @@
 template <class T>
 std::pair<std::vector<T>, std::vector<int>> dijkstra(const csr_graph<T> &g, int s) {
     int n = g.size();
-    using heap_type = fibonacci_heap<int, T, std::greater<>>;
-    using node_handle = decltype(std::declval<heap_type &>().push(0, T()));
+    // key = 距離（順序基準）、value = 頂点（付随データ）。
+    using heap_type = fibonacci_heap<T, int, std::greater<>>;
+    using node_handle = decltype(std::declval<heap_type &>().push(T(), 0));
     std::vector<T> dists(n, INF);
     std::vector<int> prev(n, -1);
     std::vector<node_handle> handle(n, node_handle{});
     heap_type heap;
     dists[s] = T();
-    handle[s] = heap.push(s, T());
+    handle[s] = heap.push(T(), s);
     while (!heap.empty()) {
-        auto [v, d] = heap.top();
+        auto [d, v] = heap.top();
         heap.pop();
         handle[v] = node_handle{};
         for (auto &e : g[v]) {
@@ -31,7 +32,7 @@ std::pair<std::vector<T>, std::vector<int>> dijkstra(const csr_graph<T> &g, int 
             dists[to] = d + e.weight();
             prev[to] = v;
             if (handle[to]) heap.update(handle[to], dists[to]);  // decrease-key
-            else handle[to] = heap.push(to, dists[to]);
+            else handle[to] = heap.push(dists[to], to);
         }
     }
     return {dists, prev};

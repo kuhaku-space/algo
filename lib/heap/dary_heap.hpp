@@ -4,11 +4,14 @@
 #include <vector>
 
 /// @brief D 分ヒープ
-/// @details `Key`・`Value` を保持し、`Comp` で `Value` を比較する。
-///          `Comp = std::greater<>` で `Value` 最小をルートにする最小ヒープになる
+/// @details 順序基準の `Key` と付随データ `Value` を保持し、`Comp` で `Key` を比較する。
+///          `Comp = std::greater<>` で `Key` 最小をルートにする最小ヒープになる
 ///          （`binary_heap` / `fibonacci_heap` と同じ規約）。
 ///          連続領域（`std::vector`）に `{key, value}` を並べる flat 実装。
 ///          decrease-key は持たない。
+/// @tparam Key 順序基準。`Comp` で比較される側。
+/// @tparam Value 付随データ。順序には関与しない。
+/// @tparam Comp `Key` の比較子。
 /// @tparam D 分岐数（既定 4）。二分ヒープより木が浅く（log_D N）、`pop` の
 ///           sift-down で子をまとめて見るため比較回数が増えるトレードオフがある。
 /// @note 当環境のベンチでは Dijkstra 用途で `std::priority_queue` と概ね互角だった
@@ -36,7 +39,7 @@ struct dary_heap {
         // sift-up: 親より「上に来るべき」なら入れ替える。
         while (index > 0) {
             int parent = (index - 1) / D;
-            if (!comp(data[parent].value, data[index].value)) break;
+            if (!comp(data[parent].key, data[index].key)) break;
             std::swap(data[parent], data[index]);
             index = parent;
         }
@@ -53,16 +56,16 @@ struct dary_heap {
             if (first >= n) break;
             int best = first;
             for (int k = first + 1; k < first + D && k < n; ++k) {
-                if (comp(data[best].value, data[k].value)) best = k;
+                if (comp(data[best].key, data[k].key)) best = k;
             }
-            if (!comp(data[index].value, data[best].value)) break;
+            if (!comp(data[index].key, data[best].key)) break;
             std::swap(data[index], data[best]);
             index = best;
         }
     }
 
   private:
-    // 連続領域に {key, value} を並べる flat 実装。比較は value で行う。
+    // 連続領域に {key, value} を並べる flat 実装。比較は key で行う。
     std::vector<_node> data;
     Comp comp;
 };
