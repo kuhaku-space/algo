@@ -1,163 +1,190 @@
 #pragma once
 #include <functional>
 #include <utility>
+#include <vector>
 
-/// @brief フィボナッチヒープ
+/// @brief フィボナッチヒープ（decrease-key 対応）
+/// @details `Key`・`Value` を保持し、`Comp` で `Value` を比較する。
+///          `Comp = std::greater<>` で `Value` 最小をルートにする最小ヒープになる
+///          （`binary_heap` / `dary_heap` と同じ規約）。
+///          ノードを `std::vector` のプールに置き `int` インデックスで連結する index-pool
+///          実装で、`new`/`delete` を一切行わない（コピー・ムーブも自動で正しい）。
+///          `push` は安定なハンドルを返し、`update` で decrease-key できる。
+/// @note `pop` したノードはプールから物理削除しない（ハンドルの寿命は呼び出し側管理）。
 template <class Key, class Value, class Comp = std::less<>>
 struct fibonacci_heap {
   private:
+    static constexpr int nil = -1;
+
     struct _node {
-        using pointer = _node *;
         Key key;
         Value value;
         int order;
-        pointer left, right;
-        pointer parent, child;
+        int left, right;  // 兄弟（双方向循環リスト）
+        int parent, child;
         bool damaged;
-
-        _node() : key(), value(), order(), left(this), right(this), parent(), child(), damaged() {}
-        _node(Key _key, Value _value)
-            : key(_key), value(_value), order(), left(this), right(this), parent(), child(), damaged() {}
-
-        // node を子リストへ追加する。parent と order を更新する
-        void add_child(pointer node) {
-            node->parent = this;
-            if (child) child->insert_left(node);
-            else child = node;
-            ++order;
-        }
-        // node を自分の左隣（前）へ挿入する
-        void insert_left(pointer node) {
-            node->right = this;
-            node->left = left;
-            left->right = node;
-            left = node;
-        }
-        // 自分を兄弟リストから外す（parent は触らない）。
-        // 外したあと参照できる兄弟（なければ nullptr）を返す
-        pointer unlink() {
-            if (left == this) {
-                left = right = this;
-                return nullptr;
-            }
-            left->right = right;
-            right->left = left;
-            auto res = left;
-            left = right = this;
-            return res;
-        }
-
-        constexpr auto get_pair() const { return std::make_pair(key, value); }
     };
 
   public:
-    using node_ptr = typename _node::pointer;
+    /// @brief `push` が返す安定ハンドル。`update` に渡してその要素を decrease-key する。
+    /// @details 既定構築（`handle{}`）は無効値で `bool` 文脈で `false`。
+    struct handle {
+        constexpr handle() : idx(nil) {}
+        constexpr explicit operator bool() const { return idx >= 0; }
+        constexpr bool operator==(const handle &) const = default;
 
-    fibonacci_heap() : _root(nullptr), _size(), comp() {}
+      private:
+        friend struct fibonacci_heap;
+        constexpr explicit handle(int i) : idx(i) {}
+        int idx;
+    };
+
+    fibonacci_heap() : pool(), _root(nil), _size(), comp() {}
 
     constexpr bool empty() const { return _size == 0; }
     constexpr int size() const { return _size; }
-    constexpr auto top() const { return _root->get_pair(); }
+    std::pair<Key, Value> top() const { return {pool[_root].key, pool[_root].value}; }
 
-    auto push(Key key, Value value) {
+    handle push(Key key, Value value) {
         ++_size;
-        auto node = new _node(key, value);
-        if (!_root) {
+        int node = make_node(std::move(key), std::move(value));
+        if (_root == nil) {
             _root = node;
         } else {
-            _root->insert_left(node);
-            if (comp(_root->value, value)) _root = node;
+            insert_left(_root, node);
+            if (comp(pool[_root].value, pool[node].value)) _root = node;
         }
-        return node;
+        return handle(node);
     }
-    auto emplace(Key key, Value value) { return push(key, value); }
+    handle emplace(Key key, Value value) { return push(std::move(key), std::move(value)); }
 
     void pop() {
         --_size;
-        // _root の子をすべてルートリストへ昇格する（parent を nullptr に戻す）
-        if (_root->child) {
-            auto child = _root->child;
+        int root = _root;
+        // root の子をすべてルートリストへ昇格する（parent を nil に戻す）
+        if (pool[root].child != nil) {
+            int child = pool[root].child;
             do {
-                child->parent = nullptr;
-                child = child->right;
-            } while (child != _root->child);
-            // _root と child の双方向リストを連結する
-            auto left = child->left;
-            _root->left->right = child;
-            child->left->right = _root;
-            child->left = _root->left;
-            _root->left = left;
-            _root->child = nullptr;
+                pool[child].parent = nil;
+                child = pool[child].right;
+            } while (child != pool[root].child);
+            // root と child の双方向リストを連結する
+            int left = pool[child].left;
+            pool[pool[root].left].right = child;
+            pool[pool[child].left].right = root;
+            pool[child].left = pool[root].left;
+            pool[root].left = left;
+            pool[root].child = nil;
         }
-        _root = _root->unlink();
-        if (!_root) return;
+        _root = unlink(root);
+        if (_root == nil) return;
 
         // 同じ order の木を併合する（consolidate）
-        node_ptr nodes[64] = {};
-        while (_root) {
-            auto node = _root;
-            _root = _root->unlink();
-            node->damaged = false;
-            int order = node->order;
-            while (nodes[order]) {
-                if (comp(node->value, nodes[order]->value)) std::swap(node, nodes[order]);
-                node->add_child(nodes[order]);
-                nodes[order] = nullptr;
+        int nodes[64];
+        for (int &x : nodes) x = nil;
+        while (_root != nil) {
+            int node = _root;
+            _root = unlink(node);
+            pool[node].damaged = false;
+            int order = pool[node].order;
+            while (nodes[order] != nil) {
+                if (comp(pool[node].value, pool[nodes[order]].value)) std::swap(node, nodes[order]);
+                add_child(node, nodes[order]);
+                nodes[order] = nil;
                 ++order;
             }
             nodes[order] = node;
         }
 
-        // 併合後の木をルートリストへ繋ぎ直し、最大を _root にする
-        for (auto node : nodes) {
-            if (!node) continue;
-            if (!_root) {
+        // 併合後の木をルートリストへ繋ぎ直し、最上位を _root にする
+        for (int node : nodes) {
+            if (node == nil) continue;
+            if (_root == nil) {
                 _root = node;
             } else {
-                _root->insert_left(node);
-                if (comp(_root->value, node->value)) _root = node;
+                insert_left(_root, node);
+                if (comp(pool[_root].value, pool[node].value)) _root = node;
             }
         }
     }
 
-    // node の値を value に更新する（max-heap なので増加方向のみ反映）
-    void update(node_ptr node, Value value) {
-        if (comp(node->value, value)) node->value = value;
-        else return;
-        auto parent = node->parent;
-        // ルート上のノードなら最大判定のみ
-        if (!parent) {
-            if (comp(_root->value, node->value)) _root = node;
+    /// @brief ハンドルの要素を `value` に更新する（ルート側へ近づく更新のみ反映）。
+    /// @details 最小ヒープ（`greater<>`）では「より小さい値」への更新、つまり
+    ///          decrease-key に対応する。逆向きの更新は無視する。
+    void update(handle h, Value value) {
+        int node = h.idx;
+        if (!comp(pool[node].value, value)) return;
+        pool[node].value = std::move(value);
+        int parent = pool[node].parent;
+        // ルート上のノードなら最上位判定のみ
+        if (parent == nil) {
+            if (comp(pool[_root].value, pool[node].value)) _root = node;
             return;
         }
         // ヒープ条件を満たしているなら何もしない
-        if (!comp(parent->value, node->value)) return;
+        if (!comp(pool[parent].value, pool[node].value)) return;
         // node を切り離し、親へカスケードカットを伝播させる
         cut(node, parent);
         cascading_cut(parent);
-        if (comp(_root->value, node->value)) _root = node;
+        if (comp(pool[_root].value, pool[node].value)) _root = node;
     }
 
   private:
-    node_ptr _root;
+    std::vector<_node> pool;
+    int _root;
     int _size;
     Comp comp;
 
+    int make_node(Key key, Value value) {
+        int idx = (int)pool.size();
+        pool.push_back({std::move(key), std::move(value), 0, idx, idx, nil, nil, false});
+        return idx;
+    }
+
+    // parent の子リストへ node を追加する。parent と order を更新する
+    void add_child(int parent, int node) {
+        pool[node].parent = parent;
+        if (pool[parent].child != nil) insert_left(pool[parent].child, node);
+        else pool[parent].child = node;
+        ++pool[parent].order;
+    }
+
+    // pos の左隣（前）へ node を挿入する
+    void insert_left(int pos, int node) {
+        int l = pool[pos].left;
+        pool[node].right = pos;
+        pool[node].left = l;
+        pool[l].right = node;
+        pool[pos].left = node;
+    }
+
+    // node を兄弟リストから外す（parent は触らない）。
+    // 外したあと参照できる兄弟（なければ nil）を返す
+    int unlink(int node) {
+        if (pool[node].left == node) { return nil; }
+        int l = pool[node].left, r = pool[node].right;
+        pool[l].right = r;
+        pool[r].left = l;
+        pool[node].left = pool[node].right = node;
+        return l;
+    }
+
     // node を親 parent から切り離してルートリストへ移す
-    void cut(node_ptr node, node_ptr parent) {
-        auto sibling = node->unlink();
-        if (parent->child == node) parent->child = sibling;
-        --(parent->order);
-        node->parent = nullptr;
-        node->damaged = false;
-        _root->insert_left(node);
+    void cut(int node, int parent) {
+        int sibling = unlink(node);
+        if (pool[parent].child == node) pool[parent].child = sibling;
+        --pool[parent].order;
+        pool[node].parent = nil;
+        pool[node].damaged = false;
+        insert_left(_root, node);
     }
 
     // 親方向へカスケードカットを伝播させる
-    void cascading_cut(node_ptr node) {
-        while (auto parent = node->parent) {
-            if (!node->damaged) {
-                node->damaged = true;
+    void cascading_cut(int node) {
+        int parent;
+        while ((parent = pool[node].parent) != nil) {
+            if (!pool[node].damaged) {
+                pool[node].damaged = true;
                 break;
             }
             cut(node, parent);
