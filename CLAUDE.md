@@ -40,6 +40,11 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - ヒープ（`lib/heap/`）の `Key`/`Value` 規約: **`Key` が順序基準**（`Comp` で比較する側・
   radix の整数キー）、**`Value` が付随データ**。`push(key, value)` / `top() -> pair<key, value>` /
   `update(handle, key)`。`shortest_path` では `Heap<距離, 頂点, Comp>` として使う。
+- **「付随データなし」を型引数 `void` で受ける場合、本体は `void` 部分特殊化で分けず
+  `std::conditional_t<is_void_v<V>, std::monostate, V>` に正規化して 1 本に保つ**
+  （`if constexpr` で API を出し分け、空メンバは `[[no_unique_address]]`）。例: `radix_heap`、
+  `doubling`。ただし `void` で**別のデータ構造**を選ぶ場合（`matrix_graph<void>` の
+  `vector<vector<bool>>` 最適化など）は、正規化せず部分特殊化のままにする。
 
 ## フォーマット
 
