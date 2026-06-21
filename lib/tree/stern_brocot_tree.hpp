@@ -119,8 +119,9 @@ struct stern_brocot_tree {
         return {0, 0};
     }
 
-    // 目標有理数 target (= p/q, 既約でなくてよい。0/1 や 1/0 も可) に最も近い、
+    // 目標有理数 target (= p/q, 既約でなくてよい。0/1 は可) に最も近い、
     // 分母が max_denominator 以下の既約分数を返す。距離が等しいときは値が小さい方。
+    // target = 1/0 (+∞) は最近点が定義できない (分子上限がなく発散する) ため非対応。
     // SBT を target に向かって降りる過程で、各方向への連続ステップ数を
     // 「target を越えない最大回数」と「分母制約を超えない最大回数」の小さい方として
     // 閉じた式で一括計算するため O(log) で求まる。比較は __int128。
@@ -152,7 +153,11 @@ struct stern_brocot_tree {
             fraction near = dm < 0 ? t.lo : t.hi;
             fraction far = dm < 0 ? t.hi : t.lo;
             // near は target と同じ側、far は反対側。k <= |diff(near)| / |diff(far)| で越えない。
-            i128 kr = adiff(near) / adiff(far);
+            // far がちょうど target (adiff(far)==0) ならこれ以上寄れない。target=1/0 (+∞) で
+            // far=hi が初期から +∞ のときもここに入り、0 除算を避ける。
+            i128 df = adiff(far);
+            if (df == 0) break;
+            i128 kr = adiff(near) / df;
             // far.q == 0 (+∞) のときは分母制約がかからない。
             i128 cap = far.q == 0 ? kr : std::min(kr, (i128)(N - near.q) / far.q);
             if (cap <= 0) break;
