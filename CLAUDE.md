@@ -16,6 +16,18 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - verify 用問題は **Library Checker → yukicoder → AOJ** の順で探す。素直に対応する問題が
   なければ verify は保留（competitive-verifier の UNIT_TEST は使わない）。
 
+### CI 調査・トークン節約
+
+- **ヘッダ変更は push 前に逆依存テストをローカル syntax-check**（CI 往復をまるごと削減）。
+  `grep -rl <header_basename> lib test | grep '\.test\.cpp$' | xargs -I{} g++ -std=c++23 -I lib -fsyntax-only {}`。
+  transitive 依存は `oj-bundle <test>` で展開して確認（ローカルに `oj-verify`/`oj-bundle`/`oj` あり）。
+- **verify 失敗は CI ログを取りに行く前にローカル再現**。失敗の大半はコンパイルエラーで、
+  上記 `-fsyntax-only` で即再現できる。
+- どうしても CI を見る時は**狭く**: 状態は `gh ... --json … -q`、エラーは `--log-failed` で**1 ジョブのみ**、
+  「どのテストが落ちたか」は merged check の `N file(s) still failing` 行で特定。`--log` の全シャードループは避ける。
+- 巨大ログを精読せざるを得ない時は**サブエージェントに委譲**（生ログは子のコンテキストに留め、結論だけ受け取る）。
+- CI はポーリングせず auto-merge に任せる。
+
 ## コーディング規約
 
 - 全ヘッダ先頭に **`#pragma once`**。
