@@ -27,7 +27,7 @@ int main() {
     list_graph<long long> g(n);
     g.input_edges(n - 1, 0);
     std::vector<int> data(n, 0);  // 頂点データは未使用（ダミー）
-    ReRooting<Monoid, list_graph<long long>, int> rr(g, data);
+    Rerooting<Monoid, list_graph<long long>, int> rr(g, data);
     for (int i = 0; i < n; ++i) std::cout << rr[i] << '\n';
     return 0;
 }

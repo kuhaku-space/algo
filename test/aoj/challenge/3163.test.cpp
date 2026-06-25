@@ -30,7 +30,7 @@ int main(void) {
     edge_input<void> ei(n - 1);
     auto g = ei.to_undirected(n);
 
-    ReRooting<Monoid, csr_graph<void>, std::int64_t> rr(g, a);
+    Rerooting<Monoid, csr_graph<void>, std::int64_t> rr(g, a);
     for (int i = 0; i < n; ++i) std::cout << rr[i].first << '\n';
 
     return 0;

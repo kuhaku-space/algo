@@ -57,8 +57,8 @@ int main() {
         acorn[d - 1] = 1;
     }
 
-    ReRooting<EMonoid, csr_graph<void>, int> rr_e(g, acorn);
-    ReRooting<DMonoid, csr_graph<void>, int> rr_d(g, acorn);
+    Rerooting<EMonoid, csr_graph<void>, int> rr_e(g, acorn);
+    Rerooting<DMonoid, csr_graph<void>, int> rr_d(g, acorn);
     for (int x = 0; x < n; ++x) std::cout << 2 * rr_e[x].s - rr_d[x] << '\n';
 
     return 0;

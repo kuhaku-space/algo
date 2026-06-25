@@ -47,13 +47,13 @@ concept rerooting_monoid =
 /// @tparam U 頂点データの型
 template <class M, weighted_graph_type G, class U>
 requires rerooting_monoid<M, graph_weight_t<G>, U>
-struct ReRooting {
+struct Rerooting {
   private:
     using Sum = typename M::value_type;  // 集約型（id / op の対象、dp が保持する型）
     using Key = rerooting_key_t<M>;      // 確定値型（g の結果・f の入力・出力）
 
   public:
-    ReRooting(const G &g, const std::vector<U> &v) : g_(g), data(v), dp(g.size()), values(g.size()) { build(); }
+    Rerooting(const G &g, const std::vector<U> &v) : g_(g), data(v), dp(g.size()), values(g.size()) { build(); }
 
     const auto &operator[](int i) const { return values[i]; }
     auto &operator[](int i) { return values[i]; }
