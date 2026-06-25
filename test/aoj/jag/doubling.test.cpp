@@ -1,5 +1,4 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2320
-#include "algorithm/doubling.hpp"
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
@@ -7,6 +6,7 @@
 #include <numeric>
 #include <string>
 #include <vector>
+#include "algorithm/doubling.hpp"
 #include "graph/grid.hpp"
 
 int main(void) {

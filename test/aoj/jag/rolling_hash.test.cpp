@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2444
-#include "string/rolling_hash.hpp"
 #include <cstdint>
 #include <iostream>
 #include <string>
 #include <unordered_set>
+#include "string/rolling_hash.hpp"
 
 int main(void) {
     int n, q;

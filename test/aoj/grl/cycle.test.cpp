@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_A
-#include "graph/cycle.hpp"
 #include <iostream>
+#include "graph/cycle.hpp"
 #include "graph/edge_input.hpp"
 
 int main(void) {

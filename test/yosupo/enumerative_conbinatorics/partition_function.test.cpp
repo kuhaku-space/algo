@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/partition_function
-#include "combinatorics/partition_function.hpp"
 #include <iostream>
+#include "combinatorics/partition_function.hpp"
 
 using Mint = modint998;
 

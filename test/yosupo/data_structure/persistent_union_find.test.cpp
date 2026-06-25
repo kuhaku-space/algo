@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/persistent_unionfind
-#include "union_find/persistent_union_find.hpp"
 #include <iostream>
 #include <vector>
+#include "union_find/persistent_union_find.hpp"
 
 int main(void) {
     int n, q;

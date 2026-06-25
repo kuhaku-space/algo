@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
-#include "graph/prim.hpp"
 #include <iostream>
 #include "graph/edge_input.hpp"
+#include "graph/prim.hpp"
 
 int main(void) {
     int n, m;

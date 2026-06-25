@@ -1,9 +1,9 @@
 #pragma once
+#include "template/template.hpp"
 #include <cassert>
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
-#include "template/template.hpp"
 
 /// @brief DSU on Tree
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）

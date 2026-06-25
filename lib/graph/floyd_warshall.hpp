@@ -1,6 +1,6 @@
 #pragma once
-#include "graph/matrix_graph.hpp"
 #include "template/template.hpp"
+#include "graph/matrix_graph.hpp"
 
 /// @brief ワーシャルフロイド法
 template <class T>

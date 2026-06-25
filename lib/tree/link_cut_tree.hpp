@@ -1,6 +1,6 @@
 #pragma once
-#include "segtree/monoid.hpp"
 #include "template/template.hpp"
+#include "segtree/monoid.hpp"
 
 /// @brief Link-Cut Tree
 template <monoid M>
