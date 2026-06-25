@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/843
 #include <iostream>
-#include "math/eratosthenes.hpp"
+#include "number_theory/eratosthenes.hpp"
 
 eratosthenes<500000> pr;
 

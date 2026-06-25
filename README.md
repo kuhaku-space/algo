@@ -46,7 +46,10 @@ g++ -std=c++23 -I lib your_solution.cpp
 | [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ・削除可能 PQ・k 番目和      |
 | [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・永続セグメント木・永続スタック/キュー                                           |
 | [`lib/dp/`](lib/dp/)                         | Convex Hull Trick・Li Chao Tree・Slope Trick・monotone minima                             |
-| [`lib/math/`](lib/math/)                     | modint・組合せ・素数判定/列挙・行列・floor sum・きたまさ法・多倍長整数・Stern-Brocot 木 など |
+| [`lib/math/`](lib/math/)                     | modint・多倍長整数・分数・ハッシュ用整数（数の型・基盤演算）                              |
+| [`lib/number_theory/`](lib/number_theory/)   | 素数判定/列挙・篩・素因数分解・CRT・floor sum・mod 平方根・Stern-Brocot 木 など           |
+| [`lib/combinatorics/`](lib/combinatorics/)   | 二項係数・スターリング数等の列挙・ベル数・分割数・offline binomial sum                    |
+| [`lib/linalg/`](lib/linalg/)                 | 行列・Berlekamp-Massey・きたまさ法（線形漸化式）                                          |
 | [`lib/convolution/`](lib/convolution/)       | FFT・NTT・形式的冪級数・subset convolution・Garner                                        |
 | [`lib/graph/`](lib/graph/)                   | Dijkstra・Bellman-Ford・SCC・2-SAT・最小全域木・functional graph・トポロジカルソート など |
 | [`lib/flow/`](lib/flow/)                     | 最大流・最小費用流・Hopcroft-Karp                                                         |

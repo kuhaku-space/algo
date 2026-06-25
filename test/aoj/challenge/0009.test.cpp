@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0009
 #include <iostream>
 #include "algorithm/prefix_sum.hpp"
-#include "math/eratosthenes.hpp"
+#include "number_theory/eratosthenes.hpp"
 
 eratosthenes<1000000> pr;
 

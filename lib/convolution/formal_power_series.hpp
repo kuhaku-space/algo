@@ -4,10 +4,10 @@
 #include <cassert>
 #include <cstdint>
 #include <vector>
+#include "combinatorics/combination.hpp"
 #include "convolution/ntt.hpp"
 #include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"
-#include "math/combination.hpp"
 
 namespace fps {
 

@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/stern_brocot_tree
-#include "math/stern_brocot_tree.hpp"
+#include "number_theory/stern_brocot_tree.hpp"
 #include <cstdint>
 #include <iostream>
 #include <string>

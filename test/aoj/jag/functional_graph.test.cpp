@@ -2,7 +2,7 @@
 #include "graph/functional_graph.hpp"
 #include <iostream>
 #include <vector>
-#include "math/chinese_rem.hpp"
+#include "number_theory/chinese_rem.hpp"
 
 int main(void) {
     int n;

@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/factorize
-#include "math/factorize.hpp"
+#include "number_theory/factorize.hpp"
 #include <cstdint>
 #include <iostream>
 

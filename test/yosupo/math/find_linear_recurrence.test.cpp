@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/find_linear_recurrence
 #include <iostream>
 #include <vector>
-#include "math/berlekamp_massey.hpp"
+#include "linalg/berlekamp_massey.hpp"
 #include "math/modint.hpp"
 
 using Mint = modint998;
