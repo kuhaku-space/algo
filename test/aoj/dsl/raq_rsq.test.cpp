@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_G
 #include <cstdint>
 #include <iostream>
-#include "binary_tree/fenwick_tree_raq.hpp"
+#include "fenwick/fenwick_tree_raq.hpp"
 
 int main(void) {
     int n, q;

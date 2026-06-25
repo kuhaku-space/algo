@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B
 #include <iostream>
-#include "binary_tree/fenwick_tree.hpp"
+#include "fenwick/fenwick_tree.hpp"
 
 int main(void) {
     int n, q;

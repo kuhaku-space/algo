@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/set_xor_min
-#include "binary_tree/binary_trie.hpp"
+#include "ordered_set/binary_trie.hpp"
 #include <iostream>
 
 int main(void) {

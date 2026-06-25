@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
-#include "binary_tree/range_set.hpp"
+#include "data_structure/range_set.hpp"
 
 int main(void) {
     std::int64_t d;

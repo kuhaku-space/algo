@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/staticrmq
 #include <iostream>
 #include <vector>
-#include "data_structure/sparse_table.hpp"
 #include "segtree/monoid.hpp"
+#include "sparse_table/sparse_table.hpp"
 
 int main(void) {
     int n, q;

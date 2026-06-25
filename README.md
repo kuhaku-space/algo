@@ -36,18 +36,23 @@ g++ -std=c++23 -I lib your_solution.cpp
 | ディレクトリ                                 | 内容                                                                                      |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | [`lib/algorithm/`](lib/algorithm/)           | 二分探索・座標圧縮・累積和・ダブリング・Mo's algorithm・LIS・転倒数 など                  |
-| [`lib/data_structure/`](lib/data_structure/) | Union-Find・Sparse Table・Wavelet Matrix・Li Chao Tree・多倍長整数・SWAG など             |
+| [`lib/data_structure/`](lib/data_structure/) | SWAG・Merge Sort Tree・領域木・区間 set・flip set・undo deque など                        |
 | [`lib/segtree/`](lib/segtree/)               | セグメント木・遅延セグメント木・双対セグメント木・動的セグメント木・モノイド定義          |
-| [`lib/binary_tree/`](lib/binary_tree/)       | Fenwick Tree・平衡二分探索木（AVL / Treap / Splay / Scapegoat）・Binary Trie              |
-| [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・永続セグメント木・永続 Union-Find・永続スタック/キュー                          |
-| [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ                             |
-| [`lib/math/`](lib/math/)                     | modint・組合せ・素数判定/列挙・行列・floor sum・きたまさ法・Slope Trick など              |
-| [`lib/fft/`](lib/fft/)                       | FFT・NTT・形式的冪級数・subset convolution・Garner                                        |
+| [`lib/fenwick/`](lib/fenwick/)               | Fenwick Tree（点更新区間和・区間加算区間和）                                              |
+| [`lib/sparse_table/`](lib/sparse_table/)     | Sparse Table・Disjoint Sparse Table・線形 Sparse Table                                    |
+| [`lib/wavelet/`](lib/wavelet/)               | Wavelet Matrix（圧縮版・動的版・矩形和）                                                  |
+| [`lib/ordered_set/`](lib/ordered_set/)       | 平衡二分探索木（AVL / Treap / Splay / Scapegoat）・順序集合・Binary Trie・Skip List       |
+| [`lib/union_find/`](lib/union_find/)         | Union-Find（重み付き・undo・動的・永続・offline dynamic connectivity）                    |
+| [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ・削除可能 PQ・k 番目和      |
+| [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・永続セグメント木・永続スタック/キュー                                           |
+| [`lib/dp/`](lib/dp/)                         | Convex Hull Trick・Li Chao Tree・Slope Trick・monotone minima                             |
+| [`lib/math/`](lib/math/)                     | modint・組合せ・素数判定/列挙・行列・floor sum・きたまさ法・多倍長整数・Stern-Brocot 木 など |
+| [`lib/convolution/`](lib/convolution/)       | FFT・NTT・形式的冪級数・subset convolution・Garner                                        |
 | [`lib/graph/`](lib/graph/)                   | Dijkstra・Bellman-Ford・SCC・2-SAT・最小全域木・functional graph・トポロジカルソート など |
 | [`lib/flow/`](lib/flow/)                     | 最大流・最小費用流・Hopcroft-Karp                                                         |
 | [`lib/tree/`](lib/tree/)                     | HLD・LCA・重心分解・Euler Tour・Link-Cut Tree・全方位木 DP・Static Top Tree など          |
-| [`lib/string/`](lib/string/)                 | Suffix Array・Z-algorithm・KMP・Aho-Corasick・Rolling Hash・Manacher・回文木 など         |
-| [`lib/geometry/`](lib/geometry/)             | 2D / 3D 幾何・凸包・Convex Hull Trick・kd-tree                                            |
+| [`lib/string/`](lib/string/)                 | Suffix Array・Z-algorithm・KMP・Aho-Corasick・Rolling Hash・Manacher・回文木・Trie など   |
+| [`lib/geometry/`](lib/geometry/)             | 2D / 3D 幾何・凸包・kd-tree                                                               |
 | [`lib/random/`](lib/random/)                 | xorshift・xoroshiro128・xoshiro128・SplitMix64                                            |
 | [`lib/internal/`](lib/internal/)             | 他ヘッダから利用する内部ユーティリティ（bit vector・CSR・型特性 など）                    |
 | [`lib/template/`](lib/template/)             | 提出用テンプレート（マクロ・高速入出力 など）                                             |

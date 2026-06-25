@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/stern_brocot_tree
+#include "math/stern_brocot_tree.hpp"
 #include <cstdint>
 #include <iostream>
 #include <string>
 #include "template/sonic.hpp"
-#include "tree/stern_brocot_tree.hpp"
 
 using sbt = stern_brocot_tree;
 

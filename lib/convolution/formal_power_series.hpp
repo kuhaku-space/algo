@@ -4,8 +4,8 @@
 #include <cassert>
 #include <cstdint>
 #include <vector>
-#include "fft/ntt.hpp"
-#include "fft/ntt_avx2.hpp"
+#include "convolution/ntt.hpp"
+#include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"
 #include "math/combination.hpp"
 

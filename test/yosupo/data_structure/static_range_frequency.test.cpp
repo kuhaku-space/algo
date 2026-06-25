@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/static_range_frequency
 #include <iostream>
 #include <vector>
-#include "data_structure/compressed_wavelet_matrix.hpp"
+#include "wavelet/compressed_wavelet_matrix.hpp"
 
 int main(void) {
     int n, q;

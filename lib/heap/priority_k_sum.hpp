@@ -2,7 +2,7 @@
 #include <cassert>
 #include <functional>
 #include <utility>
-#include "data_structure/erasable_priority_queue.hpp"
+#include "heap/erasable_priority_queue.hpp"
 
 template <typename T, class Comp, class RComp>
 struct priority_k_sum {

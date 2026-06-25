@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 #include <iostream>
-#include "binary_tree/binary_trie.hpp"
+#include "ordered_set/binary_trie.hpp"
 
 int main(void) {
     int n, q;

@@ -5,7 +5,7 @@
 #include <vector>
 #include "algorithm/compress.hpp"
 #include "algorithm/mo.hpp"
-#include "binary_tree/fenwick_tree.hpp"
+#include "fenwick/fenwick_tree.hpp"
 
 int main(void) {
     int n, q;
