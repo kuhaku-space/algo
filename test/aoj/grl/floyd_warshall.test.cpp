@@ -5,6 +5,8 @@
 #include "graph/floyd_warshall.hpp"
 #include "graph/matrix_graph.hpp"
 
+constexpr std::int64_t INF = 1000000000000000003;
+
 int main(void) {
     int v, e;
     std::cin >> v >> e;
