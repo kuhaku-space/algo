@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/shortest_path
+#include "template/template.hpp"
 #include <functional>
 #include <iostream>
 #include <limits>
@@ -6,7 +7,6 @@
 #include <utility>
 #include <vector>
 #include "graph/edge_input.hpp"
-#include "template/template.hpp"
 
 template <class T>
 std::pair<std::vector<T>, std::vector<int>> dijkstra(const csr_graph<T> &g, int s = 0,

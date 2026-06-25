@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2970
-#include "graph/functional_graph.hpp"
 #include <iostream>
 #include <vector>
+#include "graph/functional_graph.hpp"
 #include "number_theory/chinese_rem.hpp"
 
 int main(void) {

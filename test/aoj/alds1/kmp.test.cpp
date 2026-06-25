@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
-#include "string/kmp.hpp"
 #include <iostream>
 #include <string>
+#include "string/kmp.hpp"
 
 int main(void) {
     std::string s, t;

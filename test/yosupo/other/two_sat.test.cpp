@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/two_sat
-#include "graph/two_sat.hpp"
 #include <iostream>
 #include <string>
+#include "graph/two_sat.hpp"
 
 int main(void) {
     std::string tmp;

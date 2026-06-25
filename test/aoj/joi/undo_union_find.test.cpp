@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0723
-#include "union_find/undo_union_find.hpp"
 #include <algorithm>
 #include <iostream>
 #include <map>
 #include <vector>
+#include "union_find/undo_union_find.hpp"
 
 int main(void) {
     int n, m, k;

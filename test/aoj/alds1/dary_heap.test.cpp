@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
-#include "heap/dary_heap.hpp"
 #include <iostream>
 #include <string>
+#include "heap/dary_heap.hpp"
 #include "template/sonic.hpp"
 
 int main(void) {

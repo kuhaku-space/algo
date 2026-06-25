@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/aho_corasick
-#include "string/aho_corasick.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
+#include "string/aho_corasick.hpp"
 
 int main() {
     int n;

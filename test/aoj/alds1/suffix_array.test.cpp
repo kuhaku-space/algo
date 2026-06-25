@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_D
-#include "string/suffix_array.hpp"
 #include <iostream>
 #include <string>
+#include "string/suffix_array.hpp"
 
 int main(void) {
     std::string s;

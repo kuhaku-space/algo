@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B
-#include "flow/min_cost_flow.hpp"
 #include <iostream>
+#include "flow/min_cost_flow.hpp"
 
 int main(void) {
     int n, m, f;

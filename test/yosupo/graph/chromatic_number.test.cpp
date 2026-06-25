@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/chromatic_number
-#include "graph/chromatic_number.hpp"
 #include <iostream>
+#include "graph/chromatic_number.hpp"
 
 int main(void) {
     int n, m;
