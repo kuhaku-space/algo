@@ -32,7 +32,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up competitive-verifier
         uses: competitive-verifier/actions/setup@v2
@@ -88,7 +88,7 @@ jobs:
         index:
           ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09"]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 2147483647
 
@@ -181,7 +181,7 @@ jobs:
           echo "verify ジョブが success ではありません: ${{ needs.verify.result }}"
           exit 1
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 2147483647
 
