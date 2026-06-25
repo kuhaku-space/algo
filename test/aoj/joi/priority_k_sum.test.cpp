@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0516
-#include "data_structure/priority_k_sum.hpp"
+#include "heap/priority_k_sum.hpp"
 #include <algorithm>
 #include <iostream>
 #include <limits>

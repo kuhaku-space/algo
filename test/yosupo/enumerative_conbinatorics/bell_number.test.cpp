@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/bell_number
 #include <iostream>
-#include "math/bell.hpp"
+#include "combinatorics/bell.hpp"
 
 using Mint = modint998;
 

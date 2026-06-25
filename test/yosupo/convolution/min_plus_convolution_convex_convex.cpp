@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex
 #include <iostream>
 #include <vector>
-#include "fft/monotone_minima.hpp"
+#include "dp/monotone_minima.hpp"
 
 int main(void) {
     int n, m;

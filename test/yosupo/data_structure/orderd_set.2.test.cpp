@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 #include <iostream>
-#include "binary_tree/avl_tree.hpp"
+#include "ordered_set/avl_tree.hpp"
 
 int main(void) {
     int n, q;

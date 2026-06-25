@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_I
 #include <iostream>
-#include "math/enumeration.hpp"
+#include "combinatorics/enumeration.hpp"
 
 int main(void) {
     int n, k;

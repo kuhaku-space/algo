@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1208
 #include <cstdint>
 #include <iostream>
-#include "tree/stern_brocot_tree.hpp"
+#include "number_theory/stern_brocot_tree.hpp"
 
 int main(void) {
     while (true) {

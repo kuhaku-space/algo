@@ -3,9 +3,9 @@
 #include <vector>
 #include "algorithm/binary_search.hpp"
 #include "algorithm/compress.hpp"
-#include "data_structure/wavelet_matrix_rectangle_sum.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/linear_lca.hpp"
+#include "wavelet/wavelet_matrix_rectangle_sum.hpp"
 
 int main(void) {
     int n, q;

@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E
 #include <cstdint>
 #include <iostream>
-#include "binary_tree/fenwick_tree_raq.hpp"
+#include "fenwick/fenwick_tree_raq.hpp"
 #include "graph/graph.hpp"
 #include "tree/hld.hpp"
 

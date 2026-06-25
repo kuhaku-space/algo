@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "algorithm/mo.hpp"
-#include "math/combination.hpp"
+#include "combinatorics/combination.hpp"
 #include "math/modint.hpp"
 
 template <internal::modint mint = modint998>

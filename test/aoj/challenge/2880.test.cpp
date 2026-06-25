@@ -3,7 +3,7 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
-#include "binary_tree/range_set.hpp"
+#include "data_structure/range_set.hpp"
 
 int main(void) {
     int n, m, q;

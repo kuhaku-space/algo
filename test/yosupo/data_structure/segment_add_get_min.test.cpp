@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/segment_add_get_min
 #include <cstdint>
 #include <iostream>
-#include "data_structure/li_chao_tree.hpp"
+#include "dp/li_chao_tree.hpp"
 
 int main(void) {
     int n, q;

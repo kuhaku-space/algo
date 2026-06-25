@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "fft/formal_power_series.hpp"
+#include "convolution/formal_power_series.hpp"
 #include "math/modint.hpp"
 
 /// @brief 分割数 p(0), p(1), ..., p(n) を求める

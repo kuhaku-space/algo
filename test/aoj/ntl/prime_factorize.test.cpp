@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_A
 #include <iostream>
-#include "math/prime_number.hpp"
+#include "number_theory/prime_number.hpp"
 
 prime_number pn;
 

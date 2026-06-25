@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/partition_function
-#include "math/partition_function.hpp"
+#include "combinatorics/partition_function.hpp"
 #include <iostream>
 
 using Mint = modint998;

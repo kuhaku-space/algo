@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include "math/modint.hpp"
-#include "math/sqrt.hpp"
+#include "number_theory/sqrt.hpp"
 
 using Mint = modint;
 
