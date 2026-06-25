@@ -37,7 +37,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     list_graph<std::pair<Mint, Mint>> g(n);
     g.input_edges(n - 1, 0);
-    ReRooting<Monoid, list_graph<std::pair<Mint, Mint>>, Mint> rr(g, a);
+    Rerooting<Monoid, list_graph<std::pair<Mint, Mint>>, Mint> rr(g, a);
     std::vector<Mint> ans;
     for (int i = 0; i < n; ++i) ans.emplace_back(rr[i].first);
     for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
