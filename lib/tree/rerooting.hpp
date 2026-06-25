@@ -4,22 +4,44 @@
 #include "graph/graph.hpp"
 #include "segtree/monoid.hpp"
 
+/// @brief 全方位木dp用モノイドの確定値型（`key_type`、省略時は `value_type`）
+/// @details 全方位木dp は 2 つの型を扱う:
+///          - `value_type`（集約型 Sum）: 単位元 `id` と `op` で畳み込まれる、部分木を集約した値の型。
+///          - `key_type`（確定値型 Key）: 頂点で `g` により確定した値（= 出力）の型。`f` の入力でもある。
+///          多くの問題は Sum = Key で済むため、`key_type` を省略すると `value_type` にフォールバックする。
+/// @tparam M モノイド
+template <class M>
+struct rerooting_key {
+    using type = typename M::value_type;
+};
+template <class M>
+requires requires { typename M::key_type; }
+struct rerooting_key<M> {
+    using type = typename M::key_type;
+};
+template <class M>
+using rerooting_key_t = typename rerooting_key<M>::type;
+
 /// @brief 全方位木dp用モノイドの要件
-/// @details モノイド（子の集約 `op`・単位元 `id`）に加えて、辺を通す変換 `f(値, 辺重み)` と
-///          頂点で確定する変換 `g(値, 頂点データ)` を持つこと。`f` / `g` は関数テンプレートでも
-///          非テンプレートでもよい。
+/// @details 集約型 `value_type` 上のモノイド（単位元 `id`・子の集約 `op`）に加えて、
+///          辺を通す変換 `f(確定値, 辺重み) -> 集約値` と、頂点で確定する変換
+///          `g(集約値, 頂点データ) -> 確定値` を持つこと。確定値型は `key_type`
+///          （省略時 `value_type`）。`f` / `g` は関数テンプレートでも非テンプレートでもよい。
 /// @tparam M 判定対象のモノイド
 /// @tparam W 辺重みの型
 /// @tparam U 頂点データの型
 template <class M, class W, class U>
-concept rerooting_monoid = monoid<M> && requires(const typename M::value_type &v, const W &w, const U &u) {
-    { M::f(v, w) } -> std::convertible_to<typename M::value_type>;
-    { M::g(v, u) } -> std::convertible_to<typename M::value_type>;
-};
+concept rerooting_monoid =
+    monoid<M> && requires(const rerooting_key_t<M> &k, const typename M::value_type &s, const W &w, const U &u) {
+        { M::f(k, w) } -> std::convertible_to<typename M::value_type>;
+        { M::g(s, u) } -> std::convertible_to<rerooting_key_t<M>>;
+    };
 
 /// @brief 全方位木dp
 /// @see https://algo-logic.info/tree-dp/
 /// @details 非連結（森）にも対応する。各連結成分をそれぞれ独立に処理する。
+///          集約型 `value_type` と確定値型 `key_type`（省略時 `value_type`）を区別でき、
+///          `operator[]` は確定値型を返す。
 /// @tparam M 全方位木dp用モノイド（`rerooting_monoid`）
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @tparam U 頂点データの型
@@ -27,7 +49,8 @@ template <class M, weighted_graph_type G, class U>
 requires rerooting_monoid<M, graph_weight_t<G>, U>
 struct ReRooting {
   private:
-    using Value = typename M::value_type;
+    using Sum = typename M::value_type;  // 集約型（id / op の対象、dp が保持する型）
+    using Key = rerooting_key_t<M>;      // 確定値型（g の結果・f の入力・出力）
 
   public:
     ReRooting(const G &g, const std::vector<U> &v) : g_(g), data(v), dp(g.size()), values(g.size()) { build(); }
@@ -42,8 +65,8 @@ struct ReRooting {
   private:
     G g_;
     const std::vector<U> &data;
-    std::vector<std::vector<Value>> dp;
-    std::vector<Value> values;
+    std::vector<std::vector<Sum>> dp;
+    std::vector<Key> values;
 
     void build() {
         if ((int)g_.size() == 0) return;
@@ -52,12 +75,13 @@ struct ReRooting {
     }
 
     // 反復版の dfs（再帰だと深い木でスタックオーバーフローしうる）。
-    // 帰りがけに各頂点の集約値 ret[v] = M::g(op(子のdp), data[v]) を確定し、
-    // 親側の dp[親][自分への辺] を更新する。森に対応するため、未訪問の各頂点を根として回す。
+    // 帰りがけに各頂点の確定値 ret[v] = M::g(op(子のdp), data[v]) を求め、
+    // 親側の dp[親][自分への辺] = M::f(ret[v], 辺重み) を更新する。
+    // 森に対応するため、未訪問の各頂点を根として回す。
     void dfs_iter() {
         int n = g_.size();
-        std::vector<Value> ret(n, M::id());
-        std::vector<Value> res(n, M::id());      // 各頂点の子 dp の op 集約
+        std::vector<Key> ret(n);                 // 各頂点の確定値（設定直後に親側で消費）
+        std::vector<Sum> res(n, M::id());        // 各頂点の子 dp の op 集約
         std::vector<int> par(n, -1), pe(n, -1);  // 親と「親→自分」の辺添字
         std::vector<bool> visited(n, false);     // 連結成分ごとに 1 度だけ根にするための訪問印
         struct frame {
@@ -65,7 +89,7 @@ struct ReRooting {
         };
         std::vector<frame> stk;
         stk.reserve(n);
-        for (int i = 0; i < n; ++i) dp[i] = std::vector<Value>(g_[i].size(), M::id());
+        for (int i = 0; i < n; ++i) dp[i] = std::vector<Sum>(g_[i].size(), M::id());
         for (int s = 0; s < n; ++s) {
             if (visited[s]) continue;
             visited[s] = true;
@@ -94,13 +118,13 @@ struct ReRooting {
         }
     }
 
-    // 反復版の bfs（行きがけに親から伝播する dp_p を渡しながら values を確定）。
+    // 反復版の bfs（行きがけに親から伝播する確定値 dp_p を渡しながら values を確定）。
     // 森に対応するため、未訪問の各頂点を根として回す。
     void bfs_iter() {
         int n = g_.size();
         std::vector<int> par(n, -1);
-        std::vector<Value> dp_p_of(n, M::id());  // 各頂点が親から受け取る dp_p
-        std::vector<bool> visited(n, false);     // 連結成分ごとに 1 度だけ根にするための訪問印
+        std::vector<Key> dp_p_of(n);          // 各頂点が親から受け取る確定値 dp_p（根では未使用）
+        std::vector<bool> visited(n, false);  // 連結成分ごとに 1 度だけ根にするための訪問印
         std::vector<int> stk;
         stk.reserve(n);
         for (int s = 0; s < n; ++s) {
@@ -112,15 +136,15 @@ struct ReRooting {
                 int v = stk.back();
                 stk.pop_back();
                 int p = par[v];
-                Value dp_p = dp_p_of[v];
+                Key dp_p = dp_p_of[v];
                 int deg = g_[v].size();
-                std::vector<Value> dp_r(deg + 1, M::id());
+                std::vector<Sum> dp_r(deg + 1, M::id());
                 for (int i = deg - 1; i >= 0; --i) {
                     auto e = g_[v][i];
                     if (e.to() == p) dp[v][i] = M::f(dp_p, e.weight());
                     dp_r[i] = M::op(dp[v][i], dp_r[i + 1]);
                 }
-                Value dp_l = M::id();
+                Sum dp_l = M::id();
                 for (int i = 0; i < deg; ++i) {
                     int u = g_[v][i].to();
                     if (u != p) {
