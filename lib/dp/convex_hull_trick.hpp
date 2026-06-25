@@ -12,7 +12,7 @@
 /// 最大値は `Comp = std::greater<>` で傾きを単調増加順に add すること。
 /// クエリ `get(x)` の $x$ は任意の順で与えてよい。
 template <class T, class Comp = std::less<T>>
-struct cht {
+struct convex_hull_trick {
     /// @brief 直線 $ax+b$ を追加する（傾きは単調順）
     void add(T a, T b) {
         line_t line{a, b};
