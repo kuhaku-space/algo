@@ -1,10 +1,10 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2863
-#include "string/aho_corasick.hpp"
 #include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
 #include "math/modint.hpp"
+#include "string/aho_corasick.hpp"
 #include "tree/tree_function.hpp"
 
 using Mint = modint107;

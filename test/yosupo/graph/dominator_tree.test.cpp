@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/dominatortree
-#include "graph/dominator_tree.hpp"
 #include <iostream>
+#include "graph/dominator_tree.hpp"
 #include "graph/edge_input.hpp"
 
 int main() {

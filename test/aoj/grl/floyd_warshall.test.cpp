@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_C
-#include "graph/floyd_warshall.hpp"
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include "graph/floyd_warshall.hpp"
 #include "graph/matrix_graph.hpp"
 
 int main(void) {

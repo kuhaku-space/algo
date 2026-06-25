@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/persistent_queue
-#include "persistent_ds/persistent_queue.hpp"
 #include <iostream>
 #include <vector>
+#include "persistent_ds/persistent_queue.hpp"
 
 int main(void) {
     int q;

@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B
-#include "graph/topological_sort.hpp"
 #include <iostream>
 #include <vector>
 #include "graph/edge_input.hpp"
+#include "graph/topological_sort.hpp"
 
 int main(void) {
     int n, m;

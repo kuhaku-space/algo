@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0516
-#include "algorithm/prefix_sum.hpp"
 #include <iostream>
 #include <limits>
 #include <vector>
+#include "algorithm/prefix_sum.hpp"
 
 int main(void) {
     while (true) {

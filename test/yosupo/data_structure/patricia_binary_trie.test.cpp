@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/set_xor_min
-#include "ordered_set/patricia_binary_trie.hpp"
 #include <iostream>
+#include "ordered_set/patricia_binary_trie.hpp"
 
 int main(void) {
     int q;

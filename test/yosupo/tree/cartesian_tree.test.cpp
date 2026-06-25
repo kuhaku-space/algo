@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/cartesian_tree
-#include "tree/cartesian_tree.hpp"
 #include <iostream>
 #include <vector>
+#include "tree/cartesian_tree.hpp"
 
 int main(void) {
     int n;

@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/factorize
-#include "number_theory/factorize.hpp"
 #include <cstdint>
 #include <iostream>
+#include "number_theory/factorize.hpp"
 
 int main(void) {
     int q;

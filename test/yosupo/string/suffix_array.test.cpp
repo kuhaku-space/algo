@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/suffixarray
-#include "string/suffix_array.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
+#include "string/suffix_array.hpp"
 
 int main(void) {
     std::string s;

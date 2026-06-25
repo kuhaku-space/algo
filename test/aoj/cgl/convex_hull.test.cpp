@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A
-#include "geometry/convex_hull.hpp"
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include "geometry/convex_hull.hpp"
 
 int main(void) {
     int n;

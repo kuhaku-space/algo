@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A
-#include "flow/max_flow.hpp"
 #include <iostream>
+#include "flow/max_flow.hpp"
 
 int main(void) {
     int n, m;

@@ -1,11 +1,11 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2995
-#include "union_find/dynamic_union_find.hpp"
 #include <iostream>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 #include "graph/edge_input.hpp"
 #include "tree/dsu_on_tree.hpp"
+#include "union_find/dynamic_union_find.hpp"
 
 int main(void) {
     int n, k;

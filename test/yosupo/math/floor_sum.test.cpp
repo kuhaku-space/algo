@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/sum_of_floor_of_linear
-#include "number_theory/floor_sum.hpp"
 #include <iostream>
+#include "number_theory/floor_sum.hpp"
 
 int main(void) {
     int t;

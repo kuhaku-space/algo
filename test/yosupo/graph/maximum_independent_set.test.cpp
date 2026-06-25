@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/maximum_independent_set
-#include "graph/maximum_independent_set.hpp"
 #include <iostream>
 #include <vector>
 #include "graph/edge_input.hpp"
+#include "graph/maximum_independent_set.hpp"
 
 int main(void) {
     int n, m;
