@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group
 #include <array>
 #include <iostream>
-#include "data_structure/potentialized_union_find.hpp"
 #include "math/modint.hpp"
+#include "union_find/potentialized_union_find.hpp"
 
 using Mint = modint998;
 

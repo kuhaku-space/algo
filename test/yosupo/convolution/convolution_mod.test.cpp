@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/convolution_mod_1000000007
 #include <iostream>
 #include <vector>
-#include "fft/ntt.hpp"
+#include "convolution/ntt.hpp"
 
 int main(void) {
     int n, m;

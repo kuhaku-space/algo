@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2995
-#include "data_structure/dynamic_union_find.hpp"
+#include "union_find/dynamic_union_find.hpp"
 #include <iostream>
 #include <unordered_map>
 #include <utility>

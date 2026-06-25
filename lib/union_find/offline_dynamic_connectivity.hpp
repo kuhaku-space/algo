@@ -4,7 +4,7 @@
 #include <cassert>
 #include <map>
 #include <utility>
-#include "data_structure/undo_union_find.hpp"
+#include "union_find/undo_union_find.hpp"
 
 /// @brief オフライン動的連結性
 struct offline_dynamic_connectivity {

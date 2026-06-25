@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include "algorithm/binary_search.hpp"
-#include "data_structure/linear_sparse_table.hpp"
 #include "segtree/monoid.hpp"
+#include "sparse_table/linear_sparse_table.hpp"
 #include "string/suffix_array.hpp"
 
 int main(void) {

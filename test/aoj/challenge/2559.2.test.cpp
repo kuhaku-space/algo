@@ -7,9 +7,9 @@
 #include <tuple>
 #include <utility>
 #include <vector>
-#include "data_structure/union_find.hpp"
 #include "graph/graph.hpp"
 #include "heap/leftist_heap.hpp"
+#include "union_find/union_find.hpp"
 
 int main(void) {
     int n, m;

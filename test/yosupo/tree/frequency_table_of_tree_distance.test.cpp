@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "fft/fft.hpp"
+#include "convolution/fft.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/centroid_decomposition.hpp"
 

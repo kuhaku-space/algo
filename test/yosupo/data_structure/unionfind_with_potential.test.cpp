@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential
 #include <iostream>
 #include <vector>
-#include "data_structure/potentialized_union_find.hpp"
 #include "math/modint.hpp"
+#include "union_find/potentialized_union_find.hpp"
 
 using Mint = modint998;
 

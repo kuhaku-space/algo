@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "data_structure/offline_dynamic_connectivity.hpp"
+#include "union_find/offline_dynamic_connectivity.hpp"
 
 int main(void) {
     int n, q;

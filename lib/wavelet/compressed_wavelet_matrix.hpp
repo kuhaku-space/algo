@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "algorithm/compress.hpp"
-#include "data_structure/wavelet_matrix.hpp"
+#include "wavelet/wavelet_matrix.hpp"
 
 /// @brief ウェーブレット行列
 /// @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp

@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "math/factorize.hpp"
+#include "number_theory/factorize.hpp"
 
 int main(void) {
     int t;

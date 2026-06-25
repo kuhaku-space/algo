@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 #include <iostream>
-#include "binary_tree/scapegoat_tree.hpp"
+#include "ordered_set/scapegoat_tree.hpp"
 
 int main(void) {
     int n, q;

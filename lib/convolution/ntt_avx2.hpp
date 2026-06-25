@@ -4,7 +4,7 @@
 #include <concepts>
 #include <cstdint>
 #include <vector>
-#include "fft/ntt.hpp"
+#include "convolution/ntt.hpp"
 #include "internal/internal_fft_avx2.hpp"
 
 namespace internal {

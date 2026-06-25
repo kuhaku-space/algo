@@ -2,7 +2,7 @@
 #include <iostream>
 #include <set>
 #include "data_structure/flip_set.hpp"
-#include "data_structure/union_find.hpp"
+#include "union_find/union_find.hpp"
 
 int main(void) {
     int n, m;
