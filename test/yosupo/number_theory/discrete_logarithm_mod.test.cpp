@@ -13,7 +13,7 @@ int main(void) {
         std::cin >> x >> y >> m;
         mint::set_mod(m);
         // X^n ≡ Y (mod m) を満たす最小の n を [0, m) から求める
-        long long ans = discrete_log_monoid<Mul<mint>>(mint(x), mint(y), [](mint v) { return v.val(); }, 0, m);
+        std::int64_t ans = discrete_log_monoid<Mul<mint>>(mint(x), mint(y), [](mint v) { return v.val(); }, 0, m);
         std::cout << ans << '\n';
     }
 

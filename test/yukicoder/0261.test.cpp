@@ -58,7 +58,7 @@ int main(void) {
         std::vector<int> target(n);
         for (auto &e : target) std::cin >> e;
         // base を start に何回作用させれば target になるか（n >= 1）。g(100) < 2^30 より上界は 2^30 で十分。
-        long long ans = discrete_log_acted<Permutation, std::vector<int>>(base, start, target, to_key, 1, 1LL << 30);
+        std::int64_t ans = discrete_log_acted<Permutation, std::vector<int>>(base, start, target, to_key, 1, 1LL << 30);
         std::cout << ans << '\n';
     }
 
