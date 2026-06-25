@@ -15,7 +15,10 @@ namespace internal {
 ///          群とは限らず逆元を仮定しないため、giant-step での一致は候補にすぎず、
 ///          区間を線形走査して実際の解を確認する。線形走査が 2 回空振りしたら解なしと判定する。
 ///          `to_key` は到達しうる状態上で単射（衝突しない完全キー）であることを呼び出し側が保証する。
-/// @return 最小の `n`。存在しなければ -1。計算量 O(√(ub - lb)) 回の作用・O(log) 回の合成。
+/// @return 最小の `n`。存在しなければ -1。
+/// @note `N = ub - lb`、ブロック幅 `√N` で baby-step・giant-step を回すため全体 O(√N)。
+///       作用 `act` は O(√N) 回（baby-step √N + giant-step √N + 線形走査は高々 2 ブロックで 2√N）、
+///       合成 `op` は二分累乗の O(log N) 回。
 template <class X, class S, class Op, class Act, class Key>
 long long discrete_log_core(X x, S s, const S &t, const X &id, Op op, Act act, Key to_key, long long lb, long long ub) {
     if (lb >= ub) return -1;
@@ -80,6 +83,8 @@ long long discrete_log_core(X x, S s, const S &t, const X &id, Op op, Act act, K
 /// @tparam U 状態の型
 /// @tparam Key 状態を単射に写すキー関数 `U -> 整数等`
 /// @return 最小の `n`。存在しなければ -1。
+/// @note 計算量は `N = ub - lb` として O(√N)。内訳はモノイド作用 `f` が O(√N) 回、
+///       モノイド合成 `op` が O(log N) 回、キー関数 `to_key` が O(√N) 回（ハッシュ集合操作込み）。
 template <class M, class U, class Key>
 requires acts_on<M, U>
 long long discrete_log_acted(const typename M::value_type &x, U s, U t, Key to_key, long long lb, long long ub) {
@@ -94,6 +99,7 @@ long long discrete_log_acted(const typename M::value_type &x, U s, U t, Key to_k
 /// @tparam M モノイド
 /// @tparam Key 値を単射に写すキー関数
 /// @return 最小の `n`（`[lb, ub)`）。存在しなければ -1。
+/// @note 計算量は `N = ub - lb` として O(√N)（合成 `op` を O(√N) 回・二分累乗で O(log N) 回）。
 template <class M, class Key>
 requires monoid<M>
 long long discrete_log_monoid(typename M::value_type a, typename M::value_type b, Key to_key, long long lb,
