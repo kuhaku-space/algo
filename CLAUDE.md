@@ -31,7 +31,19 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - **標準ヘッダは明示 include**（`<bits/stdc++.h>` や `template/template.hpp` に依存しない）。
   - `template.hpp` への暗黙依存を外すと、それ経由で標準ヘッダを得ていたテストが
     壊れることがある → テスト側に明示 include を補う。
-- **`namespace` は snake_case**。
+- **命名規約: 「型は PascalCase、それ以外は snake_case」**。型/値（インスタンス・関数）の
+  区別をケースだけで符号化する方針。
+  - **型（`struct`/`class`）は PascalCase**: データ構造・モノイド・値型すべて。
+    例: `SegmentTree`、`UnionFind`、`ReRooting`、`Add`/`Min`/`Max`、`BitAnd`/`BitOr`/`BitXor`、
+    `Matrix`、`Point`。
+  - **それ以外は snake_case**: `namespace`、`concept`（std concept に倣う。型ではなく述語）、
+    関数（自由関数・メンバ関数。`begin`/`end`/`size` 等の STL interop も自然に満たす）、
+    メンバ型エイリアス（`value_type` 等）、変数。
+  - **テンプレート引数**は短い大文字 1〜数文字または PascalCase（`M`/`S`/`F`/`G`/`Comp` 等）。
+  - **移行は段階的に行う**。既存には snake_case の型名が多数残っている（`segment_tree`、
+    `union_find` など旧 ACL 流の名残）。これらを一括改名はしない。**そのライブラリを
+    変更するついでに、対象ファイルの型名を PascalCase へ改名し、`lib/`・`test/` 全体の
+    参照も同時に追随させる**（破壊的変更を中途半端に残さない方針に従う）。
 - C++20/23 機能を使う: SFINAE より **concept**、サイズは **`std::bit_ceil`**、円周率は **`std::numbers::pi`**。
 - コメントは行コメントで統一し、**ブロックコメント（`/** */` や `/* */`）は使わない**。
   - **Doxygen ドキュメントコメントは `///`**（`@brief` などを付ける説明）。
