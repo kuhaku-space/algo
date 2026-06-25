@@ -4,7 +4,7 @@
 #include <queue>
 #include <utility>
 #include <vector>
-#include "fft/ntt.hpp"
+#include "convolution/ntt.hpp"
 
 using Mint = modint998;
 

@@ -4,7 +4,7 @@
 #include <cassert>
 #include <cstdint>
 #include <vector>
-#include "data_structure/sparse_table.hpp"
+#include "sparse_table/sparse_table.hpp"
 
 namespace internal {
 

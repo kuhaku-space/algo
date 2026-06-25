@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/polynomial_taylor_shift
 #include <iostream>
 #include <vector>
-#include "fft/formal_power_series.hpp"
+#include "convolution/formal_power_series.hpp"
 #include "math/modint.hpp"
 
 using Mint = modint998;

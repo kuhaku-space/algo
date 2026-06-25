@@ -3,9 +3,9 @@
 #include <limits>
 #include <utility>
 #include <vector>
-#include "data_structure/linear_sparse_table.hpp"
 #include "graph/graph.hpp"
 #include "internal/internal_csr.hpp"
+#include "sparse_table/linear_sparse_table.hpp"
 
 struct linear_lca {
   private:

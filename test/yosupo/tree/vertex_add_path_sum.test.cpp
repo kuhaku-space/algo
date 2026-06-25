@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "binary_tree/fenwick_tree.hpp"
+#include "fenwick/fenwick_tree.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/hld.hpp"
 

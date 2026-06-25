@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1276
 #include <iostream>
-#include "math/linear_sieve.hpp"
+#include "number_theory/linear_sieve.hpp"
 
 linear_sieve<1300000> ls;
 

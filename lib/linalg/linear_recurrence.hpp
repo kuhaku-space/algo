@@ -3,8 +3,8 @@
 #include <cstdint>
 #include <utility>
 #include <vector>
-#include "fft/ntt.hpp"
-#include "fft/ntt_avx2.hpp"
+#include "convolution/ntt.hpp"
+#include "convolution/ntt_avx2.hpp"
 #include "math/modint.hpp"
 
 // 線形漸化式 a_i = sum_{j=1}^{k} d[j-1] a_{i-j} の第 n 項を求める。

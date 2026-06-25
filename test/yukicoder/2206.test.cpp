@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "algorithm/offline_binomial_sum.hpp"
+#include "combinatorics/offline_binomial_sum.hpp"
 #include "math/modint.hpp"
 
 using Mint = modint998;

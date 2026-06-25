@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "fft/formal_power_series.hpp"
+#include "convolution/formal_power_series.hpp"
 
 template <internal::static_modint_c mint>
 std::vector<mint> bell(int n) {
