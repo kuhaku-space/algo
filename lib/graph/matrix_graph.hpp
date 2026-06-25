@@ -1,10 +1,14 @@
 #pragma once
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <vector>
 
 /// @brief 隣接行列
 /// @tparam T 辺の重みの型。`void` を指定すると重みなしグラフ（隣接の有無を bool で持つ）になる。
+/// @note 距離行列としての利用を前提に、`add_edge` / `add_edges` は同一頂点対の重みを
+///       最小値でマージする（多重辺は最小重みを残す）。「辺なし」を表す番兵（INF など）で
+///       初期化しておくこと。`mat[a][b]` を直接代入すれば任意の値を上書きできる。
 template <class T>
 struct matrix_graph {
     using value_type = T;
@@ -26,17 +30,17 @@ struct matrix_graph {
 
     constexpr int size() const { return _size; }
 
-    /// @brief 有向辺 a→b に重み d を設定する。
+    /// @brief 有向辺 a→b を重み d で張る（既存の重みとは最小値でマージ）。
     void add_edge(int a, int b, T d = T(1)) {
         assert(0 <= a && a < _size);
         assert(0 <= b && b < _size);
-        mat[a][b] = d;
+        mat[a][b] = std::min<T>(mat[a][b], d);
     }
-    /// @brief 無向辺 a-b に重み d を設定する。
+    /// @brief 無向辺 a-b を重み d で張る（既存の重みとは最小値でマージ）。
     void add_edges(int a, int b, T d = T(1)) {
         assert(0 <= a && a < _size);
         assert(0 <= b && b < _size);
-        mat[a][b] = mat[b][a] = d;
+        mat[a][b] = mat[b][a] = std::min<T>(mat[a][b], d);
     }
 
     void input_edge(int m, int origin = 1) {
