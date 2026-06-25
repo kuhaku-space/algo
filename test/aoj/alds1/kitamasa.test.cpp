@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "math/linear_recurrence.hpp"
+#include "linalg/linear_recurrence.hpp"
 
 int main(void) {
     int n;

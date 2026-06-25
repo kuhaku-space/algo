@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_1_C
 #include <iostream>
-#include "math/eratosthenes.hpp"
+#include "number_theory/eratosthenes.hpp"
 
 eratosthenes<100000001> pn;
 

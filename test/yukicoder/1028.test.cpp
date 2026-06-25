@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/1028
 #include <iostream>
 #include <vector>
-#include "math/slope_trick.hpp"
+#include "dp/slope_trick.hpp"
 
 int main(void) {
     int n;

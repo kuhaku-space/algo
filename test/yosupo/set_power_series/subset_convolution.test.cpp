@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/subset_convolution
-#include "fft/subset_convolution.hpp"
+#include "convolution/subset_convolution.hpp"
 #include <iostream>
 #include <vector>
 #include "math/modint.hpp"

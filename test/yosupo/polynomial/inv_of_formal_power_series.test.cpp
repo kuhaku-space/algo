@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/inv_of_formal_power_series
 #include <iostream>
 #include <vector>
-#include "fft/formal_power_series.hpp"
+#include "convolution/formal_power_series.hpp"
 
 using Mint = modint998;
 

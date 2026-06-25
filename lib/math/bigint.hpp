@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "fft/ntt.hpp"
+#include "convolution/ntt.hpp"
 
 /// @brief 多倍長整数
 /// @details 内部は基数 BASE = 10^6 のリトルエンディアン配列で保持する。

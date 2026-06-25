@@ -1,8 +1,8 @@
 #pragma once
 #include <algorithm>
 #include <vector>
-#include "data_structure/union_find.hpp"
 #include "graph/graph.hpp"
+#include "union_find/union_find.hpp"
 
 /// @brief クラスカル法
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）

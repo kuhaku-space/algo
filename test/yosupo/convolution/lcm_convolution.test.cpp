@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/lcm_convolution
 #include <iostream>
 #include <vector>
-#include "math/eratosthenes.hpp"
 #include "math/modint.hpp"
+#include "number_theory/eratosthenes.hpp"
 
 eratosthenes pn;
 using Mint = modint998;

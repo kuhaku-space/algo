@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
-#include "tree/palindromic_tree.hpp"
+#include "string/palindromic_tree.hpp"
 
 int main(void) {
     std::string s, t;

@@ -2,10 +2,10 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "binary_tree/fenwick_tree.hpp"
-#include "data_structure/union_find.hpp"
+#include "fenwick/fenwick_tree.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/dsu_on_tree.hpp"
+#include "union_find/union_find.hpp"
 
 int main(void) {
     int n, q;

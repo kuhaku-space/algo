@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/range_kth_smallest
 #include <iostream>
 #include <vector>
-#include "data_structure/wavelet_matrix.hpp"
+#include "wavelet/wavelet_matrix.hpp"
 
 int main(void) {
     int n, q;

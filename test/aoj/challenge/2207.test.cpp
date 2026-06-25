@@ -3,7 +3,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
-#include "data_structure/potentialized_union_find.hpp"
+#include "union_find/potentialized_union_find.hpp"
 
 std::tuple<std::string, std::string, int> input() {
     int tmp, x;

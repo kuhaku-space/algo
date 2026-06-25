@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 #include <iostream>
-#include "data_structure/skip_list.hpp"
+#include "ordered_set/skip_list.hpp"
 
 int main(void) {
     int n, q;

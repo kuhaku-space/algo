@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/sqrt_mod
 #include <iostream>
 #include "math/modint.hpp"
-#include "math/sqrt.hpp"
+#include "number_theory/sqrt.hpp"
 
 int main(void) {
     int t;

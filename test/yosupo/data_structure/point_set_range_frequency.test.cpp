@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_range_frequency
 #include <iostream>
 #include <vector>
-#include "data_structure/dynamic_wavelet_matrix.hpp"
 #include "segtree/monoid.hpp"
+#include "wavelet/dynamic_wavelet_matrix.hpp"
 
 int main(void) {
     int n, q;
