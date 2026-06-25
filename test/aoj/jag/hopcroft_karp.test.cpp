@@ -5,6 +5,8 @@
 #include "graph/floyd_warshall.hpp"
 #include "graph/matrix_graph.hpp"
 
+constexpr int Inf = 1000000003;
+
 int main(void) {
     while (true) {
         int n, m, l;
