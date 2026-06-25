@@ -3,7 +3,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "dp/cht.hpp"
+#include "dp/convex_hull_trick.hpp"
 
 // k 個の扉を開けたときの危険度（連続して開いた扉の和の二乗の総和）の最小値を
 // k = 1..N について求める。仮想的な仕切りを位置 0 と N+1 に置くと、
@@ -26,7 +26,7 @@ int main(void) {
     prev[0] = 0;
     for (int t = 1; t <= n; ++t) {
         std::vector<std::int64_t> cur(n + 2, inf);
-        cht<std::int64_t> ch;
+        convex_hull_trick<std::int64_t> ch;
         int l = 0;
         for (int i = t; i <= n + 1; ++i) {
             while (l <= i - 1) {
