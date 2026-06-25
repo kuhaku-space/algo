@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "dp/cht.hpp"
+#include "dp/convex_hull_trick.hpp"
 
 int main(void) {
     int n;
@@ -15,7 +15,7 @@ int main(void) {
     // dp[i] = (a_i - x_j)^2 + y_j^2 + dp[j-1] の最小化
     //       = a_i^2 + min_j ( (-2 x_j) a_i + (x_j^2 + y_j^2 + dp[j-1]) )
     // 傾き -2 x_j は x の昇順より単調減少 → 最小値用 CHT
-    cht<std::int64_t> ch;
+    convex_hull_trick<std::int64_t> ch;
     auto sq = [](std::int64_t v) { return v * v; };
     std::vector<std::int64_t> dp(n);
     for (int i = 0; i < n; ++i) {
