@@ -283,6 +283,8 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
 /// @brief 平方根 sqrt h (mod x^deg)
 /// @details g^2 ≡ h (mod x^deg) を満たす g を求める。最低次の項 c x^k を括り出し、
 ///          k が偶数かつ c が平方剰余のとき g = x^{k/2} sqrt(h / x^k) をニュートン法で求める。
+///          ニュートン法は g = sqrt と g^{-1} を併走させ各段で DFT を使い回す
+///          (full inverse の再計算を避ける)。条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
 ///          k が奇数、または c が平方非剰余で解が存在しない場合は空列を返す。
 /// @tparam mint static modint
 /// @param h 係数列
@@ -302,15 +304,60 @@ std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
     if (shift >= deg) return std::vector<mint>(deg);
     int core_deg = deg - shift;
     std::vector<mint> f(h.begin() + k, h.end());
-    std::vector<mint> g(1, sqrt_mod(f[0]));
+    mint g0 = sqrt_mod(f[0]);
+
+    std::vector<mint> g;
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod < (1u << 30)) {
+        if (internal_fps::use_avx2<mint>()) {
+            using mt = internal::avx2::mont<mod>;
+            g = internal_fps::from_mont<mint>(
+                internal::avx2::sqrt<mod>(internal_fps::to_mont(f), core_deg, mt::to((std::uint32_t)g0.val())));
+            g.insert(g.begin(), shift, mint());
+            return g;
+        }
+    }
+    // 通常版: g = sqrt(f) と hi = g^{-1} を併走させ、各段で DFT(hi) を使い回すニュートン法。
+    g.assign(core_deg, mint());
+    std::vector<mint> hi(core_deg, mint());
+    g[0] = g0;
+    hi[0] = g0.inv();
     mint inv2 = mint(2).inv();
+    auto fc = [&](int i) { return i < (int)f.size() ? f[i] : mint(); };
     for (int d = 1; d < core_deg; d <<= 1) {
-        int nd = std::min(2 * d, core_deg);
-        std::vector<mint> ft(nd);
-        for (int i = 0; i < std::min((int)f.size(), nd); ++i) ft[i] = f[i];
-        std::vector<mint> c = convolution(ft, inv(g, nd));
-        g.resize(nd);
-        for (int i = 0; i < nd; ++i) g[i] = (g[i] + c[i]) * inv2;
+        int z = 2 * d;
+        mint iz = mint(z).inv();
+        // sq = g^2 mod x^z
+        std::vector<mint> sq(z);
+        for (int i = 0; i < d; ++i) sq[i] = g[i];
+        internal::butterfly(sq);
+        for (int i = 0; i < z; ++i) sq[i] *= sq[i];
+        internal::butterfly_inv(sq);
+        for (int i = 0; i < z; ++i) sq[i] *= iz;
+        // e = (f - g^2) は x^d で割り切れる。e * hi の [d, z) が g の新しい項 (× 1/2)。
+        std::vector<mint> e(z), ht(z);
+        for (int i = d; i < z; ++i) e[i] = fc(i) - sq[i];
+        for (int i = 0; i < d; ++i) ht[i] = hi[i];
+        internal::butterfly(ht);  // DFT(hi) は逆元更新でも再利用する
+        internal::butterfly(e);
+        for (int i = 0; i < z; ++i) e[i] *= ht[i];
+        internal::butterfly_inv(e);
+        for (int i = 0; i < z; ++i) e[i] *= iz;
+        for (int i = d; i < std::min(z, core_deg); ++i) g[i] = inv2 * e[i];
+        if (z >= core_deg) break;  // これ以上 hi を伸ばす必要はない
+        // hi を 2d 項へ更新 (Newton inverse, DFT(hi) を再利用)。
+        std::vector<mint> gt(z);
+        for (int i = 0; i < z; ++i) gt[i] = g[i];
+        internal::butterfly(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= ht[i];
+        internal::butterfly_inv(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= iz;
+        for (int i = 0; i < d; ++i) gt[i] = 0;
+        internal::butterfly(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= ht[i];
+        internal::butterfly_inv(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= iz;
+        for (int i = d; i < z; ++i) hi[i] = -gt[i];
     }
     g.resize(core_deg);
     g.insert(g.begin(), shift, mint());

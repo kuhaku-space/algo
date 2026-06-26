@@ -208,6 +208,52 @@ ALGO_AVX2_TARGET std::vector<u32> exp(const std::vector<u32> &hm, int deg) {
     return f;
 }
 
+// sqrt: g^2 = h を deg 項求める。h[0] != 0 が前提で、定数項の平方根 g[0] を g0 (Montgomery) で渡す。
+// Newton 法で g = sqrt(h) と h_inv = g^{-1} を併走させ、DFT(h_inv) を段内で 2 度使い回す。
+// 入力 hm は Montgomery 表現 (長さ >= 1)。戻り値も Montgomery, 長さ deg。
+template <u32 mod>
+ALGO_AVX2_TARGET std::vector<u32> sqrt(const std::vector<u32> &hm, int deg, u32 g0) {
+    using s = mont<mod>;
+    int hn = (int)hm.size();
+    u32 inv2 = s::inv(s::to(2));
+    std::vector<u32> g(deg, 0), hi(deg, 0);  // g = sqrt(h), hi = g^{-1}
+    g[0] = g0;
+    hi[0] = s::inv(g0);
+    auto hc = [&](int i) -> u32 { return i < hn ? hm[i] : 0u; };
+    for (int d = 1; d < deg; d <<= 1) {
+        int z = 2 * d;
+        // sq = g^2 mod x^z
+        std::vector<u32> sq(z, 0);
+        for (int i = 0; i < d; ++i) sq[i] = g[i];
+        butterfly<mod>(sq.data(), z);
+        hadamard<mod>(sq.data(), sq.data(), z);
+        idft_scaled<mod>(sq.data(), z);
+        // e = (h - g^2) は x^d で割り切れる。e * hi の [d, z) が g の新しい項 (× 1/2)。
+        std::vector<u32> e(z, 0);
+        for (int i = d; i < z; ++i) e[i] = s::sub(hc(i), sq[i]);
+        std::vector<u32> ht(z, 0);  // DFT(hi) は逆元更新でも再利用する
+        for (int i = 0; i < d; ++i) ht[i] = hi[i];
+        butterfly<mod>(ht.data(), z);
+        butterfly<mod>(e.data(), z);
+        hadamard<mod>(e.data(), ht.data(), z);
+        idft_scaled<mod>(e.data(), z);
+        for (int i = d; i < std::min(z, deg); ++i) g[i] = s::mul(inv2, e[i]);
+        if (z >= deg) break;  // これ以上 hi を伸ばす必要はない
+        // hi を 2d 項へ更新 (Newton inverse, DFT(hi) を再利用)。
+        std::vector<u32> gt(z, 0);
+        for (int i = 0; i < z; ++i) gt[i] = g[i];
+        butterfly<mod>(gt.data(), z);
+        hadamard<mod>(gt.data(), ht.data(), z);
+        idft_scaled<mod>(gt.data(), z);
+        for (int i = 0; i < d; ++i) gt[i] = 0;
+        butterfly<mod>(gt.data(), z);
+        hadamard<mod>(gt.data(), ht.data(), z);
+        idft_scaled<mod>(gt.data(), z);
+        for (int i = d; i < z; ++i) hi[i] = s::sub(0, gt[i]);
+    }
+    return g;
+}
+
 }  // namespace avx2
 }  // namespace internal
 
