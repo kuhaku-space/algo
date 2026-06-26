@@ -7,7 +7,7 @@
 int main(void) {
     std::string s, t;
     std::cin >> s >> t;
-    palindromic_tree pt;
+    PalindromicTree pt;
     for (auto c : s) pt.add(c);
     auto v = pt.build_frequency();
     std::vector<std::int64_t> vs(v.begin(), v.end());
