@@ -12,7 +12,7 @@ int main(void) {
     for (Mint &e : c) std::cin >> e;
     for (Mint &e : p) std::cin >> e;
     auto ans = fps::multipoint_evaluation(c, p);
-    for (int i = 0; i < (int)ans.size(); ++i) { std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' '); }
+    for (int i = 0; i < m; ++i) std::cout << ans[i] << " \n"[i == m - 1];
 
     return 0;
 }

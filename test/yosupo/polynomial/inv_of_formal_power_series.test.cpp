@@ -11,7 +11,7 @@ int main(void) {
     std::vector<Mint> a(n);
     for (auto &e : a) std::cin >> e;
     auto ans = fps::inv(a);
-    for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
+    for (int i = 0; i < n; ++i) std::cout << ans[i] << " \n"[i == n - 1];
 
     return 0;
 }
