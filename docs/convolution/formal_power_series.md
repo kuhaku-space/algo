@@ -1,6 +1,6 @@
 ---
 title: 形式的冪級数 (FPS)
-documentation_of: ./formal_power_series.hpp
+documentation_of: //lib/convolution/formal_power_series.hpp
 ---
 
 modint 係数の形式的冪級数を `std::vector<mint>` (添字 `i` が \(x^i\) の係数) で表現し、
