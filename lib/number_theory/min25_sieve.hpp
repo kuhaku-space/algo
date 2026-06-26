@@ -1,8 +1,22 @@
 #pragma once
 #include <cmath>
+#include <cstdint>
 #include <functional>
 #include <utility>
 #include <vector>
+
+namespace internal {
+
+// 固定除数 p に対する floor(a / p) を、事前計算した M = floor(2^64 / p) で
+// 乗算に置き換えて求める（Barrett 風）。a, p は非負で a < 2^63、p >= 2。
+inline long long fast_div(long long a, long long p, std::uint64_t M) {
+    std::uint64_t q = (std::uint64_t)(((__uint128_t)M * (std::uint64_t)a) >> 64);
+    long long r = a - (long long)q * p;
+    while (r >= p) ++q, r -= p;
+    return (long long)q;
+}
+
+}  // namespace internal
 
 /// @brief f(p) の素数項 coef * p^pw を表す
 ///
@@ -30,6 +44,7 @@ struct Min25Sieve {
   private:
     long long N, sq = 0;
     std::vector<long long> primes;
+    std::vector<std::uint64_t> inv_p;  // inv_p[k] = ⌊2^64 / primes[k]⌋（Barrett 用）
     // small[v] = Σ_{p<=v} f(p)（v <= sq）、large[i] = Σ_{p<=N/i} f(p)
     std::vector<T> small, large;
     Fpe fpe;
@@ -48,33 +63,53 @@ struct Min25Sieve {
             primes.emplace_back(i);
             for (long long j = i * i; j <= sq; j += i) composite[j] = true;
         }
+        inv_p.resize(primes.size());
+        for (std::size_t k = 0; k < primes.size(); ++k)
+            inv_p[k] = (std::uint64_t)((__uint128_t(1) << 64) / (std::uint64_t)primes[k]);
 
         const int m = (int)terms.size();
-        // gs[t][v] = Σ_{i<=v} i^pw（合成数を篩い落とすと素数のみの和になる）
-        std::vector<std::vector<T>> gs(m, std::vector<T>(sq + 1)), gl(m, std::vector<T>(sq + 1));
+        // 項をインタリーブした flat 配列で持つ（同じ値 v の全項が連続 → キャッシュ効率）。
+        // gs[v*m + t] = Σ_{i<=v} i^pw（合成数を篩い落とすと素数のみの和になる）
+        std::vector<T> gs((sq + 1) * m, T(0)), gl((sq + 1) * m, T(0));
         for (int t = 0; t < m; ++t) {
-            for (long long v = 1; v <= sq; ++v) gs[t][v] = terms[t].prefix(v) - T(1);
-            for (long long i = 1; i <= sq; ++i) gl[t][i] = terms[t].prefix(N / i) - T(1);
+            for (long long v = 1; v <= sq; ++v) gs[v * m + t] = terms[t].prefix(v) - T(1);
+            for (long long i = 1; i <= sq; ++i) gl[i * m + t] = terms[t].prefix(N / i) - T(1);
         }
 
+        // 項ごとの p^pw と「素数 < p の p^pw 和」。インデックス計算を全項で共有するため
+        // ループは値（i, v）を外側にして全項をまとめて更新する（除算の重複を避ける）。
+        // pw==0（π(x) 相当）の項は pk==1 なので乗算を省く。
+        std::vector<T> pk(m), psub(m);
+        std::vector<char> nomul(m);
+        for (int t = 0; t < m; ++t) nomul[t] = (terms[t].pw == 0);
         for (long long p : primes) {
             const long long p2 = p * p;
             if (p2 > N) break;
             const long long lim = std::min(N / p2, sq);  // 値 N/i >= p^2 となる i の上限
             for (int t = 0; t < m; ++t) {
-                T pk = T(1);
-                for (int e = 0; e < terms[t].pw; ++e) pk *= T(p);
-                const T psub = gs[t][p - 1];  // 素数 < p の p^pw 和
-                auto &Gs = gs[t];
-                auto &Gl = gl[t];
-                // 大きい値側（N/i > sq になりうる）を i 昇順 = 値 降順 で更新
-                for (long long i = 1; i <= lim; ++i) {
-                    const long long d = (N / i) / p;
-                    const T sub = (d <= sq) ? Gs[d] : Gl[N / d];
-                    Gl[i] -= pk * (sub - psub);
+                T v = T(1);
+                for (int e = 0; e < terms[t].pw; ++e) v *= T(p);
+                pk[t] = v;
+                psub[t] = gs[(p - 1) * m + t];  // 素数 < p の p^pw 和
+            }
+            // 大きい値側（N/i > sq になりうる）を i 昇順 = 値 降順 で更新
+            for (long long i = 1; i <= lim; ++i) {
+                const long long d = (N / i) / p;
+                const T *src = (d <= sq) ? &gs[d * m] : &gl[(N / d) * m];
+                T *dst = &gl[i * m];
+                for (int t = 0; t < m; ++t) {
+                    const T diff = src[t] - psub[t];
+                    dst[t] -= nomul[t] ? diff : pk[t] * diff;
                 }
-                // 小さい値側を v 降順で更新（v/p < v は未更新の状態を読む）
-                for (long long v = sq; v >= p2; --v) Gs[v] -= pk * (Gs[v / p] - psub);
+            }
+            // 小さい値側を v 降順で更新（v/p < v は未更新の状態を読む）
+            for (long long v = sq; v >= p2; --v) {
+                const T *src = &gs[(v / p) * m];
+                T *dst = &gs[v * m];
+                for (int t = 0; t < m; ++t) {
+                    const T diff = src[t] - psub[t];
+                    dst[t] -= nomul[t] ? diff : pk[t] * diff;
+                }
             }
         }
 
@@ -82,8 +117,8 @@ struct Min25Sieve {
         large.assign(sq + 1, T(0));
         for (int t = 0; t < m; ++t) {
             const T c = terms[t].coef;
-            for (long long v = 1; v <= sq; ++v) small[v] += c * gs[t][v];
-            for (long long i = 1; i <= sq; ++i) large[i] += c * gl[t][i];
+            for (long long v = 1; v <= sq; ++v) small[v] += c * gs[v * m + t];
+            for (long long i = 1; i <= sq; ++i) large[i] += c * gl[i * m + t];
         }
     }
 
@@ -94,11 +129,18 @@ struct Min25Sieve {
         T res = prime_sum(n) - (j == 0 ? T(0) : prime_sum(primes[j - 1]));
         for (int k = j; k < (int)primes.size() && primes[k] * primes[k] <= n; ++k) {
             const long long p = primes[k];
-            long long pe = p;
-            for (int e = 1; pe * p <= n; ++e) {
+            const std::uint64_t M = inv_p[k];
+            const long long np = internal::fast_div(n, p, M);  // n/p。pe*p<=n は pe<=np と同値
+            long long pe = p;                                  // p^e
+            long long nq = np;                                 // n/p^e（e=1 で n/p）
+            T fe = fpe(p, 1, p);                               // f(p^e) を持ち回して fpe 呼び出しを半減する
+            for (int e = 1; pe <= np; ++e) {
+                const long long pe1 = pe * p;  // p^{e+1}（pe <= np より n 以下）
+                const T fe1 = fpe(p, e + 1, pe1);
                 // f(p^e)·(より大きい素因数からなる部分) ＋ 素数冪 p^{e+1} そのもの
-                res += fpe(p, e, pe) * rec(n / pe, k + 1) + fpe(p, e + 1, pe * p);
-                pe *= p;
+                res += fe * rec(nq, k + 1) + fe1;
+                pe = pe1, fe = fe1;
+                nq = internal::fast_div(nq, p, M);  // n/p^{e+1}
             }
         }
         return res;
