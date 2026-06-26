@@ -25,12 +25,13 @@ struct PalindromicTree {
         int num;          // suffix link 木の深さ = この位置で終わる回文接尾辞の個数
         int diff;         // len - len[suffix_link]
         int series_link;  // 同じ diff の等差数列を飛ばす直列リンク（回文分割 DP 用）
+        int parent;       // 両端 1 文字を除いた回文ノード（根は -1）
         int first_end;    // 初出現の末尾位置 (0-indexed)。開始位置は first_end - len + 1
 
-        _node() : link(), suffix_link(), len(), count(), num(), diff(), series_link(), first_end(-1) {}
+        _node() : link(), suffix_link(), len(), count(), num(), diff(), series_link(), parent(-1), first_end(-1) {}
         _node(int _suffix_link, int _len, int _count)
-            : link(), suffix_link(_suffix_link), len(_len), count(_count), num(), diff(), series_link(), first_end(-1) {
-        }
+            : link(), suffix_link(_suffix_link), len(_len), count(_count), num(), diff(), series_link(), parent(-1),
+              first_end(-1) {}
     };
 
   public:
@@ -69,6 +70,7 @@ struct PalindromicTree {
             nodes[active_idx].num = nodes[sl].num + 1;
             nodes[active_idx].diff = nodes[active_idx].len - nodes[sl].len;
             nodes[active_idx].series_link = (nodes[active_idx].diff == nodes[sl].diff) ? nodes[sl].series_link : sl;
+            nodes[active_idx].parent = a;
             nodes[active_idx].first_end = int(str.size()) - 1;
         } else {
             nodes[active_idx].count++;
