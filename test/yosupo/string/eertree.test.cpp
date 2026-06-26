@@ -8,7 +8,7 @@ int main() {
     std::string s;
     std::cin >> s;
 
-    palindromic_tree pt;
+    PalindromicTree pt;
     int len = s.size();
     std::vector<int> active(len);
     for (int j = 0; j < len; ++j) active[j] = pt.add(s[j]);

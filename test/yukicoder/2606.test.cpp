@@ -10,7 +10,7 @@ int main() {
     std::string s;
     std::cin >> s;
 
-    palindromic_tree pt;
+    PalindromicTree pt;
     for (char c : s) pt.add(c);
     auto freq = pt.build_frequency();  // 各回文の S 中出現回数
 
