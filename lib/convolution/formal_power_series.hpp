@@ -13,9 +13,9 @@
 /// @file
 /// @brief 形式的冪級数 (FPS)
 /// @details modint 係数の形式的冪級数を `std::vector<mint>` (index i = x^i の係数) で表し、
-///          四則・inv / log / exp / pow / sqrt / compositional_inverse・多項式除算・多点評価・補間・Taylor shift
-///          を提供する。 NTT-friendly な mod < 2^30 かつ実行時 AVX2 対応 CPU では inv / log / exp を Montgomery + AVX2
-///          NTT 実装に自動で振り分ける。
+///          四則・inv / log / exp / pow / sqrt / composition /
+///          compositional_inverse・多項式除算・多点評価・補間・Taylor shift を提供する。 NTT-friendly な mod < 2^30
+///          かつ実行時 AVX2 対応 CPU では inv / log / exp を Montgomery + AVX2 NTT 実装に自動で振り分ける。
 
 namespace fps {
 
@@ -371,6 +371,52 @@ std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
 template <internal::static_modint_c mint>
 std::vector<mint> sqrt(const std::vector<mint> &h) {
     return sqrt(h, h.size());
+}
+
+/// @brief 合成 (composition) f(g(x)) (mod x^deg)
+/// @details h(x) = f(g(x)) = Σ f[i] g(x)^i (mod x^deg) を求める。Horner 法で
+///          ((f[n-1] g + f[n-2]) g + ...) g + f[0] と評価し、各段で g を掛ける。
+///          g の DFT を一度だけ求めて各段で使い回し、1 段あたり NTT 2 回に抑える。
+///          f は多項式として扱うため g[0] != 0 でも正しく計算できる。
+/// @tparam mint static modint
+/// @param f 外側の係数列
+/// @param g 内側の係数列
+/// @param deg 求める項数
+/// @return std::vector<mint> f(g(x)) (長さ deg)
+/// @note 計算量 O(f.size() * deg log deg) (f.size() = deg のとき O(deg^2 log deg))
+template <internal::static_modint_c mint>
+std::vector<mint> composition(const std::vector<mint> &f, const std::vector<mint> &g, int deg) {
+    std::vector<mint> res(deg, mint());
+    int fn = f.size();
+    if (deg <= 0 || fn == 0) return res;
+    // DFT(g) を一度求めて使い回す。
+    int z = std::bit_ceil<unsigned>((unsigned)(2 * deg));
+    std::vector<mint> gdft(z, mint());
+    for (int i = 0; i < std::min((int)g.size(), deg); ++i) gdft[i] = g[i];
+    internal::butterfly(gdft);
+    mint iz = mint(z).inv();
+    res[0] = f[fn - 1];
+    for (int i = fn - 2; i >= 0; --i) {
+        // res = res * g (mod x^deg) を DFT 2 回で行い、定数項に f[i] を足す。
+        std::vector<mint> t(z, mint());
+        for (int j = 0; j < deg; ++j) t[j] = res[j];
+        internal::butterfly(t);
+        for (int j = 0; j < z; ++j) t[j] *= gdft[j];
+        internal::butterfly_inv(t);
+        for (int j = 0; j < deg; ++j) res[j] = t[j] * iz;
+        res[0] += f[i];
+    }
+    return res;
+}
+
+/// @brief 合成 (composition) f(g(x)) (deg は max(f.size(), g.size()))
+/// @tparam mint static modint
+/// @param f 外側の係数列
+/// @param g 内側の係数列
+/// @return std::vector<mint> f(g(x))
+template <internal::static_modint_c mint>
+std::vector<mint> composition(const std::vector<mint> &f, const std::vector<mint> &g) {
+    return composition(f, g, std::max(f.size(), g.size()));
 }
 
 /// @brief 合成逆 (compositional inverse) g (mod x^deg)
