@@ -1,17 +1,16 @@
-// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/polynomial_taylor_shift
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series
 #include <iostream>
 #include <vector>
 #include "convolution/formal_power_series.hpp"
-#include "math/modint.hpp"
 
 using Mint = modint998;
 
 int main(void) {
-    int n, c;
-    std::cin >> n >> c;
+    int n;
+    std::cin >> n;
     std::vector<Mint> a(n);
     for (auto &e : a) std::cin >> e;
-    auto ans = fps::taylor_shift(a, Mint(c));
+    auto ans = fps::compositional_inverse(a);
     for (int i = 0; i < n; ++i) std::cout << ans[i] << " \n"[i == n - 1];
 
     return 0;

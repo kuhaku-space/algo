@@ -8,13 +8,14 @@
 #include "convolution/ntt.hpp"
 #include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"
+#include "number_theory/sqrt.hpp"
 
 /// @file
 /// @brief 形式的冪級数 (FPS)
 /// @details modint 係数の形式的冪級数を `std::vector<mint>` (index i = x^i の係数) で表し、
-///          四則・inv / log / exp / pow・多項式除算・多点評価・補間・Taylor shift を提供する。
-///          NTT-friendly な mod < 2^30 かつ実行時 AVX2 対応 CPU では inv / log / exp を
-///          Montgomery + AVX2 NTT 実装に自動で振り分ける。
+///          四則・inv / log / exp / pow / sqrt / composition /
+///          compositional_inverse・多項式除算・多点評価・補間・Taylor shift を提供する。 NTT-friendly な mod < 2^30
+///          かつ実行時 AVX2 対応 CPU では inv / log / exp を Montgomery + AVX2 NTT 実装に自動で振り分ける。
 
 namespace fps {
 
@@ -59,6 +60,20 @@ std::vector<mint> conv_auto(const std::vector<mint> &a, const std::vector<mint> 
         if (use_avx2<mint>()) return convolution_avx2(a, b);
     }
     return convolution(a, b);
+}
+
+// 前進 NTT (ACL butterfly, スケーリング無し)。
+template <internal::static_modint_c mint>
+void ntt(std::vector<mint> &v) {
+    internal::butterfly(v);
+}
+
+// 逆 NTT + 1/n スケーリング (intt)。
+template <internal::static_modint_c mint>
+void intt(std::vector<mint> &v) {
+    internal::butterfly_inv(v);
+    mint c = mint((int)v.size()).inv();
+    for (auto &e : v) e *= c;
 }
 
 }  // namespace internal_fps
@@ -277,6 +292,341 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
+}
+
+/// @brief 平方根 sqrt h (mod x^deg)
+/// @details g^2 ≡ h (mod x^deg) を満たす g を求める。最低次の項 c x^k を括り出し、
+///          k が偶数かつ c が平方剰余のとき g = x^{k/2} sqrt(h / x^k) をニュートン法で求める。
+///          ニュートン法は g = sqrt と g^{-1} を併走させ各段で DFT を使い回す
+///          (full inverse の再計算を避ける)。条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
+///          k が奇数、または c が平方非剰余で解が存在しない場合は空列を返す。
+/// @tparam mint static modint
+/// @param h 係数列
+/// @param deg 求める項数
+/// @return std::vector<mint> g^2 ≡ h を満たす g (長さ deg)。解なしのときは空列
+/// @note 計算量 O(deg log deg)
+template <internal::static_modint_c mint>
+std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
+    int n = h.size();
+    int k = 0;
+    while (k < n && h[k] == 0) ++k;
+    if (k == n) return std::vector<mint>(deg);  // h ≡ 0 → sqrt は全 0
+    if (k & 1) return {};                       // 最低次が奇数 → 解なし
+    if (!has_sqrt_mod(h[k])) return {};         // 定数項が平方非剰余 → 解なし
+    // h = x^k (h[k] + ...), sqrt(h) = x^{k/2} sqrt(h >> k)。
+    int shift = k / 2;
+    if (shift >= deg) return std::vector<mint>(deg);
+    int core_deg = deg - shift;
+    std::vector<mint> f(h.begin() + k, h.end());
+    mint g0 = sqrt_mod(f[0]);
+
+    std::vector<mint> g;
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    if constexpr (mod < (1u << 30)) {
+        if (internal_fps::use_avx2<mint>()) {
+            using mt = internal::avx2::mont<mod>;
+            g = internal_fps::from_mont<mint>(
+                internal::avx2::sqrt<mod>(internal_fps::to_mont(f), core_deg, mt::to((std::uint32_t)g0.val())));
+            g.insert(g.begin(), shift, mint());
+            return g;
+        }
+    }
+    // 通常版: g = sqrt(f) と hi = g^{-1} を併走させ、各段で DFT(hi) を使い回すニュートン法。
+    g.assign(core_deg, mint());
+    std::vector<mint> hi(core_deg, mint());
+    g[0] = g0;
+    hi[0] = g0.inv();
+    mint inv2 = mint(2).inv();
+    auto fc = [&](int i) { return i < (int)f.size() ? f[i] : mint(); };
+    for (int d = 1; d < core_deg; d <<= 1) {
+        int z = 2 * d;
+        mint iz = mint(z).inv();
+        // sq = g^2 mod x^z
+        std::vector<mint> sq(z);
+        for (int i = 0; i < d; ++i) sq[i] = g[i];
+        internal::butterfly(sq);
+        for (int i = 0; i < z; ++i) sq[i] *= sq[i];
+        internal::butterfly_inv(sq);
+        for (int i = 0; i < z; ++i) sq[i] *= iz;
+        // e = (f - g^2) は x^d で割り切れる。e * hi の [d, z) が g の新しい項 (× 1/2)。
+        std::vector<mint> e(z), ht(z);
+        for (int i = d; i < z; ++i) e[i] = fc(i) - sq[i];
+        for (int i = 0; i < d; ++i) ht[i] = hi[i];
+        internal::butterfly(ht);  // DFT(hi) は逆元更新でも再利用する
+        internal::butterfly(e);
+        for (int i = 0; i < z; ++i) e[i] *= ht[i];
+        internal::butterfly_inv(e);
+        for (int i = 0; i < z; ++i) e[i] *= iz;
+        for (int i = d; i < std::min(z, core_deg); ++i) g[i] = inv2 * e[i];
+        if (z >= core_deg) break;  // これ以上 hi を伸ばす必要はない
+        // hi を 2d 項へ更新 (Newton inverse, DFT(hi) を再利用)。
+        std::vector<mint> gt(z);
+        for (int i = 0; i < z; ++i) gt[i] = g[i];
+        internal::butterfly(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= ht[i];
+        internal::butterfly_inv(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= iz;
+        for (int i = 0; i < d; ++i) gt[i] = 0;
+        internal::butterfly(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= ht[i];
+        internal::butterfly_inv(gt);
+        for (int i = 0; i < z; ++i) gt[i] *= iz;
+        for (int i = d; i < z; ++i) hi[i] = -gt[i];
+    }
+    g.resize(core_deg);
+    g.insert(g.begin(), shift, mint());
+    return g;
+}
+
+/// @brief 平方根 sqrt h (deg は h.size())
+/// @tparam mint static modint
+/// @param h 係数列
+/// @return std::vector<mint> 長さ h.size() の sqrt h。解なしのときは空列
+template <internal::static_modint_c mint>
+std::vector<mint> sqrt(const std::vector<mint> &h) {
+    return sqrt(h, h.size());
+}
+
+namespace internal_fps {
+
+// Kinoshita-Suzuki の power projection。[x^n] g(x) f(x)^i を i = 0..m で列挙して返す。
+// n = f.size()-1。g は f^i に掛ける重み多項式 (既定 g = 1)。m == -1 のときは m = n。
+// f[0] == 0 のときは多項式版 (S.rev())、そうでなければ有理式版 (S/(T+x^k) の rev) を返す。
+// @see https://nyaannyaan.github.io/library/fps/pow-enumerate.hpp
+// @note 計算量 O(n log^2 n)
+template <internal::static_modint_c mint>
+std::vector<mint> pow_enumerate(std::vector<mint> f, std::vector<mint> g, int m) {
+    using std::begin;
+    using std::end;
+    using fps_t = std::vector<mint>;
+    int n = (int)f.size() - 1, k = 1;
+    g.resize(n + 1);
+    if (m == -1) m = n;
+    int h = 1;
+    while (h < n + 1) h *= 2;
+    fps_t P((n + 1) * k), Q((n + 1) * k), nP, nQ, buf, buf2;
+    for (int i = 0; i <= n; i++) P[i * k + 0] = g[i];
+    for (int i = 0; i <= n; i++) Q[i * k + 0] = -f[i];
+    Q[0] += 1;
+    while (n) {
+        mint inv2 = mint(2).inv();
+        mint w = mint(internal::primitive_root<mint::mod()>).pow((mint::mod() - 1) / (2 * k));
+        buf2.resize(k);
+        auto ntt_doubling = [&]() {
+            std::copy(begin(buf), end(buf), begin(buf2));
+            intt(buf2);
+            mint c = 1;
+            for (int i = 0; i < k; i++) buf2[i] *= c, c *= w;
+            ntt(buf2);
+            std::copy(begin(buf2), end(buf2), std::back_inserter(buf));
+        };
+        nP.clear(), nQ.clear();
+        for (int i = 0; i <= n; i++) {
+            buf.resize(k);
+            std::copy(begin(P) + i * k, begin(P) + (i + 1) * k, begin(buf));
+            ntt_doubling();
+            std::copy(begin(buf), end(buf), std::back_inserter(nP));
+            buf.resize(k);
+            std::copy(begin(Q) + i * k, begin(Q) + (i + 1) * k, begin(buf));
+            if (i == 0) {
+                for (int j = 0; j < k; j++) buf[j] -= 1;
+                ntt_doubling();
+                for (int j = 0; j < k; j++) buf[j] += 1;
+                for (int j = 0; j < k; j++) buf[k + j] -= 1;
+            } else {
+                ntt_doubling();
+            }
+            std::copy(begin(buf), end(buf), std::back_inserter(nQ));
+        }
+        nP.resize(2 * h * 2 * k);
+        nQ.resize(2 * h * 2 * k);
+        fps_t p(2 * h), q(2 * h);
+        w = mint(internal::primitive_root<mint::mod()>).pow((mint::mod() - 1) / (2 * h));
+        mint iw = w.inv();
+        std::vector<int> btr;
+        if (n % 2) {
+            btr.resize(h);
+            for (int i = 0, lg = std::countr_zero<unsigned>((unsigned)h); i < h; i++)
+                btr[i] = (btr[i >> 1] >> 1) + ((i & 1) << (lg - 1));
+        }
+        for (int j = 0; j < 2 * k; j++) {
+            p.assign(2 * h, 0);
+            q.assign(2 * h, 0);
+            for (int i = 0; i < h; i++) { p[i] = nP[i * 2 * k + j], q[i] = nQ[i * 2 * k + j]; }
+            ntt(p), ntt(q);
+            for (int i = 0; i < 2 * h; i += 2) std::swap(q[i], q[i + 1]);
+            for (int i = 0; i < 2 * h; i++) p[i] *= q[i];
+            for (int i = 0; i < h; i++) q[i] = q[i * 2] * q[i * 2 + 1];
+            if (n % 2 == 0) {
+                for (int i = 0; i < h; i++) p[i] = (p[i * 2] + p[i * 2 + 1]) * inv2;
+            } else {
+                mint c = inv2;
+                buf.resize(h);
+                for (int i : btr) buf[i] = (p[i * 2] - p[i * 2 + 1]) * c, c *= iw;
+                std::swap(p, buf);
+            }
+            p.resize(h), q.resize(h);
+            intt(p), intt(q);
+            for (int i = 0; i < h; i++) nP[i * 2 * k + j] = p[i];
+            for (int i = 0; i < h; i++) nQ[i * 2 * k + j] = q[i];
+        }
+        nP.resize((n / 2 + 1) * 2 * k);
+        nQ.resize((n / 2 + 1) * 2 * k);
+        std::swap(P, nP), std::swap(Q, nQ);
+        n /= 2, h /= 2, k *= 2;
+    }
+    fps_t S{begin(P), begin(P) + k};
+    fps_t T{begin(Q), begin(Q) + k};
+    intt(S), intt(T);
+    T[0] -= 1;
+    std::reverse(S.begin(), S.end());
+    if (f[0] == 0) {
+        S.resize(m + 1);
+        return S;
+    }
+    // (T + x^k).rev() の逆元を掛ける。
+    fps_t den = T;
+    den.resize(k + 1);
+    den[k] += 1;
+    std::reverse(den.begin(), den.end());
+    std::vector<mint> res = convolution(S, fps::inv(den, m + 1));
+    res.resize(m + 1);
+    return res;
+}
+
+}  // namespace internal_fps
+
+/// @brief 合成 (composition) f(g(x)) (mod x^deg)
+/// @details h(x) = f(g(x)) = Σ f[i] g(x)^i (mod x^deg) を Kinoshita-Suzuki の分割統治で求める。
+///          Nyaan の composition は g(f(x)) を返すため f と g を入れ替えて呼び出す。
+///          f は多項式として扱うため g[0] != 0 でも正しく計算できる。
+/// @tparam mint static modint
+/// @param f 外側の係数列
+/// @param g 内側の係数列
+/// @param deg 求める項数
+/// @return std::vector<mint> f(g(x)) (長さ deg)
+/// @see https://nyaannyaan.github.io/library/fps/fps-composition.hpp
+/// @note 計算量 O(deg log^2 deg)
+template <internal::static_modint_c mint>
+std::vector<mint> composition(const std::vector<mint> &outer, const std::vector<mint> &inner, int deg) {
+    using fps_t = std::vector<mint>;
+    if (deg <= 0) return std::vector<mint>(std::max(deg, 0), mint());
+    // Nyaan composition(f, g) は g(f(x)) を返すので、ここでは f = inner, g = outer とする
+    // (= outer(inner(x)))。
+    std::vector<mint> f = inner;
+    std::vector<mint> g = outer;
+    auto dfs = [&](auto rc, fps_t Q, int n, int hh, int kk) -> fps_t {
+        if (n == 0) {
+            fps_t T{Q.begin(), Q.begin() + kk};
+            T.push_back(1);
+            std::reverse(T.begin(), T.end());
+            fps_t Ti = fps::inv(T);
+            std::reverse(Ti.begin(), Ti.end());
+            fps_t u = convolution(g, Ti);
+            fps_t P(hh * kk);
+            for (int i = 0; i < (int)g.size(); i++) {
+                if (i + kk < (int)u.size()) P[kk - 1 - i] = u[i + kk];
+            }
+            return P;
+        }
+        fps_t nQ(4 * hh * kk), nR(2 * hh * kk);
+        for (int i = 0; i < kk; i++) std::copy(Q.begin() + i * hh, Q.begin() + i * hh + n + 1, nQ.begin() + i * 2 * hh);
+        nQ[kk * 2 * hh] += 1;
+        internal_fps::ntt(nQ);
+        for (int i = 0; i < 4 * hh * kk; i += 2) std::swap(nQ[i], nQ[i + 1]);
+        for (int i = 0; i < 2 * hh * kk; i++) nR[i] = nQ[i * 2] * nQ[i * 2 + 1];
+        internal_fps::intt(nR);
+        nR[0] -= 1;
+        Q.assign(hh * kk, 0);
+        for (int i = 0; i < 2 * kk; i++)
+            for (int j = 0; j <= n / 2; j++) Q[i * hh / 2 + j] = nR[i * hh + j];
+        auto P = rc(rc, Q, n / 2, hh / 2, kk * 2);
+        fps_t nP(4 * hh * kk);
+        for (int i = 0; i < 2 * kk; i++)
+            for (int j = 0; j <= n / 2; j++) nP[i * 2 * hh + j * 2 + n % 2] = P[i * hh / 2 + j];
+        internal_fps::ntt(nP);
+        for (int i = 1; i < 4 * hh * kk; i *= 2) std::reverse(nQ.begin() + i, nQ.begin() + i * 2);
+        for (int i = 0; i < 4 * hh * kk; i++) nP[i] *= nQ[i];
+        internal_fps::intt(nP);
+        P.assign(hh * kk, 0);
+        for (int i = 0; i < kk; i++)
+            std::copy(nP.begin() + i * 2 * hh, nP.begin() + i * 2 * hh + n + 1, P.begin() + i * hh);
+        return P;
+    };
+    // 出力は mod x^deg だが、g[0] != 0 のとき高次の f[i] も低次へ寄与する。Nyaan の枠組みは
+    // n = f.size()-1 項を計算するため、内部の計算項数を max(deg, f.size(), g.size()) に揃えてから
+    // 先頭 deg 項を返す。
+    int work = std::max({deg, (int)f.size(), (int)g.size()});
+    f.resize(work), g.resize(work);
+    int n = (int)f.size() - 1, k = 1;
+    int h = 1;
+    while (h < n + 1) h *= 2;
+    fps_t Q(h * k);
+    for (int i = 0; i <= n; i++) Q[i] = -f[i];
+    fps_t P = dfs(dfs, Q, n, h, k);
+    P.resize(n + 1);
+    std::reverse(P.begin(), P.end());
+    P.resize(deg);
+    return P;
+}
+
+/// @brief 合成 (composition) f(g(x)) (deg は max(f.size(), g.size()))
+/// @tparam mint static modint
+/// @param f 外側の係数列
+/// @param g 内側の係数列
+/// @return std::vector<mint> f(g(x))
+template <internal::static_modint_c mint>
+std::vector<mint> composition(const std::vector<mint> &f, const std::vector<mint> &g) {
+    return composition(f, g, std::max(f.size(), g.size()));
+}
+
+/// @brief 合成逆 (compositional inverse) g (mod x^deg)
+/// @details f(g(x)) = g(f(x)) = x (mod x^deg) を満たす g を求める。f[0] == 0 かつ f[1] != 0 が前提。
+///          Kinoshita-Suzuki の power projection (pow_enumerate) で [x^n] f(x)^k を列挙し、
+///          Lagrange-Bürmann 反転 g = (n^{-1} log(rev(h)/h0))^{-1} の exp で復元する
+///          (h_k = n [x^k] (列挙結果) / k)。
+/// @tparam mint static modint
+/// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
+/// @param deg 求める項数
+/// @return std::vector<mint> g(x) (長さ deg, g[0] == 0)
+/// @see https://nyaannyaan.github.io/library/fps/compositional-inverse.hpp
+/// @note 計算量 O(deg log^2 deg)
+template <internal::static_modint_c mint>
+std::vector<mint> compositional_inverse(const std::vector<mint> &f, int deg) {
+    assert(deg <= 0 || f.empty() || f[0] == 0);
+    assert((int)f.size() < 2 || f[1] != 0);
+    if (deg <= 0) return std::vector<mint>(std::max(deg, 0), mint());
+    if (deg == 1) return std::vector<mint>(1, mint());
+    if (deg < 2) return std::vector<mint>(deg, mint());
+    int n = deg - 1;
+    // h = pow_enumerate(f) * n。pow_enumerate は n = f.size()-1 を使うため f を deg 項に揃える。
+    std::vector<mint> ff = f;
+    ff.resize(deg);
+    std::vector<mint> h = internal_fps::pow_enumerate(ff, std::vector<mint>{mint(1)}, -1);
+    h.resize(n + 1);
+    for (auto &e : h) e *= n;
+    for (int k = 1; k <= n; ++k) h[k] /= k;
+    std::reverse(h.begin(), h.end());
+    mint h0i = h[0].inv();
+    for (auto &e : h) e *= h0i;  // h *= h[0]^{-1} (h[0] == 1)
+    std::vector<mint> lg = log(h);
+    mint c = mint(-n).inv();
+    for (auto &e : lg) e *= c;
+    std::vector<mint> g = exp(lg);
+    mint f1i = f[1].inv();
+    for (auto &e : g) e *= f1i;
+    g.insert(g.begin(), mint(0));  // g << 1
+    g.resize(deg);
+    return g;
+}
+
+/// @brief 合成逆 (compositional inverse) g (deg は f.size())
+/// @tparam mint static modint
+/// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
+/// @return std::vector<mint> 長さ f.size() の g(x)
+template <internal::static_modint_c mint>
+std::vector<mint> compositional_inverse(const std::vector<mint> &f) {
+    return compositional_inverse(f, f.size());
 }
 
 /// @brief 多項式の除算 (商と剰余)

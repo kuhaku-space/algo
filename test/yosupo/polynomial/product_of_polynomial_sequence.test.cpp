@@ -31,7 +31,8 @@ int main(void) {
         std::cout << 1 << '\n';
     } else {
         auto ans = prod(a, 0, n);
-        for (int i = 0; i < (int)ans.size(); ++i) std::cout << ans[i] << (i == (int)ans.size() - 1 ? '\n' : ' ');
+        int sz = ans.size();
+        for (int i = 0; i < sz; ++i) std::cout << ans[i] << " \n"[i == sz - 1];
     }
 
     return 0;
