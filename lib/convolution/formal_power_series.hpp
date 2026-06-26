@@ -13,9 +13,9 @@
 /// @file
 /// @brief 形式的冪級数 (FPS)
 /// @details modint 係数の形式的冪級数を `std::vector<mint>` (index i = x^i の係数) で表し、
-///          四則・inv / log / exp / pow / sqrt・多項式除算・多点評価・補間・Taylor shift を提供する。
-///          NTT-friendly な mod < 2^30 かつ実行時 AVX2 対応 CPU では inv / log / exp を
-///          Montgomery + AVX2 NTT 実装に自動で振り分ける。
+///          四則・inv / log / exp / pow / sqrt / compositional_inverse・多項式除算・多点評価・補間・Taylor shift
+///          を提供する。 NTT-friendly な mod < 2^30 かつ実行時 AVX2 対応 CPU では inv / log / exp を Montgomery + AVX2
+///          NTT 実装に自動で振り分ける。
 
 namespace fps {
 
@@ -371,6 +371,61 @@ std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
 template <internal::static_modint_c mint>
 std::vector<mint> sqrt(const std::vector<mint> &h) {
     return sqrt(h, h.size());
+}
+
+/// @brief 合成逆 (compositional inverse) g (mod x^deg)
+/// @details f(g(x)) = g(f(x)) = x (mod x^deg) を満たす g を求める。f[0] == 0 かつ f[1] != 0 が前提。
+///          Lagrange 反転 g_n = (1/n) [x^{n-1}] r^n (r = (f/x)^{-1}) で計算する。
+///          r のべき r^1, r^2, ... を順に更新しながら対角成分 [x^{n-1}] r^n を取り出す。
+///          r の DFT を一度だけ求めて各段で使い回し、1 段あたり NTT 2 回に抑える。
+/// @tparam mint static modint
+/// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
+/// @param deg 求める項数
+/// @return std::vector<mint> g(x) (長さ deg, g[0] == 0)
+/// @note 計算量 O(deg^2 log deg)
+template <internal::static_modint_c mint>
+std::vector<mint> compositional_inverse(const std::vector<mint> &f, int deg) {
+    assert(deg <= 0 || f.empty() || f[0] == 0);
+    assert((int)f.size() < 2 || f[1] != 0);
+    std::vector<mint> g(deg, mint());
+    if (deg <= 1) return g;
+    int fn = f.size();
+    // q = f / x (q[0] = f[1] != 0), r = q^{-1} (r[0] = 1/f[1])。
+    std::vector<mint> q(deg);
+    for (int i = 0; i + 1 < fn && i < deg; ++i) q[i] = f[i + 1];
+    std::vector<mint> r = inv(q, deg);
+    // 1/k (k = 1 .. deg-1) を線形篩で構築する。
+    std::vector<mint> invk(deg);
+    invk[1] = 1;
+    constexpr unsigned int mod = (unsigned int)mint::mod();
+    for (int k = 2; k < deg; ++k) invk[k] = -invk[mod % k] * (int)(mod / k);
+    // DFT(r) を一度求めて使い回す。cur = r^k を 1 段あたり NTT 2 回で更新する。
+    int z = std::bit_ceil<unsigned>((unsigned)(2 * deg));
+    std::vector<mint> rdft(z, mint());
+    for (int i = 0; i < deg; ++i) rdft[i] = r[i];
+    internal::butterfly(rdft);
+    mint iz = mint(z).inv();
+    std::vector<mint> cur(deg, mint());
+    cur[0] = 1;  // r^0
+    for (int k = 1; k < deg; ++k) {
+        std::vector<mint> t(z, mint());
+        for (int i = 0; i < deg; ++i) t[i] = cur[i];
+        internal::butterfly(t);
+        for (int i = 0; i < z; ++i) t[i] *= rdft[i];
+        internal::butterfly_inv(t);
+        for (int i = 0; i < deg; ++i) cur[i] = t[i] * iz;  // cur = r^k (mod x^deg)
+        g[k] = cur[k - 1] * invk[k];                       // g_k = (1/k) [x^{k-1}] r^k
+    }
+    return g;
+}
+
+/// @brief 合成逆 (compositional inverse) g (deg は f.size())
+/// @tparam mint static modint
+/// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
+/// @return std::vector<mint> 長さ f.size() の g(x)
+template <internal::static_modint_c mint>
+std::vector<mint> compositional_inverse(const std::vector<mint> &f) {
+    return compositional_inverse(f, f.size());
 }
 
 /// @brief 多項式の除算 (商と剰余)
