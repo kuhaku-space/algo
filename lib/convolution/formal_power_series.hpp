@@ -9,6 +9,13 @@
 #include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"
 
+/// @file
+/// @brief 形式的冪級数 (FPS)
+/// @details modint 係数の形式的冪級数を `std::vector<mint>` (index i = x^i の係数) で表し、
+///          四則・inv / log / exp / pow・多項式除算・多点評価・補間・Taylor shift を提供する。
+///          NTT-friendly な mod < 2^30 かつ実行時 AVX2 対応 CPU では inv / log / exp を
+///          Montgomery + AVX2 NTT 実装に自動で振り分ける。
+
 namespace fps {
 
 namespace internal_fps {
@@ -56,6 +63,11 @@ std::vector<mint> conv_auto(const std::vector<mint> &a, const std::vector<mint> 
 
 }  // namespace internal_fps
 
+/// @brief 形式的冪級数の加算
+/// @tparam mint static modint
+/// @param f 係数列
+/// @param g 係数列
+/// @return std::vector<mint> f + g (長さ max(f.size(), g.size()))
 template <internal::static_modint_c mint>
 std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
     int n = f.size(), m = g.size();
@@ -66,6 +78,14 @@ std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
     return res;
 }
 
+/// @brief 逆元 1 / h (mod x^deg)
+/// @details ニュートン法で deg 項まで求める。定数項 h[0] は逆元を持つ必要がある。
+///          条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
+/// @tparam mint static modint
+/// @param h 係数列 (h[0] != 0 が必要)
+/// @param deg 求める項数
+/// @return std::vector<mint> h * res ≡ 1 (mod x^deg) を満たす res (長さ deg)
+/// @note 計算量 O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] != mint(0));
@@ -97,11 +117,23 @@ std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     return res;
 }
 
+/// @brief 逆元 1 / h (deg は h.size())
+/// @tparam mint static modint
+/// @param h 係数列 (h[0] != 0 が必要)
+/// @return std::vector<mint> 長さ h.size() の逆元
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h) {
     return inv(h, h.size());
 }
 
+/// @brief 対数 log h (mod x^deg)
+/// @details log h = ∫ h' / h dx で求める。定数項 h[0] == 1 が必要。
+///          条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
+/// @tparam mint static modint
+/// @param h 係数列 (h[0] == 1 が必要)
+/// @param deg 求める項数
+/// @return std::vector<mint> log h (長さ deg, 定数項は 0)
+/// @note 計算量 O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] == 1);
@@ -119,11 +151,23 @@ std::vector<mint> log(const std::vector<mint> &h, int deg) {
     return f;
 }
 
+/// @brief 対数 log h (deg は h.size())
+/// @tparam mint static modint
+/// @param h 係数列 (h[0] == 1 が必要)
+/// @return std::vector<mint> 長さ h.size() の log h
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h) {
     return log(h, h.size());
 }
 
+/// @brief 指数 exp h (mod x^deg)
+/// @details ニュートン法で求める。定数項 h[0] == 0 が必要。
+///          条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
+/// @tparam mint static modint
+/// @param h 係数列 (h[0] == 0 が必要)
+/// @param deg 求める項数
+/// @return std::vector<mint> exp h (長さ deg, 定数項は 1)
+/// @note 計算量 O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h, int deg) {
     constexpr unsigned int mod = (unsigned int)mint::mod();
@@ -173,11 +217,25 @@ std::vector<mint> exp(const std::vector<mint> &h, int deg) {
     return f;
 }
 
+/// @brief 指数 exp h (deg は h.size())
+/// @tparam mint static modint
+/// @param h 係数列 (h[0] == 0 が必要)
+/// @return std::vector<mint> 長さ h.size() の exp h
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h) {
     return exp(h, h.size());
 }
 
+/// @brief 冪乗 h^m (mod x^deg)
+/// @details 最低次の項 c x^k を括り出し pow = exp(m log(h / (c x^k))) * c^m * x^{k m} で求める。
+///          m が負なら h^{|m|} の逆元を返す (h[0] != 0 が必要)。最低次が x^k のとき x^{k m} が
+///          deg 以上に押し出される場合や全係数 0 の場合は全 0 を返す。
+/// @tparam mint static modint
+/// @param h 係数列
+/// @param m 指数 (負も可)
+/// @param deg 求める項数
+/// @return std::vector<mint> h^m (長さ deg)。m == 0 は定数 1 を返す
+/// @note 計算量 O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     if (m == 0) {
@@ -211,11 +269,24 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     return res;
 }
 
+/// @brief 冪乗 h^m (deg は h.size())
+/// @tparam mint static modint
+/// @param h 係数列
+/// @param m 指数 (負も可)
+/// @return std::vector<mint> 長さ h.size() の h^m
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
 }
 
+/// @brief 多項式の除算 (商と剰余)
+/// @details f = q * g + r を満たす商 q と剰余 r (deg r < deg g) を求める。
+///          反転して逆元を掛ける標準的な手法。f, g の末尾 0 は内部で除去する。
+/// @tparam mint static modint
+/// @param f 被除多項式の係数列
+/// @param g 除多項式の係数列 (0 多項式でないこと)
+/// @return std::pair<商 q, 剰余 r> (どちらも末尾 0 を含まない)
+/// @note 計算量 O(n log n) (n = deg f)
 template <internal::static_modint_c mint>
 std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std::vector<mint> g) {
     while (!f.empty() && f.back() == mint()) f.pop_back();
@@ -239,11 +310,21 @@ std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std
     return {q, r};
 }
 
+/// @brief 多項式の商 f / g
+/// @tparam mint static modint
+/// @param f 被除多項式の係数列
+/// @param g 除多項式の係数列 (0 多項式でないこと)
+/// @return std::vector<mint> 商 q
 template <internal::static_modint_c mint>
 std::vector<mint> div(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).first;
 }
 
+/// @brief 多項式の剰余 f mod g
+/// @tparam mint static modint
+/// @param f 被除多項式の係数列
+/// @param g 除多項式の係数列 (0 多項式でないこと)
+/// @return std::vector<mint> 剰余 r (deg r < deg g)
 template <internal::static_modint_c mint>
 std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).second;
@@ -317,6 +398,14 @@ void evaluate_down(const std::vector<std::vector<mint>> &up, const std::vector<m
 
 }  // namespace internal_fps
 
+/// @brief 多点評価
+/// @details 部分積木を構築し剰余木を下降して、f を各点 x_i で同時に評価する。
+///          点数が少ない部分木は Horner 法に切り替えて NTT の定数倍を避ける。
+/// @tparam mint static modint
+/// @param f 評価する多項式の係数列
+/// @param x 評価する点の列
+/// @return std::vector<mint> f(x_i) の列 (長さ x.size())
+/// @note 計算量 O(n log^2 n) (n = max(deg f, |x|))
 template <internal::static_modint_c mint>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
@@ -333,6 +422,14 @@ std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::v
     return res;
 }
 
+/// @brief 多項式補間 (ラグランジュ補間)
+/// @details 相異なる点 (x_i, y_i) を通る次数 n-1 以下の多項式を求める。部分積木を多点評価と
+///          共有し、葉に y_i / f'(x_i) を置いて上向きに畳み込んで復元する。x_i は相異なること。
+/// @tparam mint static modint
+/// @param x 評価点の列 (相異なる)
+/// @param y 各点での値の列 (x と同じ長さ)
+/// @return std::vector<mint> f(x_i) = y_i を満たす係数列 (長さ x.size())
+/// @note 計算量 O(n log^2 n) (n = |x|)
 template <internal::static_modint_c mint>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
@@ -358,6 +455,14 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
     return g[1];
 }
 
+/// @brief Taylor shift (係数の平行移動)
+/// @details f(x) の係数から g(x) = f(x + c) の係数を求める。f[i] に i! を掛けて反転し、
+///          c^j / j! との畳み込みの中央部を取り出す標準的な手法。
+/// @tparam mint static modint
+/// @param f 係数列 f(x)
+/// @param c シフト量
+/// @return std::vector<mint> f(x + c) の係数列 (f と同じ長さ)
+/// @note 計算量 O(n log n) (n = f.size())
 template <internal::static_modint_c mint>
 std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
     int n = f.size();
