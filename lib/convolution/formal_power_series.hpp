@@ -1,8 +1,10 @@
 #pragma once
 #include <algorithm>
+#include <array>
 #include <bit>
 #include <cassert>
 #include <cstdint>
+#include <optional>
 #include <vector>
 #include "combinatorics/combination.hpp"
 #include "convolution/ntt.hpp"
@@ -830,6 +832,293 @@ std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
     std::reverse(f.begin(), f.end());
     for (int i = 0; i < n; ++i) f[i] *= comb.finv(i);
     return f;
+}
+
+/// @brief 標本点のシフト (shift of sampling points)
+/// @details 次数 < n の多項式 f の標本値 y_i = f(i) (i = 0..n-1) から f(c), f(c+1), ..., f(c+m-1) を求める。
+///          ラグランジュ補間 f(x) = (prod_k (x-k)) * sum_i a_i / (x-i) を、係数
+///          a_i = y_i / prod_{k!=i}(i-k) と 1/(c+t) の畳み込みで一括評価する。
+///          評価点 c+j が標本点 {0..n-1} と一致する (区間積が 0 になる) 場合は y を直接返す。
+/// @tparam mint static modint
+/// @param y 標本値の列 f(0..n-1)
+/// @param c シフト量
+/// @param m 求める項数
+/// @return std::vector<mint> f(c+j) の列 (j = 0..m-1, 長さ m)
+/// @note 計算量 O((n + m) log(n + m))
+template <internal::static_modint_c mint>
+std::vector<mint> shift_of_sampling_points(const std::vector<mint> &y, mint c, int m) {
+    if (m <= 0) return {};
+    int n = y.size();
+    if (n == 0) return std::vector<mint>(m, mint());
+    static Combination<mint> comb;
+    // a_i = y_i * (-1)^{n-1-i} / (i! (n-1-i)!) = y_i / prod_{k!=i}(i-k)
+    std::vector<mint> a(n);
+    for (int i = 0; i < n; ++i) {
+        a[i] = y[i] * comb.finv(i) * comb.finv(n - 1 - i);
+        if ((n - 1 - i) & 1) a[i] = -a[i];
+    }
+    // E[s] = c + (s - (n-1)) (s = 0..n+m-2)。b[s] = 1/E[s] (E[s]==0 のときは 0)。
+    int len = n + m - 1;
+    std::vector<mint> b(len);
+    for (int s = 0; s < len; ++s) {
+        mint e = c + mint(s - (n - 1));
+        b[s] = (e == mint()) ? mint() : e.inv();
+    }
+    // S_j = sum_i a_i / (c + j - i) = (a * b)[j + n - 1]
+    std::vector<mint> conv = convolution(a, b);
+    // 区間積 P_j = prod_{s=j}^{j+n-1} E[s] を prefix 積で求める (E[s]==0 は 1 に置換)。
+    std::vector<mint> pref(len + 1);
+    pref[0] = 1;
+    for (int s = 0; s < len; ++s) {
+        mint e = c + mint(s - (n - 1));
+        pref[s + 1] = pref[s] * (e == mint() ? mint(1) : e);
+    }
+    std::vector<mint> res(m);
+    for (int j = 0; j < m; ++j) {
+        unsigned int v = (c + mint(j)).val();
+        if ((int)v < n) {
+            res[j] = y[v];  // 評価点が標本点に一致
+        } else {
+            // 窓 [j, j+n-1] は 0 を含まないので prefix 積の商で P_j が求まる
+            res[j] = pref[j + n] / pref[j] * conv[j + n - 1];
+        }
+    }
+    return res;
+}
+
+namespace internal_fps {
+
+// 多項式 GCD (Half-GCD) 用のヘルパ群。多項式は std::vector<mint> (index = 次数) で表し、
+// 末尾 0 を取り除いた正規形 (back != 0、零多項式は空) で扱う。
+
+// 末尾 0 を除去 (零多項式は空に正規化)。
+template <internal::static_modint_c mint>
+void poly_norm(std::vector<mint> &a) {
+    while (!a.empty() && a.back() == mint()) a.pop_back();
+}
+
+// 次数 (零多項式は -1)。
+template <internal::static_modint_c mint>
+int poly_deg(const std::vector<mint> &a) {
+    return (int)a.size() - 1;
+}
+
+// a + b (正規化済みを返す)。
+template <internal::static_modint_c mint>
+std::vector<mint> poly_add(std::vector<mint> a, const std::vector<mint> &b) {
+    if (a.size() < b.size()) a.resize(b.size());
+    for (std::size_t i = 0; i < b.size(); ++i) a[i] += b[i];
+    poly_norm(a);
+    return a;
+}
+
+// a - b (正規化済みを返す)。
+template <internal::static_modint_c mint>
+std::vector<mint> poly_sub(std::vector<mint> a, const std::vector<mint> &b) {
+    if (a.size() < b.size()) a.resize(b.size());
+    for (std::size_t i = 0; i < b.size(); ++i) a[i] -= b[i];
+    poly_norm(a);
+    return a;
+}
+
+// a * b (畳み込み、正規化済みを返す)。
+template <internal::static_modint_c mint>
+std::vector<mint> poly_mul(const std::vector<mint> &a, const std::vector<mint> &b) {
+    if (a.empty() || b.empty()) return {};
+    std::vector<mint> c = conv_auto(a, b);
+    poly_norm(c);
+    return c;
+}
+
+// 低次 k 項を落とす (a / x^k に相当する高位部分)。
+template <internal::static_modint_c mint>
+std::vector<mint> poly_rshift(const std::vector<mint> &a, int k) {
+    if ((int)a.size() <= k) return {};
+    return std::vector<mint>(a.begin() + k, a.end());
+}
+
+// 2x2 多項式行列 [[R0,R1],[R2,R3]] (Euclid のステップ行列の積)。
+template <internal::static_modint_c mint>
+using gcd_mat = std::array<std::vector<mint>, 4>;
+
+template <internal::static_modint_c mint>
+gcd_mat<mint> gcd_mat_id() {
+    return {std::vector<mint>{mint(1)}, std::vector<mint>{}, std::vector<mint>{}, std::vector<mint>{mint(1)}};
+}
+
+// 行列積 l * r。
+template <internal::static_modint_c mint>
+gcd_mat<mint> gcd_mat_mul(const gcd_mat<mint> &l, const gcd_mat<mint> &r) {
+    gcd_mat<mint> ret;
+    ret[0] = poly_add(poly_mul(l[0], r[0]), poly_mul(l[1], r[2]));
+    ret[1] = poly_add(poly_mul(l[0], r[1]), poly_mul(l[1], r[3]));
+    ret[2] = poly_add(poly_mul(l[2], r[0]), poly_mul(l[3], r[2]));
+    ret[3] = poly_add(poly_mul(l[2], r[1]), poly_mul(l[3], r[3]));
+    return ret;
+}
+
+// 列ベクトル (x0; x1) に行列 m を左から作用させ x0, x1 を更新する。
+template <internal::static_modint_c mint>
+void gcd_mat_apply(const gcd_mat<mint> &m, std::vector<mint> &x0, std::vector<mint> &x1) {
+    std::vector<mint> n0 = poly_add(poly_mul(m[0], x0), poly_mul(m[1], x1));
+    std::vector<mint> n1 = poly_add(poly_mul(m[2], x0), poly_mul(m[3], x1));
+    x0 = std::move(n0);
+    x1 = std::move(n1);
+}
+
+// (a; b) に対し row0 -= q*row1 の後 row 交換を行う (a := a mod b, b := a の Euclid 1 ステップ)。
+template <internal::static_modint_c mint>
+void gcd_step(gcd_mat<mint> &R, std::vector<mint> &a, std::vector<mint> &b, const std::vector<mint> &q,
+              std::vector<mint> rem) {
+    R[0] = poly_sub(R[0], poly_mul(q, R[2]));
+    R[1] = poly_sub(R[1], poly_mul(q, R[3]));
+    std::swap(R[0], R[2]);
+    std::swap(R[1], R[3]);
+    a = std::move(rem);
+    std::swap(a, b);
+}
+
+static constexpr int HGCD_NAIVE_THRESHOLD = 64;
+static constexpr int POLY_INV_NAIVE_THRESHOLD = 256;
+
+// Half-GCD の素朴版: deg(a) >= deg(b) 前提。deg(b) < ceil(deg(a)/2) になるまで
+// Euclid を進め、(a; b) を縮約する変換行列を返す。
+template <internal::static_modint_c mint>
+gcd_mat<mint> hgcd_naive(std::vector<mint> a, std::vector<mint> b) {
+    poly_norm(a);
+    poly_norm(b);
+    int m = (poly_deg(a) + 1) / 2;  // 目標: deg(b) < ceil(deg(a)/2)
+    gcd_mat<mint> R = gcd_mat_id<mint>();
+    while (poly_deg(b) >= m) {
+        auto [q, r] = div_mod(a, b);
+        gcd_step(R, a, b, q, std::move(r));
+    }
+    return R;
+}
+
+// Half-GCD: deg(a) >= deg(b) 前提。Euclid 互除列を deg(b) < ceil(deg(a)/2) になるまで
+// 進める変換行列 R を返す ((c; d) = R * (a; b) が縮約後のペアで deg(d) < ceil(deg(a)/2) <= deg(c))。
+// 高位半分での再帰 → 1 回の除算 → 残り半分での再帰、という標準的な分割統治
+// (Modern Computer Algebra, Algorithm 11.6 相当。シフト幅 k = 2m - deg(a) が要点)。
+// @note 計算量 O(deg(a) log^2 deg(a))
+template <internal::static_modint_c mint>
+gcd_mat<mint> hgcd(std::vector<mint> a, std::vector<mint> b) {
+    poly_norm(a);
+    poly_norm(b);
+    if (poly_deg(b) == -1) return gcd_mat_id<mint>();
+    if (poly_deg(a) <= HGCD_NAIVE_THRESHOLD) return hgcd_naive(a, b);
+    // deg(a) == deg(b) のときは 1 ステップ進めて deg(a) > deg(b) を満たしてから分割統治する。
+    if (poly_deg(a) == poly_deg(b)) {
+        gcd_mat<mint> R = gcd_mat_id<mint>();
+        auto [q, r] = div_mod(a, b);
+        gcd_step(R, a, b, q, std::move(r));
+        if (poly_deg(b) == -1) return R;
+        return gcd_mat_mul(hgcd(a, b), R);
+    }
+    int n = poly_deg(a);
+    int m = (n + 1) / 2;  // ceil(n/2)
+    if (poly_deg(b) < m) return gcd_mat_id<mint>();
+    // step 1: 高位 (deg >= m) 半分で再帰し、全体に作用させる。
+    gcd_mat<mint> R = hgcd(poly_rshift(a, m), poly_rshift(b, m));
+    gcd_mat_apply(R, a, b);
+    poly_norm(a);
+    poly_norm(b);
+    if (poly_deg(b) < m) return R;
+    // step 2: 1 回の除算 (a; b) -> (b; a mod b)。
+    {
+        auto [q, r] = div_mod(a, b);
+        gcd_step(R, a, b, q, std::move(r));
+    }
+    if (poly_deg(b) < m) return R;
+    // step 3: 残り (シフト幅 k = 2m - deg(a)) で再帰する。
+    int k = 2 * m - poly_deg(a);
+    gcd_mat<mint> S = hgcd(poly_rshift(a, k), poly_rshift(b, k));
+    return gcd_mat_mul(S, R);
+}
+
+// a*x ≡ 1 (mod md) を満たす変換行列を素朴な拡張 Euclid で返す。逆元が無ければ ok=false。
+template <internal::static_modint_c mint>
+gcd_mat<mint> poly_inv_naive(std::vector<mint> a, std::vector<mint> md, bool &ok) {
+    poly_norm(a);
+    poly_norm(md);
+    if (poly_deg(a) >= poly_deg(md)) {
+        a = div_mod(a, md).second;
+        poly_norm(a);
+    }
+    gcd_mat<mint> R = gcd_mat_id<mint>();
+    while (poly_deg(a) != -1) {
+        auto [q, r] = div_mod(md, a);
+        gcd_step(R, md, a, q, std::move(r));
+    }
+    poly_norm(md);
+    if (poly_deg(md) != 0) {
+        ok = false;
+        return R;
+    }
+    mint nrm = md[0].inv();
+    for (auto &e : R)
+        for (auto &x : e) x *= nrm;
+    return R;
+}
+
+// a*x ≡ 1 (mod md) を満たす変換行列を Half-GCD で再帰的に返す。逆元が無ければ ok=false。
+// 戻り行列 R の R[1] (= R[0][1]) が a の md を法とする逆元。
+template <internal::static_modint_c mint>
+gcd_mat<mint> poly_inv(std::vector<mint> a, std::vector<mint> md, bool &ok) {
+    poly_norm(a);
+    poly_norm(md);
+    if (poly_deg(a) >= poly_deg(md)) {
+        a = div_mod(a, md).second;
+        poly_norm(a);
+    }
+    if (poly_deg(a) == -1) {
+        // a ≡ 0 (mod md)。md が定数 (deg 0) のときのみ商環が自明で逆元が定まる。
+        if (poly_deg(md) != 0) {
+            ok = false;
+            return gcd_mat_id<mint>();
+        }
+        mint nrm = md[0].inv();
+        return {std::vector<mint>{nrm}, std::vector<mint>{}, std::vector<mint>{}, std::vector<mint>{nrm}};
+    }
+    if (poly_deg(md) <= POLY_INV_NAIVE_THRESHOLD) return poly_inv_naive(a, md, ok);
+    gcd_mat<mint> R = hgcd(md, a);
+    std::vector<mint> v0 = md, v1 = a;
+    gcd_mat_apply(R, v0, v1);
+    poly_norm(v0);
+    poly_norm(v1);
+    if (poly_deg(v1) != -1 &&
+        (std::max(poly_deg(v0), poly_deg(v1)) < 5 || poly_deg(v0) - poly_deg(v1) > poly_deg(v1))) {
+        auto [q, r] = div_mod(v0, v1);
+        gcd_step(R, v0, v1, q, std::move(r));
+    }
+    gcd_mat<mint> nextR = poly_inv(v1, v0, ok);
+    if (!ok) return R;
+    return gcd_mat_mul(nextR, R);
+}
+
+}  // namespace internal_fps
+
+/// @brief 多項式の逆元 (modular inverse of polynomials)
+/// @details f(x) * h(x) ≡ 1 (mod g(x)) かつ deg h < deg g を満たす h を Half-GCD による拡張 Euclid 互除法で求める。
+///          逆元が存在する (gcd(f, g) が定数) ときのみ値を返し、存在しなければ std::nullopt を返す。
+///          返り値は末尾 0 を除いた正規形 (逆元が 0 多項式のときは空列)。
+/// @tparam mint static modint
+/// @param f 係数列 (最高次係数 != 0)
+/// @param g 法多項式の係数列 (最高次係数 != 0)
+/// @return std::optional<std::vector<mint>> 逆元 h (deg h < deg g)。逆元が無ければ std::nullopt
+/// @note 計算量 O(n log^2 n) (n = max(deg f, deg g))
+template <internal::static_modint_c mint>
+std::optional<std::vector<mint>> inv_of_polynomials(const std::vector<mint> &f, const std::vector<mint> &g) {
+    std::vector<mint> a = f, md = g;
+    internal_fps::poly_norm(a);
+    internal_fps::poly_norm(md);
+    assert(!md.empty());
+    bool ok = true;
+    internal_fps::gcd_mat<mint> R = internal_fps::poly_inv(a, md, ok);
+    if (!ok) return std::nullopt;
+    std::vector<mint> h = R[1];
+    internal_fps::poly_norm(h);
+    return h;
 }
 
 }  // namespace fps
