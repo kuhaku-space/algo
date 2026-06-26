@@ -18,30 +18,36 @@ std::vector<T> multiplicative_table(int n, F fpk) {
     std::vector<T> f(n + 1, T());
     if (n >= 1) f[1] = T(1);
     std::vector<int> primes;
-    std::vector<bool> composite(n + 1, false);
-    // cnt[i]: i の最小素因数 p の指数、pk[i]: p^cnt[i]
-    std::vector<int> cnt(n + 1, 0), pk(n + 1, 0);
+    // π(n) ≈ n/(ln n - 1.1)。小さい n では分母が非正になり得るので大きいときのみ予約。
+    if (n >= 16) primes.reserve((std::size_t)(n / (std::log((double)n) - 1.1)) + 16);
+    // low[i] = {最小素因数 p の指数 cnt, p^cnt}。cnt と pk を 1 構造体にまとめると
+    // j = i*p への散在書き込みが 1 キャッシュラインに収まり篩が速くなる。pk==0 が
+    // 未確定（素数）の印を兼ねるので別途 composite 配列は持たない。
+    struct Low {
+        int cnt, pk;
+    };
+    std::vector<Low> low(n + 1, {0, 0});
     for (int i = 2; i <= n; ++i) {
-        if (!composite[i]) {
+        if (low[i].pk == 0) {  // i は素数
             primes.emplace_back(i);
-            cnt[i] = 1, pk[i] = i;
+            low[i] = {1, i};
             f[i] = fpk(i, 1, i);
         }
+        const int ci = low[i].cnt, pki = low[i].pk;  // i の最小素因数の指数と冪
+        const T fi = f[i];
         for (int p : primes) {
             const std::int64_t ip = (std::int64_t)i * p;
             if (ip > n) break;
             const int j = (int)ip;
-            composite[j] = true;
             if (i % p == 0) {
-                // p は i の最小素因数。指数が 1 増える。
-                cnt[j] = cnt[i] + 1, pk[j] = pk[i] * p;
-                // i = pk[i] * (i / pk[i])、後者は p と互いに素。
-                f[j] = f[i / pk[i]] * fpk(p, cnt[j], pk[j]);
+                // p は i の最小素因数。指数が 1 増える。i = pki * (i/pki)、後者は p と互いに素。
+                low[j] = {ci + 1, pki * p};
+                f[j] = f[i / pki] * fpk(p, ci + 1, pki * p);
                 break;
             }
             // gcd(i, p) = 1。
-            cnt[j] = 1, pk[j] = p;
-            f[j] = f[i] * f[p];
+            low[j] = {1, p};
+            f[j] = fi * f[p];
         }
     }
     return f;
@@ -97,40 +103,39 @@ struct MultiplicativeSum {
     /// @param G G(m) = Σ_{i=1}^{m} g(i)
     /// @param H H(m) = Σ_{i=1}^{m} (f*g)(i)
     MultiplicativeSum(long long n, std::vector<T> f_prefix, T g1, Gsum G, Hsum H)
-        : n(n), threshold((long long)f_prefix.size() - 1), small(std::move(f_prefix)), g1(g1), G(G), H(H) {
-        long long size = threshold > 0 ? n / threshold + 1 : 1;
-        large.assign(size, T());
-        done.assign(size, false);
+        : n(n), threshold((long long)f_prefix.size() - 1), small(std::move(f_prefix)) {
+        // large[i] = S(⌊n/i⌋)。⌊n/i⌋ が閾値超えの i についてのみ持つ。
+        const long long L = threshold > 0 ? n / threshold : 0;
+        large.assign(L + 1, T());
+        const bool g1_one = (g1 == T(1));
+        // m = ⌊n/i⌋ 昇順（i 降順）に計算する。各 S(q)（q < m）は small か計算済み large から
+        // 引けるので再帰不要・メモ判定不要。葉 q<=threshold は small を直接参照する。
+        for (long long i = L; i >= 1; --i) {
+            const long long m = n / i;
+            if (m <= threshold) continue;  // small で足りる
+            T res = H(m);
+            T gprev = G(1);  // d-1 = 1 の G 値（次反復の G(d-1) を持ち回す）
+            for (long long d = 2, nd; d <= m; d = nd + 1) {
+                const long long q = m / d;
+                nd = m / q;  // ⌊m/d⌋ == q となる d の最大値
+                const T gnd = G(nd);
+                const T sq = (q <= threshold) ? small[q] : large[n / q];  // q < m なので算出済み
+                res -= (gnd - gprev) * sq;
+                gprev = gnd;
+            }
+            large[i] = g1_one ? res : res / g1;
+        }
     }
 
     /// @brief S(n) = Σ_{i=1}^{n} f(i)
-    T sum() { return get(n); }
+    T sum() const { return get(n); }
 
-    /// @brief S(m) = Σ_{i=1}^{m} f(i)（m <= n）
-    T get(long long m) {
-        if (m <= threshold) return small[m];
-        // m > threshold の値は m = ⌊n/idx⌋ の形なので idx をキーにメモ化する。
-        long long idx = n / m;
-        if (done[idx]) return large[idx];
-        T res = H(m);
-        for (long long d = 2, nd; d <= m; d = nd + 1) {
-            long long q = m / d;
-            nd = m / q;  // ⌊m/d⌋ == q となる d の最大値
-            res -= (G(nd) - G(d - 1)) * get(q);
-        }
-        if (!(g1 == T(1))) res = res / g1;
-        large[idx] = res;
-        done[idx] = true;
-        return res;
-    }
+    /// @brief S(m) = Σ_{i=1}^{m} f(i)（m <= n、⌊n/i⌋ の形の値）
+    T get(long long m) const { return m <= threshold ? small[m] : large[n / m]; }
 
   private:
     long long n, threshold;
     std::vector<T> small, large;
-    std::vector<bool> done;
-    T g1;
-    Gsum G;
-    Hsum H;
 };
 
 namespace internal {
