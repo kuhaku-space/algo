@@ -13,7 +13,7 @@
 /// @file
 /// @brief 形式的冪級数 (FPS)
 /// @details modint 係数の形式的冪級数を `std::vector<mint>` (index i = x^i の係数) で表し、
-///          四則・inv / log / exp / pow・多項式除算・多点評価・補間・Taylor shift を提供する。
+///          四則・inv / log / exp / pow / sqrt・多項式除算・多点評価・補間・Taylor shift を提供する。
 ///          NTT-friendly な mod < 2^30 かつ実行時 AVX2 対応 CPU では inv / log / exp を
 ///          Montgomery + AVX2 NTT 実装に自動で振り分ける。
 
