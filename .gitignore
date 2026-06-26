@@ -1,6 +1,5 @@
 /.devcontainer/
 /.vscode/
-/docs/
 /Doxyfile/
 /workspace/*
 !/workspace/
