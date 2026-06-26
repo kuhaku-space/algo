@@ -8,6 +8,7 @@
 #include "convolution/ntt.hpp"
 #include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"
+#include "number_theory/sqrt.hpp"
 
 /// @file
 /// @brief 形式的冪級数 (FPS)
@@ -277,6 +278,52 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
+}
+
+/// @brief 平方根 sqrt h (mod x^deg)
+/// @details g^2 ≡ h (mod x^deg) を満たす g を求める。最低次の項 c x^k を括り出し、
+///          k が偶数かつ c が平方剰余のとき g = x^{k/2} sqrt(h / x^k) をニュートン法で求める。
+///          k が奇数、または c が平方非剰余で解が存在しない場合は空列を返す。
+/// @tparam mint static modint
+/// @param h 係数列
+/// @param deg 求める項数
+/// @return std::vector<mint> g^2 ≡ h を満たす g (長さ deg)。解なしのときは空列
+/// @note 計算量 O(deg log deg)
+template <internal::static_modint_c mint>
+std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
+    int n = h.size();
+    int k = 0;
+    while (k < n && h[k] == 0) ++k;
+    if (k == n) return std::vector<mint>(deg);  // h ≡ 0 → sqrt は全 0
+    if (k & 1) return {};                       // 最低次が奇数 → 解なし
+    if (!has_sqrt_mod(h[k])) return {};         // 定数項が平方非剰余 → 解なし
+    // h = x^k (h[k] + ...), sqrt(h) = x^{k/2} sqrt(h >> k)。
+    int shift = k / 2;
+    if (shift >= deg) return std::vector<mint>(deg);
+    int core_deg = deg - shift;
+    std::vector<mint> f(h.begin() + k, h.end());
+    std::vector<mint> g(1, sqrt_mod(f[0]));
+    mint inv2 = mint(2).inv();
+    for (int d = 1; d < core_deg; d <<= 1) {
+        int nd = std::min(2 * d, core_deg);
+        std::vector<mint> ft(nd);
+        for (int i = 0; i < std::min((int)f.size(), nd); ++i) ft[i] = f[i];
+        std::vector<mint> c = convolution(ft, inv(g, nd));
+        g.resize(nd);
+        for (int i = 0; i < nd; ++i) g[i] = (g[i] + c[i]) * inv2;
+    }
+    g.resize(core_deg);
+    g.insert(g.begin(), shift, mint());
+    return g;
+}
+
+/// @brief 平方根 sqrt h (deg は h.size())
+/// @tparam mint static modint
+/// @param h 係数列
+/// @return std::vector<mint> 長さ h.size() の sqrt h。解なしのときは空列
+template <internal::static_modint_c mint>
+std::vector<mint> sqrt(const std::vector<mint> &h) {
+    return sqrt(h, h.size());
 }
 
 /// @brief 多項式の除算 (商と剰余)
