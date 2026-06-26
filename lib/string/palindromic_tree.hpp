@@ -6,13 +6,11 @@
 #include <utility>
 #include <vector>
 
-/**
- * @brief 回文木 (eertree)
- * @see https://math314.hateblo.jp/entry/2016/12/19/005919
- * @see https://arxiv.org/abs/1403.2431 (series link による回文分割 DP)
- *
- * ノード 0 が ODD 根 (len = -1)、ノード 1 が EVEN 根 (len = 0)、相異なる非空回文が 2 番以降。
- */
+/// @brief 回文木 (eertree)
+/// @see https://math314.hateblo.jp/entry/2016/12/19/005919
+/// @see https://arxiv.org/abs/1403.2431 (series link による回文分割 DP)
+///
+/// ノード 0 が ODD 根 (len = -1)、ノード 1 が EVEN 根 (len = 0)、相異なる非空回文が 2 番以降。
 struct PalindromicTree {
   private:
     struct _node {
