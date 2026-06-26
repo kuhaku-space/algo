@@ -42,6 +42,18 @@ std::uint64_t pollard_rho(std::uint64_t n) {
     return g;
 }
 
+/// @return `(x ** n) % mod`（`mod < 2^32` で安全）
+std::uint64_t pow_mod_u64(std::uint64_t x, std::uint64_t n, std::uint64_t mod) {
+    x %= mod;
+    std::uint64_t r = 1;
+    while (n) {
+        if (n & 1) r = (__uint128_t)r * x % mod;
+        x = (__uint128_t)x * x % mod;
+        n >>= 1;
+    }
+    return r;
+}
+
 std::vector<std::uint64_t> inner_factorize(std::uint64_t n) {
     if (n <= 1) return {};
     std::uint64_t p = pollard_rho(n);
@@ -77,3 +89,22 @@ std::uint64_t number_of_divisors(std::vector<std::uint64_t> v) {
 }
 
 std::uint64_t number_of_divisors(std::uint64_t n) { return number_of_divisors(internal::inner_factorize(n)); }
+
+/// @brief 原始根
+/// @param p 素数
+/// @return p の最小の原始根
+std::uint64_t primitive_root(std::uint64_t p) {
+    if (p == 2) return 1;
+    auto pf = factorize(p - 1);
+    pf.erase(std::unique(pf.begin(), pf.end()), pf.end());
+    for (std::uint64_t g = 2;; ++g) {
+        bool ok = true;
+        for (auto q : pf) {
+            if (internal::pow_mod_u64(g, (p - 1) / q, p) == 1) {
+                ok = false;
+                break;
+            }
+        }
+        if (ok) return g;
+    }
+}
