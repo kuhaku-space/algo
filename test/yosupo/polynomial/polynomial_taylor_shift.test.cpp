@@ -12,7 +12,7 @@ int main(void) {
     std::vector<Mint> a(n);
     for (auto &e : a) std::cin >> e;
     auto ans = fps::taylor_shift(a, Mint(c));
-    for (int i = 0; i < n; ++i) std::cout << ans[i] << (i == n - 1 ? "\n" : " ");
+    for (int i = 0; i < n; ++i) std::cout << ans[i] << " \n"[i == n - 1];
 
     return 0;
 }
