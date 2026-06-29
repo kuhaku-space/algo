@@ -97,7 +97,7 @@ jobs:
       # baseline that other branches restore from.
       - name: Restore cached results
         if: ${{ ! inputs.ignore_prev_result }}
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         id: restore-cached-results
         with:
           path: ${{github.workspace}}/merged-result.json
@@ -118,7 +118,7 @@ jobs:
       # rely on GitHub's per-repo 10GB LRU eviction to retire old generations
       # rather than deleting them explicitly.
       - name: Restore problem cache
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         id: restore-problem-cache
         with:
           path: ${{github.workspace}}/.competitive-verifier/cache
@@ -150,7 +150,7 @@ jobs:
       # entry that the next run picks up via the restore-keys prefix.
       - name: Save problem cache
         if: always()
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: ${{github.workspace}}/.competitive-verifier/cache
           key: ${{ runner.os }}-verify-problems-${{ matrix.index }}-${{ github.run_id }}
@@ -349,7 +349,7 @@ jobs:
       # by timestamp. Saving partial results lets the many passing tests skip
       # re-verification without ever masking a real failure.
       - name: Save result
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: ${{github.workspace}}/merged-result.json
           key: ${{ runner.os }}-verify-result-${{ github.ref_name }}-${{ github.sha }}
