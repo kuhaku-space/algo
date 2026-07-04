@@ -35,30 +35,28 @@ int main() {
                     return i < r.size() && (std::isupper(static_cast<unsigned char>(r[i])) || r[i] == '(');
                 })
             .atom([](P &q) -> ll {
+                // 番兵 '\0' により末尾でも cur() が安全に返るので size チェック不要。
                 ll base;
                 if (q.consume("(")) {
                     base = q.parse_expression(0);
                     if (!q.consume(")")) throw std::runtime_error("expected ')'");
                 } else {
-                    std::string_view r = q.rest();
-                    if (r.empty() || !std::isupper(static_cast<unsigned char>(r[0])))
-                        throw std::runtime_error("expected atom");
-                    std::string sym(1, r[0]);
-                    std::size_t k = 1;
-                    if (k < r.size() && std::islower(static_cast<unsigned char>(r[k]))) sym += r[k++];
-                    q.advance(k);
+                    if (!std::isupper(static_cast<unsigned char>(q.cur()))) throw std::runtime_error("expected atom");
+                    std::string sym(1, q.cur());
+                    q.advance();
+                    if (std::islower(static_cast<unsigned char>(q.cur()))) sym += q.cur(), q.advance();
                     auto it = weight.find(sym);
                     if (it == weight.end()) throw std::runtime_error("unknown atom");
                     base = it->second;
                 }
-                std::string_view r = q.rest();
-                std::size_t k = 0;
                 ll m = 0;
-                while (k < r.size() && std::isdigit(static_cast<unsigned char>(r[k]))) m = m * 10 + (r[k++] - '0');
-                if (k > 0) {
-                    q.advance(k);
-                    base *= m;
+                bool has_mult = false;
+                while (std::isdigit(static_cast<unsigned char>(q.cur()))) {
+                    m = m * 10 + (q.cur() - '0');
+                    q.advance();
+                    has_mult = true;
                 }
+                if (has_mult) base *= m;
                 return base;
             });
         try {

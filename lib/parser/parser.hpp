@@ -108,6 +108,11 @@ struct ExpressionParser {
         skip_space();
         return cur();
     }
+    /// @brief 空白を読み飛ばさない現在位置の文字 (末尾なら @c '\0')
+    /// @details 番兵 (@c std::string 末尾の @c '\0') により末尾でも安全に
+    ///   @c '\0' を返す。アトム側で @c rest().size() の範囲チェックをせず
+    ///   @c cur() と @c advance() で1文字ずつ走査できる。
+    char cur() const { return s.data()[pos]; }
     /// @brief 残りの入力
     std::string_view rest() const { return s.substr(pos); }
     /// @brief トークン @c tok が現在位置に一致すれば消費して @c true
@@ -172,10 +177,6 @@ struct ExpressionParser {
     std::string owned;   // 入力の実体。std::string は末尾 '\0' を保証するので番兵になる
     std::string_view s;  // owned 上のビュー (実長。番兵 '\0' は含まない)
     std::size_t pos = 0;
-
-    // 現在位置の文字。番兵により pos == s.size() でも '\0' を安全に返せるので、
-    // 文字走査で pos < s.size() の範囲比較が不要になる (pos は常に s.size() 以下)。
-    char cur() const { return s.data()[pos]; }
 
     void skip_space() {
         while (std::isspace(static_cast<unsigned char>(cur()))) ++pos;
