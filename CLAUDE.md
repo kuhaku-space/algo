@@ -3,6 +3,9 @@
 競技プログラミング用の C++ ヘッダオンリーライブラリ。`lib/` に実装、`test/` に
 [competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) 用の検証ファイル。
 
+> **注意**: この CLAUDE.md に書かれている内容はすべて**このライブラリ自体の仕様・開発方針**であり、
+> 競技プログラミングの**問題を解くときには参照しないこと**。
+
 - 言語: **C++23**（応答・コメントは日本語）。
 - include ルートは **`lib/`**。ヘッダ間は `lib/` からの相対パス（例: `#include "math/modint.hpp"`）。
 
