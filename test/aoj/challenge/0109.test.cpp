@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0109
 #include <iostream>
 #include <string>
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 int main() {
     int n;

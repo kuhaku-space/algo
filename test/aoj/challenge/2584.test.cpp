@@ -6,7 +6,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 // Broken Cipher Generator の文法 (文字列を返す):
 //   <Cipher> ::= <String> | <Cipher><String>          (暗黙の連接)

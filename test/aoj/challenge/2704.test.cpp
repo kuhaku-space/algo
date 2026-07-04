@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2704
 #include <iostream>
-#include "string/cfg_graph.hpp"
+#include "parser/cfg_graph.hpp"
 
 // Stamp Rally: 辺ラベルの列が正しい数式 (下の CNF 文法) になる s->t の歩道が
 // 存在するか。文法をグラフに適用する文脈自由到達可能性 (CYK のグラフ版) で解く。

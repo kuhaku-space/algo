@@ -1,6 +1,6 @@
 ---
 title: 汎用式パーサ (ExpressionParser)
-documentation_of: //lib/string/parser.hpp
+documentation_of: //lib/parser/parser.hpp
 ---
 
 演算子優先順位法 (precedence climbing) による汎用の式パーサ。二項演算子・前置単項
@@ -14,7 +14,7 @@ documentation_of: //lib/string/parser.hpp
 ## 使い方
 
 ```cpp
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 // 標準の四則演算 (+ - * / ・単項 ± ・括弧・非負整数)
 long long v = eval_expr<long long>("1 + 2 * (3 - 4)");   // -1

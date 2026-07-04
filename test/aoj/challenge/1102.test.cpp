@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 // 複素数式の評価: + - * (二項のみ) と括弧、非負整数と虚数単位 i。
 // 途中結果を含め実部・虚部の絶対値が 10000 を超えたら overflow。

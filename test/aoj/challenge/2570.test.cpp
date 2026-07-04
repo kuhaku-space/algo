@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 using ll = long long;
 constexpr ll MOD = 1000000007;

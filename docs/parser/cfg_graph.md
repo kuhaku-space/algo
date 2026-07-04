@@ -1,6 +1,6 @@
 ---
 title: グラフ上の文脈自由到達可能性 (CykGraph)
-documentation_of: //lib/string/cfg_graph.hpp
+documentation_of: //lib/parser/cfg_graph.hpp
 ---
 
 辺ラベル付き有向グラフに CNF (チョムスキー標準形) の文脈自由文法を適用し、各記号 `X`
@@ -17,7 +17,7 @@ documentation_of: //lib/string/cfg_graph.hpp
 `S -> ( ) | ( S ) | S S` を、補助記号 `T` (`-> S )`) を使い次のように書ける:
 
 ```cpp
-#include "string/cfg_graph.hpp"
+#include "parser/cfg_graph.hpp"
 
 // 記号 id: S(開始), T(補助 = S の後に ')'), 終端 L='(' , R=')'
 enum { S, T, L, R, NUM_SYM };

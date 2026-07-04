@@ -2,7 +2,7 @@
 #include <iostream>
 #include <optional>
 #include <string>
-#include "string/ambiguous_expr.hpp"
+#include "parser/ambiguous_expr.hpp"
 
 // 6/2(1+2): 四則演算をあらゆる評価順序で計算したとき、結果が何通りあり得るか。
 // 割り算は絶対値の小さい方へ丸め (0 方向切り捨て = C++ の operator/)。

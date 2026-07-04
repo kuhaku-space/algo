@@ -1,6 +1,6 @@
 ---
 title: 曖昧式の全順序評価 (AmbiguousExpr)
-documentation_of: //lib/string/ambiguous_expr.hpp
+documentation_of: //lib/parser/ambiguous_expr.hpp
 ---
 
 二項演算式を「あらゆる評価順序 (全 parenthesization)」で計算し、得られる値の集合を
@@ -15,7 +15,7 @@ documentation_of: //lib/string/ambiguous_expr.hpp
 ## 使い方
 
 ```cpp
-#include "string/ambiguous_expr.hpp"
+#include "parser/ambiguous_expr.hpp"
 
 using ll = long long;
 AmbiguousExpr<ll> e;

@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 // 分子式の重さ: 原子記号 (大文字 or 大文字+小文字) の並びで、単位 (原子 or
 // '(' 式 ')') の直後に乗数 (2..99) を後置できる。連接は重さの和。

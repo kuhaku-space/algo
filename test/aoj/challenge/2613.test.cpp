@@ -3,7 +3,7 @@
 #include <climits>
 #include <iostream>
 #include <string>
-#include "string/parser.hpp"
+#include "parser/parser.hpp"
 
 // Unordered Operators: + - * (すべて左結合) の優先順位を自由に決めてよいとき
 // 数式を最大化する。優先順位は 3 演算子への {0,1,2} 割り当てを全列挙(同値も可)し、
