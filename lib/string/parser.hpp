@@ -47,6 +47,14 @@ struct ExpressionParser {
         binops.push_back({std::move(op), prec, assoc, std::move(f), std::move(guard)});
         return *this;
     }
+    /// @brief 暗黙の連接 (演算子記号なしで項が並ぶ) を登録する (fluent)
+    /// @details 空トークンの二項演算子として扱う。項が続くかどうかを表す
+    ///   @c guard は必須 (無いと停止できず無限ループになる)。@c guard(rest)
+    ///   が @c true のときだけ次の項を連接する。文字列連接・関数適用など。
+    ExpressionParser &concat(int prec, Assoc assoc, binary_fn f, guard_fn guard) {
+        binops.push_back({std::string(), prec, assoc, std::move(f), std::move(guard)});
+        return *this;
+    }
     /// @brief 前置単項演算子を登録する (fluent)
     ExpressionParser &prefix(std::string op, unary_fn f) {
         unops.push_back({std::move(op), std::move(f)});
