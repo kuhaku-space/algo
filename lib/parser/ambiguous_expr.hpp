@@ -6,6 +6,7 @@
 #include <optional>
 #include <set>
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -29,7 +30,8 @@ struct AmbiguousExpr {
 
     /// @brief 式全体をすべての評価順序で評価し、得られる値の集合を返す
     std::set<T> values(std::string_view str) {
-        s = str, pos = 0;
+        owned.assign(str.data(), str.size());  // std::string 末尾の '\0' を番兵に使う
+        s = owned, pos = 0;
         std::set<T> res = parse_sequence();
         skip_space();
         if (pos != s.size()) throw std::runtime_error("AmbiguousExpr: unexpected trailing character");
@@ -38,15 +40,20 @@ struct AmbiguousExpr {
 
   private:
     std::map<char, combine_fn> ops;
-    std::string_view s;
+    std::string owned;   // 入力の実体。std::string は末尾 '\0' を保証するので番兵になる
+    std::string_view s;  // owned 上のビュー (実長。番兵 '\0' は含まない)
     std::size_t pos = 0;
 
+    // 現在位置の文字。番兵により pos == s.size() でも '\0' を安全に返せるので、
+    // 文字走査で pos < s.size() の範囲比較が不要になる (pos は常に s.size() 以下)。
+    char cur() const { return s.data()[pos]; }
+
     void skip_space() {
-        while (pos < s.size() && std::isspace(static_cast<unsigned char>(s[pos]))) ++pos;
+        while (std::isspace(static_cast<unsigned char>(cur()))) ++pos;
     }
     char peek() {
         skip_space();
-        return pos < s.size() ? s[pos] : '\0';
+        return cur();
     }
 
     // オペランド = 非負整数 | '(' 列 ')' 。集合を返す。
@@ -61,7 +68,7 @@ struct AmbiguousExpr {
         skip_space();
         std::size_t start = pos;
         T v = T(0);
-        while (pos < s.size() && std::isdigit(static_cast<unsigned char>(s[pos]))) v = v * T(10) + T(s[pos++] - '0');
+        while (std::isdigit(static_cast<unsigned char>(cur()))) v = v * T(10) + T(s[pos++] - '0');
         if (pos == start) throw std::runtime_error("AmbiguousExpr: expected number");
         return {v};
     }

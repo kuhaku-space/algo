@@ -80,7 +80,8 @@ struct ExpressionParser {
 
     /// @brief 式全体を解析する (末尾に余分な文字が残ればエラー)
     T parse(std::string_view str) {
-        s = str, pos = 0;
+        owned.assign(str.data(), str.size());  // std::string 末尾の '\0' を番兵に使う
+        s = owned, pos = 0;
         T res = parse_expression(0);
         skip_space();
         if (pos != s.size()) throw std::runtime_error("ExpressionParser: unexpected trailing character");
@@ -105,7 +106,7 @@ struct ExpressionParser {
     /// @brief 空白を読み飛ばした現在の文字 (末尾なら @c '\0')
     char peek() {
         skip_space();
-        return pos < s.size() ? s[pos] : '\0';
+        return cur();
     }
     /// @brief 残りの入力
     std::string_view rest() const { return s.substr(pos); }
@@ -125,7 +126,7 @@ struct ExpressionParser {
         skip_space();
         std::size_t start = pos;
         long long res = 0;
-        while (pos < s.size() && std::isdigit(static_cast<unsigned char>(s[pos]))) res = res * 10 + (s[pos++] - '0');
+        while (std::isdigit(static_cast<unsigned char>(cur()))) res = res * 10 + (s[pos++] - '0');
         if (pos == start) throw std::runtime_error("ExpressionParser: expected number");
         return res;
     }
@@ -133,7 +134,7 @@ struct ExpressionParser {
     std::string_view read_identifier() {
         skip_space();
         std::size_t start = pos;
-        while (pos < s.size() && std::isalpha(static_cast<unsigned char>(s[pos]))) ++pos;
+        while (std::isalpha(static_cast<unsigned char>(cur()))) ++pos;
         return s.substr(start, pos - start);
     }
 
@@ -142,8 +143,8 @@ struct ExpressionParser {
         p.skip_space();
         std::size_t start = p.pos;
         T res = T(0);
-        while (p.pos < p.s.size() && std::isdigit(static_cast<unsigned char>(p.s[p.pos]))) {
-            res = res * T(10) + T(p.s[p.pos] - '0');
+        while (std::isdigit(static_cast<unsigned char>(p.cur()))) {
+            res = res * T(10) + T(p.cur() - '0');
             ++p.pos;
         }
         if (p.pos == start) throw std::runtime_error("ExpressionParser: expected number");
@@ -168,11 +169,16 @@ struct ExpressionParser {
     atom_fn atom_reader;
     char lp = '(', rp = ')';
     bool has_group = true;
-    std::string_view s;
+    std::string owned;   // 入力の実体。std::string は末尾 '\0' を保証するので番兵になる
+    std::string_view s;  // owned 上のビュー (実長。番兵 '\0' は含まない)
     std::size_t pos = 0;
 
+    // 現在位置の文字。番兵により pos == s.size() でも '\0' を安全に返せるので、
+    // 文字走査で pos < s.size() の範囲比較が不要になる (pos は常に s.size() 以下)。
+    char cur() const { return s.data()[pos]; }
+
     void skip_space() {
-        while (pos < s.size() && std::isspace(static_cast<unsigned char>(s[pos]))) ++pos;
+        while (std::isspace(static_cast<unsigned char>(cur()))) ++pos;
     }
 
     // 現在位置に一致する二項演算子のうち最長のものを消費せず返す
