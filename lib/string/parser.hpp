@@ -67,7 +67,14 @@ struct ExpressionParser {
     }
     /// @brief グループ化括弧を設定する (fluent)
     ExpressionParser &group(char open, char close) {
-        lp = open, rp = close;
+        lp = open, rp = close, has_group = true;
+        return *this;
+    }
+    /// @brief 組み込みのグループ化括弧を無効化する (fluent)
+    /// @details 括弧を atom 側で自前処理したいとき (例: 分子式 @c "(X)2" の
+    ///   ように閉じ括弧の直後に処理を続けたいとき) に使う。
+    ExpressionParser &no_group() {
+        has_group = false;
         return *this;
     }
 
@@ -160,6 +167,7 @@ struct ExpressionParser {
     std::vector<UnOp> unops;
     atom_fn atom_reader;
     char lp = '(', rp = ')';
+    bool has_group = true;
     std::string_view s;
     std::size_t pos = 0;
 
@@ -195,7 +203,7 @@ struct ExpressionParser {
     }
 
     T parse_atom() {
-        if (peek() == lp) {
+        if (has_group && peek() == lp) {
             ++pos;
             T res = parse_expression(0);
             if (peek() != rp) throw std::runtime_error("ExpressionParser: expected closing bracket");
