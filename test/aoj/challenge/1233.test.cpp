@@ -62,17 +62,16 @@ int main() {
 
     P p;
     // 連接 = 乗算 (次の項が数字・変数・'(' で始まるときだけ継続)
-    p.concat(
-         20, P::Assoc::Left, [](const V &a, const V &b) { return a * b; },
-         [](std::string_view r) {
-             std::size_t i = 0;
-             while (i < r.size() && std::isspace((unsigned char)r[i])) ++i;
-             if (i >= r.size()) return false;
-             char c = r[i];
-             return c == '(' || std::isdigit((unsigned char)c) || (c >= 'a' && c <= 'z');
-         })
-        .binary("+", 10, P::Assoc::Left, [](const V &a, const V &b) { return a + b; })
-        .binary("-", 10, P::Assoc::Left, [](const V &a, const V &b) { return a - b; })
+    p.concat(20, P::Assoc::Left, std::multiplies<V>(),
+             [](std::string_view r) {
+                 std::size_t i = 0;
+                 while (i < r.size() && std::isspace((unsigned char)r[i])) ++i;
+                 if (i >= r.size()) return false;
+                 char c = r[i];
+                 return c == '(' || std::isdigit((unsigned char)c) || (c >= 'a' && c <= 'z');
+             })
+        .binary("+", 10, P::Assoc::Left, std::plus<V>())
+        .binary("-", 10, P::Assoc::Left, std::minus<V>())
         .atom([&vars](P &q) -> V {
             char c = q.peek();
             if (c >= 'a' && c <= 'z') {

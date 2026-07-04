@@ -28,14 +28,13 @@ static P make_parser() {
     P p;
     p.prefix("+", [](const std::string &s) { return shift(s, 1); })
         .prefix("-", [](const std::string &s) { return shift(s, -1); })
-        .concat(
-            10, P::Assoc::Left, [](const std::string &a, const std::string &b) { return a + b; },
-            [](std::string_view r) {
-                std::size_t i = 0;
-                while (i < r.size() && std::isspace(static_cast<unsigned char>(r[i]))) ++i;
-                return i < r.size() &&
-                       (std::isalpha(static_cast<unsigned char>(r[i])) || r[i] == '+' || r[i] == '-' || r[i] == '[');
-            })
+        .concat(10, P::Assoc::Left, std::plus<std::string>(),
+                [](std::string_view r) {
+                    std::size_t i = 0;
+                    while (i < r.size() && std::isspace(static_cast<unsigned char>(r[i]))) ++i;
+                    return i < r.size() && (std::isalpha(static_cast<unsigned char>(r[i])) || r[i] == '+' ||
+                                            r[i] == '-' || r[i] == '[');
+                })
         .atom([](P &q) -> std::string {
             if (q.consume("[")) {
                 std::string in = q.parse_expression(0);

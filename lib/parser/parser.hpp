@@ -229,12 +229,12 @@ template <class T = long long>
 ExpressionParser<T> arithmetic_parser() {
     using P = ExpressionParser<T>;
     P p;
-    p.prefix("-", [](const T &x) { return -x; })
+    p.prefix("-", std::negate<T>())
         .prefix("+", [](const T &x) { return +x; })
-        .binary("+", 10, P::Assoc::Left, [](const T &a, const T &b) { return a + b; })
-        .binary("-", 10, P::Assoc::Left, [](const T &a, const T &b) { return a - b; })
-        .binary("*", 20, P::Assoc::Left, [](const T &a, const T &b) { return a * b; })
-        .binary("/", 20, P::Assoc::Left, [](const T &a, const T &b) { return a / b; })
+        .binary("+", 10, P::Assoc::Left, std::plus<T>())
+        .binary("-", 10, P::Assoc::Left, std::minus<T>())
+        .binary("*", 20, P::Assoc::Left, std::multiplies<T>())
+        .binary("/", 20, P::Assoc::Left, std::divides<T>())
         .atom(P::integer_atom);
     return p;
 }

@@ -27,13 +27,12 @@ int main() {
         if (line == "0") break;
         P p;
         p.no_group()
-            .concat(
-                10, P::Assoc::Left, [](ll x, ll y) { return x + y; },
-                [](std::string_view r) {
-                    std::size_t i = 0;
-                    while (i < r.size() && std::isspace(static_cast<unsigned char>(r[i]))) ++i;
-                    return i < r.size() && (std::isupper(static_cast<unsigned char>(r[i])) || r[i] == '(');
-                })
+            .concat(10, P::Assoc::Left, std::plus<ll>(),
+                    [](std::string_view r) {
+                        std::size_t i = 0;
+                        while (i < r.size() && std::isspace(static_cast<unsigned char>(r[i]))) ++i;
+                        return i < r.size() && (std::isupper(static_cast<unsigned char>(r[i])) || r[i] == '(');
+                    })
             .atom([](P &q) -> ll {
                 // 番兵 '\0' により末尾でも cur() が安全に返るので size チェック不要。
                 ll base;
