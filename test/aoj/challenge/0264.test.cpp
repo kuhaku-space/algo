@@ -3,24 +3,13 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include "math/modint.hpp"
 #include "parser/parser.hpp"
 
 // 有限体電卓: 素数 p の有限体 GF(p) 上で四則演算式を評価する。
-// 除数が p の倍数 (≡0) のときは NG。逆元はフェルマーの小定理で y^(p-2)。
+// 除数が p の倍数 (≡0) のときは NG。逆元は modint (フェルマーの小定理) に委ねる。
 using ll = long long;
-
-static ll power(ll a, ll e, ll m) {
-    ll r = 1;
-    a %= m;
-    while (e) {
-        if (e & 1) r = r * a % m;
-        a = a * a % m;
-        e >>= 1;
-    }
-    return r;
-}
-
-using P = ExpressionParser<ll>;
+using P = ExpressionParser<modint>;
 
 int main() {
     std::string line;
@@ -31,17 +20,18 @@ int main() {
         std::string exp = line.substr(colon + 1), compact;
         for (char ch : exp)
             if (!std::isspace(static_cast<unsigned char>(ch))) compact += ch;
+        modint::set_mod(p);
         P parser;
-        parser.atom([p](P &q) { return P::integer_atom(q) % p; })
-            .binary("+", 10, P::Assoc::Left, [p](ll a, ll b) { return (a + b) % p; })
-            .binary("-", 10, P::Assoc::Left, [p](ll a, ll b) { return ((a - b) % p + p) % p; })
-            .binary("*", 20, P::Assoc::Left, [p](ll a, ll b) { return a * b % p; })
-            .binary("/", 20, P::Assoc::Left, [p](ll a, ll b) -> ll {
-                if (b % p == 0) throw std::runtime_error("division by zero");
-                return a * power(b, p - 2, p) % p;
+        parser.atom(P::integer_atom)
+            .binary("+", 10, P::Assoc::Left, [](const modint &a, const modint &b) { return a + b; })
+            .binary("-", 10, P::Assoc::Left, [](const modint &a, const modint &b) { return a - b; })
+            .binary("*", 20, P::Assoc::Left, [](const modint &a, const modint &b) { return a * b; })
+            .binary("/", 20, P::Assoc::Left, [](const modint &a, const modint &b) {
+                if (b.val() == 0) throw std::runtime_error("division by zero");
+                return a / b;
             });
         try {
-            ll v = parser.parse(compact);
+            modint v = parser.parse(compact);
             std::cout << compact << " = " << v << " (mod " << p << ")\n";
         } catch (...) { std::cout << "NG\n"; }
     }
