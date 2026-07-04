@@ -29,10 +29,22 @@ struct ExpressionParser {
     using binary_fn = std::function<T(const T &, const T &)>;
     using unary_fn = std::function<T(const T &)>;
     using atom_fn = std::function<T(ExpressionParser &)>;
+    /// @brief 二項演算子ガード: トークン直後の残り入力を見て演算子として
+    ///   適用してよいか判定する。閉じ記号と演算子が文字レベルで衝突する
+    ///   文脈依存文法 (例: AOJ 2570 の @c ">>" と @c ">") に使う。
+    using guard_fn = std::function<bool(std::string_view)>;
 
     /// @brief 二項演算子を登録する (fluent)
     ExpressionParser &binary(std::string op, int prec, Assoc assoc, binary_fn f) {
-        binops.push_back({std::move(op), prec, assoc, std::move(f)});
+        binops.push_back({std::move(op), prec, assoc, std::move(f), nullptr});
+        return *this;
+    }
+    /// @brief ガード付き二項演算子を登録する (fluent)
+    /// @details @c guard(after) が @c false のときは、その位置の一致を演算子と
+    ///   みなさない (トークンは消費されず、閉じ記号等として残る)。
+    ///   @c after はトークン直後の残り入力。
+    ExpressionParser &binary(std::string op, int prec, Assoc assoc, binary_fn f, guard_fn guard) {
+        binops.push_back({std::move(op), prec, assoc, std::move(f), std::move(guard)});
         return *this;
     }
     /// @brief 前置単項演算子を登録する (fluent)
@@ -129,6 +141,7 @@ struct ExpressionParser {
         int prec;
         Assoc assoc;
         binary_fn f;
+        guard_fn guard;
     };
     struct UnOp {
         std::string token;
@@ -152,7 +165,9 @@ struct ExpressionParser {
         std::string_view r = s.substr(pos);
         const BinOp *best = nullptr;
         for (const BinOp &op : binops) {
-            if (r.starts_with(op.token) && (!best || op.token.size() > best->token.size())) best = &op;
+            if (!r.starts_with(op.token)) continue;
+            if (op.guard && !op.guard(r.substr(op.token.size()))) continue;
+            if (!best || op.token.size() > best->token.size()) best = &op;
         }
         return best;
     }
