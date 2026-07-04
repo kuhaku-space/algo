@@ -21,9 +21,9 @@ int main() {
                 for (int pc = 0; pc < 3; ++pc) {
                     P p;
                     p.atom(P::integer_atom)
-                        .binary("+", pa, P::Assoc::Left, [](ll a, ll b) { return a + b; })
-                        .binary("-", pb, P::Assoc::Left, [](ll a, ll b) { return a - b; })
-                        .binary("*", pc, P::Assoc::Left, [](ll a, ll b) { return a * b; });
+                        .binary("+", pa, P::Assoc::Left, std::plus<ll>())
+                        .binary("-", pb, P::Assoc::Left, std::minus<ll>())
+                        .binary("*", pc, P::Assoc::Left, std::multiplies<ll>());
                     best = std::max(best, p.parse(s));
                 }
         std::cout << best << '\n';

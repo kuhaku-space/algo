@@ -20,8 +20,8 @@ int main() {
 
     // 左から順: + と * を同一優先順位・左結合にする
     P p;
-    p.binary("+", 10, P::Assoc::Left, [](ll a, ll b) { return a + b; })
-        .binary("*", 10, P::Assoc::Left, [](ll a, ll b) { return a * b; })
+    p.binary("+", 10, P::Assoc::Left, std::plus<ll>())
+        .binary("*", 10, P::Assoc::Left, std::multiplies<ll>())
         .atom(P::integer_atom);
     ll left = p.parse(e);
 

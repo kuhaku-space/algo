@@ -23,9 +23,9 @@ int main() {
         modint::set_mod(p);
         P parser;
         parser.atom(P::integer_atom)
-            .binary("+", 10, P::Assoc::Left, [](const modint &a, const modint &b) { return a + b; })
-            .binary("-", 10, P::Assoc::Left, [](const modint &a, const modint &b) { return a - b; })
-            .binary("*", 20, P::Assoc::Left, [](const modint &a, const modint &b) { return a * b; })
+            .binary("+", 10, P::Assoc::Left, std::plus<modint>())
+            .binary("-", 10, P::Assoc::Left, std::minus<modint>())
+            .binary("*", 20, P::Assoc::Left, std::multiplies<modint>())
             .binary("/", 20, P::Assoc::Left, [](const modint &a, const modint &b) {
                 if (b.val() == 0) throw std::runtime_error("division by zero");
                 return a / b;

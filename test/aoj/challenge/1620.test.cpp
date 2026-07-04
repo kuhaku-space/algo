@@ -48,8 +48,8 @@ int main() {
 
     P p;
     p.prefix("-", [](u16 x) -> u16 { return ~x; })
-        .binary("^", 10, P::Assoc::Left, [](u16 a, u16 b) -> u16 { return a ^ b; })
-        .binary("*", 20, P::Assoc::Left, [](u16 a, u16 b) -> u16 { return a & b; })
+        .binary("^", 10, P::Assoc::Left, std::bit_xor<u16>())
+        .binary("*", 20, P::Assoc::Left, std::bit_and<u16>())
         .atom([&](P &q) -> u16 {
             char c = q.peek();
             q.advance();

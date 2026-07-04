@@ -25,8 +25,8 @@ int main() {
     P p;
     p.prefix("-", [](const Bits &x) { return ~x; })
         .binary("->", 5, P::Assoc::Right, [](const Bits &x, const Bits &y) { return ~x | y; })
-        .binary("+", 10, P::Assoc::Left, [](const Bits &x, const Bits &y) { return x | y; })
-        .binary("*", 20, P::Assoc::Left, [](const Bits &x, const Bits &y) { return x & y; })
+        .binary("+", 10, P::Assoc::Left, std::bit_or<Bits>())
+        .binary("*", 20, P::Assoc::Left, std::bit_and<Bits>())
         .atom([&](P &q) -> Bits {
             char c = q.peek();
             q.advance();
