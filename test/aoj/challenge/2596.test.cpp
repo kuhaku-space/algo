@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2596
+// competitive-verifier: ERROR 0.00000001
 #include <iomanip>
 #include <iostream>
 #include <stdexcept>
