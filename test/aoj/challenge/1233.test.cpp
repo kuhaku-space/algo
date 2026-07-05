@@ -107,6 +107,7 @@ int main() {
     while (std::getline(std::cin, line)) {
         if (line == ".") {
             if (!have_correct) break;  // 最後のブロック後の終端行
+            std::cout << ".\n";        // データセット区切り
             have_correct = false;
             continue;
         }
