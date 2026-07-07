@@ -128,6 +128,21 @@ struct Max {
     }
 };
 
+/// @brief 最大値モノイド（単位元 0 固定）
+/// @details 「何も選ばない」ことを単位元 0 として扱いたい場合に使う（`Max<T>` は単位元が型の最小値）。
+/// @tparam T 要素の型
+template <class T>
+struct MaxZero {
+    using value_type = T;
+    static constexpr T id() noexcept { return T(0); }
+    static constexpr T op(const T &lhs, const T &rhs) noexcept { return std::max(lhs, rhs); }
+
+    template <class U>
+    static constexpr U f(const T &lhs, const U &rhs) noexcept {
+        return std::max(U(lhs), rhs);
+    }
+};
+
 /// @brief 最大公約数モノイド
 /// @details gcd(0, x) = x なので 0 が単位元。
 /// @tparam T 要素の型
