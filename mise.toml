@@ -185,7 +185,7 @@ oj_bundle() {
 }
 oj_compile() {
   # 共通フラグ。デバッグ時は最適化・LTO を外しサニタイザを足す。
-  local opt_args=(-O2 -flto=auto -ftrivial-auto-var-init=zero)
+  local opt_args=(-O2 -ftrivial-auto-var-init=zero)
   if [[ "$usage_debug" == "true" ]]; then
     opt_args=(-O1 -g -fsanitize=address,undefined -D_GLIBCXX_DEBUG)
   fi
@@ -288,7 +288,7 @@ oj_compile() {
     -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\
     -O2 -Wall -Wextra \\
     -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152 \\
-    -flto=auto -ftrivial-auto-var-init=zero -march=native -pthread \\
+    -ftrivial-auto-var-init=zero -march=native -pthread \\
     -std=gnu++23 -Wl,--as-needed -fopenmp
 }
 [[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }

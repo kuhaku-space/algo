@@ -7,7 +7,6 @@ CXXFLAGS = [
     "-fconstexpr-depth=1024",
     "-fconstexpr-loop-limit=524288",
     "-fconstexpr-ops-limit=2097152",
-    "-flto=auto",
     "-march=native",
     "-pthread",
     "-std=gnu++23",
