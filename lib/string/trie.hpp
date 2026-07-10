@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <cassert>
 #include <string>
 #include <vector>
@@ -6,19 +7,19 @@
 /// @brief Trie
 /// @see https://algo-logic.info/trie-tree/
 /// @see https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
-template <int char_size = 96, int base = ' '>
+template <int alphabet_size = 96, int char_offset = ' '>
 struct Trie {
   private:
     struct Node {
-        std::vector<int> next_node;
+        std::array<int, alphabet_size> next_node;
         int count;
         int depth;
-        Node() : next_node(char_size, -1), count(0), depth(0) {}
+        Node() : count(0), depth(0) { next_node.fill(-1); }
     };
 
     static int to_index(char ch) {
-        int c = ch - base;
-        assert(0 <= c && c < char_size);
+        int c = ch - char_offset;
+        assert(0 <= c && c < alphabet_size);
         return c;
     }
 
@@ -36,11 +37,12 @@ struct Trie {
     int add(int node_id, char ch) {
         assert(0 <= node_id && node_id < (int)nodes.size());
         int c = to_index(ch);
-        int &next_id = nodes[node_id].next_node[c];
+        int next_id = nodes[node_id].next_node[c];
         if (next_id == -1) {
             next_id = nodes.size();
             nodes.emplace_back();
             nodes[next_id].depth = nodes[node_id].depth + 1;
+            nodes[node_id].next_node[c] = next_id;
         }
         ++nodes[next_id].count;
         return next_id;
@@ -76,3 +78,11 @@ struct Trie {
   private:
     std::vector<node_type> nodes;
 };
+
+/// @brief 小文字アルファベット（'a'-'z'）用の Trie
+using LowerTrie = Trie<26, 'a'>;
+/// @brief 大文字アルファベット（'A'-'Z'）用の Trie
+using UpperTrie = Trie<26, 'A'>;
+/// @brief 大文字・小文字混在（'A'-'z'）用の Trie
+/// @note 'Z' と 'a' の間の記号（6 文字）も範囲に含むが未使用のまま無害
+using MixedCaseTrie = Trie<58, 'A'>;
