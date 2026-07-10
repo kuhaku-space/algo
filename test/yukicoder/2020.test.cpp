@@ -6,13 +6,13 @@
 #include "fenwick/fenwick_tree.hpp"
 #include "graph/graph.hpp"
 #include "string/trie.hpp"
-#include "tree/hld.hpp"
+#include "tree/euler_tour.hpp"
 
 int main() {
     int n;
     std::cin >> n;
 
-    Trie<26, 'a'> trie;
+    LowerTrie trie;
     std::vector<int> pos(n);
     std::vector<std::vector<int>> init_path(n);
     for (int i = 0; i < n; ++i) {
@@ -43,32 +43,32 @@ int main() {
         const auto node = trie.get_node(v);
         for (int c = 0; c < 26; ++c) {
             int u = node.next_node[c];
-            if (u != -1) g.add_edges(v, u);
+            if (u != -1) g.add_edge(v, u);
         }
     }
-    heavy_light_decomposition hld(g, 0);
+    euler_tour et(g, 0);
 
     fenwick_tree<std::int64_t> bit(m);
-    auto point_add = [&](int v, int x) { bit.add(hld.get(v), x); };
-    auto path_sum = [&](int v) {
-        std::int64_t res = 0;
-        hld.for_each(0, v, [&](int l, int r) { res += bit.sum(l, r); });
-        res -= bit[hld.get(0)];
-        return res;
+    auto mark = [&](int v) {
+        et.query(v, [&](int l, int r) {
+            bit.add(l, 1);
+            if (r < m) bit.add(r, -1);
+        });
     };
+    auto query = [&](int v) { return bit.sum(0, et.left(v) + 1); };
 
     std::vector<int> cur(n);
     for (int i = 0; i < n; ++i) {
-        for (int v : init_path[i]) point_add(v, 1);
+        for (int v : init_path[i]) mark(v);
         cur[i] = init_path[i].empty() ? 0 : init_path[i].back();
     }
 
     for (int i = 0; i < q; ++i) {
         if (qtype[i] == 1) {
-            point_add(qadd[i], 1);
+            mark(qadd[i]);
             cur[qx[i]] = qadd[i];
         } else {
-            std::cout << path_sum(cur[qx[i]]) << '\n';
+            std::cout << query(cur[qx[i]]) << '\n';
         }
     }
     return 0;
