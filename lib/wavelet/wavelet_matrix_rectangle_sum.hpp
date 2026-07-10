@@ -2,6 +2,7 @@
 #include <cassert>
 #include <numeric>
 #include <tuple>
+#include <utility>
 #include <vector>
 #include "internal/internal_bit_vector.hpp"
 
@@ -65,17 +66,25 @@ struct wavelet_matrix_rectangle_sum {
         return cs[0][matrix[0].rank(false, r)] - cs[0][matrix[0].rank(false, l)];
     }
 
-    U rect_sum(int l, int r, T upper) const {
-        U res = 0;
-        for (int level = L - 1; level >= 0; level--) {
-            bool f = (upper >> level) & 1;
-            if (f) res += cs[level][matrix[level].rank(false, r)] - cs[level][matrix[level].rank(false, l)];
-            std::tie(l, r) = succ(f, l, r, level);
-        }
-        return res;
-    }
+    U rect_sum(int l, int r, T upper) const { return rect_count_sum(l, r, upper).second; }
 
     U rect_sum(int l, int r, T lower, T upper) const { return rect_sum(l, r, upper) - rect_sum(l, r, lower); }
+
+    /// count i s.t. (l <= i < r) && (v[i] < upper) と、そのときの u[i] の総和
+    std::pair<int, U> rect_count_sum(int l, int r, T upper) const {
+        int cnt = 0;
+        U sum = U();
+        for (int level = L - 1; level >= 0; level--) {
+            bool f = (upper >> level) & 1;
+            if (f) {
+                int rl = matrix[level].rank(false, l), rr = matrix[level].rank(false, r);
+                cnt += rr - rl;
+                sum += cs[level][rr] - cs[level][rl];
+            }
+            std::tie(l, r) = succ(f, l, r, level);
+        }
+        return {cnt, sum};
+    }
 
   private:
     int length;
