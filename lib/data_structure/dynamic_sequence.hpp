@@ -119,6 +119,36 @@ struct dynamic_sequence {
         return res;
     }
 
+    template <class G>
+    int max_right(G g) {
+        return max_right(0, g);
+    }
+    template <class G>
+    int max_right(int l, G g) {
+        assert(0 <= l && l <= node_t::count(root));
+        assert(g(M::id()));
+        auto [pl, pr] = split(root, l);
+        T sm = M::id();
+        int r = max_right(pr, sm, g);
+        root = merge(pl, pr);
+        return l + r;
+    }
+
+    template <class G>
+    int min_left(G g) {
+        return min_left(node_t::count(root), g);
+    }
+    template <class G>
+    int min_left(int r, G g) {
+        assert(0 <= r && r <= node_t::count(root));
+        assert(g(M::id()));
+        auto [pl, pr] = split(root, r);
+        T sm = M::id();
+        int cnt = min_left(pl, sm, g);
+        root = merge(pl, pr);
+        return r - cnt;
+    }
+
     std::pair<dynamic_sequence, dynamic_sequence> split(int k) {
         auto [pl, pr] = split(root, k);
         return std::make_pair(dynamic_sequence(pl), dynamic_sequence(pr));
@@ -198,6 +228,42 @@ struct dynamic_sequence {
             t->ch[1] = erase(t->ch[1], k - c - 1);
             return update(t);
         }
+    }
+
+    template <class G>
+    int max_right(node_ptr t, T &sm, G g) {
+        if (!t) return 0;
+        push(t);
+        T nxt = M::op(sm, node_t::composition(t));
+        if (g(nxt)) {
+            sm = nxt;
+            return node_t::count(t);
+        }
+        int res = max_right(t->ch[0], sm, g);
+        if (res != node_t::count(t->ch[0])) return res;
+        T nxt2 = M::op(sm, t->val);
+        if (!g(nxt2)) return res;
+        sm = nxt2;
+        ++res;
+        return res + max_right(t->ch[1], sm, g);
+    }
+
+    template <class G>
+    int min_left(node_ptr t, T &sm, G g) {
+        if (!t) return 0;
+        push(t);
+        T nxt = M::op(node_t::composition(t), sm);
+        if (g(nxt)) {
+            sm = nxt;
+            return node_t::count(t);
+        }
+        int res = min_left(t->ch[1], sm, g);
+        if (res != node_t::count(t->ch[1])) return res;
+        T nxt2 = M::op(t->val, sm);
+        if (!g(nxt2)) return res;
+        sm = nxt2;
+        ++res;
+        return res + min_left(t->ch[0], sm, g);
     }
 
     T prod(node_ptr t, int r) const {
