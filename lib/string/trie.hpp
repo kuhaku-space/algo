@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <cassert>
 #include <string>
 #include <vector>
@@ -10,10 +11,10 @@ template <int alphabet_size = 96, int char_offset = ' '>
 struct Trie {
   private:
     struct Node {
-        std::vector<int> next_node;
+        std::array<int, alphabet_size> next_node;
         int count;
         int depth;
-        Node() : next_node(alphabet_size, -1), count(0), depth(0) {}
+        Node() : count(0), depth(0) { next_node.fill(-1); }
     };
 
     static int to_index(char ch) {
@@ -36,11 +37,12 @@ struct Trie {
     int add(int node_id, char ch) {
         assert(0 <= node_id && node_id < (int)nodes.size());
         int c = to_index(ch);
-        int &next_id = nodes[node_id].next_node[c];
+        int next_id = nodes[node_id].next_node[c];
         if (next_id == -1) {
             next_id = nodes.size();
             nodes.emplace_back();
             nodes[next_id].depth = nodes[node_id].depth + 1;
+            nodes[node_id].next_node[c] = next_id;
         }
         ++nodes[next_id].count;
         return next_id;
