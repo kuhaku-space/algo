@@ -1,9 +1,8 @@
-// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum
 #include <iostream>
 #include <vector>
-#include "graph/graph.hpp"
 #include "math/modint.hpp"
-#include "tree/static_top_tree.hpp"
+#include "tree/dynamic_top_tree.hpp"
 
 using Mint = modint998;
 
@@ -55,56 +54,33 @@ int main() {
 
     std::vector<int> U(n - 1), V(n - 1);
     std::vector<Mint> b(n - 1), c(n - 1);
-    list_graph<int> orig_g(n);
-    for (int i = 0; i < n - 1; ++i) {
-        std::cin >> U[i] >> V[i] >> b[i] >> c[i];
-        orig_g.add_edges(U[i], V[i], i);
-    }
+    for (int i = 0; i < n - 1; ++i) std::cin >> U[i] >> V[i] >> b[i] >> c[i];
 
-    std::vector<std::vector<int>> g(2 * n - 1);
-    std::vector<int> q_bfs;
-    q_bfs.push_back(0);
-    std::vector<bool> vis(n, false);
-    vis[0] = true;
-    int head = 0;
-    while (head < (int)q_bfs.size()) {
-        int u = q_bfs[head++];
-        for (auto &e : orig_g[u]) {
-            int v = e.to();
-            int idx = e.weight();
-            if (!vis[v]) {
-                vis[v] = true;
-                q_bfs.push_back(v);
-                g[u].push_back(n + idx);
-                g[n + idx].push_back(u);
-                g[n + idx].push_back(v);
-                g[v].push_back(n + idx);
-            }
-        }
-    }
-
-    static_top_tree<std::vector<std::vector<int>>> stt(g, 0);
     DP dp_obj(n, a, b, c);
-    static_top_tree_dp<std::vector<std::vector<int>>, DP> stt_dp(stt, dp_obj);
+    DynamicTopTree<DP> dtt(2 * n - 1, dp_obj);
+    for (int i = 0; i < n - 1; ++i) {
+        dtt.link(n + i, U[i]);
+        dtt.link(n + i, V[i]);
+    }
 
     for (int i = 0; i < q; ++i) {
         int type;
         std::cin >> type;
         if (type == 0) {
-            int w;
+            int w, r;
             long long x;
-            std::cin >> w >> x;
+            std::cin >> w >> x >> r;
             a[w] = x;
-            stt_dp.update(w);
-            std::cout << stt_dp.get().S << "\n";
+            dtt.update(w);
+            std::cout << dtt.query(r).S << "\n";
         } else {
-            int idx;
+            int idx, r;
             long long y, z;
-            std::cin >> idx >> y >> z;
+            std::cin >> idx >> y >> z >> r;
             b[idx] = y;
             c[idx] = z;
-            stt_dp.update(n + idx);
-            std::cout << stt_dp.get().S << "\n";
+            dtt.update(n + idx);
+            std::cout << dtt.query(r).S << "\n";
         }
     }
 
