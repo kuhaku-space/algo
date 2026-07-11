@@ -29,6 +29,20 @@ struct ordered_set {
             count = node_t::get_count(left) + node_t::get_count(right) + 1;
         }
         constexpr bool is_leaf() const { return left == nullptr && right == nullptr; }
+
+        // erase したノードは再利用しないため、確保のみ行うバンプアロケータで malloc 呼び出し回数を減らす
+        static constexpr std::size_t chunk_size = 1 << 16;
+        static inline std::vector<node_t *> chunks;
+        static inline std::size_t chunk_pos = 0;
+
+        static void *operator new(std::size_t) {
+            if (chunks.empty() || chunk_pos == chunk_size) {
+                chunks.push_back(static_cast<node_t *>(::operator new(chunk_size * sizeof(node_t))));
+                chunk_pos = 0;
+            }
+            return chunks.back() + (chunk_pos++);
+        }
+        static void operator delete(void *) noexcept {}
     };
 
   public:
