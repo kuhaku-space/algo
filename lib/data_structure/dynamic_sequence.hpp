@@ -98,13 +98,10 @@ struct DynamicSequence {
     void pop_front() { root = erase(root, 0); }
     void pop_back() { root = erase(root, Node::get_size(root) - 1); }
 
-    T prod(int r) const { return prod(root, r); }
-    T prod(int l, int r) {
+    T prod(int r) const { return prod(root, 0, r); }
+    T prod(int l, int r) const {
         assert(0 <= l && l <= r && r <= Node::get_size(root));
-        auto [pl, pr] = split(root, l);
-        T res = prod(pr, r - l);
-        root = merge(pl, pr);
-        return res;
+        return prod(root, l, r);
     }
 
     void reverse(int l, int r) {
@@ -135,11 +132,8 @@ struct DynamicSequence {
     int max_right(int l, G g) {
         assert(0 <= l && l <= Node::get_size(root));
         assert(g(M::id()));
-        auto [pl, pr] = split(root, l);
         T sm = M::id();
-        int r = max_right(pr, sm, g);
-        root = merge(pl, pr);
-        return l + r;
+        return l + max_right(root, l, sm, g);
     }
 
     template <class G>
@@ -150,11 +144,8 @@ struct DynamicSequence {
     int min_left(int r, G g) {
         assert(0 <= r && r <= Node::get_size(root));
         assert(g(M::id()));
-        auto [pl, pr] = split(root, r);
         T sm = M::id();
-        int cnt = min_left(pl, sm, g);
-        root = merge(pl, pr);
-        return r - cnt;
+        return r - min_left(root, r, sm, g);
     }
 
     std::pair<DynamicSequence, DynamicSequence> split(int k) {
@@ -309,6 +300,30 @@ struct DynamicSequence {
         return res + max_right(node->children[1], sm, g);
     }
 
+    // node の先頭 l 要素を読み飛ばしたうえで、そこから max_right を続ける。木を再構成しない読み取り専用の走査。
+    template <class G>
+    static int max_right(node_ptr node, int l, T &sm, G g) {
+        if (!node || l >= node->size) return 0;
+        if (l <= 0) return max_right(node, sm, g);
+        push(node);
+        int left_size = Node::get_size(node->children[0]);
+        if (l < left_size) {
+            int res = max_right(node->children[0], l, sm, g);
+            if (res != left_size - l) return res;
+            T nxt2 = M::op(sm, node->value);
+            if (!g(nxt2)) return res;
+            sm = nxt2;
+            return res + 1 + max_right(node->children[1], sm, g);
+        } else if (l == left_size) {
+            T nxt2 = M::op(sm, node->value);
+            if (!g(nxt2)) return 0;
+            sm = nxt2;
+            return 1 + max_right(node->children[1], sm, g);
+        } else {
+            return max_right(node->children[1], l - left_size - 1, sm, g);
+        }
+    }
+
     template <class G>
     static int min_left(node_ptr node, T &sm, G g) {
         if (!node) return 0;
@@ -327,26 +342,40 @@ struct DynamicSequence {
         return res + min_left(node->children[0], sm, g);
     }
 
-    static T prod(node_ptr node, int r) {
-        assert(0 <= r && r <= Node::get_size(node));
-        T res = M::id();
-        while (r) {
-            push(node);
-            if (r == Node::get_size(node)) {
-                res = M::op(res, Node::get_product(node));
-                break;
-            }
-            int left_size = Node::get_size(node->children[0]);
-            if (r < left_size) {
-                node = node->children[0];
-                continue;
-            }
-            res = M::op(res, Node::get_product(node->children[0]));
-            r -= left_size;
-            if (r) res = M::op(res, node->value), --r;
-
-            node = node->children[1];
+    // node の先頭 cap 要素だけを対象に min_left を行う (cap 以降は無視)。木を再構成しない読み取り専用の走査。
+    template <class G>
+    static int min_left(node_ptr node, int cap, T &sm, G g) {
+        if (!node || cap <= 0) return 0;
+        if (cap >= node->size) return min_left(node, sm, g);
+        push(node);
+        int left_size = Node::get_size(node->children[0]);
+        if (cap <= left_size) {
+            return min_left(node->children[0], cap, sm, g);
+        } else if (cap == left_size + 1) {
+            T nxt = M::op(node->value, sm);
+            if (!g(nxt)) return 0;
+            sm = nxt;
+            return 1 + min_left(node->children[0], sm, g);
+        } else {
+            int res = min_left(node->children[1], cap - left_size - 1, sm, g);
+            if (res != cap - left_size - 1) return res;
+            T nxt = M::op(node->value, sm);
+            if (!g(nxt)) return res;
+            sm = nxt;
+            return res + 1 + min_left(node->children[0], sm, g);
         }
+    }
+
+    // node を根とする部分木のうち [l, r) にあたる範囲の積。木を一切再構成しない読み取り専用の走査。
+    static T prod(node_ptr node, int l, int r) {
+        if (!node || r <= 0 || l >= node->size) return M::id();
+        if (l <= 0 && node->size <= r) return node->product;
+        push(node);
+        int left_size = Node::get_size(node->children[0]);
+        T res = M::id();
+        if (l < left_size) res = prod(node->children[0], l, r);
+        if (l <= left_size && left_size < r) res = M::op(res, node->value);
+        if (r > left_size + 1) res = M::op(res, prod(node->children[1], l - left_size - 1, r - left_size - 1));
         return res;
     }
 };
