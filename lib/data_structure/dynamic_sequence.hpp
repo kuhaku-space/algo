@@ -83,7 +83,11 @@ struct DynamicSequence {
         for (auto anc : nodes) update(anc);
     }
 
-    void insert(int k, T val) { root = insert(root, k, val); }
+    void insert(int k, T val) { root = insert(root, k, new Node(std::move(val))); }
+    template <class... Args>
+    void emplace(int k, Args &&...args) {
+        root = insert(root, k, new Node(T(std::forward<Args>(args)...)));
+    }
     void push_front(const T &val) { root = merge(new Node(val), root); }
     void push_front(T &&val) { root = merge(new Node(std::move(val)), root); }
     void push_back(const T &val) { root = merge(root, new Node(val)); }
@@ -268,12 +272,12 @@ struct DynamicSequence {
         }
     }
 
-    static node_ptr insert(node_ptr node, int k, T val) {
-        if (!node) return new Node(val);
+    static node_ptr insert(node_ptr node, int k, node_ptr leaf) {
+        if (!node) return leaf;
         push(node);
         int left_size = Node::get_size(node->children[0]);
-        if (k <= left_size) node->children[0] = insert(node->children[0], k, val);
-        else node->children[1] = insert(node->children[1], k - left_size - 1, val);
+        if (k <= left_size) node->children[0] = insert(node->children[0], k, leaf);
+        else node->children[1] = insert(node->children[1], k - left_size - 1, leaf);
         return rebalance(update(node));
     }
 
