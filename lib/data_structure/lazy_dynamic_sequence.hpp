@@ -7,9 +7,11 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
-/// @brief 遅延伝播動的配列（AVL 木、反転可能）
-/// @details split/merge は join-based framework（split_last + join）で構成し、AVL の高さ制約により
-///          各操作 O(log n) worst-case を保証する。
+/// @brief 遅延伝播動的配列（スプレー木、反転可能）
+/// @details 親ポインタを持つ反復版 splay で根に運んだノードを起点に split/merge を構成する
+///          （amortized O(log n)）。全ての操作（読み取り専用のクエリも含む）で対象位置を
+///          根まで splay する。AVL 版（join-based framework）と比較し、reverse/apply のような
+///          split して戻す操作の再結合コストが軽いためこちらを採用している。
 /// @tparam S データのモノイド
 /// @tparam F 作用素モノイド（op が作用素の合成、f が値への作用）
 template <class S, class F>
@@ -23,20 +25,20 @@ struct LazyDynamicSequence {
         using pointer = Node *;
 
         static int get_size(pointer node) { return !node ? 0 : node->size; }
-        static int get_height(pointer node) { return !node ? 0 : node->height; }
         static T get_product(pointer node) { return !node ? S::id() : node->product; }
 
         Node(const T &v)
-            : value(v), product(v), lazy(F::id()), children{nullptr, nullptr}, size(1), height(1), reversed(),
+            : value(v), product(v), lazy(F::id()), children{nullptr, nullptr}, parent(nullptr), size(1), reversed(),
               has_lazy() {}
         Node(T &&v)
-            : value(std::move(v)), product(value), lazy(F::id()), children{nullptr, nullptr}, size(1), height(1),
+            : value(std::move(v)), product(value), lazy(F::id()), children{nullptr, nullptr}, parent(nullptr), size(1),
               reversed(), has_lazy() {}
 
         T value, product;
         U lazy;
         pointer children[2];
-        int size, height;
+        pointer parent;
+        int size;
         bool reversed;
         bool has_lazy;
 
@@ -65,32 +67,15 @@ struct LazyDynamicSequence {
 
     T get(int k) {
         assert(k < Node::get_size(root));
-        node_ptr node = root;
-        while (true) {
-            push(node);
-            int left_size = Node::get_size(node->children[0]);
-            if (left_size == k) break;
-            if (k < left_size) node = node->children[0];
-            else node = node->children[1], k -= left_size + 1;
-        }
-        return node->value;
+        root = access(root, k);
+        return root->value;
     }
 
     void set(int k, T val) {
         assert(k < Node::get_size(root));
-        node_ptr node = root;
-        std::vector<node_ptr> nodes;
-        while (true) {
-            push(node);
-            nodes.emplace_back(node);
-            int left_size = Node::get_size(node->children[0]);
-            if (left_size == k) break;
-            if (k < left_size) node = node->children[0];
-            else node = node->children[1], k -= left_size + 1;
-        }
-        node->value = val;
-        std::reverse(nodes.begin(), nodes.end());
-        for (auto anc : nodes) update(anc);
+        root = access(root, k);
+        root->value = val;
+        update(root);
     }
 
     void insert(int k, const T &val) { root = insert(root, k, new Node(val)); }
@@ -104,33 +89,37 @@ struct LazyDynamicSequence {
     void push_back(const T &val) { root = merge(root, new Node(val)); }
     void push_back(T &&val) { root = merge(root, new Node(std::move(val))); }
 
-    void erase(int k) { root = erase(root, k); }
-    void pop_front() { root = erase(root, 0); }
-    void pop_back() { root = erase(root, Node::get_size(root) - 1); }
+    void erase(int k) {
+        assert(k < Node::get_size(root));
+        auto [erased, rest] = erase(root, k);
+        (void)erased;
+        root = rest;
+    }
+    void pop_front() { erase(0); }
+    void pop_back() { erase(Node::get_size(root) - 1); }
 
-    T prod(int r) const { return prod(root, 0, r); }
-    T prod(int l, int r) const {
+    T prod(int l, int r) {
         assert(0 <= l && l <= r && r <= Node::get_size(root));
-        return prod(root, l, r);
+        if (l == r) return S::id();
+        auto [a, b, c] = split3(root, l, r);
+        T res = Node::get_product(b);
+        root = merge3(a, b, c);
+        return res;
     }
 
     void reverse(int l, int r) {
-        auto [pl, pr] = split(root, r);
-        auto [ql, qr] = split(pl, l);
-        if (qr) qr->reversed ^= true;
-        root = merge(ql, qr);
-        root = merge(root, pr);
+        auto [a, b, c] = split3(root, l, r);
+        if (b) b->reversed ^= true;
+        root = merge3(a, b, c);
     }
 
     void apply(int p, U f) { apply(p, p + 1, f); }
     void apply(int l, int r, U f) {
         assert(0 <= l && l <= r && r <= Node::get_size(root));
         if (l == r) return;
-        auto [pl, pr] = split(root, r);
-        auto [ql, qr] = split(pl, l);
-        all_apply(qr, f);
-        root = merge(ql, qr);
-        root = merge(root, pr);
+        auto [a, b, c] = split3(root, l, r);
+        all_apply(b, f);
+        root = merge3(a, b, c);
     }
 
     int lower_bound(T key) {
@@ -153,8 +142,11 @@ struct LazyDynamicSequence {
     int max_right(int l, G g) {
         assert(0 <= l && l <= Node::get_size(root));
         assert(g(S::id()));
+        auto [pl, pr] = split(root, l);
         T sm = S::id();
-        return l + max_right(root, l, sm, g);
+        int r = max_right(pr, sm, g);
+        root = merge(pl, pr);
+        return l + r;
     }
 
     template <class G>
@@ -165,8 +157,11 @@ struct LazyDynamicSequence {
     int min_left(int r, G g) {
         assert(0 <= r && r <= Node::get_size(root));
         assert(g(S::id()));
+        auto [pl, pr] = split(root, r);
         T sm = S::id();
-        return r - min_left(root, r, sm, g);
+        int cnt = min_left(pl, sm, g);
+        root = merge(pl, pr);
+        return r - cnt;
     }
 
     std::pair<LazyDynamicSequence, LazyDynamicSequence> split(int k) {
@@ -174,9 +169,8 @@ struct LazyDynamicSequence {
         return std::make_pair(LazyDynamicSequence(pl), LazyDynamicSequence(pr));
     }
     std::tuple<LazyDynamicSequence, LazyDynamicSequence, LazyDynamicSequence> split(int l, int r) {
-        auto [pl, pr] = split(root, r);
-        auto [ql, qr] = split(pl, l);
-        return std::make_tuple(LazyDynamicSequence(ql), LazyDynamicSequence(qr), LazyDynamicSequence(pr));
+        auto [a, b, c] = split3(root, l, r);
+        return std::make_tuple(LazyDynamicSequence(a), LazyDynamicSequence(b), LazyDynamicSequence(c));
     }
 
     void merge_left(LazyDynamicSequence lhs) { root = merge(lhs.root, root); }
@@ -208,114 +202,187 @@ struct LazyDynamicSequence {
         }
     }
 
-    // 呼び出し元が既に push(node) 済みであることが前提（node 自身の reversed/lazy は解決済み）
     static node_ptr update(node_ptr node) {
         node->size = Node::get_size(node->children[0]) + Node::get_size(node->children[1]) + 1;
-        node->height = std::max(Node::get_height(node->children[0]), Node::get_height(node->children[1])) + 1;
         node->product =
             S::op(S::op(Node::get_product(node->children[0]), node->value), Node::get_product(node->children[1]));
         return node;
     }
 
-    static int get_balance_factor(node_ptr node) {
-        push(node);
-        return Node::get_height(node->children[0]) - Node::get_height(node->children[1]);
+    // p の dir 側の子を c にする（親ポインタも更新）
+    static void set_child(node_ptr p, node_ptr c, int dir) {
+        push(p);
+        p->children[dir] = c;
+        if (c) c->parent = p;
+        update(p);
     }
-
-    // dir = 0: 右回転 (左の子を根に), dir = 1: 左回転 (右の子を根に)
-    // rebalance からのみ呼ばれ、node は get_balance_factor により push 済みが前提
-    static node_ptr rotate(node_ptr node, int dir) {
-        node_ptr pivot = node->children[dir];
-        push(pivot);
-        node->children[dir] = pivot->children[dir ^ 1];
-        pivot->children[dir ^ 1] = node;
-        update(node);
-        return update(pivot);
-    }
-
-    // node は呼び出し元で push 済みが前提（get_balance_factor と違い push しない）
-    static node_ptr rebalance(node_ptr node) {
-        if (!node) return node;
-        int bf = Node::get_height(node->children[0]) - Node::get_height(node->children[1]);
-        if (bf == 2) {
-            if (get_balance_factor(node->children[0]) < 0) node->children[0] = rotate(node->children[0], 1);
-            return rotate(node, 0);
-        } else if (bf == -2) {
-            if (get_balance_factor(node->children[1]) > 0) node->children[1] = rotate(node->children[1], 0);
-            return rotate(node, 1);
+    static void cut_child(node_ptr p, int dir) {
+        push(p);
+        if (p->children[dir]) {
+            p->children[dir]->parent = nullptr;
+            p->children[dir] = nullptr;
+            update(p);
         }
+    }
+
+    // v は p の左の子。v を1段だけ昇格させる（右回転）。
+    static void zig(node_ptr p, node_ptr v) {
+        if ((p->children[0] = v->children[1]) != nullptr) p->children[0]->parent = p;
+        update(p);
+        v->children[1] = p;
+        p->parent = v;
+        update(v);
+    }
+    // v は p の右の子。v を1段だけ昇格させる（左回転）。
+    static void zag(node_ptr p, node_ptr v) {
+        if ((p->children[1] = v->children[0]) != nullptr) p->children[1]->parent = p;
+        update(p);
+        v->children[0] = p;
+        p->parent = v;
+        update(v);
+    }
+    // q -> p -> v が左-左（zig-zig）: 同方向に2回回転
+    static void zig_zig(node_ptr q, node_ptr p, node_ptr v) {
+        if ((q->children[0] = p->children[1]) != nullptr) q->children[0]->parent = q;
+        update(q);
+        p->children[1] = q;
+        q->parent = p;
+        zig(p, v);
+    }
+    // q -> p -> v が左-右（zig-zag）: 逆方向に2回回転
+    static void zig_zag(node_ptr q, node_ptr p, node_ptr v) {
+        if ((p->children[1] = v->children[0]) != nullptr) p->children[1]->parent = p;
+        update(p);
+        if ((q->children[0] = v->children[1]) != nullptr) q->children[0]->parent = q;
+        update(q);
+        v->children[0] = p;
+        v->children[1] = q;
+        p->parent = q->parent = v;
+        update(v);
+    }
+    // q -> p -> v が右-右（zag-zag）
+    static void zag_zag(node_ptr q, node_ptr p, node_ptr v) {
+        if ((q->children[1] = p->children[0]) != nullptr) q->children[1]->parent = q;
+        update(q);
+        p->children[0] = q;
+        q->parent = p;
+        zag(p, v);
+    }
+    // q -> p -> v が右-左（zag-zig）
+    static void zag_zig(node_ptr q, node_ptr p, node_ptr v) {
+        if ((p->children[0] = v->children[1]) != nullptr) p->children[0]->parent = p;
+        update(p);
+        if ((q->children[1] = v->children[0]) != nullptr) q->children[1]->parent = q;
+        update(q);
+        v->children[1] = p;
+        v->children[0] = q;
+        p->parent = q->parent = v;
+        update(v);
+    }
+
+    // v を根まで splay する（zig-zig を省略すると特定の入力列で木が退化し O(n) per query に
+    // なる既知の落とし穴があるため、zig-zig と zig-zag を区別して回転する）。
+    static void splay(node_ptr v) {
+        for (node_ptr p = v->parent, u = v; p;) {
+            if (!p->parent) {
+                push(p), push(v);
+                if (p->children[0] == u) zig(p, v);
+                else zag(p, v);
+                break;
+            } else {
+                node_ptr q = p->parent, r = q->parent;
+                push(q), push(p), push(v);
+                if (q->children[0] == p) {
+                    if (p->children[0] == u) zig_zig(q, p, v);
+                    else zig_zag(q, p, v);
+                } else {
+                    if (p->children[1] == u) zag_zag(q, p, v);
+                    else zag_zig(q, p, v);
+                }
+                p = r, u = q;
+            }
+        }
+        v->parent = nullptr;
+    }
+
+    // node を根とする部分木のうち位置 k (0-indexed) にあたるノードを見つけて根まで splay する。
+    static node_ptr access(node_ptr node, int k) {
+        node_ptr v = node;
+        while (true) {
+            push(v);
+            int left_size = Node::get_size(v->children[0]);
+            if (k == left_size) break;
+            if (k < left_size) v = v->children[0];
+            else v = v->children[1], k -= left_size + 1;
+        }
+        splay(v);
+        return v;
+    }
+
+    // 位置 k で分割する。位置 k のノードを根まで splay し、その左部分木を切り離すだけで済む。
+    // (k == 0 でも実際に位置 0 のノードへ access する。split3 が「戻り値の第2要素は特定の1
+    //  ノードであり、その右部分木がそのまま次の境界になる」という前提に依拠しているため。)
+    static std::pair<node_ptr, node_ptr> split(node_ptr node, int k) {
+        if (!node) return {nullptr, nullptr};
+        if (k >= node->size) return {node, nullptr};
+        node = access(node, k);
+        node_ptr left = node->children[0];
+        cut_child(node, 0);
+        return {left, node};
+    }
+
+    // [0, l) と [l, r) と [r, n) の3分割
+    static std::tuple<node_ptr, node_ptr, node_ptr> split3(node_ptr node, int l, int r) {
+        auto [ab, c] = split(node, r);
+        if (l == 0) return {nullptr, ab, c};
+        auto [a, b] = split(ab, l - 1);
+        node_ptr rest = b->children[1];
+        cut_child(b, 1);
+        set_child(b, a, 0);
+        return {b, rest, c};
+    }
+
+    // l の最右ノードを根まで splay して右の子を空にし、r を繋ぐ。
+    static node_ptr merge(node_ptr l, node_ptr r) {
+        if (!l) return r;
+        if (!r) return l;
+        node_ptr node = l;
+        while (true) {
+            push(node);
+            if (!node->children[1]) break;
+            node = node->children[1];
+        }
+        splay(node);
+        set_child(node, r, 1);
         return node;
     }
 
-    // mid を根、l と r をその子として結合する (join-based framework)
-    static node_ptr join(node_ptr l, node_ptr mid, node_ptr r) {
-        if (Node::get_height(l) > Node::get_height(r) + 1) {
-            push(l);
-            l->children[1] = join(l->children[1], mid, r);
-            return rebalance(update(l));
-        }
-        if (Node::get_height(r) > Node::get_height(l) + 1) {
-            push(r);
-            r->children[0] = join(l, mid, r->children[0]);
-            return rebalance(update(r));
-        }
-        mid->children[0] = l;
-        mid->children[1] = r;
-        return update(mid);
-    }
-
-    // node の最右ノードを切り離し {残りの木, 切り離したノード} を返す
-    static std::pair<node_ptr, node_ptr> split_last(node_ptr node) {
-        push(node);
-        if (!node->children[1]) {
-            node_ptr rest = node->children[0];
-            node->children[0] = nullptr;
-            return {rest, update(node)};
-        }
-        auto [rest, last] = split_last(node->children[1]);
-        node->children[1] = rest;
-        return {rebalance(update(node)), last};
-    }
-
-    static node_ptr merge(node_ptr l, node_ptr r) {
-        if (!l || !r) return !l ? r : l;
-        auto [rest, mid] = split_last(l);
-        return join(rest, mid, r);
-    }
-
-    static std::pair<node_ptr, node_ptr> split(node_ptr node, int k) {
-        if (!node) return std::make_pair<node_ptr, node_ptr>(nullptr, nullptr);
-        push(node);
-        int left_size = Node::get_size(node->children[0]);
-        if (k <= left_size) {
-            node_ptr old_right = node->children[1];
-            auto [sub_l, sub_r] = split(node->children[0], k);
-            node_ptr merged_r = join(sub_r, node, old_right);
-            return std::make_pair(sub_l, merged_r);
-        } else {
-            node_ptr old_left = node->children[0];
-            auto [sub_l, sub_r] = split(node->children[1], k - left_size - 1);
-            node_ptr merged_l = join(old_left, node, sub_l);
-            return std::make_pair(merged_l, sub_r);
-        }
+    // split3 で得た {a, b, c} を戻す (a は右の子がない前提、c は左の子がない前提。
+    // split3 の構成上、a は必ず cut_child で右を切った直後のノード、c は split() の
+    // 戻り値でこちらも必ず左を切ってあるため、直接繋いでよい)
+    static node_ptr merge3(node_ptr a, node_ptr b, node_ptr c) {
+        if (a) set_child(a, b, 1);
+        else a = b;
+        if (c) set_child(c, a, 0);
+        else c = a;
+        return c;
     }
 
     static node_ptr insert(node_ptr node, int k, node_ptr leaf) {
-        if (!node) return leaf;
-        push(node);
-        int left_size = Node::get_size(node->children[0]);
-        if (k <= left_size) node->children[0] = insert(node->children[0], k, leaf);
-        else node->children[1] = insert(node->children[1], k - left_size - 1, leaf);
-        return rebalance(update(node));
+        auto [l, r] = split(node, k);
+        set_child(leaf, l, 0);
+        return merge(leaf, r);
     }
 
-    static node_ptr erase(node_ptr node, int k) {
-        push(node);
-        int left_size = Node::get_size(node->children[0]);
-        if (k == left_size) return merge(node->children[0], node->children[1]);
-        if (k < left_size) node->children[0] = erase(node->children[0], k);
-        else node->children[1] = erase(node->children[1], k - left_size - 1);
-        return rebalance(update(node));
+    // {切り離したノード, 残りの木} を返す
+    static std::pair<node_ptr, node_ptr> erase(node_ptr node, int k) {
+        node = access(node, k);
+        node_ptr l = node->children[0];
+        node_ptr r = node->children[1];
+        node->children[0] = node->children[1] = nullptr;
+        if (l) l->parent = nullptr;
+        if (r) r->parent = nullptr;
+        return {node, merge(l, r)};
     }
 
     template <class G>
@@ -336,30 +403,6 @@ struct LazyDynamicSequence {
         return res + max_right(node->children[1], sm, g);
     }
 
-    // node の先頭 l 要素を読み飛ばしたうえで、そこから max_right を続ける。木を再構成しない読み取り専用の走査。
-    template <class G>
-    static int max_right(node_ptr node, int l, T &sm, G g) {
-        if (!node || l >= node->size) return 0;
-        if (l <= 0) return max_right(node, sm, g);
-        push(node);
-        int left_size = Node::get_size(node->children[0]);
-        if (l < left_size) {
-            int res = max_right(node->children[0], l, sm, g);
-            if (res != left_size - l) return res;
-            T nxt2 = S::op(sm, node->value);
-            if (!g(nxt2)) return res;
-            sm = nxt2;
-            return res + 1 + max_right(node->children[1], sm, g);
-        } else if (l == left_size) {
-            T nxt2 = S::op(sm, node->value);
-            if (!g(nxt2)) return 0;
-            sm = nxt2;
-            return 1 + max_right(node->children[1], sm, g);
-        } else {
-            return max_right(node->children[1], l - left_size - 1, sm, g);
-        }
-    }
-
     template <class G>
     static int min_left(node_ptr node, T &sm, G g) {
         if (!node) return 0;
@@ -376,42 +419,5 @@ struct LazyDynamicSequence {
         sm = nxt2;
         ++res;
         return res + min_left(node->children[0], sm, g);
-    }
-
-    // node の先頭 cap 要素だけを対象に min_left を行う (cap 以降は無視)。木を再構成しない読み取り専用の走査。
-    template <class G>
-    static int min_left(node_ptr node, int cap, T &sm, G g) {
-        if (!node || cap <= 0) return 0;
-        if (cap >= node->size) return min_left(node, sm, g);
-        push(node);
-        int left_size = Node::get_size(node->children[0]);
-        if (cap <= left_size) {
-            return min_left(node->children[0], cap, sm, g);
-        } else if (cap == left_size + 1) {
-            T nxt = S::op(node->value, sm);
-            if (!g(nxt)) return 0;
-            sm = nxt;
-            return 1 + min_left(node->children[0], sm, g);
-        } else {
-            int res = min_left(node->children[1], cap - left_size - 1, sm, g);
-            if (res != cap - left_size - 1) return res;
-            T nxt = S::op(node->value, sm);
-            if (!g(nxt)) return res;
-            sm = nxt;
-            return res + 1 + min_left(node->children[0], sm, g);
-        }
-    }
-
-    // node を根とする部分木のうち [l, r) にあたる範囲の積。木を一切再構成しない読み取り専用の走査。
-    static T prod(node_ptr node, int l, int r) {
-        if (!node || r <= 0 || l >= node->size) return S::id();
-        if (l <= 0 && node->size <= r) return node->product;
-        push(node);
-        int left_size = Node::get_size(node->children[0]);
-        T res = S::id();
-        if (l < left_size) res = prod(node->children[0], l, r);
-        if (l <= left_size && left_size < r) res = S::op(res, node->value);
-        if (r > left_size + 1) res = S::op(res, prod(node->children[1], l - left_size - 1, r - left_size - 1));
-        return res;
     }
 };
