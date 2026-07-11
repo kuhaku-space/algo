@@ -27,16 +27,18 @@ struct LazyDynamicSequence {
         static T get_product(pointer node) { return !node ? S::id() : node->product; }
 
         Node(const T &v)
-            : value(v), product(v), lazy(F::id()), children{nullptr, nullptr}, size(1), height(1), reversed() {}
+            : value(v), product(v), lazy(F::id()), children{nullptr, nullptr}, size(1), height(1), reversed(),
+              has_lazy() {}
         Node(T &&v)
             : value(std::move(v)), product(value), lazy(F::id()), children{nullptr, nullptr}, size(1), height(1),
-              reversed() {}
+              reversed(), has_lazy() {}
 
         T value, product;
         U lazy;
         pointer children[2];
         int size, height;
         bool reversed;
+        bool has_lazy;
 
         // erase したノードは再利用しないため、確保のみ行うバンプアロケータで malloc 呼び出し回数を減らす
         static constexpr std::size_t chunk_size = 1 << 16;
@@ -196,7 +198,8 @@ struct LazyDynamicSequence {
         if (!node) return;
         node->value = F::f(f, node->value);
         node->product = F::f(f, node->product);
-        node->lazy = F::op(f, node->lazy);
+        node->lazy = node->has_lazy ? F::op(f, node->lazy) : f;
+        node->has_lazy = true;
     }
 
     static void push(node_ptr node) {
@@ -207,9 +210,11 @@ struct LazyDynamicSequence {
             if (node->children[1]) node->children[1]->reversed ^= true;
             node->reversed = false;
         }
-        all_apply(node->children[0], node->lazy);
-        all_apply(node->children[1], node->lazy);
-        node->lazy = F::id();
+        if (node->has_lazy) {
+            all_apply(node->children[0], node->lazy);
+            all_apply(node->children[1], node->lazy);
+            node->has_lazy = false;
+        }
     }
 
     // 呼び出し元が既に push(node) 済みであることが前提（node 自身の reversed/lazy は解決済み）
@@ -237,9 +242,10 @@ struct LazyDynamicSequence {
         return update(pivot);
     }
 
+    // node は呼び出し元で push 済みが前提（get_balance_factor と違い push しない）
     static node_ptr rebalance(node_ptr node) {
         if (!node) return node;
-        int bf = get_balance_factor(node);
+        int bf = Node::get_height(node->children[0]) - Node::get_height(node->children[1]);
         if (bf == 2) {
             if (get_balance_factor(node->children[0]) < 0) node->children[0] = rotate(node->children[0], 1);
             return rotate(node, 0);
