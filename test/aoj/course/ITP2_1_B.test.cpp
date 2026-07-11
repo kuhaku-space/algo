@@ -6,7 +6,7 @@
 int main(void) {
     int q;
     std::cin >> q;
-    dynamic_sequence<Add<int>> ds;
+    DynamicSequence<Add<int>> ds;
     while (q--) {
         int t;
         std::cin >> t;

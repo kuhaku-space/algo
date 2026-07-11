@@ -6,7 +6,7 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    dynamic_sequence<Min<int>> ds;
+    DynamicSequence<Min<int>> ds;
     for (int i = 0; i < n; ++i) {
         int x;
         std::cin >> x;
