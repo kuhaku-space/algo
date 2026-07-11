@@ -9,7 +9,7 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (int &e : a) std::cin >> e;
-    dynamic_wavelet_matrix<int, 30> wm(a);
+    DynamicWaveletMatrix<int, 30> wm(a);
     while (q--) {
         int t;
         std::cin >> t;

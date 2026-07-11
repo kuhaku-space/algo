@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "wavelet/range_min_sum.hpp"
+#include "wavelet/range_min_max_sum.hpp"
 
 int main(void) {
     int n, q;
@@ -10,12 +10,12 @@ int main(void) {
     std::vector<std::int64_t> a(n);
     for (auto &x : a) std::cin >> x;
 
-    RangeMinSum<std::int64_t, std::int64_t> rms(a);
+    RangeMinMaxSum<std::int64_t, std::int64_t> rms(a);
     while (q--) {
         int l, r;
         std::int64_t x;
         std::cin >> l >> r >> x;
-        std::cout << rms.query(l - 1, r, x) << '\n';
+        std::cout << rms.query_min(l - 1, r, x) << '\n';
     }
 
     return 0;

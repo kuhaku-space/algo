@@ -31,7 +31,7 @@ int main(void) {
     };
     dfs(dfs, 0, -1);
     linear_lca lca(g);
-    wavelet_matrix_rectangle_sum<int, int, 18> wm(val, w);
+    WaveletMatrixRectangleSum<int, int, 18> wm(val, w);
     while (q--) {
         int u, v, k;
         std::cin >> u >> v >> k;
