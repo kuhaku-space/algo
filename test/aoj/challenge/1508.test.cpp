@@ -19,12 +19,9 @@ int main(void) {
             int l, r;
             std::cin >> l >> r, ++r;
             if (l + 1 == r) continue;
-            auto [lp, mp, rp] = ds.split(l, r);
-            auto [lm, rm] = mp.split(r - l - 1);
-            rm.merge_right(lm);
-            lp.merge_right(rm);
-            lp.merge_right(rp);
-            ds = lp;
+            int x = ds.get(r - 1);
+            ds.erase(r - 1);
+            ds.insert(l, x);
         } else if (t == 1) {
             int l, r;
             std::cin >> l >> r, ++r;
