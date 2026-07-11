@@ -5,13 +5,21 @@
 #include <utility>
 #include <vector>
 #include "internal/internal_bit_vector.hpp"
+#include "internal/wavelet_matrix_base.hpp"
 
 /// @brief 重み付きウェーブレット行列
 template <class T, class U = T, int L = 30>
-struct wavelet_matrix_rectangle_sum {
-    wavelet_matrix_rectangle_sum() = default;
+struct WaveletMatrixRectangleSum : private internal::WaveletMatrixCore<internal::bit_vector, T, L> {
+    using Base = internal::WaveletMatrixCore<internal::bit_vector, T, L>;
+    using Base::length;
+    using Base::matrix;
+    using Base::mid;
+    using Base::succ;
+
+    WaveletMatrixRectangleSum() = default;
     template <class Value>
-    wavelet_matrix_rectangle_sum(const std::vector<T> &v, const std::vector<Value> &u) : length(v.size()) {
+    WaveletMatrixRectangleSum(const std::vector<T> &v, const std::vector<Value> &u) {
+        length = v.size();
         assert(v.size() == u.size());
         std::vector<int> l(length), r(length), ord(length);
         std::iota(ord.begin(), ord.end(), 0);
@@ -36,6 +44,7 @@ struct wavelet_matrix_rectangle_sum {
         }
     }
 
+    /// sum of the k smallest values in v[l ... r-1] (requires U == T and u == v)
     U kth_smallest_sum(int l, int r, int k) const {
         assert(0 <= k && k <= r - l);
         T val = T();
@@ -53,6 +62,7 @@ struct wavelet_matrix_rectangle_sum {
         return res + val * k;
     }
 
+    /// sum of the k largest values in v[l ... r-1] (requires U == T and u == v)
     U kth_largest_sum(int l, int r, int k) const {
         return cs[L - 1][matrix[L - 1].rank(false, r)] + cs[L - 1][matrix[L - 1].rank(true, r)] -
                cs[L - 1][matrix[L - 1].rank(false, l)] - cs[L - 1][matrix[L - 1].rank(true, l)] -
@@ -63,7 +73,7 @@ struct wavelet_matrix_rectangle_sum {
 
     U range_sum(int l, int r, T x) const {
         for (int level = L - 1; level >= 0; level--) std::tie(l, r) = succ((x >> level) & 1, l, r, level);
-        return cs[0][matrix[0].rank(false, r)] - cs[0][matrix[0].rank(false, l)];
+        return cs[0][r] - cs[0][l];
     }
 
     U rect_sum(int l, int r, T upper) const { return rect_count_sum(l, r, upper).second; }
@@ -87,12 +97,5 @@ struct wavelet_matrix_rectangle_sum {
     }
 
   private:
-    int length;
-    internal::bit_vector matrix[L];
-    int mid[L];
     std::vector<U> cs[L];
-
-    std::pair<int, int> succ(bool f, int l, int r, int level) const {
-        return {matrix[level].rank(f, l) + mid[level] * f, matrix[level].rank(f, r) + mid[level] * f};
-    }
 };

@@ -14,5 +14,5 @@ struct RangeMinSum {
     }
 
   private:
-    wavelet_matrix_rectangle_sum<T, U, L> wm;
+    WaveletMatrixRectangleSum<T, U, L> wm;
 };

@@ -8,7 +8,7 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    compressed_wavelet_matrix wm(a);
+    CompressedWaveletMatrix wm(a);
     while (q--) {
         int l, r, x;
         std::cin >> l >> r >> x;
