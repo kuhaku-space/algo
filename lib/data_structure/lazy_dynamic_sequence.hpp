@@ -108,13 +108,10 @@ struct LazyDynamicSequence {
     void pop_front() { root = erase(root, 0); }
     void pop_back() { root = erase(root, Node::get_size(root) - 1); }
 
-    T prod(int r) const { return prod(root, r); }
-    T prod(int l, int r) {
+    T prod(int r) const { return prod(root, 0, r); }
+    T prod(int l, int r) const {
         assert(0 <= l && l <= r && r <= Node::get_size(root));
-        auto [pl, pr] = split(root, l);
-        T res = prod(pr, r - l);
-        root = merge(pl, pr);
-        return res;
+        return prod(root, l, r);
     }
 
     void reverse(int l, int r) {
@@ -363,26 +360,16 @@ struct LazyDynamicSequence {
         return res + min_left(node->children[0], sm, g);
     }
 
-    static T prod(node_ptr node, int r) {
-        assert(0 <= r && r <= Node::get_size(node));
+    // node を根とする部分木のうち [l, r) にあたる範囲の積。木を一切再構成しない読み取り専用の走査。
+    static T prod(node_ptr node, int l, int r) {
+        if (!node || r <= 0 || l >= node->size) return S::id();
+        if (l <= 0 && node->size <= r) return node->product;
+        push(node);
+        int left_size = Node::get_size(node->children[0]);
         T res = S::id();
-        while (r) {
-            push(node);
-            if (r == Node::get_size(node)) {
-                res = S::op(res, Node::get_product(node));
-                break;
-            }
-            int left_size = Node::get_size(node->children[0]);
-            if (r < left_size) {
-                node = node->children[0];
-                continue;
-            }
-            res = S::op(res, Node::get_product(node->children[0]));
-            r -= left_size;
-            if (r) res = S::op(res, node->value), --r;
-
-            node = node->children[1];
-        }
+        if (l < left_size) res = prod(node->children[0], l, r);
+        if (l <= left_size && left_size < r) res = S::op(res, node->value);
+        if (r > left_size + 1) res = S::op(res, prod(node->children[1], l - left_size - 1, r - left_size - 1));
         return res;
     }
 };
