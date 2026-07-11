@@ -4,39 +4,40 @@
 #include <optional>
 #include <vector>
 
-template <class T>
-struct ordered_set {
+/// @brief 順序集合・多重集合（AVL 木）
+template <class T, bool Multi = false>
+struct OrderedSet {
   private:
-    struct node_t {
-        using pointer = node_t *;
+    struct Node {
+        using pointer = Node *;
 
         T val, sum;
         int height, size;
         pointer left, right;
 
-        constexpr node_t(T _val) : val(_val), sum(_val), height(1), size(1), left(nullptr), right(nullptr) {}
+        constexpr Node(T _val) : val(_val), sum(_val), height(1), size(1), left(nullptr), right(nullptr) {}
 
         static constexpr T get_sum(pointer node) { return node == nullptr ? T() : node->sum; }
         static constexpr int get_height(pointer node) { return node == nullptr ? 0 : node->height; }
         static constexpr int get_size(pointer node) { return node == nullptr ? 0 : node->size; }
         static constexpr int get_balance_factor(pointer node) {
-            return node == nullptr ? 0 : node_t::get_height(node->left) - node_t::get_height(node->right);
+            return node == nullptr ? 0 : Node::get_height(node->left) - Node::get_height(node->right);
         }
 
         constexpr void recompute() {
-            sum = node_t::get_sum(left) + val + node_t::get_sum(right);
-            height = std::max(node_t::get_height(left), node_t::get_height(right)) + 1;
-            size = node_t::get_size(left) + node_t::get_size(right) + 1;
+            sum = Node::get_sum(left) + val + Node::get_sum(right);
+            height = std::max(Node::get_height(left), Node::get_height(right)) + 1;
+            size = Node::get_size(left) + Node::get_size(right) + 1;
         }
 
         // erase したノードは再利用しないため、確保のみ行うバンプアロケータで malloc 呼び出し回数を減らす
         static constexpr std::size_t chunk_size = 1 << 16;
-        static inline std::vector<node_t *> chunks;
+        static inline std::vector<Node *> chunks;
         static inline std::size_t chunk_pos = 0;
 
         static void *operator new(std::size_t) {
             if (chunks.empty() || chunk_pos == chunk_size) {
-                chunks.push_back(static_cast<node_t *>(::operator new(chunk_size * sizeof(node_t))));
+                chunks.push_back(static_cast<Node *>(::operator new(chunk_size * sizeof(Node))));
                 chunk_pos = 0;
             }
             return chunks.back() + (chunk_pos++);
@@ -45,15 +46,17 @@ struct ordered_set {
     };
 
   public:
-    using node_type = node_t;
-    using node_ptr = typename node_t::pointer;
+    using node_type = Node;
+    using node_ptr = typename Node::pointer;
 
-    constexpr ordered_set() : root(nullptr) {}
-    constexpr ordered_set(const std::vector<T> &v) : root(nullptr) {
+    constexpr OrderedSet() : root(nullptr) {}
+    constexpr OrderedSet(std::vector<T> v) : root(nullptr) {
+        std::sort(v.begin(), v.end());
+        if constexpr (!Multi) v.erase(std::unique(v.begin(), v.end()), v.end());
         auto build = [&v](auto self, int l, int r) -> node_ptr {
             if (l == r) return nullptr;
             int m = (l + r) >> 1;
-            auto node = new node_t(v[m]);
+            auto node = new Node(v[m]);
             node->left = self(self, l, m);
             node->right = self(self, m + 1, r);
             node->recompute();
@@ -63,9 +66,14 @@ struct ordered_set {
     }
 
     constexpr bool empty() const { return root == nullptr; }
-    constexpr int size() const { return node_t::get_size(root); }
+    constexpr int size() const { return Node::get_size(root); }
 
-    void insert(T val) { root = insert(root, val); }
+    void insert(T val) {
+        if constexpr (!Multi) {
+            if (contains(val)) return;
+        }
+        root = insert(root, val);
+    }
 
     void erase(T val) { root = erase(root, val); }
 
@@ -89,7 +97,7 @@ struct ordered_set {
         assert(0 <= k && k < size());
         node_ptr node = root;
         while (true) {
-            int c = node_t::get_size(node->left);
+            int c = Node::get_size(node->left);
             if (c == k) break;
             if (k < c) node = node->left;
             else node = node->right, k -= c + 1;
@@ -110,7 +118,7 @@ struct ordered_set {
         node_ptr node = root;
         while (node) {
             if (!(node->val < val)) node = node->left;
-            else res += node_t::get_size(node->left) + 1, node = node->right;
+            else res += Node::get_size(node->left) + 1, node = node->right;
         }
         return res;
     }
@@ -120,7 +128,7 @@ struct ordered_set {
         node_ptr node = root;
         while (node) {
             if (val < node->val) node = node->left;
-            else res += node_t::get_size(node->left) + 1, node = node->right;
+            else res += Node::get_size(node->left) + 1, node = node->right;
         }
         return res;
     }
@@ -147,15 +155,15 @@ struct ordered_set {
 
     T prefix_sum(int k) const {
         assert(0 <= k && k <= size());
-        if (k == size()) return node_t::get_sum(root);
+        if (k == size()) return Node::get_sum(root);
         T res{};
         node_ptr node = root;
         while (node && k) {
-            int c = node_t::get_size(node->left);
+            int c = Node::get_size(node->left);
             if (k < c) {
                 node = node->left;
             } else {
-                res += node_t::get_sum(node->left);
+                res += Node::get_sum(node->left);
                 if (k == c) break;
                 res += node->val;
                 node = node->right, k -= c + 1;
@@ -166,15 +174,15 @@ struct ordered_set {
 
     T suffix_sum(int k) const {
         assert(0 <= k && k <= size());
-        if (k == size()) return node_t::get_sum(root);
+        if (k == size()) return Node::get_sum(root);
         T res{};
         node_ptr node = root;
         while (node && k) {
-            int c = node_t::get_size(node->right);
+            int c = Node::get_size(node->right);
             if (k < c) {
                 node = node->right;
             } else {
-                res += node_t::get_sum(node->right);
+                res += Node::get_sum(node->right);
                 if (k == c) break;
                 res += node->val;
                 node = node->left, k -= c + 1;
@@ -227,12 +235,12 @@ struct ordered_set {
     }
 
     constexpr node_ptr rebalance(node_ptr node) {
-        int bf = node_type::get_balance_factor(node);
+        int bf = Node::get_balance_factor(node);
         if (bf < -1) {
-            if (node_type::get_balance_factor(node->right) >= 1) node = rotate_right_left(node);
+            if (Node::get_balance_factor(node->right) >= 1) node = rotate_right_left(node);
             else node = rotate_left(node);
         } else if (bf > 1) {
-            if (node_type::get_balance_factor(node->left) <= -1) node = rotate_left_right(node);
+            if (Node::get_balance_factor(node->left) <= -1) node = rotate_left_right(node);
             else node = rotate_right(node);
         } else {
             node->recompute();
@@ -241,7 +249,7 @@ struct ordered_set {
     }
 
     constexpr node_ptr insert(node_ptr node, T val) {
-        if (node == nullptr) return new node_t(val);
+        if (node == nullptr) return new Node(val);
         if (val < node->val) node->left = insert(node->left, val);
         else node->right = insert(node->right, val);
         return rebalance(node);
