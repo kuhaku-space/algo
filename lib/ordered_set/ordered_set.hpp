@@ -4,8 +4,9 @@
 #include <optional>
 #include <vector>
 
-template <class T>
-struct OrderedMultiset {
+/// @brief 順序集合・多重集合（AVL 木）
+template <class T, bool Multi = false>
+struct OrderedSet {
   private:
     struct Node {
         using pointer = Node *;
@@ -48,9 +49,10 @@ struct OrderedMultiset {
     using node_type = Node;
     using node_ptr = typename Node::pointer;
 
-    constexpr OrderedMultiset() : root(nullptr) {}
-    constexpr OrderedMultiset(std::vector<T> v) : root(nullptr) {
+    constexpr OrderedSet() : root(nullptr) {}
+    constexpr OrderedSet(std::vector<T> v) : root(nullptr) {
         std::sort(v.begin(), v.end());
+        if constexpr (!Multi) v.erase(std::unique(v.begin(), v.end()), v.end());
         auto build = [&v](auto self, int l, int r) -> node_ptr {
             if (l == r) return nullptr;
             int m = (l + r) >> 1;
@@ -66,7 +68,12 @@ struct OrderedMultiset {
     constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return Node::get_size(root); }
 
-    void insert(T val) { root = insert(root, val); }
+    void insert(T val) {
+        if constexpr (!Multi) {
+            if (contains(val)) return;
+        }
+        root = insert(root, val);
+    }
 
     void erase(T val) { root = erase(root, val); }
 

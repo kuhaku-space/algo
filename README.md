@@ -41,7 +41,7 @@ g++ -std=c++23 -I lib your_solution.cpp
 | [`lib/fenwick/`](lib/fenwick/)               | Fenwick Tree（点更新区間和・区間加算区間和）                                              |
 | [`lib/sparse_table/`](lib/sparse_table/)     | Sparse Table・Disjoint Sparse Table・線形 Sparse Table                                    |
 | [`lib/wavelet/`](lib/wavelet/)               | Wavelet Matrix（圧縮版・動的版・矩形和）                                                  |
-| [`lib/ordered_set/`](lib/ordered_set/)       | 順序付き多重集合（AVL 木）・Binary Trie・Patricia Binary Trie・64 分木                    |
+| [`lib/ordered_set/`](lib/ordered_set/)       | 順序集合・多重集合（AVL 木）・Binary Trie・Patricia Binary Trie・64 分木                  |
 | [`lib/union_find/`](lib/union_find/)         | Union-Find（重み付き・undo・動的・永続・offline dynamic connectivity）                    |
 | [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ・削除可能 PQ・k 番目和      |
 | [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・永続セグメント木・永続スタック/キュー                                           |
