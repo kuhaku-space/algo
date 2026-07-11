@@ -42,7 +42,13 @@ struct WaveletMatrixRectangleSum : private internal::WaveletMatrixCore<internal:
             cs[level][0] = U(0);
             for (int i = 0; i < length; i++) cs[level][i + 1] = cs[level][i] + u[ord[i]];
         }
+        total_cs.resize(length + 1);
+        total_cs[0] = U(0);
+        for (int i = 0; i < length; i++) total_cs[i + 1] = total_cs[i] + u[i];
     }
+
+    /// sum of u[l ... r-1] (regardless of v)
+    U total_sum(int l, int r) const { return total_cs[r] - total_cs[l]; }
 
     /// sum of the k smallest values in v[l ... r-1] (requires U == T and u == v)
     U kth_smallest_sum(int l, int r, int k) const {
@@ -63,11 +69,7 @@ struct WaveletMatrixRectangleSum : private internal::WaveletMatrixCore<internal:
     }
 
     /// sum of the k largest values in v[l ... r-1] (requires U == T and u == v)
-    U kth_largest_sum(int l, int r, int k) const {
-        return cs[L - 1][matrix[L - 1].rank(false, r)] + cs[L - 1][matrix[L - 1].rank(true, r)] -
-               cs[L - 1][matrix[L - 1].rank(false, l)] - cs[L - 1][matrix[L - 1].rank(true, l)] -
-               kth_smallest_sum(l, r, r - l - k);
-    }
+    U kth_largest_sum(int l, int r, int k) const { return total_sum(l, r) - kth_smallest_sum(l, r, r - l - k); }
 
     U range_sum(int r, T x) const { return range_sum(0, r, x); }
 
@@ -98,4 +100,5 @@ struct WaveletMatrixRectangleSum : private internal::WaveletMatrixCore<internal:
 
   private:
     std::vector<U> cs[L];
+    std::vector<U> total_cs;
 };
