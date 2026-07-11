@@ -8,7 +8,7 @@ int main(void) {
     std::cin >> n >> q;
     std::string t;
     std::cin >> t;
-    tree64<10000000> st;
+    Tree64<10000000> st;
     for (int i = 0; i < n; ++i) {
         if (t[i] == '1') st.insert(i);
     }

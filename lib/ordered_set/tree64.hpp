@@ -17,8 +17,8 @@ constexpr int calc_c(int n) {
 
 /// @brief 64分木
 template <int N>
-struct tree64 {
-    tree64() : map(0), child() {}
+struct Tree64 {
+    Tree64() : map(0), child() {}
 
     bool insert(const int key) {
         const int pos = key >> shift;
@@ -73,13 +73,13 @@ struct tree64 {
     static constexpr int mask = C - 1;
 
     std::uint64_t map;
-    std::array<tree64<C>, (N - 1) / C + 1> child;
+    std::array<Tree64<C>, (N - 1) / C + 1> child;
 };
 
 template <int N>
 requires(N <= 64)
-struct tree64<N> {
-    tree64() : map(0) {}
+struct Tree64<N> {
+    Tree64() : map(0) {}
 
     bool insert(const int key) {
         const std::uint64_t pop = 1ull << key;
