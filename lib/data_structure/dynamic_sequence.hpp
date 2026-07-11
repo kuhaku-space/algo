@@ -18,16 +18,16 @@ struct DynamicSequence {
     struct Node {
         using pointer = Node *;
 
-        static int get_count(pointer t) { return !t ? 0 : t->cnt; }
-        static int get_height(pointer t) { return !t ? 0 : t->ht; }
-        static T get_composition(pointer t) { return !t ? M::id() : t->acc; }
+        static int get_size(pointer node) { return !node ? 0 : node->size; }
+        static int get_height(pointer node) { return !node ? 0 : node->height; }
+        static T get_product(pointer node) { return !node ? M::id() : node->product; }
 
-        Node(const T &v) : val(v), acc(v), ch{nullptr, nullptr}, cnt(1), ht(1), rev() {}
-        Node(T &&v) : val(std::move(v)), acc(val), ch{nullptr, nullptr}, cnt(1), ht(1), rev() {}
+        Node(const T &v) : value(v), product(v), ch{nullptr, nullptr}, size(1), height(1), rev() {}
+        Node(T &&v) : value(std::move(v)), product(value), ch{nullptr, nullptr}, size(1), height(1), rev() {}
 
-        T val, acc;
+        T value, product;
         pointer ch[2];
-        int cnt, ht;
+        int size, height;
         bool rev;
 
         // erase したノードは再利用しないため、確保のみ行うバンプアロケータで malloc 呼び出し回数を減らす
@@ -51,36 +51,36 @@ struct DynamicSequence {
     DynamicSequence() : root(nullptr) {}
     DynamicSequence(node_ptr p) : root(p) {}
 
-    int size() const { return Node::get_count(root); }
+    int size() const { return Node::get_size(root); }
 
     T get(int k) {
-        assert(k < Node::get_count(root));
+        assert(k < Node::get_size(root));
         node_ptr node = root;
         while (true) {
             push(node);
-            int c = Node::get_count(node->ch[0]);
-            if (c == k) break;
-            if (k < c) node = node->ch[0];
-            else node = node->ch[1], k -= c + 1;
+            int left_size = Node::get_size(node->ch[0]);
+            if (left_size == k) break;
+            if (k < left_size) node = node->ch[0];
+            else node = node->ch[1], k -= left_size + 1;
         }
-        return node->val;
+        return node->value;
     }
 
     void set(int k, T val) {
-        assert(k < Node::get_count(root));
+        assert(k < Node::get_size(root));
         node_ptr node = root;
         std::vector<node_ptr> nodes;
         while (true) {
             push(node);
             nodes.emplace_back(node);
-            int c = Node::get_count(node->ch[0]);
-            if (c == k) break;
-            if (k < c) node = node->ch[0];
-            else node = node->ch[1], k -= c + 1;
+            int left_size = Node::get_size(node->ch[0]);
+            if (left_size == k) break;
+            if (k < left_size) node = node->ch[0];
+            else node = node->ch[1], k -= left_size + 1;
         }
-        node->val = val;
+        node->value = val;
         std::reverse(nodes.begin(), nodes.end());
-        for (auto t : nodes) update(t);
+        for (auto anc : nodes) update(anc);
     }
 
     void insert(int k, T val) { root = insert(root, k, val); }
@@ -91,23 +91,23 @@ struct DynamicSequence {
 
     void erase(int k) { root = erase(root, k); }
     void pop_front() { root = erase(root, 0); }
-    void pop_back() { root = erase(root, Node::get_count(root) - 1); }
+    void pop_back() { root = erase(root, Node::get_size(root) - 1); }
 
     T prod(int r) const { return prod(root, r); }
     T prod(int l, int r) {
-        assert(0 <= l && l <= r && r <= Node::get_count(root));
-        std::pair<node_ptr, node_ptr> p = split(root, l);
-        T res = prod(p.second, r - l);
-        root = merge(p.first, p.second);
+        assert(0 <= l && l <= r && r <= Node::get_size(root));
+        auto [pl, pr] = split(root, l);
+        T res = prod(pr, r - l);
+        root = merge(pl, pr);
         return res;
     }
 
     void reverse(int l, int r) {
-        std::pair<node_ptr, node_ptr> sr = split(root, r);
-        std::pair<node_ptr, node_ptr> sl = split(sr.first, l);
-        if (sl.second) sl.second->rev ^= true;
-        root = merge(sl.first, sl.second);
-        root = merge(root, sr.second);
+        auto [pl, pr] = split(root, r);
+        auto [ql, qr] = split(pl, l);
+        if (qr) qr->rev ^= true;
+        root = merge(ql, qr);
+        root = merge(root, pr);
     }
 
     int lower_bound(T key) {
@@ -115,8 +115,8 @@ struct DynamicSequence {
         int res = 0;
         while (node) {
             push(node);
-            int c = Node::get_count(node->ch[0]);
-            if (node->acc < key) node = node->ch[1], res += c + 1;
+            int left_size = Node::get_size(node->ch[0]);
+            if (node->product < key) node = node->ch[1], res += left_size + 1;
             else node = node->ch[0];
         }
         return res;
@@ -128,7 +128,7 @@ struct DynamicSequence {
     }
     template <class G>
     int max_right(int l, G g) {
-        assert(0 <= l && l <= Node::get_count(root));
+        assert(0 <= l && l <= Node::get_size(root));
         assert(g(M::id()));
         auto [pl, pr] = split(root, l);
         T sm = M::id();
@@ -139,11 +139,11 @@ struct DynamicSequence {
 
     template <class G>
     int min_left(G g) {
-        return min_left(Node::get_count(root), g);
+        return min_left(Node::get_size(root), g);
     }
     template <class G>
     int min_left(int r, G g) {
-        assert(0 <= r && r <= Node::get_count(root));
+        assert(0 <= r && r <= Node::get_size(root));
         assert(g(M::id()));
         auto [pl, pr] = split(root, r);
         T sm = M::id();
@@ -168,50 +168,50 @@ struct DynamicSequence {
   private:
     node_ptr root;
 
-    static void push(node_ptr t) {
-        if (t && t->rev) {
-            std::swap(t->ch[0], t->ch[1]);
-            if (t->ch[0]) t->ch[0]->rev ^= true;
-            if (t->ch[1]) t->ch[1]->rev ^= true;
-            t->rev = false;
+    static void push(node_ptr node) {
+        if (node && node->rev) {
+            std::swap(node->ch[0], node->ch[1]);
+            if (node->ch[0]) node->ch[0]->rev ^= true;
+            if (node->ch[1]) node->ch[1]->rev ^= true;
+            node->rev = false;
         }
     }
 
-    static node_ptr update(node_ptr t) {
-        push(t);
-        t->cnt = Node::get_count(t->ch[0]) + Node::get_count(t->ch[1]) + 1;
-        t->ht = std::max(Node::get_height(t->ch[0]), Node::get_height(t->ch[1])) + 1;
-        t->acc = M::op(M::op(Node::get_composition(t->ch[0]), t->val), Node::get_composition(t->ch[1]));
-        return t;
+    static node_ptr update(node_ptr node) {
+        push(node);
+        node->size = Node::get_size(node->ch[0]) + Node::get_size(node->ch[1]) + 1;
+        node->height = std::max(Node::get_height(node->ch[0]), Node::get_height(node->ch[1])) + 1;
+        node->product = M::op(M::op(Node::get_product(node->ch[0]), node->value), Node::get_product(node->ch[1]));
+        return node;
     }
 
-    static int bf(node_ptr t) {
-        push(t);
-        return Node::get_height(t->ch[0]) - Node::get_height(t->ch[1]);
+    static int get_balance_factor(node_ptr node) {
+        push(node);
+        return Node::get_height(node->ch[0]) - Node::get_height(node->ch[1]);
     }
 
-    // d = 0: 右回転 (左の子を根に), d = 1: 左回転 (右の子を根に)
-    static node_ptr rotate(node_ptr t, int d) {
-        push(t);
-        node_ptr c = t->ch[d];
-        push(c);
-        t->ch[d] = c->ch[d ^ 1];
-        c->ch[d ^ 1] = t;
-        update(t);
-        return update(c);
+    // dir = 0: 右回転 (左の子を根に), dir = 1: 左回転 (右の子を根に)
+    static node_ptr rotate(node_ptr node, int dir) {
+        push(node);
+        node_ptr pivot = node->ch[dir];
+        push(pivot);
+        node->ch[dir] = pivot->ch[dir ^ 1];
+        pivot->ch[dir ^ 1] = node;
+        update(node);
+        return update(pivot);
     }
 
-    static node_ptr rebalance(node_ptr t) {
-        if (!t) return t;
-        int b = bf(t);
-        if (b == 2) {
-            if (bf(t->ch[0]) < 0) t->ch[0] = rotate(t->ch[0], 1);
-            return rotate(t, 0);
-        } else if (b == -2) {
-            if (bf(t->ch[1]) > 0) t->ch[1] = rotate(t->ch[1], 0);
-            return rotate(t, 1);
+    static node_ptr rebalance(node_ptr node) {
+        if (!node) return node;
+        int bf = get_balance_factor(node);
+        if (bf == 2) {
+            if (get_balance_factor(node->ch[0]) < 0) node->ch[0] = rotate(node->ch[0], 1);
+            return rotate(node, 0);
+        } else if (bf == -2) {
+            if (get_balance_factor(node->ch[1]) > 0) node->ch[1] = rotate(node->ch[1], 0);
+            return rotate(node, 1);
         }
-        return t;
+        return node;
     }
 
     // mid を根、l と r をその子として結合する (join-based framework)
@@ -231,115 +231,115 @@ struct DynamicSequence {
         return update(mid);
     }
 
-    // t の最右ノードを切り離し {残りの木, 切り離したノード} を返す
-    static std::pair<node_ptr, node_ptr> split_last(node_ptr t) {
-        push(t);
-        if (!t->ch[1]) {
-            node_ptr l = t->ch[0];
-            t->ch[0] = nullptr;
-            return {l, update(t)};
+    // node の最右ノードを切り離し {残りの木, 切り離したノード} を返す
+    static std::pair<node_ptr, node_ptr> split_last(node_ptr node) {
+        push(node);
+        if (!node->ch[1]) {
+            node_ptr rest = node->ch[0];
+            node->ch[0] = nullptr;
+            return {rest, update(node)};
         }
-        auto [r2, last] = split_last(t->ch[1]);
-        t->ch[1] = r2;
-        return {rebalance(update(t)), last};
+        auto [rest, last] = split_last(node->ch[1]);
+        node->ch[1] = rest;
+        return {rebalance(update(node)), last};
     }
 
     static node_ptr merge(node_ptr l, node_ptr r) {
         if (!l || !r) return !l ? r : l;
-        auto [l2, mid] = split_last(l);
-        return join(l2, mid, r);
+        auto [rest, mid] = split_last(l);
+        return join(rest, mid, r);
     }
 
-    static std::pair<node_ptr, node_ptr> split(node_ptr t, int k) {
-        if (!t) return std::make_pair<node_ptr, node_ptr>(nullptr, nullptr);
-        push(t);
-        int c = Node::get_count(t->ch[0]);
-        if (k <= c) {
-            node_ptr old_r = t->ch[1];
-            auto s = split(t->ch[0], k);
-            node_ptr r = join(s.second, t, old_r);
-            return std::make_pair(s.first, r);
+    static std::pair<node_ptr, node_ptr> split(node_ptr node, int k) {
+        if (!node) return std::make_pair<node_ptr, node_ptr>(nullptr, nullptr);
+        push(node);
+        int left_size = Node::get_size(node->ch[0]);
+        if (k <= left_size) {
+            node_ptr old_right = node->ch[1];
+            auto [sub_l, sub_r] = split(node->ch[0], k);
+            node_ptr merged_r = join(sub_r, node, old_right);
+            return std::make_pair(sub_l, merged_r);
         } else {
-            node_ptr old_l = t->ch[0];
-            auto s = split(t->ch[1], k - c - 1);
-            node_ptr l = join(old_l, t, s.first);
-            return std::make_pair(l, s.second);
+            node_ptr old_left = node->ch[0];
+            auto [sub_l, sub_r] = split(node->ch[1], k - left_size - 1);
+            node_ptr merged_l = join(old_left, node, sub_l);
+            return std::make_pair(merged_l, sub_r);
         }
     }
 
-    static node_ptr insert(node_ptr t, int k, T v) {
-        if (!t) return new Node(v);
-        push(t);
-        int c = Node::get_count(t->ch[0]);
-        if (k <= c) t->ch[0] = insert(t->ch[0], k, v);
-        else t->ch[1] = insert(t->ch[1], k - c - 1, v);
-        return rebalance(update(t));
+    static node_ptr insert(node_ptr node, int k, T val) {
+        if (!node) return new Node(val);
+        push(node);
+        int left_size = Node::get_size(node->ch[0]);
+        if (k <= left_size) node->ch[0] = insert(node->ch[0], k, val);
+        else node->ch[1] = insert(node->ch[1], k - left_size - 1, val);
+        return rebalance(update(node));
     }
 
-    static node_ptr erase(node_ptr t, int k) {
-        push(t);
-        int c = Node::get_count(t->ch[0]);
-        if (k == c) return merge(t->ch[0], t->ch[1]);
-        if (k < c) t->ch[0] = erase(t->ch[0], k);
-        else t->ch[1] = erase(t->ch[1], k - c - 1);
-        return rebalance(update(t));
+    static node_ptr erase(node_ptr node, int k) {
+        push(node);
+        int left_size = Node::get_size(node->ch[0]);
+        if (k == left_size) return merge(node->ch[0], node->ch[1]);
+        if (k < left_size) node->ch[0] = erase(node->ch[0], k);
+        else node->ch[1] = erase(node->ch[1], k - left_size - 1);
+        return rebalance(update(node));
     }
 
     template <class G>
-    static int max_right(node_ptr t, T &sm, G g) {
-        if (!t) return 0;
-        push(t);
-        T nxt = M::op(sm, Node::get_composition(t));
+    static int max_right(node_ptr node, T &sm, G g) {
+        if (!node) return 0;
+        push(node);
+        T nxt = M::op(sm, Node::get_product(node));
         if (g(nxt)) {
             sm = nxt;
-            return Node::get_count(t);
+            return Node::get_size(node);
         }
-        int res = max_right(t->ch[0], sm, g);
-        if (res != Node::get_count(t->ch[0])) return res;
-        T nxt2 = M::op(sm, t->val);
+        int res = max_right(node->ch[0], sm, g);
+        if (res != Node::get_size(node->ch[0])) return res;
+        T nxt2 = M::op(sm, node->value);
         if (!g(nxt2)) return res;
         sm = nxt2;
         ++res;
-        return res + max_right(t->ch[1], sm, g);
+        return res + max_right(node->ch[1], sm, g);
     }
 
     template <class G>
-    static int min_left(node_ptr t, T &sm, G g) {
-        if (!t) return 0;
-        push(t);
-        T nxt = M::op(Node::get_composition(t), sm);
+    static int min_left(node_ptr node, T &sm, G g) {
+        if (!node) return 0;
+        push(node);
+        T nxt = M::op(Node::get_product(node), sm);
         if (g(nxt)) {
             sm = nxt;
-            return Node::get_count(t);
+            return Node::get_size(node);
         }
-        int res = min_left(t->ch[1], sm, g);
-        if (res != Node::get_count(t->ch[1])) return res;
-        T nxt2 = M::op(t->val, sm);
+        int res = min_left(node->ch[1], sm, g);
+        if (res != Node::get_size(node->ch[1])) return res;
+        T nxt2 = M::op(node->value, sm);
         if (!g(nxt2)) return res;
         sm = nxt2;
         ++res;
-        return res + min_left(t->ch[0], sm, g);
+        return res + min_left(node->ch[0], sm, g);
     }
 
-    static T prod(node_ptr t, int r) {
-        assert(0 <= r && r <= Node::get_count(t));
+    static T prod(node_ptr node, int r) {
+        assert(0 <= r && r <= Node::get_size(node));
         T res = M::id();
         while (r) {
-            push(t);
-            if (r == Node::get_count(t)) {
-                res = M::op(res, Node::get_composition(t));
+            push(node);
+            if (r == Node::get_size(node)) {
+                res = M::op(res, Node::get_product(node));
                 break;
             }
-            int c = Node::get_count(t->ch[0]);
-            if (r < c) {
-                t = t->ch[0];
+            int left_size = Node::get_size(node->ch[0]);
+            if (r < left_size) {
+                node = node->ch[0];
                 continue;
             }
-            res = M::op(res, Node::get_composition(t->ch[0]));
-            r -= c;
-            if (r) res = M::op(res, t->val), --r;
+            res = M::op(res, Node::get_product(node->ch[0]));
+            r -= left_size;
+            if (r) res = M::op(res, node->value), --r;
 
-            t = t->ch[1];
+            node = node->ch[1];
         }
         return res;
     }
