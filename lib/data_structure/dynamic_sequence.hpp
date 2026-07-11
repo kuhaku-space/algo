@@ -22,11 +22,11 @@ struct DynamicSequence {
         static int get_height(pointer node) { return !node ? 0 : node->height; }
         static T get_product(pointer node) { return !node ? M::id() : node->product; }
 
-        Node(const T &v) : value(v), product(v), ch{nullptr, nullptr}, size(1), height(1), rev() {}
-        Node(T &&v) : value(std::move(v)), product(value), ch{nullptr, nullptr}, size(1), height(1), rev() {}
+        Node(const T &v) : value(v), product(v), children{nullptr, nullptr}, size(1), height(1), rev() {}
+        Node(T &&v) : value(std::move(v)), product(value), children{nullptr, nullptr}, size(1), height(1), rev() {}
 
         T value, product;
-        pointer ch[2];
+        pointer children[2];
         int size, height;
         bool rev;
 
@@ -58,10 +58,10 @@ struct DynamicSequence {
         node_ptr node = root;
         while (true) {
             push(node);
-            int left_size = Node::get_size(node->ch[0]);
+            int left_size = Node::get_size(node->children[0]);
             if (left_size == k) break;
-            if (k < left_size) node = node->ch[0];
-            else node = node->ch[1], k -= left_size + 1;
+            if (k < left_size) node = node->children[0];
+            else node = node->children[1], k -= left_size + 1;
         }
         return node->value;
     }
@@ -73,10 +73,10 @@ struct DynamicSequence {
         while (true) {
             push(node);
             nodes.emplace_back(node);
-            int left_size = Node::get_size(node->ch[0]);
+            int left_size = Node::get_size(node->children[0]);
             if (left_size == k) break;
-            if (k < left_size) node = node->ch[0];
-            else node = node->ch[1], k -= left_size + 1;
+            if (k < left_size) node = node->children[0];
+            else node = node->children[1], k -= left_size + 1;
         }
         node->value = val;
         std::reverse(nodes.begin(), nodes.end());
@@ -115,9 +115,9 @@ struct DynamicSequence {
         int res = 0;
         while (node) {
             push(node);
-            int left_size = Node::get_size(node->ch[0]);
-            if (node->product < key) node = node->ch[1], res += left_size + 1;
-            else node = node->ch[0];
+            int left_size = Node::get_size(node->children[0]);
+            if (node->product < key) node = node->children[1], res += left_size + 1;
+            else node = node->children[0];
         }
         return res;
     }
@@ -170,33 +170,34 @@ struct DynamicSequence {
 
     static void push(node_ptr node) {
         if (node && node->rev) {
-            std::swap(node->ch[0], node->ch[1]);
-            if (node->ch[0]) node->ch[0]->rev ^= true;
-            if (node->ch[1]) node->ch[1]->rev ^= true;
+            std::swap(node->children[0], node->children[1]);
+            if (node->children[0]) node->children[0]->rev ^= true;
+            if (node->children[1]) node->children[1]->rev ^= true;
             node->rev = false;
         }
     }
 
     static node_ptr update(node_ptr node) {
         push(node);
-        node->size = Node::get_size(node->ch[0]) + Node::get_size(node->ch[1]) + 1;
-        node->height = std::max(Node::get_height(node->ch[0]), Node::get_height(node->ch[1])) + 1;
-        node->product = M::op(M::op(Node::get_product(node->ch[0]), node->value), Node::get_product(node->ch[1]));
+        node->size = Node::get_size(node->children[0]) + Node::get_size(node->children[1]) + 1;
+        node->height = std::max(Node::get_height(node->children[0]), Node::get_height(node->children[1])) + 1;
+        node->product =
+            M::op(M::op(Node::get_product(node->children[0]), node->value), Node::get_product(node->children[1]));
         return node;
     }
 
     static int get_balance_factor(node_ptr node) {
         push(node);
-        return Node::get_height(node->ch[0]) - Node::get_height(node->ch[1]);
+        return Node::get_height(node->children[0]) - Node::get_height(node->children[1]);
     }
 
     // dir = 0: 右回転 (左の子を根に), dir = 1: 左回転 (右の子を根に)
     static node_ptr rotate(node_ptr node, int dir) {
         push(node);
-        node_ptr pivot = node->ch[dir];
+        node_ptr pivot = node->children[dir];
         push(pivot);
-        node->ch[dir] = pivot->ch[dir ^ 1];
-        pivot->ch[dir ^ 1] = node;
+        node->children[dir] = pivot->children[dir ^ 1];
+        pivot->children[dir ^ 1] = node;
         update(node);
         return update(pivot);
     }
@@ -205,10 +206,10 @@ struct DynamicSequence {
         if (!node) return node;
         int bf = get_balance_factor(node);
         if (bf == 2) {
-            if (get_balance_factor(node->ch[0]) < 0) node->ch[0] = rotate(node->ch[0], 1);
+            if (get_balance_factor(node->children[0]) < 0) node->children[0] = rotate(node->children[0], 1);
             return rotate(node, 0);
         } else if (bf == -2) {
-            if (get_balance_factor(node->ch[1]) > 0) node->ch[1] = rotate(node->ch[1], 0);
+            if (get_balance_factor(node->children[1]) > 0) node->children[1] = rotate(node->children[1], 0);
             return rotate(node, 1);
         }
         return node;
@@ -218,29 +219,29 @@ struct DynamicSequence {
     static node_ptr join(node_ptr l, node_ptr mid, node_ptr r) {
         if (Node::get_height(l) > Node::get_height(r) + 1) {
             push(l);
-            l->ch[1] = join(l->ch[1], mid, r);
+            l->children[1] = join(l->children[1], mid, r);
             return rebalance(update(l));
         }
         if (Node::get_height(r) > Node::get_height(l) + 1) {
             push(r);
-            r->ch[0] = join(l, mid, r->ch[0]);
+            r->children[0] = join(l, mid, r->children[0]);
             return rebalance(update(r));
         }
-        mid->ch[0] = l;
-        mid->ch[1] = r;
+        mid->children[0] = l;
+        mid->children[1] = r;
         return update(mid);
     }
 
     // node の最右ノードを切り離し {残りの木, 切り離したノード} を返す
     static std::pair<node_ptr, node_ptr> split_last(node_ptr node) {
         push(node);
-        if (!node->ch[1]) {
-            node_ptr rest = node->ch[0];
-            node->ch[0] = nullptr;
+        if (!node->children[1]) {
+            node_ptr rest = node->children[0];
+            node->children[0] = nullptr;
             return {rest, update(node)};
         }
-        auto [rest, last] = split_last(node->ch[1]);
-        node->ch[1] = rest;
+        auto [rest, last] = split_last(node->children[1]);
+        node->children[1] = rest;
         return {rebalance(update(node)), last};
     }
 
@@ -253,15 +254,15 @@ struct DynamicSequence {
     static std::pair<node_ptr, node_ptr> split(node_ptr node, int k) {
         if (!node) return std::make_pair<node_ptr, node_ptr>(nullptr, nullptr);
         push(node);
-        int left_size = Node::get_size(node->ch[0]);
+        int left_size = Node::get_size(node->children[0]);
         if (k <= left_size) {
-            node_ptr old_right = node->ch[1];
-            auto [sub_l, sub_r] = split(node->ch[0], k);
+            node_ptr old_right = node->children[1];
+            auto [sub_l, sub_r] = split(node->children[0], k);
             node_ptr merged_r = join(sub_r, node, old_right);
             return std::make_pair(sub_l, merged_r);
         } else {
-            node_ptr old_left = node->ch[0];
-            auto [sub_l, sub_r] = split(node->ch[1], k - left_size - 1);
+            node_ptr old_left = node->children[0];
+            auto [sub_l, sub_r] = split(node->children[1], k - left_size - 1);
             node_ptr merged_l = join(old_left, node, sub_l);
             return std::make_pair(merged_l, sub_r);
         }
@@ -270,18 +271,18 @@ struct DynamicSequence {
     static node_ptr insert(node_ptr node, int k, T val) {
         if (!node) return new Node(val);
         push(node);
-        int left_size = Node::get_size(node->ch[0]);
-        if (k <= left_size) node->ch[0] = insert(node->ch[0], k, val);
-        else node->ch[1] = insert(node->ch[1], k - left_size - 1, val);
+        int left_size = Node::get_size(node->children[0]);
+        if (k <= left_size) node->children[0] = insert(node->children[0], k, val);
+        else node->children[1] = insert(node->children[1], k - left_size - 1, val);
         return rebalance(update(node));
     }
 
     static node_ptr erase(node_ptr node, int k) {
         push(node);
-        int left_size = Node::get_size(node->ch[0]);
-        if (k == left_size) return merge(node->ch[0], node->ch[1]);
-        if (k < left_size) node->ch[0] = erase(node->ch[0], k);
-        else node->ch[1] = erase(node->ch[1], k - left_size - 1);
+        int left_size = Node::get_size(node->children[0]);
+        if (k == left_size) return merge(node->children[0], node->children[1]);
+        if (k < left_size) node->children[0] = erase(node->children[0], k);
+        else node->children[1] = erase(node->children[1], k - left_size - 1);
         return rebalance(update(node));
     }
 
@@ -294,13 +295,13 @@ struct DynamicSequence {
             sm = nxt;
             return Node::get_size(node);
         }
-        int res = max_right(node->ch[0], sm, g);
-        if (res != Node::get_size(node->ch[0])) return res;
+        int res = max_right(node->children[0], sm, g);
+        if (res != Node::get_size(node->children[0])) return res;
         T nxt2 = M::op(sm, node->value);
         if (!g(nxt2)) return res;
         sm = nxt2;
         ++res;
-        return res + max_right(node->ch[1], sm, g);
+        return res + max_right(node->children[1], sm, g);
     }
 
     template <class G>
@@ -312,13 +313,13 @@ struct DynamicSequence {
             sm = nxt;
             return Node::get_size(node);
         }
-        int res = min_left(node->ch[1], sm, g);
-        if (res != Node::get_size(node->ch[1])) return res;
+        int res = min_left(node->children[1], sm, g);
+        if (res != Node::get_size(node->children[1])) return res;
         T nxt2 = M::op(node->value, sm);
         if (!g(nxt2)) return res;
         sm = nxt2;
         ++res;
-        return res + min_left(node->ch[0], sm, g);
+        return res + min_left(node->children[0], sm, g);
     }
 
     static T prod(node_ptr node, int r) {
@@ -330,16 +331,16 @@ struct DynamicSequence {
                 res = M::op(res, Node::get_product(node));
                 break;
             }
-            int left_size = Node::get_size(node->ch[0]);
+            int left_size = Node::get_size(node->children[0]);
             if (r < left_size) {
-                node = node->ch[0];
+                node = node->children[0];
                 continue;
             }
-            res = M::op(res, Node::get_product(node->ch[0]));
+            res = M::op(res, Node::get_product(node->children[0]));
             r -= left_size;
             if (r) res = M::op(res, node->value), --r;
 
-            node = node->ch[1];
+            node = node->children[1];
         }
         return res;
     }
