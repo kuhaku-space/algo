@@ -5,7 +5,7 @@
 #include <vector>
 
 template <class T>
-struct ordered_set {
+struct OrderedMultiset {
   private:
     struct node_t {
         using pointer = node_t *;
@@ -48,8 +48,8 @@ struct ordered_set {
     using node_type = node_t;
     using node_ptr = typename node_t::pointer;
 
-    constexpr ordered_set() : root(nullptr) {}
-    constexpr ordered_set(const std::vector<T> &v) : root(nullptr) {
+    constexpr OrderedMultiset() : root(nullptr) {}
+    constexpr OrderedMultiset(const std::vector<T> &v) : root(nullptr) {
         auto build = [&v](auto self, int l, int r) -> node_ptr {
             if (l == r) return nullptr;
             int m = (l + r) >> 1;

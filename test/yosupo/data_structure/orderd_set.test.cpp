@@ -1,13 +1,13 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 #include <iostream>
-#include "ordered_set/ordered_set.hpp"
+#include "ordered_set/ordered_multiset.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    ordered_set<int> tr(a);
+    OrderedMultiset<int> tr(a);
     while (q--) {
         int t, x;
         std::cin >> t >> x;
