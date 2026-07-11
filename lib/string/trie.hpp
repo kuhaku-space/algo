@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <cassert>
 #include <string>
 #include <vector>
@@ -6,68 +7,82 @@
 /// @brief Trie
 /// @see https://algo-logic.info/trie-tree/
 /// @see https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
-template <int char_size = 96, int base = ' '>
+template <int alphabet_size = 96, int char_offset = ' '>
 struct Trie {
   private:
-    struct _node {
-        std::vector<int> next_node;
-        _node() : next_node(char_size, -1) {}
+    struct Node {
+        std::array<int, alphabet_size> next_node;
+        int count;
+        int depth;
+        Node() : count(0), depth(0) { next_node.fill(-1); }
     };
 
-  public:
-    using node_type = _node;
+    static int to_index(char ch) {
+        int c = ch - char_offset;
+        assert(0 <= c && c < alphabet_size);
+        return c;
+    }
 
-    Trie() : root(0), nodes() { nodes.emplace_back(); }
+  public:
+    using node_type = Node;
+
+    Trie() : nodes() { nodes.emplace_back(); }
 
     int size() const { return nodes.size(); }
 
     /// @brief ノード node_id の子 ch をたどる。無ければ新規作成する。
     /// @return 子ノードの id
+    /// @note 到達した子ノードの count を1増やす（その接頭辞を持つ文字列の本数になる）。
+    ///       新規作成時は depth（根からの接頭辞長）も設定する。
     int add(int node_id, char ch) {
         assert(0 <= node_id && node_id < (int)nodes.size());
-        int c = ch - base;
-        assert(0 <= c && c < char_size);
-        int &next_id = nodes[node_id].next_node[c];
+        int c = to_index(ch);
+        int next_id = nodes[node_id].next_node[c];
         if (next_id == -1) {
             next_id = nodes.size();
             nodes.emplace_back();
+            nodes[next_id].depth = nodes[node_id].depth + 1;
+            nodes[node_id].next_node[c] = next_id;
         }
+        ++nodes[next_id].count;
         return next_id;
     }
 
     std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
+        res.reserve(word.size());
         int node_id = 0;
-        for (int i = 0; i < (int)word.size(); ++i) {
-            int c = word[i] - base;
-            int &next_id = nodes[node_id].next_node[c];
-            if (next_id == -1) {
-                next_id = nodes.size();
-                nodes.emplace_back();
-            }
-            node_id = next_id;
+        for (char ch : word) {
+            node_id = add(node_id, ch);
             res.emplace_back(node_id);
         }
         return res;
     }
 
-    int search_id(const std::string &word) {
+    int search_id(const std::string &word) const {
         int node_id = 0;
-        for (int i = 0; i < (int)word.size(); ++i) {
-            int c = word[i] - base;
-            int &next_id = nodes[node_id].next_node[c];
+        for (char ch : word) {
+            int c = to_index(ch);
+            int next_id = nodes[node_id].next_node[c];
             if (next_id == -1) return -1;
             node_id = next_id;
         }
         return node_id;
     }
 
-    node_type get_node(int node_id) const {
+    const node_type &get_node(int node_id) const {
         assert(0 <= node_id && node_id < (int)nodes.size());
         return nodes[node_id];
     }
 
   private:
-    int root;
     std::vector<node_type> nodes;
 };
+
+/// @brief 小文字アルファベット（'a'-'z'）用の Trie
+using LowerTrie = Trie<26, 'a'>;
+/// @brief 大文字アルファベット（'A'-'Z'）用の Trie
+using UpperTrie = Trie<26, 'A'>;
+/// @brief 大文字・小文字混在（'A'-'z'）用の Trie
+/// @note 'Z' と 'a' の間の記号（6 文字）も範囲に含むが未使用のまま無害
+using MixedCaseTrie = Trie<58, 'A'>;
