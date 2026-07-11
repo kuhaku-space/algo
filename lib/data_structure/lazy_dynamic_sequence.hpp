@@ -153,11 +153,8 @@ struct LazyDynamicSequence {
     int max_right(int l, G g) {
         assert(0 <= l && l <= Node::get_size(root));
         assert(g(S::id()));
-        auto [pl, pr] = split(root, l);
         T sm = S::id();
-        int r = max_right(pr, sm, g);
-        root = merge(pl, pr);
-        return l + r;
+        return l + max_right(root, l, sm, g);
     }
 
     template <class G>
@@ -168,11 +165,8 @@ struct LazyDynamicSequence {
     int min_left(int r, G g) {
         assert(0 <= r && r <= Node::get_size(root));
         assert(g(S::id()));
-        auto [pl, pr] = split(root, r);
         T sm = S::id();
-        int cnt = min_left(pl, sm, g);
-        root = merge(pl, pr);
-        return r - cnt;
+        return r - min_left(root, r, sm, g);
     }
 
     std::pair<LazyDynamicSequence, LazyDynamicSequence> split(int k) {
@@ -342,6 +336,30 @@ struct LazyDynamicSequence {
         return res + max_right(node->children[1], sm, g);
     }
 
+    // node の先頭 l 要素を読み飛ばしたうえで、そこから max_right を続ける。木を再構成しない読み取り専用の走査。
+    template <class G>
+    static int max_right(node_ptr node, int l, T &sm, G g) {
+        if (!node || l >= node->size) return 0;
+        if (l <= 0) return max_right(node, sm, g);
+        push(node);
+        int left_size = Node::get_size(node->children[0]);
+        if (l < left_size) {
+            int res = max_right(node->children[0], l, sm, g);
+            if (res != left_size - l) return res;
+            T nxt2 = S::op(sm, node->value);
+            if (!g(nxt2)) return res;
+            sm = nxt2;
+            return res + 1 + max_right(node->children[1], sm, g);
+        } else if (l == left_size) {
+            T nxt2 = S::op(sm, node->value);
+            if (!g(nxt2)) return 0;
+            sm = nxt2;
+            return 1 + max_right(node->children[1], sm, g);
+        } else {
+            return max_right(node->children[1], l - left_size - 1, sm, g);
+        }
+    }
+
     template <class G>
     static int min_left(node_ptr node, T &sm, G g) {
         if (!node) return 0;
@@ -358,6 +376,30 @@ struct LazyDynamicSequence {
         sm = nxt2;
         ++res;
         return res + min_left(node->children[0], sm, g);
+    }
+
+    // node の先頭 cap 要素だけを対象に min_left を行う (cap 以降は無視)。木を再構成しない読み取り専用の走査。
+    template <class G>
+    static int min_left(node_ptr node, int cap, T &sm, G g) {
+        if (!node || cap <= 0) return 0;
+        if (cap >= node->size) return min_left(node, sm, g);
+        push(node);
+        int left_size = Node::get_size(node->children[0]);
+        if (cap <= left_size) {
+            return min_left(node->children[0], cap, sm, g);
+        } else if (cap == left_size + 1) {
+            T nxt = S::op(node->value, sm);
+            if (!g(nxt)) return 0;
+            sm = nxt;
+            return 1 + min_left(node->children[0], sm, g);
+        } else {
+            int res = min_left(node->children[1], cap - left_size - 1, sm, g);
+            if (res != cap - left_size - 1) return res;
+            T nxt = S::op(node->value, sm);
+            if (!g(nxt)) return res;
+            sm = nxt;
+            return res + 1 + min_left(node->children[0], sm, g);
+        }
     }
 
     // node を根とする部分木のうち [l, r) にあたる範囲の積。木を一切再構成しない読み取り専用の走査。
