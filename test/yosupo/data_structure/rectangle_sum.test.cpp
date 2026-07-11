@@ -15,7 +15,7 @@ int main(void) {
     std::vector<std::int64_t> x(n), y(n), z(n);
     for (int i = 0; i < n; ++i) std::tie(x[i], y[i], z[i]) = a[i];
 
-    wavelet_matrix_rectangle_sum<std::int64_t, std::int64_t, 30> wm(y, z);
+    WaveletMatrixRectangleSum<std::int64_t, std::int64_t, 30> wm(y, z);
     while (q--) {
         int l, d, r, u;
         std::cin >> l >> d >> r >> u;

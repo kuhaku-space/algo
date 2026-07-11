@@ -3,16 +3,16 @@
 #include "algorithm/compress.hpp"
 #include "wavelet/wavelet_matrix.hpp"
 
-/// @brief ウェーブレット行列
+/// @brief ウェーブレット行列（座標圧縮）
 /// @see https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp
 template <class T, int L = 20>
-struct compressed_wavelet_matrix {
-    compressed_wavelet_matrix() = default;
-    compressed_wavelet_matrix(const std::vector<T> &v) : cps(v) {
+struct CompressedWaveletMatrix {
+    CompressedWaveletMatrix() = default;
+    CompressedWaveletMatrix(const std::vector<T> &v) : cps(v) {
         int n = v.size();
         std::vector<int> t(n);
         for (int i = 0; i < n; ++i) t[i] = cps.get(v[i]);
-        mat = wavelet_matrix<int, L>(t);
+        mat = WaveletMatrix<int, L>(t);
     }
 
     T access(int k) const { return cps[mat.access(k)]; }
@@ -55,6 +55,6 @@ struct compressed_wavelet_matrix {
     }
 
   private:
-    wavelet_matrix<int, L> mat;
+    WaveletMatrix<int, L> mat;
     coordinate_compression<T> cps;
 };
