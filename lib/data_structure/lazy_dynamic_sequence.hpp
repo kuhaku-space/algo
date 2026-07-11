@@ -212,8 +212,8 @@ struct LazyDynamicSequence {
         node->lazy = F::id();
     }
 
+    // 呼び出し元が既に push(node) 済みであることが前提（node 自身の reversed/lazy は解決済み）
     static node_ptr update(node_ptr node) {
-        push(node);
         node->size = Node::get_size(node->children[0]) + Node::get_size(node->children[1]) + 1;
         node->height = std::max(Node::get_height(node->children[0]), Node::get_height(node->children[1])) + 1;
         node->product =
@@ -227,8 +227,8 @@ struct LazyDynamicSequence {
     }
 
     // dir = 0: 右回転 (左の子を根に), dir = 1: 左回転 (右の子を根に)
+    // rebalance からのみ呼ばれ、node は get_balance_factor により push 済みが前提
     static node_ptr rotate(node_ptr node, int dir) {
-        push(node);
         node_ptr pivot = node->children[dir];
         push(pivot);
         node->children[dir] = pivot->children[dir ^ 1];
