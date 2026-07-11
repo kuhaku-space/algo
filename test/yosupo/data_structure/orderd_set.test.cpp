@@ -17,7 +17,7 @@ int main(void) {
             tr.erase(x);
         } else if (t == 2) {
             if (tr.size() < x) std::cout << -1 << '\n';
-            else std::cout << tr.get(x - 1) << '\n';
+            else std::cout << tr.at(x - 1) << '\n';
         } else if (t == 3) {
             std::cout << tr.upper_bound(x) << '\n';
         } else if (t == 4) {
