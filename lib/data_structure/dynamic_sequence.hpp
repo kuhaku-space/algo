@@ -22,13 +22,13 @@ struct DynamicSequence {
         static int get_height(pointer node) { return !node ? 0 : node->height; }
         static T get_product(pointer node) { return !node ? M::id() : node->product; }
 
-        Node(const T &v) : value(v), product(v), children{nullptr, nullptr}, size(1), height(1), rev() {}
-        Node(T &&v) : value(std::move(v)), product(value), children{nullptr, nullptr}, size(1), height(1), rev() {}
+        Node(const T &v) : value(v), product(v), children{nullptr, nullptr}, size(1), height(1), reversed() {}
+        Node(T &&v) : value(std::move(v)), product(value), children{nullptr, nullptr}, size(1), height(1), reversed() {}
 
         T value, product;
         pointer children[2];
         int size, height;
-        bool rev;
+        bool reversed;
 
         // erase したノードは再利用しないため、確保のみ行うバンプアロケータで malloc 呼び出し回数を減らす
         static constexpr std::size_t chunk_size = 1 << 16;
@@ -105,7 +105,7 @@ struct DynamicSequence {
     void reverse(int l, int r) {
         auto [pl, pr] = split(root, r);
         auto [ql, qr] = split(pl, l);
-        if (qr) qr->rev ^= true;
+        if (qr) qr->reversed ^= true;
         root = merge(ql, qr);
         root = merge(root, pr);
     }
@@ -169,11 +169,11 @@ struct DynamicSequence {
     node_ptr root;
 
     static void push(node_ptr node) {
-        if (node && node->rev) {
+        if (node && node->reversed) {
             std::swap(node->children[0], node->children[1]);
-            if (node->children[0]) node->children[0]->rev ^= true;
-            if (node->children[1]) node->children[1]->rev ^= true;
-            node->rev = false;
+            if (node->children[0]) node->children[0]->reversed ^= true;
+            if (node->children[1]) node->children[1]->reversed ^= true;
+            node->reversed = false;
         }
     }
 
