@@ -53,39 +53,18 @@ int main() {
     std::vector<Mint> a(n);
     for (auto &e : a) std::cin >> e;
 
-    std::vector<int> U(n - 1), V(n - 1);
     std::vector<Mint> b(n - 1), c(n - 1);
-    list_graph<int> orig_g(n);
+    list_graph<void> g(2 * n - 1);
     for (int i = 0; i < n - 1; ++i) {
-        std::cin >> U[i] >> V[i] >> b[i] >> c[i];
-        orig_g.add_edges(U[i], V[i], i);
+        int u, v;
+        std::cin >> u >> v >> b[i] >> c[i];
+        g.add_edges(u, n + i);
+        g.add_edges(n + i, v);
     }
 
-    std::vector<std::vector<int>> g(2 * n - 1);
-    std::vector<int> q_bfs;
-    q_bfs.push_back(0);
-    std::vector<bool> vis(n, false);
-    vis[0] = true;
-    int head = 0;
-    while (head < (int)q_bfs.size()) {
-        int u = q_bfs[head++];
-        for (auto &e : orig_g[u]) {
-            int v = e.to();
-            int idx = e.weight();
-            if (!vis[v]) {
-                vis[v] = true;
-                q_bfs.push_back(v);
-                g[u].push_back(n + idx);
-                g[n + idx].push_back(u);
-                g[n + idx].push_back(v);
-                g[v].push_back(n + idx);
-            }
-        }
-    }
-
-    static_top_tree<std::vector<std::vector<int>>> stt(g, 0);
+    static_top_tree<list_graph<void>> stt(g, 0);
     DP dp_obj(n, a, b, c);
-    static_top_tree_dp<std::vector<std::vector<int>>, DP> stt_dp(stt, dp_obj);
+    static_top_tree_dp<list_graph<void>, DP> stt_dp(stt, dp_obj);
 
     for (int i = 0; i < q; ++i) {
         int type;
