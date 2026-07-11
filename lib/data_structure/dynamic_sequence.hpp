@@ -83,7 +83,8 @@ struct DynamicSequence {
         for (auto anc : nodes) update(anc);
     }
 
-    void insert(int k, T val) { root = insert(root, k, new Node(std::move(val))); }
+    void insert(int k, const T &val) { root = insert(root, k, new Node(val)); }
+    void insert(int k, T &&val) { root = insert(root, k, new Node(std::move(val))); }
     template <class... Args>
     void emplace(int k, Args &&...args) {
         root = insert(root, k, new Node(T(std::forward<Args>(args)...)));
