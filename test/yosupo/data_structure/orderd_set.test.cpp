@@ -7,12 +7,12 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    ordered_set<int> tr(a);
+    OrderedSet<int> tr(a);
     while (q--) {
         int t, x;
         std::cin >> t >> x;
         if (t == 0) {
-            if (!tr.contains(x)) tr.insert(x);
+            tr.insert(x);
         } else if (t == 1) {
             tr.erase(x);
         } else if (t == 2) {
