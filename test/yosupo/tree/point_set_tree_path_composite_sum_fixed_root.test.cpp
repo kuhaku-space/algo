@@ -1,5 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 #include "math/modint.hpp"
@@ -15,23 +16,13 @@ struct DP {
         Mint S, sz;
     };
 
-    int n;
-    const std::vector<Mint> &A;
-    const std::vector<Mint> &B;
-    const std::vector<Mint> &C;
+    std::vector<Path> val;
 
-    DP(int n, const std::vector<Mint> &A, const std::vector<Mint> &B, const std::vector<Mint> &C)
-        : n(n), A(A), B(B), C(C) {}
+    explicit DP(std::vector<Path> val) : val(std::move(val)) {}
 
-    Path vertex(int u) const {
-        if (u < n) {
-            return {1, 0, A[u], 1};
-        } else {
-            return {B[u - n], C[u - n], 0, 0};
-        }
-    }
+    Path vertex(int u) const { return val[u]; }
 
-    Path add_vertex(Path d, Light l) const { return {d.b, d.c, (d.S + l.S), (d.sz + l.sz)}; }
+    Path add_vertex(Path d, Light l) const { return {d.b, d.c, (d.b * l.S + d.c * l.sz + d.S), (d.sz + l.sz)}; }
 
     Light add_edge(Path d) const { return {d.S, d.sz}; }
 
@@ -50,42 +41,26 @@ int main() {
     int n, q;
     std::cin >> n >> q;
 
-    std::vector<Mint> a(n);
-    for (auto &e : a) std::cin >> e;
+    std::vector<DP::Path> val(2 * n - 1);
+    for (int i = 0; i < n; ++i) {
+        Mint x;
+        std::cin >> x;
+        val[i] = {1, 0, x, 1};
+    }
 
-    std::vector<int> U(n - 1), V(n - 1);
-    std::vector<Mint> b(n - 1), c(n - 1);
-    list_graph<int> orig_g(n);
+    list_graph<void> g(2 * n - 1);
     for (int i = 0; i < n - 1; ++i) {
-        std::cin >> U[i] >> V[i] >> b[i] >> c[i];
-        orig_g.add_edges(U[i], V[i], i);
+        int u, v;
+        Mint b, c;
+        std::cin >> u >> v >> b >> c;
+        val[n + i] = {b, c, 0, 0};
+        g.add_edges(u, n + i);
+        g.add_edges(n + i, v);
     }
 
-    std::vector<std::vector<int>> g(2 * n - 1);
-    std::vector<int> q_bfs;
-    q_bfs.push_back(0);
-    std::vector<bool> vis(n, false);
-    vis[0] = true;
-    int head = 0;
-    while (head < (int)q_bfs.size()) {
-        int u = q_bfs[head++];
-        for (auto &e : orig_g[u]) {
-            int v = e.to();
-            int idx = e.weight();
-            if (!vis[v]) {
-                vis[v] = true;
-                q_bfs.push_back(v);
-                g[u].push_back(n + idx);
-                g[n + idx].push_back(u);
-                g[n + idx].push_back(v);
-                g[v].push_back(n + idx);
-            }
-        }
-    }
-
-    static_top_tree<std::vector<std::vector<int>>> stt(g, 0);
-    DP dp_obj(n, a, b, c);
-    static_top_tree_dp<std::vector<std::vector<int>>, DP> stt_dp(stt, dp_obj);
+    static_top_tree<list_graph<void>> stt(g, 0);
+    DP dp_obj(std::move(val));
+    static_top_tree_dp<list_graph<void>, DP> stt_dp(stt, dp_obj);
 
     for (int i = 0; i < q; ++i) {
         int type;
@@ -94,15 +69,14 @@ int main() {
             int w;
             long long x;
             std::cin >> w >> x;
-            a[w] = x;
+            stt_dp.dp.val[w] = {1, 0, x, 1};
             stt_dp.update(w);
             std::cout << stt_dp.get().S << "\n";
         } else {
             int idx;
             long long y, z;
             std::cin >> idx >> y >> z;
-            b[idx] = y;
-            c[idx] = z;
+            stt_dp.dp.val[n + idx] = {y, z, 0, 0};
             stt_dp.update(n + idx);
             std::cout << stt_dp.get().S << "\n";
         }
