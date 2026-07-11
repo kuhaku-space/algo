@@ -49,7 +49,8 @@ struct OrderedMultiset {
     using node_ptr = typename Node::pointer;
 
     constexpr OrderedMultiset() : root(nullptr) {}
-    constexpr OrderedMultiset(const std::vector<T> &v) : root(nullptr) {
+    constexpr OrderedMultiset(std::vector<T> v) : root(nullptr) {
+        std::sort(v.begin(), v.end());
         auto build = [&v](auto self, int l, int r) -> node_ptr {
             if (l == r) return nullptr;
             int m = (l + r) >> 1;
