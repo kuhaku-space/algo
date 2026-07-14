@@ -5,7 +5,7 @@
 int main(void) {
     int l, r, m;
     std::cin >> l >> r >> m;
-    hopcroft_karp g(l, r);
+    HopcroftKarp g(l, r);
     while (m--) {
         int u, v;
         std::cin >> u >> v;

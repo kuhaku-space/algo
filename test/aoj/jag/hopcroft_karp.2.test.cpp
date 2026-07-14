@@ -12,7 +12,7 @@ int main(void) {
     std::vector<std::pair<int, int>> a(m);
     for (auto &[x, y] : a) std::cin >> x >> y, --x, --y;
 
-    hopcroft_karp mf(n, n);
+    HopcroftKarp mf(n, n);
     for (int i = 0; i < m; ++i) {
         auto [x, y] = a[i];
         mf.add_edge(x, y);
