@@ -1,11 +1,11 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/bipartitematching
 #include <iostream>
-#include "flow/hopcroft_karp.hpp"
+#include "flow/bipartite_matching.hpp"
 
 int main(void) {
     int l, r, m;
     std::cin >> l >> r >> m;
-    HopcroftKarp g(l, r);
+    BipartiteMatching g(l, r);
     while (m--) {
         int u, v;
         std::cin >> u >> v;

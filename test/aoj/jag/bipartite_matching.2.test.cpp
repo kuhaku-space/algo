@@ -3,7 +3,7 @@
 #include <set>
 #include <utility>
 #include <vector>
-#include "flow/hopcroft_karp.hpp"
+#include "flow/bipartite_matching.hpp"
 #include "union_find/union_find.hpp"
 
 int main(void) {
@@ -12,7 +12,7 @@ int main(void) {
     std::vector<std::pair<int, int>> a(m);
     for (auto &[x, y] : a) std::cin >> x >> y, --x, --y;
 
-    HopcroftKarp mf(n, n);
+    BipartiteMatching mf(n, n);
     for (int i = 0; i < m; ++i) {
         auto [x, y] = a[i];
         mf.add_edge(x, y);
