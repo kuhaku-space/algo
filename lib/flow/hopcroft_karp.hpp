@@ -15,8 +15,10 @@ struct HopcroftKarp {
         g[u].emplace_back(v);
     }
 
+    /// @brief 最大マッチングのサイズ
+    /// @note 冪等。既にマッチ済みの分も含めた総数を返すので、何度呼んでも同じ値になる。
     int matching() {
-        int flow = 0;
+        int flow = n - (int)std::count(match_left.begin(), match_left.end(), -1);
         std::vector<int> root(n), prev(n), qq(n);
         for (bool updated = true; updated;) {
             updated = false;
