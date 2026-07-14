@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2251
 #include <algorithm>
 #include <iostream>
-#include "flow/hopcroft_karp.hpp"
+#include "flow/bipartite_matching.hpp"
 #include "graph/floyd_warshall.hpp"
 #include "graph/matrix_graph.hpp"
 
@@ -22,7 +22,7 @@ int main(void) {
         std::vector<std::pair<int, int>> q(l);
         for (auto &[a, b] : q) std::cin >> a >> b;
         std::sort(q.begin(), q.end(), [](auto l, auto r) { return l.second < r.second; });
-        hopcroft_karp hk(l, l);
+        BipartiteMatching hk(l, l);
         for (int i = 0; i < l; ++i) {
             auto [a, b] = q[i];
             for (int j = i + 1; j < l; ++j) {
