@@ -7,17 +7,19 @@
 /// @brief Hopcroft-Karp algorithm
 /// @see https://judge.yosupo.jp/submission/99577
 struct HopcroftKarp {
-    HopcroftKarp(int _n, int _m) : n(_n), m(_m), g(_n), match_left(_n, -1), match_right(_m, -1) {}
+    HopcroftKarp(int _n, int _m) : n(_n), m(_m), built(false), match_left(_n, -1), match_right(_m, -1) {}
 
     void add_edge(int u, int v) {
         assert(0 <= u && u < n);
         assert(0 <= v && v < m);
-        g[u].emplace_back(v);
+        buf.emplace_back(u, v);
+        built = false;
     }
 
     /// @brief 最大マッチングのサイズ
     /// @note 冪等。既にマッチ済みの分も含めた総数を返すので、何度呼んでも同じ値になる。
     int matching() {
+        if (!built) build_csr();
         int flow = n - (int)std::count(match_left.begin(), match_left.end(), -1);
         std::vector<int> root(n), prev(n), qq(n);
         for (bool updated = true; updated;) {
@@ -31,7 +33,8 @@ struct HopcroftKarp {
             while (qi < qj) {
                 int u = qq[qi++];
                 if (match_left[root[u]] != -1) continue;
-                for (int v : g[u]) {
+                for (int idx = start[u]; idx < start[u + 1]; idx++) {
+                    int v = elist[idx];
                     if (match_right[v] == -1) {
                         while (v != -1) match_right[v] = u, std::swap(match_left[u], v), u = prev[u];
                         updated = true, flow++;
@@ -85,8 +88,21 @@ struct HopcroftKarp {
 
   private:
     const int n, m;
-    std::vector<std::vector<int>> g;
+    bool built;
+    std::vector<std::pair<int, int>> buf;  // add_edge で蓄積した辺（CSR 構築前）
+    std::vector<int> start, elist;         // 左頂点ごとの隣接右頂点を詰めた CSR
     std::vector<int> match_left, match_right;
+
+    // 蓄積した辺を CSR に詰める（matching() 先頭で必要時のみ実行）
+    void build_csr() {
+        start.assign(n + 1, 0);
+        elist.resize(buf.size());
+        for (auto [u, v] : buf) ++start[u + 1];
+        for (int i = 0; i < n; i++) start[i + 1] += start[i];
+        auto counter = start;
+        for (auto [u, v] : buf) elist[counter[u]++] = v;
+        built = true;
+    }
 
     // 未マッチの左側頂点から交互道（左→右は非マッチング辺、右→左はマッチング辺）で到達可能な頂点
     std::pair<std::vector<bool>, std::vector<bool>> alternating_reachable() const {
@@ -98,7 +114,8 @@ struct HopcroftKarp {
         while (!st.empty()) {
             int u = st.back();
             st.pop_back();
-            for (int v : g[u]) {
+            for (int idx = start[u]; idx < start[u + 1]; idx++) {
+                int v = elist[idx];
                 if (v == match_left[u] || r_reach[v]) continue;
                 r_reach[v] = true;
                 int w = match_right[v];
