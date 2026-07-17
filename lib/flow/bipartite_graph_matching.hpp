@@ -6,7 +6,7 @@
 #include "flow/bipartite_matching.hpp"
 #include "graph/graph.hpp"
 
-/// @brief 2 彩色済みの一般の無向グラフを二部マッチング本体（`BipartiteMatching`）に橋渡しするアダプタ
+/// @brief 2 彩色済みの一般の無向グラフを二部マッチング本体（BipartiteMatching）に橋渡しするアダプタ
 /// @details `bipartite_coloring(g)` の結果をそのまま渡して構築し、
 ///          最大マッチング・最小頂点被覆・最大独立集合を元のグラフの頂点 id で取得する。
 ///
