@@ -111,7 +111,8 @@ struct FenwickTree {
     int lower_bound(T val) const
     requires(!RangeAdd)
     {
-        if (val <= 0) return 0;
+        assert(val >= 0);
+        if (val == 0) return 0;
         int k = 1;
         while (k < _size) k <<= 1;
         int res = 0;
@@ -130,7 +131,7 @@ struct FenwickTree {
     int upper_bound(T val) const
     requires(!RangeAdd)
     {
-        if (val < 0) return 0;
+        assert(val >= 0);
         int k = 1;
         while (k < _size) k <<= 1;
         int res = 0;
