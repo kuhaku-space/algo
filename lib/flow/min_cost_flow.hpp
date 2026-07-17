@@ -61,7 +61,7 @@ struct mcf_graph {
                 elist.emplace_back(e.from, _edge(e.to, -1, e.cap - e.flow, e.cost));
                 elist.emplace_back(e.to, _edge(e.from, -1, e.flow, -e.cost));
             }
-            auto _g = internal::csr<_edge>(_n, elist);
+            auto _g = internal::Csr<_edge>(_n, elist);
             for (int i = 0; i < m; ++i) {
                 auto e = _edges[i];
                 edge_idx[i] += _g.start[e.from];
@@ -95,7 +95,7 @@ struct mcf_graph {
         constexpr _edge(int _to, int _rev, Cap _cap, Cost _cost) : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
     };
 
-    std::vector<std::pair<Cap, Cost>> slope(internal::csr<_edge> &g, int s, int t, Cap flow_limit) {
+    std::vector<std::pair<Cap, Cost>> slope(internal::Csr<_edge> &g, int s, int t, Cap flow_limit) {
         std::vector<std::pair<Cost, Cost>> dual_dist(_n);
         std::vector<int> prev_e(_n);
         std::vector<bool> vis(_n);
