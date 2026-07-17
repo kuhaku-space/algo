@@ -4,48 +4,80 @@
 #include <optional>
 #include <utility>
 
-/// @brief 半開区間
-namespace open_interval {
+namespace internal {
 
 template <std::integral T>
 bool is_include(T l1, T r1, T l2, T r2) {
     return (l1 <= l2 && r2 <= r1) || (l2 <= l1 && r1 <= r2);
 }
-
 template <std::integral T>
 bool is_include(std::pair<T, T> p, std::pair<T, T> q) {
     return is_include(p.first, p.second, q.first, q.second);
 }
 
-template <std::integral T>
+/// @tparam Closed true なら閉区間、false なら半開区間として境界の重なりを判定する
+template <bool Closed, std::integral T>
 bool is_intersect(T l1, T r1, T l2, T r2) {
-    return std::max(l1, l2) < std::min(r1, r2);
+    if constexpr (Closed) return std::max(l1, l2) <= std::min(r1, r2);
+    else return std::max(l1, l2) < std::min(r1, r2);
+}
+template <bool Closed, std::integral T>
+bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
+    return is_intersect<Closed>(p.first, p.second, q.first, q.second);
 }
 
+template <bool Closed, std::integral T>
+std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
+    if (is_intersect<Closed>(l1, r1, l2, r2)) return std::pair{std::max(l1, l2), std::min(r1, r2)};
+    else return std::nullopt;
+}
+template <bool Closed, std::integral T>
+std::optional<std::pair<T, T>> intersection(std::pair<T, T> p, std::pair<T, T> q) {
+    return intersection<Closed>(p.first, p.second, q.first, q.second);
+}
+
+template <bool Closed, std::integral T>
+bool is_disjoint(T l1, T r1, T l2, T r2) {
+    if constexpr (Closed) return std::min(r1, r2) < std::max(l1, l2);
+    else return std::min(r1, r2) <= std::max(l1, l2);
+}
+template <bool Closed, std::integral T>
+bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
+    return is_disjoint<Closed>(p.first, p.second, q.first, q.second);
+}
+
+}  // namespace internal
+
+/// @brief 半開区間
+namespace open_interval {
+
+using internal::is_include;
+
+template <std::integral T>
+bool is_intersect(T l1, T r1, T l2, T r2) {
+    return internal::is_intersect<false>(l1, r1, l2, r2);
+}
 template <std::integral T>
 bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
-    return is_intersect(p.first, p.second, q.first, q.second);
+    return internal::is_intersect<false>(p, q);
 }
 
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
-    if (is_intersect(l1, r1, l2, r2)) return std::pair{std::max(l1, l2), std::min(r1, r2)};
-    else return std::nullopt;
+    return internal::intersection<false>(l1, r1, l2, r2);
 }
-
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(std::pair<T, T> p, std::pair<T, T> q) {
-    return intersection(p.first, p.second, q.first, q.second);
+    return internal::intersection<false>(p, q);
 }
 
 template <std::integral T>
 bool is_disjoint(T l1, T r1, T l2, T r2) {
-    return std::min(r1, r2) <= std::max(l1, l2);
+    return internal::is_disjoint<false>(l1, r1, l2, r2);
 }
-
 template <std::integral T>
 bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
-    return is_disjoint(p.first, p.second, q.first, q.second);
+    return internal::is_disjoint<false>(p, q);
 }
 
 }  // namespace open_interval
@@ -53,45 +85,33 @@ bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
 /// @brief 閉区間
 namespace closed_interval {
 
-template <std::integral T>
-bool is_include(T l1, T r1, T l2, T r2) {
-    return (l1 <= l2 && r2 <= r1) || (l2 <= l1 && r1 <= r2);
-}
-
-template <std::integral T>
-bool is_include(std::pair<T, T> p, std::pair<T, T> q) {
-    return is_include(p.first, p.second, q.first, q.second);
-}
+using internal::is_include;
 
 template <std::integral T>
 bool is_intersect(T l1, T r1, T l2, T r2) {
-    return std::max(l1, l2) <= std::min(r1, r2);
+    return internal::is_intersect<true>(l1, r1, l2, r2);
 }
-
 template <std::integral T>
 bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
-    return is_intersect(p.first, p.second, q.first, q.second);
+    return internal::is_intersect<true>(p, q);
 }
 
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
-    if (is_intersect(l1, r1, l2, r2)) return std::pair{std::max(l1, l2), std::min(r1, r2)};
-    else return std::nullopt;
+    return internal::intersection<true>(l1, r1, l2, r2);
 }
-
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(std::pair<T, T> p, std::pair<T, T> q) {
-    return intersection(p.first, p.second, q.first, q.second);
+    return internal::intersection<true>(p, q);
 }
 
 template <std::integral T>
 bool is_disjoint(T l1, T r1, T l2, T r2) {
-    return std::min(r1, r2) < std::max(l1, l2);
+    return internal::is_disjoint<true>(l1, r1, l2, r2);
 }
-
 template <std::integral T>
 bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
-    return is_disjoint(p.first, p.second, q.first, q.second);
+    return internal::is_disjoint<true>(p, q);
 }
 
 }  // namespace closed_interval

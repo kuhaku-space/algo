@@ -9,7 +9,7 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<std::int64_t> a(n);
     for (auto &e : a) std::cin >> e;
-    prefix_sum<std::int64_t> ps(a);
+    PrefixSum<std::int64_t> ps(a);
     while (q--) {
         int l, r;
         std::cin >> l >> r;
