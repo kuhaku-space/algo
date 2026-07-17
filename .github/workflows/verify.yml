@@ -1,0 +1,367 @@
+name: verify
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    # Weekly re-verification. Also keeps the verify-result cache warm:
+    # Actions caches are evicted after 7 days WITHOUT access (the timer
+    # resets on every restore), so this is a safety net for weeks with no
+    # pushes, plus a periodic re-check against external judges (e.g. AOJ).
+    - cron: "0 18 * * 0"
+  workflow_dispatch:
+    inputs:
+      ignore_prev_result:
+        type: boolean
+        default: false
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: read
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up competitive-verifier
+        uses: competitive-verifier/actions/setup@v2
+        with:
+          cache-pip: true
+
+      # Initialize your own environment for resolving.
+      - name: oj-resolve
+        uses: competitive-verifier/actions/oj-resolve@v2
+        with:
+          output-path: verify_files.json
+          # Specify patterns
+          # include: your-own-include/
+          exclude: |
+            .github/
+          # If you have config.toml
+          config: .verify-helper/config.toml
+      - name: parse-doxygen
+        uses: competitive-verifier/actions/parse-doxygen@v2
+        with:
+          verify-files: verify_files.json
+
+      - name: Upload verify_files.json
+        uses: competitive-verifier/actions/upload-verify-artifact@v2
+        with:
+          file: verify_files.json
+
+      - name: Check bundled
+        id: test-bundled
+        run: |
+          echo "count=$(find .competitive-verifier/bundled/ -type f | wc -l)" >> "$GITHUB_OUTPUT"
+      - name: Upload bundled
+        uses: actions/upload-artifact@v7
+        if: steps.test-bundled.outputs.count > 0
+        with:
+          name: Bundled-${{ runner.os }}
+          path: .competitive-verifier/bundled
+          retention-days: 1
+
+  verify:
+    runs-on: ubuntu-latest
+    needs: [setup]
+    env:
+      # SPLIT_SIZE must equal the number of matrix indices below.
+      SPLIT_SIZE: "10"
+    strategy:
+      matrix:
+        # prettier-ignore
+        index:
+          ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09"]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2147483647
+
+      # Prefer this branch's own latest result, then fall back to main, then
+      # to any branch. Per-branch keys keep a failing PR from polluting the
+      # baseline that other branches restore from.
+      - name: Restore cached results
+        if: ${{ ! inputs.ignore_prev_result }}
+        uses: actions/cache/restore@v5
+        id: restore-cached-results
+        with:
+          path: ${{github.workspace}}/merged-result.json
+          key: ${{ runner.os }}-verify-result-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-verify-result-${{ github.ref_name }}-
+            ${{ runner.os }}-verify-result-main-
+            ${{ runner.os }}-verify-result-
+
+      # Cache downloaded test cases (and compiled binaries) under
+      # .competitive-verifier/cache. Re-verifying a heavy test otherwise
+      # re-downloads its cases from the judge, which dominated wall-clock
+      # (~107s of download for a single yosupo test on a recent run).
+      # Per-shard key because each split downloads a different set of problems;
+      # a single shared key would let the last shard's save clobber the rest.
+      # run_id makes every save a new immutable entry (caches can't be
+      # overwritten), so entries accumulate over time. That's intentional: we
+      # rely on GitHub's per-repo 10GB LRU eviction to retire old generations
+      # rather than deleting them explicitly.
+      - name: Restore problem cache
+        uses: actions/cache/restore@v5
+        id: restore-problem-cache
+        with:
+          path: ${{github.workspace}}/.competitive-verifier/cache
+          key: ${{ runner.os }}-verify-problems-${{ matrix.index }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-verify-problems-${{ matrix.index }}-
+
+      - name: Download verify_files.json
+        uses: competitive-verifier/actions/download-verify-artifact@v2
+
+      - name: Set up competitive-verifier
+        uses: competitive-verifier/actions/setup@v2
+        with:
+          cache-pip: true
+
+      - name: Verify
+        uses: competitive-verifier/actions/verify@v2
+        with:
+          destination: ${{runner.temp}}/result.json
+          split-size: ${{ env.SPLIT_SIZE }}
+          split-index: ${{ matrix.index }}
+          timeout: 1800
+          prev-result: ${{ steps.restore-cached-results.outputs.cache-hit && 'merged-result.json' || ''}}
+        env:
+          YUKICODER_TOKEN: ${{secrets.YUKICODER_TOKEN}}
+
+      # Always save (even if Verify failed) so a partial download cache still
+      # carries forward. run_id in the key makes each save a fresh immutable
+      # entry that the next run picks up via the restore-keys prefix.
+      - name: Save problem cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: ${{github.workspace}}/.competitive-verifier/cache
+          key: ${{ runner.os }}-verify-problems-${{ matrix.index }}-${{ github.run_id }}
+
+      - name: Upload result artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Result-${{ runner.os }}-${{ matrix.index }}
+          path: ${{runner.temp}}/result.json
+          retention-days: 1
+
+  docs-and-check:
+    runs-on: ubuntu-latest
+    needs: [verify]
+    outputs:
+      upload-pages: ${{steps.upload-pages.outcome == 'success'}}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2147483647
+
+      - name: Download verify_files.json and all artifacts
+        id: all-artifacts
+        uses: competitive-verifier/actions/download-verify-artifact@v2
+        with:
+          download-all: true
+          artifact-root: .artifacts/
+
+      - name: Extract bundled
+        shell: bash
+        run: |
+          rm -rf .competitive-verifier/bundled
+          if test -d "$SRCDIR"; then
+            mkdir -p .competitive-verifier/
+            mv "$SRCDIR" .competitive-verifier/bundled
+          else
+            echo "$SRCDIR does not exist."
+          fi
+        env:
+          SRCDIR: .artifacts/Bundled-${{ runner.os }}
+
+      - name: Set up competitive-verifier
+        uses: competitive-verifier/actions/setup@v2
+        with:
+          cache-pip: true
+
+      - name: Merge results
+        uses: competitive-verifier/actions/merge-result@v2
+        with:
+          result-files: ${{ steps.all-artifacts.outputs.artifacts-root }}/Result-*/result.json
+          output-path: ${{github.workspace}}/merged-result.json
+      - name: Reclassify transient AOJ timeouts as skipped
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGED: ${{github.workspace}}/merged-result.json
+          RUN_ID: ${{ github.run_id }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 <<'PY'
+          import json, os, re, subprocess, sys
+
+          merged_path = os.environ["MERGED"]
+          run_id = os.environ["RUN_ID"]
+          repo = os.environ["REPO"]
+
+          with open(merged_path) as f:
+              merged = json.load(f)
+
+          failed_files = {
+              p for p, fr in merged.get("files", {}).items()
+              if any(v.get("status") == "failure" for v in fr.get("verifications", []))
+          }
+          if not failed_files:
+              print("No failures; nothing to reclassify.")
+              sys.exit(0)
+
+          jobs = json.loads(subprocess.check_output(
+              ["gh", "api", "--paginate",
+               f"repos/{repo}/actions/runs/{run_id}/jobs"]
+          ))["jobs"]
+          verify_jobs = [j for j in jobs if j["name"].startswith("verify (")]
+
+          # AOJ (judgedat.u-aizu.ac.jp) is the only judge where transient
+          # read timeouts have actually been observed. Intentionally NOT
+          # generalized to other judges: matching unobserved patterns would
+          # risk silently skipping real failures.
+          timeout_pattern = re.compile(
+              r"judgedat\.u-aizu\.ac\.jp.*Read timed out|"
+              r"handshake operation timed out"
+          )
+          failure_pattern = re.compile(
+              r"Failed to download:.*'(test/[^']+\.test\.cpp)'"
+          )
+          # The "Failed to download" line follows the timeout line within a
+          # handful of log lines; scan a small window after each timeout.
+          DOWNLOAD_FAILURE_WINDOW = 30
+
+          timeout_files = set()
+          for job in verify_jobs:
+              try:
+                  log = subprocess.check_output(
+                      ["gh", "api",
+                       f"repos/{repo}/actions/jobs/{job['id']}/logs"],
+                      text=True, stderr=subprocess.DEVNULL,
+                  )
+              except subprocess.CalledProcessError:
+                  continue
+              lines = log.splitlines()
+              for i, line in enumerate(lines):
+                  if not timeout_pattern.search(line):
+                      continue
+                  for j in range(i, min(i + DOWNLOAD_FAILURE_WINDOW, len(lines))):
+                      m = failure_pattern.search(lines[j])
+                      if m:
+                          timeout_files.add(m.group(1))
+
+          reclassified = []
+          for p in sorted(failed_files & timeout_files):
+              changed = False
+              for v in merged["files"][p]["verifications"]:
+                  if v.get("status") == "failure":
+                      v["status"] = "skipped"
+                      changed = True
+              if changed:
+                  reclassified.append(p)
+
+          if reclassified:
+              with open(merged_path, "w") as f:
+                  json.dump(merged, f)
+              print(f"Reclassified {len(reclassified)} timeout failures as skipped:")
+              for p in reclassified:
+                  print(f"  - {p}")
+          else:
+              print("No transient AOJ timeouts detected.")
+          PY
+      - name: Re-emit per-job result.json with reclassification
+        env:
+          ARTIFACTS_ROOT: ${{ steps.all-artifacts.outputs.artifacts-root }}
+          MERGED: ${{github.workspace}}/merged-result.json
+        run: |
+          python3 <<'PY'
+          import json, os, glob
+
+          merged = json.load(open(os.environ["MERGED"]))
+          merged_files = merged.get("files", {})
+          for path in glob.glob(os.path.join(os.environ["ARTIFACTS_ROOT"], "Result-*/result.json")):
+              data = json.load(open(path))
+              for p, fr in data.get("files", {}).items():
+                  if p in merged_files:
+                      data["files"][p] = merged_files[p]
+              with open(path, "w") as f:
+                  json.dump(data, f)
+          PY
+      - name: Docs
+        uses: competitive-verifier/actions/docs@v2
+        with:
+          verify-result: ${{github.workspace}}/merged-result.json
+          destination: _jekyll
+          write-summary: true
+      # Informational only: the authoritative pass/fail gate is the final
+      # "Check" step. The merged result is always cached (see "Save result").
+      - name: Report merged result summary
+        run: |
+          python3 <<'PY'
+          import json, os
+
+          merged = json.load(open(os.environ["MERGED"]))
+          failures = [
+              p for p, fr in merged.get("files", {}).items()
+              if any(v.get("status") == "failure" for v in fr.get("verifications", []))
+          ]
+          if failures:
+              print(f"{len(failures)} file(s) still failing:")
+              for p in sorted(failures):
+                  print(f"  - {p}")
+          else:
+              print("All verifications passed.")
+          PY
+        env:
+          MERGED: ${{github.workspace}}/merged-result.json
+      # Always save: competitive-verifier re-verifies "failure" tests on the
+      # next run regardless of prev-result, while "success" tests are skipped
+      # by timestamp. Saving partial results lets the many passing tests skip
+      # re-verification without ever masking a real failure.
+      - name: Save result
+        uses: actions/cache/save@v5
+        with:
+          path: ${{github.workspace}}/merged-result.json
+          key: ${{ runner.os }}-verify-result-${{ github.ref_name }}-${{ github.sha }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: _jekyll
+          destination: _site
+      - name: Upload artifact
+        id: upload-pages
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Check
+        uses: competitive-verifier/actions/check@v2
+        with:
+          verify-result: ${{ steps.all-artifacts.outputs.artifacts-root }}/Result-*/result.json
+  deploy:
+    if: (success() || failure()) && github.ref == 'refs/heads/main' && needs.docs-and-check.outputs.upload-pages == 'true'
+    needs: docs-and-check
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
