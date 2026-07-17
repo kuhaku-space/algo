@@ -1,11 +1,11 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
 #include <iostream>
 #include <string>
-#include "heap/leftist_heap.hpp"
+#include "heap/meldable_heap.hpp"
 #include "template/sonic.hpp"
 
 int main(void) {
-    leftist_heap<int> heap;
+    MeldableHeap<int> heap;
     while (true) {
         std::string s;
         std::cin >> s;
