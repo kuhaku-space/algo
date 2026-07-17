@@ -45,40 +45,20 @@ int main(void) {
         if (!used[i]) ans[i] = sum;
     }
     uf = union_find(n);
-    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
-    // 帰りがけに親側の辺を辿って heap の pop/meld と ans の更新を行う。
-    std::vector<int> par(n, -1), pe(n, -1);
-    struct frame {
-        int v, p, idx;
-    };
-    std::vector<frame> stk;
-    stk.reserve(n);
-    stk.push_back({0, -1, 0});
-    while (!stk.empty()) {
-        frame &f = stk.back();
-        int x = f.v;
-        if (f.idx < (int)g[x].size()) {
-            int i = f.idx++;
-            auto e = g[x][i];
-            if (e.to() == f.p) continue;
-            par[e.to()] = x;
-            pe[e.to()] = i;
-            stk.push_back({e.to(), x, 0});
-        } else {
-            int p = par[x];
-            stk.pop_back();
-            if (p != -1) {
-                auto e = g[p][pe[x]];
-                while (!heap[x].empty() && uf.same(x, heap[x].top().second)) heap[x].pop();
-                if (!heap[x].empty()) {
-                    auto [u, v, w] = edges[e.weight()];
-                    ans[e.weight()] = sum - w + heap[x].top().first;
-                }
-                heap[p].meld(heap[x]);
-                uf.unite(p, x);
+    auto dfs = [&](auto self, int x, int p) -> void {
+        for (auto e : g[x]) {
+            if (e.to() == p) continue;
+            self(self, e.to(), x);
+            while (!heap[e.to()].empty() && uf.same(e.to(), heap[e.to()].top().second)) heap[e.to()].pop();
+            if (!heap[e.to()].empty()) {
+                auto [u, v, w] = edges[e.weight()];
+                ans[e.weight()] = sum - w + heap[e.to()].top().first;
             }
+            heap[x].meld(heap[e.to()]);
+            uf.unite(x, e.to());
         }
-    }
+    };
+    dfs(dfs, 0, -1);
     for (int i = 0; i < m; ++i) std::cout << ans[i] << '\n';
 
     return 0;
