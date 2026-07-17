@@ -6,7 +6,7 @@
 #include <vector>
 #include "graph/graph.hpp"
 
-/// @brief shortest_path の既定ヒープ（`std::priority_queue` ベースの最小ヒープ）
+/// @brief shortest_path の既定ヒープ（std::priority_queue ベースの最小ヒープ）
 /// @details 順序基準 `Key`（距離）・付随データ `Value`（頂点）を受け取り、`Key` 最小を
 ///          ルートにする。`binary_heap` / `fibonacci_heap` と同じ template-template 形式
 ///          （`Heap<Key, Value, Comp>`）で渡せるよう薄く包む。decrease-key は持たない。

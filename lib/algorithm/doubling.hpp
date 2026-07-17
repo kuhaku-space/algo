@@ -7,7 +7,7 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
-/// @brief ダブリングで `M` が取れる型か（`void` または `monoid`）
+/// @brief ダブリングで `M` が取れる型か（void または monoid）
 /// @details `void` は集約なし（遷移先のみ）、`monoid` は遷移に沿った値の集約を表す。
 template <class M>
 concept doubling_monoid = std::is_void_v<M> || monoid<M>;
