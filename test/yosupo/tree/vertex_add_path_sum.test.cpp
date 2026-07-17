@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/hld.hpp"
 
@@ -14,7 +14,7 @@ int main(void) {
     edge_input<void> ei(n - 1, 0);
     auto g = ei.to_undirected(n);
     heavy_light_decomposition hld(g);
-    fenwick_tree<std::int64_t> ft(n);
+    FenwickTree<std::int64_t> ft(n);
     for (int i = 0; i < n; ++i) ft.add(hld.get(i), a[i]);
 
     while (q--) {

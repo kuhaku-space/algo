@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_add_range_sum
 #include <cstdint>
 #include <iostream>
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 #include "template/sonic.hpp"
 
 int main(void) {
@@ -9,7 +9,7 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    fenwick_tree<std::int64_t> ft(a);
+    FenwickTree<std::int64_t> ft(a);
     while (q--) {
         int x, y, z;
         std::cin >> x >> y >> z;

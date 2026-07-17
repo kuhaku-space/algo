@@ -1,11 +1,11 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B
 #include <iostream>
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    fenwick_tree<int> ft(n);
+    FenwickTree<int> ft(n);
     while (q--) {
         int com, x, y;
         std::cin >> com >> x >> y;

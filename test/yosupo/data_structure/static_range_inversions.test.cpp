@@ -5,7 +5,7 @@
 #include <vector>
 #include "algorithm/compress.hpp"
 #include "algorithm/mo.hpp"
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 
 int main(void) {
     int n, q;
@@ -15,7 +15,7 @@ int main(void) {
     a = compress(a);
     std::int64_t sum = 0;
     int size = *max_element(a.begin(), a.end()) + 1;
-    fenwick_tree<int> ft(size);
+    FenwickTree<int> ft(size);
     auto fl = [&](int idx) {
         sum += ft.sum(a[idx]);
         ft.add(a[idx], 1);

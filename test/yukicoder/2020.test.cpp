@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 #include "graph/graph.hpp"
 #include "string/trie.hpp"
 #include "tree/euler_tour.hpp"
@@ -48,7 +48,7 @@ int main() {
     }
     euler_tour et(g, 0);
 
-    fenwick_tree<std::int64_t> bit(m);
+    FenwickTree<std::int64_t> bit(m);
     auto mark = [&](int v) {
         et.query(v, [&](int l, int r) {
             bit.add(l, 1);

@@ -4,7 +4,7 @@
 #include <numeric>
 #include <vector>
 #include "algorithm/compress.hpp"
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 
 /// @brief 転倒数
 template <class T>
@@ -12,7 +12,7 @@ std::int64_t inversion_number(const std::vector<T> &v) {
     if (v.empty()) return 0;
     auto u = compress(v);
     std::reverse(u.begin(), u.end());
-    fenwick_tree<T> bit(*std::max_element(u.begin(), u.end()) + 1);
+    FenwickTree<T> bit(*std::max_element(u.begin(), u.end()) + 1);
     std::int64_t res = 0;
     for (auto x : u) {
         res += bit.sum(x);
@@ -26,7 +26,7 @@ template <class T>
 std::int64_t inversion_number_of_permutation(const std::vector<T> &v) {
     if (v.empty()) return 0;
     int n = v.size();
-    fenwick_tree<T> bit(n);
+    FenwickTree<T> bit(n);
     std::int64_t res = 0;
     for (int i = n - 1; i >= 0; --i) {
         res += bit.sum(v[i]);
