@@ -40,7 +40,7 @@ int main(void) {
     for (int i = 0; i < (int)queries.size(); ++i) { corr[i] = queries[i].first; }
     dsu_on_tree dsu(g, corr);
     std::vector<std::int64_t> ans(solve_count);
-    fenwick_tree<std::int64_t> ft(queries.size());
+    FenwickTree<std::int64_t> ft(queries.size());
     std::vector<std::pair<int, int>> history;
     auto rem = [&](int v) {
         for (auto &[u, x] : sol[v]) ans[u] = ft.sum(x);

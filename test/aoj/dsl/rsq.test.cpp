@@ -5,7 +5,7 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    fenwick_tree<int> ft(n);
+    FenwickTree<int> ft(n);
     while (q--) {
         int com, x, y;
         std::cin >> com >> x >> y;

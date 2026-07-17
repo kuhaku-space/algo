@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_E
 #include <cstdint>
 #include <iostream>
-#include "fenwick/fenwick_tree_raq.hpp"
+#include "fenwick/fenwick_tree.hpp"
 #include "graph/graph.hpp"
 #include "tree/hld.hpp"
 
@@ -20,7 +20,7 @@ int main(void) {
     }
 
     heavy_light_decomposition hld(g);
-    fenwick_tree_raq<std::int64_t> ft(n);
+    FenwickTree<std::int64_t, true> ft(n);
     int q;
     std::cin >> q;
     while (q--) {

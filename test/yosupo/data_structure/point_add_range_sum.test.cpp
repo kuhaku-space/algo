@@ -9,7 +9,7 @@ int main(void) {
     std::cin >> n >> q;
     std::vector<int> a(n);
     for (auto &e : a) std::cin >> e;
-    fenwick_tree<std::int64_t> ft(a);
+    FenwickTree<std::int64_t> ft(a);
     while (q--) {
         int x, y, z;
         std::cin >> x >> y >> z;

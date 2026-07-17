@@ -48,7 +48,7 @@ int main() {
     }
     euler_tour et(g, 0);
 
-    fenwick_tree<std::int64_t> bit(m);
+    FenwickTree<std::int64_t> bit(m);
     auto mark = [&](int v) {
         et.query(v, [&](int l, int r) {
             bit.add(l, 1);

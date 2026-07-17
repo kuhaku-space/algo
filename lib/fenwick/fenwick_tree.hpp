@@ -1,15 +1,21 @@
 #pragma once
 #include <cassert>
+#include <type_traits>
+#include <variant>
 #include <vector>
 
 /// @brief フェニック木
 /// @see http://hos.ac/slides/20140319_bit.pdf
-template <class T>
-struct fenwick_tree {
-    fenwick_tree() : _size(), data() {}
-    fenwick_tree(int n) : _size(n + 1), data(n + 1) {}
+/// @tparam RangeAdd true なら区間加算・区間総和（内部で BIT を 2 本保持）。
+///                  false なら点更新・区間総和（BIT 1 本、`lower_bound`/`upper_bound` あり）。
+template <class T, bool RangeAdd = false>
+struct FenwickTree {
+    FenwickTree() : _size() {}
+    FenwickTree(int n) : _size(n + 1), data(RangeAdd ? _size + 1 : _size) {
+        if constexpr (RangeAdd) data2.assign(_size + 1, T());
+    }
     template <class U>
-    fenwick_tree(const std::vector<U> &v) : _size((int)v.size() + 1), data((int)v.size() + 1) {
+    FenwickTree(const std::vector<U> &v) : FenwickTree((int)v.size()) {
         build(v);
     }
 
@@ -19,9 +25,13 @@ struct fenwick_tree {
 
     template <class U>
     void build(const std::vector<U> &v) {
-        for (int i = 0, n = v.size(); i < n; ++i) data[i + 1] = v[i];
-        for (int i = 1; i < _size; ++i) {
-            if (i + (i & -i) < _size) data[i + (i & -i)] += data[i];
+        if constexpr (RangeAdd) {
+            for (int i = 0, n = v.size(); i < n; ++i) add(i, v[i]);
+        } else {
+            for (int i = 0, n = v.size(); i < n; ++i) data[i + 1] = v[i];
+            for (int i = 1; i < _size; ++i) {
+                if (i + (i & -i) < _size) data[i + (i & -i)] += data[i];
+            }
         }
     }
 
@@ -29,8 +39,22 @@ struct fenwick_tree {
     void set(int k, T val) { add(k, val - at(k)); }
     /// @brief v[k] += val
     void add(int k, T val) {
-        assert(0 <= k && k < _size - 1);
-        for (++k; k < _size; k += k & -k) data[k] += val;
+        if constexpr (RangeAdd) {
+            add(k, k + 1, val);
+        } else {
+            assert(0 <= k && k < _size - 1);
+            for (++k; k < _size; k += k & -k) data[k] += val;
+        }
+    }
+    /// @brief v[a] ... v[b - 1] += val
+    void add(int a, int b, T val)
+    requires RangeAdd
+    {
+        assert(0 <= a && a <= b && b < _size);
+        add_raw(data, a, -val * a);
+        add_raw(data, b, val * b);
+        add_raw(data2, a, val);
+        add_raw(data2, b, -val);
     }
     /// @brief chmax(v[k], val)
     bool chmax(int k, T val) {
@@ -56,27 +80,37 @@ struct fenwick_tree {
     /// @brief v[0] + ... + v[k - 1]
     T sum(int k) const {
         assert(0 <= k && k < _size);
-        T res = 0;
-        for (; k > 0; k -= k & -k) res += data[k];
-        return res;
+        if constexpr (RangeAdd) {
+            return sum_raw(data, k) + sum_raw(data2, k) * k;
+        } else {
+            T res = T();
+            for (; k > 0; k -= k & -k) res += data[k];
+            return res;
+        }
     }
     /// @brief v[a] + ... + v[b - 1]
     T sum(int a, int b) const {
         assert(0 <= a && a <= b && b < _size);
-        T res = T();
-        while (a != b) {
-            if (a < b) {
-                res += data[b];
-                b -= b & -b;
-            } else {
-                res -= data[a];
-                a -= a & -a;
+        if constexpr (RangeAdd) {
+            return sum(b) - sum(a);
+        } else {
+            T res = T();
+            while (a != b) {
+                if (a < b) {
+                    res += data[b];
+                    b -= b & -b;
+                } else {
+                    res -= data[a];
+                    a -= a & -a;
+                }
             }
+            return res;
         }
-        return res;
     }
 
-    int lower_bound(T val) const {
+    int lower_bound(T val) const
+    requires(!RangeAdd)
+    {
         if (val <= 0) return 0;
         int k = 1;
         while (k < _size) k <<= 1;
@@ -86,9 +120,15 @@ struct fenwick_tree {
         }
         return res;
     }
-    int lower_bound(int k, T val) const { return lower_bound(val + sum(k)); }
+    int lower_bound(int k, T val) const
+    requires(!RangeAdd)
+    {
+        return lower_bound(val + sum(k));
+    }
 
-    int upper_bound(T val) const {
+    int upper_bound(T val) const
+    requires(!RangeAdd)
+    {
         if (val <= 0) return 0;
         int k = 1;
         while (k < _size) k <<= 1;
@@ -98,9 +138,23 @@ struct fenwick_tree {
         }
         return res;
     }
-    int upper_bound(int k, T val) const { return upper_bound(val + sum(k)); }
+    int upper_bound(int k, T val) const
+    requires(!RangeAdd)
+    {
+        return upper_bound(val + sum(k));
+    }
 
   private:
+    static void add_raw(std::vector<T> &d, int k, T val) {
+        for (++k; k < (int)d.size(); k += k & -k) d[k] += val;
+    }
+    static T sum_raw(const std::vector<T> &d, int k) {
+        T res = T();
+        for (; k > 0; k -= k & -k) res += d[k];
+        return res;
+    }
+
     int _size;
     std::vector<T> data;
+    [[no_unique_address]] std::conditional_t<RangeAdd, std::vector<T>, std::monostate> data2;
 };
