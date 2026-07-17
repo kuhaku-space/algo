@@ -158,7 +158,7 @@ struct list_graph {
 ///
 /// 辺は `add_edge` / `add_edges` で蓄積したあと `build()` で確定させる。
 /// `build()` 後は構造が固定され、再度辺を追加するには `build()` をやり直す。
-/// `internal::graph_csr` とは異なり重み・辺 ID を保持する公開グラフ型である。
+/// `internal::Csr` とは異なり重み・辺 ID を保持する公開グラフ型である。
 template <class T>
 struct csr_graph {
   private:

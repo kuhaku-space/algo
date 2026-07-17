@@ -1,80 +1,45 @@
 #pragma once
-#include <iostream>
+#include <iterator>
 #include <utility>
 #include <vector>
 
 namespace internal {
 
-struct graph_csr {
-  private:
-    struct edge_list {
-        using const_iterator = std::vector<int>::const_iterator;
-
-        edge_list(const graph_csr &g, int v) : g(g), v(v) {}
-
-        const_iterator begin() const { return std::next(g.elist.begin(), g.start[v]); }
-        const_iterator end() const { return std::next(g.elist.begin(), g.start[v + 1]); }
-
-      private:
-        const graph_csr &g;
-        int v;
-    };
-
-  public:
-    graph_csr(int n) : _size(n), edges(), start(n + 1) {}
-
-    edge_list operator[](int i) const { return edge_list(*this, i); }
-
-    constexpr int size() const { return _size; }
-
-    void build() {
-        for (auto [u, v] : edges) ++start[u + 1];
-        for (int i = 0; i < _size; ++i) start[i + 1] += start[i];
-        auto counter = start;
-        elist = std::vector<int>(edges.size());
-        for (auto [u, v] : edges) elist[counter[u]++] = v;
-    }
-
-    void add_edge(int u, int v) { edges.emplace_back(u, v); }
-
-    void add_edges(int u, int v) {
-        edges.emplace_back(u, v);
-        edges.emplace_back(v, u);
-    }
-
-    void input_edge(int m, int origin = 1) {
-        for (int i = 0; i < m; ++i) {
-            int from, to;
-            std::cin >> from >> to;
-            add_edge(from - origin, to - origin);
-        }
-        build();
-    }
-
-    void input_edges(int m, int origin = 1) {
-        for (int i = 0; i < m; ++i) {
-            int from, to;
-            std::cin >> from >> to;
-            add_edges(from - origin, to - origin);
-        }
-        build();
-    }
-
-    int _size;
-    std::vector<std::pair<int, int>> edges;
-    std::vector<int> elist;
-    std::vector<int> start;
-};
-
+/// @brief CSR（Compressed Sparse Row）形式で隣接リストを保持する軽量な内部データ構造
+/// @tparam E 各辺に付随するペイロード型（`int` なら単純な隣接先のみ、任意の構造体も可）
+///
+/// 全辺が確定した状態で一括構築する（ACL 由来）。頂点ごとに動的な `vector` を持たず
+/// 1 本の連続領域に詰めるため、重み・辺 ID を保持しない用途（SCC の逆グラフ、
+/// HL 分解、2-SAT の含意グラフなど）では `list_graph<T>` / `csr_graph<T>` より軽量。
 template <class E>
-struct csr {
+struct Csr {
     std::vector<int> start;
     std::vector<E> elist;
-    explicit csr(int n, const std::vector<std::pair<int, E>> &edges) : start(n + 1), elist(edges.size()) {
-        for (auto e : edges) ++start[e.first + 1];
-        for (int i = 1; i <= n; ++i) start[i] += start[i - 1];
+
+    Csr() : start(1), elist() {}
+    explicit Csr(int n, const std::vector<std::pair<int, E>> &edges) : start(n + 1), elist(edges.size()) {
+        for (auto &e : edges) ++start[e.first + 1];
+        for (int i = 0; i < n; ++i) start[i + 1] += start[i];
         auto counter = start;
-        for (auto e : edges) elist[counter[e.first]++] = e.second;
+        for (auto &e : edges) elist[counter[e.first]++] = e.second;
+    }
+
+    /// @brief 頂点 v の隣接辺を走査する軽量 view（CSR の連続領域を指す）
+    struct adjacency {
+        using const_iterator = typename std::vector<E>::const_iterator;
+
+        adjacency(const_iterator first, const_iterator last) : _first(first), _last(last) {}
+
+        const_iterator begin() const { return _first; }
+        const_iterator end() const { return _last; }
+
+      private:
+        const_iterator _first, _last;
+    };
+
+    constexpr int size() const { return (int)start.size() - 1; }
+    adjacency operator[](int v) const {
+        return adjacency(std::next(elist.begin(), start[v]), std::next(elist.begin(), start[v + 1]));
     }
 };
 
