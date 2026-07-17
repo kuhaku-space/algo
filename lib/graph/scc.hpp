@@ -13,9 +13,10 @@ std::vector<int> scc(const G &g) {
     std::vector<int> comp(n, -1), order;
     std::vector<bool> used(n);
 
-    internal::graph_csr rg(n);
-    for (auto &e : g.all_edges()) rg.add_edge(e.to(), e.from());
-    rg.build();
+    std::vector<std::pair<int, int>> redges;
+    redges.reserve(g.edge_count());
+    for (auto &e : g.all_edges()) redges.emplace_back(e.to(), e.from());
+    internal::Csr<int> rg(n, redges);
 
     // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）
     // stk には頂点と隣接リストの走査位置を積む。子を処理し終えた後に
@@ -65,16 +66,17 @@ std::vector<int> scc(const G &g) {
     return comp;
 };
 
-std::vector<int> scc(const internal::graph_csr &g) {
+std::vector<int> scc(const internal::Csr<int> &g) {
     int n = g.size();
     std::vector<int> comp(n, -1), order;
     std::vector<bool> used(n);
 
-    internal::graph_csr rg(n);
+    std::vector<std::pair<int, int>> redges;
+    redges.reserve(g.elist.size());
     for (int i = 0; i < n; ++i) {
-        for (int u : g[i]) rg.add_edge(u, i);
+        for (int u : g[i]) redges.emplace_back(u, i);
     }
-    rg.build();
+    internal::Csr<int> rg(n, redges);
 
     // 反復 DFS（再帰だと深いグラフでスタックオーバーフローしうる）
     // CSR は隣接リストの走査をイテレータで進める。子を処理し終えた後に

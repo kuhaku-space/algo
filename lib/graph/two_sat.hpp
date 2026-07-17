@@ -5,16 +5,16 @@
 
 /// @brief 2-SAT
 struct two_sat {
-    two_sat(int n) : _size(n), G(n * 2) {}
+    two_sat(int n) : _size(n) {}
 
     void add(int i, bool f, int j, bool g) {
         i <<= 1, j <<= 1;
-        G.add_edge(i + (f ? 0 : 1), j + (g ? 1 : 0));
-        G.add_edge(j + (g ? 0 : 1), i + (f ? 1 : 0));
+        edges.emplace_back(i + (f ? 0 : 1), j + (g ? 1 : 0));
+        edges.emplace_back(j + (g ? 0 : 1), i + (f ? 1 : 0));
     }
 
     std::vector<int> solve() {
-        G.build();
+        internal::Csr<int> G(_size * 2, edges);
         auto res = scc(G);
         return res;
     }
@@ -34,5 +34,5 @@ struct two_sat {
 
   private:
     int _size;
-    internal::graph_csr G;
+    std::vector<std::pair<int, int>> edges;
 };
