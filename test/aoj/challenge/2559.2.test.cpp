@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
-#include "heap/leftist_heap.hpp"
+#include "heap/meldable_heap.hpp"
 #include "union_find/union_find.hpp"
 
 int main(void) {
@@ -21,7 +21,7 @@ int main(void) {
     std::sort(ord.begin(), ord.end(), [&](int x, int y) { return std::get<2>(edges[x]) < std::get<2>(edges[y]); });
     std::int64_t sum = 0;
     union_find uf(n);
-    std::vector<leftist_heap<std::pair<int, int>, std::greater<>>> heap(n);
+    std::vector<MeldableHeap<std::pair<int, int>, std::greater<>, true>> heap(n);
     list_graph<int> g(n);
     std::vector<bool> used(m);
     for (auto x : ord) {
@@ -45,20 +45,40 @@ int main(void) {
         if (!used[i]) ans[i] = sum;
     }
     uf = union_find(n);
-    auto dfs = [&](auto self, int x, int p) -> void {
-        for (auto e : g[x]) {
-            if (e.to() == p) continue;
-            self(self, e.to(), x);
-            while (!heap[e.to()].empty() && uf.same(e.to(), heap[e.to()].top().second)) heap[e.to()].pop();
-            if (!heap[e.to()].empty()) {
-                auto [u, v, w] = edges[e.weight()];
-                ans[e.weight()] = sum - w + heap[e.to()].top().first;
-            }
-            heap[x].meld(heap[e.to()]);
-            uf.unite(x, e.to());
-        }
+    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
+    // 帰りがけに親側の辺を辿って heap の pop/meld と ans の更新を行う。
+    std::vector<int> par(n, -1), pe(n, -1);
+    struct frame {
+        int v, p, idx;
     };
-    dfs(dfs, 0, -1);
+    std::vector<frame> stk;
+    stk.reserve(n);
+    stk.push_back({0, -1, 0});
+    while (!stk.empty()) {
+        frame &f = stk.back();
+        int x = f.v;
+        if (f.idx < (int)g[x].size()) {
+            int i = f.idx++;
+            auto e = g[x][i];
+            if (e.to() == f.p) continue;
+            par[e.to()] = x;
+            pe[e.to()] = i;
+            stk.push_back({e.to(), x, 0});
+        } else {
+            int p = par[x];
+            stk.pop_back();
+            if (p != -1) {
+                auto e = g[p][pe[x]];
+                while (!heap[x].empty() && uf.same(x, heap[x].top().second)) heap[x].pop();
+                if (!heap[x].empty()) {
+                    auto [u, v, w] = edges[e.weight()];
+                    ans[e.weight()] = sum - w + heap[x].top().first;
+                }
+                heap[p].meld(heap[x]);
+                uf.unite(p, x);
+            }
+        }
+    }
     for (int i = 0; i < m; ++i) std::cout << ans[i] << '\n';
 
     return 0;

@@ -2,30 +2,35 @@
 #include <deque>
 #include <functional>
 #include <memory>
+#include <type_traits>
 #include <utility>
+#include <variant>
 #include <vector>
 
-/// @brief skew heap（融合可能ヒープ）
+/// @brief 融合可能ヒープ（leftist heap / skew heap）
 /// @see http://hos.ac/blog/#blog0001
-/// @details ノードをポインタで連結し、`meld` は右脊柱を辿って融合する（ならし O(log N)）。
+/// @details ノードをポインタで連結し、`meld` は右脊柱を辿って融合する。
 ///          ノード実体は `std::deque` のプールが所有する（要素アドレスが安定し、
 ///          `new`/`delete` を一切行わずリークもしない）。`meld` で別ヒープの要素を
 ///          取り込む際は相手のプールを `shared_ptr` で延命するだけなので、プールを
-///          コピーせず連結はならし O(log N) のまま。
+///          コピーせず連結は O(log N) のまま。
 ///          `Comp = std::less<>` で最大ヒープ、`std::greater<>` で最小ヒープ。
+/// @tparam Leftist true なら leftist heap（rank 比較で子を交換、最悪 O(log N)）、
+///                 false なら skew heap（無条件に子を交換、ならし O(log N)）。
 /// @note `meld` は引数のヒープを空にして要素を取り込む破壊的操作。
-template <class T, class Comp = std::less<>>
-struct skew_heap {
+template <class T, class Comp = std::less<>, bool Leftist = true>
+struct MeldableHeap {
   private:
     struct _node {
         T val;
         _node *left, *right;
+        [[no_unique_address]] std::conditional_t<Leftist, int, std::monostate> rank;
     };
 
   public:
     using value_type = T;
 
-    skew_heap() : pool(std::make_shared<std::deque<_node>>()), root(nullptr), _size(), comp() {}
+    MeldableHeap() : pool(std::make_shared<std::deque<_node>>()), root(nullptr), _size(), comp() {}
 
     constexpr bool empty() const { return root == nullptr; }
     constexpr int size() const { return _size; }
@@ -42,7 +47,7 @@ struct skew_heap {
 
     // rhs を空にして、その全要素を自分へ取り込む。rhs のノードは rhs のプールが
     // 所有しているので、そのプールを shared_ptr で延命して以後も参照できるようにする。
-    void meld(skew_heap &rhs) {
+    void meld(MeldableHeap &rhs) {
         if (this == &rhs || rhs.root == nullptr) return;
         if (rhs.pool != pool) extra_pools.push_back(rhs.pool);
         root = meld(root, rhs.root);
@@ -60,8 +65,14 @@ struct skew_heap {
     Comp comp;
 
     _node *make_node(T val) {
-        pool->push_back({std::move(val), nullptr, nullptr});
+        pool->push_back({std::move(val), nullptr, nullptr, {}});
         return &pool->back();
+    }
+
+    static int rank(const _node *x)
+    requires Leftist
+    {
+        return x == nullptr ? 0 : x->rank;
     }
 
     _node *meld(_node *a, _node *b) {
@@ -69,7 +80,12 @@ struct skew_heap {
         if (b == nullptr) return a;
         if (comp(a->val, b->val)) std::swap(a, b);
         a->right = meld(a->right, b);
-        std::swap(a->left, a->right);
+        if constexpr (Leftist) {
+            if (rank(a->left) < rank(a->right)) std::swap(a->left, a->right);
+            a->rank = rank(a->right) + 1;
+        } else {
+            std::swap(a->left, a->right);
+        }
         return a;
     }
 };

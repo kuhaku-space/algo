@@ -9,7 +9,7 @@ int main(void) {
     int n = 1000000;
     std::vector<int> v(n);
     for (int i = 2; i < n; ++i) v[i] = pr.is_prime(i);
-    prefix_sum<int> ps(v);
+    PrefixSum<int> ps(v);
     int x;
     while (std::cin >> x) std::cout << ps.sum(x + 1) << std::endl;
 
