@@ -1,32 +1,9 @@
+#pragma once
 #include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <vector>
-
-/**
- * @brief 点
- *
- * @tparam T 座標の型
- */
-template <class T>
-struct Point {
-    T x, y;
-
-    constexpr Point() : x(), y() {}
-    constexpr Point(T _x, T _y) : x(_x), y(_y) {}
-
-    constexpr Point &operator-=(const Point &rhs) {
-        x -= rhs.x, y -= rhs.y;
-        return *this;
-    }
-
-    friend std::istream &operator>>(std::istream &is, Point &rhs) {
-        T x, y;
-        is >> x >> y;
-        rhs = Point(x, y);
-        return is;
-    }
-};
+#include "geometry/geometry.hpp"
 
 /**
  * @brief 凸法
