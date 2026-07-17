@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 #include "math/modint.hpp"
-#include "persistent_ds/persistent_lazy_segment_tree.hpp"
+#include "persistent_ds/persistent_segment_tree.hpp"
 
 using Mint = modint998;
 
@@ -32,8 +32,8 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<std::pair<Mint, Mint>> p(n);
     for (int i = 0; i < n; ++i) p[i] = {a[i], 1};
-    std::vector<persistent_lazy_segment_tree<S, F>> st(q + 1);
-    st[0] = persistent_lazy_segment_tree<S, F>(p);
+    std::vector<PersistentSegmentTree<S, F>> st(q + 1);
+    st[0] = PersistentSegmentTree<S, F>(p);
     for (int i = 1; i <= q; ++i) {
         int t;
         std::cin >> t;

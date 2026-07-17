@@ -1,12 +1,13 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_H
 #include <cstdint>
 #include <iostream>
-#include "segtree/segment_tree_raq.hpp"
+#include "segtree/lazy_segment_tree.hpp"
+#include "segtree/monoid.hpp"
 
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    segment_tree_range_add_range_min<std::int64_t> st(n, 0);
+    lazy_segment_tree<Min<std::int64_t>, Add<std::int64_t>> st(n, 0);
     while (q--) {
         int com;
         std::cin >> com;

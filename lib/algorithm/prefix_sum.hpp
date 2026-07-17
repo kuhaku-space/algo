@@ -5,16 +5,20 @@
 #include <vector>
 
 /// @brief 累積和
-template <class T = std::int64_t>
-struct prefix_sum {
-    prefix_sum() = default;
-    prefix_sum(int _n) : n(_n), data(_n + 1) {}
+/// @tparam RangeAdd true なら区間加算（差分配列）、false なら点更新として構築する。
+template <class T = std::int64_t, bool RangeAdd = false>
+struct PrefixSum {
+    PrefixSum() = default;
+    PrefixSum(int _n) : n(_n), data(_n + 1) {}
     template <class U>
-    prefix_sum(const std::vector<U> &v) : n(v.size()), data(v.size() + 1) {
+    PrefixSum(const std::vector<U> &v) : n(v.size()), data(v.size() + 1) {
         std::inclusive_scan(v.rbegin(), v.rend(), data.rbegin() + 1);
     }
 
     void build() {
+        if constexpr (RangeAdd) {
+            for (int i = 0; i < n; ++i) data[i + 1] += data[i];
+        }
         for (int i = n - 1; i >= 0; --i) data[i] += data[i + 1];
     }
 
@@ -23,8 +27,24 @@ struct prefix_sum {
         return data[k] - data[k + 1];
     }
 
-    void set(int k, int x) { data[k] = x; }
-    void add(int k, int x) { data[k] += x; }
+    /// @brief v[k] = x（build 前のみ有効）
+    void set(int k, T x)
+    requires(!RangeAdd)
+    {
+        data[k] = x;
+    }
+    /// @brief v[k] += x（build 前のみ有効）
+    void add(int k, T x) {
+        if constexpr (RangeAdd) add(k, k + 1, x);
+        else data[k] += x;
+    }
+    /// @brief v[l ... r-1] += x（build 前のみ有効）
+    void add(int l, int r, T x)
+    requires RangeAdd
+    {
+        data[l] += x;
+        data[r] -= x;
+    }
 
     T sum(int r) const {
         assert(0 <= r && r <= n);

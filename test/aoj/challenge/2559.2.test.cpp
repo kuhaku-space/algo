@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
-#include "heap/leftist_heap.hpp"
+#include "heap/meldable_heap.hpp"
 #include "union_find/union_find.hpp"
 
 int main(void) {
@@ -21,7 +21,7 @@ int main(void) {
     std::sort(ord.begin(), ord.end(), [&](int x, int y) { return std::get<2>(edges[x]) < std::get<2>(edges[y]); });
     std::int64_t sum = 0;
     union_find uf(n);
-    std::vector<leftist_heap<std::pair<int, int>, std::greater<>>> heap(n);
+    std::vector<MeldableHeap<std::pair<int, int>, std::greater<>, true>> heap(n);
     list_graph<int> g(n);
     std::vector<bool> used(m);
     for (auto x : ord) {

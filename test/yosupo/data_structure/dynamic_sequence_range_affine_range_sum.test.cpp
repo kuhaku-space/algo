@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum
 #include <iostream>
 #include <utility>
-#include "data_structure/lazy_dynamic_sequence.hpp"
+#include "data_structure/dynamic_sequence.hpp"
 #include "math/modint.hpp"
 
 using Mint = modint998;
@@ -27,7 +27,7 @@ struct M2 {
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    LazyDynamicSequence<M1, M2> seq;
+    DynamicSequence<M1, M2> seq;
     for (int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
