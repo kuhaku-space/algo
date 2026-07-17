@@ -123,6 +123,7 @@ struct FenwickTree {
     int lower_bound(int k, T val) const
     requires(!RangeAdd)
     {
+        assert(val >= 0);
         return lower_bound(val + sum(k));
     }
 
@@ -141,6 +142,7 @@ struct FenwickTree {
     int upper_bound(int k, T val) const
     requires(!RangeAdd)
     {
+        assert(val >= 0);
         return upper_bound(val + sum(k));
     }
 
