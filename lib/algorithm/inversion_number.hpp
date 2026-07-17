@@ -4,7 +4,7 @@
 #include <numeric>
 #include <vector>
 #include "algorithm/compress.hpp"
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 
 /// @brief 転倒数
 template <class T>

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "fenwick/fenwick_tree.hpp"
+#include "data_structure/fenwick_tree.hpp"
 #include "graph/graph.hpp"
 #include "string/trie.hpp"
 #include "tree/euler_tour.hpp"
