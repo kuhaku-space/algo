@@ -215,6 +215,11 @@ run = """
 #!/bin/bash
 mise run build "$usage_src" || exit 1
 
+# システムデフォルト（多くの Linux 環境で 8MB）だと再帰の深い解法が
+# ローカルでだけ SIGSEGV しうる。ulimit はプロセスに継承されるので、
+# ここで上げておけば oj t が fork/exec するジャッジ対象バイナリにも効く。
+ulimit -s unlimited 2>/dev/null || ulimit -s 1048576
+
 oj_args=(-N)
 [[ "$usage_error" == "true" ]] && oj_args+=(-e 1e-9)
 oj t "${oj_args[@]}"
@@ -294,6 +299,10 @@ oj_compile() {
 [[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
 oj_bundle "$usage_src" >main.cpp || exit 1
 oj_compile main.cpp || exit 1
+# システムデフォルト（多くの Linux 環境で 8MB）だと再帰の深い解法が
+# ローカルでだけ SIGSEGV しうる。ulimit は子プロセスに継承されるので、
+# ここで上げておけば checker が fork/exec する解答バイナリにも効く。
+ulimit -s unlimited 2>/dev/null || ulimit -s 1048576
 (
   cd checker || exit 1
   [[ -f test.cpp ]] || exit 1
