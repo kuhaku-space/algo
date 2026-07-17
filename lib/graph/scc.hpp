@@ -136,15 +136,3 @@ list_graph<graph_weight_t<G>> make_directed_acyclic_graph(const G &g, const std:
     }
     return res;
 }
-
-internal::graph_csr make_directed_acyclic_graph(internal::graph_csr &g, const std::vector<int> &v) {
-    int n = *std::max_element(v.begin(), v.end()) + 1;
-    internal::graph_csr res(n);
-    for (int i = 0; i < n; ++i) {
-        for (int u : g[i]) {
-            int x = v[i], y = v[u];
-            if (x != y) res.add_edge(x, y);
-        }
-    }
-    return res;
-}

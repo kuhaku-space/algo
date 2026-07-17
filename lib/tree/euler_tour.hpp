@@ -2,13 +2,11 @@
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
-#include "internal/internal_csr.hpp"
 
 /// @brief オイラーツアー
 struct euler_tour {
     template <graph_type G>
     euler_tour(const G &g, int r = 0) : euler_tour(g, g.size(), r) {}
-    euler_tour(const internal::graph_csr &g, int r = 0) : euler_tour(g, g.size(), r) {}
 
     std::pair<int, int> operator[](int i) const { return std::make_pair(ls[i], rs[i]); }
 
@@ -27,13 +25,6 @@ struct euler_tour {
     int _size;
     std::vector<int> ord, ls, rs;
 
-    /// 隣接要素から行き先頂点を取り出す: list_graph<T> の辺は e.to()、CSR は int をそのまま使う。
-    static int to_of(int e) { return e; }
-    template <class E>
-    static int to_of(const E &e) {
-        return e.to();
-    }
-
     template <class G>
     euler_tour(const G &g, int n, int r) : _size(n), ord(n), ls(n, -1), rs(n) {
         int c = 0;
@@ -50,8 +41,8 @@ struct euler_tour {
             ls[x] = c;
             ord[x] = c++;
             rs[x] = c;
-            for (auto e : g[x]) {
-                int to = to_of(e);
+            for (auto &e : g[x]) {
+                int to = e.to();
                 if (ls[to] != -1) continue;
                 stk.emplace_back(~x);
                 stk.emplace_back(to);

@@ -4,7 +4,6 @@
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
-#include "internal/internal_csr.hpp"
 #include "sparse_table/linear_sparse_table.hpp"
 
 struct linear_lca {
@@ -42,28 +41,6 @@ struct linear_lca {
                 if (ord[e.to()] != -1) continue;
                 stk.emplace_back(~x, d);
                 stk.emplace_back(e.to(), d + 1);
-            }
-        }
-        lst = linear_sparse_table<M>(v);
-    }
-    linear_lca(const internal::graph_csr &g, int r = 0) : ord(g.size(), -1), lst() {
-        std::vector<S> v;
-        std::vector<std::pair<int, int>> stk;
-        stk.reserve(2 * g.size());
-        stk.emplace_back(r, 0);
-        while (!stk.empty()) {
-            auto [x, d] = stk.back();
-            stk.pop_back();
-            if (x < 0) {
-                v.emplace_back(d, ~x);
-                continue;
-            }
-            ord[x] = v.size();
-            v.emplace_back(d, x);
-            for (int y : g[x]) {
-                if (ord[y] != -1) continue;
-                stk.emplace_back(~x, d);
-                stk.emplace_back(y, d + 1);
             }
         }
         lst = linear_sparse_table<M>(v);
