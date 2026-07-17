@@ -26,11 +26,8 @@ clang-format = "latest"
 [tasks.setup]
 description = "Setup project（ツール・oj-tools・shim を一括導入）"
 run = [
-    # [tools] 宣言（jq / uv / clang-format / pipx:oj 系）をまとめて導入。
+    # [tools] 宣言（jq / uv / clang-format / pipx:oj 系 / daily-problems-cli）をまとめて導入。
     "mise install",
-    # git+ インストールはバージョン表記が常に latest のままで `mise upgrade` が
-    # 更新を検知できないため、--force で再インストールして HEAD を取り直す。
-    "mise install --force 'pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git'",
     # CLI でしか入らないシステムパッケージ。
     "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
     "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
