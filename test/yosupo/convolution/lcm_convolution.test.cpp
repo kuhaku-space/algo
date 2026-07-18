@@ -4,7 +4,7 @@
 #include "math/modint.hpp"
 #include "number_theory/prime_number.hpp"
 
-Sieve pn;
+Sieve sieve;
 using Mint = modint998;
 
 int main(void) {
@@ -14,7 +14,7 @@ int main(void) {
     for (int i = 1; i <= n; ++i) std::cin >> a[i];
     for (int i = 1; i <= n; ++i) std::cin >> b[i];
     for (int p = 2; p <= n; ++p) {
-        if (!pn.is_prime(p)) continue;
+        if (!sieve.is_prime(p)) continue;
         for (int i = 1; i * p <= n; ++i) {
             a[i * p] += a[i];
             b[i * p] += b[i];
@@ -22,7 +22,7 @@ int main(void) {
     }
     for (int i = 1; i <= n; ++i) a[i] *= b[i];
     for (int p = 2; p <= n; ++p) {
-        if (!pn.is_prime(p)) continue;
+        if (!sieve.is_prime(p)) continue;
         for (int i = n / p; i >= 1; --i) a[i * p] -= a[i];
     }
     for (int i = 1; i <= n; ++i) std::cout << a[i] << " \n"[i == n];
