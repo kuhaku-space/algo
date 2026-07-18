@@ -10,7 +10,7 @@
 #include "convolution/ntt.hpp"
 #include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"
-#include "number_theory/sqrt.hpp"
+#include "number_theory/root_mod.hpp"
 
 /// @file
 /// @brief 形式的冪級数 (FPS)
@@ -314,13 +314,14 @@ std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
     while (k < n && h[k] == 0) ++k;
     if (k == n) return std::vector<mint>(deg);  // h ≡ 0 → sqrt は全 0
     if (k & 1) return {};                       // 最低次が奇数 → 解なし
-    if (!has_sqrt_mod(h[k])) return {};         // 定数項が平方非剰余 → 解なし
     // h = x^k (h[k] + ...), sqrt(h) = x^{k/2} sqrt(h >> k)。
     int shift = k / 2;
     if (shift >= deg) return std::vector<mint>(deg);
     int core_deg = deg - shift;
     std::vector<mint> f(h.begin() + k, h.end());
-    mint g0 = sqrt_mod(f[0]);
+    auto g0_opt = sqrt_mod(f[0]);
+    if (!g0_opt) return {};  // 定数項が平方非剰余 → 解なし
+    mint g0 = *g0_opt;
 
     std::vector<mint> g;
     constexpr unsigned int mod = (unsigned int)mint::mod();

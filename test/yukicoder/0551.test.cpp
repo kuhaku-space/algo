@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include "math/modint.hpp"
-#include "number_theory/sqrt.hpp"
+#include "number_theory/root_mod.hpp"
 
 using Mint = modint;
 
@@ -17,8 +17,8 @@ int main(void) {
         std::cin >> a >> b >> c;
         std::int64_t d = b * b - 4 * a * c;
         Mint x = Mint(-b) / 2 / a;
-        if (has_sqrt_mod<Mint>(d)) {
-            Mint y = sqrt_mod<Mint>(d) / 2 / a;
+        if (auto d_sqrt = sqrt_mod<Mint>(d)) {
+            Mint y = *d_sqrt / 2 / a;
             if (x - y == x + y) std::cout << x + y << '\n';
             else if ((x - y).val() < (x + y).val()) std::cout << x - y << ' ' << x + y << '\n';
             else std::cout << x + y << ' ' << x - y << '\n';
