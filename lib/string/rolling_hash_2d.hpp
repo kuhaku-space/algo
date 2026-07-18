@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <random>
 #include <string>
-#include <utility>
 #include <vector>
 #include "math/hashint.hpp"
 
@@ -33,19 +32,23 @@ struct RollingHash2D {
                            HashInt base_y = (std::uint64_t)std::random_device()() + 2)
         : RollingHash2D(to_grid(grid), base_x, base_y) {}
 
-    /// 2 つの二次元配列を同じ乱数基数でハッシュ化する
+    /// 複数の二次元配列を同じ乱数基数でハッシュ化する
     template <class T>
-    static std::pair<RollingHash2D, RollingHash2D> make_pair(const std::vector<std::vector<T>> &grid1,
-                                                             const std::vector<std::vector<T>> &grid2) {
+    static std::vector<RollingHash2D> make_many(const std::vector<std::vector<std::vector<T>>> &grids) {
         HashInt base_x = (std::uint64_t)std::random_device()() + 2;
         HashInt base_y = (std::uint64_t)std::random_device()() + 2;
-        return {RollingHash2D(grid1, base_x, base_y), RollingHash2D(grid2, base_x, base_y)};
+        std::vector<RollingHash2D> res;
+        res.reserve(grids.size());
+        for (const auto &grid : grids) res.emplace_back(grid, base_x, base_y);
+        return res;
     }
-    static std::pair<RollingHash2D, RollingHash2D> make_pair(const std::vector<std::string> &grid1,
-                                                             const std::vector<std::string> &grid2) {
+    static std::vector<RollingHash2D> make_many(const std::vector<std::vector<std::string>> &grids) {
         HashInt base_x = (std::uint64_t)std::random_device()() + 2;
         HashInt base_y = (std::uint64_t)std::random_device()() + 2;
-        return {RollingHash2D(grid1, base_x, base_y), RollingHash2D(grid2, base_x, base_y)};
+        std::vector<RollingHash2D> res;
+        res.reserve(grids.size());
+        for (const auto &grid : grids) res.emplace_back(grid, base_x, base_y);
+        return res;
     }
 
     HashInt get_base_x() const { return base_x; }
