@@ -11,7 +11,7 @@
 /// @details 行方向・列方向にそれぞれ別の基数を持つ二次元 Horner 法で構築する。
 ///          `base_x`/`base_y` はプログラム実行のたびに乱数で決まる（意図的な衝突を避けるため）。
 struct RollingHash2D {
-    RollingHash2D() : _h(0), _w(0) {}
+    RollingHash2D() : _h(0), _w(0), data(1, std::vector<HashInt>(1)), px(1, HashInt(1)), py(1, HashInt(1)) {}
 
     template <class T>
     explicit RollingHash2D(const std::vector<std::vector<T>> &grid,
@@ -50,6 +50,9 @@ struct RollingHash2D {
 
     HashInt get_base_x() const { return base_x; }
     HashInt get_base_y() const { return base_y; }
+
+    /// 盤面全体のハッシュ
+    HashInt get() const { return get(0, _h, 0, _w); }
 
     /// grid[x1...x2)[y1...y2) のハッシュ
     HashInt get(int x1, int x2, int y1, int y2) const {
