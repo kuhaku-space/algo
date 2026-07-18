@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1276
 #include <iostream>
-#include "number_theory/linear_sieve.hpp"
+#include "number_theory/prime_number.hpp"
 
-linear_sieve<1300000> ls;
+Sieve<1300001> ls;
 
 int main(void) {
     while (true) {

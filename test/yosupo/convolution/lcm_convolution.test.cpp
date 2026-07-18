@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 #include "math/modint.hpp"
-#include "number_theory/eratosthenes.hpp"
+#include "number_theory/prime_number.hpp"
 
-eratosthenes pn;
+Sieve pn;
 using Mint = modint998;
 
 int main(void) {

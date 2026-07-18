@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_1_C
 #include <iostream>
-#include "number_theory/eratosthenes.hpp"
+#include "number_theory/prime_number.hpp"
 
-eratosthenes<100000001> pn;
+Sieve<100000001> pn;
 
 int main(void) {
     int n;

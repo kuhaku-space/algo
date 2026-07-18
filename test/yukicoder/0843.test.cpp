@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/843
 #include <iostream>
-#include "number_theory/eratosthenes.hpp"
+#include "number_theory/prime_number.hpp"
 
-eratosthenes<500000> pr;
+Sieve<500000> pr;
 
 int main(void) {
     int n;

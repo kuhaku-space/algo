@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0009
 #include <iostream>
 #include "algorithm/prefix_sum.hpp"
-#include "number_theory/eratosthenes.hpp"
+#include "number_theory/prime_number.hpp"
 
-eratosthenes<1000000> pr;
+Sieve<1000000> pr;
 
 int main(void) {
     int n = 1000000;
