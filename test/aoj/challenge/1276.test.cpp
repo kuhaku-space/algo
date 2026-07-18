@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/1276
 #include <iostream>
-#include "number_theory/linear_sieve.hpp"
+#include "number_theory/prime_number.hpp"
 
-linear_sieve<1300000> ls;
+Sieve<1300001> sieve;
 
 int main(void) {
     while (true) {
@@ -10,8 +10,8 @@ int main(void) {
         std::cin >> n;
         if (n == 0) break;
         int l = n, r = n;
-        while (!ls.is_prime(l)) --l;
-        while (!ls.is_prime(r)) ++r;
+        while (!sieve.is_prime(l)) --l;
+        while (!sieve.is_prime(r)) ++r;
         std::cout << r - l << '\n';
     }
 

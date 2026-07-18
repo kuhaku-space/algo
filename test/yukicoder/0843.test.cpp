@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/843
 #include <iostream>
-#include "number_theory/eratosthenes.hpp"
+#include "number_theory/prime_number.hpp"
 
-eratosthenes<500000> pr;
+Sieve<500000> sieve;
 
 int main(void) {
     int n;
@@ -13,7 +13,7 @@ int main(void) {
     }
     int ans = 1;
     for (int i = 3; i <= n && i * i - 2 <= n; ++i) {
-        if (pr.is_prime(i) && pr.is_prime(i * i - 2)) ans += 2;
+        if (sieve.is_prime(i) && sieve.is_prime(i * i - 2)) ans += 2;
     }
     std::cout << ans << '\n';
 

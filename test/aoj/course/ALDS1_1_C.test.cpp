@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_1_C
 #include <iostream>
-#include "number_theory/eratosthenes.hpp"
+#include "number_theory/prime_number.hpp"
 
-eratosthenes<100000001> pn;
+Sieve<100000001> sieve;
 
 int main(void) {
     int n;
@@ -11,7 +11,7 @@ int main(void) {
     while (n--) {
         int a;
         std::cin >> a;
-        ans += pn.is_prime(a);
+        ans += sieve.is_prime(a);
     }
     std::cout << ans << '\n';
 
