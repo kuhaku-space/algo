@@ -51,6 +51,13 @@ struct RollingHash2D {
         return res;
     }
 
+    /// this と同じ乱数基数で別の二次元配列をハッシュ化する
+    template <class T>
+    RollingHash2D make(const std::vector<std::vector<T>> &grid) const {
+        return RollingHash2D(grid, base_x, base_y);
+    }
+    RollingHash2D make(const std::vector<std::string> &grid) const { return RollingHash2D(grid, base_x, base_y); }
+
     HashInt get_base_x() const { return base_x; }
     HashInt get_base_y() const { return base_y; }
 
