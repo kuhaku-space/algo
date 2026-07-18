@@ -1,3 +1,8 @@
+[languages.cpp]
+# test は全ファイル special comments 済みで未使用。lib ヘッダ側の
+# 無駄な `g++ -dM -E` 呼び出し（oj-resolve の主要コスト）を避ける。
+read_macros = false
+
 [[languages.cpp.environments]]
 CXX = "g++"
 CXXFLAGS = [
