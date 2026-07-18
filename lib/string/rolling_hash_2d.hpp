@@ -32,25 +32,6 @@ struct RollingHash2D {
                            HashInt base_y = (std::uint64_t)std::random_device()() + 2)
         : RollingHash2D(to_grid(grid), base_x, base_y) {}
 
-    /// 複数の二次元配列を同じ乱数基数でハッシュ化する
-    template <class T>
-    static std::vector<RollingHash2D> make_many(const std::vector<std::vector<std::vector<T>>> &grids) {
-        HashInt base_x = (std::uint64_t)std::random_device()() + 2;
-        HashInt base_y = (std::uint64_t)std::random_device()() + 2;
-        std::vector<RollingHash2D> res;
-        res.reserve(grids.size());
-        for (const auto &grid : grids) res.emplace_back(grid, base_x, base_y);
-        return res;
-    }
-    static std::vector<RollingHash2D> make_many(const std::vector<std::vector<std::string>> &grids) {
-        HashInt base_x = (std::uint64_t)std::random_device()() + 2;
-        HashInt base_y = (std::uint64_t)std::random_device()() + 2;
-        std::vector<RollingHash2D> res;
-        res.reserve(grids.size());
-        for (const auto &grid : grids) res.emplace_back(grid, base_x, base_y);
-        return res;
-    }
-
     /// this と同じ乱数基数で別の二次元配列をハッシュ化する
     template <class T>
     RollingHash2D derive(const std::vector<std::vector<T>> &grid) const {
