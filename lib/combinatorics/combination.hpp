@@ -1,5 +1,7 @@
 #pragma once
+#include <algorithm>
 #include <cassert>
+#include <cstdint>
 #include <vector>
 #include "math/modint.hpp"
 
@@ -8,10 +10,14 @@ template <internal::modint mint = modint998>
 struct Combination {
     Combination() : _fact(), _inv(), _finv() {}
 
-    mint operator()(int n, int k) {
+    // n が _table_limit を超える場合はテーブルを持たず naive() に委譲する
+    mint operator()(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
-        _init(n);
-        return _fact[n] * _finv[k] * _finv[n - k];
+        if (n <= _table_limit) {
+            _init((int)n);
+            return _fact[n] * _finv[k] * _finv[n - k];
+        }
+        return naive(n, std::min(k, n - k));
     }
 
     mint fact(int x) {
@@ -26,11 +32,11 @@ struct Combination {
         return _finv[x];
     }
 
-    mint naive(int n, int k) const {
+    mint naive(std::int64_t n, std::int64_t k) const {
         if (n < k || n < 0 || k < 0) return 0;
         if (n - k < k) k = n - k;
         mint res = 1;
-        for (int i = 0; i < k; ++i) {
+        for (std::int64_t i = 0; i < k; ++i) {
             res *= n - i;
             res /= i + 1;
         }
@@ -44,6 +50,8 @@ struct Combination {
     }
 
   private:
+    // テーブルを確保する n の上限（超えると naive() にフォールバック）
+    static constexpr std::int64_t _table_limit = 20'000'000;
     static constexpr int _mod = mint::mod();
     std::vector<mint> _fact, _inv, _finv;
 
