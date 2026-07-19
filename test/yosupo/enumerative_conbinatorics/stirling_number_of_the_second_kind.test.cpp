@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind
 #include <iostream>
-#include "combinatorics/stirling1.hpp"
+#include "combinatorics/stirling.hpp"
 
 using Mint = modint998;
 
