@@ -1,5 +1,6 @@
 #pragma once
 #include <compare>
+#include <concepts>
 #include <cstdint>
 #include <iostream>
 #include <string>
@@ -7,10 +8,24 @@
 #include <utility>
 #include "internal/internal_type_traits.hpp"
 
+/// 「整数っぽい」型: 四則演算・剰余・単項 -・全順序を持ち 0/1 を直接初期化できる。
+/// std::int64_t・__int128・BigInt 等、Fraction の T として使える型を表す。
+template <class T>
+concept integer_like = std::regular<T> && std::totally_ordered<T> && requires(T a, T b) {
+    { a + b } -> std::convertible_to<T>;
+    { a - b } -> std::convertible_to<T>;
+    { a * b } -> std::convertible_to<T>;
+    { a / b } -> std::convertible_to<T>;
+    { a % b } -> std::convertible_to<T>;
+    { -a } -> std::convertible_to<T>;
+    T(0);
+    T(1);
+};
+
 /// @brief 分数ライブラリ
-/// @tparam T 分子・分母を保持する整数型（既定は std::int64_t）。四則演算・比較・単項 -・
-///           T(int) 相当の直接初期化を備えていれば BigInt など任意精度型も指定できる。
-template <class T = std::int64_t>
+/// @tparam T 分子・分母を保持する整数型（既定は std::int64_t）。integer_like を満たせば
+///           BigInt など任意精度型も指定できる。
+template <integer_like T = std::int64_t>
 struct Fraction : internal::field_base {
     Fraction() : x(T(0)), y(T(1)) {}
     Fraction(T _x, T _y = T(1)) : x(_x), y(_y) { reduce(); }
