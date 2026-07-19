@@ -11,7 +11,7 @@ struct Combinatorics {
     Combinatorics() : _fact(), _inv(), _finv() {}
 
     // n が _table_limit を超える場合はテーブルを持たず direct() に委譲する
-    mint operator()(std::int64_t n, std::int64_t k) {
+    mint binom(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= _table_limit) {
             _init((int)n);

@@ -10,8 +10,8 @@ struct Enumeration {
     mint stirling(int n, int k) {
         mint res = 0;
         for (int i = 0; i < k; ++i) {
-            if (i & 1) res -= _binom(k, k - i) * mint(k - i).pow(n);
-            else res += _binom(k, k - i) * mint(k - i).pow(n);
+            if (i & 1) res -= _binom.binom(k, k - i) * mint(k - i).pow(n);
+            else res += _binom.binom(k, k - i) * mint(k - i).pow(n);
         }
         res *= _binom.finv(k);
         return res;
