@@ -22,14 +22,14 @@ struct Combinatorics {
         return finv_table[x];
     }
 
-    // n が table_limit を超える場合はテーブルを持たず direct() に委譲する
+    // n が table_limit を超える場合はテーブルを持たず binom_direct() に委譲する
     mint binom(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= table_limit) {
             init((int)n);
             return fact_table[n] * finv_table[k] * finv_table[n - k];
         }
-        return direct(n, std::min(k, n - k));
+        return binom_direct(n, std::min(k, n - k));
     }
 
     // n が table_limit を超える場合はテーブルを持たず perm_direct() に委譲する
@@ -48,7 +48,7 @@ struct Combinatorics {
     static constexpr int mod = mint::mod();
     std::vector<mint> fact_table, inv_table, finv_table;
 
-    mint direct(std::int64_t n, std::int64_t k) const {
+    mint binom_direct(std::int64_t n, std::int64_t k) const {
         if (n < k || n < 0 || k < 0) return 0;
         if (n - k < k) k = n - k;
         mint res = 1;
