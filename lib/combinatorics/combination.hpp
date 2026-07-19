@@ -43,14 +43,25 @@ struct Combinatorics {
         return res;
     }
 
-    mint perm(int n, int k) {
+    // n が _table_limit を超える場合はテーブルを持たず perm_direct() に委譲する
+    mint perm(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
-        _init(n);
-        return _fact[n] * _finv[n - k];
+        if (n <= _table_limit) {
+            _init((int)n);
+            return _fact[n] * _finv[n - k];
+        }
+        return perm_direct(n, k);
+    }
+
+    mint perm_direct(std::int64_t n, std::int64_t k) const {
+        if (n < k || n < 0 || k < 0) return 0;
+        mint res = 1;
+        for (std::int64_t i = 0; i < k; ++i) res *= n - i;
+        return res;
     }
 
   private:
-    // テーブルを確保する n の上限（超えると naive() にフォールバック）
+    // テーブルを確保する n の上限（超えると direct()/perm_direct() にフォールバック）
     static constexpr std::int64_t _table_limit = 20'000'000;
     static constexpr int _mod = mint::mod();
     std::vector<mint> _fact, _inv, _finv;
