@@ -10,14 +10,14 @@ template <internal::modint mint = modint998>
 struct Combinatorics {
     Combinatorics() : _fact(), _inv(), _finv() {}
 
-    // n が _table_limit を超える場合はテーブルを持たず naive() に委譲する
+    // n が _table_limit を超える場合はテーブルを持たず direct() に委譲する
     mint operator()(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= _table_limit) {
             _init((int)n);
             return _fact[n] * _finv[k] * _finv[n - k];
         }
-        return naive(n, std::min(k, n - k));
+        return direct(n, std::min(k, n - k));
     }
 
     mint fact(int x) {
@@ -32,7 +32,7 @@ struct Combinatorics {
         return _finv[x];
     }
 
-    mint naive(std::int64_t n, std::int64_t k) const {
+    mint direct(std::int64_t n, std::int64_t k) const {
         if (n < k || n < 0 || k < 0) return 0;
         if (n - k < k) k = n - k;
         mint res = 1;
@@ -43,7 +43,7 @@ struct Combinatorics {
         return res;
     }
 
-    mint permu(int n, int k) {
+    mint perm(int n, int k) {
         if (n < k || n < 0 || k < 0) return 0;
         _init(n);
         return _fact[n] * _finv[n - k];
