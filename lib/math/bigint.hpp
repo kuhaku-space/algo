@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <cassert>
+#include <compare>
 #include <cstdint>
 #include <iostream>
 #include <string>
@@ -108,14 +109,13 @@ struct BigInt {
     BigInt operator%(const BigInt &rhs) const { return BigInt(*this) %= rhs; }
 
     bool operator==(const BigInt &rhs) const { return sign == rhs.sign && data == rhs.data; }
-    bool operator<(const BigInt &rhs) const {
-        if (sign != rhs.sign) return sign;
+    std::strong_ordering operator<=>(const BigInt &rhs) const {
+        if (sign != rhs.sign) return sign ? std::strong_ordering::less : std::strong_ordering::greater;
+        if (data == rhs.data) return std::strong_ordering::equal;
         // 同符号なら絶対値比較。負同士は大小が反転する。
-        return sign ? abs_less_data(rhs.data, data) : abs_less_data(data, rhs.data);
+        bool less = sign ? abs_less_data(rhs.data, data) : abs_less_data(data, rhs.data);
+        return less ? std::strong_ordering::less : std::strong_ordering::greater;
     }
-    bool operator>(const BigInt &rhs) const { return rhs < *this; }
-    bool operator<=(const BigInt &rhs) const { return !(*this > rhs); }
-    bool operator>=(const BigInt &rhs) const { return !(*this < rhs); }
 
     friend std::istream &operator>>(std::istream &is, BigInt &rhs) {
         std::string s;
