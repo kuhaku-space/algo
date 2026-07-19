@@ -5,10 +5,10 @@
 #include <vector>
 #include "math/modint.hpp"
 
-/// @brief 二項係数
+/// @brief 二項係数・階乗・順列
 template <internal::modint mint = modint998>
-struct Combination {
-    Combination() : _fact(), _inv(), _finv() {}
+struct Combinatorics {
+    Combinatorics() : _fact(), _inv(), _finv() {}
 
     // n が _table_limit を超える場合はテーブルを持たず naive() に委譲する
     mint operator()(std::int64_t n, std::int64_t k) {

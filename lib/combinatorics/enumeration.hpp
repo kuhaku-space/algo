@@ -25,7 +25,7 @@ struct Enumeration {
     }
 
   private:
-    Combination<mint> _binom;
+    Combinatorics<mint> _binom;
     std::vector<mint> _data;
 
     void _init(int n) {

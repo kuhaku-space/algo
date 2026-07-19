@@ -819,7 +819,7 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
 template <internal::static_modint_c mint>
 std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
     int n = f.size();
-    static Combination<mint> comb;
+    static Combinatorics<mint> comb;
     for (int i = 0; i < n; ++i) f[i] *= comb.fact(i);
     std::reverse(f.begin(), f.end());
     std::vector<mint> g(n);
@@ -851,7 +851,7 @@ std::vector<mint> shift_of_sampling_points(const std::vector<mint> &y, mint c, i
     if (m <= 0) return {};
     int n = y.size();
     if (n == 0) return std::vector<mint>(m, mint());
-    static Combination<mint> comb;
+    static Combinatorics<mint> comb;
     // a_i = y_i * (-1)^{n-1-i} / (i! (n-1-i)!) = y_i / prod_{k!=i}(i-k)
     std::vector<mint> a(n);
     for (int i = 0; i < n; ++i) {

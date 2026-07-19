@@ -12,7 +12,7 @@ std::vector<mint> offline_binomial_sum(const std::vector<std::pair<int, int>> &q
     for (int i = 1; i < (int)queries.size(); ++i) max_n = std::max(max_n, queries[i].first);
     Mo mo(max_n + 1);
     for (int i = 0; i < (int)queries.size(); ++i) mo.add(queries[i].second, queries[i].first);
-    Combination<mint> binom;
+    Combinatorics<mint> binom;
     mint sum = 1;
     mint inv2 = mint(2).inv();
     int n = 0, k = 0;
