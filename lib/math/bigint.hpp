@@ -111,10 +111,18 @@ struct BigInt {
     bool operator==(const BigInt &rhs) const { return sign == rhs.sign && data == rhs.data; }
     std::strong_ordering operator<=>(const BigInt &rhs) const {
         if (sign != rhs.sign) return sign ? std::strong_ordering::less : std::strong_ordering::greater;
-        if (data == rhs.data) return std::strong_ordering::equal;
-        // 同符号なら絶対値比較。負同士は大小が反転する。
-        bool less = sign ? abs_less_data(rhs.data, data) : abs_less_data(data, rhs.data);
-        return less ? std::strong_ordering::less : std::strong_ordering::greater;
+        // 同符号なら絶対値比較を 1 回の走査で行う。負同士は大小が反転する。
+        if (data.size() != rhs.data.size()) {
+            bool smaller = data.size() < rhs.data.size();
+            return (smaller != sign) ? std::strong_ordering::less : std::strong_ordering::greater;
+        }
+        for (int i = (int)data.size() - 1; i >= 0; --i) {
+            if (data[i] != rhs.data[i]) {
+                bool smaller = data[i] < rhs.data[i];
+                return (smaller != sign) ? std::strong_ordering::less : std::strong_ordering::greater;
+            }
+        }
+        return std::strong_ordering::equal;
     }
 
     friend std::istream &operator>>(std::istream &is, BigInt &rhs) {
