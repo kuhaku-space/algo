@@ -10,14 +10,14 @@ template <internal::modint mint = modint998>
 struct Combinatorics {
     Combinatorics() : _fact(), _inv(), _finv() {}
 
-    // n が _table_limit を超える場合はテーブルを持たず direct() に委譲する
+    // n が _table_limit を超える場合はテーブルを持たず _direct() に委譲する
     mint binom(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= _table_limit) {
             _init((int)n);
             return _fact[n] * _finv[k] * _finv[n - k];
         }
-        return direct(n, std::min(k, n - k));
+        return _direct(n, std::min(k, n - k));
     }
 
     mint fact(int x) {
@@ -32,7 +32,23 @@ struct Combinatorics {
         return _finv[x];
     }
 
-    mint direct(std::int64_t n, std::int64_t k) const {
+    // n が _table_limit を超える場合はテーブルを持たず _perm_direct() に委譲する
+    mint perm(std::int64_t n, std::int64_t k) {
+        if (n < k || n < 0 || k < 0) return 0;
+        if (n <= _table_limit) {
+            _init((int)n);
+            return _fact[n] * _finv[n - k];
+        }
+        return _perm_direct(n, k);
+    }
+
+  private:
+    // テーブルを確保する n の上限（超えると _direct()/_perm_direct() にフォールバック）
+    static constexpr std::int64_t _table_limit = 20'000'000;
+    static constexpr int _mod = mint::mod();
+    std::vector<mint> _fact, _inv, _finv;
+
+    mint _direct(std::int64_t n, std::int64_t k) const {
         if (n < k || n < 0 || k < 0) return 0;
         if (n - k < k) k = n - k;
         mint res = 1;
@@ -43,28 +59,12 @@ struct Combinatorics {
         return res;
     }
 
-    // n が _table_limit を超える場合はテーブルを持たず perm_direct() に委譲する
-    mint perm(std::int64_t n, std::int64_t k) {
-        if (n < k || n < 0 || k < 0) return 0;
-        if (n <= _table_limit) {
-            _init((int)n);
-            return _fact[n] * _finv[n - k];
-        }
-        return perm_direct(n, k);
-    }
-
-    mint perm_direct(std::int64_t n, std::int64_t k) const {
+    mint _perm_direct(std::int64_t n, std::int64_t k) const {
         if (n < k || n < 0 || k < 0) return 0;
         mint res = 1;
         for (std::int64_t i = 0; i < k; ++i) res *= n - i;
         return res;
     }
-
-  private:
-    // テーブルを確保する n の上限（超えると direct()/perm_direct() にフォールバック）
-    static constexpr std::int64_t _table_limit = 20'000'000;
-    static constexpr int _mod = mint::mod();
-    std::vector<mint> _fact, _inv, _finv;
 
     void _init(int n) {
         if ((int)_fact.size() > n) return;
