@@ -5,7 +5,7 @@
 #include <vector>
 #include "math/modint.hpp"
 
-/// @brief 二項係数・階乗・順列
+/// @brief 二項係数・階乗・順列・多項係数・重複組合せ
 template <internal::modint mint = modint998>
 struct Combinatorics {
     Combinatorics() : fact_table(), inv_table(), finv_table() {}
@@ -40,6 +40,45 @@ struct Combinatorics {
             return fact_table[n] * finv_table[n - k];
         }
         return perm_direct(n, k);
+    }
+
+    // 多項係数 n! / (k[0]! k[1]! ... k[r-1]!)（sum(k) == n）
+    mint multinomial(int n, const std::vector<int> &ks) {
+        assert(n >= 0);
+        int sum = 0;
+        for (int k : ks) {
+            assert(k >= 0);
+            sum += k;
+        }
+        assert(sum == n);
+        init(n);
+        mint res = fact_table[n];
+        for (int k : ks) res *= finv_table[k];
+        return res;
+    }
+
+    // 重複組合せ（n 種類から重複を許して k 個選ぶ場合の数）nHk = C(n+k-1, k)
+    mint multiset(std::int64_t n, std::int64_t k) {
+        if (n < 0 || k < 0) return 0;
+        if (n == 0) return k == 0 ? 1 : 0;
+        return binom(n + k - 1, k);
+    }
+
+    // Lucas の定理: mod が素数のとき n, k が mod 程度まで巨大でも C(n,k) mod を計算する
+    // （base-mod の各桁 n_i, k_i < mod での binom() に帰着。mod 自体が大きいと binom_direct
+    // の O(min(k_i, n_i-k_i)) が支配的になり実用的でなくなる点に注意）
+    mint binom_lucas(std::int64_t n, std::int64_t k) {
+        assert(mint::is_prime_mod());
+        if (n < k || n < 0 || k < 0) return 0;
+        mint res = 1;
+        while (k > 0) {
+            std::int64_t ni = n % mod, ki = k % mod;
+            if (ki > ni) return 0;
+            res *= binom(ni, ki);
+            n /= mod;
+            k /= mod;
+        }
+        return res;
     }
 
   private:
