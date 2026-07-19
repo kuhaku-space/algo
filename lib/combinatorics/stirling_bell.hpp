@@ -4,8 +4,8 @@
 #include "math/modint.hpp"
 
 template <internal::modint mint = modint998>
-struct Enumeration {
-    Enumeration() : _binom(), _data() {}
+struct StirlingBell {
+    StirlingBell() : _binom(), _data() {}
 
     mint stirling(int n, int k) {
         mint res = 0;
