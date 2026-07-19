@@ -14,7 +14,7 @@ struct Combinatorics {
     mint binom(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= _table_limit) {
-            _init((int)n);
+            init((int)n);
             return _fact[n] * _finv[k] * _finv[n - k];
         }
         return direct(n, std::min(k, n - k));
@@ -22,13 +22,13 @@ struct Combinatorics {
 
     mint fact(int x) {
         assert(x >= 0);
-        _init(x);
+        init(x);
         return _fact[x];
     }
 
     mint finv(int x) {
         assert(x >= 0);
-        _init(x);
+        init(x);
         return _finv[x];
     }
 
@@ -36,7 +36,7 @@ struct Combinatorics {
     mint perm(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= _table_limit) {
-            _init((int)n);
+            init((int)n);
             return _fact[n] * _finv[n - k];
         }
         return perm_direct(n, k);
@@ -66,7 +66,7 @@ struct Combinatorics {
         return res;
     }
 
-    void _init(int n) {
+    void init(int n) {
         if ((int)_fact.size() > n) return;
         int m = _fact.size();
         _fact.resize(n + 1);
