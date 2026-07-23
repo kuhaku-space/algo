@@ -66,8 +66,14 @@ std::vector<bool> subset_sum_all(const std::vector<int> &a) {
 /// @param C 目標の部分和
 /// @see https://codeforces.com/blog/entry/98663 (Subset Sum Speedup 2)
 /// @complexity a の最大値を W として O(N * W)
-bool subset_sum(const std::vector<int> &a, int C) {
+bool subset_sum(const std::vector<int> &a_orig, int C) {
+    std::vector<int> a;
+    a.reserve(a_orig.size());
+    for (int x : a_orig) {
+        if (x > 0) a.push_back(x);
+    }
     int n = a.size();
+    if (n == 0) return C == 0;
     int max_weight = *std::max_element(a.begin(), a.end());
     int r = 0, sum = 0;
     while (r < n && sum + a[r] <= C) sum += a[r++];
