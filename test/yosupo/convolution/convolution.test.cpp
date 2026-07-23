@@ -1,7 +1,9 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/convolution_mod
+#include <cassert>
 #include <iostream>
 #include <vector>
 #include "convolution/ntt.hpp"
+#include "convolution/ntt_avx2.hpp"
 
 int main(void) {
     int n, m;
@@ -10,6 +12,8 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     for (auto &e : b) std::cin >> e;
     auto ans = convolution(a, b);
+    auto ans_avx2 = convolution_avx2<998244353>(a, b);
+    assert(ans == ans_avx2);
     for (int i = 0; i < n + m - 1; ++i) std::cout << ans[i] << " \n"[i == n + m - 2];
 
     return 0;
