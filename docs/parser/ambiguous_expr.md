@@ -1,6 +1,7 @@
 ---
 title: 曖昧式の全順序評価 (AmbiguousExpr)
 documentation_of: //lib/parser/ambiguous_expr.hpp
+compile_example: true
 ---
 
 二項演算式を「あらゆる評価順序 (全 parenthesization)」で計算し、得られる値の集合を

@@ -1,0 +1,56 @@
+{% if page.data.dependsOn.size != 0 %}
+<details class="reference-relations">
+  <summary>依存するヘッダ（{{ page.data.dependsOn.size }}）</summary>
+  <ul>
+  {% for item in page.data._extendedDependsOn %}
+    <li><a href="{{ item.path | absolute_url }}">{{ item.icon }} {{ item.title }}
+      {% if item.title != item.path %}<small>({{ item.path }})</small>{% endif %}
+    </a></li>
+  {% endfor %}
+  </ul>
+</details>
+{% endif %}
+
+{% if page.data.requiredBy.size != 0 %}
+<details class="reference-relations">
+  <summary>このヘッダを利用するライブラリ（{{ page.data.requiredBy.size }}）</summary>
+  <ul>
+  {% for item in page.data._extendedRequiredBy %}
+    <li><a href="{{ item.path | absolute_url }}">{{ item.icon }} {{ item.title }}
+      {% if item.title != item.path %}<small>({{ item.path }})</small>{% endif %}
+    </a></li>
+  {% endfor %}
+  </ul>
+</details>
+{% endif %}
+
+{% if page.data.verifiedWith.size != 0 %}
+<details class="reference-relations">
+  <summary>自動検証（{{ page.data.verifiedWith.size }}）</summary>
+  <ul>
+  {% for item in page.data._extendedVerifiedWith %}
+    <li><a href="{{ item.path | absolute_url }}">{{ item.icon }} {{ item.title }}
+      {% if item.title != item.path %}<small>({{ item.path }})</small>{% endif %}
+    </a></li>
+  {% endfor %}
+  </ul>
+</details>
+{% endif %}
+
+<details class="source-code">
+  <summary>実装を見る</summary>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js"
+          integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I="
+          crossorigin="anonymous"></script>
+  <script defer src="{{ "/assets/js/copy-button.js" | absolute_url }}"></script>
+  <link rel="stylesheet" href="{{ "/assets/css/copy-button.css" | absolute_url }}">
+
+  <h3>ヘッダ</h3>
+  <span><a id="unbundled"></a></span>
+  {% include highlight.html extension=page.data._pathExtension content=page.data.code %}
+
+  <h3>依存ヘッダを展開したコード</h3>
+  <span><a id="bundled"></a></span>
+  {% include highlight.html extension=page.data._pathExtension content=page.data.bundledCode %}
+</details>

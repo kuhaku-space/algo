@@ -1,0 +1,6 @@
+title: algo — C++23 日本語リファレンス
+description: 競技プログラミング用ヘッダオンリーライブラリ
+lang: ja
+exclude:
+  - tools
+  - workspace

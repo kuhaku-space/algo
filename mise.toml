@@ -23,6 +23,13 @@ uv = "latest"
 # .clang-format（Google ベース）に従う。
 clang-format = "latest"
 
+[tasks.docs-check]
+description = "日本語リファレンスの形式と網羅率を検査する"
+run = [
+    "python3 tools/reference_docs.py sync-generated",
+    "python3 tools/reference_docs.py check",
+]
+
 [tasks.setup]
 description = "Setup project（ツール・oj-tools・shim を一括導入）"
 run = [
