@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
+#include "string/z_algorithm.hpp"
 
 // 単体では小粒だがあると便利な小物関数をまとめたファイル
 
@@ -28,6 +29,18 @@ int longest_common_suffix(const Container &a, const Container &b) {
         if (a[n - 1 - i] != b[m - 1 - i]) return i;
     }
     return k;
+}
+
+/// @brief s を隙間なく敷き詰める最小の周期を求める (s の長さを割り切る最小の i)
+/// @complexity O(N)
+template <class Container>
+int minimum_period(const Container &s) {
+    auto z = z_algorithm(s);
+    int n = s.size();
+    for (int i = 1; i <= n / 2; ++i) {
+        if (n % i == 0 && z[i] == n - i) return i;
+    }
+    return n;
 }
 
 /// @brief 回文判定
