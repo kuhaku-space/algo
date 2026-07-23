@@ -5,6 +5,7 @@
 #include <vector>
 
 /// @brief ヒストグラムの中に含まれる最大長方形の面積
+/// @complexity O(N)
 template <class T, class U = T>
 U largest_rectangle(const std::vector<T> &v) {
     int n = v.size();
