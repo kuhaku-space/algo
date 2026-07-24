@@ -26,24 +26,30 @@ long long y = range_ft.sum(0, 5);
 
 ## API
 
-`FenwickTree<T, RangeAdd = false>` — `T` は加減算、ゼロ初期化、整数との乗算をサポートする
-値型。区間はすべて半開区間 `[l, r)`。
-
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `FenwickTree(n)` | 長さ `n`、全要素0で構築 | $O(n)$ |
-| `FenwickTree(values)` | 初期列から構築 | $O(n)$、`RangeAdd` 時は $O(n\log n)$ |
-| `build(values)` | 現在の領域に初期列を構築 | 上記と同じ |
-| `at(k)` / `get(k)` / `operator[](k)` | `a[k]` を返す | $O(\log n)$ |
-| `set(k, value)` | `a[k] = value` | $O(\log n)$ |
-| `add(k, value)` | `a[k] += value` | $O(\log n)$ |
-| `add(l, r, value)` | `[l, r)` に加算。`RangeAdd = true` のみ | $O(\log n)$ |
-| `sum(r)` / `prod(r)` | `[0, r)` の総和 | $O(\log n)$ |
-| `sum(l, r)` / `prod(l, r)` | `[l, r)` の総和 | $O(\log n)$ |
-| `all_sum()` / `all_prod()` | 全要素の総和 | $O(\log n)$ |
-| `lower_bound(value)` | 累積和が `value` 以上になる最初の添字 | $O(\log n)$ |
-| `upper_bound(value)` | 累積和が `value` より大きくなる最初の添字 | $O(\log n)$ |
-| `chmax(k, value)` / `chmin(k, value)` | 点の値を必要な場合だけ更新し、更新したかを返す | $O(\log n)$ |
+| `FenwickTree()` | 空のFenwick Treeを構築する | $O(1)$ |
+| `FenwickTree(int n)` | 長さnの0列を構築する | $O(n)$ |
+| `template <class U> FenwickTree(const std::vector<U> &v)` | 列からFenwick Treeを構築する | RangeAddがfalseなら $O(n)$、trueなら $O(n\log n)$ |
+| `T operator[](int i) const` | i番目の値を返す | $O(\log n)$ |
+| `T at(int k) const` | k番目の値を返す | $O(\log n)$ |
+| `T get(int k) const` | k番目の値を返す | $O(\log n)$ |
+| `template <class U> void build(const std::vector<U> &v)` | 列の値を構築する | RangeAddがfalseなら $O(n)$、trueなら $O(n\log n)$ |
+| `void set(int k, T val)` | v[k] = val | $O(\log n)$ |
+| `void add(int k, T val)` | v[k] += val | $O(\log n)$ |
+| `void add(int a, int b, T val) requires RangeAdd` | v[a] ... v[b - 1] += val | $O(\log n)$ |
+| `bool chmax(int k, T val)` | chmax(v[k], val) | $O(\log n)$ |
+| `bool chmin(int k, T val)` | chmin(v[k], val) | $O(\log n)$ |
+| `T all_prod() const` | v[0] + ... + v[n - 1] | $O(\log n)$ |
+| `T prod(int k) const` | v[0] + ... + v[k - 1] | $O(\log n)$ |
+| `T prod(int a, int b) const` | v[a] + ... + v[b - 1] | $O(\log n)$ |
+| `T all_sum() const` | v[0] + ... + v[n - 1] | $O(\log n)$ |
+| `T sum(int k) const` | v[0] + ... + v[k - 1] | $O(\log n)$ |
+| `T sum(int a, int b) const` | v[a] + ... + v[b - 1] | $O(\log n)$ |
+| `int lower_bound(T val) const requires(!RangeAdd)` | 接頭辞和がval以上となる最初の位置を返す | $O(\log n)$ |
+| `int lower_bound(int k, T val) const requires(!RangeAdd)` | kからの区間和がval以上となる最初の位置を返す | $O(\log n)$ |
+| `int upper_bound(T val) const requires(!RangeAdd)` | 接頭辞和がvalより大きくなる最初の位置を返す | $O(\log n)$ |
+| `int upper_bound(int k, T val) const requires(!RangeAdd)` | kからの区間和がvalより大きくなる最初の位置を返す | $O(\log n)$ |
 
 ## 補足
 

@@ -24,19 +24,21 @@ std::vector<bool> source_side = graph.min_cut(0);
 
 ## API
 
-`mf_graph<Cap>` — `Cap` は容量と流量を表す数値型。
-
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `mf_graph(n)` | `n` 頂点の残余グラフを構築 | $O(V)$ |
-| `add_edge(from, to, cap)` | 容量 `cap` の有向辺を追加し ID を返す | ならし $O(1)$ |
-| `flow(s, t)` | 現在の残余グラフに最大流を追加して流量を返す | 一般に $O(V^2E)$ |
-| `flow(s, t, limit)` | 追加する流量を `limit` までに制限 | 一般に $O(V^2E)$ |
-| `get_edge(id)` | `{from, to, cap, flow}` を返す | $O(1)$ |
-| `edges()` | 追加順に全辺を返す | $O(E)$ |
-| `change_edge(id, cap, flow)` | 辺の容量と現在流量を変更 | $O(1)$ |
-| `min_cut(s)` | 残余辺で `s` から到達可能な頂点集合 | $O(V+E)$ |
-| `size()` | 頂点数 | $O(1)$ |
+| `mf_graph()` | 0頂点のグラフを構築する | $O(1)$ |
+| `explicit mf_graph(int n)` | n頂点0辺のグラフを構築する | $O(n)$ |
+| `int size() const` | 頂点数を返す | $O(1)$ |
+| `int add_edge(int from, int to, Cap cap)` | 容量capの有向辺を追加して辺IDを返す | 償却 $O(1)$ |
+| `struct edge` | 追加した辺の現在状態 | 各フィールドへのアクセスは $O(1)$ |
+| `int from, to;` | 辺の始点と終点 | $O(1)$ で参照可能 |
+| `Cap cap, flow;` | 辺の容量と現在の流量 | $O(1)$ で参照可能 |
+| `edge get_edge(int i)` | 指定した辺の現在状態を返す | $O(1)$ |
+| `std::vector<edge> edges()` | 全辺の現在状態を追加順で返す | 辺数を $E$ として $O(E)$ |
+| `void change_edge(int i, Cap new_cap, Cap new_flow)` | 辺の容量と現在流量を変更する | $O(1)$ |
+| `Cap flow(int s, int t)` | sからtへ流せるだけ流して追加流量を返す | 頂点数を $V$、辺数を $E$ として $O(V^2E)$ |
+| `Cap flow(int s, int t, Cap flow_limit)` | sからtへflow_limitまで流して追加流量を返す | $O(V^2E)$ |
+| `std::vector<bool> min_cut(int s)` | 残余グラフでsから到達可能な頂点集合を返す | $O(V+E)$ |
 
 ## 補足
 

@@ -11,6 +11,7 @@
 /// @see https://arxiv.org/abs/1403.2431 (series link による回文分割 DP)
 ///
 /// ノード 0 が ODD 根 (len = -1)、ノード 1 が EVEN 根 (len = 0)、相異なる非空回文が 2 番以降。
+/// @complexity 長さnのオンライン構築は $O(n\log\sigma)$、ノード数は $O(n)$
 struct PalindromicTree {
   private:
     struct _node {
@@ -33,23 +34,39 @@ struct PalindromicTree {
     };
 
   public:
+    /// @brief 回文ノード型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_type = _node;
+
+    /// @brief 回文ノードへのpointer型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_pointer = typename _node::pointer;
 
+    /// @brief 2つの根だけを持つ空の回文木を構築する
+    /// @complexity $O(1)$
     PalindromicTree() : nodes(), str(), active_idx(), active_log() {
         create_node(0, -1, 0);
         create_node(0, 0, 0);
     }
 
+    /// @brief ノード数を返す
+    /// @complexity $O(1)$
     int size() const { return nodes.size(); }
 
+    /// @brief 現在の最長回文接尾辞ノードIDを返す
+    /// @complexity $O(1)$
     int get_active_idx() const { return active_idx; }
 
+    /// @brief idのノードへのpointerを返す
+    /// @complexity $O(1)$
     node_pointer get_node(int id) { return &nodes[id]; }
 
-    /// 各 add で確定した最長回文接尾辞ノードの列（add で構築した文字列に対応）
+    /// @brief 各addで確定した最長回文接尾辞ノード列を返す
+    /// @complexity $O(1)$
     const std::vector<int> &suffix_nodes() const { return active_log; }
 
+    /// @brief 末尾にchを追加し最長回文接尾辞ノードIDを返す
+    /// @complexity 償却 $O(\log\sigma)$
     int add(char ch) {
         str.push_back(ch);
         int a = find_prev_palindrome_idx(active_idx);
@@ -77,6 +94,8 @@ struct PalindromicTree {
         return active_idx;
     }
 
+    /// @brief 既存木上でchを読んだ最長回文接尾辞へ移動する
+    /// @complexity 最悪 $O(n\log\sigma)$
     int move(char ch) {
         str.push_back(ch);
         while (true) {
@@ -92,6 +111,8 @@ struct PalindromicTree {
         return active_idx;
     }
 
+    /// @brief 各相異なる回文の出現回数を返す
+    /// @complexity ノード数を $S$ として $O(S)$
     std::vector<int> build_frequency() {
         std::vector<int> res(nodes.size());
         for (int i = int(nodes.size()) - 1; i > 0; --i) {
@@ -101,7 +122,8 @@ struct PalindromicTree {
         return res;
     }
 
-    /// add で構築した各 prefix s[0, i) の最小回文分割数（長さ |s|+1、dp[0] = 0）。O(n log n)
+    /// @brief 各prefixの最小回文分割数を返す
+    /// @complexity $O(n\log n)$
     std::vector<int> min_factorization() {
         int n = int(active_log.size());
         const int inf = std::numeric_limits<int>::max() / 2;
@@ -118,8 +140,9 @@ struct PalindromicTree {
         return dp;
     }
 
-    /// add で構築した各 prefix s[0, i) の回文分割の場合の数（長さ |s|+1、dp[0] = 1）。O(n log n)
-    /// T は long long や modint 等。
+    /// @brief 各prefixの回文分割方法数を返す
+    /// @tparam T long longやmodintなどの計数型
+    /// @complexity $O(n\log n)$
     template <class T>
     std::vector<T> count_factorization() {
         int n = int(active_log.size());
@@ -136,6 +159,8 @@ struct PalindromicTree {
         return dp;
     }
 
+    /// @brief 追加文字列とactive状態を空へ戻し、構築済みノードは保持する
+    /// @complexity $O(n)$
     void clear() {
         str.clear();
         active_idx = 0;

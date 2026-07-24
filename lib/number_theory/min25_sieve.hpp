@@ -21,10 +21,19 @@ inline long long fast_div(long long a, long long p, std::uint64_t M) {
 /// @brief f(p) の素数項 coef * p^pw を表す
 ///
 /// prefix(x) = Σ_{i=1}^{x} i^pw（pw 乗和の閉じた式）を渡す。
+/// @complexity 項の記述で実行時計算量はない
 template <class T>
 struct Min25Term {
+    /// @brief この項の係数
+    /// @complexity $O(1)$
     T coef;
+
+    /// @brief 素数pの指数
+    /// @complexity $O(1)$
     int pw;
+
+    /// @brief 1からxまでのpw乗和を返す関数
+    /// @complexity 呼び出し側が与える関数に依存
     std::function<T(long long)> prefix;
 };
 
@@ -34,11 +43,15 @@ struct Min25Term {
 /// S(N) = Σ_{i=1}^{N} f(i) を求める。素数冪での値 f(p^e) は fpe で与える。
 /// @tparam T 値の型（modint 等）
 /// @tparam Fpe (long long p, int e, long long pe) -> T。pe == p^e で f(p^e) を返す。
+/// @complexity 構築は $O(N^{3/4}/\log N)$、`sum` は同じ前計算を利用して計算する
 template <class T, class Fpe>
 struct Min25Sieve {
+    /// @brief 上限n、素数項terms、素数冪関数fpeから構築する
+    /// @complexity $O(N^{3/4}/\log N)$
     Min25Sieve(long long n, std::vector<Min25Term<T>> terms, Fpe fpe) : N(n), fpe(std::move(fpe)) { build(terms); }
 
     /// @brief S(N) = Σ_{i=1}^{N} f(i)
+    /// @complexity $O(N^{3/4}/\log N)$
     T sum() { return N <= 0 ? T(0) : T(1) + rec(N, 0); }
 
   private:
@@ -172,6 +185,7 @@ struct Min25Sieve {
 };
 
 /// @brief Min_25 篩で S(N) = Σ_{i=1}^{N} f(i) を計算する（型推論用ヘルパ）
+/// @complexity $O(N^{3/4}/\log N)$
 template <class T, class Fpe>
 T min25_sum(long long n, std::vector<Min25Term<T>> terms, Fpe fpe) {
     return Min25Sieve<T, Fpe>(n, std::move(terms), std::move(fpe)).sum();

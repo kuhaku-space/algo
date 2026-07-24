@@ -29,9 +29,16 @@ struct binary_heap {
     /// @brief `push` が返す安定ハンドル。`update` に渡してその要素を decrease-key する。
     /// @details 既定構築（`handle{}`）は無効値で、`bool` 文脈で `false`。
     ///          要素を `pop` してもハンドルは無効化しない（呼び出し側で寿命を管理する）。
+    /// @complexity 構築・比較は $O(1)$
     struct handle {
+        /// @brief 無効なハンドルを作る
+        /// @complexity $O(1)$
         constexpr handle() : idx(nil) {}
+        /// @brief 有効なハンドルなら true を返す
+        /// @complexity $O(1)$
         constexpr explicit operator bool() const { return idx >= 0; }
+        /// @brief 2 つのハンドルが同じ要素を指すか比較する
+        /// @complexity $O(1)$
         constexpr bool operator==(const handle &) const = default;
 
       private:
@@ -40,16 +47,28 @@ struct binary_heap {
         int idx;
     };
 
+    /// @brief 空のヒープを構築する
+    /// @complexity $O(1)$
     binary_heap() : nodes(), heap(), pos(), comp() {}
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return heap.empty(); }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return (int)heap.size(); }
+
+    /// @brief 最上位のkeyとvalueを返す
+    /// @complexity $O(1)$
     // 返値は {順序基準 key, 付随データ value} の順。
     std::pair<Key, Value> top() const {
         const _node &n = nodes[heap[0]];
         return {n.key, n.value};
     }
 
+    /// @brief 要素を追加して安定ハンドルを返す
+    /// @complexity $O(\log n)$
     handle push(Key key, Value value) {
         int id = (int)nodes.size();
         nodes.push_back({std::move(key), std::move(value)});
@@ -58,8 +77,12 @@ struct binary_heap {
         sift_up((int)heap.size() - 1);
         return handle(id);
     }
+    /// @brief 要素を追加して安定ハンドルを返す
+    /// @complexity $O(\log n)$
     handle emplace(Key key, Value value) { return push(std::move(key), std::move(value)); }
 
+    /// @brief 最上位の要素を削除する
+    /// @complexity $O(\log n)$
     void pop() {
         int last = (int)heap.size() - 1;
         swap_heap(0, last);
@@ -71,6 +94,7 @@ struct binary_heap {
     /// @details `comp(現在の key, key) == true`（= 現在値が下位）のときだけ上書きし
     ///          sift-up する。最小ヒープ（`greater<>`）では「より小さい key」への
     ///          更新、つまり decrease-key に対応する。逆向きの更新は無視する。
+    /// @complexity $O(\log n)$
     void update(handle h, Key key) {
         _node &n = nodes[h.idx];
         if (!comp(n.key, key)) return;

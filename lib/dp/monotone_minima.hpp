@@ -3,6 +3,12 @@
 #include <limits>
 #include <vector>
 
+/// @brief 各行の最適列が単調な行列について最適列番号を求める
+/// @param h 行数
+/// @param w 列数
+/// @param f 行列要素を返す関数
+/// @return 各行の最適列番号
+/// @complexity $O(h\log w+w\log h)$ 回の要素評価
 template <class T, class Comp = std::less<>, class F>
 std::vector<int> monotone_minima(int h, int w, F f) {
     Comp comp;
@@ -28,6 +34,12 @@ std::vector<int> monotone_minima(int h, int w, F f) {
     return dp;
 }
 
+/// @brief 各行の最適列が単調な行列について最適値を求める
+/// @param h 行数
+/// @param w 列数
+/// @param f 行列要素を返す関数
+/// @return 各行の最適値
+/// @complexity $O(h\log w+w\log h)$ 回の要素評価
 template <class T, class Comp = std::less<>, class F>
 std::vector<T> monotone_minima_value(int h, int w, F f) {
     Comp comp;
@@ -55,6 +67,7 @@ std::vector<T> monotone_minima_value(int h, int w, F f) {
 
 /// @brief min-plus convolution
 /// @param b 下に凸
+/// @complexity 出力長を $N$ として $O(N\log N)$
 template <class T>
 std::vector<T> min_plus_convolution(const std::vector<T> &a, const std::vector<T> &b) {
     int n = a.size(), m = b.size();
@@ -65,6 +78,9 @@ std::vector<T> min_plus_convolution(const std::vector<T> &a, const std::vector<T
     return monotone_minima_value<T>(n + m - 1, n, f);
 }
 
+/// @brief max-plus convolution
+/// @param b 上に凸
+/// @complexity 出力長を $N$ として $O(N\log N)$
 template <class T>
 std::vector<T> max_plus_convolution(const std::vector<T> &a, const std::vector<T> &b) {
     int n = a.size(), m = b.size();

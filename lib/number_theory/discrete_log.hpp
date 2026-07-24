@@ -20,6 +20,7 @@ namespace internal {
 /// @note `N = ub - lb`、ブロック幅 `√N` で baby-step・giant-step を回すため全体 O(√N)。
 ///       作用 `act` は O(√N) 回（baby-step √N + giant-step √N + 線形走査は高々 2 ブロックで 2√N）、
 ///       合成 `op` は二分累乗の O(log N) 回。
+/// @complexity $N=ub-lb$ として期待 $O(\sqrt N)$
 template <class X, class S, class Op, class Act, class Key>
 std::int64_t discrete_log_core(X x, S s, const S &t, const X &id, Op op, Act act, Key to_key, std::int64_t lb,
                                std::int64_t ub) {
@@ -85,7 +86,7 @@ std::int64_t discrete_log_core(X x, S s, const S &t, const X &id, Op op, Act act
 /// @tparam U 状態の型
 /// @tparam Key 状態を単射に写すキー関数 `U -> 整数等`
 /// @return 最小の `n`。存在しなければ -1。
-/// @note 計算量は `N = ub - lb` として O(√N)。内訳はモノイド作用 `f` が O(√N) 回、
+/// @complexity `N = ub - lb` として O(√N)。内訳はモノイド作用 `f` が O(√N) 回、
 ///       モノイド合成 `op` が O(log N) 回、キー関数 `to_key` が O(√N) 回（ハッシュ集合操作込み）。
 template <class M, class U, class Key>
 requires acts_on<M, U>
@@ -102,7 +103,7 @@ std::int64_t discrete_log_acted(const typename M::value_type &x, U s, U t, Key t
 /// @tparam M モノイド
 /// @tparam Key 値を単射に写すキー関数
 /// @return 最小の `n`（`[lb, ub)`）。存在しなければ -1。
-/// @note 計算量は `N = ub - lb` として O(√N)（合成 `op` を O(√N) 回・二分累乗で O(log N) 回）。
+/// @complexity `N = ub - lb` として O(√N)（合成 `op` を O(√N) 回・二分累乗で O(log N) 回）。
 template <class M, class Key>
 requires monoid<M>
 std::int64_t discrete_log_monoid(typename M::value_type a, typename M::value_type b, Key to_key, std::int64_t lb,

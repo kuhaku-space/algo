@@ -26,29 +26,53 @@ DynamicMint x = 123456789;
 
 ## API
 
-### 型
-
-| 型 | 内容 |
-| --- | --- |
-| `static_modint<m>` | コンパイル時固定の法 `m` |
-| `dynamic_modint<id>` | `id` ごとに独立した実行時の法を持つ型 |
-| `modint998` | `static_modint<998244353>` |
-| `modint107` | `static_modint<1000000007>` |
-| `modint` | `dynamic_modint<-1>` |
-
-### 操作
-
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `Mint(value)` | 整数を `[0, mod)` に正規化して構築 | $O(1)$ |
-| `val()` | 正規化済みの値を返す | $O(1)$ |
-| `mod()` | 現在の法を返す | $O(1)$ |
-| `set_mod(m)` | `dynamic_modint` の法を設定 | $O(1)$ |
-| `raw(value)` | 正規化を省略して構築 | $O(1)$ |
-| `+`, `-`, `*`, `/` と複合代入 | 法上の四則演算 | 除算以外 $O(1)$ |
-| `pow(n)` | 非負整数乗 | $O(\log n)$ |
-| `inv()` | 乗法逆元 | 素数法で $O(\log m)$ |
-| `++`, `--`, `==`, `!=`, `>>`, `<<` | 通常の整数型に対応する操作 | $O(1)$ |
+| `template <class Derived> struct modint_common : modint_base` | static_modint と dynamic_modint が共有する公開演算<br>Derived は umod(), mul(), is_prime_mod() を提供する。 | 各演算の行に記載 |
+| `constexpr unsigned int internal::val() const` | 保持している標準剰余を返す | $O(1)$ |
+| `constexpr mint &operator++()` | 1を加算する | $O(1)$ |
+| `constexpr mint &operator--()` | 1を減算する | $O(1)$ |
+| `constexpr mint operator++(int)` | 1を加算する前の値を返す | $O(1)$ |
+| `constexpr mint operator--(int)` | 1を減算する前の値を返す | $O(1)$ |
+| `constexpr mint &operator+=(const mint &rhs)` | rhsを加算する | $O(1)$ |
+| `constexpr mint &operator-=(const mint &rhs)` | rhsを減算する | $O(1)$ |
+| `constexpr mint &operator*=(const mint &rhs)` | rhsを乗算する | $O(1)$ |
+| `constexpr mint &operator/=(const mint &rhs)` | rhsで除算する | 素数法では法を $m$ として $O(\log m)$、動的法では $O(\log m)$ |
+| `constexpr mint operator+() const` | 自身の値を返す | $O(1)$ |
+| `constexpr mint operator-() const` | 加法逆元を返す | $O(1)$ |
+| `constexpr mint internal::pow(std::int64_t n) const` | n乗を返す | $O(\log n)$ |
+| `constexpr mint internal::inv() const` | 乗法逆元を返す | 法を $m$ として $O(\log m)$ |
+| `friend constexpr mint operator+(const mint &lhs, const mint &rhs)` | 和を返す | $O(1)$ |
+| `friend constexpr mint operator-(const mint &lhs, const mint &rhs)` | 差を返す | $O(1)$ |
+| `friend constexpr mint operator*(const mint &lhs, const mint &rhs)` | 積を返す | $O(1)$ |
+| `friend constexpr mint operator/(const mint &lhs, const mint &rhs)` | 商を返す | 法を $m$ として $O(\log m)$ |
+| `friend constexpr bool operator==(const mint &lhs, const mint &rhs)` | 等しいか返す | $O(1)$ |
+| `friend constexpr bool operator!=(const mint &lhs, const mint &rhs)` | 異なるか返す | $O(1)$ |
+| `friend std::istream &operator>>(std::istream &is, mint &rhs)` | 整数を入力して法で正規化する | $O(1)$ |
+| `friend std::ostream &operator<<(std::ostream &os, const mint &rhs)` | 標準剰余を出力する | $O(1)$ |
+| `template <int m> requires(m >= 1) struct static_modint` | コンパイル時に法を固定する modint | 四則演算は $O(1)$、累乗と逆元は $O(\log m)$ |
+| `using mint = static_modint;`<br>`using mint = dynamic_modint;` | この型自身 | 型エイリアスで実行時計算量はない |
+| `using base = internal::modint_common<static_modint>;`<br>`using base = internal::modint_common<dynamic_modint>;` | 四則演算を実装する基底型 | 型エイリアスで実行時計算量はない |
+| `using base::_v;` | 基底型が保持する正規化済みの値 | $O(1)$ で参照可能 |
+| `static constexpr unsigned int umod()`<br>`static unsigned int umod()` | 法を unsigned int で返す | $O(1)$ |
+| `static constexpr bool is_prime_mod()` | 法が素数かをコンパイル時に返す | コンパイル時定数で実行時計算量はない |
+| `static constexpr unsigned int mul(unsigned int a, unsigned int b)` | aとbを乗算して法mで剰余を取る | $O(1)$ |
+| `static constexpr int mod()` | 法を返す | $O(1)$ |
+| `static constexpr mint raw(int v)`<br>`static mint raw(int v)` | 正規化済みの値vから検査なしで構築する | $O(1)$ |
+| `constexpr static_modint() = default;` | 0を構築する | $O(1)$ |
+| `template <std::integral T> constexpr static_modint(T v)` | 符号付き整数を法mで正規化して構築する | $O(1)$ |
+| `template <std::unsigned_integral T> constexpr static_modint(T v)` | 符号なし整数を法mで正規化して構築する | $O(1)$ |
+| `template <int id> struct dynamic_modint : internal::modint_common<dynamic_modint<id>>` | 実行時に法を設定する modint | 四則演算は $O(1)$、累乗と逆元は法を $m$ として $O(\log m)$ |
+| `static bool is_prime_mod()` | 法を素数として扱うか返す | $O(1)$ |
+| `static unsigned int mul(unsigned int a, unsigned int b)` | aとbをBarrett reductionで乗算する | $O(1)$ |
+| `static int mod()` | 現在の法を返す | $O(1)$ |
+| `static void set_mod(int m)` | このidの法をmへ設定する | $O(1)$ |
+| `dynamic_modint() = default;` | 0を構築する | $O(1)$ |
+| `template <std::integral T> dynamic_modint(T v)` | 符号付き整数を現在の法で正規化して構築する | $O(1)$ |
+| `template <std::unsigned_integral T> dynamic_modint(T v)` | 符号なし整数を現在の法で正規化して構築する | $O(1)$ |
+| `using modint998 = static_modint<998244353>;` | 法998244353のstatic_modint | 型エイリアスで実行時計算量はない |
+| `using modint107 = static_modint<1000000007>;` | 法1000000007のstatic_modint | 型エイリアスで実行時計算量はない |
+| `using modint = dynamic_modint<-1>;` | 既定id -1のdynamic_modint | 型エイリアスで実行時計算量はない |
 
 ## 補足
 

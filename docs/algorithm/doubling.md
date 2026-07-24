@@ -29,20 +29,15 @@ auto [vertex, total] = with_sum.solve(0, 5);  // vertex == 2, total == 90
 
 ## API
 
-`doubling<L, M>` — `L` は前計算するビット数、`M` は集約用モノイド。既定の `M = void`
-では遷移先だけを扱う。
-
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `doubling(to)` | `M = void` 用。遷移表を構築 | $O(nL)$ |
-| `doubling(to, values)` | 各1ステップに対応する値と集約表を構築 | $O(nL)$ |
-| `jump(from, k)` | `k` ステップ後を返す。モノイド指定時は `{遷移先, 集約値}` | $O(L)$ |
-| `solve(from, k)` | `jump` と同じ | $O(L)$ |
-| `max_step(from, init, check)` | `check(op(init, accumulated))` が真である最大ステップ数 | $O(L)$ |
-| `max_step(from, check)` | `init = M::id()` とした上記の短縮形 | $O(L)$ |
-
-空間計算量は、遷移先だけなら $O(nL)$、モノイド指定時は遷移表と集約表を合わせて
-$O(nL)$。
+| `template <class M> concept doubling_monoid = std::is_void_v<M> \|\| monoid<M>;` | ダブリングで `M` が取れる型か（void または monoid）<br>`void` は集約なし（遷移先のみ）、`monoid` は遷移に沿った値の集約を表す。 | コンパイル時制約であり実行時計算量はない |
+| `explicit doubling(const std::vector<int> &to) requires(!has_monoid)` | 遷移先のみを前計算する<br>**引数:** `to`: 各頂点から1ステップ後の遷移先 | 頂点数を $n$ として $O(Ln)$ |
+| `template <class U> requires has_monoid doubling(const std::vector<int> &to, const std::vector<U> &v)` | 遷移先と各ステップの集約値を前計算する<br>**引数:** `to`: 各頂点から1ステップ後の遷移先、`v`: 各頂点から進む1ステップに対応する値 | 頂点数を $n$ として $O(Ln)$ |
+| `auto jump(int f, std::uint64_t k)` | fからkステップ後の遷移先と必要なら集約値を返す | $O(L)=O(\log k)$ |
+| `auto solve(int f, std::uint64_t k)` | fからkステップ後の遷移先と必要なら集約値を返す | $O(L)=O(\log k)$ |
+| `template <class F> requires has_monoid std::uint64_t max_step(int f, T init, F check)` | check(M::op(init, accumulated)) が真である最大ステップ数を返す<br>check は単調 (真→偽に一度だけ変化) を仮定する | $O(L)$ |
+| `template <class F> requires has_monoid std::uint64_t max_step(int f, F check)` | 単位元から開始してcheckが真である最大ステップ数を返す<br>check は単調 (真→偽に一度だけ変化) を仮定する | $O(L)$ |
 
 ## 補足
 

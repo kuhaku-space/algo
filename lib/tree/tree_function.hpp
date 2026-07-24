@@ -3,7 +3,9 @@
 #include <vector>
 #include "graph/graph.hpp"
 
+/// @brief 根rからのBFS順を返す
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> tree_bfs(const G &g, int r = 0) {
     int pos = 0;
@@ -22,6 +24,8 @@ std::vector<int> tree_bfs(const G &g, int r = 0) {
     return res;
 }
 
+/// @brief 親配列が表す木のBFS順を返す
+/// @complexity $O(V)$
 std::vector<int> tree_bfs(const std::vector<int> &parents) {
     int n = parents.size();
     list_graph<void> g(n);
@@ -36,7 +40,9 @@ std::vector<int> tree_bfs(const std::vector<int> &parents) {
     return tree_bfs(g, r);
 }
 
+/// @brief 根rからのDFS行きがけ順を返す
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> tree_dfs(const G &g, int r = 0) {
     std::vector<int> res;
@@ -60,6 +66,7 @@ std::vector<int> tree_dfs(const G &g, int r = 0) {
 
 /// @brief 木の距離を求める
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <weighted_graph_type G, class U = graph_weight_t<G>>
 std::vector<U> tree_dist(const G &g, int r = 0) {
     std::vector<U> res(g.size(), -1);
@@ -81,6 +88,7 @@ std::vector<U> tree_dist(const G &g, int r = 0) {
 
 /// @brief 木の頂点の親を求める
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> tree_parent(const G &g, int r = 0) {
     std::vector<int> res(g.size(), -1);
@@ -103,6 +111,7 @@ std::vector<int> tree_parent(const G &g, int r = 0) {
 
 /// @brief 部分木の大きさを求める
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> tree_subtree(const G &g, int r = 0) {
     std::vector<int> res(g.size());

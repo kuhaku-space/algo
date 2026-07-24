@@ -28,6 +28,8 @@ struct fixed_stack {
 }  // namespace internal
 
 /// @brief 線形 Sparse Table
+/// @details 冪等なモノイドを仮定する。
+/// @complexity 構築は $O(n)$、区間積は $O(1)$
 template <monoid M>
 struct linear_sparse_table {
   private:
@@ -35,8 +37,12 @@ struct linear_sparse_table {
     static constexpr int W = 64;
 
   public:
+    /// @brief 空のtableを構築する
+    /// @complexity $O(1)$
     linear_sparse_table() = default;
 
+    /// @brief 列vから構築する
+    /// @complexity $O(n)$
     linear_sparse_table(const std::vector<T> &v) : _size(v.size()), data(v) {
         int n = v.size();
         int b = n / W;
@@ -78,8 +84,12 @@ struct linear_sparse_table {
         block_table = sparse_table<M>(u);
     }
 
+    /// @brief k番目の値を返す
+    /// @complexity $O(1)$
     const T &operator[](int k) const { return data[k]; }
 
+    /// @brief 半開区間[l,r)の積を返す
+    /// @complexity $O(1)$
     T prod(int l, int r) const {
         assert(0 <= l && l <= r && r <= _size);
         if (l == r) return M::id();

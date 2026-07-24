@@ -7,8 +7,11 @@
 
 /// @brief DSU on Tree
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity 前処理 $O(n+q)$、solveはcallback呼出し $O((n+q)\log n)$ 回
 template <graph_type G>
 struct dsu_on_tree {
+    /// @brief 頂点ごとのquery列に対するDSU on Tree順序を構築する
+    /// @complexity $O(n+q)$
     dsu_on_tree(const G &_g, const std::vector<int> &query, int r = 0)
         : g(_g), size(_g.size()), root(r), par(size, -1), sub(), euler(size), left(size), right(size),
           heavy_path(size, -1), query_order(query.size()), query_size(size) {
@@ -23,6 +26,9 @@ struct dsu_on_tree {
         std::vector<int> cnt = left;
         for (int i = 0; i < (int)query.size(); ++i) query_order[cnt[query[i]]++] = i;
     }
+
+    /// @brief 各頂点を1queryとしたDSU on Tree順序を構築する
+    /// @complexity $O(n)$
     dsu_on_tree(const G &_g, int r = 0)
         : g(_g), size(_g.size()), root(r), par(size, -1), sub(size, 1), euler(size), left(size), right(size),
           heavy_path(size, -1), query_order(), query_size(size, 1) {
@@ -35,6 +41,8 @@ struct dsu_on_tree {
         query_order = euler;
     }
 
+    /// @brief query追加・頂点回答・状態clearのcallbackで全頂点を処理する
+    /// @complexity callback呼出し $O((n+q)\log n)$ 回
     template <class F, class Clr, class H>
     void solve(F &rem, Clr &clear, H &query) {
         if (size == 0) return;

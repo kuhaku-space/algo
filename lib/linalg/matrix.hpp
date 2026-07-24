@@ -5,25 +5,46 @@
 #include <utility>
 #include <vector>
 
-/**
- * @brief 行列ライブラリ
- *
- * @tparam T 要素の型
- */
+/// @brief 行列の四則演算・行列式・累乗・転置
+/// @tparam T 要素の型
+/// @complexity $r\times c$ 行列の加減算・転置は $O(rc)$、行列積は
+/// $O(rck)$。$n\times n$ 行列の行列式は $O(n^3)$、k乗は $O(n^3\log k)$
 template <class T>
 struct Matrix {
+    /// @brief 空の行列を作る
+    /// @complexity $O(1)$
     Matrix() = default;
+    /// @brief `x` 行 `x` 列の零行列を作る
+    /// @complexity $O(x^2)$
     Matrix(int x) : v(x, std::vector<T>(x)) {}
+    /// @brief `x` 行 `y` 列の零行列を作る
+    /// @complexity $O(xy)$
     Matrix(int x, int y) : v(x, std::vector<T>(y)) {}
+    /// @brief 二次元配列 `_v` をコピーして行列を作る
+    /// @complexity $O(rc)$
     Matrix(const std::vector<std::vector<T>> &_v) : v(_v) {}
 
+    /// @brief `i` 行目を読み取り専用で返す
+    /// @complexity $O(1)$
     const auto &operator[](int i) const { return v[i]; }
+    /// @brief `i` 行目を返す
+    /// @complexity $O(1)$
     auto &operator[](int i) { return v[i]; }
+    /// @brief 先頭行を指す読み取り専用イテレータを返す
+    /// @complexity $O(1)$
     const auto begin() const { return v.begin(); }
+    /// @brief 先頭行を指すイテレータを返す
+    /// @complexity $O(1)$
     auto begin() { return v.begin(); }
+    /// @brief 行列の終端を指す読み取り専用イテレータを返す
+    /// @complexity $O(1)$
     const auto end() const { return v.end(); }
+    /// @brief 行列の終端を指すイテレータを返す
+    /// @complexity $O(1)$
     auto end() { return v.end(); }
 
+    /// @brief 同じ大きさの行列 `rhs` を要素ごとに加算する
+    /// @complexity $O(rc)$
     Matrix &operator+=(const Matrix &rhs) {
         assert(v.size() == rhs.v.size());
         assert(v[0].size() == rhs.v[0].size());
@@ -32,6 +53,8 @@ struct Matrix {
         }
         return *this;
     }
+    /// @brief 同じ大きさの行列 `rhs` を要素ごとに減算する
+    /// @complexity $O(rc)$
     Matrix &operator-=(const Matrix &rhs) {
         assert(v.size() == rhs.v.size());
         assert(v[0].size() == rhs.v[0].size());
@@ -40,6 +63,8 @@ struct Matrix {
         }
         return *this;
     }
+    /// @brief 行列 `rhs` を右から乗算する
+    /// @complexity 左辺を $r\times k$、右辺を $k\times c$ として $O(rkc)$
     Matrix &operator*=(const Matrix &rhs) {
         assert(v[0].size() == rhs.v.size());
         int x = v.size(), y = rhs.v[0].size(), z = rhs.v.size();
@@ -53,6 +78,8 @@ struct Matrix {
         return *this;
     }
 
+    /// @brief 全要素の符号を反転した行列を返す
+    /// @complexity $O(rc)$
     Matrix operator-() const {
         std::vector<std::vector<T>> tmp(v);
         for (auto &v : tmp)
@@ -60,10 +87,18 @@ struct Matrix {
         return Matrix(tmp);
     }
 
+    /// @brief 行列和を返す
+    /// @complexity $O(rc)$
     Matrix operator+(const Matrix &rhs) const { return Matrix(*this) += rhs; }
+    /// @brief 行列差を返す
+    /// @complexity $O(rc)$
     Matrix operator-(const Matrix &rhs) const { return Matrix(*this) -= rhs; }
+    /// @brief 行列積を返す
+    /// @complexity 左辺を $r\times k$、右辺を $k\times c$ として $O(rkc)$
     Matrix operator*(const Matrix &rhs) const { return Matrix(*this) *= rhs; }
 
+    /// @brief 列ベクトル `rhs` を右から掛けた結果を返す
+    /// @complexity $O(rc)$
     std::vector<T> operator*(const std::vector<T> &rhs) {
         assert(v[0].size() == rhs.size());
         int x = v.size(), y = v[0].size();
@@ -74,6 +109,8 @@ struct Matrix {
         return res;
     }
 
+    /// @brief 正方行列の行列式を返す
+    /// @complexity $O(n^3)$
     T det() const {
         assert(v.size() == v[0].size());
         std::vector<std::vector<T>> u(v);
@@ -103,6 +140,8 @@ struct Matrix {
         return ans;
     }
 
+    /// @brief 正方行列の `k` 乗を返す
+    /// @complexity $O(n^3\log k)$
     Matrix pow(std::int64_t k) const {
         assert(v.size() == v[0].size());
         int n = v.size();
@@ -115,6 +154,8 @@ struct Matrix {
         return res;
     }
 
+    /// @brief 正方行列を単位行列に変更する
+    /// @complexity $O(n^2)$
     void unit_matrix() {
         assert(v.size() == v[0].size());
         int n = v.size();
@@ -124,6 +165,8 @@ struct Matrix {
         }
     }
 
+    /// @brief 転置行列を返す
+    /// @complexity $O(rc)$
     Matrix transposed() const {
         int x = v[0].size(), y = v.size();
         std::vector<std::vector<T>> res(x, std::vector<T>(y));
@@ -133,6 +176,8 @@ struct Matrix {
         return Matrix(res);
     }
 
+    /// @brief 行列の全要素を標準エラー出力へ表示する
+    /// @complexity $O(rc)$
     void print_debug() const {
         for (auto u : v) {
             std::cerr << "[";

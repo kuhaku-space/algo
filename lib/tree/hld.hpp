@@ -5,8 +5,14 @@
 
 /// @brief HL分解
 /// @see https://beet-aizu.github.io/library/tree/heavylightdecomposition.cpp
+/// @complexity 構築は $O(n)$、経路問合せは $O(\log n)$、部分木区間は $O(1)$
 struct heavy_light_decomposition {
+    /// @brief 空のHL分解を構築する
+    /// @complexity $O(1)$
     heavy_light_decomposition() = default;
+
+    /// @brief 木gを根rとしてHL分解する
+    /// @complexity $O(n)$
     template <graph_type G>
     heavy_light_decomposition(const G &g, int r = 0) : heavy_light_decomposition(g.size()) {
         std::vector<int> heavy_path(_size, -1);
@@ -52,6 +58,8 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// @brief internal CSR木を根rとしてHL分解する
+    /// @complexity $O(n)$
     heavy_light_decomposition(const internal::Csr<int> &g, int r = 0) : heavy_light_decomposition(g.size()) {
         std::vector<int> heavy_path(_size, -1);
         std::vector<int> stk;
@@ -93,12 +101,24 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// @brief 頂点数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return _size; }
 
+    /// @brief 頂点vのHL順indexを返す
+    /// @complexity $O(1)$
     int get(int v) const { return vid[v]; }
+
+    /// @brief 頂点vの親を返す
+    /// @complexity $O(1)$
     int get_parent(int v) const { return par[v]; }
+
+    /// @brief 頂点vの深さを返す
+    /// @complexity $O(1)$
     int get_depth(int v) const { return dep[v]; }
 
+    /// @brief u-v間の辺数を返す
+    /// @complexity $O(\log n)$
     int dist(int u, int v) const {
         int d = 0;
         while (true) {
@@ -109,6 +129,8 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// @brief uからvへk辺進んだ頂点を返し、経路より長ければ-1を返す
+    /// @complexity $O(\log n)$
     int jump(int u, int v, int k) const {
         int d = dist(u, v);
         if (d < k) return -1;
@@ -117,6 +139,8 @@ struct heavy_light_decomposition {
         else return la(v, d - k);
     }
 
+    /// @brief vのk個上の祖先を返す
+    /// @complexity $O(\log n)$
     int la(int v, int k) const {
         while (true) {
             int u = nxt[v];
@@ -126,6 +150,8 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// @brief uとvのLCAを返す
+    /// @complexity $O(\log n)$
     int lca(int u, int v) const {
         while (true) {
             if (vid[u] > vid[v]) std::swap(u, v);
@@ -134,6 +160,8 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// @brief u-v頂点経路をHL順の半開区間へ分割してfへ渡す
+    /// @complexity callback呼出し $O(\log n)$ 回
     template <class F>
     void for_each(int u, int v, const F &f) const {
         while (true) {
@@ -144,6 +172,8 @@ struct heavy_light_decomposition {
         }
     }
 
+    /// @brief u-v辺経路をHL順の半開区間へ分割してfへ渡す
+    /// @complexity callback呼出し $O(\log n)$ 回
     template <class F>
     void for_each_edge(int u, int v, const F &f) const {
         while (true) {
@@ -158,16 +188,19 @@ struct heavy_light_decomposition {
         }
     }
 
-    /// 頂点 v を根とする部分木に対応する vid 区間 [l, r) を f(l, r) に渡す。
+    /// @brief 頂点vの部分木に対応するHL順区間をfへ渡す
+    /// @complexity $O(1)$
     template <class F>
     void for_subtree(int v, const F &f) const {
         f(vid[v], vid[v] + sub[v]);
     }
 
-    /// 頂点 v を根とする部分木（v を含む）に対応する vid 区間 [l, r) を返す。
+    /// @brief 頂点vの部分木に対応するHL順区間を返す
+    /// @complexity $O(1)$
     std::pair<int, int> subtree(int v) const { return {vid[v], vid[v] + sub[v]}; }
 
-    /// 頂点 v を根とする部分木から v を除いた辺集合に対応する vid 区間 [l, r) を f(l, r) に渡す。
+    /// @brief 頂点vの部分木辺に対応するHL順区間をfへ渡す
+    /// @complexity $O(1)$
     template <class F>
     void for_subtree_edge(int v, const F &f) const {
         if (sub[v] > 1) f(vid[v] + 1, vid[v] + sub[v]);

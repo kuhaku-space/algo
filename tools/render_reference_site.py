@@ -265,12 +265,19 @@ def embedded_code(root: Path, path: str, file_input: dict[str, Any]) -> list[dic
         source = item.get("path")
         if not isinstance(source, str):
             continue
+        name = str(item.get("name") or source)
+        # competitive-verifier's C++ bundler only searches from the repository
+        # root and does not use the configured compiler include paths.  Public
+        # headers in this repository intentionally include from lib/, so its
+        # optional bundle diagnostic is not useful reference content.
+        if name == "bundle error":
+            continue
         source_path = root / source
         if not source_path.is_file():
             continue
         embedded.append(
             {
-                "name": str(item.get("name") or source),
+                "name": name,
                 "code": source_path.read_text(encoding="utf-8"),
             }
         )

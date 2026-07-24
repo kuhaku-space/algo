@@ -14,11 +14,13 @@
 ///   などに使う。
 /// @tparam Tag ノードのラベル型。@c std::hash と @c == を持つ型
 ///   (@c int ・@c char ・@c std::string 等)。
+/// @complexity ノードの登録は子数を $k$ として期待 $O(k)$、参照は $O(1)$
 template <class Tag = int>
 struct HashCons {
     /// @brief ノード @c (tag, children) をインターンして id を返す
     /// @details 同じ @c (tag, children) に対しては常に同じ id を返す。
     ///   @c children は各要素が既存の id (@c [0, size()) の範囲) であること。
+    /// @complexity 子数を $k$ として期待 $O(k)$
     int intern(const Tag &tag, std::vector<int> children = {}) {
         Key key{tag, std::move(children)};
         if (auto it = ids.find(key); it != ids.end()) return it->second;
@@ -29,14 +31,19 @@ struct HashCons {
     }
 
     /// @brief ノード @c id のラベル
+    /// @complexity $O(1)$
     const Tag &tag(int id) const { return nodes[id].tag; }
     /// @brief ノード @c id の子 id 列
+    /// @complexity $O(1)$
     const std::vector<int> &children(int id) const { return nodes[id].children; }
     /// @brief ノード @c id の @c k 番目の子 id
+    /// @complexity $O(1)$
     int child(int id, std::size_t k) const { return nodes[id].children[k]; }
     /// @brief ノード @c id の子の数
+    /// @complexity $O(1)$
     std::size_t arity(int id) const { return nodes[id].children.size(); }
     /// @brief 相異なるノード (id) の総数
+    /// @complexity $O(1)$
     int size() const { return static_cast<int>(nodes.size()); }
 
   private:

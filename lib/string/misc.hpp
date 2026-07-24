@@ -12,6 +12,7 @@
 // 単体では小粒だがあると便利な小物関数をまとめたファイル
 
 /// @brief 最長共通接頭辞 (longest common prefix)
+/// @complexity 短い方の長さを $n$ として $O(n)$
 template <class Container>
 int longest_common_prefix(const Container &a, const Container &b) {
     int m = (int)std::min(a.size(), b.size());
@@ -22,6 +23,7 @@ int longest_common_prefix(const Container &a, const Container &b) {
 }
 
 /// @brief 最長共通接尾辞 (longest common suffix)
+/// @complexity 短い方の長さを $n$ として $O(n)$
 template <class Container>
 int longest_common_suffix(const Container &a, const Container &b) {
     int n = (int)a.size(), m = (int)b.size(), k = std::min(n, m);
@@ -44,6 +46,7 @@ int minimum_period(const Container &s) {
 }
 
 /// @brief 回文判定
+/// @complexity $O(n)$
 template <class Container>
 bool is_palindrome(const Container &s) {
     int n = (int)s.size();
@@ -54,9 +57,11 @@ bool is_palindrome(const Container &s) {
 }
 
 /// @brief 回文数判定
+/// @complexity 桁数を $d$ として $O(d)$
 inline bool is_palindromic_number(std::int64_t x) { return is_palindrome(std::to_string(x)); }
 
 /// @brief 正しい括弧列か判定
+/// @complexity $O(n)$
 inline bool is_correct_parenthesis_sequences(const std::string &s) {
     int cnt = 0;
     for (char c : s) {
@@ -69,6 +74,7 @@ inline bool is_correct_parenthesis_sequences(const std::string &s) {
 
 /// @brief ランレングス圧縮
 /// @details "aaabbc" → {(a,3),(b,2),(c,1)}
+/// @complexity $O(n)$
 template <class Container>
 auto run_length_encoding(const Container &v) {
     std::vector<std::pair<std::decay_t<decltype(*std::begin(v))>, int>> res;
@@ -80,6 +86,7 @@ auto run_length_encoding(const Container &v) {
 }
 
 /// @brief 最長増加部分列の長さ
+/// @complexity $O(n\log n)$
 template <class T>
 int longest_increasing_subsequence(const std::vector<T> &v, bool strict = true) {
     std::vector<T> dp;
@@ -92,6 +99,7 @@ int longest_increasing_subsequence(const std::vector<T> &v, bool strict = true) 
 }
 
 /// @brief 最長増加部分列を構成する添字列
+/// @complexity $O(n\log n)$
 template <class T>
 std::vector<int> make_lis(const std::vector<T> &v) {
     int n = v.size();
@@ -114,6 +122,7 @@ std::vector<int> make_lis(const std::vector<T> &v) {
 }
 
 /// @brief 文字列を区切り文字で分割する
+/// @complexity $O(n)$
 inline std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> res;
     std::string cur;
@@ -126,6 +135,7 @@ inline std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 /// @brief 文字列を区切り文字で連結する
+/// @complexity 出力長を $n$ として $O(n)$
 inline std::string join(const std::vector<std::string> &v, const std::string &delim = "") {
     std::string res;
     for (int i = 0; i < (int)v.size(); ++i) {
@@ -136,15 +146,18 @@ inline std::string join(const std::vector<std::string> &v, const std::string &de
 }
 
 /// @brief 辞書順で次の順列（文字列版、std::next_permutation のラッパ）
+/// @complexity $O(n)$
 inline bool next_string(std::string &s) { return std::next_permutation(s.begin(), s.end()); }
 
 /// @brief 全文字を小文字に変換した文字列を返す
+/// @complexity $O(n)$
 inline std::string to_lower(std::string s) {
     for (char &c : s) c = (char)std::tolower((unsigned char)c);
     return s;
 }
 
 /// @brief 全文字を大文字に変換した文字列を返す
+/// @complexity $O(n)$
 inline std::string to_upper(std::string s) {
     for (char &c : s) c = (char)std::toupper((unsigned char)c);
     return s;

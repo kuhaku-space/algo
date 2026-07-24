@@ -3,25 +3,43 @@
 #include <utility>
 #include <vector>
 
-/**
- * @brief Static Top Tree
- * @see https://codeforces.com/blog/entry/103989
- * @see https://nyaannyaan.github.io/library/tree/static-top-tree-vertex-based.hpp
- */
+/// @brief Static Top Treeと点更新可能な全方位木DP
+/// @details `static_top_tree` が木をrake/compressの二分木へ分解し、
+/// `static_top_tree_dp` がTreeDPの演算で集約値を管理する。
+/// @complexity 構築と全計算は $O(n\log n)$、点更新は $O(\log n)$、
+/// 全体値の取得は $O(1)$
+/// @see https://codeforces.com/blog/entry/103989
+/// @see https://nyaannyaan.github.io/library/tree/static-top-tree-vertex-based.hpp
 template <class Graph>
 struct static_top_tree {
+    /// @brief Top Tree ノードの種類
+    /// @complexity 列挙型のため実行時コストなし
     enum Type { Vertex, Compress, Rake, AddEdge, AddVertex };
 
+    /// @brief Top Tree の二分木ノード
+    /// @complexity 各フィールドは $O(1)$ で参照可能
     struct Node {
+        /// @brief 親・左子・右子のノード番号
+        /// @complexity $O(1)$ で参照可能
         int p, l, r;
+        /// @brief ノードが表す結合操作
+        /// @complexity $O(1)$ で参照可能
         Type type;
     };
 
+    /// @brief Top Tree の根ノード番号。空なら `-1`
+    /// @complexity $O(1)$ で参照可能
     int root;
+    /// @brief Top Tree の全ノード
+    /// @complexity 1 ノードの参照は $O(1)$
     std::vector<Node> nodes;
 
+    /// @brief 空の Static Top Tree を作る
+    /// @complexity $O(1)$
     static_top_tree() : root(-1) {}
 
+    /// @brief 木 `g` を `_root` から Static Top Tree へ分解する
+    /// @complexity $O(n\log n)$
     static_top_tree(const Graph &g, int _root = 0) {
         int n = g.size();
         if (n == 0) {
@@ -124,34 +142,48 @@ struct static_top_tree {
     }
 };
 
-/**
- * @brief Static Top Tree 上でDPを行うテンプレート
- *
- * `TreeDP` クラスは以下を持つ必要があります：
- * ```cpp
- * struct DP {
- *     using Path = ...; // 重パス上のデータ型
- *     using Light = ...; // 軽辺部分木のデータ型
- *     Path vertex(int u); // 頂点uのPathデータ初期化
- *     Path add_vertex(Path d, Light l); // 頂点を含むパスに軽辺部分木を付加
- *     Light add_edge(Path d); // 部分木のPathデータを親に繋ぐ軽辺のデータに変換
- *     Light rake(Light l, Light r); // 複数の軽辺のデータをマージ
- *     Path compress(Path p, Path c); // 親側のパスpと子側のパスcをマージして1つのパスにする
- * };
- * ```
- */
+/// @brief Static Top Tree 上でDPを行うテンプレート
+/// @details `TreeDP` クラスは以下を持つ必要があります：
+/// ```cpp
+/// struct DP {
+///     using Path = ...; // 重パス上のデータ型
+///     using Light = ...; // 軽辺部分木のデータ型
+///     Path vertex(int u); // 頂点uのPathデータ初期化
+///     Path add_vertex(Path d, Light l); // 頂点を含むパスに軽辺部分木を付加
+///     Light add_edge(Path d); // 部分木のPathデータを親に繋ぐ軽辺のデータに変換
+///     Light rake(Light l, Light r); // 複数の軽辺のデータをマージ
+///     Path compress(Path p, Path c); // 親側のパスpと子側のパスcをマージして1つのパスにする
+/// };
+/// ```
+/// @complexity 構築と全再計算は $O(n)$、点更新は $O(\log n)$、結果取得は $O(1)$
 template <class Graph, class TreeDP>
 struct static_top_tree_dp {
+    /// @brief 重パス上の集約値型
+    /// @complexity 型エイリアスのため実行時コストなし
     using Path = typename TreeDP::Path;
+    /// @brief 軽辺部分木の集約値型
+    /// @complexity 型エイリアスのため実行時コストなし
     using Light = typename TreeDP::Light;
 
+    /// @brief DP の土台となる Static Top Tree
+    /// @complexity 1 ノードの参照は $O(1)$
     static_top_tree<Graph> stt;
+    /// @brief Tree DP の演算オブジェクト
+    /// @complexity 参照は $O(1)$
     TreeDP dp;
+    /// @brief 各 Top Tree ノードの `Path` 集約値
+    /// @complexity 1 要素の参照は $O(1)$
     std::vector<Path> path_val;
+    /// @brief 各 Top Tree ノードの `Light` 集約値
+    /// @complexity 1 要素の参照は $O(1)$
     std::vector<Light> light_val;
 
+    /// @brief 空の DP オブジェクトを作る
+    /// @complexity $O(1)$
     static_top_tree_dp() = default;
 
+    /// @brief Static Top Tree `_stt` 上で `_dp` を使い全 DP 値を計算する
+    /// @complexity $O(n)$
     static_top_tree_dp(const static_top_tree<Graph> &_stt, const TreeDP &_dp = TreeDP()) : stt(_stt), dp(_dp) {
         int m = stt.nodes.size();
         path_val.resize(m);
@@ -159,6 +191,8 @@ struct static_top_tree_dp {
         update_all();
     }
 
+    /// @brief 全ての Top Tree ノードの DP 値を再計算する
+    /// @complexity $O(n)$
     void update_all() {
         if (stt.root == -1) return;
         auto dfs = [&](auto self, int u) -> void {
@@ -170,6 +204,8 @@ struct static_top_tree_dp {
         dfs(dfs, stt.root);
     }
 
+    /// @brief 頂点 `u` の値を `dp.vertex(u)` から再取得し、根まで更新する
+    /// @complexity $O(\log n)$
     void update(int u) {
         if (u < 0 || u >= (int)stt.nodes.size() || stt.nodes[u].type != static_top_tree<Graph>::Vertex) { return; }
         while (u != -1) {
@@ -178,6 +214,8 @@ struct static_top_tree_dp {
         }
     }
 
+    /// @brief 木全体の集約値を返す
+    /// @complexity $O(1)$
     Path get() const { return path_val[stt.root]; }
 
   private:

@@ -4,6 +4,7 @@
 
 /// @brief 2分パトリシア木
 /// @see https://kyokkounoite.hatenablog.jp/entry/2021/05/17/170000
+/// @complexity 要素数に依らず各操作 $O(B)$、`size` と `empty` は $O(1)$
 template <std::integral T, int B = 31, bool Multi = false>
 struct patricia_binary_trie {
   private:
@@ -16,21 +17,43 @@ struct patricia_binary_trie {
     };
 
   public:
+    /// @brief 内部ノードへのpointer型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_ptr = typename node_t::pointer;
 
+    /// @brief 空のtrieを構築する
+    /// @complexity $O(1)$
     patricia_binary_trie() : root(nullptr) {}
 
+    /// @brief 0-indexedでk番目に小さい値を返す
+    /// @complexity $O(B)$
     T operator[](int k) const {
         assert(0 <= k && k < size());
         return get(root, k);
     }
+
+    /// @brief k番目に小さい値を返す
+    /// @complexity $O(B)$
     T at(int k) const { return operator[](k); }
+
+    /// @brief k番目に小さい値を返す
+    /// @complexity $O(B)$
     T get(int k) const { return operator[](k); }
+
+    /// @brief k番目に小さい値を返す
+    /// @complexity $O(B)$
     T kth_element(int k) const { return operator[](k); }
 
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return root ? root->count : 0; }
+
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return !root; }
 
+    /// @brief valを挿入する
+    /// @complexity $O(B)$
     void insert(T val) {
         if constexpr (Multi) {
             root = insert(root, val);
@@ -38,13 +61,31 @@ struct patricia_binary_trie {
             if (!count(val)) root = insert(root, val);
         }
     }
+
+    /// @brief valを1個削除する
+    /// @complexity $O(B)$
     void erase(T val) {
         if (count(val)) root = erase(root, val);
     }
+
+    /// @brief val XOR biasを最大化するvalを返す
+    /// @complexity $O(B)$
     T max_element(T bias = 0) const { return get_min(root, ~bias); }
+
+    /// @brief val XOR biasを最小化するvalを返す
+    /// @complexity $O(B)$
     T min_element(T bias = 0) const { return get_min(root, bias); }
+
+    /// @brief val未満の要素数を返す
+    /// @complexity $O(B)$
     int lower_bound(T val) { return count_lower(root, val); }
+
+    /// @brief val以下の要素数を返す
+    /// @complexity $O(B)$
     int upper_bound(T val) { return count_lower(root, val + 1); }
+
+    /// @brief valの個数を返す
+    /// @complexity $O(B)$
     int count(T val) const {
         if (!root) return 0;
         node_ptr node = root;

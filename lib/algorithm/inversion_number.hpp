@@ -7,6 +7,7 @@
 #include "data_structure/fenwick_tree.hpp"
 
 /// @brief 転倒数
+/// @complexity 要素数を $n$ として $O(n\log n)$
 template <class T>
 std::int64_t inversion_number(const std::vector<T> &v) {
     if (v.empty()) return 0;
@@ -22,6 +23,7 @@ std::int64_t inversion_number(const std::vector<T> &v) {
 }
 
 /// @brief 転倒数
+/// @complexity 要素数を $n$ として $O(n\log n)$
 template <class T>
 std::int64_t inversion_number_of_permutation(const std::vector<T> &v) {
     if (v.empty()) return 0;
@@ -36,6 +38,7 @@ std::int64_t inversion_number_of_permutation(const std::vector<T> &v) {
 }
 
 /// @brief 最小隣接スワップ回数
+/// @complexity 要素数を $n$ として $O(n\log n)$
 template <class T>
 std::int64_t swap_distance(const std::vector<T> &a, const std::vector<T> &b) {
     if (a.size() != b.size()) return -1;

@@ -28,25 +28,48 @@ struct MeldableHeap {
     };
 
   public:
+    /// @brief 格納値の型
+    /// @complexity 型別名であり実行時計算量はない
     using value_type = T;
 
+    /// @brief 空の融合可能ヒープを構築する
+    /// @complexity $O(1)$
     MeldableHeap() : pool(std::make_shared<std::deque<_node>>()), root(nullptr), _size(), comp() {}
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return root == nullptr; }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return _size; }
+
+    /// @brief 最上位の値を返す
+    /// @complexity $O(1)$
     T top() const { return root->val; }
 
+    /// @brief 値を追加する
+    /// @complexity $O(\log n)$
     void push(const T &val) { root = meld(root, make_node(val)), ++_size; }
+
+    /// @brief 値をムーブして追加する
+    /// @complexity $O(\log n)$
     void push(T &&val) { root = meld(root, make_node(std::move(val))), ++_size; }
+
+    /// @brief 値を直接構築して追加する
+    /// @complexity $O(\log n)$
     template <class... Args>
     void emplace(Args &&...args) {
         root = meld(root, make_node(T(std::forward<Args>(args)...))), ++_size;
     }
 
+    /// @brief 最上位の値を削除する
+    /// @complexity $O(\log n)$
     void pop() { root = meld(root->left, root->right), --_size; }
 
-    // rhs を空にして、その全要素を自分へ取り込む。rhs のノードは rhs のプールが
-    // 所有しているので、そのプールを shared_ptr で延命して以後も参照できるようにする。
+    /// @brief rhsを空にして全要素を融合する
+    /// @details rhsのノードプールはshared_ptrで延命される。
+    /// @complexity $O(\log(n+m))$
     void meld(MeldableHeap &rhs) {
         if (this == &rhs || rhs.root == nullptr) return;
         if (rhs.pool != pool) extra_pools.push_back(rhs.pool);

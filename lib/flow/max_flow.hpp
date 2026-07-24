@@ -29,11 +29,20 @@ struct simple_queue {
 /// @brief 最大流
 template <class Cap>
 struct mf_graph {
+    /// @brief 0頂点のグラフを構築する
+    /// @complexity $O(1)$
     mf_graph() : _n(0) {}
+
+    /// @brief n頂点0辺のグラフを構築する
+    /// @complexity $O(n)$
     explicit mf_graph(int n) : _n(n), g(n) {}
 
+    /// @brief 頂点数を返す
+    /// @complexity $O(1)$
     int size() const { return _n; }
 
+    /// @brief 容量capの有向辺を追加して辺IDを返す
+    /// @complexity 償却 $O(1)$
     int add_edge(int from, int to, Cap cap) {
         assert(0 <= from && from < _n);
         assert(0 <= to && to < _n);
@@ -48,11 +57,19 @@ struct mf_graph {
         return m;
     }
 
+    /// @brief 追加した辺の現在状態
+    /// @complexity 各フィールドへのアクセスは $O(1)$
     struct edge {
+        /// @brief 辺の始点と終点
+        /// @complexity $O(1)$ で参照可能
         int from, to;
+        /// @brief 辺の容量と現在の流量
+        /// @complexity $O(1)$ で参照可能
         Cap cap, flow;
     };
 
+    /// @brief 指定した辺の現在状態を返す
+    /// @complexity $O(1)$
     edge get_edge(int i) {
         int m = int(pos.size());
         assert(0 <= i && i < m);
@@ -60,12 +77,16 @@ struct mf_graph {
         auto _re = g[_e.to][_e.rev];
         return edge{pos[i].first, _e.to, _e.cap + _re.cap, _re.cap};
     }
+    /// @brief 全辺の現在状態を追加順で返す
+    /// @complexity 辺数を $E$ として $O(E)$
     std::vector<edge> edges() {
         int m = int(pos.size());
         std::vector<edge> result;
         for (int i = 0; i < m; ++i) result.emplace_back(get_edge(i));
         return result;
     }
+    /// @brief 辺の容量と現在流量を変更する
+    /// @complexity $O(1)$
     void change_edge(int i, Cap new_cap, Cap new_flow) {
         int m = int(pos.size());
         assert(0 <= i && i < m);
@@ -76,7 +97,12 @@ struct mf_graph {
         _re.cap = new_flow;
     }
 
+    /// @brief sからtへ流せるだけ流して追加流量を返す
+    /// @complexity 頂点数を $V$、辺数を $E$ として $O(V^2E)$
     Cap flow(int s, int t) { return flow(s, t, std::numeric_limits<Cap>::max()); }
+
+    /// @brief sからtへflow_limitまで流して追加流量を返す
+    /// @complexity $O(V^2E)$
     Cap flow(int s, int t, Cap flow_limit) {
         assert(0 <= s && s < _n);
         assert(0 <= t && t < _n);
@@ -130,6 +156,8 @@ struct mf_graph {
         return flow;
     }
 
+    /// @brief 残余グラフでsから到達可能な頂点集合を返す
+    /// @complexity $O(V+E)$
     std::vector<bool> min_cut(int s) {
         std::vector<bool> visited(_n);
         internal::simple_queue<int> que;

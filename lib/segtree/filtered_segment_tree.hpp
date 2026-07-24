@@ -7,6 +7,7 @@
 
 /// @brief 要素を特定のキー（条件）でフィルタリングして区間取得を行えるセグメント木
 /// @tparam K フィルタリングに用いるキーの型
+/// @complexity 構築 $O(N\log N)$、更新・問合せ $O(\log N)$
 template <class K, monoid M>
 struct filtered_segment_tree {
   private:
@@ -16,6 +17,7 @@ struct filtered_segment_tree {
     /// @brief 構築 O(N log N)
     /// @param keys 各要素が属するキー
     /// @param values 各要素の初期値
+    /// @complexity $O(N\log N)$
     filtered_segment_tree(const std::vector<K> &keys, const std::vector<T> &values)
         : n(keys.size()), values(values), leaf_indices(n) {
         unique_keys = coordinate_compression<K>(keys);

@@ -17,17 +17,26 @@
 /// @see http://yamatyuu.net/computer/program/long/div/index.html
 struct BigInt {
     /// 1 桁が表す基数。10 進 6 桁。
+    /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr int BASE = 1'000'000;
     /// BASE の 10 進桁数。入出力の整形に使う。
+    /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr int BASE_DIGITS = 6;
     /// 除数がこの桁数以下なら Burnikel-Ziegler 再帰をやめて古典除算に切り替える。
+    /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr int BZ_THRESHOLD = 64;
     /// 乗算で 2 素数 NTT (convolution_ll2) を使える最大畳み込み長。
     /// 係数積は高々 (BASE-1)^2 * len なので、これが MOD1*MOD3 (約 3.5e17) 未満となる
     /// len の上限。これを超える巨大乗算のみ 3 素数版 (convolution_ll) へ落とす。
+    /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr int MUL_2PRIME_MAX_LEN = 354659;
 
+    /// @brief 0を構築する
+    /// @complexity $O(1)$
     BigInt() : data(1, 0), sign(false) {}
+
+    /// @brief 64bit整数から構築する
+    /// @complexity 桁数を $n$ として $O(n)$
     explicit BigInt(std::int64_t x) : data(), sign(x < 0) {
         // INT64_MIN を -x で反転すると UB になるため、符号なしで絶対値を取る。
         std::uint64_t u = sign ? -(std::uint64_t)x : (std::uint64_t)x;
@@ -37,6 +46,8 @@ struct BigInt {
         } while (u);
         normalize();
     }
+    /// @brief 10進文字列から構築する
+    /// @complexity 文字列長を $n$ として $O(n)$
     explicit BigInt(const std::string &s) : data(), sign(false) {
         int start = 0;
         if (!s.empty() && (s[0] == '-' || s[0] == '+')) {
@@ -56,12 +67,16 @@ struct BigInt {
         }
         normalize();
     }
+    /// @brief 基数BASEの桁列と符号から構築する
+    /// @complexity 桁数を $n$ として $O(n)$
     explicit BigInt(const std::vector<int> &v, bool flag = false) : data(v), sign(flag) {
         if (data.empty()) data.emplace_back(0);
         carry();
         normalize();
     }
 
+    /// @brief rhsを加算する
+    /// @complexity 最大桁数を $n$ として $O(n)$
     BigInt &operator+=(const BigInt &rhs) {
         if (sign == rhs.sign) {
             add(data, rhs.data);
@@ -77,38 +92,79 @@ struct BigInt {
         normalize();
         return *this;
     }
+    /// @brief rhsを減算する
+    /// @complexity 最大桁数を $n$ として $O(n)$
     BigInt &operator-=(const BigInt &rhs) { return *this += -rhs; }
+
+    /// @brief rhsを乗算する
+    /// @complexity n桁の乗算時間を $M(n)$ として $O(M(n))$
     BigInt &operator*=(const BigInt &rhs) {
         sign ^= rhs.sign;
         mul(data, rhs.data);
         normalize();
         return *this;
     }
+    /// @brief 64bit整数を乗算する
+    /// @complexity $O(M(n))$
     BigInt &operator*=(std::int64_t rhs) { return *this *= BigInt(rhs); }
+
+    /// @brief rhsで除算する
+    /// @complexity $O(M(n)\log n)$
     BigInt &operator/=(const BigInt &rhs) {
         auto [q, r] = divmod(*this, rhs);
         return *this = q;
     }
+    /// @brief rhsによる剰余へ更新する
+    /// @complexity $O(M(n)\log n)$
     BigInt &operator%=(const BigInt &rhs) {
         auto [q, r] = divmod(*this, rhs);
         return *this = r;
     }
+    /// @brief 64bit整数で除算する
+    /// @complexity $O(M(n)\log n)$
     BigInt &operator/=(std::int64_t rhs) { return *this /= BigInt(rhs); }
+
+    /// @brief 64bit整数による剰余へ更新する
+    /// @complexity $O(M(n)\log n)$
     BigInt &operator%=(std::int64_t rhs) { return *this %= BigInt(rhs); }
 
+    /// @brief 符号を反転した値を返す
+    /// @complexity $O(n)$
     BigInt operator-() const {
         BigInt res = *this;
         if (!res.is_zero()) res.sign = !res.sign;
         return res;
     }
+    /// @brief 和を返す
+    /// @complexity $O(n)$
     BigInt operator+(const BigInt &rhs) const { return BigInt(*this) += rhs; }
+
+    /// @brief 差を返す
+    /// @complexity $O(n)$
     BigInt operator-(const BigInt &rhs) const { return BigInt(*this) -= rhs; }
+
+    /// @brief 積を返す
+    /// @complexity $O(M(n))$
     BigInt operator*(const BigInt &rhs) const { return BigInt(*this) *= rhs; }
+
+    /// @brief 64bit整数との積を返す
+    /// @complexity $O(M(n))$
     BigInt operator*(std::int64_t rhs) const { return BigInt(*this) *= rhs; }
+
+    /// @brief 商を返す
+    /// @complexity $O(M(n)\log n)$
     BigInt operator/(const BigInt &rhs) const { return BigInt(*this) /= rhs; }
+
+    /// @brief 剰余を返す
+    /// @complexity $O(M(n)\log n)$
     BigInt operator%(const BigInt &rhs) const { return BigInt(*this) %= rhs; }
 
+    /// @brief 等しいか返す
+    /// @complexity $O(n)$
     bool operator==(const BigInt &rhs) const { return sign == rhs.sign && data == rhs.data; }
+
+    /// @brief 大小を比較する
+    /// @complexity $O(n)$
     std::strong_ordering operator<=>(const BigInt &rhs) const {
         if (sign != rhs.sign) return sign ? std::strong_ordering::less : std::strong_ordering::greater;
         // 同符号なら絶対値比較を 1 回の走査で行う。負同士は大小が反転する。
@@ -125,14 +181,20 @@ struct BigInt {
         return std::strong_ordering::equal;
     }
 
+    /// @brief 10進整数を入力する
+    /// @complexity 入力文字数を $n$ として $O(n)$
     friend std::istream &operator>>(std::istream &is, BigInt &rhs) {
         std::string s;
         is >> s;
         rhs = BigInt(s);
         return is;
     }
+    /// @brief 10進整数を出力する
+    /// @complexity 出力文字数を $n$ として $O(n)$
     friend std::ostream &operator<<(std::ostream &os, const BigInt &rhs) { return os << rhs.to_string(); }
 
+    /// @brief 10進文字列へ変換する
+    /// @complexity 出力文字数を $n$ として $O(n)$
     std::string to_string() const {
         std::string s;
         if (sign) s.push_back('-');
@@ -146,20 +208,32 @@ struct BigInt {
         return s;
     }
 
+    /// @brief 基数BASEでの桁数を返す
+    /// @complexity $O(1)$
     int size() const { return (int)data.size(); }
+
+    /// @brief 0か返す
+    /// @complexity $O(1)$
     bool is_zero() const { return size() == 1 && data[0] == 0; }
 
+    /// @brief 絶対値を返す
+    /// @complexity $O(n)$
     BigInt abs() const {
         BigInt res = *this;
         res.sign = false;
         return res;
     }
     /// |*this| < |rhs| を返す。
+    /// @complexity $O(n)$
     bool abs_less(const BigInt &rhs) const { return abs_less_data(data, rhs.data); }
 
     /// 商と余りを同時に返す ({*this / rhs, *this % rhs})。除算を 1 回で済ませられる。
     /// 余りは被除数 (*this) と同符号 (truncation 方向、operator% と同じ規約)。
+    /// @complexity $O(M(n)\log n)$
     std::pair<BigInt, BigInt> div_mod(const BigInt &rhs) const { return divmod(*this, rhs); }
+
+    /// @brief 64bit整数による商と余りを同時に返す
+    /// @complexity $O(M(n)\log n)$
     std::pair<BigInt, BigInt> div_mod(std::int64_t rhs) const { return divmod(*this, BigInt(rhs)); }
 
   private:

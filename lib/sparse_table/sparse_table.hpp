@@ -5,13 +5,20 @@
 #include "segtree/monoid.hpp"
 
 /// @brief スパーステーブル
+/// @details 冪等なモノイドを仮定する。
+/// @complexity 構築は $O(n\log n)$、区間積は $O(1)$
 template <monoid M>
 struct sparse_table {
   private:
     using T = typename M::value_type;
 
   public:
+    /// @brief 空のtableを構築する
+    /// @complexity $O(1)$
     sparse_table() = default;
+
+    /// @brief 列vから構築する
+    /// @complexity $O(n\log n)$
     sparse_table(const std::vector<T> &v) : _size(v.size()), data() {
         int b = std::max(1, std::countr_zero(std::bit_ceil<unsigned>(_size)));
         data.emplace_back(v);
@@ -23,6 +30,8 @@ struct sparse_table {
         }
     }
 
+    /// @brief 半開区間[l,r)の積を返す
+    /// @complexity $O(1)$
     T prod(int l, int r) const {
         assert(0 <= l && l <= r && r <= _size);
         if (l == r) return M::id();

@@ -13,11 +13,13 @@
 namespace fft {
 
 /// FFT で扱える最大長は 2^FFT_MAX_LOG。
+/// @complexity コンパイル時定数で実行時計算量はない
 static constexpr int FFT_MAX_LOG = 30;
 
 /// @brief 複素 FFT (in-place, 反復 Cooley-Tukey)
 /// @param a 長さが 2 冪の複素数列
 /// @param inv true なら逆変換 (1/N でスケーリングする)
+/// @complexity 列長を $N$ として $O(N\log N)$
 void _fft(std::vector<std::complex<double>> &a, bool inv) {
     int N = int(a.size());
     if (N <= 1) return;
@@ -63,6 +65,7 @@ void _fft(std::vector<std::complex<double>> &a, bool inv) {
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<T> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @complexity 出力長を $N$ として $O(N\log N)$
 template <class T>
 requires std::is_arithmetic_v<T>
 std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
@@ -94,6 +97,7 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
 /// @param b 入力多項式の係数列 ([0, mod) を想定)
 /// @param mod 出力を取る法 (NTT-friendly でなくてよい)
 /// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
+/// @complexity 出力長を $N$ として $O(N\log N)$
 template <std::integral T>
 std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b, T mod) {
     if (a.empty() || b.empty()) return {};
