@@ -1,6 +1,10 @@
 title: algo — C++23 日本語リファレンス
 description: 競技プログラミング用ヘッダオンリーライブラリ
 lang: ja
+url: https://kuhaku-space.github.io
+baseurl: /algo
+repository_url: https://github.com/kuhaku-space/algo
+source_branch: main
 exclude:
   - tools
   - workspace

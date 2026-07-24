@@ -22,7 +22,7 @@
         <ul>
           {% for item in category.pages %}
           <li data-search="{{ category.name }} {{ item.title }} {{ item.path }}">
-            <a href="{{ item.path | relative_url }}">
+            <a href="{{ item.url | relative_url }}">
               <span class="verification-icon" aria-hidden="true">{{ site.icons[item.icon] }}</span>
               {% if item.title %}
               <span>{{ item.title | escape }}</span>
@@ -46,7 +46,7 @@
     <ul>
       {% for item in category.pages %}
       <li>
-        <a href="{{ item.path | relative_url }}">
+        <a href="{{ item.url | relative_url }}">
           {{ site.icons[item.icon] }}
           {% if item.title %}
             {{ item.title | escape }} <small>({{ item.path | escape }})</small>

@@ -1,0 +1,39 @@
+name: Generate reference documentation
+description: Render the repository-owned Jekyll reference site
+
+inputs:
+  verify-files:
+    description: Path to verify_files.json
+    required: true
+  verify-result:
+    description: Path to merged-result.json
+    required: true
+  destination:
+    description: Jekyll source output directory
+    required: false
+    default: _jekyll
+  docs:
+    description: Directory containing the Jekyll configuration and static files
+    required: false
+    default: .verify-helper/docs
+
+runs:
+  using: composite
+  steps:
+    - name: Synchronize generated API pages
+      shell: bash
+      run: python3 tools/reference_docs.py sync-generated
+
+    - name: Render Jekyll source
+      shell: bash
+      run: >-
+        python3 tools/render_reference_site.py
+        --verify-files "$VERIFY_FILES"
+        --verify-result "$VERIFY_RESULT"
+        --destination "$DESTINATION"
+        --docs-dir "$DOCS_DIR"
+      env:
+        VERIFY_FILES: ${{ inputs.verify-files }}
+        VERIFY_RESULT: ${{ inputs.verify-result }}
+        DESTINATION: ${{ inputs.destination }}
+        DOCS_DIR: ${{ inputs.docs }}
