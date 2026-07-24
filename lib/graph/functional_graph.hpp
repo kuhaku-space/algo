@@ -5,9 +5,15 @@
 #include "internal/internal_csr.hpp"
 #include "tree/hld.hpp"
 
-/// @brief functional graph
+/// @brief 各頂点の出次数が1のfunctional graph
+/// @complexity 構築は $O(V)$、単一頂点の遷移・距離問合せは $O(\log V)$
 struct functional_graph {
+    /// @brief 空のfunctional graphを構築する
+    /// @complexity $O(1)$
     functional_graph() = default;
+
+    /// @brief 各頂点の遷移先toから構築する
+    /// @complexity $O(V)$
     functional_graph(const std::vector<int> &_to) : functional_graph(_to.size(), _to) {
         for (int i = 0; i < _size; ++i) {
             int x = i;
@@ -32,8 +38,12 @@ struct functional_graph {
         hld = heavy_light_decomposition(g, _size);
     }
 
+    /// @brief 頂点数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return _size; }
 
+    /// @brief 頂点vからstep回遷移した頂点を返す
+    /// @complexity $O(\log V)$
     int jump(int v, std::uint64_t step) const {
         int d = hld.get_depth(v);
         if (step <= (std::uint64_t)d - 1) return hld.jump(v, _size, step);
@@ -46,6 +56,8 @@ struct functional_graph {
         return hld.jump(bottom, _size, step - 1);
     }
 
+    /// @brief 全頂点からstep回遷移した頂点をまとめて返す
+    /// @complexity $O(V)$
     std::vector<int> jump_all(std::uint64_t step) const {
         std::vector<int> res(_size, -1);
         std::vector<std::pair<int, int>> query;
@@ -82,6 +94,8 @@ struct functional_graph {
         return res;
     }
 
+    /// @brief uからvへ到達するまでの遷移回数を返し、到達不能なら-1を返す
+    /// @complexity $O(1)$
     int dist(int u, int v) {
         if (_root[u] != _root[v]) return -1;
         if (u == v) return 0;
@@ -92,11 +106,15 @@ struct functional_graph {
         return dv > c ? -1 : c - dv + du;
     }
 
+    /// @brief vが流入するサイクルの長さを返す
+    /// @complexity $O(1)$
     int cycle_length(int v) const {
         v = _root[v];
         return hld.get_depth(to[v]);
     }
 
+    /// @brief すべてのサイクルを頂点列として返す
+    /// @complexity $O(V)$
     std::vector<std::vector<int>> get_cycles() const {
         std::vector<std::vector<int>> res;
         for (int v = 0; v < _size; ++v) {
@@ -105,9 +123,20 @@ struct functional_graph {
         return res;
     }
 
+    /// @brief vが流入するサイクルの代表頂点を返す
+    /// @complexity $O(1)$
     int root(int v) const { return _root[v]; }
+
+    /// @brief 反転木上の深さを返す
+    /// @complexity $O(1)$
     int depth(int v) const { return hld.get_depth(v); }
+
+    /// @brief vがサイクル上にあるか返す
+    /// @complexity $O(1)$
     int in_cycle(int v) const { return hld.get_depth(v) <= cycle_length(v); }
+
+    /// @brief 同じ反転木に属するuとvのLCAを返す
+    /// @complexity $O(\log V)$
     int lca(int u, int v) const { return hld.lca(u, v); }
 
   private:

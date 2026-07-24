@@ -49,32 +49,47 @@ bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
 }  // namespace internal
 
 /// @brief 半開区間
+/// @details 区間を $[l,r)$ として扱う演算を提供する。
 namespace open_interval {
 
+/// @brief 2つの半開区間の一方が他方を包含していれば true を返す
+/// @complexity $O(1)$
 using internal::is_include;
 
+/// @brief 2つの半開区間が交差していれば true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_intersect(T l1, T r1, T l2, T r2) {
     return internal::is_intersect<false>(l1, r1, l2, r2);
 }
+/// @brief 2つの半開区間が交差していれば true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
     return internal::is_intersect<false>(p, q);
 }
 
+/// @brief 2つの半開区間の共通部分を返し、交差しなければ std::nullopt を返す
+/// @complexity $O(1)$
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
     return internal::intersection<false>(l1, r1, l2, r2);
 }
+/// @brief 2つの半開区間の共通部分を返し、交差しなければ std::nullopt を返す
+/// @complexity $O(1)$
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(std::pair<T, T> p, std::pair<T, T> q) {
     return internal::intersection<false>(p, q);
 }
 
+/// @brief 2つの半開区間が交差しなければ true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_disjoint(T l1, T r1, T l2, T r2) {
     return internal::is_disjoint<false>(l1, r1, l2, r2);
 }
+/// @brief 2つの半開区間が交差しなければ true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
     return internal::is_disjoint<false>(p, q);
@@ -83,32 +98,47 @@ bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
 }  // namespace open_interval
 
 /// @brief 閉区間
+/// @details 区間を $[l,r]$ として扱う演算を提供する。
 namespace closed_interval {
 
+/// @brief 2つの閉区間の一方が他方を包含していれば true を返す
+/// @complexity $O(1)$
 using internal::is_include;
 
+/// @brief 2つの閉区間が交差していれば true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_intersect(T l1, T r1, T l2, T r2) {
     return internal::is_intersect<true>(l1, r1, l2, r2);
 }
+/// @brief 2つの閉区間が交差していれば true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_intersect(std::pair<T, T> p, std::pair<T, T> q) {
     return internal::is_intersect<true>(p, q);
 }
 
+/// @brief 2つの閉区間の共通部分を返し、交差しなければ std::nullopt を返す
+/// @complexity $O(1)$
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(T l1, T r1, T l2, T r2) {
     return internal::intersection<true>(l1, r1, l2, r2);
 }
+/// @brief 2つの閉区間の共通部分を返し、交差しなければ std::nullopt を返す
+/// @complexity $O(1)$
 template <std::integral T>
 std::optional<std::pair<T, T>> intersection(std::pair<T, T> p, std::pair<T, T> q) {
     return internal::intersection<true>(p, q);
 }
 
+/// @brief 2つの閉区間が交差しなければ true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_disjoint(T l1, T r1, T l2, T r2) {
     return internal::is_disjoint<true>(l1, r1, l2, r2);
 }
+/// @brief 2つの閉区間が交差しなければ true を返す
+/// @complexity $O(1)$
 template <std::integral T>
 bool is_disjoint(std::pair<T, T> p, std::pair<T, T> q) {
     return internal::is_disjoint<true>(p, q);

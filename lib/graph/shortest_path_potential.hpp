@@ -8,6 +8,7 @@
 /// @brief ポテンシャル付き単一始点最短路（Johnson 法で使うダイクストラ）
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @note ポテンシャルで辺重みを非負化してからダイクストラを回し、最後に補正を戻す。
+/// @complexity $O((V+E)\log V)$
 template <weighted_graph_type G, class U, class T = graph_weight_t<G>>
 std::vector<T> shortest_path_potential(const G &g, const std::vector<U> &potentials, int s = 0,
                                        T inf = std::numeric_limits<T>::max()) {

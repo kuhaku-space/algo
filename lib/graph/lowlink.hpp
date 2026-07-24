@@ -5,13 +5,18 @@
 
 /// @brief LowLink
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity 構築は $O(V+E)$、取得は $O(1)$
 template <graph_type G>
 struct low_link {
+    /// @brief 無向グラフgの関節点と橋を列挙する
+    /// @complexity $O(V+E)$
     low_link(const G &_g) : low_link(_g, _g.size()) {}
 
     /// @brief 関節点（頂点番号）の一覧を取得する
+    /// @complexity $O(1)$
     const std::vector<int> &get_articulation_points() const { return articulation_points; }
     /// @brief 橋の一覧を辺 ID で取得する（頂点は g.get_edge(id) で引ける）
+    /// @complexity $O(1)$
     const std::vector<int> &get_bridges() const { return bridges; }
 
   private:

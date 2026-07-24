@@ -23,10 +23,14 @@ concept Hashable = std::equality_comparable<T> && requires(const T &a) {
 ///            同じ値が偶数回現れると消えてしまうため多重集合の区別には使えない。
 /// @tparam T 値の型（Hashable であること）
 /// @tparam UniformRandomBitGenerator 乱数生成器
+/// @complexity 値ごとの取得は期待 $O(1)$
 template <internal::Hashable T, std::uniform_random_bit_generator UniformRandomBitGenerator = xoroshiro128>
 struct ZobristHash {
+    /// @brief ハッシュ値の型
+    /// @complexity 型エイリアスで実行時計算量はない
     using result_type = UniformRandomBitGenerator::result_type;
 
+    /// @brief 空の対応表を乱数seed付きで構築する
     /// @complexity O(1)
     ZobristHash() : rnd(std::random_device{}()), data() {}
 

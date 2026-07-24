@@ -5,6 +5,7 @@
 #include <vector>
 
 /// @brief 順序集合・多重集合（AVL 木）
+/// @complexity 検索・更新・順位・区間和は $O(\log n)$
 template <class T, bool Multi = false>
 struct OrderedSet {
   private:
@@ -46,10 +47,20 @@ struct OrderedSet {
     };
 
   public:
+    /// @brief 内部ノード型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_type = Node;
+
+    /// @brief 内部ノードへのpointer型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_ptr = typename Node::pointer;
 
+    /// @brief 空集合を構築する
+    /// @complexity $O(1)$
     constexpr OrderedSet() : root(nullptr) {}
+
+    /// @brief 列vの要素から構築する
+    /// @complexity $O(n\log n)$
     constexpr OrderedSet(std::vector<T> v) : root(nullptr) {
         std::sort(v.begin(), v.end());
         if constexpr (!Multi) v.erase(std::unique(v.begin(), v.end()), v.end());
@@ -65,9 +76,16 @@ struct OrderedSet {
         root = build(build, 0, v.size());
     }
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return root == nullptr; }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return Node::get_size(root); }
 
+    /// @brief valを挿入する
+    /// @complexity $O(\log n)$
     void insert(T val) {
         if constexpr (!Multi) {
             if (contains(val)) return;
@@ -75,17 +93,29 @@ struct OrderedSet {
         root = insert(root, val);
     }
 
+    /// @brief valを1個削除する
+    /// @complexity $O(\log n)$
     void erase(T val) { root = erase(root, val); }
 
+    /// @brief 最小要素を削除する
+    /// @complexity $O(\log n)$
     void pop_front() { root = erase(root, front()); }
+
+    /// @brief 最大要素を削除する
+    /// @complexity $O(\log n)$
     void pop_back() { root = erase(root, back()); }
 
+    /// @brief 最小要素を返す
+    /// @complexity $O(\log n)$
     T front() {
         assert(root);
         node_ptr node = root;
         while (node->left) node = node->left;
         return node->val;
     }
+
+    /// @brief 最大要素を返す
+    /// @complexity $O(\log n)$
     T back() {
         assert(root);
         node_ptr node = root;
@@ -93,6 +123,8 @@ struct OrderedSet {
         return node->val;
     }
 
+    /// @brief 0-indexedでk番目に小さい要素を返す
+    /// @complexity $O(\log n)$
     T at(int k) const {
         assert(0 <= k && k < size());
         node_ptr node = root;
@@ -105,14 +137,20 @@ struct OrderedSet {
         return node->val;
     }
 
+    /// @brief valの個数を返す
+    /// @complexity $O(\log n)$
     int count(T val) const { return upper_bound(val) - lower_bound(val); }
 
+    /// @brief valを含むか返す
+    /// @complexity $O(\log n)$
     bool contains(T val) const {
         node_ptr node = root;
         while (node && node->val != val) node = (val < node->val ? node->left : node->right);
         return node != nullptr;
     }
 
+    /// @brief val未満の要素数を返す
+    /// @complexity $O(\log n)$
     int lower_bound(T val) const {
         int res = 0;
         node_ptr node = root;
@@ -123,6 +161,8 @@ struct OrderedSet {
         return res;
     }
 
+    /// @brief val以下の要素数を返す
+    /// @complexity $O(\log n)$
     int upper_bound(T val) const {
         int res = 0;
         node_ptr node = root;
@@ -133,6 +173,8 @@ struct OrderedSet {
         return res;
     }
 
+    /// @brief val以下で最大の要素を返す
+    /// @complexity $O(\log n)$
     std::optional<T> floor(T val) const {
         std::optional<T> res = std::nullopt;
         node_ptr node = root;
@@ -143,6 +185,8 @@ struct OrderedSet {
         return res;
     }
 
+    /// @brief val以上で最小の要素を返す
+    /// @complexity $O(\log n)$
     std::optional<T> ceil(T val) const {
         std::optional<T> res = std::nullopt;
         node_ptr node = root;
@@ -153,6 +197,8 @@ struct OrderedSet {
         return res;
     }
 
+    /// @brief 小さい方からk個の総和を返す
+    /// @complexity $O(\log n)$
     T prefix_sum(int k) const {
         assert(0 <= k && k <= size());
         if (k == size()) return Node::get_sum(root);
@@ -172,6 +218,8 @@ struct OrderedSet {
         return res;
     }
 
+    /// @brief 大きい方からk個の総和を返す
+    /// @complexity $O(\log n)$
     T suffix_sum(int k) const {
         assert(0 <= k && k <= size());
         if (k == size()) return Node::get_sum(root);

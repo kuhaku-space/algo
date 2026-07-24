@@ -75,17 +75,28 @@ struct DynamicSequence {
     using node_ptr = typename Node::pointer;
 
   public:
+    /// @brief 空の動的配列を構築する
+    /// @complexity $O(1)$
     DynamicSequence() : root(nullptr) {}
+
+    /// @brief 内部木から動的配列を構築する
+    /// @complexity $O(1)$
     DynamicSequence(node_ptr p) : root(p) {}
 
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     int size() const { return Node::get_size(root); }
 
+    /// @brief k番目の値を返す
+    /// @complexity 償却 $O(\log n)$
     T get(int k) {
         assert(k < Node::get_size(root));
         root = access(root, k);
         return root->value;
     }
 
+    /// @brief k番目の値を設定する
+    /// @complexity 償却 $O(\log n)$
     void set(int k, T val) {
         assert(k < Node::get_size(root));
         root = access(root, k);
@@ -93,27 +104,58 @@ struct DynamicSequence {
         update(root);
     }
 
+    /// @brief k番目へ値を挿入する
+    /// @complexity 償却 $O(\log n)$
     void insert(int k, const T &val) { root = insert(root, k, new Node(val)); }
+
+    /// @brief k番目へ値をムーブして挿入する
+    /// @complexity 償却 $O(\log n)$
     void insert(int k, T &&val) { root = insert(root, k, new Node(std::move(val))); }
+
+    /// @brief k番目へ値を直接構築して挿入する
+    /// @complexity 償却 $O(\log n)$
     template <class... Args>
     void emplace(int k, Args &&...args) {
         root = insert(root, k, new Node(T(std::forward<Args>(args)...)));
     }
+    /// @brief 先頭へ値を追加する
+    /// @complexity 償却 $O(\log n)$
     void push_front(const T &val) { root = merge(new Node(val), root); }
+
+    /// @brief 先頭へ値をムーブして追加する
+    /// @complexity 償却 $O(\log n)$
     void push_front(T &&val) { root = merge(new Node(std::move(val)), root); }
+
+    /// @brief 末尾へ値を追加する
+    /// @complexity 償却 $O(\log n)$
     void push_back(const T &val) { root = merge(root, new Node(val)); }
+
+    /// @brief 末尾へ値をムーブして追加する
+    /// @complexity 償却 $O(\log n)$
     void push_back(T &&val) { root = merge(root, new Node(std::move(val))); }
 
+    /// @brief k番目の値を削除する
+    /// @complexity 償却 $O(\log n)$
     void erase(int k) {
         assert(k < Node::get_size(root));
         auto [erased, rest] = erase(root, k);
         (void)erased;
         root = rest;
     }
+    /// @brief 先頭の値を削除する
+    /// @complexity 償却 $O(\log n)$
     void pop_front() { erase(0); }
+
+    /// @brief 末尾の値を削除する
+    /// @complexity 償却 $O(\log n)$
     void pop_back() { erase(Node::get_size(root) - 1); }
 
+    /// @brief 接頭辞のモノイド積を返す
+    /// @complexity 償却 $O(\log n)$
     T prod(int r) { return prod(0, r); }
+
+    /// @brief 半開区間のモノイド積を返す
+    /// @complexity 償却 $O(\log n)$
     T prod(int l, int r) {
         assert(0 <= l && l <= r && r <= Node::get_size(root));
         if (l == r) return S::id();
@@ -123,6 +165,8 @@ struct DynamicSequence {
         return res;
     }
 
+    /// @brief 半開区間を反転する
+    /// @complexity 償却 $O(\log n)$
     void reverse(int l, int r) {
         auto [a, b, c] = split3(root, l, r);
         if (b) b->reversed ^= true;
@@ -130,12 +174,14 @@ struct DynamicSequence {
     }
 
     /// @brief v[p] に f を作用させる
+    /// @complexity 償却 $O(\log n)$
     void apply(int p, U f)
     requires use_lazy
     {
         apply(p, p + 1, f);
     }
     /// @brief v[l ... r-1] に f を作用させる
+    /// @complexity 償却 $O(\log n)$
     void apply(int l, int r, U f)
     requires use_lazy
     {
@@ -147,15 +193,20 @@ struct DynamicSequence {
     }
 
     /// @brief prod(i) < key <= prod(i + 1) となる i（すべての i で prod(i) < key なら size()）
+    /// @complexity 償却 $O(\log n)$
     int lower_bound(T key) {
         if (!(S::id() < key)) return 0;
         return max_right([&key](const T &x) { return x < key; });
     }
 
+    /// @brief g(prod(0,r))が真となる最大のrを返す
+    /// @complexity 償却 $O(\log n)$
     template <class G>
     int max_right(G g) {
         return max_right(0, g);
     }
+    /// @brief g(prod(l,r))が真となる最大のrを返す
+    /// @complexity 償却 $O(\log n)$
     template <class G>
     int max_right(int l, G g) {
         assert(0 <= l && l <= Node::get_size(root));
@@ -167,10 +218,14 @@ struct DynamicSequence {
         return l + r;
     }
 
+    /// @brief g(prod(l,n))が真となる最小のlを返す
+    /// @complexity 償却 $O(\log n)$
     template <class G>
     int min_left(G g) {
         return min_left(Node::get_size(root), g);
     }
+    /// @brief g(prod(l,r))が真となる最小のlを返す
+    /// @complexity 償却 $O(\log n)$
     template <class G>
     int min_left(int r, G g) {
         assert(0 <= r && r <= Node::get_size(root));
@@ -182,16 +237,25 @@ struct DynamicSequence {
         return r - cnt;
     }
 
+    /// @brief k番目で2つの配列へ分割する
+    /// @complexity 償却 $O(\log n)$
     std::pair<DynamicSequence, DynamicSequence> split(int k) {
         auto [pl, pr] = split(root, k);
         return std::make_pair(DynamicSequence(pl), DynamicSequence(pr));
     }
+    /// @brief lとrで3つの配列へ分割する
+    /// @complexity 償却 $O(\log n)$
     std::tuple<DynamicSequence, DynamicSequence, DynamicSequence> split(int l, int r) {
         auto [a, b, c] = split3(root, l, r);
         return std::make_tuple(DynamicSequence(a), DynamicSequence(b), DynamicSequence(c));
     }
 
+    /// @brief 別の配列を先頭へ連結する
+    /// @complexity 償却 $O(\log n)$
     void merge_left(DynamicSequence lhs) { root = merge(lhs.root, root); }
+
+    /// @brief 別の配列を末尾へ連結する
+    /// @complexity 償却 $O(\log n)$
     void merge_right(DynamicSequence rhs) { root = merge(root, rhs.root); }
 
   private:

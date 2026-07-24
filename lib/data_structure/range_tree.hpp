@@ -14,10 +14,16 @@ struct range_tree {
     using value_type = typename M::value_type;
 
   public:
+    /// @brief 空の領域木を構築する
+    /// @complexity $O(1)$
     range_tree() = default;
 
+    /// @brief build前に使用する座標を登録する
+    /// @complexity 償却 $O(1)$
     void add(T x, T y) noexcept { _pts.emplace_back(x, y); }
 
+    /// @brief 登録した座標から領域木を構築する
+    /// @complexity 登録点数を $n$ として時間・空間ともに $O(n\log n)$
     void build() {
         std::sort(_pts.begin(), _pts.end());
         _pts.erase(std::unique(_pts.begin(), _pts.end()), _pts.end());
@@ -34,12 +40,16 @@ struct range_tree {
         for (const auto &v : _range2yxs) segtrees.emplace_back(v.size());
     }
 
+    /// @brief 登録点の値を設定する
+    /// @complexity $O(\log^2 n)$
     void set(T x, T y, value_type val) {
         int i = std::distance(_pts.begin(), std::lower_bound(_pts.begin(), _pts.end(), Pt{x, y}));
         assert(i < _size && _pts[i] == std::make_pair(x, y));
         for (i += _size; i; i >>= 1) set(i, {x, y}, val);
     }
 
+    /// @brief 半開矩形 $[x_l,x_r)\times[y_l,y_r)$ のモノイド積を返す
+    /// @complexity $O(\log^2 n)$
     value_type prod(T xl, T yl, T xr, T yr) const {
         auto comp = [](const Pt &l, const Pt &r) { return l.first < r.first; };
         int l = _size + std::distance(_pts.begin(), std::lower_bound(_pts.begin(), _pts.end(), Pt{xl, yr}, comp));
@@ -52,6 +62,8 @@ struct range_tree {
         }
         return res;
     }
+    /// @brief 登録点の値を返し、未登録なら単位元を返す
+    /// @complexity $O(\log n)$
     value_type get(T x, T y) const {
         int i = std::distance(_pts.begin(), std::lower_bound(_pts.begin(), _pts.end(), Pt{x, y}));
         return i < _size && _pts[i] == std::make_pair(x, y) ? segtrees[_size + i].get(0) : M::id();

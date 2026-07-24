@@ -27,12 +27,24 @@ struct dary_heap {
     };
 
   public:
+    /// @brief 空のD分ヒープを構築する
+    /// @complexity $O(1)$
     dary_heap() : data(), comp() {}
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return data.empty(); }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return (int)data.size(); }
+
+    /// @brief 最上位のkeyとvalueを返す
+    /// @complexity $O(1)$
     std::pair<Key, Value> top() const { return {data[0].key, data[0].value}; }
 
+    /// @brief 要素を追加する
+    /// @complexity $O(\log_D n)$
     void push(Key key, Value value) {
         data.push_back({std::move(key), std::move(value)});
         int index = (int)data.size() - 1;
@@ -44,8 +56,12 @@ struct dary_heap {
             index = parent;
         }
     }
+    /// @brief 要素を追加する
+    /// @complexity $O(\log_D n)$
     void emplace(Key key, Value value) { push(std::move(key), std::move(value)); }
 
+    /// @brief 最上位の要素を削除する
+    /// @complexity $O(D\log_D n)$
     void pop() {
         data[0] = std::move(data.back());
         data.pop_back();
@@ -73,5 +89,6 @@ struct dary_heap {
 /// @brief 4 分ヒープ（`dary_heap` の D=4 固定エイリアス）
 /// @details `template <class...> class` 形式（型パラメータのみ）にすることで、
 ///          `shortest_path<quaternary_heap>` のように template-template 引数として渡せる。
+/// @complexity 型別名であり実行時計算量はない
 template <class Key, class Value, class Comp = std::less<>>
 using quaternary_heap = dary_heap<Key, Value, Comp, 4>;

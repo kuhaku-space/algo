@@ -18,17 +18,22 @@
 ///   値の集合を返すので、@c size() で「あり得る結果の通り数」が得られる
 ///   (AOJ 2255 など)。オペランド数を @c k とすると区間DPで
 ///   @c O(k^2) 個の部分区間 × 集合サイズの二乗で評価する。
+/// @complexity オペランド数を $k$、各区間の値集合の最大サイズを $S$ として $O(k^3S^2\log S)$
 template <class T = long long>
 struct AmbiguousExpr {
+    /// @brief 二項演算を表す関数型
+    /// @complexity 型エイリアスで実行時計算量はない
     using combine_fn = std::function<std::optional<T>(const T &, const T &)>;
 
     /// @brief 二項演算子を登録する (fluent)
+    /// @complexity $O(\log A)$（$A$ は登録済み演算子数）
     AmbiguousExpr &op(char c, combine_fn f) {
         ops[c] = std::move(f);
         return *this;
     }
 
     /// @brief 式全体をすべての評価順序で評価し、得られる値の集合を返す
+    /// @complexity オペランド数を $k$、値集合の最大サイズを $S$ として $O(k^3S^2\log S)$
     std::set<T> values(std::string_view str) {
         owned.assign(str.data(), str.size());  // std::string 末尾の '\0' を番兵に使う
         s = owned, pos = 0;

@@ -16,6 +16,7 @@ from render_reference_site import (  # noqa: E402
     TEST_WAITING_JUDGE,
     TEST_WRONG_ANSWER,
     build_site,
+    embedded_code,
     library_icon,
     test_icon,
 )
@@ -29,6 +30,60 @@ class StatusIconTest(unittest.TestCase):
 
     def test_library_status(self) -> None:
         self.assertEqual(library_icon(frozenset({"success"})), LIBRARY_ALL_AC)
+
+
+class EmbeddedCodeTest(unittest.TestCase):
+    def test_omits_optional_bundle_errors(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "sample.hpp").write_text("raw source\n", encoding="utf-8")
+            (root / "bundled.hpp").write_text("bundled source\n", encoding="utf-8")
+            (root / "bundle-error.txt").write_text("traceback\n", encoding="utf-8")
+
+            result = embedded_code(
+                root,
+                "sample.hpp",
+                {
+                    "additonal_sources": [
+                        {"name": "bundled", "path": "bundled.hpp"},
+                        {"name": "bundle error", "path": "bundle-error.txt"},
+                    ]
+                },
+            )
+
+            self.assertEqual(
+                result,
+                [
+                    {"name": "default", "code": "raw source\n"},
+                    {"name": "bundled", "code": "bundled source\n"},
+                ],
+            )
+
+
+class SiteTemplateTest(unittest.TestCase):
+    def test_custom_components_do_not_inherit_minimal_theme_element_styles(
+        self,
+    ) -> None:
+        includes = (
+            Path(__file__).resolve().parents[2]
+            / ".verify-helper"
+            / "docs"
+            / "static"
+            / "_includes"
+        )
+        toppage = (includes / "toppage_body.html").read_text(encoding="utf-8")
+        document_footer = (includes / "document_footer.html").read_text(
+            encoding="utf-8"
+        )
+        head = (includes / "head-custom2.html").read_text(encoding="utf-8")
+
+        self.assertIn('<div class="reference-browser"', toppage)
+        self.assertIn('<div class="reference-category"', toppage)
+        self.assertNotIn('<section class="reference-', toppage)
+        self.assertIn('<nav class="reference-footer"', document_footer)
+        self.assertNotIn('<footer class="reference-footer"', document_footer)
+        self.assertIn("mathjax@4.1.3/tex-chtml.js", head)
+        self.assertIn('skipHtmlTags: ["script", "noscript", "style"', head)
 
 
 class BuildSiteTest(unittest.TestCase):

@@ -26,23 +26,24 @@ int r = seg.max_right(0, [](long long x) { return x <= 12; });
 
 ## API
 
-`segment_tree<M>` — `M` は `value_type`、`id()`、`op(lhs, rhs)` を持つ `monoid`。
-区間は半開区間 `[l, r)`。
-
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `segment_tree(n, initial)` | 長さ `n`、各要素 `initial` で構築 | $O(n)$ |
-| `segment_tree(values)` | 初期列から構築 | $O(n)$ |
-| `assign(n, initial)` | 確保済み領域を再利用して長さと値を設定 | $O(C)$ |
-| `get(k)` / `at(k)` / `operator[](k)` | 点の値を取得 | $O(1)$ |
-| `set(k, value)` | 点を更新 | $O(\log n)$ |
-| `reset(k)` | 点を `M::id()` に戻す | $O(\log n)$ |
-| `prod(l, r)` | `M::op(a[l], ..., a[r-1])` | $O(\log n)$ |
-| `all_prod()` | 全区間の積 | $O(1)$ |
-| `max_right(l, f)` | `f(prod(l, r))` が真である最大の `r` | $O(\log n)$ |
-| `min_left(r, f)` | `f(prod(l, r))` が真である最小の `l` | $O(\log n)$ |
-
-`assign` の $C$ は内部で確保済みの葉数。`n` はその容量以下でなければならない。
+| `segment_tree()` | 空の木を構築する | $O(1)$ |
+| `explicit segment_tree(int n, T e = M::id())` | n要素をeで初期化する | $O(n)$ |
+| `template <class U> explicit segment_tree(const std::vector<U> &v)` | 列vから構築する | $O(n)$ |
+| `void assign(int n, T e = M::id())` | 確保済み領域を保ったままn要素をeで埋め直す | $O(n)$ |
+| `const T &operator[](int k) const` | k番目の値をconst参照で返す | $O(1)$ |
+| `_segment_tree_reference operator[](int k)` | k番目を参照・代入できるproxyを返す | 取得は $O(1)$、代入は $O(\log n)$ |
+| `T at(int k) const` | k番目の値を返す | $O(1)$ |
+| `T get(int k) const` | k番目の値を返す | $O(1)$ |
+| `void set(int k, T val)` | k番目をvalへ変更する | $O(\log n)$ |
+| `void reset(int k)` | k番目を単位元へ戻す | $O(\log n)$ |
+| `T all_prod() const` | 全要素の積を返す | $O(1)$ |
+| `T prod(int a, int b) const` | 半開区間[a,b)の積を返す | $O(\log n)$ |
+| `template <class F> int max_right(F f) const` | 0から右へ述語fが真である最大境界を返す | $O(\log n)$ |
+| `template <class F> int max_right(int l, F f) const` | lから右へ述語fが真である最大境界を返す | $O(\log n)$ |
+| `template <class F> int min_left(F f) const` | nから左へ述語fが真である最小境界を返す | $O(\log n)$ |
+| `template <class F> int min_left(int r, F f) const` | rから左へ述語fが真である最小境界を返す | $O(\log n)$ |
 
 ## 補足
 

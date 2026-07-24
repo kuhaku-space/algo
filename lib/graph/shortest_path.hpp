@@ -10,19 +10,36 @@
 /// @details 順序基準 `Key`（距離）・付随データ `Value`（頂点）を受け取り、`Key` 最小を
 ///          ルートにする。`binary_heap` / `fibonacci_heap` と同じ template-template 形式
 ///          （`Heap<Key, Value, Comp>`）で渡せるよう薄く包む。decrease-key は持たない。
+/// @complexity 各更新は $O(\log n)$、`empty` と `top` は $O(1)$
 template <class Key, class Value, class Comp = std::less<>>
 struct dijkstra_priority_queue {
+    /// @brief ヒープに格納する順序基準と付随データの組
+    /// @complexity 型エイリアスで実行時計算量はない
     using node = std::pair<Key, Value>;
+    /// @brief 要素を保持する優先度付きキュー
+    /// @complexity `top` は $O(1)$、更新は $O(\log n)$
     std::priority_queue<node, std::vector<node>, std::greater<>> que;
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     bool empty() const { return que.empty(); }
+
+    /// @brief keyとvalueを追加する
+    /// @complexity $O(\log n)$
     void push(Key key, Value value) { que.emplace(key, value); }
+
+    /// @brief 最小keyの要素を返す
+    /// @complexity $O(1)$
     std::pair<Key, Value> top() const { return que.top(); }
+
+    /// @brief 最小keyの要素を削除する
+    /// @complexity $O(\log n)$
     void pop() { que.pop(); }
 };
 
 /// @brief decrease-key（`update`）を持つヒープか
 /// @details `binary_heap` / `fibonacci_heap` は満たし、`dijkstra_priority_queue` は満たさない。
+/// @complexity コンパイル時制約で実行時計算量はない
 template <class Heap, class Key, class Value>
 concept decrease_key_heap = requires(Heap &h, Key key, Value value) {
     requires requires(decltype(h.push(key, value)) handle) { h.update(handle, key); };
@@ -38,6 +55,7 @@ concept decrease_key_heap = requires(Heap &h, Key key, Value value) {
 /// @note `update` を持つヒープでは頂点ごとにハンドルを保持して decrease-key し、
 ///       ヒープ内要素を高々 V 個に保つ。持たないヒープでは緩和のたびに push して
 ///       取り出し時に stale をスキップする lazy-deletion 方式になる。
+/// @complexity 二分ヒープでは $O((V+E)\log V)$
 template <template <class...> class Heap = dijkstra_priority_queue, properly_weighted_graph_type G,
           class T = graph_weight_t<G>>
 std::vector<T> shortest_path(const G &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
@@ -87,6 +105,7 @@ std::vector<T> shortest_path(const G &g, int s = 0, T inf = std::numeric_limits<
 /// @brief 単一始点最短路（負辺ありはベルマンフォード法）
 /// @note 負閉路から到達できる頂点の距離は `ninf`（既定で `lowest()`）になる。
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(VE)$
 template <weighted_graph_type G, class T = graph_weight_t<G>>
 std::vector<T> shortest_path_negative(const G &g, int s = 0, T inf = std::numeric_limits<T>::max(),
                                       T ninf = std::numeric_limits<T>::lowest()) {
@@ -118,6 +137,7 @@ std::vector<T> shortest_path_negative(const G &g, int s = 0, T inf = std::numeri
 /// @see https://hogloid.hatenablog.com/entry/20120409/1333973448
 /// @see https://ei1333.github.io/luzhiled/snippets/graph/shortest-path-faster-algorithm.html
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity 平均 $O(E)$、最悪 $O(VE)$
 template <weighted_graph_type G, class T = graph_weight_t<G>>
 std::vector<T> shortest_path_spfa(const G &g, int s = 0, T inf = std::numeric_limits<T>::max()) {
     int n = g.size();
@@ -150,6 +170,7 @@ std::vector<T> shortest_path_spfa(const G &g, int s = 0, T inf = std::numeric_li
 /// @tparam G 重みなしグラフ型（`list_graph<void>` / `csr_graph<void>` のいずれでも可）
 /// @note 重みが 1 固定なので priority_queue 不要。`unweighted_graph_type` と
 ///       `properly_weighted_graph_type` は排他なので、重みなしグラフではこちらが選ばれる。
+/// @complexity $O(V+E)$
 template <unweighted_graph_type G>
 std::vector<int> shortest_path(const G &g, int s = 0, int inf = std::numeric_limits<int>::max()) {
     std::vector<int> dists(g.size(), inf);

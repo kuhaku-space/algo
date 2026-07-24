@@ -4,6 +4,7 @@
 
 /// @brief なもりグラフ上のサイクル検出
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> cycle_detection_on_namori_graph(const G &g) {
     int n = g.size();

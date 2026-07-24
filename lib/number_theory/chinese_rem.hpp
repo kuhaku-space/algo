@@ -8,6 +8,7 @@ namespace internal {
 /// @brief 拡張ユークリッドの互除法
 /// @details a * x + b * y = gcd(a, b) の答えを一つ求める
 /// @return std::int64_t gcd(a, b)
+/// @complexity $O(\log\min(|a|,|b|))$
 std::int64_t extended_euclidean(std::int64_t a, std::int64_t b, std::int64_t &x, std::int64_t &y) {
     if (b == 0) {
         x = 1, y = 0;
@@ -24,6 +25,7 @@ std::int64_t extended_euclidean(std::int64_t a, std::int64_t b, std::int64_t &x,
 /// @brief 中国剰余定理
 /// @details 任意の i において、x % m_i = b_i となる x を求める
 /// @return std::pair<std::int64_t, std::int64_t> (r, M) ($x = r + M * k$ (kは整数))
+/// @complexity 式の個数を $n$、法の積を $M$ として $O(n\log M)$
 template <class T, class U>
 std::pair<std::int64_t, std::int64_t> chinese_rem(const std::vector<T> &b, const std::vector<U> &m) {
     std::int64_t r = 0, M = 1;

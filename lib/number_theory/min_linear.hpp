@@ -36,17 +36,14 @@ std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int
 
 }  // namespace internal
 
-/**
- * @brief min of mod of linear
- * @details min (ax + b) mod m | 0 <= x < n
- * @see https://judge.yosupo.jp/submission/102303
- *
- * @param n
- * @param m
- * @param a
- * @param b
- * @return std::int64_t
- */
+/// @brief $0\le x<n$ における $(ax+b)\bmod m$ の最小値を返す
+/// @param n 探索する項数。1以上
+/// @param m 法。1以上
+/// @param a 法で正規化された一次係数
+/// @param b 法で正規化された定数項
+/// @return 一次式の剰余の最小値
+/// @complexity $O(\log m)$
+/// @see https://judge.yosupo.jp/submission/102303
 std::int64_t min_linear(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t b) {
     return internal::min_linear::min_linear(n, m, a, b, true, 1, 1);
 }

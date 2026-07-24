@@ -28,9 +28,16 @@ struct fibonacci_heap {
   public:
     /// @brief `push` が返す安定ハンドル。`update` に渡してその要素を decrease-key する。
     /// @details 既定構築（`handle{}`）は無効値で `bool` 文脈で `false`。
+    /// @complexity 構築・比較は $O(1)$
     struct handle {
+        /// @brief 無効なハンドルを作る
+        /// @complexity $O(1)$
         constexpr handle() : idx(nil) {}
+        /// @brief 有効なハンドルなら true を返す
+        /// @complexity $O(1)$
         constexpr explicit operator bool() const { return idx >= 0; }
+        /// @brief 2 つのハンドルが同じ要素を指すか比較する
+        /// @complexity $O(1)$
         constexpr bool operator==(const handle &) const = default;
 
       private:
@@ -39,12 +46,24 @@ struct fibonacci_heap {
         int idx;
     };
 
+    /// @brief 空のフィボナッチヒープを構築する
+    /// @complexity $O(1)$
     fibonacci_heap() : pool(), _root(nil), _size(), comp() {}
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return _size == 0; }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return _size; }
+
+    /// @brief 最上位のkeyとvalueを返す
+    /// @complexity $O(1)$
     std::pair<Key, Value> top() const { return {pool[_root].key, pool[_root].value}; }
 
+    /// @brief 要素を追加して安定ハンドルを返す
+    /// @complexity 償却 $O(1)$
     handle push(Key key, Value value) {
         ++_size;
         int node = make_node(std::move(key), std::move(value));
@@ -56,8 +75,12 @@ struct fibonacci_heap {
         }
         return handle(node);
     }
+    /// @brief 要素を追加して安定ハンドルを返す
+    /// @complexity 償却 $O(1)$
     handle emplace(Key key, Value value) { return push(std::move(key), std::move(value)); }
 
+    /// @brief 最上位の要素を削除する
+    /// @complexity 償却 $O(\log n)$
     void pop() {
         --_size;
         int root = _root;
@@ -111,6 +134,7 @@ struct fibonacci_heap {
     /// @brief ハンドルの順序基準 `key` を更新する（ルート側へ近づく更新のみ反映）。
     /// @details 最小ヒープ（`greater<>`）では「より小さい key」への更新、つまり
     ///          decrease-key に対応する。逆向きの更新は無視する。
+    /// @complexity 償却 $O(1)$
     void update(handle h, Key key) {
         int node = h.idx;
         if (!comp(pool[node].key, key)) return;

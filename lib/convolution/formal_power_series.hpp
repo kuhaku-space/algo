@@ -85,6 +85,7 @@ void intt(std::vector<mint> &v) {
 /// @param f 係数列
 /// @param g 係数列
 /// @return std::vector<mint> f + g (長さ max(f.size(), g.size()))
+/// @complexity $O(\max(|f|,|g|))$
 template <internal::static_modint_c mint>
 std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
     int n = f.size(), m = g.size();
@@ -102,7 +103,7 @@ std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
 /// @param h 係数列 (h[0] != 0 が必要)
 /// @param deg 求める項数
 /// @return std::vector<mint> h * res ≡ 1 (mod x^deg) を満たす res (長さ deg)
-/// @note 計算量 O(deg log deg)
+/// @complexity O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] != mint(0));
@@ -138,6 +139,7 @@ std::vector<mint> inv(const std::vector<mint> &h, int deg) {
 /// @tparam mint static modint
 /// @param h 係数列 (h[0] != 0 が必要)
 /// @return std::vector<mint> 長さ h.size() の逆元
+/// @complexity $n=|h|$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h) {
     return inv(h, h.size());
@@ -150,7 +152,7 @@ std::vector<mint> inv(const std::vector<mint> &h) {
 /// @param h 係数列 (h[0] == 1 が必要)
 /// @param deg 求める項数
 /// @return std::vector<mint> log h (長さ deg, 定数項は 0)
-/// @note 計算量 O(deg log deg)
+/// @complexity O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] == 1);
@@ -172,6 +174,7 @@ std::vector<mint> log(const std::vector<mint> &h, int deg) {
 /// @tparam mint static modint
 /// @param h 係数列 (h[0] == 1 が必要)
 /// @return std::vector<mint> 長さ h.size() の log h
+/// @complexity $n=|h|$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h) {
     return log(h, h.size());
@@ -184,7 +187,7 @@ std::vector<mint> log(const std::vector<mint> &h) {
 /// @param h 係数列 (h[0] == 0 が必要)
 /// @param deg 求める項数
 /// @return std::vector<mint> exp h (長さ deg, 定数項は 1)
-/// @note 計算量 O(deg log deg)
+/// @complexity O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h, int deg) {
     constexpr unsigned int mod = (unsigned int)mint::mod();
@@ -238,6 +241,7 @@ std::vector<mint> exp(const std::vector<mint> &h, int deg) {
 /// @tparam mint static modint
 /// @param h 係数列 (h[0] == 0 が必要)
 /// @return std::vector<mint> 長さ h.size() の exp h
+/// @complexity $n=|h|$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h) {
     return exp(h, h.size());
@@ -252,7 +256,7 @@ std::vector<mint> exp(const std::vector<mint> &h) {
 /// @param m 指数 (負も可)
 /// @param deg 求める項数
 /// @return std::vector<mint> h^m (長さ deg)。m == 0 は定数 1 を返す
-/// @note 計算量 O(deg log deg)
+/// @complexity O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     if (m == 0) {
@@ -291,6 +295,7 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
 /// @param h 係数列
 /// @param m 指数 (負も可)
 /// @return std::vector<mint> 長さ h.size() の h^m
+/// @complexity $n=|h|$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
@@ -306,7 +311,7 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
 /// @param h 係数列
 /// @param deg 求める項数
 /// @return std::vector<mint> g^2 ≡ h を満たす g (長さ deg)。解なしのときは空列
-/// @note 計算量 O(deg log deg)
+/// @complexity O(deg log deg)
 template <internal::static_modint_c mint>
 std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
     int n = h.size();
@@ -385,6 +390,7 @@ std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
 /// @tparam mint static modint
 /// @param h 係数列
 /// @return std::vector<mint> 長さ h.size() の sqrt h。解なしのときは空列
+/// @complexity $n=|h|$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> sqrt(const std::vector<mint> &h) {
     return sqrt(h, h.size());
@@ -509,7 +515,7 @@ std::vector<mint> pow_enumerate(std::vector<mint> f, std::vector<mint> g, int m)
 /// @param deg 求める項数
 /// @return std::vector<mint> f(g(x)) (長さ deg)
 /// @see https://nyaannyaan.github.io/library/fps/fps-composition.hpp
-/// @note 計算量 O(deg log^2 deg)
+/// @complexity O(deg log^2 deg)
 template <internal::static_modint_c mint>
 std::vector<mint> composition(const std::vector<mint> &outer, const std::vector<mint> &inner, int deg) {
     using fps_t = std::vector<mint>;
@@ -578,6 +584,7 @@ std::vector<mint> composition(const std::vector<mint> &outer, const std::vector<
 /// @param f 外側の係数列
 /// @param g 内側の係数列
 /// @return std::vector<mint> f(g(x))
+/// @complexity $n=\max(|f|,|g|)$ として $O(n\log^2 n)$
 template <internal::static_modint_c mint>
 std::vector<mint> composition(const std::vector<mint> &f, const std::vector<mint> &g) {
     return composition(f, g, std::max(f.size(), g.size()));
@@ -593,7 +600,7 @@ std::vector<mint> composition(const std::vector<mint> &f, const std::vector<mint
 /// @param deg 求める項数
 /// @return std::vector<mint> g(x) (長さ deg, g[0] == 0)
 /// @see https://nyaannyaan.github.io/library/fps/compositional-inverse.hpp
-/// @note 計算量 O(deg log^2 deg)
+/// @complexity O(deg log^2 deg)
 template <internal::static_modint_c mint>
 std::vector<mint> compositional_inverse(const std::vector<mint> &f, int deg) {
     assert(deg <= 0 || f.empty() || f[0] == 0);
@@ -627,6 +634,7 @@ std::vector<mint> compositional_inverse(const std::vector<mint> &f, int deg) {
 /// @tparam mint static modint
 /// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
 /// @return std::vector<mint> 長さ f.size() の g(x)
+/// @complexity $n=|f|$ として $O(n\log^2 n)$
 template <internal::static_modint_c mint>
 std::vector<mint> compositional_inverse(const std::vector<mint> &f) {
     return compositional_inverse(f, f.size());
@@ -639,7 +647,7 @@ std::vector<mint> compositional_inverse(const std::vector<mint> &f) {
 /// @param f 被除多項式の係数列
 /// @param g 除多項式の係数列 (0 多項式でないこと)
 /// @return std::pair<商 q, 剰余 r> (どちらも末尾 0 を含まない)
-/// @note 計算量 O(n log n) (n = deg f)
+/// @complexity O(n log n) (n = deg f)
 template <internal::static_modint_c mint>
 std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std::vector<mint> g) {
     while (!f.empty() && f.back() == mint()) f.pop_back();
@@ -668,6 +676,7 @@ std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std
 /// @param f 被除多項式の係数列
 /// @param g 除多項式の係数列 (0 多項式でないこと)
 /// @return std::vector<mint> 商 q
+/// @complexity $n=\max(|f|,|g|)$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> div(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).first;
@@ -678,6 +687,7 @@ std::vector<mint> div(const std::vector<mint> &f, const std::vector<mint> &g) {
 /// @param f 被除多項式の係数列
 /// @param g 除多項式の係数列 (0 多項式でないこと)
 /// @return std::vector<mint> 剰余 r (deg r < deg g)
+/// @complexity $n=\max(|f|,|g|)$ として $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> mod(const std::vector<mint> &f, const std::vector<mint> &g) {
     return div_mod(f, g).second;
@@ -758,7 +768,7 @@ void evaluate_down(const std::vector<std::vector<mint>> &up, const std::vector<m
 /// @param f 評価する多項式の係数列
 /// @param x 評価する点の列
 /// @return std::vector<mint> f(x_i) の列 (長さ x.size())
-/// @note 計算量 O(n log^2 n) (n = max(deg f, |x|))
+/// @complexity O(n log^2 n) (n = max(deg f, |x|))
 template <internal::static_modint_c mint>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
@@ -782,7 +792,7 @@ std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::v
 /// @param x 評価点の列 (相異なる)
 /// @param y 各点での値の列 (x と同じ長さ)
 /// @return std::vector<mint> f(x_i) = y_i を満たす係数列 (長さ x.size())
-/// @note 計算量 O(n log^2 n) (n = |x|)
+/// @complexity O(n log^2 n) (n = |x|)
 template <internal::static_modint_c mint>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
@@ -815,7 +825,7 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
 /// @param f 係数列 f(x)
 /// @param c シフト量
 /// @return std::vector<mint> f(x + c) の係数列 (f と同じ長さ)
-/// @note 計算量 O(n log n) (n = f.size())
+/// @complexity O(n log n) (n = f.size())
 template <internal::static_modint_c mint>
 std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
     int n = f.size();
@@ -845,7 +855,7 @@ std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
 /// @param c シフト量
 /// @param m 求める項数
 /// @return std::vector<mint> f(c+j) の列 (j = 0..m-1, 長さ m)
-/// @note 計算量 O((n + m) log(n + m))
+/// @complexity O((n + m) log(n + m))
 template <internal::static_modint_c mint>
 std::vector<mint> shift_of_sampling_points(const std::vector<mint> &y, mint c, int m) {
     if (m <= 0) return {};
@@ -1107,7 +1117,7 @@ gcd_mat<mint> poly_inv(std::vector<mint> a, std::vector<mint> md, bool &ok) {
 /// @param f 係数列 (最高次係数 != 0)
 /// @param g 法多項式の係数列 (最高次係数 != 0)
 /// @return std::optional<std::vector<mint>> 逆元 h (deg h < deg g)。逆元が無ければ std::nullopt
-/// @note 計算量 O(n log^2 n) (n = max(deg f, deg g))
+/// @complexity O(n log^2 n) (n = max(deg f, deg g))
 template <internal::static_modint_c mint>
 std::optional<std::vector<mint>> inv_of_polynomials(const std::vector<mint> &f, const std::vector<mint> &g) {
     std::vector<mint> a = f, md = g;

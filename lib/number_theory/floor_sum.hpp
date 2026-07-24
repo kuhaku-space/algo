@@ -47,6 +47,7 @@ std::uint64_t floor_sum_unsigned(std::uint64_t n, std::uint64_t m, std::uint64_t
 
 /// @brief floor sum
 /// @see https://atcoder.github.io/ac-library/production/document_ja/math.html
+/// @complexity $O(\log m)$
 std::int64_t floor_sum(std::int64_t n, std::int64_t m, std::int64_t a, std::int64_t b) {
     assert(0 <= n && n < (1ll << 32));
     assert(1 <= m && m < (1ll << 32));

@@ -8,8 +8,10 @@
 #include <utility>
 #include "internal/internal_type_traits.hpp"
 
-/// 「整数っぽい」型: 四則演算・剰余・単項 -・全順序を持ち 0/1 を直接初期化できる。
-/// std::int64_t・__int128・BigInt 等、Fraction の T として使える型を表す。
+/// @brief Fraction の要素型に必要な整数演算を表す concept
+/// @details 四則演算・剰余・単項 -・全順序を持ち、0/1 を直接初期化できる型。
+///          std::int64_t・__int128・BigInt などが該当する。
+/// @complexity コンパイル時制約で実行時計算量はない
 template <class T>
 concept integer_like = std::regular<T> && std::totally_ordered<T> && requires(T a, T b) {
     { a + b } -> std::convertible_to<T>;
@@ -27,63 +29,112 @@ concept integer_like = std::regular<T> && std::totally_ordered<T> && requires(T 
 ///           BigInt など任意精度型も指定できる。
 template <integer_like T = std::int64_t>
 struct Fraction : internal::field_base {
+    /// @brief 0を構築する
+    /// @complexity $T$ の構築 $O(1)$ 回分
     Fraction() : x(T(0)), y(T(1)) {}
+
+    /// @brief 分子 _x、分母 _y の既約分数を構築する
+    /// @complexity $M=\max(|_x|,|_y|)$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction(T _x, T _y = T(1)) : x(_x), y(_y) { reduce(); }
 
+    /// @brief rhsを加算して既約化する
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction &operator+=(const Fraction &rhs) {
         x = x * rhs.y + y * rhs.x;
         y *= rhs.y;
         reduce();
         return *this;
     }
+
+    /// @brief rhsを減算して既約化する
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction &operator-=(const Fraction &rhs) {
         x = x * rhs.y - y * rhs.x;
         y *= rhs.y;
         reduce();
         return *this;
     }
+
+    /// @brief rhsを乗算して既約化する
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction &operator*=(const Fraction &rhs) {
         x *= rhs.x, y *= rhs.y;
         reduce();
         return *this;
     }
+
+    /// @brief rhsで除算して既約化する
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction &operator/=(const Fraction &rhs) {
         x *= rhs.y, y *= rhs.x;
         reduce();
         return *this;
     }
 
+    /// @brief 1を加算する
+    /// @complexity $T$ の加算 $O(1)$ 回分
     Fraction &operator++() {
         x += y;
         return *this;
     }
+
+    /// @brief 1を加算する前の値を返す
+    /// @complexity $T$ のコピーと加算 $O(1)$ 回分
     Fraction operator++(int) {
         Fraction tmp(*this);
         operator++();
         return tmp;
     }
+
+    /// @brief 1を減算する
+    /// @complexity $T$ の減算 $O(1)$ 回分
     Fraction &operator--() {
         x -= y;
         return *this;
     }
+
+    /// @brief 1を減算する前の値を返す
+    /// @complexity $T$ のコピーと減算 $O(1)$ 回分
     Fraction operator--(int) {
         Fraction tmp(*this);
         operator--();
         return tmp;
     }
 
+    /// @brief 符号を反転した値を返す
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction operator-() const { return Fraction(-x, y); }
 
+    /// @brief rhsとの和を返す
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction operator+(const Fraction &rhs) const { return Fraction(*this) += rhs; }
+
+    /// @brief rhsとの差を返す
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction operator-(const Fraction &rhs) const { return Fraction(*this) -= rhs; }
+
+    /// @brief rhsとの積を返す
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction operator*(const Fraction &rhs) const { return Fraction(*this) *= rhs; }
+
+    /// @brief rhsによる商を返す
+    /// @complexity 値の大きさを $M$ として、$T$ 上の Euclid 法 $O(\log M)$ 反復
     Fraction operator/(const Fraction &rhs) const { return Fraction(*this) /= rhs; }
 
+    /// @brief 同じ分数か返す
+    /// @complexity $T$ の比較 $O(1)$ 回分
     bool operator==(const Fraction &rhs) const { return x == rhs.x && y == rhs.y; }
+
+    /// @brief 大小を比較する
+    /// @complexity $T$ の乗算 $O(1)$ 回分
     std::strong_ordering operator<=>(const Fraction &rhs) const { return x * rhs.y <=> rhs.x * y; }
 
+    /// @brief 浮動小数点数として出力する
+    /// @complexity $T$ から double への変換 $O(1)$ 回分
     friend std::ostream &operator<<(std::ostream &os, const Fraction &rhs) { return os << rhs.to_double(); }
 
+    /// @brief 10進小数を厳密な分数として入力する
+    /// @complexity 入力長を $n$ として $O(n)$ と、$T$ 上の既約化1回分
     friend std::istream &operator>>(std::istream &is, Fraction &a) {
         std::string s;
         is >> s;
@@ -128,6 +179,8 @@ struct Fraction : internal::field_base {
         return is;
     }
 
+    /// @brief doubleへ変換する
+    /// @complexity $T$ から double への変換 $O(1)$ 回分
     double to_double() const { return (double)x / (double)y; }
 
   private:

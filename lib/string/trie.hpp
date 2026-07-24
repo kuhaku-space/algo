@@ -7,6 +7,7 @@
 /// @brief Trie
 /// @see https://algo-logic.info/trie-tree/
 /// @see https://atcoder.jp/contests/tenka1-2016-final-open/tasks/tenka1_2016_final_c
+/// @complexity 長さmの挿入は $O(m\cdot alphabet\_size)$、検索は $O(m)$
 template <int alphabet_size = 96, int char_offset = ' '>
 struct Trie {
   private:
@@ -24,16 +25,23 @@ struct Trie {
     }
 
   public:
+    /// @brief trieノード型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_type = Node;
 
+    /// @brief 根だけを持つ空のtrieを構築する
+    /// @complexity $O(alphabet\_size)$
     Trie() : nodes() { nodes.emplace_back(); }
 
+    /// @brief ノード数を返す
+    /// @complexity $O(1)$
     int size() const { return nodes.size(); }
 
     /// @brief ノード node_id の子 ch をたどる。無ければ新規作成する。
     /// @return 子ノードの id
     /// @note 到達した子ノードの count を1増やす（その接頭辞を持つ文字列の本数になる）。
     ///       新規作成時は depth（根からの接頭辞長）も設定する。
+    /// @complexity 既存遷移は $O(1)$、新規ノード作成は $O(alphabet\_size)$
     int add(int node_id, char ch) {
         assert(0 <= node_id && node_id < (int)nodes.size());
         int c = to_index(ch);
@@ -48,6 +56,8 @@ struct Trie {
         return next_id;
     }
 
+    /// @brief wordを挿入し各prefixのノードIDを返す
+    /// @complexity word長を $m$ として $O(m\cdot alphabet\_size)$
     std::vector<int> insert(const std::string &word) {
         std::vector<int> res;
         res.reserve(word.size());
@@ -59,6 +69,8 @@ struct Trie {
         return res;
     }
 
+    /// @brief wordを表すノードIDを返し、存在しなければ-1を返す
+    /// @complexity $O(m)$
     int search_id(const std::string &word) const {
         int node_id = 0;
         for (char ch : word) {
@@ -70,6 +82,8 @@ struct Trie {
         return node_id;
     }
 
+    /// @brief node_idのノードを返す
+    /// @complexity $O(1)$
     const node_type &get_node(int node_id) const {
         assert(0 <= node_id && node_id < (int)nodes.size());
         return nodes[node_id];
@@ -80,9 +94,12 @@ struct Trie {
 };
 
 /// @brief 小文字アルファベット（'a'-'z'）用の Trie
+/// @complexity 型エイリアスで実行時計算量はない
 using LowerTrie = Trie<26, 'a'>;
 /// @brief 大文字アルファベット（'A'-'Z'）用の Trie
+/// @complexity 型エイリアスで実行時計算量はない
 using UpperTrie = Trie<26, 'A'>;
 /// @brief 大文字・小文字混在（'A'-'z'）用の Trie
 /// @note 'Z' と 'a' の間の記号（6 文字）も範囲に含むが未使用のまま無害
+/// @complexity 型エイリアスで実行時計算量はない
 using MixedCaseTrie = Trie<58, 'A'>;

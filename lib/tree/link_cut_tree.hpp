@@ -3,6 +3,7 @@
 #include "segtree/monoid.hpp"
 
 /// @brief Link-Cut Tree
+/// @complexity 構築は $O(n)$、link・cut・reroot・exposeは償却 $O(\log n)$
 template <monoid M>
 struct link_cut_tree {
   private:
@@ -111,30 +112,66 @@ struct link_cut_tree {
     };
 
   public:
+    /// @brief 内部ノード型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_type = node_t;
+
+    /// @brief 内部ノードへのpointer型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_ptr = typename node_t::pointer;
 
+    /// @brief n個の単位元頂点を構築する
+    /// @complexity $O(n)$
     link_cut_tree(int n) : nodes(n, nullptr) {
         for (int i = 0; i < n; ++i) nodes[i] = new node_t();
     }
+
+    /// @brief 頂点値vから構築する
+    /// @complexity $O(n)$
     link_cut_tree(const std::vector<T> &v) : nodes(v.size(), nullptr) {
         for (int i = 0; i < (int)v.size(); ++i) nodes[i] = new node_t(v[i]);
     }
 
+    /// @brief 頂点vの値をvalへ変更する
+    /// @complexity 償却 $O(\log n)$
     void set(int v, T val) {
         nodes[v]->splay();
         nodes[v]->set(val);
     }
+
+    /// @brief 頂点v自身の値を返す
+    /// @complexity $O(1)$
     T get_value(int v) { return nodes[v]->get_value(); }
+
+    /// @brief 現在の補助木でv以下の集約値を返す
+    /// @complexity $O(1)$
     T get_total(int v) { return nodes[v]->get_total(); }
+
+    /// @brief uとvを連結する
+    /// @complexity 償却 $O(\log n)$
     void link(int u, int v) { nodes[u]->link(nodes[v]); }
+
+    /// @brief 辺u-vを切断する
+    /// @complexity 償却 $O(\log n)$
     void cut(int u, int v) {
         nodes[u]->make_root();
         nodes[v]->cut();
     }
+
+    /// @brief vを親から切断する
+    /// @complexity 償却 $O(\log n)$
     void cut(int v) { nodes[v]->cut(); }
+
+    /// @brief vを補助木の根までsplayする
+    /// @complexity 償却 $O(\log n)$
     void splay(int v) { nodes[v]->splay(); }
+
+    /// @brief vを表現木の根にする
+    /// @complexity 償却 $O(\log n)$
     void make_root(int v) { nodes[v]->make_root(); }
+
+    /// @brief 根からvまでのpreferred pathを露出する
+    /// @complexity 償却 $O(\log n)$
     void expose(int v) { nodes[v]->expose(); }
 
   private:

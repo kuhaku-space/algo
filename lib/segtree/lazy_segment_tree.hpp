@@ -8,6 +8,7 @@
 /// @see https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp
 /// @tparam S データのモノイド
 /// @tparam F 作用素モノイド（op が作用素の合成、f が値への作用）
+/// @complexity 構築は $O(n)$、更新・作用・区間積・境界探索は $O(\log n)$
 template <class S, class F>
 requires monoid<S> && monoid<F> && acts_on<F, typename S::value_type>
 struct lazy_segment_tree {
@@ -16,8 +17,16 @@ struct lazy_segment_tree {
     using U = typename F::value_type;
 
   public:
+    /// @brief 空の木を構築する
+    /// @complexity $O(1)$
     lazy_segment_tree() : lazy_segment_tree(0) {}
+
+    /// @brief n要素をeで初期化する
+    /// @complexity $O(n)$
     explicit lazy_segment_tree(int n, T e = S::id()) : lazy_segment_tree(std::vector<T>(n, e)) {}
+
+    /// @brief 列vから構築する
+    /// @complexity $O(n)$
     explicit lazy_segment_tree(const std::vector<T> &v) : _n(int(v.size())) {
         _size = std::bit_ceil<unsigned>(_n);
         _log = std::countr_zero<unsigned>(_size);
@@ -27,6 +36,8 @@ struct lazy_segment_tree {
         for (int i = _size - 1; i >= 1; --i) update(i);
     }
 
+    /// @brief p番目をxへ変更する
+    /// @complexity $O(\log n)$
     void set(int p, T x) {
         assert(0 <= p && p < _n);
         p += _size;
@@ -35,7 +46,12 @@ struct lazy_segment_tree {
         for (int i = 1; i <= _log; ++i) update(p >> i);
     }
 
+    /// @brief p番目の値を返す
+    /// @complexity $O(\log n)$
     T at(int p) { return get(p); }
+
+    /// @brief p番目の値を返す
+    /// @complexity $O(\log n)$
     T get(int p) {
         assert(0 <= p && p < _n);
         p += _size;
@@ -43,6 +59,8 @@ struct lazy_segment_tree {
         return data[p];
     }
 
+    /// @brief p番目にfを作用する
+    /// @complexity $O(\log n)$
     void apply(int p, U f) {
         assert(0 <= p && p < _n);
         p += _size;
@@ -50,6 +68,9 @@ struct lazy_segment_tree {
         data[p] = F::f(f, data[p]);
         for (int i = 1; i <= _log; ++i) update(p >> i);
     }
+
+    /// @brief 半開区間[l,r)にfを作用する
+    /// @complexity $O(\log n)$
     void apply(int l, int r, U f) {
         assert(0 <= l && l <= r && r <= _n);
         if (l == r) return;
@@ -75,6 +96,8 @@ struct lazy_segment_tree {
         }
     }
 
+    /// @brief 半開区間[l,r)の積を返す
+    /// @complexity $O(\log n)$
     T prod(int l, int r) {
         assert(0 <= l && l <= r && r <= _n);
         if (l == r) return S::id();
@@ -96,13 +119,19 @@ struct lazy_segment_tree {
         return S::op(sml, smr);
     }
 
+    /// @brief 全要素の積を返す
+    /// @complexity $O(1)$
     T all_prod() const { return data[1]; }
 
+    /// @brief lから右へ積がval以下である最大境界を返す
+    /// @complexity $O(\log n)$
     int max_right(int l, T val) {
         auto f = [&val](T v) { return !(val < v); };
         return max_right(l, f);
     }
 
+    /// @brief lから右へ述語gが真である最大境界を返す
+    /// @complexity $O(\log n)$
     template <class G>
     int max_right(int l, G g) {
         assert(0 <= l && l <= _n);
@@ -130,11 +159,15 @@ struct lazy_segment_tree {
         return _n;
     }
 
+    /// @brief lへ向かって積がval以下である最小境界を返す
+    /// @complexity $O(\log n)$
     int min_left(int l, T val) {
         auto f = [&val](T v) { return !(val < v); };
         return min_left(l, f);
     }
 
+    /// @brief rから左へ述語gが真である最小境界を返す
+    /// @complexity $O(\log n)$
     template <class G>
     int min_left(int r, G g) {
         assert(0 <= r && r <= _n);

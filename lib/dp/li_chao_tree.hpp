@@ -26,21 +26,35 @@ struct li_chao_tree {
     };
 
   public:
+    /// @brief 直線を表す型
+    /// @complexity 型別名であり実行時計算量はない
     using line_type = line_t;
+
+    /// @brief ノードポインタ型
+    /// @complexity 型別名であり実行時計算量はない
     using node_ptr = typename node_t::pointer;
 
+    /// @brief 未登録時に返す値
+    /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr std::int64_t inf = Inf;
 
+    /// @brief 定義域を $[0,x_r)$ として構築する
+    /// @complexity $O(1)$
     constexpr li_chao_tree(std::int64_t _xr) : root(nullptr), xl(0), xr(_xr) {}
+
+    /// @brief 定義域を $[x_l,x_r)$ として構築する
+    /// @complexity $O(1)$
     constexpr li_chao_tree(std::int64_t _xl, std::int64_t _xr) : root(nullptr), xl(_xl), xr(_xr) {}
 
     /// @brief Add line ($ax+b$)
+    /// @complexity 定義域幅を $C$ として $O(\log C)$
     void add_line(std::int64_t a, std::int64_t b) {
         line_t line = line_t{a, b};
         root = add_line(root, line, xl, xr);
     }
 
     /// @brief Add segment ($ax+b$)
+    /// @complexity $O(\log^2 C)$
     void add_segment(std::int64_t a, std::int64_t b, std::int64_t l, std::int64_t r) {
         assert(xl <= l && l <= r && r <= xr);
         if (l == r) return;
@@ -48,6 +62,8 @@ struct li_chao_tree {
         root = add_segment(l, r, root, line, xl, xr);
     }
 
+    /// @brief xにおける最小値または最大値を返す
+    /// @complexity $O(\log C)$
     std::int64_t query(std::int64_t x) {
         assert(xl <= x && x < xr);
         return query(x, xl, xr);

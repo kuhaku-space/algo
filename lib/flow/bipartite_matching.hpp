@@ -13,8 +13,12 @@
 ///          Hopcroft-Karp より速い。
 /// @see https://judge.yosupo.jp/submission/339108
 struct BipartiteMatching {
+    /// @brief 左n頂点・右m頂点の空の二部グラフを構築する
+    /// @complexity $O(n+m)$
     BipartiteMatching(int _n, int _m) : n(_n), m(_m), built(false), match_left(_n, -1), match_right(_m, -1) {}
 
+    /// @brief 左頂点uと右頂点vを結ぶ辺を追加する
+    /// @complexity 償却 $O(1)$
     void add_edge(int u, int v) {
         assert(0 <= u && u < n);
         assert(0 <= v && v < m);
@@ -24,6 +28,7 @@ struct BipartiteMatching {
 
     /// @brief 最大マッチングのサイズ
     /// @note 冪等。既にマッチ済みの分も含めた総数を返すので、何度呼んでも同じ値になる。
+    /// @complexity 頂点数を $V$、辺数を $E$ として初回 $O(E\sqrt V)$
     int matching() {
         if (!built) build_csr();
         // 第 0 段: 木 BFS の貪欲増強フェーズを定数回だけ回す（計算量保証に影響しない）。
@@ -124,6 +129,8 @@ struct BipartiteMatching {
         return n - (int)std::count(match_left.begin(), match_left.end(), -1);
     }
 
+    /// @brief 現在のマッチング辺を返す
+    /// @complexity $O(V)$
     std::vector<std::pair<int, int>> get_pairs() const {
         std::vector<std::pair<int, int>> res;
         for (int i = 0; i < n; i++) {
@@ -134,6 +141,7 @@ struct BipartiteMatching {
 
     /// @brief 最小頂点被覆（König の定理）
     /// @return (左側頂点集合, 右側頂点集合)
+    /// @complexity $O(E\sqrt V)$
     std::pair<std::vector<int>, std::vector<int>> minimum_vertex_cover() {
         matching();
         auto [l_reach, r_reach] = alternating_reachable();
@@ -149,6 +157,7 @@ struct BipartiteMatching {
 
     /// @brief 最大独立集合（最小頂点被覆の補集合）
     /// @return (左側頂点集合, 右側頂点集合)
+    /// @complexity $O(E\sqrt V)$
     std::pair<std::vector<int>, std::vector<int>> maximum_independent_set() {
         matching();
         auto [l_reach, r_reach] = alternating_reachable();

@@ -12,6 +12,7 @@
 ///           （`apply`/`copy` は提供せず、`prod`/`get` は push を伴わない const な読み取りになる）。
 /// @note `void` は内部で `std::monostate` に正規化し、本体を 1 つに保つ。遅延伝播ありの場合、
 ///       `prod` は経路上の push 結果を `_root` にキャッシュするため非 const になる。
+/// @complexity 構築は $O(n)$、更新・作用・区間積・区間copyは $O(\log n)$
 template <class S, class F = void>
 requires monoid<S> && (std::is_void_v<F> || (monoid<F> && acts_on<F, typename S::value_type>))
 struct PersistentSegmentTree {
@@ -41,58 +42,95 @@ struct PersistentSegmentTree {
     };
 
   public:
+    /// @brief 内部ノードへのpointer型
+    /// @complexity 型エイリアスで実行時計算量はない
     using node_ptr = typename Node::pointer;
 
+    /// @brief 空の木を構築する
+    /// @complexity $O(1)$
     constexpr PersistentSegmentTree() : _size(), _root() {}
+
+    /// @brief 既存の根からn要素のversionを構築する
+    /// @complexity $O(1)$
     constexpr PersistentSegmentTree(int n, node_ptr _root) : _size(n), _root(_root) {}
+
+    /// @brief n要素をeで初期化する
+    /// @complexity $O(n)$
     PersistentSegmentTree(int n, T e = S::id()) : _size(n), _root(build(0, n, e)) {}
+
+    /// @brief 列vから構築する
+    /// @complexity $O(n)$
     template <class V>
     PersistentSegmentTree(const std::vector<V> &v) : _size(v.size()), _root(build(0, v.size(), v)) {}
 
+    /// @brief 遅延なしの木でi番目の値を返す
+    /// @complexity $O(\log n)$
     T operator[](int i) const
     requires(!use_lazy)
     {
         return prod(i, i + 1);
     }
+
+    /// @brief 遅延ありの木でi番目の値を返す
+    /// @complexity $O(\log n)$
     T operator[](int i)
     requires use_lazy
     {
         return prod(i, i + 1);
     }
+
+    /// @brief 遅延なしの木でk番目の値を返す
+    /// @complexity $O(\log n)$
     T at(int k) const
     requires(!use_lazy)
     {
         return operator[](k);
     }
+
+    /// @brief 遅延ありの木でk番目の値を返す
+    /// @complexity $O(\log n)$
     T at(int k)
     requires use_lazy
     {
         return operator[](k);
     }
+
+    /// @brief 遅延なしの木でk番目の値を返す
+    /// @complexity $O(\log n)$
     T get(int k) const
     requires(!use_lazy)
     {
         return operator[](k);
     }
+
+    /// @brief 遅延ありの木でk番目の値を返す
+    /// @complexity $O(\log n)$
     T get(int k)
     requires use_lazy
     {
         return operator[](k);
     }
 
+    /// @brief k番目をvalへ変更した新しいversionを返す
+    /// @complexity $O(\log n)$
     PersistentSegmentTree set(int k, T val) const {
         assert(0 <= k && k < _size);
         return PersistentSegmentTree(_size, set(0, _size, k, val, _root));
     }
+
+    /// @brief k番目を単位元へ戻した新しいversionを返す
+    /// @complexity $O(\log n)$
     PersistentSegmentTree reset(int k) const { return set(k, S::id()); }
 
     /// @brief v[k] に f を作用させた版を返す
+    /// @complexity $O(\log n)$
     PersistentSegmentTree apply(int k, U f) const
     requires use_lazy
     {
         return apply(k, k + 1, f);
     }
     /// @brief v[a ... b-1] に f を作用させた版を返す
+    /// @complexity $O(\log n)$
     PersistentSegmentTree apply(int a, int b, U f) const
     requires use_lazy
     {
@@ -100,19 +138,28 @@ struct PersistentSegmentTree {
     }
 
     /// @brief v[a ... b-1] を cp の同区間で置き換えた版を返す
+    /// @complexity $O(\log n)$
     PersistentSegmentTree copy(int a, int b, PersistentSegmentTree cp) const
     requires use_lazy
     {
         return PersistentSegmentTree(_size, copy(0, _size, a, b, cp._root, _root));
     }
 
+    /// @brief 全要素の積を返す
+    /// @complexity $O(1)$
     T all_prod() const { return _root->val; }
+
+    /// @brief 遅延なしの木で半開区間[a,b)の積を返す
+    /// @complexity $O(\log n)$
     T prod(int a, int b) const
     requires(!use_lazy)
     {
         assert(0 <= a && b <= _size);
         return prod_readonly(0, _size, a, b, _root);
     }
+
+    /// @brief 遅延ありの木で半開区間[a,b)の積を返す
+    /// @complexity $O(\log n)$
     T prod(int a, int b)
     requires use_lazy
     {

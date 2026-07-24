@@ -141,6 +141,7 @@ std::vector<int> sa_is(const std::vector<int> &s, int upper) {
 }  // namespace internal
 
 /// @brief Suffix Array
+/// @complexity 整数・文字列overloadは $O(n+\sigma)$、任意型overloadは $O(n\log n)$
 std::vector<int> suffix_array(const std::vector<int> &s, int upper) {
     assert(0 <= upper);
     for (int d : s) assert(0 <= d && d <= upper);
@@ -149,6 +150,7 @@ std::vector<int> suffix_array(const std::vector<int> &s, int upper) {
 }
 
 /// @brief Suffix Array
+/// @complexity 整数・文字列overloadは $O(n+\sigma)$、任意型overloadは $O(n\log n)$
 template <class T>
 std::vector<int> suffix_array(const std::vector<T> &s) {
     int n = int(s.size());
@@ -165,6 +167,7 @@ std::vector<int> suffix_array(const std::vector<T> &s) {
 }
 
 /// @brief Suffix Array
+/// @complexity 整数・文字列overloadは $O(n+\sigma)$、任意型overloadは $O(n\log n)$
 std::vector<int> suffix_array(const std::string &s) {
     int n = int(s.size());
     std::vector<int> s2(n);
@@ -175,6 +178,8 @@ std::vector<int> suffix_array(const std::string &s) {
 // Reference:
 // T. Kasai, G. Lee, H. Arimura, S. Arikawa, and K. Park,
 // Linear-Time Longest-Common-Prefix Computation in Suffix Arrays and Its Applications
+/// @brief suffix arrayの隣接要素間のLCP配列を構築する
+/// @complexity $O(n)$
 template <class T>
 std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa) {
     assert(s.size() == sa.size());
@@ -199,6 +204,8 @@ std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa) 
     return lcp;
 }
 
+/// @brief suffix arrayの隣接要素間のLCP配列を構築する
+/// @complexity $O(n)$
 std::vector<int> lcp_array(const std::string &s, const std::vector<int> &sa) {
     int n = int(s.size());
     std::vector<int> s2(n);

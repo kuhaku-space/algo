@@ -33,30 +33,49 @@ struct radix_heap {
     };
 
   public:
+    /// @brief キーの型
+    /// @complexity 型別名であり実行時計算量はない
     using key_type = Key;
+
+    /// @brief 付随値の型
+    /// @complexity 型別名であり実行時計算量はない
     using value_type = Value;
 
+    /// @brief 空の基数ヒープを構築する
+    /// @complexity $O(1)$
     radix_heap() : buckets(), _last(), _size() {}
 
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return _size; }
+
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return _size == 0; }
 
+    /// @brief キーと付随値を追加する
+    /// @complexity 償却 $O(\log C)$
     void push(Key key, stored_value value)
     requires has_value
     {
         push_node({key, std::move(value)});
     }
+    /// @brief キーを追加する
+    /// @complexity 償却 $O(\log C)$
     void push(Key key)
     requires(!has_value)
     {
         push_node({key, {}});
     }
+    /// @brief キーと付随値を直接構築して追加する
+    /// @complexity 償却 $O(\log C)$
     template <class... Args>
     void emplace(Key key, Args &&...args) {
         push_node({key, stored_value(std::forward<Args>(args)...)});
     }
 
-    // has_value なら {key, value}、そうでなければ key のみを返す。
+    /// @brief 最小のキーと必要なら付随値を返す
+    /// @complexity 償却 $O(\log C)$
     auto top() {
         if (buckets[0].empty()) relocate();
         const _node &n = buckets[0].back();
@@ -64,6 +83,8 @@ struct radix_heap {
         else return n.key;
     }
 
+    /// @brief 最小のキーを持つ要素を削除する
+    /// @complexity 償却 $O(\log C)$
     void pop() {
         assert(_size);
         if (buckets[0].empty()) relocate();

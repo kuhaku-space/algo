@@ -8,13 +8,26 @@
 ///
 /// 正の有理数を p/q で表す。0 は 0/1、+∞ は 1/0 として扱える。
 /// 比較は __int128 でクロス積を取りオーバーフローを避ける。
+/// @complexity すべての操作が $O(1)$
 struct sbt_fraction {
+    /// @brief 分子pと分母q
+    /// @complexity $O(1)$
     std::int64_t p, q;
 
+    /// @brief 0/1を構築する
+    /// @complexity $O(1)$
     constexpr sbt_fraction() : p(0), q(1) {}
+
+    /// @brief 分子p、分母qの分数を構築する
+    /// @complexity $O(1)$
     constexpr sbt_fraction(std::int64_t p, std::int64_t q) : p(p), q(q) {}
 
+    /// @brief 分子と分母が等しいか返す
+    /// @complexity $O(1)$
     friend constexpr bool operator==(const sbt_fraction &a, const sbt_fraction &b) { return a.p == b.p && a.q == b.q; }
+
+    /// @brief クロス積で大小を比較する
+    /// @complexity $O(1)$
     friend constexpr auto operator<=>(const sbt_fraction &a, const sbt_fraction &b) {
         return (__int128)a.p * b.q <=> (__int128)b.p * a.q;
     }
@@ -26,73 +39,98 @@ struct sbt_fraction {
 /// 各ノードを子孫が成す開区間の左端 lo・右端 hi で保持し、メディアントが
 /// そのノードの値になる。左の子へ進む移動を 'L'、右の子へ進む移動を 'R' とし、
 /// パスは連長圧縮 (各要素は (移動文字, 連続回数)) で表す。
+/// @complexity 単純な親子操作は $O(1)$、分数とパスの変換はEuclid法の反復回数に比例
 struct stern_brocot_tree {
+    /// @brief ノードを表す分数型
+    /// @complexity 型エイリアスで実行時計算量はない
     using fraction = sbt_fraction;
+
+    /// @brief 根からの連長圧縮パス型
+    /// @complexity 型エイリアスで実行時計算量はない
     using path = std::vector<std::pair<char, std::int64_t>>;
 
-    // 根 1/1。区間は (0/1, 1/0)。
+    /// @brief 根1/1を構築する
+    /// @complexity $O(1)$
     constexpr stern_brocot_tree() : lo(0, 1), hi(1, 0) {}
+
+    /// @brief 子孫区間(lo, hi)からノードを構築する
+    /// @complexity $O(1)$
     constexpr stern_brocot_tree(fraction lo, fraction hi) : lo(lo), hi(hi) {}
 
-    // p/q を含むノードを構成する (区間が p/q を含むまで降りる)。
-    // パスの往復を避け、降下を直接 lo/hi に反映する。
+    /// @brief 分数fが表すノードを構築する
+    /// @details パスの往復を避け、降下を直接lo/hiへ反映する。
+    /// @complexity $O(\log\max(p,q))$ 回のEuclid反復
     static stern_brocot_tree from_fraction(fraction f) {
         stern_brocot_tree t;
         walk(f, [&](char c, std::int64_t k) { t.descend(c, k); });
         return t;
     }
 
-    // パスを根から辿った先のノード。
+    /// @brief 連長圧縮パスを根から辿ったノードを構築する
+    /// @complexity パスの要素数を $L$ として $O(L)$
     static stern_brocot_tree from_path(const path &pth) {
         stern_brocot_tree t;
         for (auto [c, k] : pth) t.descend(c, k);
         return t;
     }
 
-    // このノードが表す既約分数 (メディアント)。
+    /// @brief このノードが表す既約分数を返す
+    /// @complexity $O(1)$
     constexpr fraction value() const { return {lo.p + hi.p, lo.q + hi.q}; }
 
-    // 子孫が成す開区間 (左端, 右端)。0 は 0/1、+∞ は 1/0。
+    /// @brief 子孫が成す開区間の左右端を返す
+    /// @complexity $O(1)$
     constexpr std::pair<fraction, fraction> range() const { return {lo, hi}; }
 
+    /// @brief 根1/1か返す
+    /// @complexity $O(1)$
     constexpr bool is_root() const { return lo.p == 0 && lo.q == 1 && hi.p == 1 && hi.q == 0; }
 
-    // 左/右の子へ k 回 (既定 1 回) 降りた子孫。
+    /// @brief 左の子へk回降りた子孫を返す
+    /// @complexity $O(1)$
     constexpr stern_brocot_tree left(std::int64_t k = 1) const {
         stern_brocot_tree t = *this;
         t.descend('L', k);
         return t;
     }
+
+    /// @brief 右の子へk回降りた子孫を返す
+    /// @complexity $O(1)$
     constexpr stern_brocot_tree right(std::int64_t k = 1) const {
         stern_brocot_tree t = *this;
         t.descend('R', k);
         return t;
     }
 
-    // 根からの深さ (移動回数の総和)。根は 0。
-    // パスを構築せず連長を直接足し上げる。
+    /// @brief 根からの深さを返す
+    /// @details パスを構築せず連長を直接足し上げる。根は0。
+    /// @complexity $O(\log\max(p,q))$ 回のEuclid反復
     std::int64_t depth() const {
         std::int64_t res = 0;
         walk(value(), [&](char, std::int64_t k) { res += k; });
         return res;
     }
 
-    // 根からこのノードまでのパス (連長圧縮)。
+    /// @brief 根からこのノードまでの連長圧縮パスを返す
+    /// @complexity $O(\log\max(p,q))$ 回のEuclid反復
     path path_from_root() const { return encode(value()); }
 
     // --- 静的ユーティリティ (有理数を直接操作) ---
 
-    // 1/1 から f までのパスを連長圧縮で求める。1/1 のとき空。
+    /// @brief 1/1からfまでの連長圧縮パスを返す
+    /// @complexity $O(\log\max(p,q))$ 回のEuclid反復
     static path encode(fraction f) {
         path res;
         walk(f, [&](char c, std::int64_t k) { res.emplace_back(c, k); });
         return res;
     }
 
-    // パスが指す既約分数。
+    /// @brief パスが指す既約分数を返す
+    /// @complexity パスの要素数を $L$ として $O(L)$
     static fraction decode(const path &pth) { return from_path(pth).value(); }
 
-    // a/b と c/d の最近共通祖先。
+    /// @brief 2分数の最近共通祖先を返す
+    /// @complexity 2分数の連長圧縮パス長を $L_1,L_2$ として $O(L_1+L_2)$
     static fraction lca(fraction f, fraction g) {
         path p = encode(f), q = encode(g), res;
         for (std::size_t i = 0; i < std::min(p.size(), q.size()); ++i) {
@@ -105,7 +143,9 @@ struct stern_brocot_tree {
         return decode(res);
     }
 
-    // f の祖先のうち深さ k のもの。存在しなければ無効値 {0, 0}。
+    /// @brief fの祖先のうち深さkのものを返す
+    /// @return 存在しなければ無効値{0, 0}
+    /// @complexity fの連長圧縮パス長を $L$ として $O(L)$
     static fraction ancestor(std::int64_t k, fraction f) {
         path res;
         for (auto [c, n] : encode(f)) {
@@ -119,12 +159,9 @@ struct stern_brocot_tree {
         return {0, 0};
     }
 
-    // 目標有理数 target (= p/q, 既約でなくてよい。0/1 は可) に最も近い、
-    // 分母が max_denominator 以下の既約分数を返す。距離が等しいときは値が小さい方。
-    // target = 1/0 (+∞) は最近点が定義できない (分子上限がなく発散する) ため非対応。
-    // SBT を target に向かって降りる過程で、各方向への連続ステップ数を
-    // 「target を越えない最大回数」と「分母制約を超えない最大回数」の小さい方として
-    // 閉じた式で一括計算するため O(log) で求まる。比較は __int128。
+    /// @brief targetに最も近い、分母がmax_denominator以下の既約分数を返す
+    /// @details 距離が等しいときは小さい方を返す。target=1/0は非対応。
+    /// @complexity $O(\log\max(p,q,max\_denominator))$
     static fraction nearest(fraction target, std::int64_t max_denominator) {
         using i128 = __int128;
         const i128 R = target.p, D = target.q, N = max_denominator;
@@ -183,11 +220,9 @@ struct stern_brocot_tree {
         return best;
     }
 
-    // 単調述語 pred に対する Stern-Brocot 二分探索。
-    // pred(p, q) は分数 p/q が小さいほど真になる単調述語 (pred(0/1) は真を仮定)。
-    // 「pred が真である最大の分数」のうち分母が max_denominator 以下のものを返す。
-    // 各方向の連続ステップ数を二分探索で一括処理するため、述語呼び出しは
-    // O(log^2 max_denominator) 回。pred の符号を反転すれば「偽になる最小の分数」も探せる。
+    /// @brief 単調述語predが真となる最大の分数を分母上限内で返す
+    /// @details pred(p,q)は分数が小さいほど真で、pred(0,1)は真とする。
+    /// @complexity 述語呼出し $O(\log^2 max\_denominator)$ 回
     template <class F>
     static fraction search(F pred, std::int64_t max_denominator) {
         const std::int64_t N = max_denominator;

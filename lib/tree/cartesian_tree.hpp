@@ -2,6 +2,7 @@
 #include <vector>
 
 /// @brief Cartesian Tree
+/// @complexity $O(n)$
 template <typename T>
 std::vector<int> cartesian_tree(const std::vector<T> &v) {
     int n = v.size();
@@ -32,6 +33,7 @@ struct node_t {
 }  // namespace internal
 
 /// @brief Cartesian Tree
+/// @complexity $O(n)$
 template <typename T>
 std::vector<internal::node_t> cartesian_tree_fully(const std::vector<T> &v) {
     int n = v.size();

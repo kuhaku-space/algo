@@ -25,18 +25,22 @@ int components = uf.rank();      // 3
 
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `union_find(n)` | `0` から `n-1` を独立した集合として構築 | $O(n)$ |
-| `root(x)` / `get_root(x)` | `x` の代表元を返し、経路圧縮する | ならし $O(\alpha(n))$ |
-| `same(x, y)` / `is_same(x, y)` | 同じ集合に属するか | ならし $O(\alpha(n))$ |
-| `unite(x, y)` | 2集合を併合し、実際に併合したかを返す | ならし $O(\alpha(n))$ |
-| `size(x)` / `get_size(x)` | `x` を含む集合の要素数 | ならし $O(\alpha(n))$ |
-| `is_root(x)` | `x` が代表元か | $O(1)$ |
-| `leaders()` | 全代表元を返す | $O(n)$ |
-| `rank()` | 現在の連結成分数を返す | $O(1)$ |
-| `unite(x, y, callback)` | 併合後の代表元をコールバックへ渡す | ならし $O(\alpha(n))$ |
-
-3引数のコールバックには `(new_root, old_root)`、または
-`(new_root, old_root, swapped)` が渡る。既に同じ集合の場合もコールバックは呼ばれる。
+| `union_find() = default;` | 空の Union-Find を作る | $O(1)$ |
+| `explicit union_find(int _n)` | `n` 個の単集合を作る | $O(n)$ |
+| `const int &operator[](std::size_t x) const` | 頂点 `x` の内部表現を読み取り専用で返す | $O(1)$ |
+| `int &operator[](std::size_t x)` | 頂点 `x` の内部表現を返す | $O(1)$ |
+| `int root(int x)` | `x` の代表を返し、経路圧縮する | 償却 $O(\alpha(n))$ |
+| `int get_root(int x)` | `root(x)` の別名 | 償却 $O(\alpha(n))$ |
+| `bool is_root(int x) const` | `x` が集合の代表なら true を返す | $O(1)$ |
+| `bool same(int x, int y)` | `x`, `y` が同じ集合なら true を返す | 償却 $O(\alpha(n))$ |
+| `bool is_same(int x, int y)` | `same(x, y)` の別名 | 償却 $O(\alpha(n))$ |
+| `int rank()` | 現在の連結成分数を返す | $O(1)$ |
+| `int size(int x)` | `x` が属する集合の要素数を返す | 償却 $O(\alpha(n))$ |
+| `int get_size(int x)` | `size(x)` の別名 | 償却 $O(\alpha(n))$ |
+| `std::vector<int> leaders()` | 全ての集合の代表を返す | $O(n)$ |
+| `bool unite(int x, int y)` | `x`, `y` の集合を併合する<br>**戻り値:** 新たに併合したなら true | 償却 $O(\alpha(n))$ |
+| `template <class F> requires std::invocable<F, int, int, bool> bool unite(int x, int y, F f)` | `x`, `y` を併合し、代表と入れ替えの有無を `f(x, y, swapped)` に渡す<br>**戻り値:** 新たに併合したなら true | 償却 $O(\alpha(n))$（`f` の実行時間を除く） |
+| `template <class F> requires std::invocable<F, int, int> bool unite(int x, int y, F f)` | `x`, `y` を併合し、併合後の代表を `f(x, y)` に渡す<br>**戻り値:** 新たに併合したなら true | 償却 $O(\alpha(n))$（`f` の実行時間を除く） |
 
 ## 補足
 

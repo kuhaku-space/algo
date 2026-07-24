@@ -5,6 +5,7 @@
 #include "graph/matrix_graph.hpp"
 
 /// @brief 彩色数
+/// @complexity 頂点数を $V$ として $O(2^V\log^2 V)$
 int chromatic_number(const matrix_graph<void> &g) {
     constexpr std::uint64_t _MOD = (1ull << 31) - 1;
     int n = g.size();

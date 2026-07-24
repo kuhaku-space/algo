@@ -5,6 +5,7 @@
 
 /// @brief 全域木（入力辺の重みを保ったまま無向 list_graph として返す）
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <weighted_graph_type G>
 list_graph<graph_weight_t<G>> spanning_tree(const G &g, int r = 0) {
     int n = g.size();

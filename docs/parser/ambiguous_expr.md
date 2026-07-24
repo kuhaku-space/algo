@@ -33,12 +33,11 @@ e.values("1-1-1").size();   // 2 通り: (1-1)-1=-1, 1-(1-1)=1
 
 ## API
 
-`AmbiguousExpr<T>` — `T` は値型。`combine_fn` = `std::optional<T>(const T&, const T&)`。
-
-| メソッド | 内容 |
-| --- | --- |
-| `op(c, f)` | 二項演算子 `c` を登録 (fluent)。`f` が `std::nullopt` を返す経路は無効 |
-| `values(s)` | 式 `s` を全評価順序で計算し、得られる値集合 `std::set<T>` を返す |
+| API | 内容 | 計算量 |
+| --- | --- | --- |
+| `using combine_fn = std::function<std::optional<T>(const T &, const T &)>;` | 二項演算を表す関数型 | 型エイリアスで実行時計算量はない |
+| `AmbiguousExpr &op(char c, combine_fn f)` | 二項演算子を登録する (fluent) | $O(\log A)$（$A$ は登録済み演算子数） |
+| `std::set<T> values(std::string_view str)` | 式全体をすべての評価順序で評価し、得られる値の集合を返す | オペランド数を $k$、値集合の最大サイズを $S$ として $O(k^3S^2\log S)$ |
 
 ## 補足
 

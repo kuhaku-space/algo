@@ -258,11 +258,12 @@ jobs:
           verify_jobs = [j for j in jobs if j["name"].startswith("verify (")]
 
           # AOJ (judgedat.u-aizu.ac.jp) is the only judge where transient
-          # read timeouts have actually been observed. Intentionally NOT
-          # generalized to other judges: matching unobserved patterns would
-          # risk silently skipping real failures.
+          # read/connect timeouts have actually been observed. Intentionally
+          # NOT generalized to other judges: matching unobserved patterns
+          # would risk silently skipping real failures.
           timeout_pattern = re.compile(
-              r"judgedat\.u-aizu\.ac\.jp.*Read timed out|"
+              r"judgedat\.u-aizu\.ac\.jp.*(?:Read timed out|"
+              r"timed out\. \(connect timeout=\d+\))|"
               r"handshake operation timed out"
           )
           failure_pattern = re.compile(

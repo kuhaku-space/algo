@@ -13,18 +13,30 @@
 ///          `Path vertex(int u)` / `Path add_vertex(Path d, Light l)` /
 ///          `Light add_edge(Path d)` / `Light rake(Light l, Light r)` /
 ///          `Path compress(Path p, Path c)`。
+/// @complexity 構築は $O(n)$、各動的木操作は償却 $O(\log n)$
 template <class TreeDP>
 struct DynamicTopTree {
+    /// @brief path clusterの集約型
+    /// @complexity 型エイリアスで実行時計算量はない
     using Path = typename TreeDP::Path;
+
+    /// @brief light edge clusterの集約型
+    /// @complexity 型エイリアスで実行時計算量はない
     using Light = typename TreeDP::Light;
 
+    /// @brief 空のDynamic Top Treeを構築する
+    /// @complexity $O(1)$
     DynamicTopTree() = default;
+
+    /// @brief n個の孤立頂点とTreeDPを構築する
+    /// @complexity $O(n)$
     explicit DynamicTopTree(int n, const TreeDP &_dp = TreeDP()) : dp(_dp), nodes(n) {
         for (int i = 0; i < n; ++i) nodes[i].id = i;
         for (int i = 0; i < n; ++i) pull(&nodes[i]);
     }
 
     /// @brief c を子、p を親として連結する（内部で c を自身の根に evert してから繋ぐ）
+    /// @complexity 償却 $O(\log n)$
     void link(int c, int p) {
         Node *pc = &nodes[c], *pp = &nodes[p];
         evert(c);
@@ -36,6 +48,7 @@ struct DynamicTopTree {
     }
 
     /// @brief c を親から切り離す
+    /// @complexity 償却 $O(\log n)$
     void cut(int c) {
         Node *pc = &nodes[c];
         expose(pc);
@@ -46,12 +59,14 @@ struct DynamicTopTree {
     }
 
     /// @brief 辺 (u, v) を切り離す
+    /// @complexity 償却 $O(\log n)$
     void cut(int u, int v) {
         evert(u);
         cut(v);
     }
 
     /// @brief u を全体の根にする
+    /// @complexity 償却 $O(\log n)$
     void evert(int u) {
         Node *t = &nodes[u];
         expose(t);
@@ -60,6 +75,7 @@ struct DynamicTopTree {
     }
 
     /// @brief 頂点 u の情報が変化した後に呼び、集約を再計算する
+    /// @complexity 償却 $O(\log n)$
     void update(int u) {
         Node *t = &nodes[u];
         expose(t);
@@ -67,12 +83,14 @@ struct DynamicTopTree {
     }
 
     /// @brief u を根としたときの木全体の集約値
+    /// @complexity 償却 $O(\log n)$
     Path query(int u) {
         evert(u);
         return nodes[u].sum;
     }
 
     /// @brief root を根としたときの、u を根とする部分木の集約値
+    /// @complexity 償却 $O(\log n)$
     Path query_subtree(int root, int u) {
         evert(root);
         Node *t = &nodes[u];

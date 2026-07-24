@@ -7,34 +7,53 @@
 /// @see https://scrapbox.io/data-structures/Interval_Heap
 template <class T>
 struct interval_heap {
+    /// @brief 空のinterval heapを構築する
+    /// @complexity $O(1)$
     constexpr interval_heap() : _size(), data(1) {}
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return _size == 0; }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return _size; }
 
+    /// @brief 最大値を返す
+    /// @complexity $O(1)$
     T get_max() const {
         assert(_size);
         return data[1];
     }
+    /// @brief 最小値を返す
+    /// @complexity $O(1)$
     T get_min() const {
         assert(_size);
         return _size == 1 ? data[1] : data[2];
     }
 
+    /// @brief 値を追加する
+    /// @complexity $O(\log n)$
     void push(const T &x) {
         data.push_back(x);
         fix_up();
     }
+    /// @brief 値をムーブして追加する
+    /// @complexity $O(\log n)$
     void push(T &&x) {
         data.push_back(std::move(x));
         fix_up();
     }
+    /// @brief 値を直接構築して追加する
+    /// @complexity $O(\log n)$
     template <typename... Args>
     void emplace(Args &&...args) {
         data.emplace_back(std::forward<Args>(args)...);
         fix_up();
     }
 
+    /// @brief 最大値を削除する
+    /// @complexity $O(\log n)$
     void pop_max() {
         assert(_size);
         --_size;
@@ -48,6 +67,8 @@ struct interval_heap {
         }
     }
 
+    /// @brief 最小値を削除する
+    /// @complexity $O(\log n)$
     void pop_min() {
         assert(_size);
         --_size;

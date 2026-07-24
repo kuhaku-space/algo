@@ -7,6 +7,7 @@
 
 /// @brief セグメント木
 /// @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
+/// @complexity 構築は $O(n)$、更新・区間積・境界探索は $O(\log n)$
 template <monoid M>
 struct segment_tree {
   private:
@@ -31,8 +32,16 @@ struct segment_tree {
     };
 
   public:
+    /// @brief 空の木を構築する
+    /// @complexity $O(1)$
     segment_tree() : segment_tree(0) {}
+
+    /// @brief n要素をeで初期化する
+    /// @complexity $O(n)$
     explicit segment_tree(int n, T e = M::id()) : segment_tree(std::vector<T>(n, e)) {}
+
+    /// @brief 列vから構築する
+    /// @complexity $O(n)$
     template <class U>
     explicit segment_tree(const std::vector<U> &v) : _n(v.size()) {
         _size = std::bit_ceil<unsigned>(_n);
@@ -42,7 +51,8 @@ struct segment_tree {
         for (int i = _size - 1; i >= 1; --i) update(i);
     }
 
-    // 確保済みの領域を保ったまま全要素を e で埋め直す（再確保せず木を再利用）
+    /// @brief 確保済み領域を保ったままn要素をeで埋め直す
+    /// @complexity $O(n)$
     void assign(int n, T e = M::id()) {
         assert(n <= _size);
         _n = n;
@@ -53,20 +63,41 @@ struct segment_tree {
         }
     }
 
+    /// @brief k番目の値をconst参照で返す
+    /// @complexity $O(1)$
     const T &operator[](int k) const { return data[k + _size]; }
+
+    /// @brief k番目を参照・代入できるproxyを返す
+    /// @complexity 取得は $O(1)$、代入は $O(\log n)$
     _segment_tree_reference operator[](int k) { return _segment_tree_reference(*this, k); }
+
+    /// @brief k番目の値を返す
+    /// @complexity $O(1)$
     T at(int k) const { return data[k + _size]; }
+
+    /// @brief k番目の値を返す
+    /// @complexity $O(1)$
     T get(int k) const { return data[k + _size]; }
 
+    /// @brief k番目をvalへ変更する
+    /// @complexity $O(\log n)$
     void set(int k, T val) {
         assert(0 <= k && k < _n);
         k += _size;
         data[k] = val;
         for (int i = 1; i <= _log; ++i) update(k >> i);
     }
+
+    /// @brief k番目を単位元へ戻す
+    /// @complexity $O(\log n)$
     void reset(int k) { set(k, M::id()); }
 
+    /// @brief 全要素の積を返す
+    /// @complexity $O(1)$
     T all_prod() const { return data[1]; }
+
+    /// @brief 半開区間[a,b)の積を返す
+    /// @complexity $O(\log n)$
     T prod(int a, int b) const {
         assert(0 <= a && b <= _n);
         T l = M::id(), r = M::id();
@@ -77,11 +108,15 @@ struct segment_tree {
         return M::op(l, r);
     }
 
+    /// @brief 0から右へ述語fが真である最大境界を返す
+    /// @complexity $O(\log n)$
     template <class F>
     int max_right(F f) const {
         return max_right(0, f);
     }
 
+    /// @brief lから右へ述語fが真である最大境界を返す
+    /// @complexity $O(\log n)$
     template <class F>
     int max_right(int l, F f) const {
         assert(0 <= l && l <= _n);
@@ -107,11 +142,15 @@ struct segment_tree {
         return _n;
     }
 
+    /// @brief nから左へ述語fが真である最小境界を返す
+    /// @complexity $O(\log n)$
     template <class F>
     int min_left(F f) const {
         return min_left(_n, f);
     }
 
+    /// @brief rから左へ述語fが真である最小境界を返す
+    /// @complexity $O(\log n)$
     template <class F>
     int min_left(int r, F f) const {
         assert(0 <= r && r <= _n);

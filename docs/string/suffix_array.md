@@ -25,13 +25,8 @@ std::vector<int> lcp = lcp_array(text, sa);    // {1, 3, 0, 0, 2}
 
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `suffix_array(string)` | バイト文字列の Suffix Array | $O(n)$ |
-| `suffix_array(vector<int>, upper)` | 各値が `[0, upper]` の整数列 | $O(n + upper)$ |
-| `suffix_array(vector<T>)` | 比較可能な任意の列。座標圧縮して構築 | $O(n\log n)$ |
-| `lcp_array(sequence, sa)` | Kasai 法で LCP Array を構築 | $O(n)$ |
-
-Suffix Array の構築には SA-IS を使用し、小さい入力では愚直法またはダブリング法へ
-切り替える。
+| `std::vector<int> suffix_array(const std::vector<int> &s, int upper)`<br>`template <class T> std::vector<int> suffix_array(const std::vector<T> &s)`<br>`std::vector<int> suffix_array(const std::string &s)` | Suffix Array | 整数・文字列overloadは $O(n+\sigma)$、任意型overloadは $O(n\log n)$ |
+| `template <class T> std::vector<int> lcp_array(const std::vector<T> &s, const std::vector<int> &sa)`<br>`std::vector<int> lcp_array(const std::string &s, const std::vector<int> &sa)` | suffix arrayの隣接要素間のLCP配列を構築する | $O(n)$ |
 
 ## 補足
 

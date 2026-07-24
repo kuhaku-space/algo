@@ -7,6 +7,7 @@
 
 /// @brief 2分トライ木
 /// @see https://kazuma8128.hatenablog.com/entry/2018/05/06/022654
+/// @complexity 要素数に依らず各操作 $O(B)$、`size` と `empty` は $O(1)$
 template <std::integral T, int B = 31, bool Multi = false>
 struct binary_trie {
   private:
@@ -17,8 +18,12 @@ struct binary_trie {
     };
 
   public:
+    /// @brief 空のtrieを構築する
+    /// @complexity $O(1)$
     constexpr binary_trie() : nodes(1) {}
 
+    /// @brief 0-indexedでk番目に小さい値を返す
+    /// @complexity $O(B)$
     constexpr T operator[](int k) const {
         assert(0 <= k && k < size());
         T res{};
@@ -35,13 +40,29 @@ struct binary_trie {
         }
         return res;
     }
+
+    /// @brief k番目に小さい値を返す
+    /// @complexity $O(B)$
     constexpr T at(int k) const { return operator[](k); }
+
+    /// @brief k番目に小さい値を返す
+    /// @complexity $O(B)$
     constexpr T get(int k) const { return operator[](k); }
+
+    /// @brief k番目に小さい値を返す
+    /// @complexity $O(B)$
     constexpr T kth_element(int k) const { return operator[](k); }
 
+    /// @brief 空か返す
+    /// @complexity $O(1)$
     constexpr bool empty() const { return nodes.front().count == 0; }
+
+    /// @brief 要素数を返す
+    /// @complexity $O(1)$
     constexpr int size() const { return nodes.front().count; }
 
+    /// @brief valを挿入する
+    /// @complexity $O(B)$
     constexpr void insert(T val) {
         if constexpr (!Multi) {
             if (count(val)) return;
@@ -58,6 +79,9 @@ struct binary_trie {
             ++nodes[idx].count;
         }
     }
+
+    /// @brief valを1個削除する
+    /// @complexity $O(B)$
     constexpr void erase(T val) {
         if (!count(val)) return;
         --nodes[0].count;
@@ -68,6 +92,8 @@ struct binary_trie {
         }
     }
 
+    /// @brief val XOR biasを最小化するvalを返す
+    /// @complexity $O(B)$
     constexpr T min_element(T bias = 0) const {
         assert(!empty());
         T res{};
@@ -80,11 +106,21 @@ struct binary_trie {
         }
         return res;
     }
+
+    /// @brief val XOR biasを最大化するvalを返す
+    /// @complexity $O(B)$
     constexpr T max_element(T bias = 0) const { return min_element(~bias); }
 
+    /// @brief valを含むか返す
+    /// @complexity $O(B)$
     constexpr bool contains(T val) const { return count(val); }
 
+    /// @brief val未満の要素数を返す
+    /// @complexity $O(B)$
     constexpr int count_less(T val) const { return lower_bound(val); }
+
+    /// @brief valの個数を返す
+    /// @complexity $O(B)$
     constexpr int count(T val) const {
         int idx = 0;
         for (int b = B - 1; b >= 0; --b) {
@@ -93,8 +129,13 @@ struct binary_trie {
         }
         return nodes[idx].count;
     }
+
+    /// @brief 半開区間[l,r)の要素数を返す
+    /// @complexity $O(B)$
     constexpr int count(T l, T r) const { return count_less(r) - count_less(l); }
 
+    /// @brief val未満の要素数を返す
+    /// @complexity $O(B)$
     constexpr int lower_bound(T val) const {
         int res = 0, idx = 0;
         for (int b = B - 1; b >= 0; --b) {
@@ -106,6 +147,8 @@ struct binary_trie {
         return res;
     }
 
+    /// @brief val以下の要素数を返す
+    /// @complexity $O(B)$
     constexpr int upper_bound(T val) const {
         int res = 0, idx = 0;
         for (int b = B - 1; b >= 0; --b) {
@@ -117,6 +160,8 @@ struct binary_trie {
         return res + get_count(idx);
     }
 
+    /// @brief val以下で最大の要素を返す
+    /// @complexity $O(B)$
     constexpr std::optional<T> floor(T val) const {
         T res{}, last_res{};
         int idx = 0, last_idx = -1, last_b = -1;
@@ -136,6 +181,8 @@ struct binary_trie {
         return res;
     }
 
+    /// @brief val以上で最小の要素を返す
+    /// @complexity $O(B)$
     constexpr std::optional<T> ceil(T val) const {
         T res{}, last_res{};
         int idx = 0, last_idx = -1, last_b = -1;

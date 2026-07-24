@@ -106,6 +106,7 @@ void bostan_mori_step(std::vector<mint> &p, std::vector<mint> &q, bool odd) {
 }  // namespace internal
 
 /// @brief きたまさ法 (任意可換環版, O(k^2 log n))
+/// @complexity 漸化式の次数を $k$ として $O(k^2\log n)$
 /// @details 線形漸化式 a_i = sum_{j=1}^{k} d[j-1] a_{i-j} (i >= k) の第 n 項を、
 ///          特性多項式 f(x) = x^k - sum_j d[j-1] x^{k-1-j} を法とした x^n mod f の
 ///          二乗法で求める。任意の可換環 T に対応 (NTT 非対応 mod・dynamic_modint・
@@ -125,6 +126,7 @@ T kitamasa(const std::vector<T> &a, const std::vector<T> &d, std::int64_t n) {
 }
 
 /// @brief Bostan-Mori 法
+/// @complexity 多項式次数を $d$ として $O(d\log d\log n)$
 /// @details 有理形式的冪級数 p(x)/q(x) の x^n の係数を O(M(d) log n) で求める
 ///          (d = deg q, M はサイズ d の畳み込みコスト)。各ステップで q(-x) の順変換を
 ///          共有し、AVX2 が使える NTT-friendly な mint なら Montgomery + AVX2 NTT を使う。
@@ -157,6 +159,7 @@ mint bostan_mori(std::vector<mint> p, std::vector<mint> q, std::int64_t n) {
 }
 
 /// @brief 線形漸化式の N 項目 (NTT 版, O(M(d) log n))
+/// @complexity 漸化式の次数を $d$ として $O(d\log d\log n)$
 /// @details a_i = sum_{j=1}^d c_j a_{i-j} (i >= d) の第 n 項を Bostan-Mori 法で求める。
 ///          NTT-friendly な static_modint 専用。畳み込みできない環では kitamasa を使う。
 /// @tparam mint NTT-friendly な static modint

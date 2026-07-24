@@ -4,10 +4,12 @@
 #include <vector>
 
 /// @brief 第1種・第2種スターリング数 mod 小さい素数 p を、n, k が巨大（~1e18）でも求める
-// (x)_n ≡ (x^p-x)^q (x)_r (mod p)（n=qp+r, Fermat の小定理 x^p≡x による）と、
-// その双対にあたる x^n の (x)_k 基底展開の周期性を利用する。
-// 前計算 O(p^2)、クエリ 1 回あたり O(log_p n)。
+/// @details $(x)_n\equiv(x^p-x)^q(x)_r\pmod p$ と、
+/// その双対にあたる基底展開の周期性を利用する。
 struct StirlingSmallPLargeN {
+    /// @brief 法pに対する計算テーブルを構築する
+    /// @param p 小さい素数
+    /// @complexity 時間・空間ともに $O(p^2)$
     explicit StirlingSmallPLargeN(unsigned p) : p_(p), fact(p), finv(p), s1_rows(p), s2_rows(p) {
         assert(p >= 2);
         fact[0] = 1;
@@ -40,7 +42,10 @@ struct StirlingSmallPLargeN {
         }
     }
 
-    // s(n,k) mod p（符号付き第1種）
+    /// @brief 符号付き第1種スターリング数 $s(n,k)\bmod p$ を返す
+    /// @param n 行番号。0以上
+    /// @param k 列番号。範囲外では0を返す
+    /// @complexity $O(\log_p n)$
     unsigned stirling1(std::int64_t n, std::int64_t k) const {
         if (k < 0 || k > n) return 0;
         std::int64_t i = n / (std::int64_t)p_;
@@ -61,7 +66,10 @@ struct StirlingSmallPLargeN {
         return res;
     }
 
-    // S(n,k) mod p（第2種）
+    /// @brief 第2種スターリング数 $S(n,k)\bmod p$ を返す
+    /// @param n 行番号。0以上
+    /// @param k 列番号。範囲外では0を返す
+    /// @complexity $O(\log_p n)$
     unsigned stirling2(std::int64_t n, std::int64_t k) const {
         if (k < 0 || k > n) return 0;
         if (n < (std::int64_t)p_) return s2_rows[(std::size_t)n][(std::size_t)k];

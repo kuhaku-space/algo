@@ -10,15 +10,24 @@
 ///          - `key_type`（確定値型 Key）: 頂点で `g` により確定した値（= 出力）の型。`f` の入力でもある。
 ///          多くの問題は Sum = Key で済むため、`key_type` を省略すると `value_type` にフォールバックする。
 /// @tparam M モノイド
+/// @complexity 型特性のため実行時コストなし
 template <class M>
 struct rerooting_key {
+    /// @brief 確定値型。既定では `M::value_type`
+    /// @complexity 型エイリアスのため実行時コストなし
     using type = typename M::value_type;
 };
+/// @brief `M::key_type` が定義されている場合の確定値型
+/// @complexity 型特性のため実行時コストなし
 template <class M>
 requires requires { typename M::key_type; }
 struct rerooting_key<M> {
+    /// @brief `M` が明示した確定値型
+    /// @complexity 型エイリアスのため実行時コストなし
     using type = typename M::key_type;
 };
+/// @brief 全方位木 DP の確定値型
+/// @complexity 型エイリアスのため実行時コストなし
 template <class M>
 using rerooting_key_t = typename rerooting_key<M>::type;
 
@@ -30,6 +39,7 @@ using rerooting_key_t = typename rerooting_key<M>::type;
 /// @tparam M 判定対象のモノイド
 /// @tparam W 辺重みの型
 /// @tparam U 頂点データの型
+/// @complexity コンパイル時の型制約のため実行時コストなし
 template <class M, class W, class U>
 concept rerooting_monoid =
     monoid<M> && requires(const rerooting_key_t<M> &k, const typename M::value_type &s, const W &w, const U &u) {
@@ -45,6 +55,7 @@ concept rerooting_monoid =
 /// @tparam M 全方位木dp用モノイド（`rerooting_monoid`）
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @tparam U 頂点データの型
+/// @complexity 構築は $O(V + E)$、結果の参照とイテレータ取得は $O(1)$
 template <class M, weighted_graph_type G, class U>
 requires rerooting_monoid<M, graph_weight_t<G>, U>
 struct Rerooting {
@@ -53,13 +64,27 @@ struct Rerooting {
     using Key = rerooting_key_t<M>;      // 確定値型（g の結果・f の入力・出力）
 
   public:
+    /// @brief グラフ `g` と各頂点のデータ `v` から全ての根に対する DP 値を計算する
+    /// @complexity $O(V + E)$
     Rerooting(const G &g, const std::vector<U> &v) : g_(g), data(v), dp(g.size()), values(g.size()) { build(); }
 
+    /// @brief 頂点 `i` を根とした結果を読み取り専用で返す
+    /// @complexity $O(1)$
     const auto &operator[](int i) const { return values[i]; }
+    /// @brief 頂点 `i` を根とした結果を返す
+    /// @complexity $O(1)$
     auto &operator[](int i) { return values[i]; }
+    /// @brief 結果列の先頭を指す読み取り専用イテレータを返す
+    /// @complexity $O(1)$
     const auto begin() const { return values.begin(); }
+    /// @brief 結果列の先頭を指すイテレータを返す
+    /// @complexity $O(1)$
     auto begin() { return values.begin(); }
+    /// @brief 結果列の終端を指す読み取り専用イテレータを返す
+    /// @complexity $O(1)$
     const auto end() const { return values.end(); }
+    /// @brief 結果列の終端を指すイテレータを返す
+    /// @complexity $O(1)$
     auto end() { return values.end(); }
 
   private:

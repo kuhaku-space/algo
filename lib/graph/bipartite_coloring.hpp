@@ -10,6 +10,7 @@
 ///          色 1 を最大化したい場合は全頂点の色を反転すればよい。
 /// @tparam G グラフ型（無向グラフを想定、`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @return 二部グラフなら各頂点の色（0/1）の割り当て、そうでなければ `std::nullopt`
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::optional<std::vector<int>> bipartite_coloring(const G &g) {
     int n = g.size();

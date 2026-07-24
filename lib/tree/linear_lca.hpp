@@ -6,6 +6,9 @@
 #include "graph/graph.hpp"
 #include "sparse_table/linear_sparse_table.hpp"
 
+/// @brief 線形前処理・定数時間クエリのLCA
+/// @details Euler Tourと$\pm1$ RMQ用の線形Sparse Tableを利用する。
+/// @complexity 構築は頂点数を $n$ として $O(n)$、`lca` は $O(1)$
 struct linear_lca {
   private:
     struct S {
@@ -22,6 +25,8 @@ struct linear_lca {
     };
 
   public:
+    /// @brief 木gを根rとしてLCAを前計算する
+    /// @complexity $O(n)$
     template <graph_type G>
     linear_lca(const G &g, int r = 0) : ord(g.size(), -1), lst() {
         std::vector<S> v;
@@ -46,8 +51,12 @@ struct linear_lca {
         lst = linear_sparse_table<M>(v);
     }
 
+    /// @brief uとvのLCAを返す
+    /// @complexity $O(1)$
     int operator()(int u, int v) const { return lca(u, v); }
 
+    /// @brief uとvのLCAを返す
+    /// @complexity $O(1)$
     int lca(int u, int v) const {
         auto [l, r] = std::minmax(ord[u], ord[v]);
         return lst.prod(l, r + 1).index;

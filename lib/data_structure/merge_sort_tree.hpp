@@ -6,7 +6,12 @@
 /// @brief merge-sort tree
 template <class T>
 struct merge_sort_tree {
+    /// @brief 空のmerge-sort treeを構築する
+    /// @complexity $O(1)$
     merge_sort_tree() = default;
+
+    /// @brief 列からmerge-sort treeを構築する
+    /// @complexity 要素数を $n$ として時間・空間ともに $O(n\log n)$
     template <class U>
     explicit merge_sort_tree(const std::vector<U> &v) : _n(v.size()) {
         _size = std::bit_ceil<unsigned>(_n);
@@ -21,9 +26,11 @@ struct merge_sort_tree {
     }
 
     /// count i s.t. (0 <= i < r) && v[i] == x
+    /// @complexity $O(\log^2 n)$
     int rank(int r, T x) const { return rank(0, r, x); }
 
     /// count i s.t. (l <= i < r) && v[i] == x
+    /// @complexity $O(\log^2 n)$
     int rank(int l, int r, T x) const {
         int res = 0;
         for (l += _size, r += _size; l < r; l >>= 1, r >>= 1) {
@@ -42,6 +49,7 @@ struct merge_sort_tree {
     }
 
     /// count i s.t. (l <= i < r) && (v[i] < upper)
+    /// @complexity $O(\log^2 n)$
     int range_freq(int l, int r, T upper) const {
         int res = 0;
         for (l += _size, r += _size; l < r; l >>= 1, r >>= 1) {
@@ -58,6 +66,7 @@ struct merge_sort_tree {
     }
 
     /// count i s.t. (l <= i < r) && (lower <= v[i] < upper)
+    /// @complexity $O(\log^2 n)$
     int range_freq(int l, int r, T lower, T upper) const { return range_freq(l, r, upper) - range_freq(l, r, lower); }
 
   private:

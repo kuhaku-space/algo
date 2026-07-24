@@ -5,8 +5,12 @@
 #include "convolution/ntt.hpp"
 
 /// @brief 第1種スターリング数（符号付き）s(n, 0), s(n, 1), ..., s(n, n) を求める（行）
-// 下降階乗 x(x-1)(x-2)...(x-n+1) = sum s(n,k) x^k を分割統治 + NTT 乗算で構築する。
-// O(n log^2 n)。
+/// @details 下降階乗 $x(x-1)\cdots(x-n+1)=\sum_k s(n,k)x^k$ を
+/// 分割統治とNTTによる多項式積で構築する。
+/// @tparam mint NTTを利用できる static modint 型
+/// @param n 行番号。0以上であること
+/// @return 長さ $n+1$ の列。k番目の要素は符号付き第1種スターリング数 $s(n,k)$
+/// @complexity $O(n\log^2 n)$
 template <internal::static_modint_c mint>
 std::vector<mint> stirling1(int n) {
     if (n == 0) return std::vector<mint>(1, mint(1));
@@ -20,7 +24,13 @@ std::vector<mint> stirling1(int n) {
 }
 
 /// @brief 第1種スターリング数（符号付き）s(0,k), s(1,k), ..., s(n,k) を求める（列固定）
-// EGF sum_m s(m,k) x^m/m! = ln(1+x)^k / k! を利用する。O(n log n)。
+/// @details 指数型生成関数
+/// $\sum_m s(m,k)x^m/m!=\log(1+x)^k/k!$ を利用する。
+/// @tparam mint NTTを利用できる static modint 型
+/// @param n 求める最大の行番号。0以上であること
+/// @param k 固定する列番号。0以上であること
+/// @return 長さ $n+1$ の列。m番目の要素は符号付き第1種スターリング数 $s(m,k)$
+/// @complexity $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> stirling1_fixed_k(int n, int k) {
     Combinatorics<mint> comb;
@@ -35,8 +45,12 @@ std::vector<mint> stirling1_fixed_k(int n, int k) {
 }
 
 /// @brief 第2種スターリング数 S(n, 0), S(n, 1), ..., S(n, n) を求める（行）
-// S(n,k) = (1/k!) sum_{i=0}^{k} (-1)^{k-i} C(k,i) i^n を、i^n/i! と (-1)^j/j! の畳み込みとして計算する。
-// O(n log n)。
+/// @details $S(n,k)=\frac{1}{k!}\sum_{i=0}^{k}(-1)^{k-i}\binom{k}{i}i^n$
+/// を2列の畳み込みとして計算する。
+/// @tparam mint NTTを利用できる static modint 型
+/// @param n 行番号。0以上であること
+/// @return 長さ $n+1$ の列。k番目の要素は第2種スターリング数 $S(n,k)$
+/// @complexity $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> stirling2(int n) {
     Combinatorics<mint> comb;
@@ -51,7 +65,13 @@ std::vector<mint> stirling2(int n) {
 }
 
 /// @brief 第2種スターリング数 S(0,k), S(1,k), ..., S(n,k) を求める（列固定）
-// EGF sum_m S(m,k) x^m/m! = (e^x - 1)^k / k! を利用する。O(n log n)。
+/// @details 指数型生成関数
+/// $\sum_m S(m,k)x^m/m!=(e^x-1)^k/k!$ を利用する。
+/// @tparam mint NTTを利用できる static modint 型
+/// @param n 求める最大の行番号。0以上であること
+/// @param k 固定する列番号。0以上であること
+/// @return 長さ $n+1$ の列。m番目の要素は第2種スターリング数 $S(m,k)$
+/// @complexity $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> stirling2_fixed_k(int n, int k) {
     Combinatorics<mint> comb;

@@ -13,6 +13,7 @@
 /// @param n 上限（n >= 0）
 /// @param fpk f(p^k) を返す関数。p は素数、k >= 1、pk = p^k。
 /// @return f[i] = f(i)（0 <= i <= n）。f[0] = T()、f[1] = T(1)。
+/// @complexity $O(n)$
 template <class T, class F>
 std::vector<T> multiplicative_table(int n, F fpk) {
     std::vector<T> f(n + 1, T());
@@ -56,6 +57,7 @@ std::vector<T> multiplicative_table(int n, F fpk) {
 /// @brief オイラーのトーシェント関数 φ(1), ..., φ(n)
 ///
 /// φ(p^k) = p^k - p^(k-1)。
+/// @complexity $O(n)$
 std::vector<int> euler_phi_table(int n) {
     return multiplicative_table<int>(n, [](int p, int, int pk) { return pk - pk / p; });
 }
@@ -63,6 +65,7 @@ std::vector<int> euler_phi_table(int n) {
 /// @brief メビウス関数 μ(1), ..., μ(n)
 ///
 /// μ(p) = -1、μ(p^k) = 0 (k >= 2)。
+/// @complexity $O(n)$
 std::vector<int> mobius_table(int n) {
     return multiplicative_table<int>(n, [](int, int k, int) { return k == 1 ? -1 : 0; });
 }
@@ -70,6 +73,7 @@ std::vector<int> mobius_table(int n) {
 /// @brief 約数の個数 σ_0(1), ..., σ_0(n)
 ///
 /// σ_0(p^k) = k + 1。
+/// @complexity $O(n)$
 std::vector<int> divisor_count_table(int n) {
     return multiplicative_table<int>(n, [](int, int k, int) { return k + 1; });
 }
@@ -77,6 +81,7 @@ std::vector<int> divisor_count_table(int n) {
 /// @brief 約数の総和 σ_1(1), ..., σ_1(n)
 ///
 /// σ_1(p^k) = 1 + p + ... + p^k。
+/// @complexity $O(n)$
 std::vector<std::int64_t> divisor_sum_table(int n) {
     return multiplicative_table<std::int64_t>(n, [](int p, int k, int) {
         std::int64_t sum = 1, cur = 1;
@@ -94,14 +99,17 @@ std::vector<std::int64_t> divisor_sum_table(int n) {
 /// @tparam T 値の型（modint や整数型）
 /// @tparam Gsum (long long m) -> T。G(m) = Σ_{i=1}^{m} g(i)。
 /// @tparam Hsum (long long m) -> T。H(m) = Σ_{i=1}^{m} (f*g)(i)。
+/// @complexity 推奨閾値では構築 $O(n^{2/3})$、問合せ $O(1)$
 template <class T, class Gsum, class Hsum>
 struct MultiplicativeSum {
+    /// @brief 累積和の小さい値とDirichlet畳み込みの累積和から構築する
     /// @param n 上限
     /// @param f_prefix f の累積和。f_prefix[k] = Σ_{i=1}^{k} f(i)（k <= threshold）。
     ///   threshold は n^{2/3} 程度を推奨（base case の打ち切り）。
     /// @param g1 g(1)（多くの場合 1）
     /// @param G G(m) = Σ_{i=1}^{m} g(i)
     /// @param H H(m) = Σ_{i=1}^{m} (f*g)(i)
+    /// @complexity thresholdを $B$ として $O(B+n/\sqrt B)$、$B\approx n^{2/3}$ で $O(n^{2/3})$
     MultiplicativeSum(long long n, std::vector<T> f_prefix, T g1, Gsum G, Hsum H)
         : n(n), threshold((long long)f_prefix.size() - 1), small(std::move(f_prefix)) {
         // large[i] = S(⌊n/i⌋)。⌊n/i⌋ が閾値超えの i についてのみ持つ。
@@ -128,9 +136,11 @@ struct MultiplicativeSum {
     }
 
     /// @brief S(n) = Σ_{i=1}^{n} f(i)
+    /// @complexity $O(1)$
     T sum() const { return get(n); }
 
     /// @brief S(m) = Σ_{i=1}^{m} f(i)（m <= n、⌊n/i⌋ の形の値）
+    /// @complexity $O(1)$
     T get(long long m) const { return m <= threshold ? small[m] : large[n / m]; }
 
   private:
@@ -153,6 +163,7 @@ inline long long sublinear_threshold(long long n) {
 /// @brief Σ_{i=1}^{n} φ(i) を O(n^{2/3}) で計算する
 ///
 /// φ*1 = Id（恒等関数）より H(m) = m(m+1)/2、g = 1 で杜教筛を回す。
+/// @complexity $O(n^{2/3})$
 template <class T>
 T totient_sum(long long n) {
     if (n <= 0) return T(0);
@@ -169,6 +180,7 @@ T totient_sum(long long n) {
 /// @brief メルテンス関数 Σ_{i=1}^{n} μ(i) を O(n^{2/3}) で計算する
 ///
 /// μ*1 = ε（単位元）より H(m) = 1、g = 1 で杜教筛を回す。
+/// @complexity $O(n^{2/3})$
 template <class T>
 T mobius_sum(long long n) {
     if (n <= 0) return T(0);

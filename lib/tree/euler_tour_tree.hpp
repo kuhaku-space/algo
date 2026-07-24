@@ -5,40 +5,69 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
-/// @brief Euler Tour Tree
+/// @brief 森への辺の追加・削除と連結成分のモノイド積を管理する Euler Tour Tree
+/// @complexity 構築は $O(n)$、動的操作は償却 $O(\log n)$
 template <monoid M>
 struct euler_tour_tree {
+    /// @brief 頂点値と集約値の型
+    /// @complexity 型エイリアスのため実行時コストなし
     using T = typename M::value_type;
 
+    /// @brief Euler Tour Tree の内部ノード
+    /// @complexity 構築は $O(1)$
     struct node_t {
+        /// @brief 有向辺の始点と終点（`u == v` なら頂点ノード）
+        /// @complexity $O(1)$ で参照可能
         int u, v;
+        /// @brief ノード自身の値と部分木のモノイド積
+        /// @complexity $O(1)$ で参照可能
         T val, sum;
+        /// @brief 部分木に含まれる頂点ノード数
+        /// @complexity $O(1)$ で参照可能
         int sz;
+        /// @brief 親・左子・右子へのポインタ
+        /// @complexity $O(1)$ で参照可能
         node_t *par, *l, *r;
 
+        /// @brief 端点と初期値を指定してノードを作る
+        /// @complexity $O(1)$
         node_t(int _u, int _v, const T &_val = M::id())
             : u(_u), v(_v), val(_val), sum(_val), sz(u == v ? 1 : 0), par(nullptr), l(nullptr), r(nullptr) {}
     };
 
+    /// @brief 頂点数
+    /// @complexity $O(1)$ で参照可能
     int n;
+    /// @brief 各頂点に対応するノード
+    /// @complexity $O(1)$ で各要素を参照可能
     std::vector<node_t *> vertex_node;
+    /// @brief 各有向辺に対応するノード
+    /// @complexity 1 辺の検索は $O(\log n)$
     std::map<std::pair<int, int>, node_t *> edge_node;
 
+    /// @brief `n` 個の孤立頂点を単位元で初期化する
+    /// @complexity $O(n)$
     euler_tour_tree(int _n) : n(_n) {
         vertex_node.resize(n, nullptr);
         for (int i = 0; i < n; ++i) vertex_node[i] = new node_t(i, i);
     }
 
+    /// @brief 頂点値 `v` を持つ孤立頂点の森を作る
+    /// @complexity $O(n)$
     euler_tour_tree(const std::vector<T> &v) : n(v.size()) {
         vertex_node.resize(n, nullptr);
         for (int i = 0; i < n; ++i) vertex_node[i] = new node_t(i, i, v[i]);
     }
 
+    /// @brief 管理している全ノードを破棄する
+    /// @complexity $O(n + m)$（`m` は辺数）
     ~euler_tour_tree() {
         for (auto nd : vertex_node) delete nd;
         for (auto &p : edge_node) delete p.second;
     }
 
+    /// @brief 異なる連結成分の頂点 `u`, `v` を辺で結ぶ
+    /// @complexity 償却 $O(\log n)$
     void link(int u, int v) {
         reroot(u);
         reroot(v);
@@ -54,6 +83,8 @@ struct euler_tour_tree {
         join(tu, join(uv, join(tv, vu)));
     }
 
+    /// @brief 辺 `(u, v)` を削除する
+    /// @complexity 償却 $O(\log n)$
     void cut(int u, int v) {
         node_t *uv = edge_node[{u, v}];
         node_t *vu = edge_node[{v, u}];
@@ -84,8 +115,12 @@ struct euler_tour_tree {
         delete vu;
     }
 
+    /// @brief 頂点 `u`, `v` が同じ連結成分に属するか判定する
+    /// @complexity 償却 $O(\log n)$
     bool same(int u, int v) { return get_root(vertex_node[u]) == get_root(vertex_node[v]); }
 
+    /// @brief 頂点 `u` の値を `val` に更新する
+    /// @complexity 償却 $O(\log n)$
     void set(int u, const T &val) {
         node_t *nd = vertex_node[u];
         splay(nd);
@@ -93,12 +128,17 @@ struct euler_tour_tree {
         update(nd);
     }
 
+    /// @brief 頂点 `u` の値を返す
+    /// @complexity 償却 $O(\log n)$
     T get(int u) {
         node_t *nd = vertex_node[u];
         splay(nd);
         return nd->val;
     }
 
+    /// @brief `p` を親とした頂点 `v` の部分木のモノイド積を返す
+    /// @details `p == -1` または `p == v` のときは `v` の連結成分全体を返す。
+    /// @complexity 償却 $O(\log n)$
     T get_subtree(int v, int p = -1) {
         if (p == -1 || p == v) {
             node_t *nd = vertex_node[v];
@@ -146,6 +186,9 @@ struct euler_tour_tree {
         return res;
     }
 
+    /// @brief `p` を親とした頂点 `v` の部分木サイズを返す
+    /// @details `p == -1` または `p == v` のときは `v` の連結成分サイズを返す。
+    /// @complexity 償却 $O(\log n)$
     int get_size(int v, int p = -1) {
         if (p == -1 || p == v) {
             node_t *nd = vertex_node[v];

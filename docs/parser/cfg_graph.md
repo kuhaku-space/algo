@@ -39,14 +39,16 @@ bool ok = g.get(S, 0, 0);   // 0 から 0 へ S を導出できるか
 
 ## API
 
-`CykGraph(n, num_sym)` — 頂点数 `n`、記号数 `num_sym`。
-
-| メンバ | 内容 |
-| --- | --- |
-| `add(sym, u, v)` | 記号 `sym` の到達対に `(u, v)` を追加 (終端辺の登録) |
-| `add_rule(A, B, C)` | 二項規則 `A -> B C` を追加 |
-| `solve()` | 不動点まで反復し全到達対を確定する |
-| `get(sym, u, v)` | `(u, v)` が `sym` から導出可能かを返す |
+| API | 内容 | 計算量 |
+| --- | --- | --- |
+| `int n, num_sym, words;` | 頂点数・記号数・1 行あたりの 64 bit ワード数 | $O(1)$ で参照可能 |
+| `std::vector<std::array<int, 3>> rules;     //` | 登録済みの二項規則 `{A, B, C}` | 1 規則の参照は $O(1)$ |
+| `std::vector<std::vector<uint64_t>> reach;  // reach[sym]: n 行 × words ワード` | 各記号の到達可能性を表すビット行列 | 1 ワードの参照は $O(1)$ |
+| `CykGraph(int n, int num_sym)` | n頂点・num_sym記号の空の到達関係を構築する | $O(Sn^2/64)$ |
+| `void add(int sym, int u, int v)` | 記号 `sym` の到達対に @c (u,v) を追加する (終端辺の登録に使う) | $O(1)$ |
+| `bool get(int sym, int u, int v) const` | @c (u,v) が記号 `sym` から導出可能か | $O(1)$ |
+| `void add_rule(int A, int B, int C)` | 二項規則 `A`->BC を追加する | 償却 $O(1)$ |
+| `void solve()` | 不動点まで反復して全到達対を確定する | 1反復 $O(Rn^3/64)$、最悪 $O(SRn^5/64)$ |
 
 ## 補足
 

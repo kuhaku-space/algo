@@ -11,10 +11,13 @@
 ///          idom[root] = root とする。root から到達不能な頂点は idom = -1。
 ///          辺の重みは無視する。計算量はほぼ O((V + E) α(V))。
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity 構築は $O((V+E)\alpha(V))$、問合せは $O(1)$
 template <graph_type G>
 struct dominator_tree {
+    /// @brief 始点rootからの支配木を構築する
     /// @param g 有向グラフ
     /// @param root 支配関係の始点
+    /// @complexity $O((V+E)\alpha(V))$
     dominator_tree(const G &g, int root = 0) : _size(g.size()), _root(root), _idom(_size, -1) {
         std::vector<std::vector<int>> radj(_size);
         for (auto &e : g.all_edges()) radj[e.to()].emplace_back(e.from());
@@ -22,8 +25,10 @@ struct dominator_tree {
     }
 
     /// @brief 直接支配点を取得する（root は自分自身、到達不能な頂点は -1）
+    /// @complexity $O(1)$
     int idom(int v) const { return _idom[v]; }
     /// @brief 直接支配点の配列を取得する
+    /// @complexity $O(1)$
     const std::vector<int> &idom() const { return _idom; }
 
   private:

@@ -5,12 +5,15 @@
 #include "segtree/monoid.hpp"
 
 /// @brief Disjoint Sparse Table
+/// @complexity 構築は $O(n\log n)$、区間積は $O(1)$
 template <monoid M>
 struct disjoint_sparse_table {
   private:
     using T = typename M::value_type;
 
   public:
+    /// @brief 列vから構築する
+    /// @complexity $O(n\log n)$
     template <class U>
     disjoint_sparse_table(const std::vector<U> &v) {
         int b = 1;
@@ -31,6 +34,8 @@ struct disjoint_sparse_table {
         }
     }
 
+    /// @brief 半開区間[l,r)の積を返す
+    /// @complexity $O(1)$
     T prod(int l, int r) const {
         assert(l <= r);
         if (l == r) return M::id();

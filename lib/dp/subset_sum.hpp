@@ -8,7 +8,7 @@
 
 namespace internal_subset_sum {
 
-/// @brief bits |= bits << shift を O(bits.size()) で行う
+// bits |= bits << shift を O(bits.size()) で行う
 inline void shift_or(std::vector<std::uint64_t> &bits, long long shift) {
     if (shift <= 0) return;
     long long word_shift = shift / 64;

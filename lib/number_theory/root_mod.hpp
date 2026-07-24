@@ -60,6 +60,9 @@ mint peth_root(mint a, std::int64_t p, int e) {
 
 }  // namespace internal
 
+/// @brief 素数法上で `x` の平方根を 1 つ返す
+/// @return 平方根が存在しなければ `std::nullopt`
+/// @complexity 法を $P$ として $O(\log^2 P)$
 template <internal::modint mint>
 std::optional<mint> sqrt_mod(mint x) {
     if (!internal::has_sqrt_mod(x)) return std::nullopt;
@@ -95,6 +98,7 @@ std::optional<mint> sqrt_mod(mint x) {
 /// @param a 右辺
 /// @param k 指数 (0 <= k)
 /// @return 条件を満たす x の1つ。解が存在しないときは std::nullopt
+/// @complexity 法を $P$ として $O(\sqrt P\log^2 P)$
 template <internal::modint mint>
 std::optional<mint> kth_root_mod(mint a, std::int64_t k) {
     assert(k >= 0);

@@ -35,19 +35,28 @@ struct grid_impl<0> {
 
 }  // namespace internal
 
+/// @brief 固定次元グリッドの範囲判定と一次元化
+/// @tparam Index 次元数
+/// @complexity 構築・`in_field`・`flatten` は $O(Index)$
 template <int Index>
 struct Grid {
+    /// @brief 各次元の大きさからグリッドを構築する
+    /// @complexity $O(Index)$
     template <class... Args>
     constexpr Grid(Args &&...args) : entity(std::forward<Args>(args)...) {
         static_assert(sizeof...(Args) == Index);
     }
 
+    /// @brief 座標が全次元の範囲内か返す
+    /// @complexity $O(Index)$
     template <class... Args>
     constexpr bool in_field(Args &&...args) const {
         static_assert(sizeof...(Args) == Index);
         return entity.in_field(std::forward<Args>(args)...);
     }
 
+    /// @brief 座標を行優先の一次元indexへ変換する
+    /// @complexity $O(Index)$
     template <class... Args>
     constexpr std::int64_t flatten(Args &&...args) const {
         static_assert(sizeof...(Args) == Index);

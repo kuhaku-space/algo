@@ -14,6 +14,7 @@
 template <class T, class Comp = std::less<T>>
 struct convex_hull_trick {
     /// @brief 直線 $ax+b$ を追加する（傾きは単調順）
+    /// @complexity 償却 $O(1)$
     void add(T a, T b) {
         line_t line{a, b};
         if (!lines.empty() && lines.back().a == a) {
@@ -26,6 +27,7 @@ struct convex_hull_trick {
     }
 
     /// @brief $x$ における最小値（または最大値）
+    /// @complexity 直線数を $n$ として $O(\log n)$
     T get(T x) const {
         assert(!lines.empty());
         int low = 0, high = static_cast<int>(lines.size()) - 1;
@@ -37,6 +39,8 @@ struct convex_hull_trick {
         return f(lines[low], x);
     }
 
+    /// @brief 直線が登録されていないか返す
+    /// @complexity $O(1)$
     bool empty() const { return lines.empty(); }
 
   private:

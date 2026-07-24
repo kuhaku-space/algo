@@ -9,8 +9,12 @@
 /// @see https://ei1333.hateblo.jp/entry/2017/09/11/211011
 /// @see https://snuke.hatenablog.com/entry/2016/07/01/000000
 struct Mo {
+    /// @brief 長さnの列に対するMoを構築する
+    /// @complexity $O(1)$
     Mo(int n) : _left(), _right(), _order(), _size(n), _nl(0), _nr(0) {}
 
+    /// @brief 標準入力からq個の区間を追加する
+    /// @complexity $O(q)$
     void input(int q, int bias = 1, int closed = 0) {
         for (int i = 0; i < q; ++i) {
             int l, r;
@@ -19,13 +23,23 @@ struct Mo {
         }
     }
 
+    /// @brief 半開区間を追加する
+    /// @complexity 償却 $O(1)$
     void add(int l, int r) {
         _left.emplace_back(l);
         _right.emplace_back(r);
     }
+    /// @brief addと同じ
+    /// @complexity 償却 $O(1)$
     void emplace(int l, int r) { return add(l, r); }
+
+    /// @brief addと同じ
+    /// @complexity 償却 $O(1)$
     void insert(int l, int r) { return add(l, r); }
 
+    /// @brief 左右共通の追加・削除処理で全クエリを実行する
+    /// @complexity クエリ数を $q$ として、整列は $O(q\log q)$、
+    /// コールバック呼び出しは $O((n+q)\sqrt q)$ 回
     template <class F, class G, class H>
     void solve(F add, G del, H rem) {
         build();
@@ -38,6 +52,9 @@ struct Mo {
         }
     }
 
+    /// @brief 左右別の追加・削除処理で全クエリを実行する
+    /// @complexity クエリ数を $q$ として、整列は $O(q\log q)$、
+    /// コールバック呼び出しは $O((n+q)\sqrt q)$ 回
     template <class F, class G, class H, class I, class K>
     void solve(F addl, G addr, H dell, I delr, K rem) {
         build();

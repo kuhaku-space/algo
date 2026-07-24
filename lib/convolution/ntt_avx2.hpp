@@ -31,6 +31,7 @@ inline bool has_avx2() {
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
+/// @complexity 出力長を $N$ として $O(N\log N)$
 template <unsigned int mod = 998244353, std::integral T>
 std::vector<T> convolution_avx2(const std::vector<T> &a, const std::vector<T> &b) {
     static_assert(internal::is_prime<(int)mod>, "mod must be prime");
@@ -62,6 +63,7 @@ std::vector<T> convolution_avx2(const std::vector<T> &a, const std::vector<T> &b
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<mint> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @complexity 出力長を $N$ として $O(N\log N)$
 template <internal::static_modint_c mint>
 std::vector<mint> convolution_avx2(const std::vector<mint> &a, const std::vector<mint> &b) {
     constexpr unsigned int mod = (unsigned int)mint::mod();

@@ -67,12 +67,16 @@ std::vector<std::uint64_t> inner_factorize(std::uint64_t n) {
 }  // namespace internal
 
 /// @brief 素因数分解
+/// @complexity Pollard's rho により期待 $O(n^{1/4}\log n)$
 std::vector<std::uint64_t> factorize(std::uint64_t n) {
     auto res = internal::inner_factorize(n);
     std::sort(res.begin(), res.end());
     return res;
 }
 
+/// @brief 素因数列 `v` から元の整数の正の約数個数を返す
+/// @details `v` は重複を含んでよく、関数内で整列される。
+/// @complexity 素因数の個数を $k$ として $O(k\log k)$
 std::uint64_t number_of_divisors(std::vector<std::uint64_t> v) {
     std::sort(v.begin(), v.end());
     int c = 0;
@@ -88,11 +92,14 @@ std::uint64_t number_of_divisors(std::vector<std::uint64_t> v) {
     return res * (c + 1);
 }
 
+/// @brief 整数 `n` の正の約数個数を返す
+/// @complexity 素因数分解により期待 $O(n^{1/4}\log n)$
 std::uint64_t number_of_divisors(std::uint64_t n) { return number_of_divisors(internal::inner_factorize(n)); }
 
 /// @brief 原始根
 /// @param p 素数
 /// @return p の最小の原始根
+/// @complexity $p-1$ の素因数分解は期待 $O(p^{1/4}\log p)$、各候補の検査は $O(\omega(p-1)\log p)$
 std::uint64_t primitive_root(std::uint64_t p) {
     if (p == 2) return 1;
     auto pf = factorize(p - 1);

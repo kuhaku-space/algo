@@ -8,6 +8,7 @@
 /// @return 閉路を構成する辺 ID の列（入力順で連結する）。閉路が無ければ空。
 /// @note 各辺 ID は `list_graph::add_edge` の追加順（= 入力順）。多重辺・自己ループに対応。
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> cycle_detection_directed(const G &g) {
     int n = g.size();
@@ -67,6 +68,7 @@ std::vector<int> cycle_detection_directed(const G &g) {
 /// @note 無向辺は `list_graph::add_edges` で追加し、往復 2 本に同じ ID が振られていること。
 ///       自己ループは長さ 1、多重辺は長さ 2 の閉路として検出する。
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const G &g) {
     int n = g.size();
@@ -130,6 +132,7 @@ std::pair<std::vector<int>, std::vector<int>> cycle_detection_undirected(const G
 
 /// @brief 閉路検出
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 bool has_cycle(const G &g) {
     int n = g.size();

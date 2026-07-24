@@ -2,11 +2,11 @@
 #include <cstdint>
 #include <vector>
 
-/**
- * @brief kd-tree
- *
- * @see https://tjkendev.github.io/procon-library/cpp/range_query/kd-tree.html
- */
+/// @brief 二次元kd-tree
+/// @details 点の追加後に `build()` し、最近点距離と半開矩形内の点IDを検索する。
+/// @complexity 構築は $O(n\log^2 n)$。検索は平均 $O(\sqrt n+k)$、
+/// 最悪 $O(n)$（$k$ は報告点数）
+/// @see https://tjkendev.github.io/procon-library/cpp/range_query/kd-tree.html
 struct kdtree {
   private:
     struct _point {
@@ -25,18 +25,27 @@ struct kdtree {
     };
 
   public:
+    /// @brief 空の kd-tree を作る
+    /// @complexity $O(1)$
     kdtree() : points(), nodes() {}
 
+    /// @brief 点 `(x, y)` を追加し、追加順の ID を割り当てる
+    /// @complexity 償却 $O(1)$
     void add(int x, int y) {
         int id = this->points.size();
         this->points.emplace_back(id, x, y);
     }
 
+    /// @brief 追加済みの点から kd-tree を構築する
+    /// @complexity $O(n\log^2 n)$
     void build() { this->build(0, this->points.size(), 0); }
 
+    /// @brief 点 `(x, y)` から最近点までの距離の二乗を返す
+    /// @complexity 平均 $O(\sqrt n)$、最悪 $O(n)$
     std::int64_t find(int x, int y) { return this->find(0, x, y, 0, -1); }
 
-    // [sx, tx) * [sy, ty)
+    /// @brief 半開矩形 $[sx,tx)\times[sy,ty)$ 内にある点の ID を返す
+    /// @complexity 平均 $O(\sqrt n+k)$、最悪 $O(n)$（`k` は返す点数）
     std::vector<int> find(int sx, int tx, int sy, int ty) { return this->find(0, sx, tx, sy, ty, 0); }
 
   private:

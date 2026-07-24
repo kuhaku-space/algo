@@ -20,14 +20,11 @@ int minimum = table.prod(1, 4);  // min(2, 7, 1) == 1
 
 ## API
 
-`sparse_table<M>` — `M` はモノイドであり、さらに `M::op(x, x) == x` を満たす冪等演算。
-
 | API | 内容 | 計算量 |
 | --- | --- | --- |
-| `sparse_table(values)` | 長さ $2^k$ の各区間の積を前計算 | $O(n\log n)$ |
-| `prod(l, r)` | 半開区間 `[l, r)` の積 | $O(1)$ |
-
-空間計算量は $O(n\log n)$。
+| `sparse_table() = default;` | 空のtableを構築する | $O(1)$ |
+| `sparse_table(const std::vector<T> &v)` | 列vから構築する | $O(n\log n)$ |
+| `T prod(int l, int r) const` | 半開区間[l,r)の積を返す | $O(1)$ |
 
 ## 補足
 
