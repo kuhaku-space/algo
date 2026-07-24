@@ -1,0 +1,36 @@
+{% for dependency in include.data.dependencies %}
+{% if dependency.files.size != 0 %}
+  {% case dependency.type %}
+    {% when "Depends on" %}
+      {% assign dependency_label = "依存するヘッダ" %}
+    {% when "Required by" %}
+      {% assign dependency_label = "このヘッダを利用するライブラリ" %}
+    {% when "Verified with" %}
+      {% assign dependency_label = "自動検証" %}
+    {% else %}
+      {% assign dependency_label = dependency.type %}
+  {% endcase %}
+<details class="reference-relations">
+  <summary>{{ dependency_label }}（{{ dependency.files.size }}）</summary>
+  <ul>
+  {% for item in dependency.files %}
+    <li>
+      <a href="{{ item.path | relative_url }}">
+        {{ site.icons[item.icon] }}
+        {% if item.title %}
+          {{ item.title | escape }} <small>({{ item.path | escape }})</small>
+        {% else %}
+          {{ item.path | escape }}
+        {% endif %}
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</details>
+{% endif %}
+{% endfor %}
+
+<details class="source-code">
+  <summary>実装を見る</summary>
+  {% include code.html extension=include.data.pathExtension embedded=include.data.embedded %}
+</details>

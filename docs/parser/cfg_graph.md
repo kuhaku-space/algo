@@ -1,6 +1,7 @@
 ---
 title: グラフ上の文脈自由到達可能性 (CykGraph)
 documentation_of: //lib/parser/cfg_graph.hpp
+compile_example: true
 ---
 
 辺ラベル付き有向グラフに CNF (チョムスキー標準形) の文脈自由文法を適用し、各記号 `X`
@@ -22,17 +23,15 @@ documentation_of: //lib/parser/cfg_graph.hpp
 // 記号 id: S(開始), T(補助 = S の後に ')'), 終端 L='(' , R=')'
 enum { S, T, L, R, NUM_SYM };
 
-CykGraph g(n, NUM_SYM);
-for (/* 各辺 u -> v (ラベル c) */) {
-    if (c == '(') g.add(L, u, v);
-    if (c == ')') g.add(R, u, v);
-}
+CykGraph g(2, NUM_SYM);
+g.add(L, 0, 1);         // 頂点 0 -> 1、ラベル '('
+g.add(R, 1, 0);         // 頂点 1 -> 0、ラベル ')'
 g.add_rule(S, L, R);   // S -> ( )     空の一組
 g.add_rule(S, L, T);   // S -> ( T
 g.add_rule(T, S, R);   // T -> S )     … あわせて S -> ( S )
 g.add_rule(S, S, S);   // S -> S S     連接
 g.solve();
-bool ok = g.get(S, s, t);   // s から t へ S を導出できるか
+bool ok = g.get(S, 0, 0);   // 0 から 0 へ S を導出できるか
 ```
 
 実問題 (四則演算の文法) での完全な CNF 化とグラフへの適用は

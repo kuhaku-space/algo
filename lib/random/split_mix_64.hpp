@@ -4,10 +4,8 @@
 #include <limits>
 #include <utility>
 
-/**
- * @brief 疑似乱数生成器 SplitMix64
- * @details 周期：$2^64-1$
- */
+/// @brief 疑似乱数生成器 SplitMix64
+/// @details 周期：$2^64-1$
 struct split_mix_64 {
     using state_type = std::uint64_t;
     using result_type = std::uint64_t;

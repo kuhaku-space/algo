@@ -18,6 +18,10 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - 正しさはランダムテストで naive 実装と突き合わせる。
 - verify 用問題は **Library Checker → yukicoder → AOJ** の順で探す。素直に対応する問題が
   なければ verify は保留（competitive-verifier の UNIT_TEST は使わない）。
+- 公開 API の日本語リファレンスを変更したら `mise run docs-check` で自動生成ページを
+  同期し、形式・使用例のコンパイル・網羅率を検査する。新規の手書きページは
+  `python3 tools/reference_docs.py stub lib/<category>/<header>.hpp` で雛形を作る。Doxygen
+  由来のページはGit管理外の `docs/generated/` に生成し、コミットしない。
 
 ### CI 調査・トークン節約
 

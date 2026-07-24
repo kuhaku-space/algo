@@ -1,6 +1,7 @@
 /.devcontainer/
 /.vscode/
 /Doxyfile/
+/docs/generated/
 /workspace/*
 !/workspace/
 !/workspace/.clang-format

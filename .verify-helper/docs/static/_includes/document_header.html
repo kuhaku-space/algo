@@ -1,0 +1,46 @@
+<nav class="reference-nav" aria-label="ページナビゲーション">
+  <a href="{{ "/" | absolute_url }}">リファレンス</a>
+  <span aria-hidden="true">/</span>
+  <span>{{ include.data.path | remove_first: "lib/" }}</span>
+</nav>
+
+<p class="reference-kicker">C++23 LIBRARY</p>
+<h1>{{ page.title }}</h1>
+{% if page.title != include.data.path %}
+<p class="reference-path">{{ include.data.path }}</p>
+{% endif %}
+
+<ul class="reference-meta">
+  <li>
+    <a href="{{ site.github.repository_url }}/blob/main/{{ include.data.path }}">GitHubでソースを見る</a>
+  </li>
+  <li>最終更新: {{ include.data.timestamp | date: "%Y-%m-%d" }}</li>
+  {% if include.data.attributes.PROBLEM %}
+  <li>問題: <a href="{{ include.data.attributes.PROBLEM }}">{{ include.data.attributes.PROBLEM }}</a></li>
+  {% endif %}
+  {% for link in include.data.attributes.links %}
+  {% if link != include.data.attributes.PROBLEM %}
+  <li>参考: <a href="{{ link }}">{{ link }}</a></li>
+  {% endif %}
+  {% endfor %}
+</ul>
+
+{% if include.data.pathExtension == "hpp" %}
+<button id="include-directive-anchor" class="include-directive" type="button">
+  <span>include</span>
+  <code id="include-directive-code">#include "{{ include.data.path | remove_first: "lib/" }}"</code>
+  <span id="include-copy-feedback" aria-live="polite">コピー</span>
+</button>
+<script defer>
+  (() => {
+    const button = document.getElementById("include-directive-anchor");
+    const code = document.getElementById("include-directive-code");
+    const feedback = document.getElementById("include-copy-feedback");
+    button.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(code.textContent);
+      feedback.textContent = "コピーしました";
+      window.setTimeout(() => feedback.textContent = "コピー", 1200);
+    });
+  })();
+</script>
+{% endif %}

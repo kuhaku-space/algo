@@ -34,6 +34,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Generate reference docs
+        run: python3 tools/reference_docs.py sync-generated
+
+      - name: Check reference docs
+        run: python3 tools/reference_docs.py check
+
       - name: Set up competitive-verifier
         uses: competitive-verifier/actions/setup@v2
         with:
@@ -48,6 +54,8 @@ jobs:
           # include: your-own-include/
           exclude: |
             .github/
+            tools/
+            workspace/
           # If you have config.toml
           config: .verify-helper/config.toml
       - name: parse-doxygen
@@ -184,6 +192,15 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 2147483647
+
+      # This job uses a fresh checkout, so regenerate the ignored API pages
+      # before competitive-verifier collects the Markdown sources. The docs
+      # command enumerates sources with `git ls-files`, so add the ignored
+      # generated pages to this checkout's index without committing them.
+      - name: Generate reference docs
+        run: |
+          python3 tools/reference_docs.py sync-generated
+          git add -f docs/generated
 
       - name: Download verify_files.json and all artifacts
         id: all-artifacts

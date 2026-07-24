@@ -1,0 +1,63 @@
+{% for top in page.data.top %}
+{% if top.type == "Library Files" %}
+<section class="reference-browser" aria-labelledby="library-reference-heading">
+  <div class="reference-heading">
+    <div>
+      <p class="reference-kicker">LIBRARY REFERENCE</p>
+      <h2 id="library-reference-heading">ライブラリを探す</h2>
+    </div>
+    <label class="reference-search">
+      <span class="sr-only">ヘッダを検索</span>
+      <input id="reference-search-input" type="search"
+             placeholder="名前・カテゴリ・パスを検索  /"
+             autocomplete="off">
+    </label>
+  </div>
+  <p id="reference-search-status" class="reference-search-status" aria-live="polite"></p>
+
+  <div id="reference-categories" class="reference-categories">
+    {% for category in top.categories %}
+      <section class="reference-category" data-category="{{ category.name }}">
+        <h3>{{ category.name | remove_first: "lib/" }}</h3>
+        <ul>
+          {% for item in category.pages %}
+          <li data-search="{{ category.name }} {{ item.title }} {{ item.path }}">
+            <a href="{{ item.path | relative_url }}">
+              <span class="verification-icon" aria-hidden="true">{{ site.icons[item.icon] }}</span>
+              {% if item.title %}
+              <span>{{ item.title | escape }}</span>
+              <small>{{ item.path | remove_first: "lib/" }}</small>
+              {% else %}
+              <span>{{ item.path | remove_first: "lib/" }}</span>
+              {% endif %}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endfor %}
+  </div>
+</section>
+{% elsif top.type == "Verification Files" %}
+<details class="verification-files">
+  <summary>検証プログラムを見る（{{ top.categories.size }}カテゴリ）</summary>
+  {% for category in top.categories %}
+    <h3>{{ category.name }}</h3>
+    <ul>
+      {% for item in category.pages %}
+      <li>
+        <a href="{{ item.path | relative_url }}">
+          {{ site.icons[item.icon] }}
+          {% if item.title %}
+            {{ item.title | escape }} <small>({{ item.path | escape }})</small>
+          {% else %}
+            {{ item.path | escape }}
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</details>
+{% endif %}
+{% endfor %}

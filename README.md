@@ -76,6 +76,26 @@ verify で使用するコンパイラオプションは
 [AtCoder の言語アップデート](https://img.atcoder.jp/file/language-update/2025-10/language-list.html)
 を参考にしています。
 
+## ドキュメント
+
+公開 API の日本語リファレンスは [`docs/`](docs/) にあり、ヘッダの Doxygen コメント、
+依存関係、検証結果と合わせて GitHub Pages に自動生成されます。
+
+新しい詳細ページの雛形生成と、既存ページの形式・使用例・網羅率の検査は次のコマンドで
+行えます。
+
+```sh
+python3 tools/reference_docs.py stub lib/segtree/segment_tree.hpp
+python3 tools/reference_docs.py sync-generated
+python3 tools/reference_docs.py check
+```
+
+自動生成ページは `docs/generated/` に作られ、Git管理には含めません。CIでも検査と
+サイト構築の前に同じページを生成するため、pushするのは手書きページと生成ロジックだけです。
+
+ページの構成と記述方針は
+[`docs/reference_style.md`](docs/reference_style.md) を参照してください。
+
 ## コーディング規約
 
 - 言語は **C++23**。

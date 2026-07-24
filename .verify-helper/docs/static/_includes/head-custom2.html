@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="{{ "/assets/css/reference.css" | relative_url }}">
+<script defer src="{{ "/assets/js/reference-search.js" | relative_url }}"></script>
+
+{% if site.theme == "jekyll-theme-minimal" %}
+<style type="text/css">
+@media screen and (min-width: 960px) {
+    div.wrapper {
+        width: min(1440px, calc(100% - 64px));
+    }
+    div.wrapper > header {
+        width: 260px;
+    }
+    div.wrapper > section {
+        width: calc(100% - 300px);
+    }
+}
+</style>
+{% endif %}

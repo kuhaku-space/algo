@@ -1,6 +1,7 @@
 ---
 title: 汎用式パーサ (ExpressionParser)
 documentation_of: //lib/parser/parser.hpp
+compile_example: true
 ---
 
 演算子優先順位法 (precedence climbing) による汎用の式パーサ。二項演算子・前置単項
@@ -23,7 +24,11 @@ long long v = eval_expr<long long>("1 + 2 * (3 - 4)");   // -1
 using P = ExpressionParser<long long>;
 auto p = arithmetic_parser<long long>();
 p.binary("%", 20, P::Assoc::Left, [](auto& a, auto& b) { return a % b; })
- .binary("^", 30, P::Assoc::Right, [](auto& a, auto& b) { /* a^b */ });
+ .binary("^", 30, P::Assoc::Right, [](auto& a, auto& b) {
+     long long result = 1;
+     for (long long i = 0; i < b; ++i) result *= a;
+     return result;
+ });
 p.parse("2 ^ 3 ^ 2");   // 512 (右結合)
 ```
 
