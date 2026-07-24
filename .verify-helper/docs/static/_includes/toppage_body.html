@@ -1,3 +1,5 @@
+{% for top in page.data.top %}
+{% if top.type == "Library Files" %}
 <section class="reference-browser" aria-labelledby="library-reference-heading">
   <div class="reference-heading">
     <div>
@@ -14,17 +16,19 @@
   <p id="reference-search-status" class="reference-search-status" aria-live="polite"></p>
 
   <div id="reference-categories" class="reference-categories">
-    {% for category in page.data.libraryCategories %}
+    {% for category in top.categories %}
       <section class="reference-category" data-category="{{ category.name }}">
         <h3>{{ category.name | remove_first: "lib/" }}</h3>
         <ul>
           {% for item in category.pages %}
           <li data-search="{{ category.name }} {{ item.title }} {{ item.path }}">
-            <a href="{{ item.path | absolute_url }}">
-              <span class="verification-icon" aria-hidden="true">{{ item.icon }}</span>
-              <span>{{ item.title }}</span>
-              {% if item.title != item.path %}
+            <a href="{{ item.path | relative_url }}">
+              <span class="verification-icon" aria-hidden="true">{{ site.icons[item.icon] }}</span>
+              {% if item.title %}
+              <span>{{ item.title | escape }}</span>
               <small>{{ item.path | remove_first: "lib/" }}</small>
+              {% else %}
+              <span>{{ item.path | remove_first: "lib/" }}</span>
               {% endif %}
             </a>
           </li>
@@ -34,19 +38,26 @@
     {% endfor %}
   </div>
 </section>
-
+{% elsif top.type == "Verification Files" %}
 <details class="verification-files">
-  <summary>検証プログラムを見る（{{ page.data.verificationCategories.size }}カテゴリ）</summary>
-  {% for category in page.data.verificationCategories %}
+  <summary>検証プログラムを見る（{{ top.categories.size }}カテゴリ）</summary>
+  {% for category in top.categories %}
     <h3>{{ category.name }}</h3>
     <ul>
       {% for item in category.pages %}
       <li>
-        <a href="{{ item.path | absolute_url }}">{{ item.icon }} {{ item.title }}
-          {% if item.title != item.path %}<small>({{ item.path }})</small>{% endif %}
+        <a href="{{ item.path | relative_url }}">
+          {{ site.icons[item.icon] }}
+          {% if item.title %}
+            {{ item.title | escape }} <small>({{ item.path | escape }})</small>
+          {% else %}
+            {{ item.path | escape }}
+          {% endif %}
         </a>
       </li>
       {% endfor %}
     </ul>
   {% endfor %}
 </details>
+{% endif %}
+{% endfor %}

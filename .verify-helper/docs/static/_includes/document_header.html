@@ -1,34 +1,34 @@
 <nav class="reference-nav" aria-label="ページナビゲーション">
   <a href="{{ "/" | absolute_url }}">リファレンス</a>
   <span aria-hidden="true">/</span>
-  <span>{{ page.data.path | remove_first: "lib/" }}</span>
+  <span>{{ include.data.path | remove_first: "lib/" }}</span>
 </nav>
 
 <p class="reference-kicker">C++23 LIBRARY</p>
 <h1>{{ page.title }}</h1>
-{% if page.title != page.data.path %}
-<p class="reference-path">{{ page.data.path }}</p>
+{% if page.title != include.data.path %}
+<p class="reference-path">{{ include.data.path }}</p>
 {% endif %}
 
 <ul class="reference-meta">
   <li>
-    <a href="{{ site.github.repository_url }}/blob/main/{{ page.data.path }}">GitHubでソースを見る</a>
+    <a href="{{ site.github.repository_url }}/blob/main/{{ include.data.path }}">GitHubでソースを見る</a>
   </li>
-  <li>最終更新: {{ page.data.timestamp | date: "%Y-%m-%d" }}</li>
-  {% if page.data.attributes.PROBLEM %}
-  <li>問題: <a href="{{ page.data.attributes.PROBLEM }}">{{ page.data.attributes.PROBLEM }}</a></li>
+  <li>最終更新: {{ include.data.timestamp | date: "%Y-%m-%d" }}</li>
+  {% if include.data.attributes.PROBLEM %}
+  <li>問題: <a href="{{ include.data.attributes.PROBLEM }}">{{ include.data.attributes.PROBLEM }}</a></li>
   {% endif %}
-  {% for link in page.data.attributes.links %}
-  {% if link != page.data.attributes.PROBLEM %}
+  {% for link in include.data.attributes.links %}
+  {% if link != include.data.attributes.PROBLEM %}
   <li>参考: <a href="{{ link }}">{{ link }}</a></li>
   {% endif %}
   {% endfor %}
 </ul>
 
-{% if page.data._pathExtension == "hpp" %}
+{% if include.data.pathExtension == "hpp" %}
 <button id="include-directive-anchor" class="include-directive" type="button">
   <span>include</span>
-  <code id="include-directive-code">#include "{{ page.data.path | remove_first: "lib/" }}"</code>
+  <code id="include-directive-code">#include "{{ include.data.path | remove_first: "lib/" }}"</code>
   <span id="include-copy-feedback" aria-live="polite">コピー</span>
 </button>
 <script defer>

@@ -219,7 +219,7 @@ td code {
   margin-top: 2.5rem;
 }
 
-.source-code .highlight {
+.source-code .hljs {
   max-height: 70vh;
   overflow: auto;
 }
