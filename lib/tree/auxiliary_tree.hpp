@@ -8,9 +8,13 @@
 /// @brief auxiliary tree（補助木 / virtual tree）
 /// @details コンストラクタで LCA・Euler tour を前計算し、build(vs) で指定頂点集合に対する
 ///          圧縮木を何度でも構築できる。Σ|vs| が小さければ各 build は O(|vs| log N)。
+/// @complexity 前計算 $O(N)$、k頂点の圧縮木構築 $O(k\log k)$
 struct auxiliary_tree {
     /// @brief build が返す圧縮木。元の木の頂点番号・親・指定頂点フラグを保持する。
+    /// @complexity 構築は補助木頂点数を $k$ として $O(k)$、参照は $O(1)$
     struct tree : public list_graph<void> {
+        /// @brief 元頂点列・親列・指定頂点flagから圧縮木を構築する
+        /// @complexity $O(k)$
         tree(const std::vector<int> &_ord, const std::vector<int> &_par, const std::vector<bool> &_f)
             : list_graph::list_graph(_par.size()), ord(_ord), par(_par), f(_f) {
             int n = _par.size();
@@ -20,10 +24,13 @@ struct auxiliary_tree {
         }
 
         /// @brief 補助木ノード x に対応する元の木の頂点番号
+        /// @complexity $O(1)$
         int get_vertex(int x) const { return ord[x]; }
         /// @brief 補助木ノード x の親ノード番号。根は -1。
+        /// @complexity $O(1)$
         int get_parent(int x) const { return par[x]; }
         /// @brief 補助木ノード x が指定頂点（LCA で補われた頂点でない）か
+        /// @complexity $O(1)$
         bool is_specified(int x) const { return f[x]; }
 
       private:
@@ -31,10 +38,13 @@ struct auxiliary_tree {
         std::vector<bool> f;
     };
 
+    /// @brief 木gを根rとしてLCAとEuler tourを前計算する
+    /// @complexity $O(N)$
     template <graph_type G>
     auxiliary_tree(const G &g, int r = 0) : lca(g, r), et(g, r) {}
 
     /// @brief 指定頂点集合 v に対する圧縮木を構築する。
+    /// @complexity 指定頂点数を $k$ として $O(k\log k)$
     tree build(std::vector<int> v) {
         std::sort(v.begin(), v.end(), [&](int x, int y) { return et.order(x) < et.order(y); });
         v.erase(std::unique(v.begin(), v.end()), v.end());

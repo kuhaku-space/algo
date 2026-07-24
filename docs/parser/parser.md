@@ -37,50 +37,32 @@ p.parse("2 ^ 3 ^ 2");   // 512 (右結合)
 
 ## API
 
-`ExpressionParser<T>` — `T` は演算子・アトムが返す値型。
-
-### 文法の登録 (fluent)
-
-| メソッド | 内容 |
-| --- | --- |
-| `binary(op, prec, assoc, f)` | 二項演算子を登録。`prec` が大きいほど優先、`assoc` は `Assoc::Left` / `Assoc::Right` |
-| `binary(op, prec, assoc, f, guard)` | ガード付き二項演算子。`guard(after)` が `false` の位置は演算子とみなさない |
-| `prefix(op, f)` | 前置単項演算子を登録 (二項より強く結合) |
-| `concat(prec, assoc, f, guard)` | 暗黙の連接 (記号なしで項が並ぶ) を登録。`guard` は必須 |
-| `atom(f)` | 数値・変数・関数呼び出し等の最小単位を読むコールバックを設定 |
-| `group(open, close)` | グループ化括弧を設定 (既定は `(` `)`) |
-| `no_group()` | 組み込みの括弧処理を無効化 (`(` を atom 側で扱いたいとき) |
-
-- `op` は多文字トークン可 (現在位置での最長一致で選ばれる)。
-- 前置演算子はアトムに最も強く結合する (`-x*y` は `(-x)*y`、`-x` は `x` に束縛)。
-- `binary_fn` = `T(const T&, const T&)`、`unary_fn` = `T(const T&)`、
-  `guard_fn` = `bool(std::string_view)` (トークン直後の残り入力を受け取る)。
-
-### 解析
-
-| メソッド | 内容 |
-| --- | --- |
-| `parse(str)` | 式全体を解析して `T` を返す。末尾に余分な文字が残れば例外 |
-| `parse_expression(min_prec = 0)` | 優先順位 `min_prec` 以上の部分式を解析 (アトムから再帰的に呼ぶ) |
-
-### アトムから使う低レベル API
-
-| メソッド | 内容 |
-| --- | --- |
-| `peek()` | 空白を飛ばした現在の文字 (末尾なら `'\0'`) |
-| `rest()` | 残りの入力 (`std::string_view`) |
-| `consume(tok)` | `tok` が現在位置に一致すれば消費して `true` |
-| `advance(n = 1)` | 現在位置を `n` 文字進める |
-| `read_uint()` | 非負整数を `long long` として読む (`T` に依らない。AST 構築等に) |
-| `read_identifier()` | 英字からなる識別子を読む (先頭が英字でなければ空) |
-| `integer_atom(p)` | 非負整数を読む既定アトム (静的関数。`T` が整数から構築可能なとき) |
-
-### プリセット
-
-| 関数 | 内容 |
-| --- | --- |
-| `arithmetic_parser<T>()` | `+ - * /`・単項 `±`・括弧・非負整数の標準四則演算パーサを構築 |
-| `eval_expr<T>(s)` | 四則演算の式文字列を評価する (上記プリセットの薄いラッパ) |
+| API | 内容 | 計算量 |
+| --- | --- | --- |
+| `enum class Assoc` | 結合性 | 列挙型で実行時計算量はない |
+| `using binary_fn = std::function<T(const T &, const T &)>;` | 二項演算callback型 | 型エイリアスで実行時計算量はない |
+| `using unary_fn = std::function<T(const T &)>;` | 単項演算callback型 | 型エイリアスで実行時計算量はない |
+| `using atom_fn = std::function<T(ExpressionParser &)>;` | アトム読取りcallback型 | 型エイリアスで実行時計算量はない |
+| `using guard_fn = std::function<bool(std::string_view)>;` | 二項演算子ガード: トークン直後の残り入力を見て演算子として<br>適用してよいか判定する。閉じ記号と演算子が文字レベルで衝突する 文脈依存文法 (例: AOJ 2570 の @c ">>" と @c ">") に使う。 | 型エイリアスで実行時計算量はない |
+| `ExpressionParser &binary(std::string op, int prec, Assoc assoc, binary_fn f)` | 二項演算子を登録する (fluent) | トークン長を $L$ として償却 $O(L)$ |
+| `ExpressionParser &binary(std::string op, int prec, Assoc assoc, binary_fn f, guard_fn guard)` | ガード付き二項演算子を登録する (fluent)<br>`guard`(after) が `false` のときは、その位置の一致を演算子と みなさない (トークンは消費されず、閉じ記号等として残る)。<br>`@c` after はトークン直後の残り入力。 | トークン長を $L$ として償却 $O(L)$ |
+| `ExpressionParser &concat(int prec, Assoc assoc, binary_fn f, guard_fn guard)` | 暗黙の連接 (演算子記号なしで項が並ぶ) を登録する (fluent)<br>空トークンの二項演算子として扱う。項が続くかどうかを表す<br>`@c` guard は必須 (無いと停止できず無限ループになる)。`guard`(rest) が `true` のときだけ次の項を連接する。文字列連接・関数適用など。 | 償却 $O(1)$ |
+| `ExpressionParser &prefix(std::string op, unary_fn f)` | 前置単項演算子を登録する (fluent) | トークン長を $L$ として償却 $O(L)$ |
+| `ExpressionParser &atom(atom_fn f)` | アトム読み取りコールバックを設定する (fluent) | $O(1)$ |
+| `ExpressionParser &group(char open, char close)` | グループ化括弧を設定する (fluent) | $O(1)$ |
+| `ExpressionParser &no_group()` | 組み込みのグループ化括弧を無効化する (fluent)<br>括弧を atom 側で自前処理したいとき (例: 分子式 @c "(X)2" の ように閉じ括弧の直後に処理を続けたいとき) に使う。 | $O(1)$ |
+| `T parse(std::string_view str)` | 式全体を解析する (末尾に余分な文字が残ればエラー) | 入力長を $n$、登録演算子数を $A$ として $O(nA)$ |
+| `T parse_expression(int min_prec = 0)` | 優先順位 `min_prec` 以上の部分式を解析する | 読み取る長さを $n$、登録演算子数を $A$ として $O(nA)$ |
+| `char peek()` | 空白を読み飛ばした現在の文字 (末尾なら @c '\0') | 読み飛ばす空白数を $k$ として $O(k)$ |
+| `char cur() const` | 空白を読み飛ばさない現在位置の文字 (末尾なら @c '\0')<br>番兵 (`std`::string 末尾の @c '\0') により末尾でも安全に<br>`@c` '\0' を返す。アトム側で `rest`().size() の範囲チェックをせず<br>`@c` cur() と `advance`() で1文字ずつ走査できる。 | $O(1)$ |
+| `std::string_view rest() const` | 残りの入力 | $O(1)$ |
+| `bool consume(std::string_view tok)` | トークン `tok` が現在位置に一致すれば消費して `true` | 読み飛ばす空白とトークン長を合わせて $O(k)$ |
+| `void advance(std::size_t n = 1)` | 現在位置を `n` 文字進める | $O(1)$ |
+| `long long read_uint()` | 非負整数を `long` `long` として読む (`T` に依らない。AST 構築等で有用) | 読み取る文字数を $k$ として $O(k)$ |
+| `std::string_view read_identifier()` | 英字からなる識別子を読む (先頭が英字でなければ空文字列) | 読み取る文字数を $k$ として $O(k)$ |
+| `static T integer_atom(ExpressionParser &p)` | 非負整数を読む既定アトム (`T` が整数から構築可能なとき利用可能) | 読み取る文字数を $k$ として $O(k)$ |
+| `template <class T = long long> ExpressionParser<T> arithmetic_parser()` | 標準的な四則演算パーサを構築する<br>@c + @c - @c * @c / ・単項 @c ± ・括弧・非負整数リテラルに対応。 値型 `T` は算術演算を持てば何でもよい (`long` `long` ・`modint` 等)。 | $O(1)$ |
+| `template <class T = long long> T eval_expr(std::string_view s)` | 四則演算の式文字列を評価する | 入力長を $n$ として $O(n)$ |
 
 ## 補足
 

@@ -9,6 +9,7 @@
 /// @brief 動的遅延評価セグメント木
 /// @tparam S データのモノイド
 /// @tparam F 作用素モノイド（op が作用素の合成、f が値への作用）
+/// @complexity 点更新・区間作用・区間積は領域長を $n$ として $O(\log n)$
 template <class S, class F>
 requires monoid<S> && monoid<F> && acts_on<F, typename S::value_type>
 struct dynamic_lazy_segment_tree {
@@ -26,27 +27,49 @@ struct dynamic_lazy_segment_tree {
     };
 
   public:
+    /// @brief 添字領域[0,n)の空の木を構築する
+    /// @complexity $O(1)$
     dynamic_lazy_segment_tree(std::int64_t n) : data(), _size(n) {}
 
+    /// @brief k番目の値を返す
+    /// @complexity $O(\log n)$
     T operator[](std::int64_t k) {
         assert(0 <= k && k < _size);
         return prod(k, k + 1);
     }
+
+    /// @brief k番目の値を返す
+    /// @complexity $O(\log n)$
     T at(std::int64_t k) { return operator[](k); }
+
+    /// @brief k番目の値を返す
+    /// @complexity $O(\log n)$
     T get(std::int64_t k) { return operator[](k); }
 
+    /// @brief k番目をxへ変更する
+    /// @complexity $O(\log n)$
     void set(std::int64_t k, T x) {
         assert(0 <= k && k < _size);
         set(k, x, data.empty() ? -1 : 0, 0, _size);
     }
+
+    /// @brief k番目を単位元へ戻す
+    /// @complexity $O(\log n)$
     void reset(std::int64_t k) { set(k, S::id()); }
 
+    /// @brief 半開区間[a,b)にfを作用する
+    /// @complexity $O(\log n)$
     void apply(std::int64_t a, std::int64_t b, U f) {
         assert(0 <= a && a <= b && b <= _size);
         apply(a, b, f, data.empty() ? -1 : 0, 0, _size);
     }
 
+    /// @brief 全要素の積を返す
+    /// @complexity $O(1)$
     T all_prod() const { return data.empty() ? S::id(_size) : data[0].value; }
+
+    /// @brief 半開区間[a,b)の積を返す
+    /// @complexity $O(\log n)$
     T prod(std::int64_t a, std::int64_t b) {
         assert(0 <= a && a <= _size);
         assert(0 <= b && b <= _size);

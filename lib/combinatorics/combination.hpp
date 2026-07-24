@@ -6,16 +6,29 @@
 #include "math/modint.hpp"
 
 /// @brief 二項係数・階乗・順列・多項係数・重複組合せ
+/// @details 階乗・逆元・逆階乗の表を必要な大きさまで遅延構築する。
+/// テーブルを使う計算では法が素数で、要求する添字が法未満であることを前提とする。
+/// @tparam mint 法が素数の modint 型
 template <internal::modint mint = modint998>
 struct Combinatorics {
+    /// @brief 空の計算テーブルを構築する
+    /// @complexity $O(1)$
     Combinatorics() : fact_table(), inv_table(), finv_table() {}
 
+    /// @brief $x!$ を返す
+    /// @param x 0以上の整数
+    /// @complexity 構築済みの最大添字を $m$ として、$x \le m$ なら $O(1)$、
+    /// それ以外は $O(x-m)$
     mint fact(int x) {
         assert(x >= 0);
         init(x);
         return fact_table[x];
     }
 
+    /// @brief $(x!)^{-1}$ を返す
+    /// @param x 0以上かつ法未満の整数
+    /// @complexity 構築済みの最大添字を $m$ として、$x \le m$ なら $O(1)$、
+    /// それ以外は $O(x-m)$
     mint finv(int x) {
         assert(x >= 0);
         init(x);
@@ -23,6 +36,12 @@ struct Combinatorics {
     }
 
     // n が table_limit を超える場合はテーブルを持たず binom_direct() に委譲する
+    /// @brief 二項係数 $\binom{n}{k}$ を返す。不正な範囲では0を返す
+    /// @param n 要素数
+    /// @param k 選ぶ要素数
+    /// @complexity $n \le 20{,}000{,}000$ では、構築済みの最大添字を $m$ として
+    /// $O(1+\max(0,n-m))$
+    /// @complexity $n > 20{,}000{,}000$ では $O(\min(k,n-k))$
     mint binom(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= table_limit) {
@@ -33,6 +52,12 @@ struct Combinatorics {
     }
 
     // n が table_limit を超える場合はテーブルを持たず perm_direct() に委譲する
+    /// @brief 順列数 $\frac{n!}{(n-k)!}$ を返す。不正な範囲では0を返す
+    /// @param n 要素数
+    /// @param k 並べる要素数
+    /// @complexity $n \le 20{,}000{,}000$ では、構築済みの最大添字を $m$ として
+    /// $O(1+\max(0,n-m))$
+    /// @complexity $n > 20{,}000{,}000$ では $O(k)$
     mint perm(std::int64_t n, std::int64_t k) {
         if (n < k || n < 0 || k < 0) return 0;
         if (n <= table_limit) {
@@ -43,6 +68,11 @@ struct Combinatorics {
     }
 
     // 多項係数 n! / (k[0]! k[1]! ... k[r-1]!)（sum(k) == n）
+    /// @brief 多項係数 $\frac{n!}{\prod_i k_i!}$ を返す
+    /// @param n 要素数
+    /// @param ks 各グループの要素数。総和が n であること
+    /// @complexity 構築済みの最大添字を $m$、ks の要素数を $r$ として
+    /// $O(1+\max(0,n-m)+r)$
     mint multinomial(int n, const std::vector<int> &ks) {
         assert(n >= 0);
         int sum = 0;
@@ -58,6 +88,10 @@ struct Combinatorics {
     }
 
     // 重複組合せ（n 種類から重複を許して k 個選ぶ場合の数）nHk = C(n+k-1, k)
+    /// @brief n種類から重複を許してk個選ぶ組合せ数 $\binom{n+k-1}{k}$ を返す
+    /// @param n 種類数
+    /// @param k 選ぶ個数
+    /// @complexity `binom(n + k - 1, k)` と同じ
     mint multiset(std::int64_t n, std::int64_t k) {
         if (n < 0 || k < 0) return 0;
         if (n == 0) return k == 0 ? 1 : 0;
@@ -67,6 +101,11 @@ struct Combinatorics {
     // Lucas の定理: mod が素数のとき n, k が mod 程度まで巨大でも C(n,k) mod を計算する
     // （base-mod の各桁 n_i, k_i < mod での binom() に帰着。mod 自体が大きいと binom_direct
     // の O(min(k_i, n_i-k_i)) が支配的になり実用的でなくなる点に注意）
+    /// @brief Lucasの定理で二項係数 $\binom{n}{k}$ を返す
+    /// @details nとkを法の基数で各桁に分解し、桁ごとの二項係数を掛け合わせる。
+    /// @param n 要素数
+    /// @param k 選ぶ要素数
+    /// @complexity $O(\log_{\mathrm{mod}} n)$ 回の `binom` 呼び出し
     mint binom_lucas(std::int64_t n, std::int64_t k) {
         assert(mint::is_prime_mod());
         if (n < k || n < 0 || k < 0) return 0;

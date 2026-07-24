@@ -3,6 +3,7 @@
 #include "graph/matrix_graph.hpp"
 
 /// @brief ワーシャルフロイド法
+/// @complexity 頂点数を $V$ として $O(V^3)$
 template <class T>
 void floyd_warshall(matrix_graph<T> &g) {
     int n = g.size();

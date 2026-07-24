@@ -5,6 +5,7 @@
 #include "segtree/segment_tree.hpp"
 
 /// @brief Segment Tree on Tree
+/// @complexity 構築は $O(n)$、点更新は $O(\log n)$、経路積は $O(\log^2 n)$
 template <monoid M>
 struct segment_tree_on_tree {
   private:
@@ -20,16 +21,24 @@ struct segment_tree_on_tree {
     segment_tree<M> rev_st;
 
   public:
+    /// @brief 空の構造を構築する
+    /// @complexity $O(1)$
     segment_tree_on_tree() : _n(0), _st_size(0) {}
 
+    /// @brief n頂点の空の木を構築する
+    /// @complexity $O(n)$
     explicit segment_tree_on_tree(int n) : _n(n), _st_size(n == 0 ? 0 : 2 * n - 1), g(n), vid(n, -1), nxt(n) {}
 
+    /// @brief 無向辺u-vを追加する
+    /// @complexity 償却 $O(1)$
     void add_edge(int u, int v) {
         g[u].push_back(v);
         g[v].push_back(u);
         edges.emplace_back(u, v);
     }
 
+    /// @brief 根rとしてHL分解とsegment treeを構築する
+    /// @complexity $O(n)$
     void build(int r = 0) {
         if (_n == 0) return;
         std::vector<int> heavy_path(_n, -1), sub_size(_n, 1), par(_n, -1), dep(_n, 0);
@@ -102,6 +111,8 @@ struct segment_tree_on_tree {
         rev_st = segment_tree<M>(_st_size);
     }
 
+    /// @brief 頂点値と辺値を設定して構築する
+    /// @complexity $O(n)$
     void build(const std::vector<T> &v_vals, const std::vector<T> &e_vals = {}, int r = 0) {
         build(r);
         if (_n == 0) return;
@@ -117,18 +128,27 @@ struct segment_tree_on_tree {
         rev_st = segment_tree<M>(rev_a);
     }
 
+    /// @brief 頂点uの値を返す
+    /// @complexity $O(1)$
     T get_vertex(int u) { return st.get(v_in[u]); }
 
+    /// @brief 頂点uの値を変更する
+    /// @complexity $O(\log n)$
     void set_vertex(int u, T val) {
         st.set(v_in[u], val);
         rev_st.set(v_rev_in[u], val);
     }
 
+    /// @brief edge_idの辺値を変更する
+    /// @complexity $O(\log n)$
     void set_edge(int edge_id, T val) {
         st.set(edge_in[edge_id], val);
         rev_st.set(edge_rev_in[edge_id], val);
     }
 
+    /// @brief uからvへの経路積を順序付きで返す
+    /// @param edge trueなら頂点値を除き辺値だけを集約する
+    /// @complexity $O(\log^2 n)$
     T prod(int u, int v, bool edge = false) const {
         if (_n == 0) return M::id();
         T l = M::id(), r = M::id();

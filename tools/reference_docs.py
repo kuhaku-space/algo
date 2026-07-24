@@ -26,6 +26,14 @@ BRIEF_RE = re.compile(r"^\s*///\s*@brief\s+(.+?)\s*$", re.MULTILINE)
 DOXYGEN_RE = re.compile(r"^\s*///", re.MULTILINE)
 CPP_BLOCK_RE = re.compile(r"```cpp\s*\n(.*?)```", re.DOTALL)
 DOXYGEN_TAG_RE = re.compile(r"^@([a-zA-Z_]+)(?:\s+(.*))?$")
+NAMESPACE_OPEN_RE = re.compile(
+    r"^\s*namespace\s+([A-Za-z_][A-Za-z0-9_:]*)\s*\{"
+)
+NAMESPACE_CLOSE_RE = re.compile(
+    r"^\s*}\s*//\s*namespace(?:\s+([A-Za-z_][A-Za-z0-9_:]*))?\s*$"
+)
+CLASS_TOKEN_RE = re.compile(r"\b(struct|class)\s+([A-Za-z_][A-Za-z0-9_]*)")
+ACCESS_RE = re.compile(r"^\s*(public|protected|private)\s*:\s*$")
 API_SECTION_RE = re.compile(r"^## API\s*\n(.*?)(?=^## |\Z)", re.MULTILINE | re.DOTALL)
 MARKDOWN_TABLE_RE = re.compile(
     r"^\|.+\|\s*\n\|\s*:?-+.*\|\s*$",
@@ -55,6 +63,7 @@ class ReferencePage:
 @dataclass
 class DocEntity:
     signature: str = ""
+    namespace: str = ""
     brief: str = ""
     details: list[str] | None = None
     tparams: list[tuple[str, str]] | None = None
@@ -76,178 +85,13 @@ class DocEntity:
         self.references = self.references or []
 
 
-@dataclass(frozen=True)
-class FallbackReference:
-    title: str
-    summary: str
-    api: str
-    notes: tuple[str, ...] = ()
-
-
-# Doxygenコメントがまだない既存ヘッダの公開契約。ページ生成後もMarkdown側に展開されるため、
-# 内容は通常の手書きページと同様にレビュー・編集できる。
-FALLBACK_REFERENCES: dict[str, FallbackReference] = {
-    "lib/combinatorics/bell.hpp": FallbackReference(
-        "ベル数 (bell)",
-        "ベル数 $B_0, B_1, \\ldots, B_n$ を形式的冪級数の指数関数を用いて列挙する。",
-        "`bell<mint>(n)` は長さ `n + 1` の列を返し、戻り値の `i` 番目がベル数 "
-        "$B_i$ になる。`mint` は static modint で、計算量は $O(n\\log n)$。",
-    ),
-    "lib/combinatorics/offline_binomial_sum.hpp": FallbackReference(
-        "二項係数矩形和 (offline_binomial_sum)",
-        "複数の $(n, m)$ に対する $\\sum_{i=0}^{m}\\binom{n}{i}$ をオフラインでまとめて計算する。",
-        "`offline_binomial_sum<mint>(queries)` は各クエリと同じ順序で答えを返す。"
-        "クエリは内部でソートされ、法上の加減乗除を使って隣接状態へ遷移する。",
-    ),
-    "lib/convolution/garner.hpp": FallbackReference(
-        "Garner法 (garner)",
-        "互いに素な複数の法における剰余から、中国剰余定理の解を指定した法で復元する。",
-        "`garner(r, m, mod)` は `x % m[i] == r[i]` を満たす `x % mod` を返す。"
-        "`garner<mod>(r, m)` は出力法をテンプレート引数で指定する短縮形。",
-        ("入力法 `m[i]` は互いに素であること。",),
-    ),
-    "lib/convolution/subset_convolution.hpp": FallbackReference(
-        "部分集合畳み込み (subset_convolution)",
-        "集合関数 $a,b$ に対する $c[S]=\\sum_{T\\subseteq S}a[T]b[S\\setminus T]$ を計算する。",
-        "`subset_convolution(a, b)` は同じ長さの2列から畳み込み結果を返す。"
-        "長さは2の冪であることを前提とし、計算量は要素数を $N=2^n$ として $O(n^2N)$。",
-    ),
-    "lib/geometry/convex_hull.hpp": FallbackReference(
-        "凸包 (convex_hull)",
-        "二次元点集合の凸包を monotone chain で構築する。",
-        "`convex_hull(points)` は点を辞書順に並べ、凸包上の点を巡回順で返す。"
-        "計算量は点数を $n$ として $O(n\\log n)$。",
-    ),
-    "lib/geometry/geometry.hpp": FallbackReference(
-        "二次元幾何",
-        "点・直線・円の基本型と、外積、位置関係、交点、射影などの二次元幾何演算を提供する。",
-        "`Point<T>`、`Line<T>`、`Circle<T>` を中心に、`dot`、`cross`、`ccw`、"
-        "`parallel`、`orthogonal`、`intersection`、`cross_point`、`rotate`、"
-        "`triangle_area`、`min_ball` などを提供する。",
-        ("浮動小数点の比較はヘッダで定義された `EPS` を基準にする。",),
-    ),
-    "lib/geometry/geometry3d.hpp": FallbackReference(
-        "三次元最小包含球",
-        "三次元の点と球を表す型、および点集合を覆う球を反復的に求める機能を提供する。",
-        "`Pos<T>` は三次元座標、`Circle3<T>` は中心と半径を保持する。"
-        "`min_ball(points, initial)` は点集合を覆う球を返す。",
-    ),
-    "lib/geometry/kdtree.hpp": FallbackReference(
-        "kd-tree (kdtree)",
-        "整数座標の二次元点を管理し、最近点距離と軸平行矩形内の点 ID を検索する。",
-        "`add(x, y)` で点を登録後、`build()` で木を構築する。`find(x, y)` は最近点までの"
-        "二乗距離、`find(sx, tx, sy, ty)` は半開矩形内の点 ID 列を返す。",
-    ),
-    "lib/graph/grid.hpp": FallbackReference(
-        "多次元グリッド (Grid)",
-        "多次元座標の範囲判定と、一次元添字への変換を行う。",
-        "`Grid<Index>(limits...)` で各次元の大きさを指定する。`in_field(coords...)` は"
-        "全座標が範囲内かを返し、`flatten(coords...)` は行優先の一次元添字へ変換する。",
-    ),
-    "lib/heap/priority_k_sum.hpp": FallbackReference(
-        "k個の最小値・最大値の総和 (priority_k_sum)",
-        "動的な多重集合から小さい方または大きい方の $k$ 個の総和を管理する。",
-        "`minimum_sum<T>` は最小 $k$ 個、`maximum_sum<T>` は最大 $k$ 個を管理する。"
-        "`insert`、`erase`、`set_k` は $O(\\log n)$、`sum()` / `query()` は $O(1)$。",
-    ),
-    "lib/linalg/matrix.hpp": FallbackReference(
-        "行列 (Matrix)",
-        "任意の係数型に対する行列の四則演算、行列積、行列式、累乗、転置を提供する。",
-        "`Matrix<T>(rows, cols)` または二次元 `vector` から構築する。`det()` は正方行列の"
-        "行列式、`pow(k)` は非負整数乗、`transposed()` は転置行列を返す。",
-    ),
-    "lib/math/hashint.hpp": FallbackReference(
-        "Mersenne素数mod整数 (HashInt)",
-        "法 $2^{61}-1$ 上の整数型。ローリングハッシュなどで高速な加減乗除を行う。",
-        "`HashInt` は整数から正規化して構築でき、通常の四則演算、比較、入出力、"
-        "`pow`、`inv` を提供する。`val()` で正規化済みの値を取得する。",
-    ),
-    "lib/math/math.hpp": FallbackReference(
-        "整数数学ユーティリティ",
-        "剰余、累乗、逆元、複数整数のGCD/LCM、床・天井除算、丸め、素数判定を提供する。",
-        "`safe_mod`、`inv_mod`、`pow_mod`、`gcd(vector)`、`lcm(vector)`、"
-        "`floor_div`、`ceil_div`、`round_ll`、`is_prime` を提供する。",
-    ),
-    "lib/number_theory/min_linear.hpp": FallbackReference(
-        "一次式modの最小値 (min_linear)",
-        "$0\\leq i<n$ における $(ai+b)\\bmod m$ の最小値を Euclid 的な再帰で求める。",
-        "`min_linear(n, m, a, b)` は対象区間における最小値を返す。"
-        "`n >= 1`、`m >= 1` と、法で正規化された係数を前提とする。",
-    ),
-    "lib/string/converter.hpp": FallbackReference(
-        "文字列の整数列変換 (string_converter)",
-        "文字または文字列を、文字種や指定アルファベットに基づく整数列へ変換する。",
-        "`convert(c)` は文字種に応じた値、`convert(c, chars)` は `chars` 内の位置を返す。"
-        "コンテナを渡すオーバーロードと、同じ処理を呼ぶ `operator()` を提供する。",
-    ),
-    "lib/string/suffix_automaton.hpp": FallbackReference(
-        "Suffix Automaton",
-        "文字列の全ての部分文字列を受理する最小 DFA に相当する Suffix Automaton を構築する。",
-        "`suffix_automaton<T>` は遷移を連想配列で保持する汎用版、"
-        "`string_suffix_automaton<ALPHABET_SIZE, BASE>` は固定アルファベット版。"
-        "`extend(c)` で末尾へ文字を追加し、`next_state` で状態遷移する。",
-    ),
-    "lib/string/suffix_tree.hpp": FallbackReference(
-        "Suffix Tree (suffix_tree)",
-        "Ukkonen法により文字列の Suffix Tree をオンライン構築する。",
-        "`suffix_tree<T>(sequence, terminal)` または文字列から構築する。公開された `nodes` の"
-        "各ノードは元列上の辺区間、suffix link、子への遷移を保持する。",
-    ),
-    "lib/tree/linear_lca.hpp": FallbackReference(
-        "線形前処理LCA (linear_lca)",
-        "Euler Tour と ±1 RMQ により、線形時間・線形空間の前処理後にLCAを定数時間で求める。",
-        "`linear_lca(graph, root)` で構築し、`lca(u, v)` または `operator()(u, v)` で"
-        "最小共通祖先を返す。",
-    ),
-    "lib/tree/static_top_tree.hpp": FallbackReference(
-        "Static Top Tree",
-        "静的な木を rake/compress の二分木へ分解し、全方位の木DPを点更新可能にする。",
-        "`static_top_tree<Graph>` がクラスタ木を構築する。"
-        "`static_top_tree_dp<Graph, TreeDP>` は `TreeDP` の `vertex`、`add_vertex`、"
-        "`add_edge`、`compress`、`rake` を用いて値を計算し、`update` と `get` を提供する。",
-    ),
-    "lib/union_find/dynamic_union_find.hpp": FallbackReference(
-        "動的Union-Find (dynamic_union_find)",
-        "64 bit整数キーを必要になった時点で追加する疎な Union-Find。",
-        "`root(x)` は未登録キーを新しい集合として追加する。`same`、`unite`、`size` は"
-        "通常のUnion-Findと同じ意味を持ち、`clear()` で全要素を削除する。",
-    ),
-    "lib/union_find/undo_union_find.hpp": FallbackReference(
-        "Undo可能Union-Find (undo_union_find)",
-        "経路圧縮を行わず併合履歴を保存し、Union-Findの状態を巻き戻せる。",
-        "`unite` は履歴を1件追加し、`undo()` は直前の併合を戻す。`snapshot()` は現在の"
-        "履歴位置、`rollback(snapshot)` は指定位置まで状態を巻き戻す。",
-    ),
-}
-
-FALLBACK_API_NAMES = {
-    "lib/combinatorics/bell.hpp": "`bell<mint>(n)`",
-    "lib/combinatorics/offline_binomial_sum.hpp": "`offline_binomial_sum<mint>(queries)`",
-    "lib/convolution/garner.hpp": "`garner(r, m, mod)` / `garner<mod>(r, m)`",
-    "lib/convolution/subset_convolution.hpp": "`subset_convolution(a, b)`",
-    "lib/geometry/convex_hull.hpp": "`convex_hull(points)`",
-    "lib/geometry/geometry.hpp": "`Point<T>` / `Line<T>` / `Circle<T>` / 幾何関数",
-    "lib/geometry/geometry3d.hpp": "`Pos<T>` / `Circle3<T>` / `min_ball`",
-    "lib/geometry/kdtree.hpp": "`kdtree`",
-    "lib/graph/grid.hpp": "`Grid<Index>`",
-    "lib/heap/priority_k_sum.hpp": "`minimum_sum<T>` / `maximum_sum<T>`",
-    "lib/linalg/matrix.hpp": "`Matrix<T>`",
-    "lib/math/hashint.hpp": "`HashInt`",
-    "lib/math/math.hpp": "整数数学関数",
-    "lib/number_theory/min_linear.hpp": "`min_linear(n, m, a, b)`",
-    "lib/string/converter.hpp": "`string_converter`",
-    "lib/string/suffix_automaton.hpp": "`suffix_automaton<T>` / `string_suffix_automaton`",
-    "lib/string/suffix_tree.hpp": "`suffix_tree<T>`",
-    "lib/tree/linear_lca.hpp": "`linear_lca<Graph>`",
-    "lib/tree/static_top_tree.hpp": "`static_top_tree` / `static_top_tree_dp`",
-    "lib/union_find/dynamic_union_find.hpp": "`dynamic_union_find`",
-    "lib/union_find/undo_union_find.hpp": "`undo_union_find`",
-}
 
 TITLE_OVERRIDES = {
+    "lib/algorithm/interval.hpp": "区間演算",
     "lib/convolution/fft.hpp": "FFT・実数畳み込み",
     "lib/dp/monotone_minima.hpp": "Monotone Minima・min-plus畳み込み",
     "lib/graph/graph.hpp": "グラフ表現 (list_graph / csr_graph)",
+    "lib/math/math.hpp": "整数数学ユーティリティ",
     "lib/number_theory/prime_number.hpp": "素数列挙・判定",
     "lib/random/split_mix_64.hpp": "疑似乱数生成器 SplitMix64",
     "lib/string/misc.hpp": "文字列ユーティリティ",
@@ -255,6 +99,9 @@ TITLE_OVERRIDES = {
 }
 
 SUMMARY_OVERRIDES = {
+    "lib/algorithm/interval.hpp": (
+        "半開区間 $[l,r)$ と閉区間 $[l,r]$ の包含・交差判定と共通部分を提供する。"
+    ),
     "lib/convolution/fft.hpp": (
         "複素FFTによる実数列の変換・逆変換と、整数列・実数列の畳み込みを提供する。"
     ),
@@ -265,6 +112,9 @@ SUMMARY_OVERRIDES = {
     "lib/graph/graph.hpp": (
         "重み付き・重みなしグラフを、更新しやすい隣接リストまたは"
         "連続領域のCSRとして表現する。共通conceptにより各グラフアルゴリズムへ渡せる。"
+    ),
+    "lib/math/math.hpp": (
+        "複数整数のGCD・LCM、床・天井除算、四捨五入、素数判定を提供する。"
     ),
     "lib/number_theory/prime_number.hpp": (
         "整数の素数判定、区間の素数列挙、線形篩、最小素因数を使った素因数分解を提供する。"
@@ -497,6 +347,27 @@ def normalize_doc_text(text: str) -> str:
     return " ".join(text.split())
 
 
+def strip_constructor_initializer(signature: str) -> str:
+    paren_depth = 0
+    saw_parameter_list = False
+    for index, character in enumerate(signature):
+        if character == "(":
+            paren_depth += 1
+        elif character == ")":
+            paren_depth -= 1
+            if paren_depth == 0:
+                saw_parameter_list = True
+        elif (
+            character == ":"
+            and paren_depth == 0
+            and saw_parameter_list
+            and (index == 0 or signature[index - 1] != ":")
+            and (index + 1 == len(signature) or signature[index + 1] != ":")
+        ):
+            return signature[:index].rstrip()
+    return signature
+
+
 def declaration_after(lines: list[str], index: int) -> str:
     declaration: list[str] = []
     while index < len(lines) and not lines[index].strip():
@@ -514,7 +385,7 @@ def declaration_after(lines: list[str], index: int) -> str:
         if "{" in line or ";" in line:
             break
         index += 1
-    return " ".join(declaration)
+    return strip_constructor_initializer(" ".join(declaration))
 
 
 def append_continuation(entity: DocEntity, field: str, text: str) -> None:
@@ -529,8 +400,12 @@ def append_continuation(entity: DocEntity, field: str, text: str) -> None:
         values[-1] = f"{values[-1]} {text}".strip()
 
 
-def parse_doc_block(block: list[str], signature: str) -> DocEntity:
-    entity = DocEntity(signature=signature)
+def parse_doc_block(
+    block: list[str],
+    signature: str,
+    namespace: str = "",
+) -> DocEntity:
+    entity = DocEntity(signature=signature, namespace=namespace)
     current_field = "details"
     for raw in block:
         text = re.sub(r"^\s*///\s?", "", raw).strip()
@@ -574,8 +449,57 @@ def parse_doc_block(block: list[str], signature: str) -> DocEntity:
     return entity
 
 
+def namespace_contexts(lines: list[str]) -> list[str]:
+    contexts: list[str] = []
+    stack: list[str] = []
+    for line in lines:
+        contexts.append("::".join(stack))
+        open_match = NAMESPACE_OPEN_RE.match(line)
+        if open_match is not None:
+            stack.extend(open_match.group(1).split("::"))
+            continue
+        close_match = NAMESPACE_CLOSE_RE.match(line)
+        if close_match is not None and stack:
+            name = close_match.group(1)
+            count = len(name.split("::")) if name else 1
+            del stack[-count:]
+    return contexts
+
+
+def public_access_contexts(lines: list[str]) -> list[bool]:
+    contexts: list[bool] = []
+    stack: list[list[object]] = []
+    brace_depth = 0
+    for raw_line in lines:
+        contexts.append(not stack or stack[-1][1] == "public")
+        line = re.sub(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'', "", raw_line)
+        line = line.split("//", 1)[0]
+        access_match = ACCESS_RE.match(line)
+        if access_match is not None and stack:
+            stack[-1][1] = access_match.group(1)
+
+        opening = line.find("{")
+        if opening >= 0:
+            class_tokens = list(CLASS_TOKEN_RE.finditer(line[:opening]))
+            if class_tokens:
+                token = class_tokens[-1]
+                suffix = line[token.end() : opening]
+                if "(" not in suffix:
+                    kind = token.group(1)
+                    stack.append(
+                        [brace_depth + 1, "public" if kind == "struct" else "private"]
+                    )
+
+        brace_depth += line.count("{") - line.count("}")
+        while stack and brace_depth < stack[-1][0]:
+            stack.pop()
+    return contexts
+
+
 def extract_doc_entities(source: str) -> list[DocEntity]:
     lines = source.splitlines()
+    contexts = namespace_contexts(lines)
+    public_contexts = public_access_contexts(lines)
     entities: list[DocEntity] = []
     index = 0
     while index < len(lines):
@@ -586,8 +510,14 @@ def extract_doc_entities(source: str) -> list[DocEntity]:
         while index < len(lines) and lines[index].lstrip().startswith("///"):
             block.append(lines[index])
             index += 1
-        entity = parse_doc_block(block, declaration_after(lines, index))
-        if entity.brief or entity.details:
+        namespace = contexts[index] if index < len(contexts) else ""
+        entity = parse_doc_block(
+            block,
+            declaration_after(lines, index),
+            namespace,
+        )
+        is_public = public_contexts[index] if index < len(public_contexts) else True
+        if is_public and (entity.brief or entity.details):
             entities.append(entity)
     return entities
 
@@ -630,10 +560,35 @@ def escape_table_cell(text: str) -> str:
     return text.replace("|", r"\|").replace("\n", "<br>")
 
 
-def render_entity(entity: DocEntity, index: int) -> str:
-    symbol = symbol_from_signature(entity.signature)
-    name = f"`{symbol}`" if symbol else f"`API {index}`"
-    declaration = f"`{escape_table_cell(entity.signature)}`" if entity.signature else "—"
+def display_signature(entity: DocEntity) -> str:
+    signature = entity.signature
+    if not signature or not entity.namespace:
+        return signature
+    using_match = re.fullmatch(
+        r"using\s+([A-Za-z_][A-Za-z0-9_:]*)\s*;",
+        signature,
+    )
+    if using_match is not None:
+        return f"{entity.namespace}::{using_match.group(1).split('::')[-1]}"
+    symbol = symbol_from_signature(signature)
+    if not symbol:
+        return signature
+    return re.sub(
+        rf"\b{re.escape(symbol)}\s*(?=\()",
+        f"{entity.namespace}::{symbol}",
+        signature,
+        count=1,
+    )
+
+
+def render_entity_group(entities: list[DocEntity], index: int) -> str:
+    entity = entities[0]
+    signatures = [
+        f"`{escape_table_cell(signature)}`"
+        for signature in dict.fromkeys(display_signature(item) for item in entities)
+        if signature
+    ]
+    api = "<br>".join(signatures) if signatures else f"`API {index}`"
     parts: list[str] = []
     if entity.brief:
         parts.append(entity.brief)
@@ -666,7 +621,57 @@ def render_entity(entity: DocEntity, index: int) -> str:
         if entity.complexities
         else "—"
     )
-    return f"| {name} | {declaration} | {description} | {complexity} |"
+    return f"| {api} | {description} | {complexity} |"
+
+
+def render_entity(entity: DocEntity, index: int) -> str:
+    return render_entity_group([entity], index)
+
+
+def group_doc_entities(entities: list[DocEntity]) -> list[list[DocEntity]]:
+    groups: list[list[DocEntity]] = []
+    keys: list[tuple[object, ...]] = []
+    for entity in entities:
+        key = (
+            entity.namespace,
+            symbol_from_signature(entity.signature),
+            entity.brief,
+            tuple(entity.details),
+            tuple(entity.tparams),
+            tuple(entity.params),
+            tuple(entity.returns),
+            tuple(entity.complexities),
+            tuple(entity.notes),
+            tuple(entity.warnings),
+            tuple(entity.references),
+        )
+        try:
+            group_index = keys.index(key)
+        except ValueError:
+            keys.append(key)
+            groups.append([entity])
+        else:
+            groups[group_index].append(entity)
+    return groups
+
+
+def signature_opens_scope(signature: str) -> bool:
+    work = signature.strip()
+    if work.startswith("template"):
+        start = work.find("<")
+        depth = 0
+        for index in range(start, len(work)):
+            if work[index] == "<":
+                depth += 1
+            elif work[index] == ">":
+                depth -= 1
+                if depth == 0:
+                    work = work[index + 1 :].lstrip()
+                    break
+
+    if re.match(r"^(?:struct|class|namespace)\b", work):
+        return True
+    return re.match(r"^requires\b.*?\b(?:struct|class)\b", work) is not None
 
 
 def render_generated_page(header: Path) -> str:
@@ -674,46 +679,45 @@ def render_generated_page(header: Path) -> str:
     include = header.relative_to(ROOT / "lib").as_posix()
     source = header.read_text(encoding="utf-8")
     entities = extract_doc_entities(source)
-    fallback = FALLBACK_REFERENCES.get(relative_header)
+    stem = header.stem.replace("_", "").lower()
 
-    if fallback is not None:
-        title = fallback.title
-        summary = fallback.summary
-        api_rows = [
-            "| "
-            f"{escape_table_cell(FALLBACK_API_NAMES[relative_header])} | — | "
-            f"{escape_table_cell(fallback.api)} | — |"
+    def primary_score(entity: DocEntity) -> int:
+        symbol = symbol_from_signature(entity.signature).replace("_", "").lower()
+        brief = entity.brief.replace("_", "").lower()
+        score = 0
+        if symbol == stem:
+            score += 100
+        if stem in brief:
+            score += 40
+        if signature_opens_scope(entity.signature):
+            score += 60
+        if "concept " in entity.signature:
+            score -= 10
+        return score
+
+    primary = max(entities, key=primary_score)
+    title = TITLE_OVERRIDES.get(relative_header, primary.brief or include)
+    summary_parts = [primary.brief, *primary.details]
+    summary = "\n\n".join(part for part in summary_parts if part)
+    summary = SUMMARY_OVERRIDES.get(relative_header, summary)
+    api_entities = entities
+    if len(entities) > 1 and signature_opens_scope(primary.signature):
+        api_entities = [
+            entity
+            for entity in entities
+            if not re.match(r"^namespace\b", entity.signature)
+            and entity is not primary
         ]
-        notes = list(fallback.notes)
-    else:
-        stem = header.stem.replace("_", "").lower()
-
-        def primary_score(entity: DocEntity) -> int:
-            symbol = symbol_from_signature(entity.signature).replace("_", "").lower()
-            brief = entity.brief.replace("_", "").lower()
-            score = 0
-            if symbol == stem:
-                score += 100
-            if stem in brief:
-                score += 40
-            if re.search(r"\b(struct|class)\b", entity.signature):
-                score += 10
-            if "concept " in entity.signature:
-                score -= 10
-            return score
-
-        primary = max(entities, key=primary_score)
-        title = TITLE_OVERRIDES.get(relative_header, primary.brief or include)
-        summary_parts = [primary.brief, *primary.details]
-        summary = "\n\n".join(part for part in summary_parts if part)
-        summary = SUMMARY_OVERRIDES.get(relative_header, summary)
-        api_rows = [render_entity(entity, i + 1) for i, entity in enumerate(entities)]
-        notes = []
+    api_rows = [
+        render_entity_group(group, i + 1)
+        for i, group in enumerate(group_doc_entities(api_entities))
+    ]
+    notes: list[str] = []
 
     api = "\n".join(
         [
-            "| API | 宣言 | 内容 | 計算量 |",
-            "| --- | --- | --- | --- |",
+            "| API | 内容 | 計算量 |",
+            "| --- | --- | --- |",
             *api_rows,
         ]
     )
@@ -769,6 +773,15 @@ generated_reference: true
 """
 
 
+def replace_api_section(content: str, generated: str) -> str:
+    current_match = API_SECTION_RE.search(content)
+    generated_match = API_SECTION_RE.search(generated)
+    if current_match is None or generated_match is None:
+        raise ValueError("API セクションが見つかりません")
+    replacement = f"## API\n\n{generated_match.group(1).strip()}\n\n"
+    return content[: current_match.start()] + replacement + content[current_match.end() :]
+
+
 def generate_missing() -> int:
     config = load_config()
     pages, errors = reference_pages()
@@ -805,6 +818,11 @@ def sync_generated() -> int:
         for page in pages
         if parse_front_matter(page.path)[0].get("generated_reference") != "true"
     }
+    manual_pages = [
+        page
+        for page in pages
+        if parse_front_matter(page.path)[0].get("generated_reference") != "true"
+    ]
 
     removed = 0
     for path in sorted(GENERATED_DOCS_DIR.glob("**/*.md")):
@@ -818,6 +836,15 @@ def sync_generated() -> int:
         removed += 1
 
     updated = 0
+    manual_updated = 0
+    for page in manual_pages:
+        content = page.path.read_text(encoding="utf-8")
+        synced = replace_api_section(content, render_generated_page(page.target))
+        if synced != content:
+            page.path.write_text(synced, encoding="utf-8")
+            print(f"updated API: {relative(page.path)}")
+            manual_updated += 1
+
     for header in headers:
         if header in manual_targets:
             continue
@@ -826,7 +853,10 @@ def sync_generated() -> int:
         path.write_text(render_generated_page(header), encoding="utf-8")
         print(f"updated: {relative(path)}")
         updated += 1
-    print(f"updated {updated} / removed {removed} generated reference pages")
+    print(
+        f"updated {updated} generated pages / {manual_updated} manual API sections"
+        f" / removed {removed} generated reference pages"
+    )
     return 0
 
 

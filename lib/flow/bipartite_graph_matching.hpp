@@ -18,8 +18,10 @@
 ///          }
 ///          ```
 struct BipartiteGraphMatching {
+    /// @brief 2彩色済みの無向グラフからマッチングアダプタを構築する
     /// @param g 無向グラフ（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
     /// @param color 各頂点の色（0/1）。正当な 2 彩色であること。
+    /// @complexity $O(V+E)$
     template <graph_type G>
     BipartiteGraphMatching(const G &g, const std::vector<int> &color)
         : local(color.size(), -1), bm((int)std::count(color.begin(), color.end(), 0),
@@ -40,12 +42,14 @@ struct BipartiteGraphMatching {
     }
 
     /// @brief 最大マッチングのサイズ
+    /// @complexity 初回 $O(E\sqrt V)$、計算後は $O(1)$
     int matching() {
         if (match_size == -1) match_size = bm.matching();
         return match_size;
     }
 
     /// @brief 最大マッチングの辺集合（元の頂点 id の組）
+    /// @complexity $O(E\sqrt V+V)$
     std::vector<std::pair<int, int>> matching_pairs() {
         matching();
         std::vector<std::pair<int, int>> res;
@@ -54,12 +58,14 @@ struct BipartiteGraphMatching {
     }
 
     /// @brief 最小頂点被覆（元の頂点 id、昇順）
+    /// @complexity $O(E\sqrt V+V)$
     std::vector<int> minimum_vertex_cover() {
         auto [l, r] = bm.minimum_vertex_cover();
         return to_origin(l, r);
     }
 
     /// @brief 最大独立集合（元の頂点 id、昇順）
+    /// @complexity $O(E\sqrt V+V)$
     std::vector<int> maximum_independent_set() {
         auto [l, r] = bm.maximum_independent_set();
         return to_origin(l, r);

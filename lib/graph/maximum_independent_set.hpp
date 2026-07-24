@@ -7,6 +7,7 @@
 /// @brief 最大独立集合
 /// @see https://www.slideshare.net/wata_orz/ss-12131479
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity 最悪 $O(2^V V)$
 template <graph_type G>
 std::vector<int> maximum_independent_set(const G &g) {
     int n = g.size();

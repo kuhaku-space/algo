@@ -4,8 +4,11 @@
 
 /// @brief KMP法
 /// @see https://snuke.hatenablog.com/entry/2014/12/01/235807
+/// @complexity pattern構築は $O(m)$、長さnの検索は $O(n+m)$
 template <class Container>
 struct knuth_morris_pratt {
+    /// @brief pattern tのfailure tableを構築する
+    /// @complexity $O(m)$
     knuth_morris_pratt(const Container &_t) : t(_t), data(_t.size() + 1) {
         data[0] = -1;
         int j = -1;
@@ -17,9 +20,12 @@ struct knuth_morris_pratt {
         }
     }
 
+    /// @brief failure tableのi番目を返す
+    /// @complexity $O(1)$
     int operator[](int i) const { return data[i]; }
 
     /// @brief 検索
+    /// @complexity $O(n+m)$
     std::vector<int> search(const Container &s) const {
         int n = s.size(), m = t.size();
         std::vector<int> res(n);

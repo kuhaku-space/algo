@@ -3,10 +3,13 @@
 #include "convolution/formal_power_series.hpp"
 #include "math/modint.hpp"
 
-/// @brief 分割数 p(0), p(1), ..., p(n) を求める
-// 生成関数 prod_{k>=1} 1/(1 - x^k) = sum p(n) x^n。
-// 分母 prod (1 - x^k) は五角数定理より非ゼロ項が O(sqrt n) 個なので
-// O(n) で構築でき、その逆元を FPS inv で取って O(n log n)。
+/// @brief 分割数を $p(0)$ から $p(n)$ まで列挙する
+/// @details 生成関数 $\prod_{k\ge1}(1-x^k)^{-1}$ の分母を五角数定理で構築し、
+/// 形式的冪級数の逆元を求める。
+/// @tparam mint NTTを利用できる static modint 型
+/// @param n 求める最大の添字。0以上であること
+/// @return 長さ $n+1$ の列。i番目の要素は分割数 $p(i)$
+/// @complexity $O(n\log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> partition_function(int n) {
     std::vector<mint> den(n + 1);

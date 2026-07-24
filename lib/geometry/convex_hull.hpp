@@ -5,13 +5,12 @@
 #include <vector>
 #include "geometry/geometry.hpp"
 
-/**
- * @brief 凸法
- *
- * @tparam T 座標の型
- * @param points 点集合
- * @return std::vector<Point<T>>
- */
+/// @brief 二次元点集合の凸包を構築する
+/// @details monotone chainにより、凸包上の点を巡回順で返す。
+/// @tparam T 座標の型
+/// @param points 点集合
+/// @return 凸包上の点列
+/// @complexity 点数を $n$ として $O(n\log n)$
 template <class T>
 std::vector<Point<T>> convex_hull(std::vector<Point<T>> points) {
     int n = points.size(), k = 0;

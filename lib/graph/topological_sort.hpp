@@ -6,6 +6,7 @@
 
 /// @brief トポロジカルソート
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> topological_sort(const G &g) {
     int n = g.size();

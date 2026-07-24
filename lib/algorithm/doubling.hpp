@@ -9,6 +9,7 @@
 
 /// @brief ダブリングで `M` が取れる型か（void または monoid）
 /// @details `void` は集約なし（遷移先のみ）、`monoid` は遷移に沿った値の集約を表す。
+/// @complexity コンパイル時制約であり実行時計算量はない
 template <class M>
 concept doubling_monoid = std::is_void_v<M> || monoid<M>;
 
@@ -34,21 +35,30 @@ struct doubling {
     using T = typename std::conditional_t<has_monoid, M, void_monoid>::value_type;
 
   public:
-    // モノイドなし: 遷移先のみ。
+    /// @brief 遷移先のみを前計算する
+    /// @param to 各頂点から1ステップ後の遷移先
+    /// @complexity 頂点数を $n$ として $O(Ln)$
     explicit doubling(const std::vector<int> &to)
     requires(!has_monoid)
         : doubling((int)to.size()) {
         build(to, std::vector<std::monostate>(to.size()));
     }
-    // モノイドあり: 各要素の初期値 v を与える。
+    /// @brief 遷移先と各ステップの集約値を前計算する
+    /// @param to 各頂点から1ステップ後の遷移先
+    /// @param v 各頂点から進む1ステップに対応する値
+    /// @complexity 頂点数を $n$ として $O(Ln)$
     template <class U>
     requires has_monoid
     doubling(const std::vector<int> &to, const std::vector<U> &v) : doubling((int)to.size()) {
         build(to, v);
     }
 
-    // モノイドなしなら遷移先 int、ありなら {遷移先, 集約値}。
+    /// @brief fからkステップ後の遷移先と必要なら集約値を返す
+    /// @complexity $O(L)=O(\log k)$
     auto jump(int f, std::uint64_t k) { return solve(f, k); }
+
+    /// @brief fからkステップ後の遷移先と必要なら集約値を返す
+    /// @complexity $O(L)=O(\log k)$
     auto solve(int f, std::uint64_t k) {
         assert(-1 <= f && f < _size);
         if constexpr (has_monoid) {
@@ -70,6 +80,7 @@ struct doubling {
 
     /// @brief check(M::op(init, accumulated)) が真である最大ステップ数を返す
     /// @details check は単調 (真→偽に一度だけ変化) を仮定する
+    /// @complexity $O(L)$
     template <class F>
     requires has_monoid
     std::uint64_t max_step(int f, T init, F check) {
@@ -88,6 +99,9 @@ struct doubling {
         return steps;
     }
 
+    /// @brief 単位元から開始してcheckが真である最大ステップ数を返す
+    /// @details check は単調 (真→偽に一度だけ変化) を仮定する
+    /// @complexity $O(L)$
     template <class F>
     requires has_monoid
     std::uint64_t max_step(int f, F check) {

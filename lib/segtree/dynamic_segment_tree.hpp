@@ -7,6 +7,7 @@
 #include "segtree/monoid.hpp"
 
 /// @brief 動的セグメント木
+/// @complexity 点更新・区間積は領域長を $n$ として $O(\log n)$
 template <monoid M>
 struct dynamic_segment_tree {
   private:
@@ -23,8 +24,12 @@ struct dynamic_segment_tree {
     };
 
   public:
+    /// @brief 添字領域[0,n)の空の木を構築する
+    /// @complexity $O(1)$
     dynamic_segment_tree(std::int64_t n) : data(), _size(n) {}
 
+    /// @brief k番目の値を返す
+    /// @complexity $O(\log n)$
     T operator[](std::int64_t k) const {
         assert(0 <= k && k < _size);
         if (data.empty()) return M::id();
@@ -38,9 +43,17 @@ struct dynamic_segment_tree {
         }
         return M::id();
     }
+
+    /// @brief k番目の値を返す
+    /// @complexity $O(\log n)$
     T at(std::int64_t k) const { return operator[](k); }
+
+    /// @brief k番目の値を返す
+    /// @complexity $O(\log n)$
     T get(std::int64_t k) const { return operator[](k); }
 
+    /// @brief k番目をxへ変更する
+    /// @complexity $O(\log n)$
     void set(std::int64_t k, T x) {
         assert(0 <= k && k < _size);
         if (data.empty()) {
@@ -83,9 +96,17 @@ struct dynamic_segment_tree {
                       data[idx].right != -1 ? data[data[idx].right].product : M::id());
         }
     }
+
+    /// @brief k番目を単位元へ戻す
+    /// @complexity $O(\log n)$
     void reset(std::int64_t k) { set(k, M::id()); }
 
+    /// @brief 全要素の積を返す
+    /// @complexity $O(1)$
     T all_prod() const { return !data.empty() ? data.front().product : M::id(); }
+
+    /// @brief 半開区間[a,b)の積を返す
+    /// @complexity $O(\log n)$
     T prod(std::int64_t a, std::int64_t b) const {
         assert(0 <= a && a <= _size);
         assert(0 <= b && b <= _size);

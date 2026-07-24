@@ -10,10 +10,14 @@
 ///          （add_abs は内部で両方呼ぶため 2 回分）の呼び出し回数とする
 template <class T>
 struct UndoSlopeTrick {
+    /// @brief $f(x)=0$ の状態を構築する
+    /// @complexity $O(1)$
     UndoSlopeTrick() = default;
 
+    /// @brief 最小値を取る x の 1 つを返す
     /// @complexity O(1)
     [[nodiscard]] T min_x() const { return l.top(); }
+    /// @brief 関数の最小値を返す
     /// @complexity O(1)
     [[nodiscard]] T min_value() const { return min_f; }
 
@@ -75,6 +79,7 @@ struct UndoSlopeTrick {
         else r.insert(val);
     }
 
+    /// @brief 現在の状態を表す履歴位置を返す
     /// @complexity O(1)
     [[nodiscard]] int snapshot() const { return history.size(); }
 

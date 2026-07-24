@@ -7,6 +7,8 @@
 /// @details 基底のサイズは T のビット幅 B を超えないため、以下では B を用いて計算量を表す
 template <std::unsigned_integral T>
 struct XorBasis {
+    /// @brief 空の XOR 基底を構築する
+    /// @complexity $O(1)$
     XorBasis() = default;
 
     /// @brief x を基底へ追加する。基底を拡張できたら true
@@ -38,8 +40,10 @@ struct XorBasis {
         return x;
     }
 
+    /// @brief 基底ベクトルの個数を返す
     /// @complexity O(1)
     int size() const { return basis.size(); }
+    /// @brief 基底が空なら true を返す
     /// @complexity O(1)
     bool empty() const { return basis.empty(); }
 

@@ -12,11 +12,13 @@
 ///          - 連結成分の走査・部分木サイズ計算・距離計算は深さ n になりうるため
 ///            すべて BFS 反復で行い、鎖状の木でもスタックオーバーフローしない。
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可。距離は辺数で数える）
+/// @complexity 構築・全重心の走査は $O(n\log n)$
 template <graph_type G>
 struct centroid_decomposition {
     /// @brief ある重心 `c` の回で渡される連結成分の情報。
     /// @details いずれの配列も頂点番号で添字付けされる。`order` に現れない頂点
     ///          （別成分や `used` 済み）の成分は未定義なので参照しないこと。
+    /// @complexity 参照用viewで実行時計算量はない
     struct component {
         int centroid;                   ///< この回の重心
         const std::vector<int> &order;  ///< 重心を根とする連結成分の頂点列（BFS 行きがけ順、先頭は重心）
@@ -28,6 +30,7 @@ struct centroid_decomposition {
 
     /// @brief 重心分解を実行する。
     /// @param g 木（無向辺で構築されていること）
+    /// @complexity $O(n\log n)$
     explicit centroid_decomposition(const G &g)
         : g_(g), n_(g.size()), par_(n_, -1), used_(n_, false), comp_par_(n_), comp_dep_(n_), comp_top_(n_),
           comp_sub_(n_) {
@@ -36,6 +39,7 @@ struct centroid_decomposition {
     }
 
     /// @brief 重心分解木における各頂点の親（根は -1）。
+    /// @complexity $O(1)$
     const std::vector<int> &par() const { return par_; }
 
     /// @brief 各重心ごとに集計コールバックを呼ぶ。
@@ -43,6 +47,7 @@ struct centroid_decomposition {
     ///          `f(component)` を 1 回ずつ呼ぶ。`component` 内の配列は呼び出しごとに
     ///          使い回されるので、必要なら呼び出し中にコピーすること。
     /// @param f `void(const component &)` 互換の呼び出し可能オブジェクト
+    /// @complexity callbackを除き $O(n\log n)$
     template <class F>
     void run(F f) {
         std::fill(used_.begin(), used_.end(), false);
@@ -156,6 +161,7 @@ struct centroid_decomposition {
 /// @param g 木
 /// @return std::vector<int> 重心分解木における各頂点の親（根は -1）
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(n\log n)$
 template <graph_type G>
 std::vector<int> centroid_decomposition_par(const G &g) {
     return centroid_decomposition<G>(g).par();

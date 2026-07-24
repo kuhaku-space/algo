@@ -7,6 +7,7 @@
 
 /// @brief 強連結成分分解
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <graph_type G>
 std::vector<int> scc(const G &g) {
     int n = g.size();
@@ -129,6 +130,7 @@ std::vector<int> scc(const internal::Csr<int> &g) {
 
 /// @brief 有向非巡回グラフの構築
 /// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @complexity $O(V+E)$
 template <weighted_graph_type G>
 list_graph<graph_weight_t<G>> make_directed_acyclic_graph(const G &g, const std::vector<int> &v) {
     list_graph<graph_weight_t<G>> res(*std::max_element(v.begin(), v.end()) + 1);

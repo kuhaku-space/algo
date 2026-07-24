@@ -11,10 +11,12 @@
 
 /// @brief 素数判定
 /// @details Miller-Rabin 法。`std::uint64_t` の全域で正しい
+/// @complexity $O(\log x)$ 回のmod乗算
 constexpr bool is_prime(std::uint64_t x) { return internal::is_prime_constexpr(x); }
 
 /// @brief 素因数分解
 /// @return (素数, 指数) のペアを素数の昇順で列挙したもの
+/// @complexity Pollard's rho により期待 $O(x^{1/4}\log x)$
 std::vector<std::pair<std::uint64_t, int>> prime_factorization(std::uint64_t x) {
     std::vector<std::pair<std::uint64_t, int>> res;
     for (auto p : factorize(x)) {
@@ -26,6 +28,7 @@ std::vector<std::pair<std::uint64_t, int>> prime_factorization(std::uint64_t x) 
 
 /// @brief 約数列挙
 /// @return x の約数を昇順に並べたもの
+/// @complexity 約数個数を $d(x)$ として、素因数分解に加えて $O(d(x)\log d(x))$
 std::vector<std::uint64_t> divisors(std::uint64_t x) {
     std::vector<std::uint64_t> res{1};
     for (auto [p, e] : prime_factorization(x)) {
@@ -41,6 +44,7 @@ std::vector<std::uint64_t> divisors(std::uint64_t x) {
 
 /// @brief 乗法的分割
 /// @return x = f_1 * f_2 * ... * f_k (2 <= f_1 <= f_2 <= ... <= f_k) を満たす (f_1, ..., f_k) をすべて列挙したもの
+/// @complexity 出力数と再帰中の約数列挙に比例
 std::vector<std::vector<std::uint64_t>> multiplicative_partitions(std::uint64_t x) {
     std::vector<std::vector<std::uint64_t>> res;
     std::vector<std::uint64_t> cur;
@@ -77,6 +81,7 @@ std::vector<std::vector<std::uint64_t>> multiplicative_partitions(std::uint64_t 
 /// 素因数分解は最小素因数（linear sieve）を使う。上記の素数列挙で得た素数列を種に
 /// O(N) で構築するため、`is_prime`/`prime_numbers` だけを使う場合はこの分のメモリ・
 /// 構築コストはかからない（`prime_factorization` を初めて呼んだ時に遅延構築する）。
+/// @complexity 構築は $O(N\log\log N)$、範囲内の素数判定は $O(1)$
 template <int N = (1 << 22)>
 struct Sieve {
   private:
@@ -105,6 +110,8 @@ struct Sieve {
     };
 
   public:
+    /// @brief N未満の素数判定表を構築する
+    /// @complexity $O(N\log\log N)$
     Sieve() {
         flags.fill(0xff);
         flags[0] = 0xfe;
@@ -184,6 +191,7 @@ struct Sieve {
     }
 
     /// @brief 素数判定（範囲外は Miller-Rabin にフォールバックするので任意の x で正しい）
+    /// @complexity $x<N$ なら $O(1)$、それ以外は $O(\log x)$ 回のmod乗算
     bool is_prime(std::uint64_t x) const {
         if (x >= (std::uint64_t)N) return ::is_prime(x);
         int xi = (int)x;
@@ -207,6 +215,7 @@ struct Sieve {
 
     /// @brief x 以下の素数を昇順に列挙
     /// @param x `x < N`
+    /// @complexity $O(x)$
     std::vector<int> prime_numbers(int x) const {
         assert(x < N);
         if (x < 2) return std::vector<int>();
@@ -221,6 +230,7 @@ struct Sieve {
     /// @details `x < N` なら最小素因数テーブル（初回呼び出し時に O(N) で遅延構築）で
     /// O(log x)、`x >= N` なら Pollard's rho にフォールバックする
     /// @return (素数, 指数) のペアを素数の昇順で列挙したもの
+    /// @complexity 初回の範囲内呼出しは $O(N)$、以後は $O(\log x)$。範囲外は期待 $O(x^{1/4}\log x)$
     std::vector<std::pair<std::uint64_t, int>> prime_factorization(std::uint64_t x) {
         if (x >= (std::uint64_t)N) return ::prime_factorization(x);
         if (lpf.empty()) build_lpf();
