@@ -224,6 +224,11 @@ td code {
   overflow: auto;
 }
 
+.reference-code {
+  max-height: 70vh;
+  overflow: auto;
+}
+
 .reference-footer {
   border-top: 1px solid var(--line);
   display: flex;

@@ -37,6 +37,9 @@ jobs:
       - name: Generate reference docs
         run: python3 tools/reference_docs.py sync-generated
 
+      - name: Test reference renderer
+        run: python3 -m unittest discover -s tools/tests -p 'test_*.py'
+
       - name: Check reference docs
         run: python3 tools/reference_docs.py check
 
@@ -193,15 +196,6 @@ jobs:
         with:
           fetch-depth: 2147483647
 
-      # This job uses a fresh checkout, so regenerate the ignored API pages
-      # before competitive-verifier collects the Markdown sources. The docs
-      # command enumerates sources with `git ls-files`, so add the ignored
-      # generated pages to this checkout's index without committing them.
-      - name: Generate reference docs
-        run: |
-          python3 tools/reference_docs.py sync-generated
-          git add -f docs/generated
-
       - name: Download verify_files.json and all artifacts
         id: all-artifacts
         uses: competitive-verifier/actions/download-verify-artifact@v2
@@ -334,12 +328,15 @@ jobs:
               with open(path, "w") as f:
                   json.dump(data, f)
           PY
-      - name: Docs
-        uses: competitive-verifier/actions/docs@v2
+      # Rendering is repository-owned. competitive-verifier remains
+      # responsible only for resolving inputs, verification, merging and
+      # the final pass/fail check.
+      - name: Generate reference site
+        uses: ./.github/actions/generate-docs
         with:
+          verify-files: ${{ steps.all-artifacts.outputs.json-path }}
           verify-result: ${{github.workspace}}/merged-result.json
           destination: _jekyll
-          write-summary: true
       # Informational only: the authoritative pass/fail gate is the final
       # "Check" step. The merged result is always cached (see "Save result").
       - name: Report merged result summary
