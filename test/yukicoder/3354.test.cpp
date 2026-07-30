@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/3354
 #include <cstdint>
 #include <iostream>
-#include "math/fraction.hpp"
+#include "number_theory/fraction.hpp"
 
 int main(void) {
     std::int64_t n1, d1, n2, d2;

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "parser/parser.hpp"
 
 // 有限体電卓: 素数 p の有限体 GF(p) 上で四則演算式を評価する。

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "convolution/formal_power_series.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;
 

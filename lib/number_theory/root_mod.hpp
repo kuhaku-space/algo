@@ -6,7 +6,7 @@
 #include <numeric>
 #include <optional>
 #include "internal/internal_math.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 namespace internal {
 

@@ -3,7 +3,7 @@
 #include <cassert>
 #include <cstdint>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 /// @brief 二項係数・階乗・順列・多項係数・重複組合せ
 /// @details 階乗・逆元・逆階乗の表を必要な大きさまで遅延構築する。

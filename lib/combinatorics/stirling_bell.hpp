@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "combinatorics/combination.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 /// @brief 第2種スターリング数・ベル数
 /// @details 二項係数と累乗を使い、1要素または部分和をオンデマンドに求める。

@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "string/aho_corasick.hpp"
 #include "string/rolling_hash.hpp"
 #include "tree/tree_function.hpp"

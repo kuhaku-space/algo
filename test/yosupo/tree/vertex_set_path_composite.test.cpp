@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/vertex_set_path_composite
 #include <iostream>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "segtree/monoid.hpp"
 #include "tree/segment_tree_on_tree.hpp"
 

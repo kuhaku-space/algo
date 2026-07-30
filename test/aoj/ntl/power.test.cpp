@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_B
 #include <iostream>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint107;
 

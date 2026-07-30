@@ -2,7 +2,7 @@
 #include <vector>
 #include "algorithm/mo.hpp"
 #include "combinatorics/combination.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 /// @brief 複数の二項係数部分和 $\sum_{i=0}^{k}\binom{n}{i}$ をまとめて求める
 /// @details Mo's algorithmで $(n,k)$ 間を遷移し、各クエリの答えを入力順に返す。

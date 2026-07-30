@@ -8,7 +8,7 @@
 #include <vector>
 #include "internal/internal_math.hpp"
 #include "internal/internal_type_traits.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 namespace internal {
 

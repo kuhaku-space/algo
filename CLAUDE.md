@@ -7,7 +7,7 @@
 > 競技プログラミングの**問題を解くときには参照しないこと**。
 
 - 言語: **C++23**（応答・コメントは日本語）。
-- include ルートは **`lib/`**。ヘッダ間は `lib/` からの相対パス（例: `#include "math/modint.hpp"`）。
+- include ルートは **`lib/`**。ヘッダ間は `lib/` からの相対パス（例: `#include "number_theory/modint.hpp"`）。
 
 ## ビルド・テスト
 

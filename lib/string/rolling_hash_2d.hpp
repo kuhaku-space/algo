@@ -4,7 +4,7 @@
 #include <random>
 #include <string>
 #include <vector>
-#include "math/hashint.hpp"
+#include "string/hashint.hpp"
 
 /// @brief 二次元ローリングハッシュ
 /// @details 行方向・列方向にそれぞれ別の基数を持つ二次元 Horner 法で構築する。

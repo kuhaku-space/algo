@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite_large_array
 #include <iostream>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "segtree/dynamic_segment_tree.hpp"
 
 using Mint = modint998;
