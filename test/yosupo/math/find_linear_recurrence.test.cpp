@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "linalg/berlekamp_massey.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;
 

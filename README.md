@@ -22,7 +22,7 @@ include ルートは `lib/` です。各ヘッダは `lib/` からの相対パ�
 
 ```cpp
 #include "segtree/segment_tree.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 ```
 
 コンパイル時に `-I lib` を指定してください。
@@ -46,15 +46,14 @@ g++ -std=c++23 -I lib your_solution.cpp
 | [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ・削除可能 PQ・k 番目和      |
 | [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・永続セグメント木・永続スタック/キュー                                           |
 | [`lib/dp/`](lib/dp/)                         | Convex Hull Trick・Li Chao Tree・Slope Trick・monotone minima                             |
-| [`lib/math/`](lib/math/)                     | modint・多倍長整数・分数・ハッシュ用整数（数の型・基盤演算）                              |
-| [`lib/number_theory/`](lib/number_theory/)   | 素数判定/列挙・篩・素因数分解・CRT・floor sum・mod 平方根・Stern-Brocot 木 など           |
+| [`lib/number_theory/`](lib/number_theory/)   | modint・多倍長整数・分数・素数判定/列挙・篩・素因数分解・CRT・floor sum・mod 平方根 など  |
 | [`lib/combinatorics/`](lib/combinatorics/)   | 二項係数・スターリング数等の列挙・ベル数・分割数・offline binomial sum                    |
 | [`lib/linalg/`](lib/linalg/)                 | 行列・Berlekamp-Massey・きたまさ法（線形漸化式）                                          |
 | [`lib/convolution/`](lib/convolution/)       | FFT・NTT・形式的冪級数・subset convolution・Garner                                        |
 | [`lib/graph/`](lib/graph/)                   | Dijkstra・Bellman-Ford・SCC・2-SAT・最小全域木・functional graph・トポロジカルソート など |
 | [`lib/flow/`](lib/flow/)                     | 最大流・最小費用流・Hopcroft-Karp                                                         |
 | [`lib/tree/`](lib/tree/)                     | HLD・LCA・重心分解・Euler Tour・Link-Cut Tree・全方位木 DP・Static Top Tree など          |
-| [`lib/string/`](lib/string/)                 | Suffix Array・Z-algorithm・KMP・Aho-Corasick・Rolling Hash・Manacher・回文木・Trie など   |
+| [`lib/string/`](lib/string/)                 | Suffix Array・Z-algorithm・KMP・Aho-Corasick・Rolling Hash（ハッシュ用整数）・回文木 など |
 | [`lib/geometry/`](lib/geometry/)             | 2D / 3D 幾何・凸包・kd-tree                                                               |
 | [`lib/random/`](lib/random/)                 | xorshift・xoroshiro128・xoshiro128・SplitMix64                                            |
 | [`lib/internal/`](lib/internal/)             | 他ヘッダから利用する内部ユーティリティ（bit vector・CSR・型特性 など）                    |

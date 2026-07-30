@@ -2,8 +2,8 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "math/modint.hpp"
 #include "number_theory/min25_sieve.hpp"
+#include "number_theory/modint.hpp"
 
 // f は f(p^e) = a*e + b*p を満たす乗法的関数。f(p) = a + b*p。
 using Mint = static_modint<469762049>;

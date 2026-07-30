@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "convolution/formal_power_series.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 /// @brief 分割数を $p(0)$ から $p(n)$ まで列挙する
 /// @details 生成関数 $\prod_{k\ge1}(1-x^k)^{-1}$ の分母を五角数定理で構築し、

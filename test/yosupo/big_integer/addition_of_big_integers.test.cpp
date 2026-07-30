@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/addition_of_big_integers
 #include <iostream>
-#include "math/bigint.hpp"
+#include "number_theory/bigint.hpp"
 
 int main(void) {
     int t;

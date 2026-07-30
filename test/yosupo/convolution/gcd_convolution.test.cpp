@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/gcd_convolution
 #include <iostream>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "number_theory/prime_number.hpp"
 
 Sieve sieve;

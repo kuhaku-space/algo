@@ -15,7 +15,7 @@ Montgomery + AVX2 NTT 実装へ自動で振り分ける（条件を満たさな�
 
 ```cpp
 #include "convolution/formal_power_series.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using mint = modint998;
 

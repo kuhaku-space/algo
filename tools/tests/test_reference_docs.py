@@ -271,7 +271,7 @@ class default_private {
                 "T det() const",
                 "Matrix transposed() const",
             ),
-            "math/hashint.hpp": (
+            "string/hashint.hpp": (
                 "static constexpr std::uint64_t get_mod() noexcept",
                 "constexpr HashInt inv() const noexcept",
                 "constexpr std::uint64_t val() const noexcept",

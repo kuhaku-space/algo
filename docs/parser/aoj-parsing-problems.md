@@ -49,7 +49,7 @@ AOJ の構文解析問題について、このリポジトリでの verify 状�
 
 | 問題 | 必要ライブラリ | 備考 |
 | --- | --- | --- |
-| [0350](https://onlinejudge.u-aizu.ac.jp/problems/0350) 実数既約分数化 | `lib/math/fraction.hpp` | 循環小数 → 既約分数 |
+| [0350](https://onlinejudge.u-aizu.ac.jp/problems/0350) 実数既約分数化 | `lib/number_theory/fraction.hpp` | 循環小数 → 既約分数 |
 | [2435](https://onlinejudge.u-aizu.ac.jp/problems/2435) Zero division checker | (なし) | 逆ポーランド記法はスタック評価で十分。`ExpressionParser` 不要 |
 | [2845](https://onlinejudge.u-aizu.ac.jp/problems/2845) Star in Parentheses | (なし) | `*` を囲む括弧の対の数 = 深さ。スタックで十分 |
 | [2369](https://onlinejudge.u-aizu.ac.jp/problems/2369) CatChecker | `lib/parser/parser.hpp` | 「鳴き声」文法の認識。`ExpressionParser`(値型 `bool`) か手書き再帰下降 |
@@ -64,7 +64,7 @@ AOJ の構文解析問題について、このリポジトリでの verify 状�
 | --- | --- | --- |
 | [2348](https://onlinejudge.u-aizu.ac.jp/problems/2348) Testing Circuits | 最大 10^6 文字で深いネスト時に `parse_expression` の再帰がスタックを溢れさせる | **再帰安全な式解析** (明示スタック / shunting-yard モード)。値型は `(真になる割当数, 偽になる割当数)` を `modint` で |
 | [1314](https://onlinejudge.u-aizu.ac.jp/problems/1314) Matrix Calculator | 行要素の区切りが空白 (`[1 2;3 4]`)。現状の `ExpressionParser` は空白を無条件に読み飛ばすため `1 -2` (2 要素) と `1-2` (減算) を区別できない。ブロック行列の連結も必要 | **空白を区切りとして扱えるモード** か行指向トークナイザ。値型は既存の `lib/linalg/matrix.hpp` (`Matrix<modint>`) がそのまま使える |
-| [1322](https://onlinejudge.u-aizu.ac.jp/problems/1322) ASCII Expression | 分数を横線で複数行にまたいで表す **2 次元レイアウト**。1 次元の `ExpressionParser` では扱えない | **2 次元セルの再帰下降** *(要追加)*。値型は既存の `lib/math/fraction.hpp` (`Fraction`) |
+| [1322](https://onlinejudge.u-aizu.ac.jp/problems/1322) ASCII Expression | 分数を横線で複数行にまたいで表す **2 次元レイアウト**。1 次元の `ExpressionParser` では扱えない | **2 次元セルの再帰下降** *(要追加)*。値型は既存の `lib/number_theory/fraction.hpp` (`Fraction`) |
 
 ## 未実装: 構文解析ライブラリの対象外
 

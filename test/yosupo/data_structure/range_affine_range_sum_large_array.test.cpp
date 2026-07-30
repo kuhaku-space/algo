@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "segtree/dynamic_lazy_segment_tree.hpp"
 
 using Mint = modint998;

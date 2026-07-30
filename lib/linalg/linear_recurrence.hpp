@@ -5,7 +5,7 @@
 #include <vector>
 #include "convolution/ntt.hpp"
 #include "convolution/ntt_avx2.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 // 線形漸化式 a_i = sum_{j=1}^{k} d[j-1] a_{i-j} の第 n 項を求める。
 //   - kitamasa: 任意可換環版 (O(k^2 log n))。NTT 非対応 mod・dynamic_modint・行列・

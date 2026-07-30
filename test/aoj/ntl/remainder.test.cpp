@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E
 #include <iostream>
-#include "math/bigint.hpp"
+#include "number_theory/bigint.hpp"
 
 int main(void) {
     BigInt a, b;

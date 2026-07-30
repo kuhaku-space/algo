@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "tree/rerooting.hpp"
 
 using Mint = modint998;

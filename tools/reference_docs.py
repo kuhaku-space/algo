@@ -91,7 +91,7 @@ TITLE_OVERRIDES = {
     "lib/convolution/fft.hpp": "FFT・実数畳み込み",
     "lib/dp/monotone_minima.hpp": "Monotone Minima・min-plus畳み込み",
     "lib/graph/graph.hpp": "グラフ表現 (list_graph / csr_graph)",
-    "lib/math/math.hpp": "整数数学ユーティリティ",
+    "lib/number_theory/misc.hpp": "整数ユーティリティ",
     "lib/number_theory/prime_number.hpp": "素数列挙・判定",
     "lib/random/split_mix_64.hpp": "疑似乱数生成器 SplitMix64",
     "lib/string/misc.hpp": "文字列ユーティリティ",
@@ -113,8 +113,9 @@ SUMMARY_OVERRIDES = {
         "重み付き・重みなしグラフを、更新しやすい隣接リストまたは"
         "連続領域のCSRとして表現する。共通conceptにより各グラフアルゴリズムへ渡せる。"
     ),
-    "lib/math/math.hpp": (
-        "複数整数のGCD・LCM、床・天井除算、四捨五入、素数判定を提供する。"
+    "lib/number_theory/misc.hpp": (
+        "複数整数のGCD・LCM、床・天井除算、オーバーフロー検出付き累乗など、"
+        "独立した整数演算をまとめて提供する。"
     ),
     "lib/number_theory/prime_number.hpp": (
         "整数の素数判定、区間の素数列挙、線形篩、最小素因数を使った素因数分解を提供する。"

@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum
 #include <iostream>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "tree/dynamic_top_tree.hpp"
 
 using Mint = modint998;

@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/bitwise_xor_convolution
 #include <iostream>
 #include <vector>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;
 

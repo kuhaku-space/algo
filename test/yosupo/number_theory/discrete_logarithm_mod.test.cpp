@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/discrete_logarithm_mod
 #include <iostream>
-#include "math/modint.hpp"
 #include "number_theory/discrete_log.hpp"
+#include "number_theory/modint.hpp"
 #include "segtree/monoid.hpp"
 
 int main(void) {

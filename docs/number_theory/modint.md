@@ -1,6 +1,6 @@
 ---
 title: modint (static_modint / dynamic_modint)
-documentation_of: //lib/math/modint.hpp
+documentation_of: //lib/number_theory/modint.hpp
 compile_example: true
 ---
 
@@ -10,7 +10,7 @@ compile_example: true
 ## 使い方
 
 ```cpp
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;  // static_modint<998244353>
 Mint a = -2;

@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/sum_of_totient_function
 #include <iostream>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "number_theory/multiplicative_function.hpp"
 
 using Mint = modint998;

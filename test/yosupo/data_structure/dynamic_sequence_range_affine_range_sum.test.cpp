@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 #include "data_structure/dynamic_sequence.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;
 

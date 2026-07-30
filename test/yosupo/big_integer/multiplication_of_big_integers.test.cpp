@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/multiplication_of_big_integers
 #include <iostream>
-#include "math/bigint.hpp"
+#include "number_theory/bigint.hpp"
 
 int main(void) {
     int t;

@@ -1,6 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/sqrt_mod
 #include <iostream>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "number_theory/root_mod.hpp"
 
 int main(void) {

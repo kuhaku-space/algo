@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/551
 #include <cstdint>
 #include <iostream>
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 #include "number_theory/root_mod.hpp"
 
 using Mint = modint;

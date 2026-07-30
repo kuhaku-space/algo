@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "linalg/matrix.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;
 

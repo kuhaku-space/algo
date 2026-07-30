@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "algorithm/compress.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 using Mint = modint998;
 

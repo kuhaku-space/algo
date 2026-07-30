@@ -5,7 +5,7 @@
 #include <vector>
 #include "internal/internal_math.hpp"
 #include "internal/internal_type_traits.hpp"
-#include "math/modint.hpp"
+#include "number_theory/modint.hpp"
 
 // Montgomery 表現 + AVX2 による NTT。NTT-friendly な 32bit 素数 mod 専用。
 // 値は [0, 2*mod) の Montgomery 表現で持ち、加減算では完全正規化しない (遅延簡約)。
