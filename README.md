@@ -44,7 +44,7 @@ g++ -std=c++23 -I lib your_solution.cpp
 | [`lib/ordered_set/`](lib/ordered_set/)       | 順序集合・多重集合（AVL 木）・Binary Trie・Patricia Binary Trie・64 分木                  |
 | [`lib/union_find/`](lib/union_find/)         | Union-Find（重み付き・undo・動的・永続・offline dynamic connectivity）                    |
 | [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ・削除可能 PQ・k 番目和      |
-| [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・永続セグメント木・永続スタック/キュー                                           |
+| [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・部分永続配列・永続セグメント木・永続スタック/キュー                             |
 | [`lib/dp/`](lib/dp/)                         | Convex Hull Trick・Li Chao Tree・Slope Trick・monotone minima                             |
 | [`lib/number_theory/`](lib/number_theory/)   | modint・多倍長整数・分数・素数判定/列挙・篩・素因数分解・CRT・floor sum・mod 平方根 など  |
 | [`lib/combinatorics/`](lib/combinatorics/)   | 二項係数・スターリング数等の列挙・ベル数・分割数・offline binomial sum                    |

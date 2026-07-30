@@ -5,9 +5,9 @@ excluded_directories = ["internal", "template"]
 
 # 現在値を下限として、説明の削除や文書化されていない公開ヘッダの増加を防ぐ。
 # 詳細ページを追加したら minimum_reference_pages も同じPRで引き上げる。
-minimum_doxygen_headers = 143
-minimum_reference_pages = 164
-minimum_compiled_examples = 164
+minimum_doxygen_headers = 144
+minimum_reference_pages = 165
+minimum_compiled_examples = 165
 maximum_undocumented_headers = 0
 
 [style]
