@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 #include "algorithm/binary_search.hpp"
+#include "data_structure/linear_sparse_table.hpp"
 #include "segtree/monoid.hpp"
-#include "sparse_table/linear_sparse_table.hpp"
 #include "string/suffix_array.hpp"
 
 // suffix array 上を t との直接比較で二分探索する素直な版。

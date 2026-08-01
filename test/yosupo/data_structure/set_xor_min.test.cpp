@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/set_xor_min
 #include <cassert>
 #include <iostream>
-#include "ordered_set/binary_trie.hpp"
-#include "ordered_set/patricia_binary_trie.hpp"
+#include "data_structure/binary_trie.hpp"
+#include "data_structure/patricia_binary_trie.hpp"
 
 int main(void) {
     int q;

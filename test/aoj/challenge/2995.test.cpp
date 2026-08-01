@@ -4,10 +4,10 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include "data_structure/dynamic_union_find.hpp"
+#include "data_structure/union_find.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/dsu_on_tree.hpp"
-#include "union_find/dynamic_union_find.hpp"
-#include "union_find/union_find.hpp"
 
 // 固定サイズ union_find を使う版。
 template <class G>

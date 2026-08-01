@@ -6,11 +6,11 @@
 #include <utility>
 #include <vector>
 #include "data_structure/fenwick_tree.hpp"
+#include "data_structure/union_find.hpp"
 #include "graph/edge_input.hpp"
 #include "segtree/segment_tree.hpp"
 #include "tree/dsu_on_tree.hpp"
 #include "tree/euler_tour.hpp"
-#include "union_find/union_find.hpp"
 
 // オイラーツアー + セグメント木でオンラインに処理する版。
 std::vector<std::int64_t> solve_euler_tour(int n, const std::vector<int> &a, const std::vector<int> &p,

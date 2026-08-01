@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/predecessor_problem
 #include <iostream>
 #include <string>
-#include "ordered_set/tree64.hpp"
+#include "data_structure/tree64.hpp"
 
 int main(void) {
     int n, q;

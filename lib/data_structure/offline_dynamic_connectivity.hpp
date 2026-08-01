@@ -4,7 +4,7 @@
 #include <cassert>
 #include <map>
 #include <utility>
-#include "union_find/undo_union_find.hpp"
+#include "data_structure/undo_union_find.hpp"
 
 /// @brief 辺の追加・削除を先読みして処理するオフライン動的連結性
 /// @details `add` / `erase` を時刻順に登録してから `build` と `solve` を呼ぶ。

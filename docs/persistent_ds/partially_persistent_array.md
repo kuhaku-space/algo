@@ -65,7 +65,7 @@ int w = events.get(1, 100);  // 7
 - 空間計算量は総更新回数を $Q$ として $O(n + Q)$。値を複製するのは更新した要素だけで、
   永続配列のような経路上のノード複製は発生しない。
 - `T` に要求するのはコピー構築と代入のみ。順序や演算は不要。
-- 同じく過去参照のみを許す設計として `union_find/partially_persistent_union_find.hpp` がある。
+- 同じく過去参照のみを許す設計として `persistent_ds/partially_persistent_union_find.hpp` がある。
   こちらも `f(x, t)` の形で時刻を最後の引数に取る。
 
 ## 検証

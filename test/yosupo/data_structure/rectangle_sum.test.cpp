@@ -4,7 +4,7 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
-#include "wavelet/wavelet_matrix_rectangle_sum.hpp"
+#include "data_structure/wavelet_matrix_rectangle_sum.hpp"
 
 int main(void) {
     int n, q;

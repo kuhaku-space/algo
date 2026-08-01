@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "wavelet/wavelet_matrix_rectangle_sum.hpp"
+#include "data_structure/wavelet_matrix_rectangle_sum.hpp"
 
 /// @brief 区間 [l, r) について sum(min(A_i, x)) / sum(max(A_i, x)) を求める
 /// @complexity 構築は $O(nL)$、問い合わせは $O(L)$
