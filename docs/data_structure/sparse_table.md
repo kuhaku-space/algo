@@ -1,6 +1,6 @@
 ---
 title: Sparse Table (sparse_table)
-documentation_of: //lib/sparse_table/sparse_table.hpp
+documentation_of: //lib/data_structure/sparse_table.hpp
 compile_example: true
 ---
 
@@ -10,7 +10,7 @@ Range Minimum Query、Range Maximum Query、GCD などに適する。
 ## 使い方
 
 ```cpp
-#include "sparse_table/sparse_table.hpp"
+#include "data_structure/sparse_table.hpp"
 
 std::vector<int> a = {5, 2, 7, 1, 3};
 sparse_table<Min<int>> table(a);

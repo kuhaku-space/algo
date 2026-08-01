@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "algorithm/compress.hpp"
-#include "wavelet/wavelet_matrix.hpp"
+#include "data_structure/wavelet_matrix.hpp"
 
 /// @brief ウェーブレット行列（座標圧縮）
 /// @complexity 構築は $O(n\log n+nL)$、各問い合わせは $O(L)$

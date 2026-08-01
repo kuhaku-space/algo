@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "wavelet/range_min_max_sum.hpp"
+#include "data_structure/range_min_max_sum.hpp"
 
 int main(void) {
     int n, q;

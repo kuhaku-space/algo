@@ -2,8 +2,8 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
+#include "data_structure/compressed_wavelet_matrix.hpp"
 #include "data_structure/merge_sort_tree.hpp"
-#include "wavelet/compressed_wavelet_matrix.hpp"
 
 int main(void) {
     int n, q;

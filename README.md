@@ -36,15 +36,9 @@ g++ -std=c++23 -I lib your_solution.cpp
 | ディレクトリ                                 | 内容                                                                                      |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | [`lib/algorithm/`](lib/algorithm/)           | 二分探索・座標圧縮・累積和・ダブリング・Mo's algorithm・LIS・転倒数 など                  |
-| [`lib/data_structure/`](lib/data_structure/) | SWAG・Merge Sort Tree・領域木・区間 set・flip set・undo deque など                        |
+| [`lib/data_structure/`](lib/data_structure/) | Fenwick Tree・Sparse Table・Union-Find・Wavelet Matrix・順序集合・Binary Trie・永続配列・SWAG・領域木 など |
 | [`lib/segtree/`](lib/segtree/)               | セグメント木・遅延セグメント木・双対セグメント木・動的セグメント木・モノイド定義          |
-| [`lib/fenwick/`](lib/fenwick/)               | Fenwick Tree（点更新区間和・区間加算区間和）                                              |
-| [`lib/sparse_table/`](lib/sparse_table/)     | Sparse Table・Disjoint Sparse Table・線形 Sparse Table                                    |
-| [`lib/wavelet/`](lib/wavelet/)               | Wavelet Matrix（圧縮版・動的版・矩形和）                                                  |
-| [`lib/ordered_set/`](lib/ordered_set/)       | 順序集合・多重集合（AVL 木）・Binary Trie・Patricia Binary Trie・64 分木                  |
-| [`lib/union_find/`](lib/union_find/)         | Union-Find（重み付き・undo・動的・永続・offline dynamic connectivity）                    |
 | [`lib/heap/`](lib/heap/)                     | Binary / Fibonacci / Leftist / Skew / Radix / Interval ヒープ・削除可能 PQ・k 番目和      |
-| [`lib/persistent_ds/`](lib/persistent_ds/)   | 永続配列・部分永続配列・永続セグメント木・永続スタック/キュー                             |
 | [`lib/dp/`](lib/dp/)                         | Convex Hull Trick・Li Chao Tree・Slope Trick・monotone minima                             |
 | [`lib/number_theory/`](lib/number_theory/)   | modint・多倍長整数・分数・素数判定/列挙・篩・素因数分解・CRT・floor sum・mod 平方根 など  |
 | [`lib/combinatorics/`](lib/combinatorics/)   | 二項係数・スターリング数等の列挙・ベル数・分割数・offline binomial sum                    |

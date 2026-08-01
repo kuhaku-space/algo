@@ -2,10 +2,10 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
+#include "data_structure/disjoint_sparse_table.hpp"
+#include "data_structure/linear_sparse_table.hpp"
+#include "data_structure/sparse_table.hpp"
 #include "segtree/monoid.hpp"
-#include "sparse_table/disjoint_sparse_table.hpp"
-#include "sparse_table/linear_sparse_table.hpp"
-#include "sparse_table/sparse_table.hpp"
 
 int main(void) {
     int n, q;

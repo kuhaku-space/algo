@@ -2,8 +2,8 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
-#include "ordered_set/binary_trie.hpp"
-#include "ordered_set/ordered_set.hpp"
+#include "data_structure/binary_trie.hpp"
+#include "data_structure/ordered_set.hpp"
 
 int main(void) {
     int n, q;

@@ -8,9 +8,9 @@
 #include <tuple>
 #include <utility>
 #include <vector>
+#include "data_structure/union_find.hpp"
 #include "graph/graph.hpp"
 #include "heap/meldable_heap.hpp"
-#include "union_find/union_find.hpp"
 
 // Leftist heap (Leftist = true) と skew heap (Leftist = false) の両方で同じ結果になることを検証する。
 template <bool Leftist>

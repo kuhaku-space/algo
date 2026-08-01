@@ -1,6 +1,6 @@
 ---
 title: 部分永続配列 (PartiallyPersistentArray)
-documentation_of: //lib/persistent_ds/partially_persistent_array.hpp
+documentation_of: //lib/data_structure/partially_persistent_array.hpp
 compile_example: true
 ---
 
@@ -10,13 +10,13 @@ compile_example: true
 
 「時系列順に配列を書き換えながら、途中の任意の時点の値を後から問い合わせる」場面で使う。
 版が分岐する（過去の版を基点に更新する）用途には使えず、その場合は完全永続な
-`persistent_ds/persistent_array.hpp` を使う。
+`data_structure/persistent_array.hpp` を使う。
 
 ## 使い方
 
 ```cpp
 #include <vector>
-#include "persistent_ds/partially_persistent_array.hpp"
+#include "data_structure/partially_persistent_array.hpp"
 
 std::vector<int> a = {3, 1, 4};
 PartiallyPersistentArray<int> ppa(a);
@@ -65,7 +65,7 @@ int w = events.get(1, 100);  // 7
 - 空間計算量は総更新回数を $Q$ として $O(n + Q)$。値を複製するのは更新した要素だけで、
   永続配列のような経路上のノード複製は発生しない。
 - `T` に要求するのはコピー構築と代入のみ。順序や演算は不要。
-- 同じく過去参照のみを許す設計として `union_find/partially_persistent_union_find.hpp` がある。
+- 同じく過去参照のみを許す設計として `data_structure/partially_persistent_union_find.hpp` がある。
   こちらも `f(x, t)` の形で時刻を最後の引数に取る。
 
 ## 検証

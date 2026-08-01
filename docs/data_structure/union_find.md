@@ -1,6 +1,6 @@
 ---
 title: Union-Find (union_find)
-documentation_of: //lib/union_find/union_find.hpp
+documentation_of: //lib/data_structure/union_find.hpp
 compile_example: true
 ---
 
@@ -10,7 +10,7 @@ compile_example: true
 ## 使い方
 
 ```cpp
-#include "union_find/union_find.hpp"
+#include "data_structure/union_find.hpp"
 
 union_find uf(5);
 uf.unite(0, 1);

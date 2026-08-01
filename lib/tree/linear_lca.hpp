@@ -3,8 +3,8 @@
 #include <limits>
 #include <utility>
 #include <vector>
+#include "data_structure/linear_sparse_table.hpp"
 #include "graph/graph.hpp"
-#include "sparse_table/linear_sparse_table.hpp"
 
 /// @brief 線形前処理・定数時間クエリのLCA
 /// @details Euler Tourと$\pm1$ RMQ用の線形Sparse Tableを利用する。
