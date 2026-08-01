@@ -1,6 +1,6 @@
 #pragma once
 #include <utility>
-#include "data_structure/persistent_array.hpp"
+#include "persistent_ds/persistent_array.hpp"
 
 /// @brief 各バージョンを保持する完全永続 Union-Find
 /// @details 併合は元の状態を変更せず、新しい Union-Find を返す。

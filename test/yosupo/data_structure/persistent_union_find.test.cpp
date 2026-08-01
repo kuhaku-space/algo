@@ -4,9 +4,9 @@
 #include <tuple>
 #include <utility>
 #include <vector>
-#include "data_structure/persistent_union_find.hpp"
 #include "data_structure/undo_union_find.hpp"
 #include "graph/graph.hpp"
+#include "persistent_ds/persistent_union_find.hpp"
 
 // 真の永続配列で、クエリを与えられた順のままオンラインに処理する版。
 std::vector<bool> solve_persistent(int n, const std::vector<std::tuple<int, int, int, int>> &queries) {
