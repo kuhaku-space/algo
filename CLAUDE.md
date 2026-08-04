@@ -37,6 +37,9 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
   「どのテストが落ちたか」は merged check の `N file(s) still failing` 行で特定。`--log` の全シャードループは避ける。
 - 巨大ログ・数十 KB を超える外部ファイル（ミニファイ JS 等）を精読せざるを得ない時は
   **サブエージェントに委譲**（生データは子のコンテキストに留め、結論だけ受け取る）。
+- **実行時間は `docs-and-check` ジョブのサマリーで確認**（`tools/verify_timing_summary.py` が
+  `main` の結果キャッシュと比較して合計・最悪ケース・再実行された test の差分を出力）。
+  共有 runner のばらつきが大きいので参考値であり、ゲートではない。
 - CI はポーリングせず auto-merge に任せる。
 - **同一 URL への curl は結果を使い回し、再フェッチしない**（GitHub Pages のドキュメント確認等）。
 
