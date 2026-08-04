@@ -58,9 +58,7 @@ int main() {
         g.add_edges(n + i, v);
     }
 
-    static_top_tree<list_graph<void>> stt(g, 0);
-    DP dp_obj(std::move(val));
-    static_top_tree_dp<list_graph<void>, DP> stt_dp(stt, dp_obj);
+    StaticTopTreeDP<DP> stt_dp(g, 0, DP(std::move(val)));
 
     for (int i = 0; i < q; ++i) {
         int type;
