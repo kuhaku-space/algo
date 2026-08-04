@@ -196,6 +196,22 @@ jobs:
         with:
           fetch-depth: 2147483647
 
+      # 実行時間サマリーの比較対象。常に main の最新結果を基準にするので、
+      # PR では「main と比べてどう変わったか」になる。cache/restore は保存時と
+      # 同じパスへ展開するため、Merge results が書く merged-result.json と
+      # 衝突しないよう先に退避しておく。
+      - name: Restore baseline result (main)
+        uses: actions/cache/restore@v6
+        id: restore-baseline
+        with:
+          path: ${{github.workspace}}/merged-result.json
+          key: ${{ runner.os }}-verify-result-main-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-verify-result-main-
+      - name: Set aside baseline result
+        if: steps.restore-baseline.outputs.cache-matched-key != ''
+        run: mv merged-result.json baseline-result.json
+
       - name: Download verify_files.json and all artifacts
         id: all-artifacts
         uses: competitive-verifier/actions/download-verify-artifact@v2
@@ -357,6 +373,16 @@ jobs:
           else:
               print("All verifications passed.")
           PY
+        env:
+          MERGED: ${{github.workspace}}/merged-result.json
+      # Informational only: runner timings vary by ~2x between identical runs,
+      # so this never gates the run. Baseline は上で退避した main の結果
+      # （無ければ差分なしで合計・上位のみ出力）。
+      - name: Report timing summary
+        run: >-
+          python3 tools/verify_timing_summary.py
+          --result "$MERGED"
+          --baseline "${{github.workspace}}/baseline-result.json"
         env:
           MERGED: ${{github.workspace}}/merged-result.json
       # Always save: competitive-verifier re-verifies "failure" tests on the
