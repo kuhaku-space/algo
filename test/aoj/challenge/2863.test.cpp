@@ -18,7 +18,7 @@ Mint solve_rolling_hash(int m, const std::vector<std::string> &t, const std::str
     std::unordered_set<std::uint64_t> st;
     std::vector<int> lens;
     for (int i = 0; i < m; ++i) {
-        st.emplace(rh.hash(t[i]));
+        st.emplace(rh.derive(t[i]).get());
         lens.emplace_back(t[i].size());
     }
     std::sort(lens.begin(), lens.end());
