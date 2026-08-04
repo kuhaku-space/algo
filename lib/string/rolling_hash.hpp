@@ -12,14 +12,14 @@
 /// @see https://qiita.com/keymoon/items/11fac5627672a6d6a9f6
 /// @see https://yosupo.hatenablog.com/entry/2023/08/06/181942
 /// @complexity 構築は $O(n)$、部分文字列hashは $O(1)$
-struct rolling_hash {
+struct RollingHash {
     /// @brief 空文字列用のhashを構築する
     /// @complexity $O(1)$
-    rolling_hash() : rolling_hash(std::string()) {}
+    RollingHash() : RollingHash(std::string()) {}
 
     /// @brief 文字列sのprefix hashを構築する
     /// @complexity $O(n)$
-    explicit rolling_hash(const std::string &s, HashInt base = random_hash_base())
+    explicit RollingHash(const std::string &s, HashInt base = random_hash_base())
         : _size(s.size()), base(base), data(_size + 1), p(_size + 1, HashInt(1)) {
         for (int i = 0; i < _size; ++i) {
             data[i + 1] = data[i] * base + HashInt(s[i]);
@@ -29,7 +29,7 @@ struct rolling_hash {
 
     /// @brief 同じ基数で別の文字列をhash化する
     /// @complexity $O(n)$
-    rolling_hash derive(const std::string &s) const { return rolling_hash(s, base); }
+    RollingHash derive(const std::string &s) const { return RollingHash(s, base); }
 
     /// @brief 使用中の基数を返す
     /// @complexity $O(1)$

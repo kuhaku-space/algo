@@ -15,7 +15,7 @@ int main(void) {
 
     auto z = z_algorithm(s);
 
-    rolling_hash rh(s);
+    RollingHash rh(s);
     std::vector<int> z_hash = {n};
     std::unordered_set<HashInt> st;
     for (int i = 1; i <= n; ++i) st.emplace(rh.get(0, i));

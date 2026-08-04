@@ -10,7 +10,7 @@ int main(void) {
     std::cin >> n >> q;
     std::string s, t;
     std::cin >> s;
-    rolling_hash rh(s);
+    RollingHash rh(s);
     int l = 0, r = 1;
     std::unordered_set<HashInt> st;
     while (q--) {

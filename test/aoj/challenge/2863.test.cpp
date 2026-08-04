@@ -15,7 +15,7 @@ using Mint = modint107;
 
 // ローリングハッシュで単語集合をハッシュ集合として持ち、部分文字列一致を判定する版。
 Mint solve_rolling_hash(int m, const std::vector<std::string> &t, const std::string &s) {
-    rolling_hash rh;
+    RollingHash rh;
     std::unordered_set<HashInt> st;
     std::vector<int> lens;
     for (int i = 0; i < m; ++i) {
@@ -24,7 +24,7 @@ Mint solve_rolling_hash(int m, const std::vector<std::string> &t, const std::str
     }
     std::sort(lens.begin(), lens.end());
     lens.erase(std::unique(lens.begin(), lens.end()), lens.end());
-    rolling_hash rhs(s, rh.get_base());
+    RollingHash rhs(s, rh.get_base());
     int n = s.size();
     std::vector<Mint> dp(n + 1);
     dp[0] = 1;
