@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "algorithm/mo.hpp"
-#include "combinatorics/combination.hpp"
+#include "combinatorics/combinatorics.hpp"
 #include "number_theory/modint.hpp"
 
 /// @brief 複数の二項係数部分和 $\sum_{i=0}^{k}\binom{n}{i}$ をまとめて求める

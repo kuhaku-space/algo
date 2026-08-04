@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "combinatorics/combination.hpp"
+#include "combinatorics/combinatorics.hpp"
 #include "number_theory/modint.hpp"
 
 /// @brief 第2種スターリング数・ベル数

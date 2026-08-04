@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <optional>
 #include <vector>
-#include "combinatorics/combination.hpp"
+#include "combinatorics/combinatorics.hpp"
 #include "convolution/ntt.hpp"
 #include "convolution/ntt_avx2.hpp"
 #include "internal/internal_fps_avx2.hpp"

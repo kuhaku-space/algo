@@ -194,9 +194,9 @@ class default_private {
             ["void visible();", "void another();", "void visible();"],
         )
 
-    def test_combination_page_lists_public_operations(self) -> None:
+    def test_combinatorics_page_lists_public_operations(self) -> None:
         page = render_generated_page(
-            ROOT / "lib" / "combinatorics" / "combination.hpp"
+            ROOT / "lib" / "combinatorics" / "combinatorics.hpp"
         )
 
         self.assertNotIn(
@@ -312,7 +312,7 @@ class default_private {
     def test_all_combinatorics_pages_have_generated_complexities(self) -> None:
         expected_rows = {
             "bell.hpp": 1,
-            "combination.hpp": 8,
+            "combinatorics.hpp": 8,
             "offline_binomial_sum.hpp": 1,
             "partition_function.hpp": 1,
             "stirling.hpp": 4,
