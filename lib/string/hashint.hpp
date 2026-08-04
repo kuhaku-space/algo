@@ -1,7 +1,9 @@
 #pragma once
+#include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <iostream>
-#include <utility>
+#include <random>
 
 /// @brief 法 $2^{61}-1$ 上の整数型
 /// @details ローリングハッシュ向けに、加減乗除・比較・累乗・逆元を提供する。
@@ -49,11 +51,8 @@ struct HashInt {
     /// @brief `rhs` を乗算する
     /// @complexity $O(1)$
     constexpr HashInt &operator*=(const HashInt &rhs) noexcept {
-        std::uint64_t au = x >> 31, ad = x & mask31;
-        std::uint64_t bu = rhs.x >> 31, bd = rhs.x & mask31;
-        std::uint64_t mid = ad * bu + au * bd;
-        std::uint64_t midu = mid >> 30, midd = mid & mask30;
-        x = _mod(au * bu * 2 + midu + (midd << 31) + ad * bd);
+        __uint128_t t = (__uint128_t)x * rhs.x;
+        x = _mod((std::uint64_t)(t >> 61) + (std::uint64_t)(t & mod));
         return *this;
     }
     /// @brief `rhs` で除算する
@@ -173,8 +172,6 @@ struct HashInt {
     std::uint64_t x;
 
     static constexpr std::uint64_t mod = (1ul << 61) - 1;
-    static constexpr std::uint64_t mask30 = (1ul << 30) - 1;
-    static constexpr std::uint64_t mask31 = (1ul << 31) - 1;
 
     constexpr std::uint64_t _mod(std::uint64_t x) const {
         std::uint64_t xu = x >> 61, xd = x & mod;
@@ -182,4 +179,19 @@ struct HashInt {
         if (res >= mod) res -= mod;
         return res;
     }
+};
+
+/// @brief ローリングハッシュ用の乱数基数を返す
+/// @details 基数 0・1 を避けるため $[2, 2^{32}+1]$ から選ぶ。意図的な衝突を避けるため
+///          呼び出しのたびに異なる値になる。
+/// @complexity $O(1)$
+inline HashInt random_hash_base() { return HashInt((std::uint64_t)std::random_device()() + 2); }
+
+/// @brief `HashInt` を `std::unordered_set` 等のkeyにするためのhash
+/// @complexity hash値の計算は $O(1)$
+template <>
+struct std::hash<HashInt> {
+    /// @brief 正規化済みの値をhash値として返す
+    /// @complexity $O(1)$
+    std::size_t operator()(const HashInt &rhs) const noexcept { return std::hash<std::uint64_t>()(rhs.val()); }
 };

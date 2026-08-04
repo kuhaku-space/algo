@@ -1,10 +1,10 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/zalgorithm
 #include <cassert>
-#include <cstdint>
 #include <iostream>
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include "string/hashint.hpp"
 #include "string/rolling_hash.hpp"
 #include "string/z_algorithm.hpp"
 
@@ -15,9 +15,9 @@ int main(void) {
 
     auto z = z_algorithm(s);
 
-    rolling_hash rh(s);
+    RollingHash rh(s);
     std::vector<int> z_hash = {n};
-    std::unordered_set<std::uint64_t> st;
+    std::unordered_set<HashInt> st;
     for (int i = 1; i <= n; ++i) st.emplace(rh.get(0, i));
     for (int i = 1; i < n; ++i) {
         int l = 0, r = n - i + 1;

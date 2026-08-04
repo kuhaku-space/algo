@@ -7,6 +7,7 @@
 #include <vector>
 #include "number_theory/modint.hpp"
 #include "string/aho_corasick.hpp"
+#include "string/hashint.hpp"
 #include "string/rolling_hash.hpp"
 #include "tree/tree_function.hpp"
 
@@ -14,16 +15,16 @@ using Mint = modint107;
 
 // ローリングハッシュで単語集合をハッシュ集合として持ち、部分文字列一致を判定する版。
 Mint solve_rolling_hash(int m, const std::vector<std::string> &t, const std::string &s) {
-    rolling_hash rh;
-    std::unordered_set<std::uint64_t> st;
+    RollingHash rh;
+    std::unordered_set<HashInt> st;
     std::vector<int> lens;
     for (int i = 0; i < m; ++i) {
-        st.emplace(rh.hash(t[i]));
+        st.emplace(rh.derive(t[i]).get());
         lens.emplace_back(t[i].size());
     }
     std::sort(lens.begin(), lens.end());
     lens.erase(std::unique(lens.begin(), lens.end()), lens.end());
-    rolling_hash rhs(s, rh.get_base());
+    RollingHash rhs(s, rh.get_base());
     int n = s.size();
     std::vector<Mint> dp(n + 1);
     dp[0] = 1;

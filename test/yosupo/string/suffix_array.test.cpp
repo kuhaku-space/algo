@@ -16,7 +16,7 @@ int main(void) {
     auto sa = suffix_array(s);
 
     std::string s2 = s + "$";
-    rolling_hash rh(s2);
+    RollingHash rh(s2);
     std::vector<int> ord(n);
     std::iota(ord.begin(), ord.end(), 0);
     std::sort(ord.begin(), ord.end(), [&](int x, int y) {

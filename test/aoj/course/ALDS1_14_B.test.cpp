@@ -17,7 +17,7 @@ int main(void) {
         if (match[i] == (int)t.size()) pos_kmp.emplace_back(i - (int)t.size() + 1);
     }
 
-    rolling_hash rh(s);
+    RollingHash rh(s);
     auto pos_hash = rh.search(t);
 
     assert(pos_kmp == pos_hash);
