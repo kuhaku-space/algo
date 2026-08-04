@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/2444
-#include <cstdint>
 #include <iostream>
 #include <string>
 #include <unordered_set>
+#include "string/hashint.hpp"
 #include "string/rolling_hash.hpp"
 
 int main(void) {
@@ -12,7 +12,7 @@ int main(void) {
     std::cin >> s;
     rolling_hash rh(s);
     int l = 0, r = 1;
-    std::unordered_set<std::uint64_t> st;
+    std::unordered_set<HashInt> st;
     while (q--) {
         std::cin >> t;
         if (t == "L++") ++l;

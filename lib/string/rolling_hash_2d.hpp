@@ -1,7 +1,6 @@
 #pragma once
 #include <cassert>
-#include <cstdint>
-#include <random>
+#include <cstddef>
 #include <string>
 #include <vector>
 #include "string/hashint.hpp"
@@ -18,9 +17,8 @@ struct RollingHash2D {
     /// @brief 二次元列gridのhashを構築する
     /// @complexity $O(hw)$
     template <class T>
-    explicit RollingHash2D(const std::vector<std::vector<T>> &grid,
-                           HashInt base_x = (std::uint64_t)std::random_device()() + 2,
-                           HashInt base_y = (std::uint64_t)std::random_device()() + 2)
+    explicit RollingHash2D(const std::vector<std::vector<T>> &grid, HashInt base_x = random_hash_base(),
+                           HashInt base_y = random_hash_base())
         : _h(grid.size()), _w(_h ? grid[0].size() : 0), base_x(base_x), base_y(base_y),
           data(_h + 1, std::vector<HashInt>(_w + 1)), px(_h + 1, HashInt(1)), py(_w + 1, HashInt(1)) {
         for (int i = 1; i <= _h; ++i) px[i] = px[i - 1] * base_x;
@@ -35,9 +33,8 @@ struct RollingHash2D {
 
     /// @brief 文字列行列gridのhashを構築する
     /// @complexity $O(hw)$
-    explicit RollingHash2D(const std::vector<std::string> &grid,
-                           HashInt base_x = (std::uint64_t)std::random_device()() + 2,
-                           HashInt base_y = (std::uint64_t)std::random_device()() + 2)
+    explicit RollingHash2D(const std::vector<std::string> &grid, HashInt base_x = random_hash_base(),
+                           HashInt base_y = random_hash_base())
         : RollingHash2D(to_grid(grid), base_x, base_y) {}
 
     /// @brief 同じ基数で別の二次元列をhash化する
