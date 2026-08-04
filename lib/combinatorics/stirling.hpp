@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "combinatorics/combination.hpp"
+#include "combinatorics/combinatorics.hpp"
 #include "convolution/formal_power_series.hpp"
 #include "convolution/ntt.hpp"
 
