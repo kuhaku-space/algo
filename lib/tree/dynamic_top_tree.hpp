@@ -9,7 +9,7 @@
 ///          O(log n) 償却で繋ぎ替える。evert によるパス反転に対応するため、
 ///          パス集約を正方向 sum・逆方向 mus の 2 本立てで保持する（compress
 ///          が非可換なため、反転を高速に行うにはこの複製が必要）。
-///          TreeDP のインターフェースは static_top_tree_dp と共通：
+///          TreeDP のインターフェースは `StaticTopTreeDP`（`tree_dp` concept）と共通：
 ///          `Path vertex(int u)` / `Path add_vertex(Path d, Light l)` /
 ///          `Light add_edge(Path d)` / `Light rake(Light l, Light r)` /
 ///          `Path compress(Path p, Path c)`。
