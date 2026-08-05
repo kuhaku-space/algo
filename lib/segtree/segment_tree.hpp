@@ -29,6 +29,18 @@ struct segment_tree {
             return *this;
         }
         operator T() const { return self.get(k); }
+        // chmax(seg[k], x) / chmin(seg[k], x) をADLで解決する
+        // (proxyは右辺値なのでchmax(T &, const U &)には束縛できない)
+        friend bool chmax(_segment_tree_reference ref, const T &x) {
+            if (!(ref.self.get(ref.k) < x)) return false;
+            ref.self.set(ref.k, x);
+            return true;
+        }
+        friend bool chmin(_segment_tree_reference ref, const T &x) {
+            if (!(x < ref.self.get(ref.k))) return false;
+            ref.self.set(ref.k, x);
+            return true;
+        }
     };
 
   public:

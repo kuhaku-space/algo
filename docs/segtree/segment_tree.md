@@ -22,6 +22,9 @@ seg.set(2, 10);
 seg[0] = 5;                     // set(0, 5) と同じ
 
 int r = seg.max_right(0, [](long long x) { return x <= 12; });
+
+segment_tree<Max<long long>> mx(4, 0);
+chmax(mx[1], 5);                // v[1] = max(v[1], 5)
 ```
 
 ## API
@@ -53,6 +56,10 @@ int r = seg.max_right(0, [](long long x) { return x <= 12; });
   `f` が真から偽へ一度だけ変わる単調性を仮定する。
 - 非 `const` の `operator[]` は更新用プロキシを返す。読み取り時は値へ変換され、
   代入時は `set` と同じく祖先を更新する。
+- プロキシは `chmax` / `chmin` を hidden friend として持つので、`chmax(seg[k], val)` と
+  書ける（`template/template.hpp` の `chmax(T &, const U &)` はプロキシが右辺値のため
+  束縛できず、ADL でこちらが選ばれる）。比較には `operator<` のみを使い、値が変わらない
+  ときは `set` を呼ばないので $O(1)$ で済む。
 
 ## 検証
 
