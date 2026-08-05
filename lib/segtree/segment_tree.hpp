@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <bit>
 #include <cassert>
+#include <utility>
 #include <vector>
 #include "segtree/monoid.hpp"
 
@@ -13,30 +14,32 @@ struct segment_tree {
   private:
     using T = typename M::value_type;
 
-    struct _segment_tree_reference {
+  public:
+    /// @brief k番目の要素として振る舞うproxy。値への変換・代入・`chmax` / `chmin` ができる
+    /// @complexity 値の取得は $O(1)$、代入は $O(\log n)$
+    struct Reference {
       private:
         segment_tree<M> &self;
         int k;
 
       public:
-        _segment_tree_reference(segment_tree<M> &self, int k) : self(self), k(k) {}
-        _segment_tree_reference &operator=(const T &x) {
-            self.set(k, x);
-            return *this;
-        }
-        _segment_tree_reference &operator=(T &&x) {
+        Reference(segment_tree<M> &self, int k) : self(self), k(k) {}
+        Reference(const Reference &) = default;
+        // 参照の張り替えではなく値の代入(std::vector<bool>::referenceと同じ)
+        Reference &operator=(const Reference &x) { return *this = T(x); }
+        Reference &operator=(T x) {
             self.set(k, std::move(x));
             return *this;
         }
         operator T() const { return self.get(k); }
         // chmax(seg[k], x) / chmin(seg[k], x) をADLで解決する
         // (proxyは右辺値なのでchmax(T &, const U &)には束縛できない)
-        friend bool chmax(_segment_tree_reference ref, const T &x) {
+        friend bool chmax(Reference ref, const T &x) {
             if (!(ref.self.get(ref.k) < x)) return false;
             ref.self.set(ref.k, x);
             return true;
         }
-        friend bool chmin(_segment_tree_reference ref, const T &x) {
+        friend bool chmin(Reference ref, const T &x) {
             if (!(x < ref.self.get(ref.k))) return false;
             ref.self.set(ref.k, x);
             return true;
@@ -81,7 +84,7 @@ struct segment_tree {
 
     /// @brief k番目を参照・代入できるproxyを返す
     /// @complexity 取得は $O(1)$、代入は $O(\log n)$
-    _segment_tree_reference operator[](int k) { return _segment_tree_reference(*this, k); }
+    Reference operator[](int k) { return Reference(*this, k); }
 
     /// @brief k番目の値を返す
     /// @complexity $O(1)$
@@ -96,7 +99,7 @@ struct segment_tree {
     void set(int k, T val) {
         assert(0 <= k && k < _n);
         k += _size;
-        data[k] = val;
+        data[k] = std::move(val);
         for (int i = 1; i <= _log; ++i) update(k >> i);
     }
 

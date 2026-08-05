@@ -31,12 +31,13 @@ chmax(mx[1], 5);                // v[1] = max(v[1], 5)
 
 | API | 内容 | 計算量 |
 | --- | --- | --- |
+| `struct Reference` | k番目の要素として振る舞うproxy。値への変換・代入・`chmax` / `chmin` ができる | 値の取得は $O(1)$、代入は $O(\log n)$ |
 | `segment_tree()` | 空の木を構築する | $O(1)$ |
 | `explicit segment_tree(int n, T e = M::id())` | n要素をeで初期化する | $O(n)$ |
 | `template <class U> explicit segment_tree(const std::vector<U> &v)` | 列vから構築する | $O(n)$ |
 | `void assign(int n, T e = M::id())` | 確保済み領域を保ったままn要素をeで埋め直す | $O(n)$ |
 | `const T &operator[](int k) const` | k番目の値をconst参照で返す | $O(1)$ |
-| `_segment_tree_reference operator[](int k)` | k番目を参照・代入できるproxyを返す | 取得は $O(1)$、代入は $O(\log n)$ |
+| `Reference operator[](int k)` | k番目を参照・代入できるproxyを返す | 取得は $O(1)$、代入は $O(\log n)$ |
 | `T at(int k) const` | k番目の値を返す | $O(1)$ |
 | `T get(int k) const` | k番目の値を返す | $O(1)$ |
 | `void set(int k, T val)` | k番目をvalへ変更する | $O(\log n)$ |
@@ -54,9 +55,10 @@ chmax(mx[1], 5);                // v[1] = max(v[1], 5)
 - 空区間の `prod(l, l)` は `M::id()` を返す。
 - `max_right` / `min_left` では `f(M::id()) == true` が必要。また、区間を伸ばしたとき
   `f` が真から偽へ一度だけ変わる単調性を仮定する。
-- 非 `const` の `operator[]` は更新用プロキシを返す。読み取り時は値へ変換され、
-  代入時は `set` と同じく祖先を更新する。
-- プロキシは `chmax` / `chmin` を hidden friend として持つので、`chmax(seg[k], val)` と
+- 非 `const` の `operator[]` は `Reference` プロキシを返す。読み取り時は値へ変換され、
+  代入時は `set` と同じく祖先を更新する。`seg[i] = seg[j]` は参照の張り替えではなく
+  値の代入（`std::vector<bool>::reference` と同じ）。
+- `Reference` は `chmax` / `chmin` を hidden friend として持つので、`chmax(seg[k], val)` と
   書ける（`template/template.hpp` の `chmax(T &, const U &)` はプロキシが右辺値のため
   束縛できず、ADL でこちらが選ばれる）。比較には `operator<` のみを使い、値が変わらない
   ときは `set` を呼ばないので $O(1)$ で済む。
