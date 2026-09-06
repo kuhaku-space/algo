@@ -337,7 +337,7 @@ struct BigInt {
         trim(r);
         return r;
     }
-    /// low + high * BASE^k を返す。low が k 桁を超える分は high 側へ正しく繰り上がる。
+    /// $low + high \cdot \mathrm{BASE}^k$ を返す。`low` が $k$ 桁を超える分は `high` 側へ正しく繰り上がる。
     static std::vector<int> combine(const std::vector<int> &low, const std::vector<int> &high, int k) {
         // r = high << k に low を加算する (low の桁あふれも add が処理する)。
         std::vector<int> r;
@@ -472,7 +472,7 @@ struct BigInt {
         return {q, rem};
     }
 
-    /// a (高々 2n 桁) を b (n 桁、正規化済み・n は偶数) で割る。商 < BASE^n を前提。
+    /// `a`（高々 $2n$ 桁）を `b`（$n$ 桁、正規化済み・$n$ は偶数）で割る。商 $< \mathrm{BASE}^n$ を前提。
     static std::pair<std::vector<int>, std::vector<int>> div_2n_1n(const std::vector<int> &a,
                                                                    const std::vector<int> &b) {
         int n = (int)b.size();
@@ -488,8 +488,8 @@ struct BigInt {
         return {q, r2};
     }
 
-    /// a (高々 3s 桁) を b (= 2s 桁) で割る。商 < BASE^s を前提とする。
-    /// b = b1*BASE^s + b2 と分け、a の上位 2s 桁を b1 で見積もり b2 の積で補正する。
+    /// `a`（高々 $3s$ 桁）を `b`（$2s$ 桁）で割る。商 $< \mathrm{BASE}^s$ を前提とする。
+    /// $b = b_1 \mathrm{BASE}^s + b_2$ と分け、`a` の上位 $2s$ 桁を $b_1$ で見積もり $b_2$ の積で補正する。
     static std::pair<std::vector<int>, std::vector<int>> div_3n_2n(const std::vector<int> &a, const std::vector<int> &b,
                                                                    int s) {
         std::vector<int> b2 = slice(b, 0, s);  // 下位 s 桁

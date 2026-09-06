@@ -8,7 +8,7 @@
 /// @param r 各法における剰余
 /// @param m 互いに素な法
 /// @param mod 出力を取る法
-/// @return $x\bmod mod$
+/// @return $x \bmod \mathrm{mod}$
 /// @complexity 法の個数を $n$ として $O(n^2)$
 template <class T>
 int garner(std::vector<T> r, std::vector<int> m, const int mod) {
@@ -35,7 +35,7 @@ int garner(std::vector<T> r, std::vector<int> m, const int mod) {
 /// @tparam mod 出力を取る法
 /// @param r 各法における剰余
 /// @param m 互いに素な法
-/// @return $x\bmod mod$
+/// @return $x \bmod \mathrm{mod}$
 /// @complexity 法の個数を $n$ として $O(n^2)$
 template <int mod>
 int garner(std::vector<int> r, std::vector<int> m) {

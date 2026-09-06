@@ -8,7 +8,7 @@
 /// @brief 法 $2^{61}-1$ 上の整数型
 /// @details ローリングハッシュ向けに、加減乗除・比較・累乗・逆元を提供する。
 /// @complexity 加減乗算と比較は $O(1)$、`pow(n)` は $O(\log n)$、
-/// `inv()` は $O(\log mod)$
+/// `inv()` は $O(\log \mathrm{mod})$
 struct HashInt {
     /// @brief 法 $2^{61}-1$ を返す
     /// @complexity $O(1)$
@@ -56,7 +56,7 @@ struct HashInt {
         return *this;
     }
     /// @brief `rhs` で除算する
-    /// @complexity $O(\log mod)$
+    /// @complexity $O(\log \mathrm{mod})$
     constexpr HashInt &operator/=(const HashInt &rhs) noexcept {
         *this *= rhs.inv();
         return *this;
@@ -102,7 +102,7 @@ struct HashInt {
     /// @complexity $O(1)$
     constexpr HashInt operator*(const HashInt &rhs) const noexcept { return HashInt(*this) *= rhs; }
     /// @brief `rhs` との商を返す
-    /// @complexity $O(\log mod)$
+    /// @complexity $O(\log \mathrm{mod})$
     constexpr HashInt operator/(const HashInt &rhs) const noexcept { return HashInt(*this) /= rhs; }
 
     /// @brief `rhs` と等しいなら true を返す
@@ -138,7 +138,7 @@ struct HashInt {
     friend std::ostream &operator<<(std::ostream &os, const HashInt &rhs) { return os << rhs.x; }
 
     /// @brief 乗法逆元を返す
-    /// @complexity $O(\log mod)$
+    /// @complexity $O(\log \mathrm{mod})$
     constexpr HashInt inv() const noexcept {
         std::int64_t a = x, b = mod, u = 1, v = 0, t = 0, tmp = 0;
         while (b > 0) {

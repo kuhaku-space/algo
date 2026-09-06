@@ -14,17 +14,19 @@
 
 /// @file
 /// @brief 形式的冪級数 (FPS)
-/// @details modint 係数の形式的冪級数を `std::vector<mint>` (index i = x^i の係数) で表し、
-///          四則・inv / log / exp / pow / sqrt / composition /
-///          compositional_inverse・多項式除算・多点評価・補間・Taylor shift を提供する。 NTT-friendly な mod < 2^30
-///          かつ実行時 AVX2 対応 CPU では inv / log / exp を Montgomery + AVX2 NTT 実装に自動で振り分ける。
+/// @details modint 係数の形式的冪級数を `std::vector<mint>`（index $i$ が $x^i$ の係数）で表し、
+///          四則・`inv` / `log` / `exp` / `pow` / `sqrt` / `composition` /
+///          `compositional_inverse`・多項式除算・多点評価・補間・Taylor shift を提供する。
+///          NTT-friendly な $\mathrm{mod} < 2^{30}$
+///          かつ実行時 AVX2 対応 CPU では `inv` / `log` / `exp` を Montgomery + AVX2 NTT 実装に自動で振り分ける。
 /// @note `pow` は最低次の項 $c x^k$ を括り出し $h^m = \exp(m \log(h / (c x^k))) \cdot c^m \cdot x^{km}$ で計算する。
 ///       `m == 0` は定数 1 を返し、`m < 0` は $h^{|m|}$ の逆元を返す。最低次が `deg` 以上に押し出される場合は全 0
 ///       を返す。
 /// @note `sqrt` は $k$ が偶数かつ $c$ が平方剰余のときだけ解を返す。$k$ が奇数、または平方非剰余で
 ///       解が存在しない場合は空列を返す。
-/// @note `composition` と `compositional_inverse` は Kinoshita-Suzuki の分割統治により $O(deg \log^2 deg)$。
-/// @note `log` の結果は定数項 0、`exp` の結果は定数項 1 になる。
+/// @note `composition` と `compositional_inverse` は Kinoshita-Suzuki の分割統治により、`deg` を $d$ として $O(d \log^2
+/// d)$。
+/// @note `log` の結果は定数項 $0$、`exp` の結果は定数項 $1$ になる。
 /// @note `div_mod` は入力の末尾 0 を内部で除去し、返り値の商・剰余も末尾 0 を含まない。剰余の次数は $\deg r < \deg g$。
 /// @note 多点評価・補間は部分積木を構築して剰余木を下降する。点数が少ない部分木は Horner 法に切り替える。
 /// @code
@@ -122,14 +124,14 @@ std::vector<mint> plus(const std::vector<mint> &f, const std::vector<mint> &g) {
     return res;
 }
 
-/// @brief 逆元 1 / h (mod x^deg)
-/// @details ニュートン法で deg 項まで求める。定数項 h[0] は逆元を持つ必要がある。
+/// @brief 逆元 $1 / h \pmod{x^{deg}}$
+/// @details ニュートン法で `deg` 項まで求める。定数項 `h[0]` は逆元を持つ必要がある。
 ///          条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
 /// @tparam mint static modint
-/// @param h 係数列 (h[0] != 0 が必要)
+/// @param h 係数列（`h[0] != 0` が必要）
 /// @param deg 求める項数
-/// @return std::vector<mint> h * res ≡ 1 (mod x^deg) を満たす res (長さ deg)
-/// @complexity O(deg log deg)
+/// @return std::vector<mint> $h \cdot res \equiv 1 \pmod{x^{deg}}$ を満たす `res`（長さ `deg`）
+/// @complexity `deg` を $d$ として $O(d \log d)$
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] != mint(0));
@@ -163,22 +165,22 @@ std::vector<mint> inv(const std::vector<mint> &h, int deg) {
 
 /// @brief 逆元 1 / h (deg は h.size())
 /// @tparam mint static modint
-/// @param h 係数列 (h[0] != 0 が必要)
+/// @param h 係数列（`h[0] != 0` が必要）
 /// @return std::vector<mint> 長さ h.size() の逆元
-/// @complexity $n=|h|$ として $O(n\log n)$
+/// @complexity $n = |h|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> inv(const std::vector<mint> &h) {
     return inv(h, h.size());
 }
 
-/// @brief 対数 log h (mod x^deg)
-/// @details log h = ∫ h' / h dx で求める。定数項 h[0] == 1 が必要。
+/// @brief 対数 $\log h \pmod{x^{deg}}$
+/// @details $\log h = \int h' / h \, dx$ で求める。定数項 `h[0] == 1` が必要。
 ///          条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
 /// @tparam mint static modint
-/// @param h 係数列 (h[0] == 1 が必要)
+/// @param h 係数列（`h[0] == 1` が必要）
 /// @param deg 求める項数
-/// @return std::vector<mint> log h (長さ deg, 定数項は 0)
-/// @complexity O(deg log deg)
+/// @return std::vector<mint> $\log h$（長さ `deg`、定数項は $0$）
+/// @complexity `deg` を $d$ として $O(d \log d)$
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h, int deg) {
     assert(!h.empty() && h[0] == 1);
@@ -196,24 +198,24 @@ std::vector<mint> log(const std::vector<mint> &h, int deg) {
     return f;
 }
 
-/// @brief 対数 log h (deg は h.size())
+/// @brief 対数 $\log h$（`deg` は `h.size()`）
 /// @tparam mint static modint
-/// @param h 係数列 (h[0] == 1 が必要)
-/// @return std::vector<mint> 長さ h.size() の log h
-/// @complexity $n=|h|$ として $O(n\log n)$
+/// @param h 係数列（`h[0] == 1` が必要）
+/// @return std::vector<mint> 長さ `h.size()` の $\log h$
+/// @complexity $n = |h|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> log(const std::vector<mint> &h) {
     return log(h, h.size());
 }
 
-/// @brief 指数 exp h (mod x^deg)
-/// @details ニュートン法で求める。定数項 h[0] == 0 が必要。
+/// @brief 指数 $\exp h \pmod{x^{deg}}$
+/// @details ニュートン法で求める。定数項 `h[0] == 0` が必要。
 ///          条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
 /// @tparam mint static modint
-/// @param h 係数列 (h[0] == 0 が必要)
+/// @param h 係数列（`h[0] == 0` が必要）
 /// @param deg 求める項数
-/// @return std::vector<mint> exp h (長さ deg, 定数項は 1)
-/// @complexity O(deg log deg)
+/// @return std::vector<mint> $\exp h$（長さ `deg`、定数項は $1$）
+/// @complexity `deg` を $d$ として $O(d \log d)$
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h, int deg) {
     constexpr unsigned int mod = (unsigned int)mint::mod();
@@ -265,24 +267,24 @@ std::vector<mint> exp(const std::vector<mint> &h, int deg) {
 
 /// @brief 指数 exp h (deg は h.size())
 /// @tparam mint static modint
-/// @param h 係数列 (h[0] == 0 が必要)
+/// @param h 係数列（`h[0] == 0` が必要）
 /// @return std::vector<mint> 長さ h.size() の exp h
-/// @complexity $n=|h|$ として $O(n\log n)$
+/// @complexity $n = |h|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> exp(const std::vector<mint> &h) {
     return exp(h, h.size());
 }
 
-/// @brief 冪乗 h^m (mod x^deg)
-/// @details 最低次の項 c x^k を括り出し pow = exp(m log(h / (c x^k))) * c^m * x^{k m} で求める。
-///          m が負なら h^{|m|} の逆元を返す (h[0] != 0 が必要)。最低次が x^k のとき x^{k m} が
-///          deg 以上に押し出される場合や全係数 0 の場合は全 0 を返す。
+/// @brief 冪乗 $h^m \pmod{x^{deg}}$
+/// @details 最低次の項 $c x^k$ を括り出し $h^m = \exp(m \log(h / (c x^k))) \cdot c^m \cdot x^{km}$ で求める。
+///          $m$ が負なら $h^{|m|}$ の逆元を返す（`h[0] != 0` が必要）。最低次が $x^k$ のとき $x^{km}$ が
+///          `deg` 以上に押し出される場合や全係数 $0$ の場合は全 $0$ を返す。
 /// @tparam mint static modint
 /// @param h 係数列
-/// @param m 指数 (負も可)
+/// @param m 指数（負も可）
 /// @param deg 求める項数
-/// @return std::vector<mint> h^m (長さ deg)。m == 0 は定数 1 を返す
-/// @complexity O(deg log deg)
+/// @return std::vector<mint> $h^m$（長さ `deg`）。`m == 0` は定数 $1$ を返す
+/// @complexity `deg` を $d$ として $O(d \log d)$
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     if (m == 0) {
@@ -316,28 +318,28 @@ std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m, int deg) {
     return res;
 }
 
-/// @brief 冪乗 h^m (deg は h.size())
+/// @brief 冪乗 $h^m$（`deg` は `h.size()`）
 /// @tparam mint static modint
 /// @param h 係数列
-/// @param m 指数 (負も可)
-/// @return std::vector<mint> 長さ h.size() の h^m
-/// @complexity $n=|h|$ として $O(n\log n)$
+/// @param m 指数（負も可）
+/// @return std::vector<mint> 長さ `h.size()` の $h^m$
+/// @complexity $n = |h|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> pow(const std::vector<mint> &h, std::int64_t m) {
     return pow(h, m, h.size());
 }
 
-/// @brief 平方根 sqrt h (mod x^deg)
-/// @details g^2 ≡ h (mod x^deg) を満たす g を求める。最低次の項 c x^k を括り出し、
-///          k が偶数かつ c が平方剰余のとき g = x^{k/2} sqrt(h / x^k) をニュートン法で求める。
-///          ニュートン法は g = sqrt と g^{-1} を併走させ各段で DFT を使い回す
-///          (full inverse の再計算を避ける)。条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
-///          k が奇数、または c が平方非剰余で解が存在しない場合は空列を返す。
+/// @brief 平方根 $\sqrt h \pmod{x^{deg}}$
+/// @details $g^2 \equiv h \pmod{x^{deg}}$ を満たす $g$ を求める。最低次の項 $c x^k$ を括り出し、
+///          $k$ が偶数かつ $c$ が平方剰余のとき $g = x^{k/2} \sqrt{h / x^k}$ をニュートン法で求める。
+///          ニュートン法は $g = \sqrt{\cdot}$ と $g^{-1}$ を併走させ各段で DFT を使い回す
+///          （full inverse の再計算を避ける）。条件を満たせば Montgomery + AVX2 NTT 実装へ振り分ける。
+///          $k$ が奇数、または $c$ が平方非剰余で解が存在しない場合は空列を返す。
 /// @tparam mint static modint
 /// @param h 係数列
 /// @param deg 求める項数
-/// @return std::vector<mint> g^2 ≡ h を満たす g (長さ deg)。解なしのときは空列
-/// @complexity O(deg log deg)
+/// @return std::vector<mint> $g^2 \equiv h$ を満たす $g$（長さ `deg`）。解なしのときは空列
+/// @complexity `deg` を $d$ として $O(d \log d)$
 template <internal::static_modint_c mint>
 std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
     int n = h.size();
@@ -412,11 +414,11 @@ std::vector<mint> sqrt(const std::vector<mint> &h, int deg) {
     return g;
 }
 
-/// @brief 平方根 sqrt h (deg は h.size())
+/// @brief 平方根 $\sqrt h$（`deg` は `h.size()`）
 /// @tparam mint static modint
 /// @param h 係数列
-/// @return std::vector<mint> 長さ h.size() の sqrt h。解なしのときは空列
-/// @complexity $n=|h|$ として $O(n\log n)$
+/// @return std::vector<mint> 長さ `h.size()` の $\sqrt h$。解なしのときは空列
+/// @complexity $n = |h|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> sqrt(const std::vector<mint> &h) {
     return sqrt(h, h.size());
@@ -531,17 +533,17 @@ std::vector<mint> pow_enumerate(std::vector<mint> f, std::vector<mint> g, int m)
 
 }  // namespace internal_fps
 
-/// @brief 合成 (composition) f(g(x)) (mod x^deg)
-/// @details h(x) = f(g(x)) = Σ f[i] g(x)^i (mod x^deg) を Kinoshita-Suzuki の分割統治で求める。
-///          Nyaan の composition は g(f(x)) を返すため f と g を入れ替えて呼び出す。
-///          f は多項式として扱うため g[0] != 0 でも正しく計算できる。
+/// @brief 合成 (composition) $f(g(x)) \pmod{x^{deg}}$
+/// @details $h(x) = f(g(x)) = \sum_i f_i g(x)^i \pmod{x^{deg}}$ を Kinoshita-Suzuki の分割統治で求める。
+///          Nyaan の composition は $g(f(x))$ を返すため `f` と `g` を入れ替えて呼び出す。
+///          `f` は多項式として扱うため `g[0] != 0` でも正しく計算できる。
 /// @tparam mint static modint
 /// @param f 外側の係数列
 /// @param g 内側の係数列
 /// @param deg 求める項数
-/// @return std::vector<mint> f(g(x)) (長さ deg)
+/// @return std::vector<mint> $f(g(x))$（長さ `deg`）
 /// @see https://nyaannyaan.github.io/library/fps/fps-composition.hpp
-/// @complexity O(deg log^2 deg)
+/// @complexity `deg` を $d$ として $O(d \log^2 d)$
 template <internal::static_modint_c mint>
 std::vector<mint> composition(const std::vector<mint> &outer, const std::vector<mint> &inner, int deg) {
     using fps_t = std::vector<mint>;
@@ -616,17 +618,17 @@ std::vector<mint> composition(const std::vector<mint> &f, const std::vector<mint
     return composition(f, g, std::max(f.size(), g.size()));
 }
 
-/// @brief 合成逆 (compositional inverse) g (mod x^deg)
-/// @details f(g(x)) = g(f(x)) = x (mod x^deg) を満たす g を求める。f[0] == 0 かつ f[1] != 0 が前提。
-///          Kinoshita-Suzuki の power projection (pow_enumerate) で [x^n] f(x)^k を列挙し、
-///          Lagrange-Bürmann 反転 g = (n^{-1} log(rev(h)/h0))^{-1} の exp で復元する
-///          (h_k = n [x^k] (列挙結果) / k)。
+/// @brief 合成逆 (compositional inverse) $g \pmod{x^{deg}}$
+/// @details $f(g(x)) = g(f(x)) = x \pmod{x^{deg}}$ を満たす $g$ を求める。`f[0] == 0` かつ `f[1] != 0` が前提。
+///          Kinoshita-Suzuki の power projection (`pow_enumerate`) で $[x^n] f(x)^k$ を列挙し、
+///          Lagrange-Bürmann 反転 $g = (n^{-1} \log(\mathrm{rev}(h)/h_0))^{-1}$ の $\exp$ で復元する
+///          （$h_k = n [x^k] (\text{列挙結果}) / k$）。
 /// @tparam mint static modint
-/// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
+/// @param f 係数列（`f[0] == 0`、`f[1] != 0` が必要）
 /// @param deg 求める項数
-/// @return std::vector<mint> g(x) (長さ deg, g[0] == 0)
+/// @return std::vector<mint> $g(x)$（長さ `deg`、`g[0] == 0`）
 /// @see https://nyaannyaan.github.io/library/fps/compositional-inverse.hpp
-/// @complexity O(deg log^2 deg)
+/// @complexity `deg` を $d$ として $O(d \log^2 d)$
 template <internal::static_modint_c mint>
 std::vector<mint> compositional_inverse(const std::vector<mint> &f, int deg) {
     assert(deg <= 0 || f.empty() || f[0] == 0);
@@ -658,7 +660,7 @@ std::vector<mint> compositional_inverse(const std::vector<mint> &f, int deg) {
 
 /// @brief 合成逆 (compositional inverse) g (deg は f.size())
 /// @tparam mint static modint
-/// @param f 係数列 (f[0] == 0, f[1] != 0 が必要)
+/// @param f 係数列（`f[0] == 0`、`f[1] != 0` が必要）
 /// @return std::vector<mint> 長さ f.size() の g(x)
 /// @complexity $n=|f|$ として $O(n\log^2 n)$
 template <internal::static_modint_c mint>
@@ -667,13 +669,13 @@ std::vector<mint> compositional_inverse(const std::vector<mint> &f) {
 }
 
 /// @brief 多項式の除算 (商と剰余)
-/// @details f = q * g + r を満たす商 q と剰余 r (deg r < deg g) を求める。
-///          反転して逆元を掛ける標準的な手法。f, g の末尾 0 は内部で除去する。
+/// @details $f = qg + r$ を満たす商 $q$ と剰余 $r$（$\deg r < \deg g$）を求める。
+///          反転して逆元を掛ける標準的な手法。`f`, `g` の末尾 $0$ は内部で除去する。
 /// @tparam mint static modint
 /// @param f 被除多項式の係数列
-/// @param g 除多項式の係数列 (0 多項式でないこと)
-/// @return std::pair<商 q, 剰余 r> (どちらも末尾 0 を含まない)
-/// @complexity O(n log n) (n = deg f)
+/// @param g 除多項式の係数列（$0$ 多項式でないこと）
+/// @return std::pair<商 $q$, 剰余 $r$>（どちらも末尾 $0$ を含まない）
+/// @complexity $n = \deg f$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std::vector<mint> g) {
     while (!f.empty() && f.back() == mint()) f.pop_back();
@@ -700,7 +702,7 @@ std::pair<std::vector<mint>, std::vector<mint>> div_mod(std::vector<mint> f, std
 /// @brief 多項式の商 f / g
 /// @tparam mint static modint
 /// @param f 被除多項式の係数列
-/// @param g 除多項式の係数列 (0 多項式でないこと)
+/// @param g 除多項式の係数列（$0$ 多項式でないこと）
 /// @return std::vector<mint> 商 q
 /// @complexity $n=\max(|f|,|g|)$ として $O(n\log n)$
 template <internal::static_modint_c mint>
@@ -711,7 +713,7 @@ std::vector<mint> div(const std::vector<mint> &f, const std::vector<mint> &g) {
 /// @brief 多項式の剰余 f mod g
 /// @tparam mint static modint
 /// @param f 被除多項式の係数列
-/// @param g 除多項式の係数列 (0 多項式でないこと)
+/// @param g 除多項式の係数列（$0$ 多項式でないこと）
 /// @return std::vector<mint> 剰余 r (deg r < deg g)
 /// @complexity $n=\max(|f|,|g|)$ として $O(n\log n)$
 template <internal::static_modint_c mint>
@@ -788,13 +790,13 @@ void evaluate_down(const std::vector<std::vector<mint>> &up, const std::vector<m
 }  // namespace internal_fps
 
 /// @brief 多点評価
-/// @details 部分積木を構築し剰余木を下降して、f を各点 x_i で同時に評価する。
+/// @details 部分積木を構築し剰余木を下降して、$f$ を各点 $x_i$ で同時に評価する。
 ///          点数が少ない部分木は Horner 法に切り替えて NTT の定数倍を避ける。
 /// @tparam mint static modint
 /// @param f 評価する多項式の係数列
 /// @param x 評価する点の列
-/// @return std::vector<mint> f(x_i) の列 (長さ x.size())
-/// @complexity O(n log^2 n) (n = max(deg f, |x|))
+/// @return std::vector<mint> $f(x_i)$ の列（長さ `x.size()`）
+/// @complexity $n = \max(\deg f, |x|)$ として $O(n \log^2 n)$
 template <internal::static_modint_c mint>
 std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::vector<mint> &x) {
     int n = x.size();
@@ -812,13 +814,13 @@ std::vector<mint> multipoint_evaluation(const std::vector<mint> &f, const std::v
 }
 
 /// @brief 多項式補間 (ラグランジュ補間)
-/// @details 相異なる点 (x_i, y_i) を通る次数 n-1 以下の多項式を求める。部分積木を多点評価と
-///          共有し、葉に y_i / f'(x_i) を置いて上向きに畳み込んで復元する。x_i は相異なること。
+/// @details 相異なる点 $(x_i, y_i)$ を通る次数 $n-1$ 以下の多項式を求める。部分積木を多点評価と
+///          共有し、葉に $y_i / f'(x_i)$ を置いて上向きに畳み込んで復元する。$x_i$ は相異なること。
 /// @tparam mint static modint
-/// @param x 評価点の列 (相異なる)
-/// @param y 各点での値の列 (x と同じ長さ)
-/// @return std::vector<mint> f(x_i) = y_i を満たす係数列 (長さ x.size())
-/// @complexity O(n log^2 n) (n = |x|)
+/// @param x 評価点の列（相異なる）
+/// @param y 各点での値の列（`x` と同じ長さ）
+/// @return std::vector<mint> $f(x_i) = y_i$ を満たす係数列（長さ `x.size()`）
+/// @complexity $n = |x|$ として $O(n \log^2 n)$
 template <internal::static_modint_c mint>
 std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std::vector<mint> &y) {
     int n = x.size();
@@ -845,13 +847,13 @@ std::vector<mint> polynomial_interpolation(const std::vector<mint> &x, const std
 }
 
 /// @brief Taylor shift (係数の平行移動)
-/// @details f(x) の係数から g(x) = f(x + c) の係数を求める。f[i] に i! を掛けて反転し、
-///          c^j / j! との畳み込みの中央部を取り出す標準的な手法。
+/// @details $f(x)$ の係数から $g(x) = f(x + c)$ の係数を求める。$f_i$ に $i!$ を掛けて反転し、
+///          $c^j / j!$ との畳み込みの中央部を取り出す標準的な手法。
 /// @tparam mint static modint
-/// @param f 係数列 f(x)
+/// @param f 係数列 $f(x)$
 /// @param c シフト量
-/// @return std::vector<mint> f(x + c) の係数列 (f と同じ長さ)
-/// @complexity O(n log n) (n = f.size())
+/// @return std::vector<mint> $f(x + c)$ の係数列（`f` と同じ長さ）
+/// @complexity $n = |f|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
     int n = f.size();
@@ -872,16 +874,17 @@ std::vector<mint> taylor_shift(std::vector<mint> f, mint c) {
 }
 
 /// @brief 標本点のシフト (shift of sampling points)
-/// @details 次数 < n の多項式 f の標本値 y_i = f(i) (i = 0..n-1) から f(c), f(c+1), ..., f(c+m-1) を求める。
-///          ラグランジュ補間 f(x) = (prod_k (x-k)) * sum_i a_i / (x-i) を、係数
-///          a_i = y_i / prod_{k!=i}(i-k) と 1/(c+t) の畳み込みで一括評価する。
-///          評価点 c+j が標本点 {0..n-1} と一致する (区間積が 0 になる) 場合は y を直接返す。
+/// @details 次数 $< n$ の多項式 $f$ の標本値 $y_i = f(i)$（$i = 0, \ldots, n-1$）から
+///          $f(c), f(c+1), \ldots, f(c+m-1)$ を求める。
+///          ラグランジュ補間 $f(x) = \left(\prod_k (x-k)\right) \sum_i a_i / (x-i)$ を、係数
+///          $a_i = y_i / \prod_{k \ne i} (i-k)$ と $1/(c+t)$ の畳み込みで一括評価する。
+///          評価点 $c+j$ が標本点 $\{0, \ldots, n-1\}$ と一致する（区間積が $0$ になる）場合は `y` を直接返す。
 /// @tparam mint static modint
-/// @param y 標本値の列 f(0..n-1)
+/// @param y 標本値の列 $f(0), \ldots, f(n-1)$
 /// @param c シフト量
 /// @param m 求める項数
-/// @return std::vector<mint> f(c+j) の列 (j = 0..m-1, 長さ m)
-/// @complexity O((n + m) log(n + m))
+/// @return std::vector<mint> $f(c+j)$ の列（$j = 0, \ldots, m-1$、長さ $m$）
+/// @complexity $O((n + m) \log(n + m))$
 template <internal::static_modint_c mint>
 std::vector<mint> shift_of_sampling_points(const std::vector<mint> &y, mint c, int m) {
     if (m <= 0) return {};
@@ -1136,14 +1139,15 @@ gcd_mat<mint> poly_inv(std::vector<mint> a, std::vector<mint> md, bool &ok) {
 }  // namespace internal_fps
 
 /// @brief 多項式の逆元 (modular inverse of polynomials)
-/// @details f(x) * h(x) ≡ 1 (mod g(x)) かつ deg h < deg g を満たす h を Half-GCD による拡張 Euclid 互除法で求める。
-///          逆元が存在する (gcd(f, g) が定数) ときのみ値を返し、存在しなければ std::nullopt を返す。
-///          返り値は末尾 0 を除いた正規形 (逆元が 0 多項式のときは空列)。
+/// @details $f(x) h(x) \equiv 1 \pmod{g(x)}$ かつ $\deg h < \deg g$ を満たす $h$ を
+///          Half-GCD による拡張 Euclid 互除法で求める。
+///          逆元が存在する（$\gcd(f, g)$ が定数）ときのみ値を返し、存在しなければ `std::nullopt` を返す。
+///          返り値は末尾 $0$ を除いた正規形（逆元が $0$ 多項式のときは空列）。
 /// @tparam mint static modint
-/// @param f 係数列 (最高次係数 != 0)
-/// @param g 法多項式の係数列 (最高次係数 != 0)
-/// @return std::optional<std::vector<mint>> 逆元 h (deg h < deg g)。逆元が無ければ std::nullopt
-/// @complexity O(n log^2 n) (n = max(deg f, deg g))
+/// @param f 係数列（最高次係数 != 0）
+/// @param g 法多項式の係数列（最高次係数 != 0）
+/// @return std::optional<std::vector<mint>> 逆元 $h$（$\deg h < \deg g$）。逆元が無ければ `std::nullopt`
+/// @complexity $n = \max(\deg f, \deg g)$ として $O(n \log^2 n)$
 template <internal::static_modint_c mint>
 std::optional<std::vector<mint>> inv_of_polynomials(const std::vector<mint> &f, const std::vector<mint> &g) {
     std::vector<mint> a = f, md = g;
