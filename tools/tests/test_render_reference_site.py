@@ -6,10 +6,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from render_reference_site import (  # noqa: E402
+from render_reference_site import (
     LIBRARY_ALL_AC,
     TEST_ACCEPTED,
     TEST_WAITING_JUDGE,

@@ -17,7 +17,6 @@ from pathlib import Path
 
 from .model import DocBlock, Entity, Header
 
-
 OPERATOR_SLUGS = {
     "[]": "subscript",
     "()": "call",

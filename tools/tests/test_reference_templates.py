@@ -7,11 +7,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from render_reference_site import ROOT, build_site  # noqa: E402
-
+from render_reference_site import ROOT, build_site
 
 STATIC_DIR = ROOT / ".verify-helper" / "docs" / "static"
 TAG_RE = re.compile(r"{%-?\s*(\w+)([^%]*?)-?%}")
@@ -40,7 +38,9 @@ class LiquidTemplateTest(unittest.TestCase):
                     elif tag.startswith("end"):
                         expected = tag.removeprefix("end")
                         self.assertTrue(stack, f"{path.name}: {tag} が余分です")
-                        self.assertEqual(stack.pop(), expected, f"{path.name}: {tag} の対応が違います")
+                        self.assertEqual(
+                            stack.pop(), expected, f"{path.name}: {tag} の対応が違います"
+                        )
                 self.assertEqual(stack, [], f"{path.name}: 閉じられていないタグがあります")
 
     def test_conditions_do_not_use_filters(self) -> None:
@@ -116,7 +116,7 @@ class OfflineSiteTest(unittest.TestCase):
     def test_reference_pages_keep_their_navigation_key(self) -> None:
         page = self.destination / "reference" / "data_structure" / "union_find.md"
         front_matter = page.read_text(encoding="utf-8").split("---")[1]
-        data = json.loads(re.search(r"^data: (.*)$", front_matter, re.M).group(1))
+        data = json.loads(re.search(r"^data: (.*)$", front_matter, re.MULTILINE).group(1))
         self.assertEqual(data["kind"], "header")
         self.assertEqual(data["pageUrl"], "data_structure/union_find.html")
         self.assertIn("relations", data)

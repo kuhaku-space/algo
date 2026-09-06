@@ -4,10 +4,9 @@ import sys
 import unittest
 from pathlib import Path
 
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from verify_timing_summary import (  # noqa: E402
+from verify_timing_summary import (
     aggregate,
     collect,
     format_change,

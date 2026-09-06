@@ -16,7 +16,6 @@ from pathlib import Path
 from .model import Entity, Header
 from .parse import ROOT
 
-
 CONFIG_PATH = ROOT / "docs" / "reference.toml"
 NEEDS_COMPLEXITY = frozenset({"function", "operator", "constructor"})
 
