@@ -218,6 +218,32 @@ class _ParameterTail(list):
         self.target[-1] = (name, f"{description} {value}".strip())
 
 
+def concept_declaration_after(lines: list[str], index: int) -> str:
+    """concept は本体まで見せたいので、対応する `;` まで読む。"""
+    collected: list[str] = []
+    depth = 0
+    started = False
+    while index < len(lines) and len(collected) < 40:
+        raw = lines[index].rstrip()
+        index += 1
+        stripped = raw.strip()
+        if not stripped or stripped.startswith("//"):
+            continue
+        collected.append(raw)
+        depth += stripped.count("{") - stripped.count("}")
+        if "{" in stripped:
+            started = True
+        if stripped.endswith(";") and (depth <= 0 or not started):
+            break
+    if not collected:
+        return ""
+    indent = len(collected[0]) - len(collected[0].lstrip())
+    return "\n".join(
+        line[indent:] if line[:indent].isspace() or not indent else line.lstrip()
+        for line in collected
+    )
+
+
 def append_continuation(target: list, text: str) -> None:
     if isinstance(target, _ParameterTail):
         target.append(text)
@@ -401,6 +427,11 @@ def symbol_and_kind(declaration: str, owner: str) -> tuple[str, str, bool] | Non
 
 def format_signature(declaration: str) -> str:
     """cpprefjp 風に、テンプレート宣言部を改行して見せる。"""
+    if "\n" in declaration:
+        first, _, rest = declaration.partition("\n")
+        prefix, work = split_template_prefix(first)
+        body = f"{work}\n{rest}" if work else rest
+        return f"{prefix}\n{body}" if prefix else body
     prefix, work = split_template_prefix(declaration)
     work = " ".join(work.split())
     if work and not work.endswith((";", ",")):
@@ -447,6 +478,8 @@ def extract_entities(source: str) -> tuple[DocBlock, list[Entity]]:
         if symbol is None:
             continue
         name, kind, is_static = symbol
+        if kind == "concept":
+            declaration = concept_declaration_after(lines, index)
         if not scope.public:
             continue
 

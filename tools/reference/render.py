@@ -78,6 +78,9 @@ MEMBER_GROUPS = (
     ("メンバ変数", ("variable",)),
 )
 
+# 実装詳細と提出用テンプレート。リンク先としてページは作るが、一覧では最後に置く。
+SUPPORTING_CATEGORIES = ("internal", "template")
+
 HEADER_GROUPS = (
     ("クラス", ("class",)),
     ("コンセプト", ("concept",)),
@@ -85,6 +88,10 @@ HEADER_GROUPS = (
     ("型エイリアス", ("alias",)),
     ("変数", ("variable",)),
 )
+
+
+def category_order(name: str) -> tuple[int, str]:
+    return (1 if name in SUPPORTING_CATEGORIES else 0, name)
 
 
 def slugify(name: str) -> str:
@@ -563,7 +570,7 @@ class ReferenceRenderer:
         by_category: dict[str, list[Header]] = {}
         for header in self.headers:
             by_category.setdefault(header.category, []).append(header)
-        for category in sorted(by_category):
+        for category in sorted(by_category, key=category_order):
             section.heading(2, category)
             section.table(
                 ["ヘッダ", "説明"],
@@ -622,7 +629,7 @@ class ReferenceRenderer:
         return {
             "categories": [
                 {"name": name, "headers": categories[name]}
-                for name in sorted(categories)
+                for name in sorted(categories, key=category_order)
             ],
             "entries": entries,
         }

@@ -1,34 +1,29 @@
-{% assign current = page.data.pageUrl %}
+{%- assign current = page.data.pageUrl -%}
+{%- assign current_header = page.data.slug | append: '.html' -%}
 <nav class="sidebar" aria-label="リファレンス">
   <p class="sidebar-title"><a href="{{ "/" | relative_url }}">リファレンス</a></p>
   <ul class="sidebar-categories">
-    {% for category in site.data.reference.categories %}
+    {%- for category in site.data.reference.categories %}
     <li>
       <details {% if category.name == page.data.category %}open{% endif %}>
         <summary>{{ category.name }}</summary>
         <ul class="sidebar-headers">
-          {% for header in category.headers %}
-          <li>
-            {% if header.url == current %}{% assign header_class = "is-current" %}{% else %}{% assign header_class = "" %}{% endif %}
-            <a class="{{ header_class }}" href="{{ "/reference/" | append: header.url | relative_url }}"
-               title="{{ header.title | escape }}">
-              <span class="verification-icon" aria-hidden="true">{{ site.icons[header.icon] }}</span>{{ header.name }}
-            </a>
-            {% if header.name == page.data.stem %}
+          {%- for header in category.headers %}
+          {%- if header.url == current_header %}{% assign header_class = "is-current" %}{% else %}{% assign header_class = "" %}{% endif %}
+          <li><a class="{{ header_class }}" href="{{ "/reference/" | append: header.url | relative_url }}" title="{{ header.title | escape }}"><span class="verification-icon" aria-hidden="true">{{ site.icons[header.icon] }}</span>{{ header.name }}</a>
+            {%- if header.url == current_header %}
             <ul class="sidebar-entities">
-              {% for entity in header.entities %}
-              <li>
-                {% if entity.url == current %}{% assign entity_class = "is-current" %}{% else %}{% assign entity_class = "" %}{% endif %}
-                <a class="{{ entity_class }}" href="{{ "/reference/" | append: entity.url | relative_url }}">{{ entity.name }}</a>
-              </li>
-              {% endfor %}
+              {%- for entity in header.entities %}
+              {%- if entity.url == current %}{% assign entity_class = "is-current" %}{% else %}{% assign entity_class = "" %}{% endif %}
+              <li><a class="{{ entity_class }}" href="{{ "/reference/" | append: entity.url | relative_url }}">{{ entity.name }}</a></li>
+              {%- endfor %}
             </ul>
-            {% endif %}
+            {%- endif %}
           </li>
-          {% endfor %}
+          {%- endfor %}
         </ul>
       </details>
     </li>
-    {% endfor %}
+    {%- endfor %}
   </ul>
 </nav>
