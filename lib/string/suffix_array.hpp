@@ -6,6 +6,33 @@
 #include <utility>
 #include <vector>
 
+/// @file
+/// @brief Suffix Array / LCP Array
+/// @details 列の全接尾辞を辞書順に並べた開始位置列 Suffix Array と、隣接する接尾辞間の
+///          最長共通接頭辞 LCP Array を構築する。文字列検索、異なる部分文字列の個数、
+///          最長共通部分文字列などに利用できる。
+/// @details `sa[i]` は辞書順で `i` 番目の接尾辞が始まる添字、`lcp[i]` は `s.substr(sa[i])` と
+///          `s.substr(sa[i + 1])` の最長共通接頭辞長。
+/// @note 長さ `n` の入力に対して Suffix Array の長さは `n` で、空接尾辞は含まない。
+/// @note LCP Array の長さは `n - 1`。空列には使えない。
+/// @note `vector<int>, upper` 版では全要素が `0 <= value <= upper` を満たす必要がある。
+///       `string` 版は各文字を 0 から 255 の値として扱う。
+/// @note パターン検索では Suffix Array 上で二分探索する。多数の LCP クエリには
+///       LCP Array と RMQ 用データ構造を組み合わせる。
+/// @code
+/// #include <iostream>
+/// #include <string>
+/// #include "string/suffix_array.hpp"
+///
+/// int main() {
+///     std::string text = "banana";
+///     for (int i : suffix_array(text)) std::cout << i << ' ';
+///     std::cout << '\n';
+///     for (int i : lcp_array(text, suffix_array(text))) std::cout << i << ' ';
+///     std::cout << '\n';
+/// }
+/// @endcode
+
 namespace internal {
 
 std::vector<int> sa_naive(const std::vector<int> &s) {

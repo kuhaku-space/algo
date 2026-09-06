@@ -4,6 +4,52 @@
 #include <vector>
 #include "persistent_ds/persistent_stack.hpp"
 
+/// @file
+/// @brief 経路つき DP 値 (Traced)
+/// @details DP の値に、そこへ至る経路を相乗りさせる値型。比較は `cost` のみで行い、経路は push が
+///          $O(1)$ の永続スタックで保持する。経路を持ち回っても比較コストは増えないので、
+///          DP の時間計算量は変わらない。
+/// @details 遷移のたびに `then(w, label)` でラベルを積み、最後に `to_vector()` で始点から終点の順に
+///          取り出す。遷移元を記録する配列と復元ループの両方が不要になるので、「DP 本体は書けたが
+///          復元でバグる」「DP と復元で遷移の場合分けが食い違う」を避けたいときに使う。
+/// @note `T` には `operator<=>` と `operator+` を要求する。`Label` に要求するのはコピー構築のみ。
+/// @note 始点の `Traced` は経路が空なので、`to_vector()` に始点のラベルは含まれない。
+/// @note 空間計算量は `then` の結果を採用した回数 $U$ について $O(U)$。永続スタックのノードは
+///       解放しないので、状態数が非常に多い DP では遷移元を記録する方式のほうがメモリで有利になる。
+/// @note 単一の値への explicit コンストラクタしか持たないため、`dp[i] = 0` のような代入は
+///       コンパイルエラーになる。経路を落とす代入を事故で書けないようにするための制約。
+/// @note `then` は `cost + w` でコストを合成する。別の合成が必要なときは
+///       `Traced(std::max(dp[i].cost, w), dp[i].path.push(label))` のようにメンバから直接組む。
+/// @note 最大化する DP では比較を反転させるだけでよい（`dp[j] < cand` で更新する）。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "dp/traced.hpp"
+///
+/// int main() {
+///     // 段 i から i+1 へ a[i]、i+2 へ b[i] のコストで進むときの最小コストと経路
+///     std::vector<long long> a = {2, 5, 1, 3}, b = {8, 4, 6};
+///     constexpr long long inf = 1'000'000'000'000'000'000;
+///     int n = 5;
+///
+///     std::vector<Traced<long long>> dp(n, Traced<long long>(inf));
+///     dp[0] = Traced<long long>(0);
+///     for (int i = 0; i < n; ++i) {
+///         if (dp[i].cost == inf) continue;
+///         if (i + 1 < n) {
+///             if (auto cand = dp[i].then(a[i], i + 1); cand < dp[i + 1]) dp[i + 1] = cand;
+///         }
+///         if (i + 2 < n) {
+///             if (auto cand = dp[i].then(b[i], i + 2); cand < dp[i + 2]) dp[i + 2] = cand;
+///         }
+///     }
+///
+///     std::cout << dp[n - 1].cost << '\n';
+///     for (int v : dp[n - 1].to_vector()) std::cout << v << ' ';  // 始点 0 は含まない
+///     std::cout << '\n';
+/// }
+/// @endcode
+
 /// @brief 経路を相乗りさせたDPの値
 /// @details 比較は `cost` のみで行い、経路は push が $O(1)$ の永続スタックで保持する。
 ///          そのため経路を持ち回っても比較コストは増えず、DPの時間計算量は変わらない。

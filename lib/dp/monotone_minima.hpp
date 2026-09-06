@@ -3,6 +3,10 @@
 #include <limits>
 #include <vector>
 
+/// @file
+/// @brief Monotone Minima・min-plus 畳み込み
+/// @details 行列の各行の最小値位置が単調に移動する場合の最小値探索と、凸列を含む min-plus 畳み込みを提供する。
+
 /// @brief 各行の最適列が単調な行列について最適列番号を求める
 /// @param h 行数
 /// @param w 列数

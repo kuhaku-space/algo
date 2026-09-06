@@ -34,10 +34,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Generate reference docs
-        run: python3 tools/reference_docs.py sync-generated
+      - name: Generate reference pages
+        run: python3 tools/reference_docs.py build
 
-      - name: Test reference renderer
+      - name: Test reference tooling
         run: python3 -m unittest discover -s tools/tests -p 'test_*.py'
 
       - name: Check reference docs
@@ -289,15 +289,30 @@ jobs:
           # handful of log lines; scan a small window after each timeout.
           DOWNLOAD_FAILURE_WINDOW = 30
 
+          def fetch_job_log(job_id):
+              # verify のログは ANSI 色付きで、新しい gh は
+              # --allow-escape-sequences なしだとエスケープを含む
+              # レスポンスの出力を拒否する。古い gh には同フラグが
+              # 無いので、付きで失敗したら無しで再試行する。
+              path = f"repos/{repo}/actions/jobs/{job_id}/logs"
+              stderr = ""
+              for args in (["--allow-escape-sequences", path], [path]):
+                  proc = subprocess.run(
+                      ["gh", "api", *args],
+                      capture_output=True, text=True, errors="replace",
+                  )
+                  if proc.returncode == 0:
+                      return proc.stdout
+                  stderr = proc.stderr.strip().replace("\n", " ")
+              # 取得できないと transient なタイムアウトを判別できず
+              # Check が落ちる。黙って握り潰さず必ず可視化する。
+              print(f"::warning::Failed to fetch log of job {job_id}: {stderr}")
+              return None
+
           timeout_files = set()
           for job in verify_jobs:
-              try:
-                  log = subprocess.check_output(
-                      ["gh", "api",
-                       f"repos/{repo}/actions/jobs/{job['id']}/logs"],
-                      text=True, stderr=subprocess.DEVNULL,
-                  )
-              except subprocess.CalledProcessError:
+              log = fetch_job_log(job["id"])
+              if log is None:
                   continue
               lines = log.splitlines()
               for i, line in enumerate(lines):

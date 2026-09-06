@@ -5,6 +5,11 @@
 #include <optional>
 #include <vector>
 
+/// @file
+/// @brief 整数ユーティリティ
+/// @details 複数整数の GCD・LCM、床・天井除算、オーバーフロー検出付き累乗など、独立した整数演算を
+///          まとめて提供する。
+
 /// @brief 整数列の最大公約数を返す
 /// @complexity 要素数を $n$、絶対値の最大を $M$ として $O(n\log M)$
 std::int64_t gcd(const std::vector<std::int64_t> &v) {

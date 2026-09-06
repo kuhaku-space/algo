@@ -7,6 +7,35 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
+/// @file
+/// @brief ダブリング (doubling)
+/// @details 写像を繰り返し適用した遷移先を $O(\log k)$ で求める。各頂点から $2^i$ 回進んだ先を
+///          前計算するため、関数グラフ上のジャンプや巨大な回数のシミュレーションに使える。
+/// @details モノイドを指定すると、遷移先だけでなく通過した頂点に対応する値も同じ順序で集約できる。
+/// @note `0 <= k < 2^L` を満たす必要がある。必要な最大ジャンプ数に合わせて `L` を指定する。
+/// @note 集約値 `values[v]` は、頂点 `v` から次の頂点へ進む 1 ステップに対応する。
+/// @note `to[v] == -1` は遷移先が存在しないことを表し、以後のジャンプ先も `-1` になる。
+/// @note `max_step` は `M` を指定した場合だけ使える。`check` は集約値に対して真から偽へ
+///       一度だけ変化する単調な述語であること。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "algorithm/doubling.hpp"
+/// #include "segtree/monoid.hpp"
+///
+/// int main() {
+///     std::vector<int> to = {1, 2, 0};
+///
+///     doubling<60> next(to);
+///     std::cout << next.jump(0, 5) << '\n';  // 0 -> 1 -> 2 -> 0 -> 1 -> 2
+///
+///     std::vector<long long> cost = {10, 20, 30};
+///     doubling<60, Add<long long>> with_sum(to, cost);
+///     auto [vertex, total] = with_sum.solve(0, 5);
+///     std::cout << vertex << ' ' << total << '\n';
+/// }
+/// @endcode
+
 /// @brief ダブリングで `M` が取れる型か（void または monoid）
 /// @details `void` は集約なし（遷移先のみ）、`monoid` は遷移に沿った値の集約を表す。
 /// @complexity コンパイル時制約であり実行時計算量はない

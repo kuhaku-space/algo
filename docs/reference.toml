@@ -1,14 +1,11 @@
 [coverage]
-# competitive-verifier は全ヘッダのソースページを自動生成する。ここでは利用者向けの
-# 公開APIだけを追跡し、実装詳細と提出用テンプレートは対象外にする。
+# ページはすべてヘッダの Doxygen コメントから生成する。ここで追跡するのは
+# 「利用者向けの公開 API がどれだけ説明されているか」であり、実装詳細と
+# 提出用テンプレートは対象外にする。
 excluded_directories = ["internal", "template"]
 
-# 現在値を下限として、説明の削除や文書化されていない公開ヘッダの増加を防ぐ。
-# 詳細ページを追加したら minimum_reference_pages も同じPRで引き上げる。
-minimum_doxygen_headers = 144
-minimum_reference_pages = 166
-minimum_compiled_examples = 166
-maximum_undocumented_headers = 0
-
-[style]
-required_sections = ["使い方", "API", "補足", "検証"]
+# 現在値を下限として、説明の削除や未文書 API の増加を防ぐ。
+minimum_documented_headers = 166
+minimum_entity_pages = 342
+minimum_documented_complexities = 1200
+maximum_undocumented_entities = 0

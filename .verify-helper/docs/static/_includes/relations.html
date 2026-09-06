@@ -1,0 +1,26 @@
+{% for relation in include.data.relations %}
+{% if relation.files.size != 0 %}
+<details class="relations">
+  <summary>{{ relation.type }}（{{ relation.files.size }}）</summary>
+  <ul>
+    {% for item in relation.files %}
+    <li>
+      <span class="verification-icon" aria-hidden="true" title="{{ site.icon_labels[item.icon] }}">{{ site.icons[item.icon] }}</span>
+      <a href="{{ item.url | relative_url }}">{{ item.title | escape }}</a>
+      <code>{{ item.path }}</code>
+    </li>
+    {% endfor %}
+  </ul>
+</details>
+{% endif %}
+{% endfor %}
+
+{% if include.data.embedded %}
+<details class="source-code">
+  <summary>実装</summary>
+  {% for embedded in include.data.embedded %}
+  {% if embedded.name != "default" %}<h3>{{ embedded.name | escape }}</h3>{% endif %}
+  <pre class="highlight"><code class="language-cpp">{{ embedded.code | escape }}</code></pre>
+  {% endfor %}
+</details>
+{% endif %}

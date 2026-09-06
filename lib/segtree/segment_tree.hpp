@@ -6,6 +6,39 @@
 #include <vector>
 #include "segtree/monoid.hpp"
 
+/// @file
+/// @brief セグメント木 (segment_tree)
+/// @details モノイドで表せる区間積と点更新を $O(\log n)$ で処理する。和・最小値・最大値に加え、
+///          行列積や関数合成のような非可換演算にも利用できる。
+/// @details `max_right` / `min_left` により、「区間積が条件を満たす境界」を二分探索なしで求められる。
+/// @note `M::op` は結合的で、`M::id()` は左右の単位元であること。可換性は不要。
+/// @note 空区間の `prod(l, l)` は `M::id()` を返す。
+/// @note `max_right` / `min_left` では `f(M::id()) == true` が必要で、区間を伸ばしたとき
+///       `f` が真から偽へ一度だけ変わる単調性を仮定する。
+/// @note 非 const の `operator[]` は `Reference` プロキシを返す。`seg[i] = seg[j]` は参照の
+///       張り替えではなく値の代入（`std::vector<bool>::reference` と同じ）。
+/// @note `Reference` は `chmax` / `chmin` を hidden friend に持つので `chmax(seg[k], val)` と書ける。
+///       比較には `operator<` のみを使い、値が変わらないときは `set` を呼ばないので $O(1)$ で済む。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "segtree/segment_tree.hpp"
+///
+/// int main() {
+///     std::vector<long long> a = {2, 1, 4, 3};
+///     segment_tree<Add<long long>> seg(a);
+///     std::cout << seg.prod(1, 4) << '\n';  // 1 + 4 + 3
+///
+///     seg.set(2, 10);
+///     seg[0] = 5;                           // set(0, 5) と同じ
+///     std::cout << seg.all_prod() << '\n';
+///
+///     segment_tree<Max<long long>> mx(4, 0);
+///     chmax(mx[1], 5);                      // v[1] = max(v[1], 5)
+///     std::cout << mx.prod(0, 4) << '\n';
+/// }
+/// @endcode
+
 /// @brief セグメント木
 /// @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
 /// @complexity 構築は $O(n)$、更新・区間積・境界探索は $O(\log n)$

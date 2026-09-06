@@ -5,6 +5,42 @@
 #include <utility>
 #include <vector>
 
+/// @file
+/// @brief 部分永続配列 (PartiallyPersistentArray)
+/// @details 更新は最新時刻に対してのみ行い、参照は任意の過去時刻に対して行える配列。各要素が
+///          `(時刻, 値)` の履歴を昇順に持つ fat node 方式で、更新は履歴末尾への追加、参照は履歴の
+///          二分探索になる。
+/// @details 「時系列順に配列を書き換えながら、途中の任意の時点の値を後から問い合わせる」場面で使う。
+///          版が分岐する用途には使えず、その場合は完全永続な `persistent_ds/persistent_array.hpp` を使う。
+/// @note 初期状態の時刻は 0。`set(k, val)` は時刻を 1 進めるので、$i$ 回目の更新直後の時刻は $i$ になる。
+/// @note 時刻の割り当ては 2 通りあり、混在させてもよい。`set(k, val)` は現在時刻 + 1 を使い、
+///       `set(k, val, t)` は指定した t を使う。どちらも時刻が非減少であることを assert で要求する。
+/// @note `get(k, t)` は t が現在時刻を超えていても有効で、最新の値を返す。負の t は assert で弾く。
+/// @note 空間計算量は総更新回数を $Q$ として $O(n + Q)$。値を複製するのは更新した要素だけで、
+///       永続配列のような経路上のノード複製は発生しない。
+/// @note `T` に要求するのはコピー構築と代入のみ。順序や演算は不要。
+/// @note 同じく過去参照のみを許す設計として `persistent_ds/partially_persistent_union_find.hpp` がある。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "persistent_ds/partially_persistent_array.hpp"
+///
+/// int main() {
+///     std::vector<int> a = {3, 1, 4};
+///     PartiallyPersistentArray<int> ppa(a);
+///     ppa.set(0, 10);  // 時刻 1: {10, 1, 4}
+///     ppa.set(2, 20);  // 時刻 2: {10, 1, 20}
+///
+///     std::cout << ppa.get(0, 0) << ' ' << ppa.get(2, 1) << ' ' << ppa[2] << '\n';
+///
+///     // 外部の時刻を割り当てると、同一時刻に複数要素を更新できる
+///     PartiallyPersistentArray<int> events(3, 0);
+///     events.set(0, 5, 100);
+///     events.set(1, 7, 100);
+///     std::cout << events.get(1, 100) << '\n';
+/// }
+/// @endcode
+
 /// @brief 部分永続配列
 /// @tparam T 要素型
 /// @note 更新は最新時刻に対してのみ行えるが、参照は任意の過去時刻に対して行える。各要素が

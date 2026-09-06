@@ -7,6 +7,34 @@
 #include "internal/internal_math.hpp"
 #include "internal/internal_type_traits.hpp"
 
+/// @file
+/// @brief modint (static_modint / dynamic_modint)
+/// @details 整数を法 $m$ で正規化して保持し、加減乗除と累乗を通常の数値型に近い記法で扱う。
+///          コンパイル時に法が決まる `static_modint` と、実行時に法を設定する `dynamic_modint` を提供する。
+/// @note 除算には除数と法が互いに素であることが必要。素数法では除数が 0 でないこと。
+///       条件を満たさない場合は `assert` に失敗する。
+/// @note `static_modint` は法が素数かをコンパイル時に判定し、逆元を $a^{m-2}$ で求める。
+///       合成数法では拡張 Euclid 法を使う。
+/// @note `dynamic_modint<id>` の法は同じ `id` の全インスタンスで共有される。
+///       異なる法を同時に使う場合は異なる `id` を指定する。
+/// @note `raw(value)` は `0 <= value < mod()` を呼び出し側が保証できる場合だけ使う。
+/// @note `pow` の指数は非負。負の指数は `x.inv().pow(-n)` として明示する。
+/// @code
+/// #include <iostream>
+/// #include "number_theory/modint.hpp"
+///
+/// int main() {
+///     using Mint = modint998;  // static_modint<998244353>
+///     Mint a = -2, b = 5;
+///     std::cout << (a * b + 3).val() << '\n';
+///     std::cout << b.pow(100).val() << '\n';
+///
+///     using DynamicMint = dynamic_modint<0>;
+///     DynamicMint::set_mod(1'000'000'007);
+///     std::cout << (DynamicMint(123456789) * 2).val() << '\n';
+/// }
+/// @endcode
+
 namespace internal {
 
 struct modint_base : field_base {};

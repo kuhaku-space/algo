@@ -1,0 +1,10 @@
+---
+layout: default
+---
+<nav class="breadcrumb" aria-label="現在位置">
+  <a href="{{ "/" | relative_url }}">リファレンス</a>
+  <span aria-hidden="true">›</span>
+  <span>{{ page.title | escape }}</span>
+</nav>
+
+{{ content }}

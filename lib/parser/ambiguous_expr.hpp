@@ -10,6 +10,39 @@
 #include <string_view>
 #include <vector>
 
+/// @file
+/// @brief 曖昧式の全順序評価 (AmbiguousExpr)
+/// @details 二項演算式を「あらゆる評価順序（全 parenthesization）」で計算し、得られる値の集合を区間 DP で
+///          求める。演算子の優先順位や結合性が定まっておらず、任意の順序で計算してよいタイプの問題に使う。
+///          `values(s).size()` で「あり得る結果の通り数」が得られる。
+/// @details 入力中の括弧 `()` は固定のグループ化として扱い、その内側も再帰的に全順序を試す。
+///          `op(c, f)` で二項演算子を登録し、`f` は無効な演算（0 除算など）に対し `std::nullopt` を
+///          返すとその評価経路を捨てる。
+/// @note オペランド列と間の演算子に対し、部分区間 $[i, j]$ から得られる値集合を、最後に計算する
+///       演算子の位置で分割して求める。オペランド数を $k$ とすると部分区間は $O(k^2)$ 個。
+/// @note 各区間の結合は両側の値集合サイズの積に比例する。値の範囲や演算子数が小さい前提の問題向け。
+/// @note 括弧記号は固定 (`(` `)`) で、必ず先に評価されるグループとして扱う。
+/// @note オペランドは非負整数リテラルのみ。負数や単項演算子は扱わない。
+/// @code
+/// #include <iostream>
+/// #include <optional>
+/// #include "parser/ambiguous_expr.hpp"
+///
+/// int main() {
+///     using ll = long long;
+///     AmbiguousExpr<ll> e;
+///     e.op('+', [](ll a, ll b) { return std::optional<ll>(a + b); })
+///         .op('-', [](ll a, ll b) { return std::optional<ll>(a - b); })
+///         .op('*', [](ll a, ll b) { return std::optional<ll>(a * b); })
+///         .op('/', [](ll a, ll b) -> std::optional<ll> {
+///             if (b == 0) return std::nullopt;  // 0 除算の経路は捨てる
+///             return a / b;
+///         });
+///
+///     std::cout << e.values("1-1-1").size() << '\n';  // (1-1)-1 と 1-(1-1)
+/// }
+/// @endcode
+
 /// @brief 曖昧な二項演算式の「全評価順序で得られる値の集合」
 /// @details すべての演算子は二項で、任意の結合順序 (全 parenthesization) を許す。
 ///   入力中の括弧 @c () は固定のグループ化として扱い、その内側も再帰的に

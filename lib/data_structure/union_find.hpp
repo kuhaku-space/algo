@@ -3,6 +3,31 @@
 #include <utility>
 #include <vector>
 
+/// @file
+/// @brief 素集合データ構造 (Union-Find)
+/// @details 要素の集合を併合し、2 要素が同じ連結成分に属するかを管理する。経路圧縮とサイズ併合により、
+///          各操作をならし $O(\alpha(n))$ で処理する。
+/// @note 代表元は併合順に依存するため、特定の添字になるとは限らない。
+/// @note `operator[]` は内部の親または負の集合サイズを直接参照する低レベル API。
+///       通常は `root`・`size`・`same` を使う。
+/// @note コールバック付きの `unite` は `rank()` の連結成分数を更新しない。
+///       `rank()` を使う場合はコールバックなしの `unite(x, y)` を呼ぶ。
+/// @note 併合を巻き戻す必要があれば `data_structure/undo_union_find.hpp` を使う。
+/// @code
+/// #include <iostream>
+/// #include "data_structure/union_find.hpp"
+///
+/// int main() {
+///     union_find uf(5);
+///     uf.unite(0, 1);
+///     uf.unite(1, 3);
+///
+///     std::cout << uf.same(0, 3) << '\n';  // 0 と 3 は同じ集合
+///     std::cout << uf.size(0) << '\n';     // 0 が属する集合の要素数
+///     std::cout << uf.rank() << '\n';      // 連結成分数
+/// }
+/// @endcode
+
 /// @brief 素集合データ構造
 /// @details Implement (union by size) + (path compression)
 /// @complexity 構築は $O(n)$、代表・連結判定・サイズ取得・併合は償却 $O(\alpha(n))$

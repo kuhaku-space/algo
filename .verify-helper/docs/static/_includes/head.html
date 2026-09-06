@@ -1,0 +1,19 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title | escape }} - {% endif %}{{ site.title | escape }}</title>
+<meta name="description" content="{{ page.description | default: site.description | escape }}">
+<link rel="stylesheet" href="{{ "/assets/css/reference.css" | relative_url }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2213%22 font-size=%2214%22>📘</text></svg>">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: {"[+]": [["$", "$"]]},
+    displayMath: {"[+]": [["$$", "$$"]]},
+    processEscapes: true,
+    tags: "ams"
+  },
+  options: {skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-chtml.js"></script>
+<script defer src="{{ "/assets/js/reference-search.js" | relative_url }}"></script>

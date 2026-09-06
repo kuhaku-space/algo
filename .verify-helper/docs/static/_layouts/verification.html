@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<nav class="breadcrumb" aria-label="現在位置">
+  <a href="{{ "/" | relative_url }}">リファレンス</a>
+  <span aria-hidden="true">›</span>
+  <span>検証プログラム</span>
+</nav>
+
+<h1>{{ page.data.path }}</h1>
+<p class="page-meta">
+  <span class="verification-icon" aria-hidden="true">{{ site.icons[page.data.icon] }}</span>
+  {{ site.icon_labels[page.data.icon] }}
+  · 最終更新 {{ page.data.timestamp | date: "%Y-%m-%d" }}
+  · <a href="{{ site.repository_url }}/blob/{{ site.source_branch }}/{{ page.data.path }}">GitHub</a>
+</p>
+
+{% if page.data.attributes.PROBLEM %}
+<p class="page-meta">問題: <a href="{{ page.data.attributes.PROBLEM }}">{{ page.data.attributes.PROBLEM }}</a></p>
+{% endif %}
+
+<section class="appendix">
+  {% include relations.html data=page.data %}
+</section>

@@ -6,6 +6,34 @@
 #include <vector>
 #include "graph/graph.hpp"
 
+/// @file
+/// @brief 単一始点最短路 (shortest_path)
+/// @details グラフの重みに応じた単一始点最短路を提供する。非負重みには Dijkstra 法、負辺を含む場合は
+///          Bellman-Ford 法または SPFA、重みなしグラフには BFS を使用する。
+/// @details `list_graph<T>` と `csr_graph<T>` の両方に対応する。
+/// @note Dijkstra 版では全辺の重みが非負でなければならない。この条件は実行時には検査しない。
+/// @note 距離の加算が型の範囲を超えないようにする。必要なら問題の上限より十分大きく、
+///       加算してもオーバーフローしない `inf` を渡す。
+/// @note `shortest_path_negative` は始点から到達可能な負閉路と、そこから到達できる頂点を `ninf` にする。
+///       到達不能な負閉路は結果に影響しない。
+/// @note `shortest_path_spfa` は実用上速い場合があるが、最悪計算量の保証は Bellman-Ford と同じ。
+/// @note `binary_heap` や `fibonacci_heap` のように `update` を持つヒープをテンプレート引数に
+///       渡すと decrease-key 方式を使用する。
+/// @code
+/// #include <iostream>
+/// #include "graph/shortest_path.hpp"
+///
+/// int main() {
+///     list_graph<long long> graph(4);
+///     graph.add_edge(0, 1, 2);
+///     graph.add_edge(1, 2, 3);
+///     graph.add_edge(0, 2, 10);
+///
+///     for (long long d : shortest_path(graph, 0)) std::cout << d << ' ';
+///     std::cout << '\n';
+/// }
+/// @endcode
+
 /// @brief shortest_path の既定ヒープ（std::priority_queue ベースの最小ヒープ）
 /// @details 順序基準 `Key`（距離）・付随データ `Value`（頂点）を受け取り、`Key` 最小を
 ///          ルートにする。`binary_heap` / `fibonacci_heap` と同じ template-template 形式

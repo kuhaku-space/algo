@@ -20,9 +20,9 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Synchronize generated API pages
+    - name: Generate reference pages
       shell: bash
-      run: python3 tools/reference_docs.py sync-generated
+      run: python3 tools/reference_docs.py build
 
     - name: Render Jekyll source
       shell: bash
@@ -32,6 +32,7 @@ runs:
         --verify-result "$VERIFY_RESULT"
         --destination "$DESTINATION"
         --docs-dir "$DOCS_DIR"
+        --generated-dir docs/generated
       env:
         VERIFY_FILES: ${{ inputs.verify-files }}
         VERIFY_RESULT: ${{ inputs.verify-result }}

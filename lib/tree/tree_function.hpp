@@ -3,6 +3,10 @@
 #include <vector>
 #include "graph/graph.hpp"
 
+/// @file
+/// @brief 木の基本関数
+/// @details 木の高さ、直径、中心、重心など、木全体に対する基本的な問い合わせを提供する。
+
 /// @brief 根rからのBFS順を返す
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @complexity $O(V+E)$
