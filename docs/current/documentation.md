@@ -23,4 +23,5 @@ title: リファレンスの方針
 
 ## コマンド
 
-[commands.md](../commands.md) を参照。
+[commands.md](../commands.md) を参照。生成ツールの設計は
+[reference-pipeline.md](reference-pipeline.md)。

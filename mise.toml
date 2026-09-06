@@ -1,29 +1,15 @@
+# ツールの選定理由（pipx バックエンド・setuptools のピン・shim・タスクの dir 指定など）は
+# docs/current/toolchain.md にまとめてある。
+
 [tools]
 jq = "latest"
-# pipx バックエンドの実体。uv が pipx 系の隔離 venv 用 Python も自前で用意するので
-# python を別途宣言する必要はない（uv tool install / uvx が高速）。
-uv = "latest"
-
-# oj 系は import するライブラリではなく CLI アプリ（oj / oj-bundle / oj-verify）。
-# CLI アプリは pip（共有環境を汚す・PEP 668 で弾かれる）ではなく pipx で
-# アプリごとの隔離 venv に入れ、entry point を PATH に通すのが正道。
-# online-judge-tools  -> oj
-# online-judge-verify-helper -> oj-bundle / oj-verify
-# oj は distutils / pkg_resources（どちらも setuptools 提供）を実行時に import するが、
-# Python 3.12+ では stdlib から外れたため各 venv に setuptools を同梱する。
-# ただし setuptools>=81 は pkg_resources を同梱しなくなったので "<81" に固定する
-#（oj-verify が pkg_resources を import するため）。
-# mise は uv があれば uv 経由で入れるので uvx_args（--with）と pipx_args（--preinstall）
-# の両方を指定しておく（使われない側は無視される）。
+uv = "latest"                        # pipx バックエンドの実体
+# oj / oj-bundle / oj-verify。setuptools<81 のピンは必須（理由はドキュメント参照）。
 "pipx:online-judge-tools" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
 "pipx:online-judge-verify-helper" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
-# Daily Problems の CLI クライアント -> daily（git+ 直インストール、stdlib のみで依存なし）
-"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"
-# コミット前フック（.githooks/pre-commit）が lib/・test/ の C++ を整形するのに使う。
-# .clang-format（Google ベース）に従う。
-clang-format = "latest"
-# tools/ の Python を検査する linter（設定は ruff.toml、実行は `mise run lint`）。
-ruff = "latest"
+"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"  # daily
+clang-format = "latest"              # .githooks/pre-commit が使う
+ruff = "latest"                      # 設定は ruff.toml
 
 [tasks.lint]
 description = "tools/ の Python を ruff で検査する"
@@ -50,12 +36,10 @@ run = [
 [tasks.setup]
 description = "Setup project（ツール・oj-tools・shim を一括導入）"
 run = [
-    # [tools] 宣言（jq / uv / clang-format / pipx:oj 系 / daily-problems-cli）をまとめて導入。
     "mise install",
     # CLI でしか入らないシステムパッケージ。
     "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
     "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
-    # コミット前 clang-format フックを有効化（core.hooksPath はリポジトリ毎のローカル設定）。
     "git config core.hooksPath .githooks",
     "mise run install-shims",
 ]
@@ -64,8 +48,7 @@ run = [
 description = "oj 系コマンドの shim を ~/.local/bin に生成（どこからでも ojb 等を実行可能に）"
 run = """
 #!/bin/bash
-# どのクローン先でも正しいパスになるよう config_root を埋め込む。
-# shim は `mise -C <repo> run <task>` を exec するだけの薄いラッパー。
+# `mise -C <repo> run <task>` を exec するだけの薄いラッパーを作る。
 ROOT="{{config_root}}"
 BIN="$HOME/.local/bin"
 mkdir -p "$BIN"
@@ -112,18 +95,9 @@ for ((i=0; i<$length; i++)); do
 done
 """
 
-# online-judge-tools 用タスク（.aliases の oj 系から移行）
-# https://github.com/online-judge-tools/verification-helper
-#
-# 正名は動詞（download/build/test/submit/test-clip/random-check）、
-# 旧エイリアス互換の短縮名（ojd/ojb/ojt/ojs/ojtc/ojrc）は alias で併設。
-# shim（~/.local/bin、install-shims タスク）は短縮名で生成する。
-#
-# 注: mise タスクはタスク定義位置（config_root）ではなく `dir` で指定した
-# ディレクトリで実行される。oj 系は workspace/ で動かす前提なので各タスクに
-# `dir = "{{config_root}}/workspace"` を設定している。
-# bundle / compile はヘルパ関数として各タスク内にインライン定義し、
-# CWD をまたぐネストした `mise run` を避ける（random-check は checker/ 配下でも使う）。
+# ここから下は workspace/ で問題を解くための oj 系タスク（ライブラリ開発とは別系統）。
+# 正名は動詞、短縮名（ojd/ojb/ojt/...）は alias で併設。命名・dir 指定・bundle/compile を
+# インライン定義している理由は docs/current/toolchain.md を参照。
 
 [tasks.download]
 description = "workspace でテストケースをダウンロード（oj d、-a でシステムテスト）"
@@ -149,14 +123,7 @@ arg "<url>" help="問題ページの URL" required=#true
 '''
 run = """
 #!/bin/bash
-# 新しい問題を始める前提なので a.cpp は常にテンプレートで上書きする。
-# テストだけ取り直したい（a.cpp を残したい）場合は ojd（download）を使う。
-#
-# 手順:
-#   1. a.cpp をテンプレートから上書き（PROBLEM 行に URL を埋め込む）。
-#   2. サンプルをダウンロードできるか確認する（取得できなければ test/ を触らず中断）。
-#   3. 確認後に test/ の中身を入れ替える（既存を消して取得分で置き換え）。
-
+# a.cpp は常にテンプレートで上書きする（テストだけ取り直すなら ojd）。
 # 1. テンプレートから生成し、competitive-verifier の PROBLEM 行に URL を埋め込む。
 # URL に sed のメタ文字が含まれても安全なよう awk で先頭の PROBLEM 行のみ追記する。
 awk -v url="$usage_url" '
@@ -164,8 +131,7 @@ awk -v url="$usage_url" '
   { print }
 ' template/template.cpp > a.cpp && echo "a.cpp をテンプレートから生成しました（PROBLEM に URL を埋め込み）。"
 
-# 2. サンプルをダウンロードできるか確認する。
-#    既存 test/ を壊さないよう一時ディレクトリへ取得し、成功した場合のみ後段で差し替える。
+# 2. 既存 test/ を壊さないよう一時ディレクトリへ取得し、成功した場合だけ差し替える。
 tmp_test=$(mktemp -d) || exit 1
 trap 'rm -rf "$tmp_test"' EXIT
 if ! oj d -d "$tmp_test" "$usage_url"; then
@@ -205,7 +171,7 @@ oj_bundle() {
     | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
 }
 oj_compile() {
-  # 共通フラグ。デバッグ時は最適化・LTO を外しサニタイザを足す。
+  # デバッグ時は最適化を外しサニタイザを足す。
   local opt_args=(-O2 -ftrivial-auto-var-init=zero)
   if [[ "$usage_debug" == "true" ]]; then
     opt_args=(-O1 -g -fsanitize=address,undefined -D_GLIBCXX_DEBUG)
@@ -236,9 +202,7 @@ run = """
 #!/bin/bash
 mise run build "$usage_src" || exit 1
 
-# システムデフォルト（多くの Linux 環境で 8MB）だと再帰の深い解法が
-# ローカルでだけ SIGSEGV しうる。ulimit はプロセスに継承されるので、
-# ここで上げておけば oj t が fork/exec するジャッジ対象バイナリにも効く。
+# 再帰の深い解法がローカルでだけ SIGSEGV しないようスタックを広げる（子に継承される）。
 ulimit -s unlimited 2>/dev/null || ulimit -s 1048576
 
 oj_args=(-N)
@@ -320,9 +284,7 @@ oj_compile() {
 [[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
 oj_bundle "$usage_src" >main.cpp || exit 1
 oj_compile main.cpp || exit 1
-# システムデフォルト（多くの Linux 環境で 8MB）だと再帰の深い解法が
-# ローカルでだけ SIGSEGV しうる。ulimit は子プロセスに継承されるので、
-# ここで上げておけば checker が fork/exec する解答バイナリにも効く。
+# 再帰の深い解法がローカルでだけ SIGSEGV しないようスタックを広げる（子に継承される）。
 ulimit -s unlimited 2>/dev/null || ulimit -s 1048576
 (
   cd checker || exit 1

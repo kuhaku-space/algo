@@ -1,3 +1,5 @@
+# Google ベース。既定から外した設定（ForEachMacros / MainIncludeChar / IncludeCategories /
+# CommentPragmas）の理由は docs/current/toolchain.md を参照。
 BasedOnStyle: Google
 UseTab: Never
 IndentWidth: 4
@@ -15,14 +17,9 @@ AllowShortLambdasOnASingleLine: All
 BreakBeforeConceptDeclarations: Always
 CommentPragmas: 'competitive-verifier:'
 DerivePointerAlignment: false
-# atcoder.hpp のループマクロ。範囲 for と同様に整形させる（`rep (...) { ... }` の括弧前空白など）。
 ForEachMacros: ['rep', 'repn', 'repr', 'repnr']
 IncludeBlocks: Merge
-# 主ヘッダ判定を <...> 限定にして、引用符のライブラリヘッダが先頭固定されないようにする
-# （basename がファイル名と一致しても主ヘッダ扱いしない）。include 順は「標準 <...> 先頭」に統一。
 MainIncludeChar: AngleBracket
-# template/{atcoder,library_checker}.hpp は template/template.hpp（<bits/stdc++.h> を引く）を
-# 必ず先頭に置く必要がある。include ソートは効かせたまま最優先（負 Priority）で先頭固定する。
 IncludeCategories:
   - Regex:    '"template/template\.hpp"'
     Priority: -1

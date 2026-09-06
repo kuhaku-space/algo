@@ -1,15 +1,9 @@
 #!/bin/sh
-# ステージされた C++ ファイル（.hpp / .cpp）を clang-format で整形してから
-# コミットする。整形結果を再 stage するので、コミットには整形後の内容が入る。
-#
-# clang-format は mise.toml の [tools] で管理。フックからでも確実に解決できるよう
-# `mise exec` 経由で呼ぶ（PATH に shim が無い環境でも動く）。
-#
-# 有効化: git config core.hooksPath .githooks（mise run setup でも設定される）
+# ステージされた C++ ファイルを clang-format で整形して再 stage する。
+# 有効化と設計の理由は docs/current/toolchain.md を参照。
 
 set -e
 
-# ステージ済みで追加/変更/コピー/リネームされた C++ ファイルのみ対象（削除は除外）。
 files=$(git diff --cached --name-only --diff-filter=ACMR -- '*.cpp' '*.hpp')
 [ -z "$files" ] && exit 0
 

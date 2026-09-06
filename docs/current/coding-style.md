@@ -53,7 +53,8 @@ title: コーディング規約
 
 ## フォーマット
 
-- **clang-format**（`.clang-format`、Google ベース、mise 管理）に従う。
+- **clang-format**（`.clang-format`、Google ベース、mise 管理）に従う。設定の意図は
+  [toolchain.md](toolchain.md)。
 - `.githooks/pre-commit` がステージ済みの `.cpp`/`.hpp` を自動整形して再 stage する
   （`mise run setup` で有効化済み）。
 - `lib/template/{atcoder,library_checker}.hpp` は `template/template.hpp`（`<bits/stdc++.h>`）を

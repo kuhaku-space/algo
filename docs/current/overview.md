@@ -18,7 +18,7 @@ title: リポジトリの全体像
 | --- | --- |
 | `lib/` | 実装。include ルート。カテゴリ別の内容は [README](../../README.md) の表を参照 |
 | `test/` | competitive-verifier 用の `*.test.cpp`。先頭に検証用問題の URL を書く |
-| `tools/` | リファレンスの生成・検査・CI 集計に使う Python |
+| `tools/` | リファレンスの生成・検査・CI 集計に使う Python（[reference-pipeline.md](reference-pipeline.md)） |
 | `docs/` | 開発ドキュメント。`docs/generated/` は生成物で Git 管理外 |
 | `workspace/` | 問題を解く作業用（ライブラリ開発とは別系統） |
 | `.githooks/` | pre-commit（clang-format の自動整形） |

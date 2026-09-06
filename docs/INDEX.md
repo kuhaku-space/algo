@@ -25,6 +25,9 @@ title: ドキュメント索引
 | API を壊す変更をする | [current/change-policy.md](current/change-policy.md) |
 | コミット・PR を作る | [current/git-workflow.md](current/git-workflow.md) |
 | CI の失敗を追う | [current/ci.md](current/ci.md) |
+| ツールの設定を触る（mise・clang-format・ruff・フック） | [current/toolchain.md](current/toolchain.md) |
+| `tools/` のリファレンス生成を直す | [current/reference-pipeline.md](current/reference-pipeline.md) |
+| `.github/workflows/verify.yml` を直す | [current/verify-workflow.md](current/verify-workflow.md) |
 
 ## docs/current/ — 現行の方針
 
@@ -37,6 +40,9 @@ title: ドキュメント索引
 | [change-policy.md](current/change-policy.md) | 破壊的変更の進め方、計算量を悪化させない制約 |
 | [git-workflow.md](current/git-workflow.md) | ブランチ、自動コミット、PR と auto-merge |
 | [ci.md](current/ci.md) | CI の失敗をローカルで再現する手順、ログを狭く取る方法 |
+| [toolchain.md](current/toolchain.md) | `mise.toml`・`.clang-format`・`ruff.toml`・pre-commit フックの設定意図 |
+| [reference-pipeline.md](current/reference-pipeline.md) | `tools/` のリファレンス生成・検査・サイト組み立ての設計 |
+| [verify-workflow.md](current/verify-workflow.md) | `verify.yml` のジョブ構成・キャッシュ・AOJ タイムアウトの扱い |
 
 ## docs/decisions/ — 決定の記録
 

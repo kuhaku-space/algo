@@ -1,21 +1,9 @@
 #!/usr/bin/env python3
 """Summarize verification timings and their change against a baseline result.
 
-The report is informational only.  Timings measured on shared GitHub runners
-vary by a factor of two between identical runs, so nothing here gates the
-workflow; the numbers exist to spot order-of-magnitude regressions.
-
-Two properties of the verification pipeline shape the output:
-
-* Tests whose previous result is still valid are skipped and their timings are
-  carried over verbatim, so a diff against the baseline lists exactly the tests
-  re-executed in this run.
-* Verifications with status ``skipped`` carry no timing at all (``elapsed`` is
-  the bookkeeping overhead and ``slowest`` is null), so they are excluded from
-  every aggregate.
-
-``elapsed`` equals the sum of the testcase timings, i.e. compilation and
-testcase downloads are not part of it; ``slowest`` is the worst single testcase.
+The report is informational only; nothing here gates the workflow.  How to read
+the numbers, and why ``skipped`` verifications are excluded, is documented in
+docs/current/verify-workflow.md.
 """
 
 from __future__ import annotations

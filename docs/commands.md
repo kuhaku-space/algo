@@ -46,6 +46,8 @@ mise run lint        # tools/ の Python を ruff で検査する（設定は ru
 mise run setup       # ツール・oj 系 CLI・pre-commit フック・shim を一括導入
 ```
 
+導入するものとその選定理由は [current/toolchain.md](current/toolchain.md)。
+
 `.githooks/pre-commit` がステージ済みの `.cpp`/`.hpp` を clang-format で自動整形して再 stage する。
 
 ## PR
