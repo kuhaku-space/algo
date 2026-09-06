@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from reference.check import load_config  # noqa: E402
+from reference.check import load_config, unformatted_math  # noqa: E402
 from reference.model import DocBlock, Entity, Overload  # noqa: E402
 from reference.parse import (  # noqa: E402
     ROOT,
@@ -247,3 +247,38 @@ class LibraryTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class UnformattedMathTest(unittest.TestCase):
+    def scan(self, source: str) -> list[str]:
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as name:
+            root = Path(name)
+            (root / "sample.hpp").write_text(source, encoding="utf-8")
+            return unformatted_math(root)
+
+    def test_reports_bare_complexity(self) -> None:
+        self.assertEqual(len(self.scan("/// @complexity O(n log n)\n")), 1)
+
+    def test_reports_latex_outside_math(self) -> None:
+        self.assertEqual(len(self.scan("/// @brief \\sum_{i=1}^{n} f(i)\n")), 1)
+
+    def test_accepts_math_and_code_spans(self) -> None:
+        source = (
+            "/// @brief $\\sum_{i=1}^{n} f(i)$ を返す\n"
+            "/// @details `a[x]^{-1}` は識別子、$2^{24}$ は数式\n"
+            "/// @complexity $O(n \\log n)$\n"
+        )
+        self.assertEqual(self.scan(source), [])
+
+    def test_ignores_examples(self) -> None:
+        source = (
+            "/// @code\n"
+            "/// int x = 1 << 24;  // O(1)\n"
+            "/// @endcode\n"
+        )
+        self.assertEqual(self.scan(source), [])
+
+    def test_library_headers_are_clean(self) -> None:
+        self.assertEqual(unformatted_math(), [])

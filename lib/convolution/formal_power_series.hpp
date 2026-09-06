@@ -24,8 +24,8 @@
 ///       を返す。
 /// @note `sqrt` は $k$ が偶数かつ $c$ が平方剰余のときだけ解を返す。$k$ が奇数、または平方非剰余で
 ///       解が存在しない場合は空列を返す。
-/// @note `composition` と `compositional_inverse` は Kinoshita-Suzuki の分割統治により、`deg` を $d$ として $O(d \log^2
-/// d)$。
+/// @note `composition` と `compositional_inverse` は Kinoshita-Suzuki の分割統治により、
+///       `deg` を $d$ として $O(d \log^2 d)$。
 /// @note `log` の結果は定数項 $0$、`exp` の結果は定数項 $1$ になる。
 /// @note `div_mod` は入力の末尾 0 を内部で除去し、返り値の商・剰余も末尾 0 を含まない。剰余の次数は $\deg r < \deg g$。
 /// @note 多点評価・補間は部分積木を構築して剰余木を下降する。点数が少ない部分木は Horner 法に切り替える。
