@@ -41,14 +41,14 @@
 /// @endcode
 
 /// @brief 辺ラベル付き有向グラフ上の文脈自由到達可能性 (CYK のグラフ版)
-/// @details CNF (@c A->BC または @c A->終端) の文法を、各辺が 1 記号を表す
-///   有向グラフに適用する。各記号 @c X について「頂点 @c u から @c v へ、
-///   通った辺ラベル列が @c X から導出される歩道が存在する」頂点対 @c (u,v)
+/// @details CNF（`A->BC` または `A->終端`）の文法を、各辺が 1 記号を表す
+///   有向グラフに適用する。各記号 $X$ について「頂点 $u$ から $v$ へ、
+///   通った辺ラベル列が $X$ から導出される歩道が存在する」頂点対 $(u, v)$
 ///   の集合を不動点反復で求める。辺は繰り返し使え、向きは固定。
-///   記号は 0..num_sym-1 の整数 id で表す (非終端・終端クラスを区別しない)。
-///   ビット行列 (@c n 行 × @c n 列) の合成で @c A |= B∘C を計算するため、
-///   1 反復あたり @c O(規則数 · n^3 / 64)。
-/// @complexity 1反復 $O(Rn^3/64)$、最悪 $O(SRn^5/64)$（記号数$S$、規則数$R$）
+///   記号は $[0, num\_sym)$ の整数 id で表す（非終端・終端クラスを区別しない）。
+///   ビット行列（$n$ 行 $\times$ $n$ 列）の合成で $A \mathrel{|}= B \circ C$ を計算するため、
+///   1 反復あたり $O(R n^3 / 64)$（$R$ は規則数）。
+/// @complexity 1 反復 $O(R n^3 / 64)$、最悪 $O(S R n^5 / 64)$（記号数 $S$、規則数 $R$）
 struct CykGraph {
     /// @brief 頂点数・記号数・1 行あたりの 64 bit ワード数
     /// @complexity $O(1)$ で参照可能
@@ -66,15 +66,15 @@ struct CykGraph {
         : n(n), num_sym(num_sym), words((n + 63) / 64),
           reach(num_sym, std::vector<uint64_t>(static_cast<std::size_t>(n) * words, 0)) {}
 
-    /// @brief 記号 @c sym の到達対に @c (u,v) を追加する (終端辺の登録に使う)
+    /// @brief 記号 `sym` の到達対に $(u, v)$ を追加する（終端辺の登録に使う）
     /// @complexity $O(1)$
     void add(int sym, int u, int v) { reach[sym][static_cast<std::size_t>(u) * words + (v >> 6)] |= 1ULL << (v & 63); }
-    /// @brief @c (u,v) が記号 @c sym から導出可能か
+    /// @brief $(u, v)$ が記号 `sym` から導出可能か
     /// @complexity $O(1)$
     bool get(int sym, int u, int v) const {
         return reach[sym][static_cast<std::size_t>(u) * words + (v >> 6)] >> (v & 63) & 1;
     }
-    /// @brief 二項規則 @c A->BC を追加する
+    /// @brief 二項規則 `A->BC` を追加する
     /// @complexity 償却 $O(1)$
     void add_rule(int A, int B, int C) { rules.push_back({A, B, C}); }
 

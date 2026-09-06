@@ -47,7 +47,7 @@ static constexpr int CONVOLUTION_NAIVE_THRESHOLD = 60;
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<mint> a と b の畳み込み (長さ a.size() + b.size() - 1)
-/// @complexity 出力長を $N$ として $O(N\log N)$
+/// @complexity 出力長を $N$ として $O(N \log N)$
 template <internal::static_modint_c mint>
 std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint> &b) {
     int n = int(a.size()), m = int(b.size());
@@ -67,7 +67,7 @@ std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint
 /// @param a 入力多項式の係数列
 /// @return std::vector<mint> a と a の畳み込み (長さ 2 * a.size() - 1)
 /// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348
-/// @complexity 出力長を $N$ として $O(N\log N)$
+/// @complexity 出力長を $N$ として $O(N \log N)$
 template <internal::static_modint_c mint>
 std::vector<mint> convolution_square(const std::vector<mint> &a) {
     int n = int(a.size());
@@ -86,7 +86,7 @@ std::vector<mint> convolution_square(const std::vector<mint> &a) {
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
-/// @complexity 出力長を $N$ として $O(N\log N)$
+/// @complexity 出力長を $N$ として $O(N \log N)$
 template <unsigned int mod = 998244353, std::integral T>
 std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     int n = int(a.size()), m = int(b.size());
@@ -105,16 +105,17 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     return c;
 }
 
-/// @brief middle product / 転置乗算 (modint 版)
-/// @details a (長さ n) と b (長さ m, m <= n) に対し c[i] = sum_j a[i+j] * b[j]
-///          (i = 0 .. n-m) を返す (長さ n-m+1)。a と rev(b) のフル積の中央部に等しく、
-///          変換長が bit_ceil(n) で済む。多項式補間・分割統治など「ずらし内積」が要る場面で使う。
+/// @brief middle product / 転置乗算（modint 版）
+/// @details `a`（長さ $n$）と `b`（長さ $m \le n$）に対し $c_i = \sum_j a_{i+j} b_j$
+///          （$i = 0, \ldots, n-m$）を返す（長さ $n-m+1$）。`a` と $\mathrm{rev}(b)$ のフル積の
+///          中央部に等しく、変換長が $\mathrm{bit\_ceil}(n)$ で済む。多項式補間・分割統治など
+///          「ずらし内積」が要る場面で使う。
 /// @tparam mint NTT-friendly な static modint
-/// @param a 長さ n の係数列
-/// @param b 長さ m (m <= n) の係数列
-/// @return std::vector<mint> c[i] = sum_j a[i+j]*b[j] (長さ n - m + 1)
+/// @param a 長さ $n$ の係数列
+/// @param b 長さ $m$（$m \le n$）の係数列
+/// @return std::vector<mint> $c_i = \sum_j a_{i+j} b_j$（長さ $n-m+1$）
 /// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348
-/// @complexity $n=|a|$ として $O(n\log n)$
+/// @complexity $n = |a|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
 std::vector<mint> middle_product(const std::vector<mint> &a, const std::vector<mint> &b) {
     int n = int(a.size()), m = int(b.size());
@@ -130,11 +131,11 @@ std::vector<mint> middle_product(const std::vector<mint> &a, const std::vector<m
 /// @brief 任意係数の畳み込み (3 つの NTT + Garner 法)
 /// @details 3 つの NTT-friendly 素数で畳み込み、Garner 法で復元することで
 ///          オーバーフローしない範囲の int64_t 畳み込みを求める。
-/// @note 畳み込み後の長さは 2^24 (約 1.6e7) 以下でなければならない。
+/// @note 畳み込み後の長さは $2^{24}$（約 $1.6 \times 10^7$）以下でなければならない。
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<std::int64_t> a と b の畳み込み (長さ a.size() + b.size() - 1)
-/// @complexity 出力長を $N$ として $O(N\log N)$
+/// @complexity 出力長を $N$ として $O(N \log N)$
 std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a, const std::vector<std::int64_t> &b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
@@ -167,17 +168,17 @@ std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a, con
 }
 
 /// @brief 係数積が小さいときの畳み込み (2 つの NTT + CRT)
-/// @details MOD1 (= 754974721) と MOD3 (= 469762049) の 2 素数だけで畳み込み、
-///          CRT で復元する。NTT が 1 回少ない分 convolution_ll より速い。
-/// @warning 真値が MOD1 * MOD3 (約 3.5e17) 未満であること。畳み込み長 L について
-///          各係数は高々 (max|a_i|)*(max|b_j|)*L になるので、これがこの上限を超えない
-///          範囲でのみ使う (例: 各係数が 10^5 未満なら長さ 2^24 まで安全)。
-///          係数は非負であること (CRT 復元は [0, MOD1*MOD3) を返す)。
-/// @note 畳み込み後の長さは 2^24 (約 1.6e7) 以下でなければならない。
+/// @details `MOD1` $= 754974721$ と `MOD3` $= 469762049$ の 2 素数だけで畳み込み、
+///          CRT で復元する。NTT が 1 回少ない分 `convolution_ll` より速い。
+/// @warning 真値が `MOD1 * MOD3`（約 $3.5 \times 10^{17}$）未満であること。畳み込み長 $L$ について
+///          各係数は高々 $(\max |a_i|)(\max |b_j|) L$ になるので、これがこの上限を超えない
+///          範囲でのみ使う（例: 各係数が $10^5$ 未満なら長さ $2^{24}$ まで安全）。
+///          係数は非負であること（CRT 復元は $[0, \mathrm{MOD1} \cdot \mathrm{MOD3})$ を返す）。
+/// @note 畳み込み後の長さは $2^{24}$（約 $1.6 \times 10^7$）以下でなければならない。
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
 /// @return std::vector<std::int64_t> a と b の畳み込み (長さ a.size() + b.size() - 1)
-/// @complexity 出力長を $N$ として $O(N\log N)$
+/// @complexity 出力長を $N$ として $O(N \log N)$
 std::vector<std::int64_t> convolution_ll2(const std::vector<std::int64_t> &a, const std::vector<std::int64_t> &b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
@@ -206,10 +207,10 @@ std::vector<std::int64_t> convolution_ll2(const std::vector<std::int64_t> &a, co
 /// @brief 任意 mod 畳み込み (3 つの NTT + Garner 法)
 /// @details 3 つの NTT-friendly 素数で畳み込み、Garner 法で復元した値を mod で取る。
 ///          mod は NTT-friendly でなくてもよい。
-/// @warning 各係数は [0, mod) の非負整数であること。Garner 復元値を mod で割った
+/// @warning 各係数は $[0, \mathrm{mod})$ の非負整数であること。Garner 復元値を mod で割った
 ///          剰余を返すため、負値や mod 以上の値を渡すと正しい結果にならない
 ///          (真値を mod 還元したい場合は convolution_ll を使うこと)。
-/// @note 畳み込み後の長さは 2^24 (約 1.6e7) 以下でなければならない。
+/// @note 畳み込み後の長さは $2^{24}$（約 $1.6 \times 10^7$）以下でなければならない。
 /// @tparam mod 出力を取る法 (既定: 998244353)
 /// @tparam T 整数型 (std::integral)
 /// @param a 入力多項式の係数列
@@ -217,7 +218,7 @@ std::vector<std::int64_t> convolution_ll2(const std::vector<std::int64_t> &a, co
 /// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
 /// @see https://math314.hateblo.jp/entry/2015/05/07/014908
 /// @see https://asako.growi.cloud/compro/NTT
-/// @complexity 出力長を $N$ として $O(N\log N)$
+/// @complexity 出力長を $N$ として $O(N \log N)$
 template <unsigned int mod = 998244353, std::integral T>
 std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b) {
     int n = int(a.size()), m = int(b.size());

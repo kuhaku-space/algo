@@ -105,18 +105,18 @@ void bostan_mori_step(std::vector<mint> &p, std::vector<mint> &q, bool odd) {
 
 }  // namespace internal
 
-/// @brief きたまさ法 (任意可換環版, O(k^2 log n))
-/// @complexity 漸化式の次数を $k$ として $O(k^2\log n)$
-/// @details 線形漸化式 a_i = sum_{j=1}^{k} d[j-1] a_{i-j} (i >= k) の第 n 項を、
-///          特性多項式 f(x) = x^k - sum_j d[j-1] x^{k-1-j} を法とした x^n mod f の
-///          二乗法で求める。任意の可換環 T に対応 (NTT 非対応 mod・dynamic_modint・
-///          行列・有理数など畳み込みできない環でも可)。NTT-friendly な static_modint で
-///          O(M(k) log n) が欲しい場合は同ファイルの kth_term を使う。
-/// @tparam T 可換環 (加減乗算と T(0)/T(1) を持つ)
-/// @param a 初項 a_0, ..., a_{k-1}
-/// @param d 漸化式の係数 d_1, ..., d_k (a_i = d_1 a_{i-1} + ... + d_k a_{i-k})
+/// @brief きたまさ法（任意可換環版、$O(k^2 \log n)$）
+/// @complexity 漸化式の次数を $k$ として $O(k^2 \log n)$
+/// @details 線形漸化式 $a_i = \sum_{j=1}^{k} d_j a_{i-j}$（$i \ge k$）の第 $n$ 項を、
+///          特性多項式 $f(x) = x^k - \sum_j d_j x^{k-1-j}$ を法とした $x^n \bmod f$ の
+///          二乗法で求める。任意の可換環 `T` に対応（NTT 非対応 mod・`dynamic_modint`・
+///          行列・有理数など畳み込みできない環でも可）。NTT-friendly な `static_modint` で
+///          $O(M(k) \log n)$ が欲しい場合は同ファイルの `kth_term` を使う。
+/// @tparam T 可換環（加減乗算と `T(0)`/`T(1)` を持つ）
+/// @param a 初項 $a_0, \ldots, a_{k-1}$
+/// @param d 漸化式の係数 $d_1, \ldots, d_k$（$a_i = d_1 a_{i-1} + \cdots + d_k a_{i-k}$）
 /// @param n 求める項の番号
-/// @return T a_n
+/// @return T $a_n$
 template <class T>
 T kitamasa(const std::vector<T> &a, const std::vector<T> &d, std::int64_t n) {
     assert(a.size() == d.size());
@@ -126,15 +126,15 @@ T kitamasa(const std::vector<T> &a, const std::vector<T> &d, std::int64_t n) {
 }
 
 /// @brief Bostan-Mori 法
-/// @complexity 多項式次数を $d$ として $O(d\log d\log n)$
-/// @details 有理形式的冪級数 p(x)/q(x) の x^n の係数を O(M(d) log n) で求める
-///          (d = deg q, M はサイズ d の畳み込みコスト)。各ステップで q(-x) の順変換を
+/// @complexity 多項式次数を $d$ として $O(d \log d \log n)$
+/// @details 有理形式的冪級数 $p(x)/q(x)$ の $x^n$ の係数を $O(M(d) \log n)$ で求める
+///          （$d = \deg q$、$M$ はサイズ $d$ の畳み込みコスト）。各ステップで $q(-x)$ の順変換を
 ///          共有し、AVX2 が使える NTT-friendly な mint なら Montgomery + AVX2 NTT を使う。
 /// @tparam mint NTT-friendly な static modint
 /// @param p 分子の係数列
-/// @param q 分母の係数列 (q[0] != 0)
-/// @param n 求める項の番号 (n < 0 なら 0)
-/// @return mint p(x)/q(x) の x^n の係数
+/// @param q 分母の係数列（`q[0] != 0`）
+/// @param n 求める項の番号（$n < 0$ なら $0$）
+/// @return mint $p(x)/q(x)$ の $x^n$ の係数
 template <internal::static_modint_c mint>
 mint bostan_mori(std::vector<mint> p, std::vector<mint> q, std::int64_t n) {
     if (n < 0) return 0;
@@ -158,15 +158,15 @@ mint bostan_mori(std::vector<mint> p, std::vector<mint> q, std::int64_t n) {
     return p[0] / q[0];
 }
 
-/// @brief 線形漸化式の N 項目 (NTT 版, O(M(d) log n))
-/// @complexity 漸化式の次数を $d$ として $O(d\log d\log n)$
-/// @details a_i = sum_{j=1}^d c_j a_{i-j} (i >= d) の第 n 項を Bostan-Mori 法で求める。
-///          NTT-friendly な static_modint 専用。畳み込みできない環では kitamasa を使う。
+/// @brief 線形漸化式の第 $n$ 項（NTT 版、$O(M(d) \log n)$）
+/// @complexity 漸化式の次数を $d$ として $O(d \log d \log n)$
+/// @details $a_i = \sum_{j=1}^{d} c_j a_{i-j}$（$i \ge d$）の第 $n$ 項を Bostan-Mori 法で求める。
+///          NTT-friendly な `static_modint` 専用。畳み込みできない環では `kitamasa` を使う。
 /// @tparam mint NTT-friendly な static modint
-/// @param a 初項 a_0, ..., a_{d-1}
-/// @param c 漸化式の係数 c_1, ..., c_d
+/// @param a 初項 $a_0, \ldots, a_{d-1}$
+/// @param c 漸化式の係数 $c_1, \ldots, c_d$
 /// @param n 求める項の番号
-/// @return mint a_n
+/// @return mint $a_n$
 template <internal::static_modint_c mint>
 mint kth_term(std::vector<mint> a, std::vector<mint> c, std::int64_t n) {
     assert(a.size() == c.size());

@@ -6,13 +6,13 @@
 
 /// @brief 乗法的関数の値を線形篩で一括計算する
 ///
-/// 乗法的関数 f（f(1)=1, gcd(m,n)=1 で f(mn)=f(m)f(n)）の f(1), ..., f(n) を
-/// O(n) で構築する。素数冪での値 f(p^k) を返す callable を渡す。
+/// 乗法的関数 $f$（$f(1)=1$、$\gcd(m,n)=1$ で $f(mn)=f(m)f(n)$）の $f(1), \ldots, f(n)$ を
+/// $O(n)$ で構築する。素数冪での値 $f(p^k)$ を返す callable を渡す。
 /// @tparam T 値の型（modint や整数型）
-/// @tparam F (int p, int k, int pk) -> T を満たす callable。pk == p^k。
-/// @param n 上限（n >= 0）
-/// @param fpk f(p^k) を返す関数。p は素数、k >= 1、pk = p^k。
-/// @return f[i] = f(i)（0 <= i <= n）。f[0] = T()、f[1] = T(1)。
+/// @tparam F `(int p, int k, int pk) -> T` を満たす callable。`pk` $= p^k$。
+/// @param n 上限（$n \ge 0$）
+/// @param fpk $f(p^k)$ を返す関数。$p$ は素数、$k \ge 1$、`pk` $= p^k$。
+/// @return `f[i]` $= f(i)$（$0 \le i \le n$）。`f[0] = T()`、`f[1] = T(1)`。
 /// @complexity $O(n)$
 template <class T, class F>
 std::vector<T> multiplicative_table(int n, F fpk) {
@@ -54,33 +54,33 @@ std::vector<T> multiplicative_table(int n, F fpk) {
     return f;
 }
 
-/// @brief オイラーのトーシェント関数 φ(1), ..., φ(n)
+/// @brief オイラーのトーシェント関数 $\varphi(1), \ldots, \varphi(n)$
 ///
-/// φ(p^k) = p^k - p^(k-1)。
+/// $\varphi(p^k) = p^k - p^{k-1}$。
 /// @complexity $O(n)$
 std::vector<int> euler_phi_table(int n) {
     return multiplicative_table<int>(n, [](int p, int, int pk) { return pk - pk / p; });
 }
 
-/// @brief メビウス関数 μ(1), ..., μ(n)
+/// @brief メビウス関数 $\mu(1), \ldots, \mu(n)$
 ///
-/// μ(p) = -1、μ(p^k) = 0 (k >= 2)。
+/// $\mu(p) = -1$、$\mu(p^k) = 0$（$k \ge 2$）。
 /// @complexity $O(n)$
 std::vector<int> mobius_table(int n) {
     return multiplicative_table<int>(n, [](int, int k, int) { return k == 1 ? -1 : 0; });
 }
 
-/// @brief 約数の個数 σ_0(1), ..., σ_0(n)
+/// @brief 約数の個数 $\sigma_0(1), \ldots, \sigma_0(n)$
 ///
-/// σ_0(p^k) = k + 1。
+/// $\sigma_0(p^k) = k + 1$。
 /// @complexity $O(n)$
 std::vector<int> divisor_count_table(int n) {
     return multiplicative_table<int>(n, [](int, int k, int) { return k + 1; });
 }
 
-/// @brief 約数の総和 σ_1(1), ..., σ_1(n)
+/// @brief 約数の総和 $\sigma_1(1), \ldots, \sigma_1(n)$
 ///
-/// σ_1(p^k) = 1 + p + ... + p^k。
+/// $\sigma_1(p^k) = 1 + p + \cdots + p^k$。
 /// @complexity $O(n)$
 std::vector<std::int64_t> divisor_sum_table(int n) {
     return multiplicative_table<std::int64_t>(n, [](int p, int k, int) {
@@ -92,24 +92,24 @@ std::vector<std::int64_t> divisor_sum_table(int n) {
 
 /// @brief 乗法的関数の累積和を劣線形で計算する（杜教筛 / Dirichlet 双曲線法）
 ///
-/// 乗法的関数 f の累積和 S(n) = Σ_{i=1}^{n} f(i) を O(n^{2/3}) で求める。
-/// f とディリクレ畳み込み f*g がともに累積和を計算しやすい g を選び、
-/// 恒等式 Σ_{i=1}^{m} (f*g)(i) = Σ_{d=1}^{m} g(d) S(⌊m/d⌋) から
-/// g(1)S(m) = H(m) - Σ_{d=2}^{m} g(d) S(⌊m/d⌋) を再帰的に解く。
+/// 乗法的関数 $f$ の累積和 $S(n) = \sum_{i=1}^{n} f(i)$ を $O(n^{2/3})$ で求める。
+/// $f$ とディリクレ畳み込み $f * g$ がともに累積和を計算しやすい $g$ を選び、
+/// 恒等式 $\sum_{i=1}^{m} (f * g)(i) = \sum_{d=1}^{m} g(d) S(\lfloor m/d \rfloor)$ から
+/// $g(1) S(m) = H(m) - \sum_{d=2}^{m} g(d) S(\lfloor m/d \rfloor)$ を再帰的に解く。
 /// @tparam T 値の型（modint や整数型）
-/// @tparam Gsum (long long m) -> T。G(m) = Σ_{i=1}^{m} g(i)。
-/// @tparam Hsum (long long m) -> T。H(m) = Σ_{i=1}^{m} (f*g)(i)。
+/// @tparam Gsum `(long long m) -> T`。$G(m) = \sum_{i=1}^{m} g(i)$。
+/// @tparam Hsum `(long long m) -> T`。$H(m) = \sum_{i=1}^{m} (f * g)(i)$。
 /// @complexity 推奨閾値では構築 $O(n^{2/3})$、問合せ $O(1)$
 template <class T, class Gsum, class Hsum>
 struct MultiplicativeSum {
-    /// @brief 累積和の小さい値とDirichlet畳み込みの累積和から構築する
+    /// @brief 累積和の小さい値と Dirichlet 畳み込みの累積和から構築する
     /// @param n 上限
-    /// @param f_prefix f の累積和。f_prefix[k] = Σ_{i=1}^{k} f(i)（k <= threshold）。
-    ///   threshold は n^{2/3} 程度を推奨（base case の打ち切り）。
-    /// @param g1 g(1)（多くの場合 1）
-    /// @param G G(m) = Σ_{i=1}^{m} g(i)
-    /// @param H H(m) = Σ_{i=1}^{m} (f*g)(i)
-    /// @complexity thresholdを $B$ として $O(B+n/\sqrt B)$、$B\approx n^{2/3}$ で $O(n^{2/3})$
+    /// @param f_prefix $f$ の累積和。`f_prefix[k]` $= \sum_{i=1}^{k} f(i)$（$k \le$ `threshold`）。
+    ///   `threshold` は $n^{2/3}$ 程度を推奨（base case の打ち切り）。
+    /// @param g1 $g(1)$（多くの場合 $1$）
+    /// @param G $G(m) = \sum_{i=1}^{m} g(i)$
+    /// @param H $H(m) = \sum_{i=1}^{m} (f * g)(i)$
+    /// @complexity `threshold` を $B$ として $O(B + n/\sqrt B)$、$B \approx n^{2/3}$ で $O(n^{2/3})$
     MultiplicativeSum(long long n, std::vector<T> f_prefix, T g1, Gsum G, Hsum H)
         : n(n), threshold((long long)f_prefix.size() - 1), small(std::move(f_prefix)) {
         // large[i] = S(⌊n/i⌋)。⌊n/i⌋ が閾値超えの i についてのみ持つ。
@@ -135,11 +135,11 @@ struct MultiplicativeSum {
         }
     }
 
-    /// @brief S(n) = Σ_{i=1}^{n} f(i)
+    /// @brief $S(n) = \sum_{i=1}^{n} f(i)$
     /// @complexity $O(1)$
     T sum() const { return get(n); }
 
-    /// @brief S(m) = Σ_{i=1}^{m} f(i)（m <= n、⌊n/i⌋ の形の値）
+    /// @brief $S(m) = \sum_{i=1}^{m} f(i)$（$m \le n$、$\lfloor n/i \rfloor$ の形の値）
     /// @complexity $O(1)$
     T get(long long m) const { return m <= threshold ? small[m] : large[n / m]; }
 
@@ -160,9 +160,9 @@ inline long long sublinear_threshold(long long n) {
 
 }  // namespace internal
 
-/// @brief Σ_{i=1}^{n} φ(i) を O(n^{2/3}) で計算する
+/// @brief $\sum_{i=1}^{n} \varphi(i)$ を $O(n^{2/3})$ で計算する
 ///
-/// φ*1 = Id（恒等関数）より H(m) = m(m+1)/2、g = 1 で杜教筛を回す。
+/// $\varphi * 1 = \mathrm{Id}$（恒等関数）より $H(m) = m(m+1)/2$、$g = 1$ で杜教筛を回す。
 /// @complexity $O(n^{2/3})$
 template <class T>
 T totient_sum(long long n) {
@@ -177,9 +177,9 @@ T totient_sum(long long n) {
     return MultiplicativeSum<T, decltype(G), decltype(H)>(n, std::move(pre), T(1), G, H).sum();
 }
 
-/// @brief メルテンス関数 Σ_{i=1}^{n} μ(i) を O(n^{2/3}) で計算する
+/// @brief メルテンス関数 $\sum_{i=1}^{n} \mu(i)$ を $O(n^{2/3})$ で計算する
 ///
-/// μ*1 = ε（単位元）より H(m) = 1、g = 1 で杜教筛を回す。
+/// $\mu * 1 = \varepsilon$（単位元）より $H(m) = 1$、$g = 1$ で杜教筛を回す。
 /// @complexity $O(n^{2/3})$
 template <class T>
 T mobius_sum(long long n) {

@@ -48,16 +48,16 @@
 
 /// @brief 汎用式パーサ (演算子優先順位法 / precedence climbing)
 /// @details 二項演算子・前置単項演算子・原子(アトム)読み取りを差し替えて
-///   任意の式文法を構築できる。値型 @c T は「意味」を表し、演算子・アトムの
-///   コールバックが返す。@c T を数値型にすれば評価器、AST ノードにすれば
+///   任意の式文法を構築できる。値型 `T` は「意味」を表し、演算子・アトムの
+///   コールバックが返す。`T` を数値型にすれば評価器、AST ノードにすれば
 ///   構文木を組み立てるパーサになる。
 ///
-///   - @c binary(op, prec, assoc, f): 二項演算子。@c prec が大きいほど優先。
-///   - @c prefix(op, f): 前置単項演算子。二項演算子より強く結合する。
-///   - @c atom(f): 数値・変数・関数呼び出し等の最小単位を読む。
-///     コールバックは @c *this を受け取り、@c parse_expression() で
+///   - `binary(op, prec, assoc, f)`: 二項演算子。`prec` が大きいほど優先。
+///   - `prefix(op, f)`: 前置単項演算子。二項演算子より強く結合する。
+///   - `atom(f)`: 数値・変数・関数呼び出し等の最小単位を読む。
+///     コールバックは `*this` を受け取り、`parse_expression()` で
 ///     部分式を再帰的に読める(関数の引数や括弧内など)。
-///   - @c group(open, close): 明示的なグループ化括弧(既定は @c () )。
+///   - `group(open, close)`: 明示的なグループ化括弧 (既定は `()`)。
 ///
 ///   演算子トークンは多文字可(最長一致)。空白は無視する。
 /// @complexity 入力長を $n$、登録演算子数を $A$ として解析は $O(nA)$（callbackの計算量を除く）
@@ -80,7 +80,7 @@ struct ExpressionParser {
     using atom_fn = std::function<T(ExpressionParser &)>;
     /// @brief 二項演算子ガード: トークン直後の残り入力を見て演算子として
     ///   適用してよいか判定する。閉じ記号と演算子が文字レベルで衝突する
-    ///   文脈依存文法 (例: AOJ 2570 の @c ">>" と @c ">") に使う。
+    ///   文脈依存文法 (例: AOJ 2570 の `">>"` と `">"`) に使う。
     /// @complexity 型エイリアスで実行時計算量はない
     using guard_fn = std::function<bool(std::string_view)>;
 
@@ -91,9 +91,9 @@ struct ExpressionParser {
         return *this;
     }
     /// @brief ガード付き二項演算子を登録する (fluent)
-    /// @details @c guard(after) が @c false のときは、その位置の一致を演算子と
+    /// @details `guard(after)` が `false` のときは、その位置の一致を演算子と
     ///   みなさない (トークンは消費されず、閉じ記号等として残る)。
-    ///   @c after はトークン直後の残り入力。
+    ///   `after` はトークン直後の残り入力。
     /// @complexity トークン長を $L$ として償却 $O(L)$
     ExpressionParser &binary(std::string op, int prec, Assoc assoc, binary_fn f, guard_fn guard) {
         binops.push_back({std::move(op), prec, assoc, std::move(f), std::move(guard)});
@@ -101,8 +101,8 @@ struct ExpressionParser {
     }
     /// @brief 暗黙の連接 (演算子記号なしで項が並ぶ) を登録する (fluent)
     /// @details 空トークンの二項演算子として扱う。項が続くかどうかを表す
-    ///   @c guard は必須 (無いと停止できず無限ループになる)。@c guard(rest)
-    ///   が @c true のときだけ次の項を連接する。文字列連接・関数適用など。
+    ///   `guard` は必須 (無いと停止できず無限ループになる)。`guard(rest)`
+    ///   が `true` のときだけ次の項を連接する。文字列連接・関数適用など。
     /// @complexity 償却 $O(1)$
     ExpressionParser &concat(int prec, Assoc assoc, binary_fn f, guard_fn guard) {
         binops.push_back({std::string(), prec, assoc, std::move(f), std::move(guard)});
@@ -127,7 +127,7 @@ struct ExpressionParser {
         return *this;
     }
     /// @brief 組み込みのグループ化括弧を無効化する (fluent)
-    /// @details 括弧を atom 側で自前処理したいとき (例: 分子式 @c "(X)2" の
+    /// @details 括弧を atom 側で自前処理したいとき (例: 分子式 `"(X)2"` の
     ///   ように閉じ括弧の直後に処理を続けたいとき) に使う。
     /// @complexity $O(1)$
     ExpressionParser &no_group() {
@@ -148,7 +148,7 @@ struct ExpressionParser {
 
     // ---- アトムコールバックから使う低レベル API ----
 
-    /// @brief 優先順位 @c min_prec 以上の部分式を解析する
+    /// @brief 優先順位 `min_prec` 以上の部分式を解析する
     /// @complexity 読み取る長さを $n$、登録演算子数を $A$ として $O(nA)$
     T parse_expression(int min_prec = 0) {
         T lhs = parse_prefix();
@@ -162,22 +162,22 @@ struct ExpressionParser {
         }
     }
 
-    /// @brief 空白を読み飛ばした現在の文字 (末尾なら @c '\0')
+    /// @brief 空白を読み飛ばした現在の文字 (末尾なら `'\0'`)
     /// @complexity 読み飛ばす空白数を $k$ として $O(k)$
     char peek() {
         skip_space();
         return cur();
     }
-    /// @brief 空白を読み飛ばさない現在位置の文字 (末尾なら @c '\0')
-    /// @details 番兵 (@c std::string 末尾の @c '\0') により末尾でも安全に
-    ///   @c '\0' を返す。アトム側で @c rest().size() の範囲チェックをせず
-    ///   @c cur() と @c advance() で1文字ずつ走査できる。
+    /// @brief 空白を読み飛ばさない現在位置の文字 (末尾なら `'\0'`)
+    /// @details 番兵 (`std::string` 末尾の `'\0'`) により末尾でも安全に
+    ///   `'\0'` を返す。アトム側で `rest().size()` の範囲チェックをせず
+    ///   `cur()` と `advance()` で 1 文字ずつ走査できる。
     /// @complexity $O(1)$
     char cur() const { return s.data()[pos]; }
     /// @brief 残りの入力
     /// @complexity $O(1)$
     std::string_view rest() const { return s.substr(pos); }
-    /// @brief トークン @c tok が現在位置に一致すれば消費して @c true
+    /// @brief トークン `tok` が現在位置に一致すれば消費して `true`
     /// @complexity 読み飛ばす空白とトークン長を合わせて $O(k)$
     bool consume(std::string_view tok) {
         skip_space();
@@ -187,10 +187,10 @@ struct ExpressionParser {
         }
         return false;
     }
-    /// @brief 現在位置を @c n 文字進める
+    /// @brief 現在位置を `n` 文字進める
     /// @complexity $O(1)$
     void advance(std::size_t n = 1) { pos += n; }
-    /// @brief 非負整数を @c long @c long として読む (@c T に依らない。AST 構築等で有用)
+    /// @brief 非負整数を `long long` として読む (`T` に依らない。AST 構築等で有用)
     /// @complexity 読み取る文字数を $k$ として $O(k)$
     long long read_uint() {
         skip_space();
@@ -209,7 +209,7 @@ struct ExpressionParser {
         return s.substr(start, pos - start);
     }
 
-    /// @brief 非負整数を読む既定アトム (@c T が整数から構築可能なとき利用可能)
+    /// @brief 非負整数を読む既定アトム (`T` が整数から構築可能なとき利用可能)
     /// @complexity 読み取る文字数を $k$ として $O(k)$
     static T integer_atom(ExpressionParser &p) {
         p.skip_space();
@@ -290,8 +290,8 @@ struct ExpressionParser {
 };
 
 /// @brief 標準的な四則演算パーサを構築する
-/// @details @c + @c - @c * @c / ・単項 @c ± ・括弧・非負整数リテラルに対応。
-///   値型 @c T は算術演算を持てば何でもよい (@c long @c long ・@c modint 等)。
+/// @details `+` `-` `*` `/`・単項 `±`・括弧・非負整数リテラルに対応。
+///   値型 `T` は算術演算を持てば何でもよい (`long long`・`modint` 等)。
 /// @complexity $O(1)$
 template <class T = long long>
 ExpressionParser<T> arithmetic_parser() {

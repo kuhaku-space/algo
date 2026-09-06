@@ -90,14 +90,14 @@ std::optional<mint> sqrt_mod(mint x) {
     return r;
 }
 
-/// @brief K 乗根 mod P (P は素数) を1つ求める
-/// @details x^K ≡ a (mod P) なる x を Adleman-Manders-Miller アルゴリズムで求める。
-///          0^0 ≡ 1 の規約に従う。gcd(K, P - 1) の素因数ごとに @ref internal::peth_root
+/// @brief $K$ 乗根 $\bmod P$（$P$ は素数）を 1 つ求める
+/// @details $x^K \equiv a \pmod P$ なる $x$ を Adleman-Manders-Miller アルゴリズムで求める。
+///          $0^0 \equiv 1$ の規約に従う。$\gcd(K, P - 1)$ の素因数ごとに @ref internal::peth_root
 ///          を適用して合成する。
 /// @tparam mint static modint
 /// @param a 右辺
-/// @param k 指数 (0 <= k)
-/// @return 条件を満たす x の1つ。解が存在しないときは std::nullopt
+/// @param k 指数（$0 \le k$）
+/// @return 条件を満たす $x$ の 1 つ。解が存在しないときは `std::nullopt`
 /// @complexity 法を $P$ として $O(\sqrt P\log^2 P)$
 template <internal::modint mint>
 std::optional<mint> kth_root_mod(mint a, std::int64_t k) {

@@ -4,8 +4,8 @@
 #include "internal/internal_type_traits.hpp"
 
 /// @brief Berlekamp-Massey 法
-/// 数列 s と矛盾しない最小位数の線形漸化式の係数 c を求める
-/// s_i = \sum_{j=1}^{L} c_{j-1} s_{i-j} (i >= L) を満たす
+/// 数列 `s` と矛盾しない最小位数の線形漸化式の係数 `c` を求める。
+/// $s_i = \sum_{j=1}^{L} c_{j-1} s_{i-j}$（$i \ge L$）を満たす。
 /// @complexity 列長を $n$ として $O(n^2)$
 template <internal::field T>
 std::vector<T> berlekamp_massey(const std::vector<T> &s) {

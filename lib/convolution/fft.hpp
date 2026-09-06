@@ -16,7 +16,7 @@
 
 namespace fft {
 
-/// FFT で扱える最大長は 2^FFT_MAX_LOG。
+/// FFT で扱える最大長は $2^{\mathrm{FFT\_MAX\_LOG}}$。
 /// @complexity コンパイル時定数で実行時計算量はない
 static constexpr int FFT_MAX_LOG = 30;
 
@@ -92,12 +92,12 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
     return res;
 }
 
-/// @brief 任意 mod 畳み込み (実数 FFT を 15bit 分割で 3 回適用)
-/// @details 係数を上位 15bit / 下位 15bit に分けて a = a1*2^15 + a0 とし、
-///          a1*b1, a0*b0, (a1+a0)(b1+b0) の 3 回の畳み込みから復元する。
-///          double の精度の範囲 (mod^2 * 長さ が約 2^53 以下) で正しい。
+/// @brief 任意 mod 畳み込み（実数 FFT を 15bit 分割で 3 回適用）
+/// @details 係数を上位 15bit / 下位 15bit に分けて $a = a_1 \cdot 2^{15} + a_0$ とし、
+///          $a_1 b_1$、$a_0 b_0$、$(a_1 + a_0)(b_1 + b_0)$ の 3 回の畳み込みから復元する。
+///          `double` の精度の範囲（$\mathrm{mod}^2 \times$ 長さ が約 $2^{53}$ 以下）で正しい。
 /// @tparam T 整数型
-/// @param a 入力多項式の係数列 ([0, mod) を想定)
+/// @param a 入力多項式の係数列（$[0, \mathrm{mod})$ を想定）
 /// @param b 入力多項式の係数列 ([0, mod) を想定)
 /// @param mod 出力を取る法 (NTT-friendly でなくてよい)
 /// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)

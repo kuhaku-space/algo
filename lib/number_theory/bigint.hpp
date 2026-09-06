@@ -9,10 +9,10 @@
 #include "convolution/ntt.hpp"
 
 /// @brief 多倍長整数
-/// @details 内部は基数 BASE = 10^6 のリトルエンディアン配列で保持する。
-///          各桁は [0, BASE) の非負整数で、最上位桁 (末尾) が 0 となる
-///          冗長表現を持たない (値 0 は {0} のみ)。符号は sign が表す
-///          (負なら true)。ゼロは常に sign == false に正規化される。
+/// @details 内部は基数 $\mathrm{BASE} = 10^6$ のリトルエンディアン配列で保持する。
+///          各桁は $[0, \mathrm{BASE})$ の非負整数で、最上位桁（末尾）が $0$ となる
+///          冗長表現を持たない（値 $0$ は `{0}` のみ）。符号は `sign` が表す
+///          （負なら true）。ゼロは常に `sign == false` に正規化される。
 /// @see https://qiita.com/square1001/items/1aa12e04934b6e749962
 /// @see http://yamatyuu.net/computer/program/long/div/index.html
 struct BigInt {
@@ -25,9 +25,10 @@ struct BigInt {
     /// 除数がこの桁数以下なら Burnikel-Ziegler 再帰をやめて古典除算に切り替える。
     /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr int BZ_THRESHOLD = 64;
-    /// 乗算で 2 素数 NTT (convolution_ll2) を使える最大畳み込み長。
-    /// 係数積は高々 (BASE-1)^2 * len なので、これが MOD1*MOD3 (約 3.5e17) 未満となる
-    /// len の上限。これを超える巨大乗算のみ 3 素数版 (convolution_ll) へ落とす。
+    /// 乗算で 2 素数 NTT（`convolution_ll2`）を使える最大畳み込み長。
+    /// 係数積は高々 $(\mathrm{BASE}-1)^2 \cdot \mathrm{len}$ なので、これが
+    /// $\mathrm{MOD1} \cdot \mathrm{MOD3}$（約 $3.5 \times 10^{17}$）未満となる $\mathrm{len}$ の上限。
+    /// これを超える巨大乗算のみ 3 素数版（`convolution_ll`）へ落とす。
     /// @complexity コンパイル時定数で実行時計算量はない
     static constexpr int MUL_2PRIME_MAX_LEN = 354659;
 
