@@ -91,7 +91,7 @@ mise run docs-site   # 検証結果なしでサイトのソースを _jekyll/ �
 
 生成物は `docs/generated/` に作られ、Git 管理には含めません。リファレンスに手書きの
 Markdown ページは無く、文章を直すときはヘッダのコメントを編集します。書き方は
-[`docs/reference_style.md`](docs/reference_style.md) を参照してください。
+[`docs/current/reference-style.md`](docs/current/reference-style.md) を参照してください。
 
 開発方針（置き場所・命名・テスト・PR 運用など）は [`docs/INDEX.md`](docs/INDEX.md) から辿れます。
 

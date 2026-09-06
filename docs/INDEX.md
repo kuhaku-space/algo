@@ -21,7 +21,7 @@ title: ドキュメント索引
 | 置き場所・全体像を知る | [current/overview.md](current/overview.md) |
 | ヘッダを書く・直す | [current/coding-style.md](current/coding-style.md) |
 | テストや verify を足す | [current/testing.md](current/testing.md) |
-| 公開リファレンスの文章を直す | [current/documentation.md](current/documentation.md) → [reference_style.md](reference_style.md) |
+| 公開リファレンスの文章を直す | [current/documentation.md](current/documentation.md) → [current/reference-style.md](current/reference-style.md) |
 | API を壊す変更をする | [current/change-policy.md](current/change-policy.md) |
 | コミット・PR を作る | [current/git-workflow.md](current/git-workflow.md) |
 | CI の失敗を追う | [current/ci.md](current/ci.md) |
@@ -37,6 +37,7 @@ title: ドキュメント索引
 | [coding-style.md](current/coding-style.md) | 命名（型は PascalCase）、C++20/23 の使い方、グラフ・ヒープ・`void` の規約、フォーマット |
 | [testing.md](current/testing.md) | ランダムテストでの突き合わせ、verify 用問題の選び方、ヘッダ変更時の逆依存チェック |
 | [documentation.md](current/documentation.md) | リファレンスをヘッダの `///` だけから生成する運用 |
+| [reference-style.md](current/reference-style.md) | リファレンス執筆ガイド（タグ・書き方・ページ構成） |
 | [change-policy.md](current/change-policy.md) | 破壊的変更の進め方、計算量を悪化させない制約 |
 | [git-workflow.md](current/git-workflow.md) | ブランチ、自動コミット、PR と auto-merge |
 | [ci.md](current/ci.md) | CI の失敗をローカルで再現する手順、ログを狭く取る方法 |
@@ -59,8 +60,7 @@ title: ドキュメント索引
 
 | パス | 内容 |
 | --- | --- |
-| [reference_style.md](reference_style.md) | リファレンス執筆ガイド（タグ・書き方・ページ構成） |
-| [reference.toml](reference.toml) | リファレンス検査のしきい値設定 |
+| [reference.toml](reference.toml) | リファレンス検査のしきい値設定（`tools/reference/check.py` が読む） |
 | [parser/aoj-parsing-problems.md](parser/aoj-parsing-problems.md) | AOJ 構文解析問題の verify 状況と必要ライブラリの調査 |
 | [archive/](archive/) | 役目を終えた文書。歴史的経緯が要るときだけ読む |
 | `generated/` | `mise run docs` の生成物。Git 管理外。人が編集しない |

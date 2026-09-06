@@ -23,4 +23,4 @@ CI が検査時とサイト構築時に毎回生成する。
 - 文章を直すときはヘッダを編集する。ページの体裁を変えたいときは `tools/reference/` を編集する。
 - `docs/` 直下の開発ドキュメント（この文書や執筆ガイド）は手書きでよい。これらもサイトに載る。
 - 現行の規則は [current/documentation.md](../current/documentation.md)、
-  書き方は [reference_style.md](../reference_style.md)。
+  書き方は [reference-style.md](../current/reference-style.md)。

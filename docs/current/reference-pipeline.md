@@ -5,7 +5,7 @@ title: リファレンス生成の仕組み
 # リファレンス生成の仕組み
 
 `tools/` にある Python の設計。**何を書くか**は
-[documentation.md](documentation.md) と [reference_style.md](../reference_style.md)、
+[documentation.md](documentation.md) と [reference-style.md](reference-style.md)、
 **コマンド**は [commands.md](../commands.md) を参照。
 
 ## 流れ
