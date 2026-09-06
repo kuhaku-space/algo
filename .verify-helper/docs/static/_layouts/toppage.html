@@ -1,6 +1,43 @@
 ---
 layout: default
 ---
+<h1>{{ site.title | escape }}</h1>
+
 {{ content }}
 
-{% include toppage_body.html %}
+<p class="page-meta">
+  ヘッダ {{ page.data.headerCount }} 個 · 型と関数 {{ page.data.entityCount }} 個 ·
+  検証プログラム {{ page.data.verificationCount }} 個
+</p>
+
+<div class="category-grid">
+  {% for category in site.data.reference.categories %}
+  <section class="category-card">
+    <h2 id="{{ category.name }}">{{ category.name }}</h2>
+    <ul>
+      {% for header in category.headers %}
+      <li>
+        <span class="verification-icon" aria-hidden="true" title="{{ site.icon_labels[header.icon] }}">{{ site.icons[header.icon] }}</span>
+        <a href="{{ "/reference/" | append: header.url | relative_url }}">{{ header.name }}</a>
+        <small>{{ header.title | escape }}</small>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
+
+<details class="verification-list">
+  <summary>検証プログラム（{{ page.data.verificationCount }}）</summary>
+  {% for group in page.data.verifications %}
+  <h3>{{ group.name }}</h3>
+  <ul>
+    {% for item in group.pages %}
+    <li>
+      <span class="verification-icon" aria-hidden="true" title="{{ site.icon_labels[item.icon] }}">{{ site.icons[item.icon] }}</span>
+      <a href="{{ item.url | relative_url }}">{{ item.path }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</details>

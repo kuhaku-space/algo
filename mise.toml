@@ -23,12 +23,22 @@ uv = "latest"
 # .clang-format（Google ベース）に従う。
 clang-format = "latest"
 
+[tasks.docs]
+description = "日本語リファレンスを docs/generated/ に生成する"
+run = "python3 tools/reference_docs.py build"
+
 [tasks.docs-check]
-description = "日本語リファレンスの形式と網羅率を検査する"
+description = "日本語リファレンスを生成し、網羅率と例を検査する"
 run = [
-    "python3 tools/reference_docs.py sync-generated",
-    "python3 -m unittest discover -s tools/tests -p 'test_*.py'",
     "python3 tools/reference_docs.py check",
+    "python3 -m unittest discover -s tools/tests -p 'test_*.py'",
+]
+
+[tasks.docs-site]
+description = "検証結果なしでサイトのソースを _jekyll/ に組み立てる（見た目の確認用）"
+run = [
+    "python3 tools/reference_docs.py build",
+    "python3 tools/render_reference_site.py --offline --destination _jekyll",
 ]
 
 [tasks.setup]

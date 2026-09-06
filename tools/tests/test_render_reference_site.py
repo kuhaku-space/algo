@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
-
-import sys
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -18,6 +17,8 @@ from render_reference_site import (  # noqa: E402
     build_site,
     embedded_code,
     library_icon,
+    parse_front_matter,
+    rewrite_links,
     test_icon,
 )
 
@@ -30,6 +31,22 @@ class StatusIconTest(unittest.TestCase):
 
     def test_library_status(self) -> None:
         self.assertEqual(library_icon(frozenset({"success"})), LIBRARY_ALL_AC)
+
+
+class MarkdownTest(unittest.TestCase):
+    def test_front_matter_keeps_quoted_values(self) -> None:
+        values, content = parse_front_matter('---\ntitle: "素集合"\n---\n\n本文\n')
+        self.assertEqual(values["title"], "素集合")
+        self.assertEqual(content, "本文\n")
+
+    def test_markdown_links_become_html_links(self) -> None:
+        self.assertEqual(
+            rewrite_links("[a](union_find/union_find.md) [b](../x.md#member-y)"),
+            "[a](union_find/union_find.html) [b](../x.html#member-y)",
+        )
+
+    def test_code_spans_are_left_alone(self) -> None:
+        self.assertEqual(rewrite_links("`operator[](int)`"), "`operator[](int)`")
 
 
 class EmbeddedCodeTest(unittest.TestCase):
@@ -60,129 +77,175 @@ class EmbeddedCodeTest(unittest.TestCase):
             )
 
 
-class SiteTemplateTest(unittest.TestCase):
-    def test_custom_components_do_not_inherit_minimal_theme_element_styles(
-        self,
-    ) -> None:
-        includes = (
-            Path(__file__).resolve().parents[2]
-            / ".verify-helper"
-            / "docs"
-            / "static"
-            / "_includes"
-        )
-        toppage = (includes / "toppage_body.html").read_text(encoding="utf-8")
-        document_footer = (includes / "document_footer.html").read_text(
-            encoding="utf-8"
-        )
-        head = (includes / "head-custom2.html").read_text(encoding="utf-8")
-
-        self.assertIn('<div class="reference-browser"', toppage)
-        self.assertIn('<div class="reference-category"', toppage)
-        self.assertNotIn('<section class="reference-', toppage)
-        self.assertIn('<nav class="reference-footer"', document_footer)
-        self.assertNotIn('<footer class="reference-footer"', document_footer)
-        self.assertIn("mathjax@4.1.3/tex-chtml.js", head)
-        self.assertIn('skipHtmlTags: ["script", "noscript", "style"', head)
-
-
 class BuildSiteTest(unittest.TestCase):
+    def build(self, root: Path) -> tuple[int, int]:
+        (root / "lib" / "ds").mkdir(parents=True)
+        (root / "test").mkdir()
+        (root / "docs" / "generated" / "ds" / "sample").mkdir(parents=True)
+        (root / "site-config" / "static" / "_layouts").mkdir(parents=True)
+        (root / "lib" / "ds" / "sample.hpp").write_text(
+            "#pragma once\nint sample();\n", encoding="utf-8"
+        )
+        (root / "test" / "sample.test.cpp").write_text(
+            '#include "ds/sample.hpp"\nint main() {}\n', encoding="utf-8"
+        )
+        (root / "docs" / "generated" / "ds" / "sample.md").write_text(
+            "---\n"
+            'title: "見本"\n'
+            'reference_kind: "header"\n'
+            'reference_category: "ds"\n'
+            'reference_slug: "ds/sample"\n'
+            'reference_source: "lib/ds/sample.hpp"\n'
+            'reference_include: "ds/sample.hpp"\n'
+            "---\n\n"
+            "# 見本\n\n[`sample`](sample/sample.md)\n",
+            encoding="utf-8",
+        )
+        (root / "docs" / "generated" / "ds" / "sample" / "sample.md").write_text(
+            "---\n"
+            'title: "sample"\n'
+            'reference_kind: "function"\n'
+            'reference_category: "ds"\n'
+            'reference_slug: "ds/sample"\n'
+            'reference_source: "lib/ds/sample.hpp"\n'
+            'reference_include: "ds/sample.hpp"\n'
+            "---\n\n"
+            "# sample\n",
+            encoding="utf-8",
+        )
+        (root / "docs" / "generated" / "reference.json").write_text(
+            json.dumps(
+                {
+                    "categories": [
+                        {
+                            "name": "ds",
+                            "headers": [
+                                {
+                                    "name": "sample",
+                                    "include": "ds/sample.hpp",
+                                    "title": "見本",
+                                    "url": "ds/sample.html",
+                                    "entities": [
+                                        {
+                                            "name": "sample",
+                                            "kind": "function",
+                                            "url": "ds/sample/sample.html",
+                                        }
+                                    ],
+                                }
+                            ],
+                        }
+                    ],
+                    "entries": [
+                        {
+                            "name": "sample",
+                            "kind": "function",
+                            "header": "ds/sample.hpp",
+                            "title": "見本",
+                            "url": "ds/sample/sample.html",
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (root / "site-config" / "_config.yml").write_text("title: Test\n", encoding="utf-8")
+        (root / "site-config" / "index.md").write_text("Index\n", encoding="utf-8")
+
+        verify_files = root / "verify_files.json"
+        verify_files.write_text(
+            json.dumps(
+                {
+                    "files": {
+                        "lib/ds/sample.hpp": {
+                            "dependencies": ["lib/ds/sample.hpp"],
+                            "verification": [],
+                            "document_attributes": {"links": []},
+                        },
+                        "test/sample.test.cpp": {
+                            "dependencies": ["lib/ds/sample.hpp", "test/sample.test.cpp"],
+                            "verification": [
+                                {
+                                    "name": "g++",
+                                    "type": "problem",
+                                    "problem": "https://example.com/problem",
+                                }
+                            ],
+                            "document_attributes": {"links": []},
+                        },
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        verify_result = root / "merged-result.json"
+        verify_result.write_text(
+            json.dumps(
+                {
+                    "files": {
+                        "test/sample.test.cpp": {
+                            "verifications": [
+                                {"verification_name": "g++", "status": "success"}
+                            ]
+                        }
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        return build_site(
+            root=root,
+            docs_dir=root / "site-config",
+            generated_dir=root / "docs" / "generated",
+            destination=root / "_jekyll",
+            verify_files_path=verify_files,
+            verify_result_path=verify_result,
+        )
+
     def test_builds_pages_from_verification_json(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / "lib").mkdir()
-            (root / "test").mkdir()
-            (root / "docs").mkdir()
-            (root / "site-config" / "static").mkdir(parents=True)
-            (root / "lib" / "sample.hpp").write_text(
-                "#pragma once\nint sample();\n",
-                encoding="utf-8",
-            )
-            (root / "test" / "sample.test.cpp").write_text(
-                '#include "sample.hpp"\nint main() {}\n',
-                encoding="utf-8",
-            )
-            (root / "docs" / "sample.md").write_text(
-                "---\n"
-                "title: サンプル\n"
-                "documentation_of: //lib/sample.hpp\n"
-                "---\n"
-                "説明です。\n",
-                encoding="utf-8",
-            )
-            (root / "site-config" / "_config.yml").write_text(
-                "title: Test\n",
-                encoding="utf-8",
-            )
-            (root / "site-config" / "index.md").write_text(
-                "Index\n",
-                encoding="utf-8",
-            )
-            verify_files = root / "verify_files.json"
-            verify_files.write_text(
-                json.dumps(
-                    {
-                        "files": {
-                            "lib/sample.hpp": {
-                                "dependencies": ["lib/sample.hpp"],
-                                "verification": [],
-                                "document_attributes": {"links": []},
-                            },
-                            "test/sample.test.cpp": {
-                                "dependencies": [
-                                    "lib/sample.hpp",
-                                    "test/sample.test.cpp",
-                                ],
-                                "verification": [
-                                    {
-                                        "name": "g++",
-                                        "type": "problem",
-                                        "problem": "https://example.com/problem",
-                                    }
-                                ],
-                                "document_attributes": {"links": []},
-                            },
-                        }
-                    }
-                ),
-                encoding="utf-8",
-            )
-            verify_result = root / "merged-result.json"
-            verify_result.write_text(
-                json.dumps(
-                    {
-                        "files": {
-                            "test/sample.test.cpp": {
-                                "verifications": [
-                                    {
-                                        "verification_name": "g++",
-                                        "status": "success",
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                ),
-                encoding="utf-8",
-            )
+            reference_count, verification_count = self.build(root)
 
-            library_count, verification_count = build_site(
-                root=root,
-                docs_dir=root / "site-config",
-                destination=root / "_jekyll",
-                verify_files_path=verify_files,
-                verify_result_path=verify_result,
-            )
-
-            self.assertEqual((library_count, verification_count), (1, 1))
-            library_page = (root / "_jekyll" / "lib" / "sample.hpp.md").read_text(
+            self.assertEqual((reference_count, verification_count), (2, 1))
+            header_page = (root / "_jekyll" / "reference" / "ds" / "sample.md").read_text(
                 encoding="utf-8"
             )
-            index = (root / "_jekyll" / "index.md").read_text(encoding="utf-8")
-            self.assertIn('"verificationStatus":"LIBRARY_ALL_AC"', library_page)
-            self.assertIn('"type":"Verified with"', library_page)
-            self.assertIn("説明です。", library_page)
-            self.assertIn('"url":"lib/sample.hpp.html"', index)
+            self.assertIn('"icon":"LIBRARY_ALL_AC"', header_page)
+            self.assertIn('"type":"検証プログラム"', header_page)
+            self.assertIn("[`sample`](sample/sample.html)", header_page)
+
+            entity_page = (
+                root / "_jekyll" / "reference" / "ds" / "sample" / "sample.md"
+            ).read_text(encoding="utf-8")
+            self.assertIn('"pageUrl":"ds/sample/sample.html"', entity_page)
+            self.assertNotIn("relations", entity_page)
+
+            navigation = json.loads(
+                (root / "_jekyll" / "_data" / "reference.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(
+                navigation["categories"][0]["headers"][0]["icon"], LIBRARY_ALL_AC
+            )
+
+            test_page = (root / "_jekyll" / "test" / "sample.test.cpp.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn('"url":"reference/ds/sample.html"', test_page)
+
+    def test_offline_mode_needs_no_verification_data(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.build(root)
+            reference_count, verification_count = build_site(
+                root=root,
+                docs_dir=root / "site-config",
+                generated_dir=root / "docs" / "generated",
+                destination=root / "_offline",
+                verify_files_path=None,
+                verify_result_path=None,
+            )
+            self.assertEqual((reference_count, verification_count), (2, 1))
 
 
 if __name__ == "__main__":

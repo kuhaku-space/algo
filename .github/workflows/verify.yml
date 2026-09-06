@@ -34,10 +34,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Generate reference docs
-        run: python3 tools/reference_docs.py sync-generated
+      - name: Generate reference pages
+        run: python3 tools/reference_docs.py build
 
-      - name: Test reference renderer
+      - name: Test reference tooling
         run: python3 -m unittest discover -s tools/tests -p 'test_*.py'
 
       - name: Check reference docs
