@@ -1,11 +1,7 @@
 """モデルから cpprefjp 風の Markdown ページを書き出す。
 
-ページの粒度は次の 2 段。
-
-* ヘッダページ  `<category>/<stem>.md`
-    ヘッダの概要、インクルード、提供する型・関数の一覧。
-* エンティティページ  `<category>/<stem>/<name>.md`
-    クラス 1 つ・関数 1 つ（オーバーロードは 1 ページ）の詳細。
+ページの粒度（ヘッダページとエンティティページの 2 段）は
+docs/current/reference-pipeline.md を参照。
 """
 
 from __future__ import annotations

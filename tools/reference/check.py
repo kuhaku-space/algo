@@ -1,8 +1,7 @@
 """生成したリファレンスの品質ゲート。
 
-ヘッダのコメントが唯一の情報源なので、検査対象もヘッダ側の記述であり、
-生成物の書式ではない。「説明のない公開 API を増やさない」「計算量の記述を
-減らさない」「例が壊れていない」の 3 点を守る。
+検査対象は生成物の書式ではなくヘッダ側の記述。守る 3 点は
+docs/current/reference-pipeline.md を参照。
 """
 
 from __future__ import annotations
@@ -19,8 +18,7 @@ from .parse import ROOT
 CONFIG_PATH = ROOT / "docs" / "reference.toml"
 NEEDS_COMPLEXITY = frozenset({"function", "operator", "constructor"})
 
-# 数式は $...$ で書く。MathJax は $ の外を組版しないので、地の文に置いた
-# 計算量や LaTeX コマンドはそのままの文字列としてページに出てしまう。
+# 数式は $...$ で書く（MathJax は $ の外を組版しない）。
 _MATH_SPAN = re.compile(r"\$[^$\n]*\$")
 _CODE_SPAN = re.compile(r"`[^`\n]*`")
 _URL = re.compile(r"https?://\S+")

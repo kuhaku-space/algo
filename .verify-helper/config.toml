@@ -1,6 +1,5 @@
 [languages.cpp]
-# test は全ファイル special comments 済みで未使用。lib ヘッダ側の
-# 無駄な `g++ -dM -E` 呼び出し（oj-resolve の主要コスト）を避ける。
+# 理由は docs/current/verify-workflow.md（oj-resolve の設定）を参照。
 read_macros = false
 
 [[languages.cpp.environments]]

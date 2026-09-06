@@ -1,9 +1,7 @@
 """リファレンス生成の中間表現。
 
-`parse` がヘッダを読んでこのモデルを組み立て、`render` が cpprefjp 風の
-Markdown へ変換する。モデルは「ヘッダ 1 つ = Header、名前空間直下の型・関数
-= Entity、クラスの中身 = Entity.members、同名のオーバーロード = Entity.overloads」
-という素直な木構造にする。
+`parse` が組み立て、`render` が Markdown へ変換する木構造。
+構造の意図は docs/current/reference-pipeline.md を参照。
 """
 
 from __future__ import annotations

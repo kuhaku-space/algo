@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """日本語リファレンス（cpprefjp 風）の生成と検査。
 
-情報源はヘッダの `///` コメントだけで、ページは常に生成物である。手書きの
-Markdown は置かない。生成先は Git 管理外の `docs/generated/`。
-
     python3 tools/reference_docs.py build   # ページを生成する
     python3 tools/reference_docs.py check   # 生成したうえで品質を検査する
+
+設計は docs/current/reference-pipeline.md を参照。
 """
 
 from __future__ import annotations

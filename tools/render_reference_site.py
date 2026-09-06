@@ -3,14 +3,7 @@
 
 ページの中身は `tools/reference_docs.py build` が作る `docs/generated/` に
 あり、ここでやるのは「サイトとしての体裁」だけである。
-
-* カテゴリ → ヘッダ → 型/関数 のナビゲーション
-* 依存関係・検証結果・実装全文（ヘッダページの下部）
-* 検証プログラムのページ
-* トップページと検索インデックス
-
-verify_files.json / result.json が無い環境（ローカル）でも見た目を確認できる
-よう、`--offline` で `#include` を辿った簡易版を合成する。
+組み立てる内容と `--offline` の意味は docs/current/reference-pipeline.md を参照。
 """
 
 from __future__ import annotations

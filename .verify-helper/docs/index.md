@@ -3,4 +3,4 @@
 すべてのページはヘッダのコメントから生成しています。
 
 [GitHub](https://github.com/kuhaku-space/algo) ·
-[リファレンス執筆ガイド]({{ "/docs/reference_style.html" | relative_url }})
+[リファレンス執筆ガイド]({{ "/docs/current/reference-style.html" | relative_url }})

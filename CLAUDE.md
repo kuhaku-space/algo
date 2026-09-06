@@ -1,109 +1,31 @@
-# CLAUDE.md
+# Agent Instructions
 
-競技プログラミング用の C++ ヘッダオンリーライブラリ。`lib/` に実装、`test/` に
-[competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) 用の検証ファイル。
+## Core rules
 
-> **注意**: この CLAUDE.md に書かれている内容はすべて**このライブラリ自体の仕様・開発方針**であり、
-> 競技プログラミングの**問題を解くときには参照しないこと**。
+- Read `docs/INDEX.md` before loading project documentation.
+- Load only the documents relevant to the current task.
+- Do not recursively read all files under `docs/`.
+- Do not read `docs/archive/` unless historical context is explicitly required.
+- Prefer current source code over stale documentation when they conflict.
+- When behavior, architecture, commands, or conventions change, update the smallest relevant document.
 
-- 言語: **C++23**（応答・コメントは日本語）。
-- include ルートは **`lib/`**。ヘッダ間は `lib/` からの相対パス（例: `#include "number_theory/modint.hpp"`）。
-- **データ構造は `lib/data_structure/` に置く**。バリアント数でディレクトリを昇格・降格させると
-  使うたびに「専用ディレクトリがあるか」を思い出す必要が生じるので、**ファミリ専用ディレクトリを
-  新設しない**。分けてよいのは配置が見た目で判別でき思い出す必要のない軸だけで、既存の例外は
-  `segtree/`・`heap/`・`persistent_ds/`（永続・部分永続版は名前に `persistent` が入るものすべて）。
+## Source priority
 
-## ビルド・テスト
+When sources conflict, use this priority unless a task says otherwise:
 
-```sh
-g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
-```
+1. Explicit user/task instructions
+2. `docs/current/`
+3. Relevant project documentation referenced by `docs/INDEX.md`
+4. Source code and tests
+5. `docs/decisions/`
+6. `docs/archive/`
 
-- 正しさはランダムテストで naive 実装と突き合わせる。
-- verify 用問題は **Library Checker → yukicoder → AOJ** の順で探す。素直に対応する問題が
-  なければ verify は保留（competitive-verifier の UNIT_TEST は使わない）。
-- 公開リファレンス（cpprefjp 風）は**ヘッダの `///` コメントだけ**から生成する。
-  手書きの Markdown ページは置かない。公開 API を変えたら `mise run docs-check` で
-  網羅率・例のコンパイルと実行・リンクを検査する。生成物は Git 管理外の
-  `docs/generated/` に出るのでコミットしない。書き方は `docs/reference_style.md`。
-- ヘッダ全体の説明が要るとき（主要な型が 1 つに定まらない、使用例や注意点を書きたい）は
-  include 群の直後に `/// @file` ブロックを置く。`@code` … `@endcode` の例は実際に
-  コンパイル・実行され、標準出力がページの「出力」節になる。
+## Working procedure
 
-### CI 調査・トークン節約
-
-- **push/CI ログ取得より先にローカル `-fsyntax-only` で再現**（ヘッダ変更時の逆依存チェックにも
-  verify 失敗の再現にも共通。失敗の大半はコンパイルエラーなのでこれで即再現できる）。
-  `grep -rl <header_basename> lib test | grep '\.test\.cpp$' | xargs -I{} g++ -std=c++23 -I lib -fsyntax-only {}`。
-  transitive 依存は `oj-bundle <test>` で展開して確認（ローカルに `oj-verify`/`oj-bundle`/`oj` あり）。
-- どうしても CI を見る時は**狭く**: 状態は `gh ... --json … -q`、エラーは `--log-failed` で**1 ジョブのみ**、
-  「どのテストが落ちたか」は merged check の `N file(s) still failing` 行で特定。`--log` の全シャードループは避ける。
-- 巨大ログ・数十 KB を超える外部ファイル（ミニファイ JS 等）を精読せざるを得ない時は
-  **サブエージェントに委譲**（生データは子のコンテキストに留め、結論だけ受け取る）。
-- **実行時間は `docs-and-check` ジョブのサマリーで確認**（`tools/verify_timing_summary.py` が
-  `main` の結果キャッシュと比較して合計・最悪ケース・再実行された test の差分を出力）。
-  共有 runner のばらつきが大きいので参考値であり、ゲートではない。
-- CI はポーリングせず auto-merge に任せる。
-- **同一 URL への curl は結果を使い回し、再フェッチしない**（GitHub Pages のドキュメント確認等）。
-
-## コーディング規約
-
-- 全ヘッダ先頭に **`#pragma once`**。
-- **標準ヘッダは明示 include**（`<bits/stdc++.h>` や `template/template.hpp` に依存しない）。
-  暗黙依存を外してテストが壊れたら、テスト側に明示 include を補う。
-- **命名: 型は PascalCase、それ以外は snake_case**（ケースで型/値を区別）。
-  - 型（`struct`/`class`、データ構造・モノイド・値型）→ PascalCase（`SegmentTree`、`UnionFind`、
-    `Add`/`Min`/`BitXor`、`Matrix` 等）。
-  - `namespace`・`concept`（std 流の述語）・関数・メンバ型エイリアス（`value_type`）・変数 → snake_case。
-  - テンプレート引数 → 短い大文字または PascalCase（`M`/`S`/`F`/`Comp` 等）。
-  - 移行は段階的。一括改名はせず、**そのライブラリを変更するついでに型名を PascalCase 化し、
-    `lib/`・`test/` の参照も同時に追随**させる（旧 `segment_tree` 等の名残あり）。
-- C++20/23 を使う: SFINAE より **concept**、サイズは **`std::bit_ceil`**、円周率は **`std::numbers::pi`**。
-- コメントは行コメントのみ（ブロックコメント禁止）。Doxygen は **`///`**、実装コメントは **`//`**。
-- 浮動小数点→整数の丸めは **`std::llround`**（`T(x + 0.5)` は負値で誤る）。
-- グラフは **`graph_type` / `weighted_graph_type` concept** で書き、`list_graph<T>`・`csr_graph<T>` 両対応。
-- ヒープ（`lib/heap/`）規約: **`Key` が順序基準**（`Comp` 比較側・radix の整数キー）、**`Value` が付随データ**。
-  `push(key, value)` / `top() -> pair<key, value>` / `update(handle, key)`。`shortest_path` では `Heap<距離, 頂点, Comp>`。
-- 「付随データなし」の型引数 `void`: 本体は部分特殊化で分けず
-  `std::conditional_t<is_void_v<V>, std::monostate, V>` に正規化して 1 本化（API は `if constexpr`、
-  空メンバは `[[no_unique_address]]`）。例: `radix_heap`、`doubling`。ただし `void` で**別のデータ構造**を
-  選ぶ場合（`matrix_graph<void>` の `vector<vector<bool>>` 等）は部分特殊化のまま。
-
-## フォーマット
-
-- **clang-format**（`.clang-format`、Google ベース、mise 管理）。`.githooks/pre-commit` が
-  ステージ済み `.cpp`/`.hpp` を自動整形して再 stage（`mise run setup` で有効化済み）。
-- `lib/template/{atcoder,library_checker}.hpp` は `template/template.hpp`（`<bits/stdc++.h>`）を
-  先頭に置く。`.clang-format` の `IncludeCategories` が負 `Priority` で先頭固定するので `template/` も通常整形でよい。
-
-## ライブラリ変更の方針
-
-- 個人用ライブラリ。**後方互換性のために妥協しない**——設計・命名・API を良くできるなら
-  破壊的変更（リネーム・シグネチャ変更・削除・再構成）を積極的に行う。
-- 破壊的変更時は `lib/`・`test/` から参照を洗い出し**呼び出し側もすべて追随**。古い API を中途半端に残さない。
-- **計算量を悪化させない**。リファクタ・バグ修正でも各操作の時間計算量を既存より悪くしない
-  （可読性とトレードオフなら計算量優先。変える必要があれば妥当性を示して合意を取る）。
-  空間計算量は実用範囲では問わないが、不要なコピー・確保は避ける。
-
-## Git・PR 運用
-
-### ブランチ
-- **`main` に直接コミットしない**（保護で push が弾かれる）。`git switch -c <branch>` で作業。
-- **新ブランチは必ず最新 `main` から切る**: `git switch main && git pull`（or `git fetch origin main`）→
-  `git switch -c <branch> origin/main`。squash マージ済みブランチ上から切るとコンフリクトする。
-- **未 PR の作業ブランチを勝手に切り替えない**。`git switch`/`git stash` はユーザの明示指示時のみ。
-
-### コミット
-- **ひと区切りしたら指示を待たず自動コミット**（意味のある単位で、`main` 以外のブランチ上で）。
-- **PR を作成したブランチには追加コミットしない**（auto-merge で削除される）。新作業は別ブランチで。
-
-### PR・マージ（ユーザの明示指示時のみ）
-- **PR 作成はユーザの明示指示時のみ**。それまでは push / auto-merge を実行しない。
-- PR を作成したら必ず auto-merge を有効化:
-
-  ```sh
-  gh pr create --fill && gh pr merge --auto --squash
-  ```
-
-  リポジトリは前提が整っており（`allow_auto_merge` ON、必須チェック `docs-and-check`、
-  `pr-auto-approve.yml` が bot 承認）、CI 通過 → 承認 → マージ → ブランチ削除まで全自動。
+1. Read `docs/INDEX.md`.
+2. Identify the minimum set of relevant documents.
+3. Read those documents only.
+4. Inspect the relevant source files.
+5. Make the change.
+6. Run the relevant checks from `docs/commands.md`.
+7. Update documentation only if the documented behavior changed.
