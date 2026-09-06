@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from reference.check import (  # noqa: E402
+from reference.check import (
     Config,
     broken_links,
     documented_complexities,
@@ -29,15 +29,14 @@ from reference.check import (  # noqa: E402
     undocumented_entities,
     unformatted_math,
 )
-from reference.model import Header  # noqa: E402
-from reference.parse import (  # noqa: E402
+from reference.model import Header
+from reference.parse import (
     ROOT,
     library_headers,
     parse_header,
     problem_index,
 )
-from reference.render import ReferenceRenderer, write_files  # noqa: E402
-
+from reference.render import ReferenceRenderer, write_files
 
 DESTINATION = ROOT / "docs" / "generated"
 
@@ -114,7 +113,9 @@ def check(destination: Path = DESTINATION) -> int:
         if header.title != header.include:
             documented_headers += 1
         else:
-            errors.append(f"{header.relative_path}: ヘッダの概要（@file か主要な型の @brief）がありません")
+            errors.append(
+                f"{header.relative_path}: ヘッダの概要（@file か主要な型の @brief）がありません"
+            )
         entity_pages += len(header.entities)
         complexities += documented_complexities(header)
         for entity in undocumented_entities(header):
@@ -174,7 +175,9 @@ def main() -> int:
     headers, errors = build()
     for error in errors:
         print(f"error: {error}", file=sys.stderr)
-    print(f"リファレンスを生成しました: {DESTINATION.relative_to(ROOT)}（ヘッダ {len(headers)} 個）")
+    print(
+        f"リファレンスを生成しました: {DESTINATION.relative_to(ROOT)}（ヘッダ {len(headers)} 個）"
+    )
     return 1 if errors else 0
 
 

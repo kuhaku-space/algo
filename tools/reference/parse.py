@@ -13,7 +13,6 @@ from pathlib import Path
 
 from .model import DocBlock, Entity, Header, Overload
 
-
 ROOT = Path(__file__).resolve().parents[2]
 LIB_DIR = ROOT / "lib"
 TEST_DIR = ROOT / "test"
@@ -282,7 +281,7 @@ def declaration_after(lines: list[str], index: int) -> str:
         line = lines[index].strip()
         if not line or DOC_LINE_RE.match(line):
             break
-        if line.startswith("//") or line.startswith("#"):
+        if line.startswith(("//", "#")):
             index += 1
             continue
         before_body = line.split("{", 1)[0].rstrip()

@@ -11,7 +11,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
-
 TYPE_KINDS = frozenset({"class", "concept", "alias"})
 FUNCTION_KINDS = frozenset({"function", "constructor", "destructor", "operator"})
 
@@ -84,7 +83,7 @@ class Entity:
     namespace: str = ""
     owner: str = ""
     is_static: bool = False
-    members: list["Entity"] = field(default_factory=list)
+    members: list[Entity] = field(default_factory=list)
 
     @property
     def doc(self) -> DocBlock:

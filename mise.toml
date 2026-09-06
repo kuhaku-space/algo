@@ -22,6 +22,12 @@ uv = "latest"
 # コミット前フック（.githooks/pre-commit）が lib/・test/ の C++ を整形するのに使う。
 # .clang-format（Google ベース）に従う。
 clang-format = "latest"
+# tools/ の Python を検査する linter（設定は ruff.toml、実行は `mise run lint`）。
+ruff = "latest"
+
+[tasks.lint]
+description = "tools/ の Python を ruff で検査する"
+run = "ruff check tools"
 
 [tasks.docs]
 description = "日本語リファレンスを docs/generated/ に生成する"

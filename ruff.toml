@@ -1,0 +1,13 @@
+# tools/ の Python（リファレンス生成・CI 集計スクリプト）用 lint 設定。
+# 実行は `mise run lint`（ruff は mise の [tools] で管理）。
+
+target-version = "py312"
+# 日本語コメントは全角幅で数えられるので、実測の最長行に合わせて 100 とする。
+line-length = 100
+
+[lint]
+# 既定（F・E4/E7/E9）に import 順（I）、行長・空白（E5/W）、非推奨構文の
+# 置き換え（UP）、バグ検出（B）、簡約（SIM/C4/PIE/FURB）、ruff 固有（RUF）を足す。
+select = ["E", "W", "F", "I", "UP", "B", "SIM", "C4", "PIE", "FURB", "RUF"]
+# 全角の括弧・記号は日本語コメント／メッセージとして意図的に使っている。
+ignore = ["RUF001", "RUF002", "RUF003"]

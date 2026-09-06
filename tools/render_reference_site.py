@@ -28,7 +28,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DOCS_DIR = ROOT / ".verify-helper" / "docs"
 DEFAULT_GENERATED_DIR = ROOT / "docs" / "generated"
@@ -190,7 +189,7 @@ def get_git_timestamps(root: Path) -> tuple[dict[str, dt.datetime], dt.datetime]
     for line in result.stdout.splitlines():
         if line.startswith("__REFERENCE_COMMIT__"):
             raw = line.removeprefix("__REFERENCE_COMMIT__")
-            current = dt.datetime.fromisoformat(raw.replace("Z", "+00:00"))
+            current = dt.datetime.fromisoformat(raw)
             newest = max(newest, current) if newest else current
         elif line and current is not None:
             timestamps.setdefault(line, current)

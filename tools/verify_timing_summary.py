@@ -24,10 +24,10 @@ import argparse
 import json
 import os
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
-
+from typing import Any
 
 SKIPPED = "skipped"
 

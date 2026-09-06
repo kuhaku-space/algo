@@ -4,13 +4,11 @@ import sys
 import unittest
 from pathlib import Path
 
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from reference.check import load_config, unformatted_math  # noqa: E402
-from reference.model import DocBlock, Entity, Overload  # noqa: E402
-from reference.parse import (  # noqa: E402
-    ROOT,
+from reference.check import load_config, unformatted_math
+from reference.model import DocBlock, Entity, Overload
+from reference.parse import (
     extract_entities,
     format_signature,
     library_headers,
@@ -22,7 +20,7 @@ from reference.parse import (  # noqa: E402
     split_template_prefix,
     symbol_and_kind,
 )
-from reference.render import (  # noqa: E402
+from reference.render import (
     ReferenceRenderer,
     overload_groups,
     signature_block,
