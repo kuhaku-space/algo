@@ -12,15 +12,15 @@ namespace internal {
 
 /// @brief モノイド作用に関する離散対数問題の本体（Baby-step Giant-step）
 /// @details 作用素 `x`（演算 `op` で合成、単位元 `id`）を状態に作用 `act` させ、
-///          `x^n` を `s` に作用させた結果が `t` と一致する最小の `n` を `[lb, ub)` から返す。
+///          $x^n$ を `s` に作用させた結果が `t` と一致する最小の `n` を $[lb, ub)$ から返す。
 ///          群とは限らず逆元を仮定しないため、giant-step での一致は候補にすぎず、
 ///          区間を線形走査して実際の解を確認する。線形走査が 2 回空振りしたら解なしと判定する。
 ///          `to_key` は到達しうる状態上で単射（衝突しない完全キー）であることを呼び出し側が保証する。
 /// @return 最小の `n`。存在しなければ -1。
-/// @note `N = ub - lb`、ブロック幅 `√N` で baby-step・giant-step を回すため全体 O(√N)。
-///       作用 `act` は O(√N) 回（baby-step √N + giant-step √N + 線形走査は高々 2 ブロックで 2√N）、
-///       合成 `op` は二分累乗の O(log N) 回。
-/// @complexity $N=ub-lb$ として期待 $O(\sqrt N)$
+/// @note $N = ub - lb$、ブロック幅 $\sqrt N$ で baby-step・giant-step を回すため全体 $O(\sqrt N)$。
+///       作用 `act` は $O(\sqrt N)$ 回（baby-step $\sqrt N$ + giant-step $\sqrt N$ +
+///       線形走査は高々 2 ブロックで $2\sqrt N$）、合成 `op` は二分累乗の $O(\log N)$ 回。
+/// @complexity $N = ub - lb$ として期待 $O(\sqrt N)$
 template <class X, class S, class Op, class Act, class Key>
 std::int64_t discrete_log_core(X x, S s, const S &t, const X &id, Op op, Act act, Key to_key, std::int64_t lb,
                                std::int64_t ub) {
@@ -80,14 +80,14 @@ std::int64_t discrete_log_core(X x, S s, const S &t, const X &id, Op op, Act act
 
 /// @brief モノイド作用に関する離散対数問題
 /// @details 作用素モノイド `M`（合成 `op`・単位元 `id`・作用 `f`）の元 `x` について、
-///          `x^n` を状態 `s` に作用させた結果が `t` となる最小の `n` を `[lb, ub)` から返す。
+///          $x^n$ を状態 `s` に作用させた結果が `t` となる最小の `n` を $[lb, ub)$ から返す。
 ///          逆元を仮定しないモノイド作用で動く（標準的な離散対数・関数反復の合成などを含む）。
 /// @tparam M 作用素モノイド（`acts_on<M, U>` を満たすこと）
 /// @tparam U 状態の型
 /// @tparam Key 状態を単射に写すキー関数 `U -> 整数等`
 /// @return 最小の `n`。存在しなければ -1。
-/// @complexity `N = ub - lb` として O(√N)。内訳はモノイド作用 `f` が O(√N) 回、
-///       モノイド合成 `op` が O(log N) 回、キー関数 `to_key` が O(√N) 回（ハッシュ集合操作込み）。
+/// @complexity $N = ub - lb$ として $O(\sqrt N)$。内訳はモノイド作用 `f` が $O(\sqrt N)$ 回、
+///       モノイド合成 `op` が $O(\log N)$ 回、キー関数 `to_key` が $O(\sqrt N)$ 回（ハッシュ集合操作込み）。
 template <class M, class U, class Key>
 requires acts_on<M, U>
 std::int64_t discrete_log_acted(const typename M::value_type &x, U s, U t, Key to_key, std::int64_t lb,
@@ -98,12 +98,12 @@ std::int64_t discrete_log_acted(const typename M::value_type &x, U s, U t, Key t
         [](const X &o, const U &v) { return U(M::f(o, v)); }, std::move(to_key), lb, ub);
 }
 
-/// @brief モノイド `M` における離散対数 `a^n = b`
+/// @brief モノイド `M` における離散対数 $a^n = b$
 /// @details 作用を左からの合成 `op` とみなした特殊形。群の `log_a b` を含む。
 /// @tparam M モノイド
 /// @tparam Key 値を単射に写すキー関数
-/// @return 最小の `n`（`[lb, ub)`）。存在しなければ -1。
-/// @complexity `N = ub - lb` として O(√N)（合成 `op` を O(√N) 回・二分累乗で O(log N) 回）。
+/// @return 最小の `n`（$[lb, ub)$）。存在しなければ -1。
+/// @complexity $N = ub - lb$ として $O(\sqrt N)$（合成 `op` を $O(\sqrt N)$ 回・二分累乗で $O(\log N)$ 回）。
 template <class M, class Key>
 requires monoid<M>
 std::int64_t discrete_log_monoid(typename M::value_type a, typename M::value_type b, Key to_key, std::int64_t lb,

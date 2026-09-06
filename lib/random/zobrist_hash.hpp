@@ -19,7 +19,7 @@ concept Hashable = std::equality_comparable<T> && requires(const T &a) {
 ///          - 総和で合成（`Add<result_type>` 相当）: 多重集合のハッシュ。同じ値が複数回現れても
 ///            打ち消し合わず区別できる（木の同型判定など、部分木の多重集合を比較する場面向き）。
 ///          - XOR で合成（`Xor<result_type>` 相当）: 集合の要素の有無を表すハッシュ。
-///            同じ値をもう一度 XOR すれば打ち消せるため要素の追加・削除を O(1) で反映できるが、
+///            同じ値をもう一度 XOR すれば打ち消せるため要素の追加・削除を $O(1)$ で反映できるが、
 ///            同じ値が偶数回現れると消えてしまうため多重集合の区別には使えない。
 /// @tparam T 値の型（Hashable であること）
 /// @tparam UniformRandomBitGenerator 乱数生成器
@@ -30,12 +30,12 @@ struct ZobristHash {
     /// @complexity 型エイリアスで実行時計算量はない
     using result_type = UniformRandomBitGenerator::result_type;
 
-    /// @brief 空の対応表を乱数seed付きで構築する
-    /// @complexity O(1)
+    /// @brief 空の対応表を乱数 seed 付きで構築する
+    /// @complexity $O(1)$
     ZobristHash() : rnd(std::random_device{}()), data() {}
 
-    /// @brief 値 x に割り当てられた乱数を返す（初回はその場で割り当てて記憶する）
-    /// @complexity 期待 O(1)
+    /// @brief 値 `x` に割り当てられた乱数を返す（初回はその場で割り当てて記憶する）
+    /// @complexity 期待 $O(1)$
     result_type operator()(const T &x) {
         auto [it, inserted] = data.try_emplace(x);
         if (inserted) it->second = rnd();

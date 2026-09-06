@@ -194,9 +194,9 @@ std::vector<T> shortest_path_spfa(const G &g, int s = 0, T inf = std::numeric_li
     return dists;
 }
 
-/// @brief 単一始点最短路（重みなしグラフは BFS で O(V+E)）
+/// @brief 単一始点最短路（重みなしグラフは BFS で $O(V+E)$）
 /// @tparam G 重みなしグラフ型（`list_graph<void>` / `csr_graph<void>` のいずれでも可）
-/// @note 重みが 1 固定なので priority_queue 不要。`unweighted_graph_type` と
+/// @note 重みが $1$ 固定なので `priority_queue` 不要。`unweighted_graph_type` と
 ///       `properly_weighted_graph_type` は排他なので、重みなしグラフではこちらが選ばれる。
 /// @complexity $O(V+E)$
 template <unweighted_graph_type G>

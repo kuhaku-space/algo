@@ -7,17 +7,17 @@
 
 /// @brief 要素を特定のキー（条件）でフィルタリングして区間取得を行えるセグメント木
 /// @tparam K フィルタリングに用いるキーの型
-/// @complexity 構築 $O(N\log N)$、更新・問合せ $O(\log N)$
+/// @complexity 構築 $O(N \log N)$、更新・問合せ $O(\log N)$
 template <class K, monoid M>
 struct filtered_segment_tree {
   private:
     using T = typename M::value_type;
 
   public:
-    /// @brief 構築 O(N log N)
+    /// @brief 構築 $O(N \log N)$
     /// @param keys 各要素が属するキー
     /// @param values 各要素の初期値
-    /// @complexity $O(N\log N)$
+    /// @complexity $O(N \log N)$
     filtered_segment_tree(const std::vector<K> &keys, const std::vector<T> &values)
         : n(keys.size()), values(values), leaf_indices(n) {
         unique_keys = coordinate_compression<K>(keys);
@@ -42,10 +42,10 @@ struct filtered_segment_tree {
         tree = segment_tree<M>(init_vals);
     }
 
-    /// @brief k 番目の要素を new_val に更新する
+    /// @brief `k` 番目の要素を `new_val` に更新する
     /// @param k 更新する要素の元のインデックス
     /// @param new_val 新しい値
-    /// @complexity O(log N)
+    /// @complexity $O(\log N)$
     void set(int k, T new_val) {
         values[k] = new_val;
         int key_idx = compressed_keys[k];
@@ -53,12 +53,12 @@ struct filtered_segment_tree {
         tree.set(tree_offsets[key_idx] + i, new_val);
     }
 
-    /// @brief 区間 [l, r) のうち、キーが key である要素の総積を取得する
+    /// @brief 区間 $[l, r)$ のうち、キーが `key` である要素の総積を取得する
     /// @param l 区間の左端 (含む)
     /// @param r 区間の右端 (含まない)
     /// @param key 対象とするキー
     /// @return 対象要素の総積。存在しない場合はモノイドの単位元
-    /// @complexity O(log N)
+    /// @complexity $O(\log N)$
     T prod(int l, int r, K key) const {
         if (!unique_keys.exists(key)) return M::id();
         int key_idx = unique_keys.get(key);
@@ -70,13 +70,14 @@ struct filtered_segment_tree {
         return tree.prod(tree_offsets[key_idx] + pos_l, tree_offsets[key_idx] + pos_r);
     }
 
-    /// @brief 区間 [l, r) のうち、キーが key である要素の総積を取得する。ただし単位元の場合は default_value を返す
+    /// @brief 区間 $[l, r)$ のうち、キーが `key` である要素の総積を取得する。ただし単位元の場合は `default_value`
+    /// を返す
     /// @param l 区間の左端 (含む)
     /// @param r 区間の右端 (含まない)
     /// @param key 対象とするキー
     /// @param default_value 要素が存在しない/単位元の場合のデフォルト値
-    /// @return 対象要素の総積、または default_value
-    /// @complexity O(log N)
+    /// @return 対象要素の総積、または `default_value`
+    /// @complexity $O(\log N)$
     T prod_or_default(int l, int r, K key, T default_value) const {
         auto res = prod(l, r, key);
         return res == M::id() ? default_value : res;

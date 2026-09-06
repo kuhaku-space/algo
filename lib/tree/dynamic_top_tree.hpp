@@ -6,7 +6,7 @@
 /// @brief Dynamic Top Tree（Link/Cut/Evert に対応した全方位木 DP）
 /// @details LCT の compress パス（splay 木）に加え、各頂点にぶら下がる軽辺
 ///          （rake 対象の部分木）を別の splay 木で束ねて expose のたびに
-///          O(log n) 償却で繋ぎ替える。evert によるパス反転に対応するため、
+///          $O(\log n)$ 償却で繋ぎ替える。evert によるパス反転に対応するため、
 ///          パス集約を正方向 sum・逆方向 mus の 2 本立てで保持する（compress
 ///          が非可換なため、反転を高速に行うにはこの複製が必要）。
 ///          TreeDP のインターフェースは `StaticTopTreeDP`（`tree_dp` concept）と共通：

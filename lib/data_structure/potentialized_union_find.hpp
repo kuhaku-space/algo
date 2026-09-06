@@ -54,13 +54,13 @@ T group_op(const T &a, const T &b) {
     return a + b;
 }
 
-/// @brief 群 T の逆元 a^{-1}
+/// @brief 群 `T` の逆元 $a^{-1}$
 /// @complexity `T::inv()` 1 回
 template <multiplicative_group T>
 T group_inv(const T &a) {
     return a.inv();
 }
-/// @brief 群 T の逆元 a^{-1}
+/// @brief 群 `T` の逆元 $a^{-1}$
 /// @complexity `T` の単項マイナス 1 回
 template <additive_group T>
 T group_inv(const T &a) {
@@ -75,8 +75,8 @@ concept group = multiplicative_group<T> || additive_group<T>;
 }  // namespace internal
 
 /// @brief ポテンシャル付き素集合データ構造（可換・非可換どちらの群でも可）
-/// @details 各要素 x に群 G の隠れた値 a[x] が割り当てられているとし、
-///          a[x]^{-1} ・ a[y] という相対関係（ポテンシャル差）を管理する。
+/// @details 各要素 $x$ に群 `G` の隠れた値 $a_x$ が割り当てられているとし、
+///          $a_x^{-1} \cdot a_y$ という相対関係（ポテンシャル差）を管理する。
 ///          G が `*` と `.inv()` を持てば乗法群（非可換も可・単位元は `G()`）、
 ///          `+` と単項 `-` を持てば加法可換群（単位元は `G(0)`）として自動的に扱う。
 /// @tparam G 群を表す型
@@ -106,7 +106,7 @@ struct potentialized_union_find {
     /// @complexity $O(1)$
     bool is_root(int x) const { return _data[x] < 0; }
 
-    /// @brief 根に対する相対ポテンシャル a[root]^{-1} ・ a[x] を返す。
+    /// @brief 根に対する相対ポテンシャル $a_{\mathrm{root}}^{-1} \cdot a_x$ を返す。
     /// @complexity 群演算を $O(1)$ として償却 $O(\alpha(n))$
     G potential(int x) {
         root(x);
@@ -130,14 +130,14 @@ struct potentialized_union_find {
     /// @complexity 群演算を $O(1)$ として償却 $O(\alpha(n))$
     int get_size(int x) { return size(x); }
 
-    /// @brief a[x]^{-1} ・ a[y] を返す（x, y は同一集合に属していること）。
+    /// @brief $a_x^{-1} \cdot a_y$ を返す（`x`, `y` は同一集合に属していること）。
     /// @complexity 群演算を $O(1)$ として償却 $O(\alpha(n))$
     G diff(int x, int y) { return internal::group_op(internal::group_inv(potential(x)), potential(y)); }
     /// @brief `diff(x, y)` の別名
     /// @complexity 群演算を $O(1)$ として償却 $O(\alpha(n))$
     G get_diff(int x, int y) { return diff(x, y); }
 
-    /// @brief 関係 a[x]^{-1} ・ a[y] = w を追加する。
+    /// @brief 関係 $a_x^{-1} \cdot a_y = w$ を追加する。
     /// @return 集合が新たに併合されたら true、既に同一集合なら false。
     /// @note 戻り値が false でも矛盾検出はしない。整合性確認は @ref valid を使う。
     /// @complexity 群演算を $O(1)$ として償却 $O(\alpha(n))$
@@ -157,7 +157,7 @@ struct potentialized_union_find {
         return true;
     }
 
-    /// @brief 関係 a[x]^{-1} ・ a[y] = w が既存の情報と整合するか確認する。
+    /// @brief 関係 $a_x^{-1} \cdot a_y = w$ が既存の情報と整合するか確認する。
     /// @details 別集合なら併合して true、同一集合なら現在の差と一致するかを返す。
     /// @complexity 群演算を $O(1)$ として償却 $O(\alpha(n))$
     bool valid(int x, int y, const G &w) {

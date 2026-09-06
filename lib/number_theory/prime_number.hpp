@@ -83,9 +83,9 @@ std::vector<std::vector<std::uint64_t>> multiplicative_partitions(std::uint64_t 
 /// @see https://qiita.com/peria/items/c1d8523342e81bb23375
 ///
 /// 素因数分解は最小素因数（linear sieve）を使う。上記の素数列挙で得た素数列を種に
-/// O(N) で構築するため、`is_prime`/`prime_numbers` だけを使う場合はこの分のメモリ・
+/// $O(N)$ で構築するため、`is_prime`/`prime_numbers` だけを使う場合はこの分のメモリ・
 /// 構築コストはかからない（`prime_factorization` を初めて呼んだ時に遅延構築する）。
-/// @complexity 構築は $O(N\log\log N)$、範囲内の素数判定は $O(1)$
+/// @complexity 構築は $O(N \log\log N)$、範囲内の素数判定は $O(1)$
 template <int N = (1 << 22)>
 struct Sieve {
   private:
@@ -231,10 +231,10 @@ struct Sieve {
     }
 
     /// @brief 素因数分解
-    /// @details `x < N` なら最小素因数テーブル（初回呼び出し時に O(N) で遅延構築）で
-    /// O(log x)、`x >= N` なら Pollard's rho にフォールバックする
+    /// @details `x < N` なら最小素因数テーブル（初回呼び出し時に $O(N)$ で遅延構築）で
+    /// $O(\log x)$、`x >= N` なら Pollard's rho にフォールバックする
     /// @return (素数, 指数) のペアを素数の昇順で列挙したもの
-    /// @complexity 初回の範囲内呼出しは $O(N)$、以後は $O(\log x)$。範囲外は期待 $O(x^{1/4}\log x)$
+    /// @complexity 初回の範囲内呼出しは $O(N)$、以後は $O(\log x)$。範囲外は期待 $O(x^{1/4} \log x)$
     std::vector<std::pair<std::uint64_t, int>> prime_factorization(std::uint64_t x) {
         if (x >= (std::uint64_t)N) return ::prime_factorization(x);
         if (lpf.empty()) build_lpf();

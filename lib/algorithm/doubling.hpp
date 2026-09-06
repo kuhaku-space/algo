@@ -43,10 +43,10 @@ template <class M>
 concept doubling_monoid = std::is_void_v<M> || monoid<M>;
 
 /// @brief ダブリング
-/// @details 各要素の「次の遷移先」を 2^k ステップ分前計算し、`jump`/`solve` で
-///          任意ステップ数のジャンプを O(log k) で行う。
+/// @details 各要素の「次の遷移先」を $2^k$ ステップ分前計算し、`jump`/`solve` で
+///          任意ステップ数のジャンプを $O(\log k)$ で行う。
 ///          モノイド `M` を与えると遷移に沿った値を集約し、`solve` が `{遷移先, 集約値}` を返す。
-/// @tparam L 前計算する段数（2^L ステップまで扱える）。
+/// @tparam L 前計算する段数（$2^L$ ステップまで扱える）。
 /// @tparam M モノイド型（`value_type` / `id()` / `op()` を持つ）。`void` なら遷移先のみを
 ///           扱い、`jump`/`solve` は `int` を返す（`max_step` は提供しない）。
 /// @note `void` は内部で `std::monostate` に正規化し、本体を 1 つに保つ。集約表は

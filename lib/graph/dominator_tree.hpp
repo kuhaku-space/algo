@@ -5,11 +5,11 @@
 #include "graph/graph.hpp"
 
 /// @brief 支配木（Lengauer-Tarjan 法）
-/// @details 始点 root から到達可能な各頂点 v について、その直接支配点
-///          (immediate dominator) idom[v] を計算する。root から v への
-///          すべての経路が必ず通る頂点のうち、v に最も近いものが idom[v]。
-///          idom[root] = root とする。root から到達不能な頂点は idom = -1。
-///          辺の重みは無視する。計算量はほぼ O((V + E) α(V))。
+/// @details 始点 `root` から到達可能な各頂点 $v$ について、その直接支配点
+///          (immediate dominator) $\mathrm{idom}(v)$ を計算する。`root` から $v$ への
+///          すべての経路が必ず通る頂点のうち、$v$ に最も近いものが $\mathrm{idom}(v)$。
+///          $\mathrm{idom}(root) = root$ とする。`root` から到達不能な頂点は $-1$。
+///          辺の重みは無視する。計算量はほぼ $O((V + E)\alpha(V))$。
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @complexity 構築は $O((V+E)\alpha(V))$、問合せは $O(1)$
 template <graph_type G>

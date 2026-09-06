@@ -7,8 +7,8 @@
 
 /// @brief auxiliary tree（補助木 / virtual tree）
 /// @details コンストラクタで LCA・Euler tour を前計算し、build(vs) で指定頂点集合に対する
-///          圧縮木を何度でも構築できる。Σ|vs| が小さければ各 build は O(|vs| log N)。
-/// @complexity 前計算 $O(N)$、k頂点の圧縮木構築 $O(k\log k)$
+///          圧縮木を何度でも構築できる。$\sum |vs|$ が小さければ各 `build` は $O(|vs| \log N)$。
+/// @complexity 前計算 $O(N)$、$k$ 頂点の圧縮木構築 $O(k \log k)$
 struct auxiliary_tree {
     /// @brief build が返す圧縮木。元の木の頂点番号・親・指定頂点フラグを保持する。
     /// @complexity 構築は補助木頂点数を $k$ として $O(k)$、参照は $O(1)$
