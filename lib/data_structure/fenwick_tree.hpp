@@ -4,6 +4,34 @@
 #include <variant>
 #include <vector>
 
+/// @file
+/// @brief フェニック木 (Fenwick Tree / BIT)
+/// @details 可換な加算に対する点更新・区間和を $O(\log n)$ で処理する。`RangeAdd = true` にすると
+///          内部で 2 本の Fenwick Tree を使い、区間加算・区間和を同じ計算量で処理する。
+/// @details セグメント木より扱える演算は限られるが、必要なメモリと定数倍が小さい。
+/// @note `lower_bound` / `upper_bound` は `RangeAdd = false` のときだけ使える。
+///       各要素が非負で累積和が単調であることが前提で、条件を満たす位置がなければ `n` を返す。
+/// @note `lower_bound(k, val)` と `upper_bound(k, val)` は探索基準に `sum(k)` を加え、
+///       添字 `k` 以降の累積増分を探索する。
+/// @note `T` には加算だけでなく、区間和を差し引くための減算が必要。
+/// @note 空区間 `sum(l, l)` は `T()` を返す。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "data_structure/fenwick_tree.hpp"
+///
+/// int main() {
+///     std::vector<long long> a = {3, 1, 4, 1, 5};
+///     FenwickTree<long long> ft(a);
+///     ft.add(2, 10);                        // a[2] += 10
+///     std::cout << ft.sum(1, 4) << '\n';    // a[1] + a[2] + a[3]
+///
+///     FenwickTree<long long, true> range_ft(5);
+///     range_ft.add(1, 4, 7);                // a[1], a[2], a[3] に 7 を加算
+///     std::cout << range_ft.sum(0, 5) << '\n';
+/// }
+/// @endcode
+
 /// @brief フェニック木
 /// @see http://hos.ac/slides/20140319_bit.pdf
 /// @tparam RangeAdd true なら区間加算・区間総和（内部で BIT を 2 本保持）。

@@ -10,6 +10,10 @@
 #include <type_traits>
 #include <vector>
 
+/// @file
+/// @brief FFT・実数畳み込み
+/// @details 複素 FFT による実数列の変換・逆変換と、整数列・実数列の畳み込みを提供する。
+
 namespace fft {
 
 /// FFT で扱える最大長は 2^FFT_MAX_LOG。

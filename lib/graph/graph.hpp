@@ -8,6 +8,11 @@
 #include <utility>
 #include <vector>
 
+/// @file
+/// @brief グラフ表現 (list_graph / csr_graph)
+/// @details 重み付き・重みなしグラフを、更新しやすい隣接リストまたは連続領域の CSR として表現する。
+///          共通の concept により各グラフアルゴリズムへ渡せる。
+
 /// @brief 重みなし辺を表す空タグ型（重み 1 として振る舞う）
 /// @complexity すべての演算が $O(1)$
 struct Unweighted {

@@ -4,6 +4,11 @@
 #include <limits>
 #include <utility>
 
+/// @file
+/// @brief 疑似乱数生成器 SplitMix64
+/// @details 64 bit 整数を高速に生成する SplitMix64。単体の疑似乱数生成器として利用できるほか、
+///          他の乱数生成器へ状態列を供給するシード生成器としても利用できる。
+
 /// @brief 疑似乱数生成器 SplitMix64
 /// @details 周期：$2^64-1$
 /// @complexity すべての操作が $O(1)$、長さNのseed列生成は $O(N)$

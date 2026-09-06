@@ -4,6 +4,10 @@
 #include <optional>
 #include <utility>
 
+/// @file
+/// @brief 区間演算
+/// @details 半開区間 $[l, r)$ と閉区間 $[l, r]$ の包含・交差判定と共通部分を提供する。
+
 namespace internal {
 
 template <std::integral T>

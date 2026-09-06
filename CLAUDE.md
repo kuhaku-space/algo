@@ -22,10 +22,13 @@ g++ -std=c++23 -I lib -Wall -Wextra -fsyntax-only <test_file>
 - 正しさはランダムテストで naive 実装と突き合わせる。
 - verify 用問題は **Library Checker → yukicoder → AOJ** の順で探す。素直に対応する問題が
   なければ verify は保留（competitive-verifier の UNIT_TEST は使わない）。
-- 公開 API の日本語リファレンスを変更したら `mise run docs-check` で自動生成ページを
-  同期し、形式・使用例のコンパイル・網羅率を検査する。新規の手書きページは
-  `python3 tools/reference_docs.py stub lib/<category>/<header>.hpp` で雛形を作る。Doxygen
-  由来のページはGit管理外の `docs/generated/` に生成し、コミットしない。
+- 公開リファレンス（cpprefjp 風）は**ヘッダの `///` コメントだけ**から生成する。
+  手書きの Markdown ページは置かない。公開 API を変えたら `mise run docs-check` で
+  網羅率・例のコンパイルと実行・リンクを検査する。生成物は Git 管理外の
+  `docs/generated/` に出るのでコミットしない。書き方は `docs/reference_style.md`。
+- ヘッダ全体の説明が要るとき（主要な型が 1 つに定まらない、使用例や注意点を書きたい）は
+  include 群の直後に `/// @file` ブロックを置く。`@code` … `@endcode` の例は実際に
+  コンパイル・実行され、標準出力がページの「出力」節になる。
 
 ### CI 調査・トークン節約
 

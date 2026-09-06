@@ -7,6 +7,37 @@
 #include <vector>
 #include "internal/internal_fft.hpp"
 
+/// @file
+/// @brief NTT・畳み込み (convolution)
+/// @details Number Theoretic Transform (NTT) により、多項式の係数列の畳み込みを $O(n\log n)$ で計算する。
+///          NTT-friendly な法に加え、3 素数と Garner 法を使った 64 bit 整数畳み込み・任意 mod 畳み込みも提供する。
+/// @details 短い入力は自動的に愚直畳み込みへ切り替わる。
+/// @note NTT 版では `bit_ceil(N)` が `mod - 1` を割り切る必要がある。
+///       既定の 998244353 では $2^{23}$ までの変換が可能。
+/// @note `convolution_ll`・`convolution_ll2`・`convolution_mod` の出力長は $2^{24}$ 以下。
+/// @note 同じ列同士の `convolution(a, a)` は自動検出されるが、`convolution_square(a)` なら
+///       比較を省略して意図を明示できる。
+/// @note `convolution_ll2` は係数が非負で、各出力係数が $754974721 \times 469762049$ 未満の場合だけ
+///       正しく復元できる。
+/// @note `convolution_mod` は入力を法で正規化しない。負値や `mod` 以上の値を含む場合は
+///       `convolution_ll` などで真の整数畳み込みを求めてから剰余を取る。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "convolution/ntt.hpp"
+/// #include "number_theory/modint.hpp"
+///
+/// int main() {
+///     std::vector<modint998> a = {1, 2, 3}, b = {4, 5};
+///     for (auto x : convolution(a, b)) std::cout << x.val() << ' ';
+///     std::cout << '\n';
+///
+///     std::vector<int> x = {1, 2, 3}, y = {4, 5};
+///     for (int v : convolution_mod<1'000'000'007>(x, y)) std::cout << v << ' ';
+///     std::cout << '\n';
+/// }
+/// @endcode
+
 /// @brief 愚直畳み込みへ切り替える入力サイズの閾値
 /// @complexity コンパイル時定数で実行時計算量はない
 static constexpr int CONVOLUTION_NAIVE_THRESHOLD = 60;

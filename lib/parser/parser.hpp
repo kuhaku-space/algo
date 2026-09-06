@@ -7,6 +7,45 @@
 #include <utility>
 #include <vector>
 
+/// @file
+/// @brief 汎用式パーサ (ExpressionParser)
+/// @details 演算子優先順位法 (precedence climbing) による汎用の式パーサ。二項演算子・前置単項演算子・
+///          アトム（最小単位）の読み取りを差し替えることで、任意の式文法を構築できる。
+/// @details 値型 `T` は各コールバックが返す「意味」を表す。`T` を数値型にすれば評価器、AST のノード
+///          ポインタにすれば構文木ビルダーになる。`T` が算術演算を持てば `arithmetic_parser<T>()` が
+///          そのまま使えるので、`long long` はもちろん modint・複素数・行列・多項式などでも動く。
+/// @note 左結合は右辺を `prec + 1` 以上、右結合は `prec` 以上で解析する precedence climbing。
+///       前置演算子はアトムに最も強く結合し、優先順位表には載らない。
+/// @note ガードは閉じ記号と演算子が文字レベルで衝突する文脈依存文法に使う。例として AOJ 2570 では
+///       `>>`（シフト）と `>`（`S<...>` の閉じ）が衝突するため、「`>>` の直後に項が続くときだけシフト」
+///       というガードを与える。
+/// @note 暗黙の連接 (`concat`) は空トークンの二項演算子として扱う。停止条件を表す `guard` が無いと
+///       無限ループになるため必須。
+/// @note `no_group()` で組み込みの括弧処理を切ると、`(` を atom 側で扱える。分子式 `(X)2` のように
+///       「閉じ括弧の直後に処理を続けたい」ケースで有用。
+/// @note `atom()` を設定せず括弧でもない位置に来ると例外を投げる。`arithmetic_parser` は
+///       `integer_atom` を既定で設定する。
+/// @code
+/// #include <iostream>
+/// #include "parser/parser.hpp"
+///
+/// int main() {
+///     // 標準の四則演算（+ - * / ・単項 ± ・括弧・非負整数）
+///     std::cout << eval_expr<long long>("1 + 2 * (3 - 4)") << '\n';
+///
+///     // 自前の文法を組み立てる: 右結合のべき乗 ^ と剰余 % を足す
+///     using P = ExpressionParser<long long>;
+///     auto p = arithmetic_parser<long long>();
+///     p.binary("%", 20, P::Assoc::Left, [](auto &a, auto &b) { return a % b; })
+///         .binary("^", 30, P::Assoc::Right, [](auto &a, auto &b) {
+///             long long result = 1;
+///             for (long long i = 0; i < b; ++i) result *= a;
+///             return result;
+///         });
+///     std::cout << p.parse("2 ^ 3 ^ 2") << '\n';  // 右結合
+/// }
+/// @endcode
+
 /// @brief 汎用式パーサ (演算子優先順位法 / precedence climbing)
 /// @details 二項演算子・前置単項演算子・原子(アトム)読み取りを差し替えて
 ///   任意の式文法を構築できる。値型 @c T は「意味」を表し、演算子・アトムの

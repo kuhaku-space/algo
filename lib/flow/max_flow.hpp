@@ -5,6 +5,31 @@
 #include <utility>
 #include <vector>
 
+/// @file
+/// @brief 最大流 (mf_graph)
+/// @details Dinic 法で有向グラフの最大流を求める。辺追加時に返る ID から容量・現在流量を取得または
+///          変更でき、最大流計算後の残余グラフから最小カットも復元できる。
+/// @note 容量は非負、`change_edge` では `0 <= flow <= cap` が必要。
+/// @note `flow` は残余グラフを更新する。複数回呼ぶと、その時点から追加で流せた量を返す。
+/// @note 最大流計算後の `min_cut(s)` が返す true 側が始点側の最小カットになる。
+/// @note 自己ループと多重辺を追加できる。無向容量辺が必要なら両方向の辺を別々に追加する。
+/// @code
+/// #include <iostream>
+/// #include "flow/max_flow.hpp"
+///
+/// int main() {
+///     mf_graph<long long> graph(4);
+///     graph.add_edge(0, 1, 3);
+///     graph.add_edge(0, 2, 2);
+///     graph.add_edge(1, 3, 2);
+///     graph.add_edge(2, 3, 4);
+///
+///     std::cout << graph.flow(0, 3) << '\n';
+///     for (bool side : graph.min_cut(0)) std::cout << side;
+///     std::cout << '\n';
+/// }
+/// @endcode
+
 namespace internal {
 
 template <class T>

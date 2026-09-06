@@ -18,6 +18,32 @@
 ///          四則・inv / log / exp / pow / sqrt / composition /
 ///          compositional_inverse・多項式除算・多点評価・補間・Taylor shift を提供する。 NTT-friendly な mod < 2^30
 ///          かつ実行時 AVX2 対応 CPU では inv / log / exp を Montgomery + AVX2 NTT 実装に自動で振り分ける。
+/// @note `pow` は最低次の項 $c x^k$ を括り出し $h^m = \exp(m \log(h / (c x^k))) \cdot c^m \cdot x^{km}$ で計算する。
+///       `m == 0` は定数 1 を返し、`m < 0` は $h^{|m|}$ の逆元を返す。最低次が `deg` 以上に押し出される場合は全 0
+///       を返す。
+/// @note `sqrt` は $k$ が偶数かつ $c$ が平方剰余のときだけ解を返す。$k$ が奇数、または平方非剰余で
+///       解が存在しない場合は空列を返す。
+/// @note `composition` と `compositional_inverse` は Kinoshita-Suzuki の分割統治により $O(deg \log^2 deg)$。
+/// @note `log` の結果は定数項 0、`exp` の結果は定数項 1 になる。
+/// @note `div_mod` は入力の末尾 0 を内部で除去し、返り値の商・剰余も末尾 0 を含まない。剰余の次数は $\deg r < \deg g$。
+/// @note 多点評価・補間は部分積木を構築して剰余木を下降する。点数が少ない部分木は Horner 法に切り替える。
+/// @code
+/// #include <iostream>
+/// #include <vector>
+/// #include "convolution/formal_power_series.hpp"
+/// #include "number_theory/modint.hpp"
+///
+/// int main() {
+///     using mint = modint998;
+///     std::vector<mint> f = {1, 2, 3};  // 1 + 2x + 3x^2
+///     for (auto x : fps::inv(f, 5)) std::cout << x.val() << ' ';
+///     std::cout << '\n';
+///
+///     std::vector<mint> e = {0, 2, 3};  // exp は e[0] == 0 が必要
+///     for (auto x : fps::exp(e)) std::cout << x.val() << ' ';
+///     std::cout << '\n';
+/// }
+/// @endcode
 
 namespace fps {
 

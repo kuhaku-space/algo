@@ -9,6 +9,10 @@
 #include <vector>
 #include "string/z_algorithm.hpp"
 
+/// @file
+/// @brief 文字列ユーティリティ
+/// @details 最長共通接頭辞、最小・最大部分列など、独立した文字列アルゴリズムをまとめて提供する。
+
 // 単体では小粒だがあると便利な小物関数をまとめたファイル
 
 /// @brief 最長共通接頭辞 (longest common prefix)

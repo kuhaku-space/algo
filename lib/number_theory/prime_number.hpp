@@ -9,6 +9,10 @@
 #include "internal/internal_math.hpp"
 #include "number_theory/factorize.hpp"
 
+/// @file
+/// @brief 素数列挙・判定
+/// @details 整数の素数判定、区間の素数列挙、線形篩、最小素因数を使った素因数分解を提供する。
+
 /// @brief 素数判定
 /// @details Miller-Rabin 法。`std::uint64_t` の全域で正しい
 /// @complexity $O(\log x)$ 回のmod乗算
