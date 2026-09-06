@@ -72,24 +72,25 @@ verify で使用するコンパイラオプションは
 
 ## ドキュメント
 
-公開 API の日本語リファレンスは [`docs/`](docs/) にあり、ヘッダの Doxygen コメント、
-依存関係、検証結果と合わせてリポジトリ内のドキュメントActionが GitHub Pages 用の
-Jekyllソースを自動生成します。`competitive-verifier`は検証データの作成までを担当し、
+公開 API の日本語リファレンスは
+[GitHub Pages](https://kuhaku-space.github.io/algo/) に cpprefjp 風の構成で公開しています。
+ページはヘッダの Doxygen コメントだけから生成し、依存関係・検証結果・実装全文を
+ヘッダページに添えます。`competitive-verifier` は検証データの作成までを担当し、
 ページの構造とテンプレートはこのリポジトリで管理します。
 
-新しい詳細ページの雛形生成と、既存ページの形式・使用例・網羅率の検査は次のコマンドで
-行えます。
+| ページ | 内容 |
+| --- | --- |
+| `reference/<category>/<header>` | 概要、インクルード、提供する型・関数の一覧、例、検証、依存関係、実装 |
+| `reference/<category>/<header>/<name>` | 型 1 つ・関数 1 つの詳細（シグネチャ、パラメータ、戻り値、計算量、メンバ） |
 
 ```sh
-python3 tools/reference_docs.py stub lib/segtree/segment_tree.hpp
-python3 tools/reference_docs.py sync-generated
-python3 tools/reference_docs.py check
+mise run docs        # docs/generated/ にページを生成する
+mise run docs-check  # 網羅率・例のコンパイルと実行・リンクを検査する
+mise run docs-site   # 検証結果なしでサイトのソースを _jekyll/ に組み立てる
 ```
 
-自動生成ページは `docs/generated/` に作られ、Git管理には含めません。CIでも検査と
-サイト構築の前に同じページを生成するため、pushするのは手書きページと生成ロジックだけです。
-
-ページの構成と記述方針は
+生成物は `docs/generated/` に作られ、Git 管理には含めません。手書きの Markdown ページは
+無く、文章を直すときはヘッダのコメントを編集します。書き方は
 [`docs/reference_style.md`](docs/reference_style.md) を参照してください。
 
 ## コーディング規約
