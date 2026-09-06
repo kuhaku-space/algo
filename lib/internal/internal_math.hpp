@@ -120,7 +120,7 @@ constexpr bool is_SPRP32(std::uint32_t n, std::uint32_t a) {
     return false;
 }
 
-/// given 2 <= n,a < 2^64, a prime, check whether n is a-SPRP
+/// given $2 \le n, a < 2^{64}$, $a$ prime, check whether $n$ is $a$-SPRP
 /// without 2,3,5,13,19,73,193,407521,299210837
 constexpr bool is_SPRP64(const montgomery &m, std::uint64_t a) {
     auto n = m.umod();

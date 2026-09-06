@@ -27,6 +27,7 @@ from reference.check import (  # noqa: E402
     missing_complexities,
     run_example,
     undocumented_entities,
+    unformatted_math,
 )
 from reference.model import Header  # noqa: E402
 from reference.parse import (  # noqa: E402
@@ -126,6 +127,7 @@ def check(destination: Path = DESTINATION) -> int:
             )
 
     errors.extend(broken_links(destination))
+    errors.extend(unformatted_math())
 
     undocumented = sum(len(undocumented_entities(header)) for header in public)
     if undocumented > config.maximum_undocumented:

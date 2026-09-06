@@ -161,7 +161,7 @@ struct stern_brocot_tree {
 
     /// @brief targetに最も近い、分母がmax_denominator以下の既約分数を返す
     /// @details 距離が等しいときは小さい方を返す。target=1/0は非対応。
-    /// @complexity $O(\log\max(p,q,max\_denominator))$
+    /// @complexity $O(\log\max(p, q, \mathrm{max\_denominator}))$
     static fraction nearest(fraction target, std::int64_t max_denominator) {
         using i128 = __int128;
         const i128 R = target.p, D = target.q, N = max_denominator;
@@ -222,7 +222,7 @@ struct stern_brocot_tree {
 
     /// @brief 単調述語predが真となる最大の分数を分母上限内で返す
     /// @details pred(p,q)は分数が小さいほど真で、pred(0,1)は真とする。
-    /// @complexity 述語呼出し $O(\log^2 max\_denominator)$ 回
+    /// @complexity 述語呼出し $O(\log^2 \mathrm{max\_denominator})$ 回
     template <class F>
     static fraction search(F pred, std::int64_t max_denominator) {
         const std::int64_t N = max_denominator;

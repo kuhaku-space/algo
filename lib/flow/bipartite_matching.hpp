@@ -4,12 +4,12 @@
 #include <utility>
 #include <vector>
 
-/// @brief 二部グラフの最大マッチング（push-relabel 方式、O(E√V)）
+/// @brief 二部グラフの最大マッチング（push-relabel 方式、$O(E\sqrt V)$）
 /// @details 未マッチの右頂点が「レベル最小の左隣接頂点」を奪い、押し出された右頂点が
 ///          再びキューに戻る。左頂点のレベル（自由左頂点までの交互道長の下界）は
-///          奪われるたびに +2 され（relabel）、V 回のポップごとに BFS で全体を
-///          張り直す（global relabel）。レベルが V 以上に達した頂点は増強不能。
-///          Goldberg–Kennedy の解析により O(E√V)。実測でも増強路ベースの
+///          奪われるたびに $+2$ され（relabel）、$V$ 回のポップごとに BFS で全体を
+///          張り直す（global relabel）。レベルが $V$ 以上に達した頂点は増強不能。
+///          Goldberg–Kennedy の解析により $O(E\sqrt V)$。実測でも増強路ベースの
 ///          Hopcroft-Karp より速い。
 /// @see https://judge.yosupo.jp/submission/339108
 struct BipartiteMatching {

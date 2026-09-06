@@ -11,7 +11,7 @@
 
 /// @brief 動的配列（スプレー木、反転可能、遅延伝播対応）
 /// @details 親ポインタを持つ反復版 splay で根に運んだノードを起点に split/merge を構成する
-///          （amortized O(log n)）。全ての操作（読み取り専用のクエリも含む）で対象位置を
+///          （償却 $O(\log n)$）。全ての操作（読み取り専用のクエリも含む）で対象位置を
 ///          根まで splay する。AVL 版（join-based framework）と比較し、reverse/apply のような
 ///          split して戻す操作の再結合コストが軽いためこちらを採用している。
 /// @tparam S データのモノイド

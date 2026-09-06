@@ -13,10 +13,10 @@
 ///          ノード実体は `std::deque` のプールが所有する（要素アドレスが安定し、
 ///          `new`/`delete` を一切行わずリークもしない）。`meld` で別ヒープの要素を
 ///          取り込む際は相手のプールを `shared_ptr` で延命するだけなので、プールを
-///          コピーせず連結は O(log N) のまま。
+///          コピーせず連結は $O(\log N)$ のまま。
 ///          `Comp = std::less<>` で最大ヒープ、`std::greater<>` で最小ヒープ。
-/// @tparam Leftist true なら leftist heap（rank 比較で子を交換、最悪 O(log N)）、
-///                 false なら skew heap（無条件に子を交換、ならし O(log N)）。
+/// @tparam Leftist true なら leftist heap（rank 比較で子を交換、最悪 $O(\log N)$）、
+///                 false なら skew heap（無条件に子を交換、ならし $O(\log N)$）。
 /// @note `meld` は引数のヒープを空にして要素を取り込む破壊的操作。
 template <class T, class Comp = std::less<>, bool Leftist = true>
 struct MeldableHeap {

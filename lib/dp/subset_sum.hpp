@@ -27,11 +27,11 @@ inline void shift_or(std::vector<std::uint64_t> &bits, long long shift) {
 
 }  // namespace internal_subset_sum
 
-/// @brief sum(a) を C として、0 から C までの全ての k について部分和が k になる部分集合が存在するか判定する
+/// @brief $C = \sum a_i$ として、$0$ から $C$ までの全ての $k$ について部分和が $k$ になる部分集合が存在するか判定する
 /// @param a 各要素の重み（非負）
-/// @return res[k] == true iff 部分和が k になる部分集合が存在する（0 <= k <= sum(a)）
+/// @return `res[k] == true` iff 部分和が $k$ になる部分集合が存在する（$0 \le k \le C$）
 /// @see https://codeforces.com/blog/entry/98663 (Subset Sum Speedup 1)
-/// @complexity O((sum a) sqrt(sum a) / 64)
+/// @complexity $O(C \sqrt{C} / 64)$
 std::vector<bool> subset_sum_all(const std::vector<int> &a) {
     std::int64_t c = std::accumulate(a.begin(), a.end(), std::int64_t(0));
 
@@ -61,11 +61,11 @@ std::vector<bool> subset_sum_all(const std::vector<int> &a) {
     return res;
 }
 
-/// @brief 部分和が C になる部分集合が存在するか判定する
+/// @brief 部分和が $C$ になる部分集合が存在するか判定する
 /// @param a 各要素の重み（非負）
 /// @param C 目標の部分和
 /// @see https://codeforces.com/blog/entry/98663 (Subset Sum Speedup 2)
-/// @complexity a の最大値を W として O(N * W)
+/// @complexity 要素数を $N$、`a` の最大値を $W$ として $O(NW)$
 bool subset_sum(const std::vector<int> &a_orig, int C) {
     std::vector<int> a;
     a.reserve(a_orig.size());

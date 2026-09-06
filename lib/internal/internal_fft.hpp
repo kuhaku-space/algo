@@ -187,10 +187,10 @@ std::vector<mint> convolution_fft_square(std::vector<mint> a) {
     return a;
 }
 
-/// middle product (転置乗算): a (長さ n) と b (長さ m, n >= m) に対し
-/// c[i] = sum_{j=0}^{m-1} a[i+j] * b[j]  (i = 0 .. n-m) を返す (長さ n-m+1)。
-/// これは a と rev(b) のフル積 a*rev(b) の添字 m-1 .. n-1 にあたる。
-/// サイズ bit_ceil(n) の巡回畳み込み 1 回で求まる。z >= n より該当範囲には巻き込みが起きない。
+/// middle product (転置乗算): `a`（長さ $n$）と `b`（長さ $m \le n$）に対し
+/// $c_i = \sum_{j=0}^{m-1} a_{i+j} b_j$（$i = 0, \ldots, n-m$）を返す（長さ $n-m+1$）。
+/// これは `a` と $\mathrm{rev}(b)$ のフル積 $a \cdot \mathrm{rev}(b)$ の添字 $m-1, \ldots, n-1$ にあたる。
+/// サイズ $\mathrm{bit\_ceil}(n)$ の巡回畳み込み 1 回で求まる。$z \ge n$ より該当範囲には巻き込みが起きない。
 /// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348 (Middle Product)
 template <internal::static_modint_c mint>
 std::vector<mint> middle_product_fft(std::vector<mint> a, std::vector<mint> b) {
@@ -220,7 +220,7 @@ std::vector<mint> middle_product_naive(const std::vector<mint> &a, const std::ve
 }
 
 /// 任意 mod / 任意係数の畳み込みで使う 3 つの NTT-friendly 素数と Garner 法用の定数。
-/// MOD1 < MOD2 < MOD3 で、いずれも 2^24 まで NTT 可能 (最小は MOD1 の 2^24)。
+/// $\mathrm{MOD1} < \mathrm{MOD2} < \mathrm{MOD3}$ で、いずれも $2^{24}$ まで NTT 可能（最小は `MOD1` の $2^{24}$）。
 struct convolution_mod_constants {
     static constexpr std::uint64_t MOD1 = 754974721;  // 45 * 2^24 + 1, NTT 可能長 2^24
     static constexpr std::uint64_t MOD2 = 167772161;  // 5  * 2^25 + 1, NTT 可能長 2^25

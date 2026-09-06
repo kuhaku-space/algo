@@ -18,9 +18,9 @@ inline long long fast_div(long long a, long long p, std::uint64_t M) {
 
 }  // namespace internal
 
-/// @brief f(p) の素数項 coef * p^pw を表す
+/// @brief $f(p)$ の素数項 $\mathrm{coef} \cdot p^{\mathrm{pw}}$ を表す
 ///
-/// prefix(x) = Σ_{i=1}^{x} i^pw（pw 乗和の閉じた式）を渡す。
+/// $\mathrm{prefix}(x) = \sum_{i=1}^{x} i^{\mathrm{pw}}$（$\mathrm{pw}$ 乗和の閉じた式）を渡す。
 /// @complexity 項の記述で実行時計算量はない
 template <class T>
 struct Min25Term {
@@ -28,29 +28,30 @@ struct Min25Term {
     /// @complexity $O(1)$
     T coef;
 
-    /// @brief 素数pの指数
+    /// @brief 素数 $p$ の指数
     /// @complexity $O(1)$
     int pw;
 
-    /// @brief 1からxまでのpw乗和を返す関数
+    /// @brief $1$ から $x$ までの $\mathrm{pw}$ 乗和を返す関数
     /// @complexity 呼び出し側が与える関数に依存
     std::function<T(long long)> prefix;
 };
 
-/// @brief Min_25 篩：乗法的関数の累積和を O(N^{3/4} / log N) で計算する
+/// @brief Min_25 篩：乗法的関数の累積和を $O(N^{3/4} / \log N)$ で計算する
 ///
-/// 素数 p での値 f(p) が p の多項式 Σ coef·p^pw で表せる乗法的関数 f について、
-/// S(N) = Σ_{i=1}^{N} f(i) を求める。素数冪での値 f(p^e) は fpe で与える。
+/// 素数 $p$ での値 $f(p)$ が $p$ の多項式 $\sum \mathrm{coef} \cdot p^{\mathrm{pw}}$ で表せる
+/// 乗法的関数 $f$ について、$S(N) = \sum_{i=1}^{N} f(i)$ を求める。素数冪での値 $f(p^e)$ は
+/// `fpe` で与える。
 /// @tparam T 値の型（modint 等）
-/// @tparam Fpe (long long p, int e, long long pe) -> T。pe == p^e で f(p^e) を返す。
+/// @tparam Fpe `(long long p, int e, long long pe) -> T`。`pe` $= p^e$ で $f(p^e)$ を返す。
 /// @complexity 構築は $O(N^{3/4}/\log N)$、`sum` は同じ前計算を利用して計算する
 template <class T, class Fpe>
 struct Min25Sieve {
-    /// @brief 上限n、素数項terms、素数冪関数fpeから構築する
+    /// @brief 上限 `n`、素数項 `terms`、素数冪関数 `fpe` から構築する
     /// @complexity $O(N^{3/4}/\log N)$
     Min25Sieve(long long n, std::vector<Min25Term<T>> terms, Fpe fpe) : N(n), fpe(std::move(fpe)) { build(terms); }
 
-    /// @brief S(N) = Σ_{i=1}^{N} f(i)
+    /// @brief $S(N) = \sum_{i=1}^{N} f(i)$
     /// @complexity $O(N^{3/4}/\log N)$
     T sum() { return N <= 0 ? T(0) : T(1) + rec(N, 0); }
 
@@ -184,7 +185,7 @@ struct Min25Sieve {
     }
 };
 
-/// @brief Min_25 篩で S(N) = Σ_{i=1}^{N} f(i) を計算する（型推論用ヘルパ）
+/// @brief Min_25 篩で $S(N) = \sum_{i=1}^{N} f(i)$ を計算する（型推論用ヘルパ）
 /// @complexity $O(N^{3/4}/\log N)$
 template <class T, class Fpe>
 T min25_sum(long long n, std::vector<Min25Term<T>> terms, Fpe fpe) {

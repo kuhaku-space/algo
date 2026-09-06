@@ -7,17 +7,17 @@ namespace internal {
 
 namespace floor_sum {
 
-/// @param m `1 <= m`
-/// @return x mod m
+/// @param m $1 \le m$
+/// @return $x \bmod m$
 constexpr std::int64_t safe_mod(std::int64_t x, std::int64_t m) {
     x %= m;
     if (x < 0) x += m;
     return x;
 }
 
-/// @param n `n < 2^32`
-/// @param m `1 <= m < 2^32`
-/// @return sum_{i=0}^{n-1} floor((ai + b) / m) (mod 2^64)
+/// @param n $n < 2^{32}$
+/// @param m $1 \le m < 2^{32}$
+/// @return $\sum_{i=0}^{n-1} \lfloor (ai + b) / m \rfloor \pmod{2^{64}}$
 std::uint64_t floor_sum_unsigned(std::uint64_t n, std::uint64_t m, std::uint64_t a, std::uint64_t b) {
     std::uint64_t ans = 0;
     while (true) {

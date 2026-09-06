@@ -2,8 +2,7 @@
 #include <cstdint>
 #include <vector>
 
-/// @brief n以下の素数を数える
-/// @details O(n^(3/4)/log(n))
+/// @brief $n$ 以下の素数を数える
 /// @complexity $O(n^{3/4}/\log n)$
 std::int64_t prime_counting(std::int64_t n) {
     std::int64_t sq = std::sqrt((long double)n);

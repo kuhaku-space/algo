@@ -37,8 +37,8 @@ int longest_common_suffix(const Container &a, const Container &b) {
     return k;
 }
 
-/// @brief s を隙間なく敷き詰める最小の周期を求める (s の長さを割り切る最小の i)
-/// @complexity O(N)
+/// @brief `s` を隙間なく敷き詰める最小の周期を求める（`s` の長さを割り切る最小の $i$）
+/// @complexity $O(n)$
 template <class Container>
 int minimum_period(const Container &s) {
     auto z = z_algorithm(s);
