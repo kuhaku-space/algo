@@ -2,7 +2,7 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "algorithm/prefix_sum_2d.hpp"
 #include "data_structure/range_tree.hpp"
 

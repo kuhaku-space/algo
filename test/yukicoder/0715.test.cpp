@@ -12,7 +12,7 @@ int main(void) {
 
     std::vector<int> dp = {0, 1};
     for (int x = 2; x < 400; ++x) {
-        minimum_excluded mex;
+        Mex mex;
         mex.add(dp[x - 2]);
         for (int i = 0; i < x - 2; ++i) mex.add(dp[i] ^ dp[x - i - 3]);
         dp.emplace_back(mex());

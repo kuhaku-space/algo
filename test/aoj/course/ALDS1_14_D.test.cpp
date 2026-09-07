@@ -43,7 +43,7 @@ bool contains_lcp(const std::string &s, const std::vector<int> &v, const linear_
         }
         return true;
     };
-    int ans = meguru_binary_search(n - 1, -1, f);
+    int ans = binary_search_boundary(n - 1, -1, f);
     return s.substr(v[ans], t.size()) == t;
 }
 

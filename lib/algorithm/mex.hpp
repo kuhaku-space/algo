@@ -4,29 +4,29 @@
 #include <vector>
 
 /// @brief Mex
-struct minimum_excluded {
+struct Mex {
     /// @brief 空の列に対するMex管理器を構築する
     /// @complexity $O(1)$
-    minimum_excluded() : n(), _size(), exists(64), v() {}
+    Mex() : mex(), distinct_count(), exists(64), pending() {}
 
     /// @brief 現在のMexを返す
     /// @complexity $O(1)$
-    constexpr int operator()() const noexcept { return n; }
+    constexpr int operator()() const noexcept { return mex; }
 
     /// @brief 現在のMexを返す
     /// @complexity $O(1)$
-    constexpr int get() const noexcept { return n; }
+    constexpr int get() const noexcept { return mex; }
 
     /// @brief 値を1つ追加する
     /// @complexity 通常 $O(1)$、内部配列の拡張時は保留要素数を $q$ として $O(q)$
     void add(int x) {
         if (x < 0) return;
-        ++_size;
-        if (_size == (int)exists.size()) {
-            exists.resize(_size << 1);
-            std::erase_if(v, [&](int y) {
+        ++distinct_count;
+        if (distinct_count == (int)exists.size()) {
+            exists.resize(distinct_count << 1);
+            std::erase_if(pending, [&](int y) {
                 if (y < (int)exists.size()) {
-                    if (exists[y]) --_size;
+                    if (exists[y]) --distinct_count;
                     else exists[y] = true;
                     return true;
                 }
@@ -34,16 +34,17 @@ struct minimum_excluded {
             });
         }
         if (x < (int)exists.size()) {
-            if (exists[x]) --_size;
+            if (exists[x]) --distinct_count;
             else exists[x] = true;
         } else {
-            v.emplace_back(x);
+            pending.emplace_back(x);
         }
-        while (exists[n]) ++n;
+        while (exists[mex]) ++mex;
     }
 
   private:
-    int n, _size;
+    int mex, distinct_count;
     std::vector<bool> exists;
-    std::vector<int> v;
+    // exists の範囲外の値。exists を広げたときにまとめて取り込む。
+    std::vector<int> pending;
 };

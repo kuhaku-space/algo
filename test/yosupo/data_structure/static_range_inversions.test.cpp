@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "algorithm/mo.hpp"
 #include "data_structure/fenwick_tree.hpp"
 

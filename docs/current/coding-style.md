@@ -26,6 +26,15 @@ title: コーディング規約
 
 - 複数の実装が並立しうる構造は、**アルゴリズム名ではなく役割ベースの名前**を公開名にする
   （`OrderedSet`、`DynamicSequence` のように、内部が splay 木か AVL 木かは名前に出さない）。
+  公開する関数名も同じで、コミュニティの俗称は使わない（`meguru_binary_search` ではなく
+  `binary_search_boundary`）。
+- ファイル名は中身の公開名に合わせる（`CoordinateCompression` なら `coordinate_compression.hpp`、
+  `namespace integer_partition` なら `integer_partition.hpp`）。
+- **メンバ変数は先頭に `_` を付けない**。同名のアクセサと衝突するときだけ `_` を付ける
+  （`size()` があるなら `_size`）。**コンストラクタ引数がメンバ名と衝突するときは引数側に `_`**
+  を付ける（`PrefixSum(int _n) : n(_n)`）。
+- 同じ役割の引数は構造をまたいで同じ名前・同じ順序にする（`Mo`・`RollbackMo` の
+  `solve` は追加・削除系のコールバックを先に、答えを記録する `answer` を最後に置く）。
 - 移行は段階的に行う。一括改名はせず、**そのライブラリを変更するついでに型名を PascalCase 化し、
   `lib/`・`test/` の参照も同時に追随**させる（旧 `segment_tree` 等の名残がある）。
 

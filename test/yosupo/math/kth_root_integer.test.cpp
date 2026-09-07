@@ -34,7 +34,7 @@ int main(void) {
             }
             return q <= a;
         };
-        std::cout << meguru_binary_search(1, 2642246, f) << '\n';
+        std::cout << binary_search_boundary(1, 2642246, f) << '\n';
     }
 
     return 0;
