@@ -5,14 +5,14 @@
 /// @brief 二次元累積和
 /// @tparam T 値の型
 template <class T>
-struct cumulative_sum_2d {
+struct PrefixSum2D {
     /// @brief n行m列の0初期化された表を構築する
     /// @complexity $O(nm)$
-    cumulative_sum_2d(int _n, int _m) : v(_n, std::vector<T>(_m)), n(_n), m(_m) {}
+    PrefixSum2D(int _n, int _m) : v(_n, std::vector<T>(_m)), n(_n), m(_m) {}
 
     /// @brief 二次元配列から累積和を構築する
     /// @complexity 行数を $n$、列数を $m$ として $O(nm)$
-    cumulative_sum_2d(const std::vector<std::vector<T>> &_v) : v(_v) { build(); }
+    PrefixSum2D(const std::vector<std::vector<T>> &_v) : v(_v) { build(); }
 
     /// @brief build前の1要素を設定する
     /// @complexity $O(1)$
