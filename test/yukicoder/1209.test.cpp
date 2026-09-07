@@ -18,7 +18,7 @@ int main(void) {
         c[i] = a[i] ^ a[i + 1];
         d[i] = b[i] ^ b[i + 1];
     }
-    std::cout << swap_distance(c, d) << '\n';
+    std::cout << adjacent_swap_distance(c, d) << '\n';
 
     return 0;
 }
