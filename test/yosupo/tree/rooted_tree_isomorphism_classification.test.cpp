@@ -23,10 +23,10 @@ int main(void) {
         raw_hash[v] = combined;
     }
 
-    coordinate_compression<std::uint64_t> cc(raw_hash);
-    auto id = cc.compress(raw_hash);
+    CoordinateCompression<std::uint64_t> cps(raw_hash);
+    auto id = cps.compress(raw_hash);
 
-    std::cout << cc.size() << '\n';
+    std::cout << cps.size() << '\n';
     for (int i = 0; i < n; ++i) std::cout << id[i] << " \n"[i == n - 1];
 
     return 0;

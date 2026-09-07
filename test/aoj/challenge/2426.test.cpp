@@ -19,7 +19,7 @@ int main(void) {
     for (int i = 0; i < n; ++i) rt.set(x[i], y[i], rt.get(x[i], y[i]) + 1);
 
     // 座標圧縮 + 2 次元累積和でオフラインに前計算する版。
-    coordinate_compression<int> cps_x, cps_y;
+    CoordinateCompression<int> cps_x, cps_y;
     for (int i = 0; i < n; ++i) cps_x.add(x[i]), cps_y.add(y[i]);
     cps_x.build(), cps_y.build();
     PrefixSum2D<int> cs(cps_x.size(), cps_y.size());
@@ -30,7 +30,8 @@ int main(void) {
         int a, b, c, d;
         std::cin >> a >> b >> c >> d;
         int ans_rt = rt.prod(a, b, c + 1, d + 1);
-        int ans_cs = cs.sum(cps_x.get(a), cps_y.get(b), cps_x.get(c + 1), cps_y.get(d + 1));
+        int ans_cs =
+            cs.sum(cps_x.lower_bound(a), cps_y.lower_bound(b), cps_x.lower_bound(c + 1), cps_y.lower_bound(d + 1));
         assert(ans_rt == ans_cs);
         std::cout << ans_rt << '\n';
     }

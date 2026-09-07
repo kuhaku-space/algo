@@ -14,7 +14,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     edge_input<void> ei(n - 1);
     auto g = ei.to_undirected(n);
-    coordinate_compression cps(a);
+    CoordinateCompression cps(a);
     a = cps.compress(a);
     std::vector<int> in(n), val(n * 2), w(n * 2);
     int c = 0;
