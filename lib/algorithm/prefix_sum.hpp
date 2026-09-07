@@ -10,7 +10,7 @@ template <class T = std::int64_t, bool RangeAdd = false>
 struct PrefixSum {
     /// @brief 空の累積和を構築する
     /// @complexity $O(1)$
-    PrefixSum() = default;
+    PrefixSum() : PrefixSum(0) {}
 
     /// @brief 長さnの0列を構築する
     /// @complexity $O(n)$
