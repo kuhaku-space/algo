@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "algorithm/binary_search.hpp"
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "data_structure/wavelet_matrix_rectangle_sum.hpp"
 #include "graph/edge_input.hpp"
 #include "tree/linear_lca.hpp"
@@ -41,7 +41,7 @@ int main(void) {
                        wm.rect_sum(0, in[lca(u, v)], y) <
                    k;
         };
-        auto ans = meguru_binary_search(0, cps.size() + 1, f);
+        auto ans = binary_search_boundary(0, cps.size() + 1, f);
         std::cout << cps[ans] << '\n';
     }
 

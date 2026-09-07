@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iterator>
 #include <vector>
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "segtree/segment_tree.hpp"
 
 /// @brief 要素を特定のキー（条件）でフィルタリングして区間取得を行えるセグメント木

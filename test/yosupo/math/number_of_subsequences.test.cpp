@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "number_theory/modint.hpp"
 
 using Mint = modint998;

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <numeric>
 #include <vector>
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "data_structure/fenwick_tree.hpp"
 
 /// @brief 転倒数

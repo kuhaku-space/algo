@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "algorithm/compress.hpp"
+#include "algorithm/coordinate_compression.hpp"
 #include "internal/internal_bit_vector.hpp"
 #include "internal/wavelet_matrix_base.hpp"
 
