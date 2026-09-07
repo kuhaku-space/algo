@@ -30,7 +30,7 @@ int main(void) {
         int a, b, c, d;
         std::cin >> a >> b >> c >> d;
         int ans_rt = rt.prod(a, b, c + 1, d + 1);
-        int ans_cs = cs.get(cps_x.get(a), cps_y.get(b), cps_x.get(c + 1), cps_y.get(d + 1));
+        int ans_cs = cs.sum(cps_x.get(a), cps_y.get(b), cps_x.get(c + 1), cps_y.get(d + 1));
         assert(ans_rt == ans_cs);
         std::cout << ans_rt << '\n';
     }

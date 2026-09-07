@@ -107,6 +107,6 @@ struct PrefixSum {
     }
 
   private:
-    int n;
+    int n = 0;
     std::vector<T> data;
 };
