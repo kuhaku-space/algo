@@ -76,6 +76,9 @@ MEMBER_GROUPS = (
 # 実装詳細と提出用テンプレート。リンク先としてページは作るが、一覧では最後に置く。
 SUPPORTING_CATEGORIES = ("internal", "template")
 
+# バッククォートで囲まれた部分。表のセル区切りの判定から外れる。
+CODE_SPAN_RE = re.compile(r"(`[^`]*`)")
+
 HEADER_GROUPS = (
     ("クラス", ("class",)),
     ("コンセプト", ("concept",)),
@@ -102,8 +105,19 @@ def slugify(name: str) -> str:
     return name
 
 
+def escape_text(text: str) -> str:
+    """本文の `|` を退避する。kramdown は `|` を含む行を表と解釈する。
+
+    バッククォートの中は kramdown がセル区切りとして扱わないため、そのまま残す。
+    """
+    return "".join(
+        part if index % 2 else part.replace("|", r"\|")
+        for index, part in enumerate(CODE_SPAN_RE.split(text))
+    )
+
+
 def escape_cell(text: str) -> str:
-    return text.replace("|", r"\|").replace("\n", "<br>")
+    return escape_text(text).replace("\n", "<br>")
 
 
 def code(text: str) -> str:
@@ -176,7 +190,7 @@ def front_matter(values: dict[str, str]) -> str:
 
 def describe_paragraphs(section: Section, doc: DocBlock) -> None:
     for detail in doc.details:
-        section.add(detail)
+        section.add(escape_text(detail))
 
 
 def render_parameters(section: Section, doc: DocBlock, level: int = 2) -> None:
@@ -198,22 +212,22 @@ def render_result(section: Section, doc: DocBlock, level: int = 2) -> None:
     if doc.returns:
         section.heading(level, "戻り値")
         for value in doc.returns:
-            section.add(value)
+            section.add(escape_text(value))
     if doc.preconditions:
         section.heading(level, "事前条件")
-        section.add("\n".join(f"- {value}" for value in doc.preconditions))
+        section.add("\n".join(f"- {escape_text(value)}" for value in doc.preconditions))
     if doc.complexities:
         section.heading(level, "計算量")
-        section.add("\n".join(f"- {value}" for value in doc.complexities))
+        section.add("\n".join(f"- {escape_text(value)}" for value in doc.complexities))
 
 
 def render_notes(section: Section, doc: DocBlock, level: int = 2) -> None:
     if doc.warnings:
         section.heading(level, "注意")
-        section.add("\n".join(f"- {value}" for value in doc.warnings))
+        section.add("\n".join(f"- {escape_text(value)}" for value in doc.warnings))
     if doc.notes:
         section.heading(level, "備考")
-        section.add("\n".join(f"- {value}" for value in doc.notes))
+        section.add("\n".join(f"- {escape_text(value)}" for value in doc.notes))
 
 
 def render_references(section: Section, doc: DocBlock) -> None:
@@ -225,7 +239,7 @@ def render_references(section: Section, doc: DocBlock) -> None:
         if reference.startswith(("http://", "https://")):
             items.append(f"- [{reference}]({reference})")
         else:
-            items.append(f"- {reference}")
+            items.append(f"- {escape_text(reference)}")
     section.add("\n".join(items))
 
 
@@ -271,14 +285,17 @@ def doc_bullets(doc: DocBlock) -> str:
     """パラメータや戻り値を箇条書き 1 つにまとめる。"""
     bullets: list[str] = []
     bullets.extend(
-        f"- **テンプレートパラメータ** {code(name)}: {text}" for name, text in doc.tparams
+        f"- **テンプレートパラメータ** {code(name)}: {escape_text(text)}"
+        for name, text in doc.tparams
     )
-    bullets.extend(f"- **パラメータ** {code(name)}: {text}" for name, text in doc.params)
-    bullets.extend(f"- **戻り値**: {value}" for value in doc.returns)
-    bullets.extend(f"- **事前条件**: {value}" for value in doc.preconditions)
-    bullets.extend(f"- **計算量**: {value}" for value in doc.complexities)
-    bullets.extend(f"- **注意**: {value}" for value in doc.warnings)
-    bullets.extend(f"- **備考**: {value}" for value in doc.notes)
+    bullets.extend(
+        f"- **パラメータ** {code(name)}: {escape_text(text)}" for name, text in doc.params
+    )
+    bullets.extend(f"- **戻り値**: {escape_text(value)}" for value in doc.returns)
+    bullets.extend(f"- **事前条件**: {escape_text(value)}" for value in doc.preconditions)
+    bullets.extend(f"- **計算量**: {escape_text(value)}" for value in doc.complexities)
+    bullets.extend(f"- **注意**: {escape_text(value)}" for value in doc.warnings)
+    bullets.extend(f"- **備考**: {escape_text(value)}" for value in doc.notes)
     return "\n".join(bullets)
 
 
@@ -377,7 +394,7 @@ class ReferenceRenderer:
         section.add(f"*{header.relative_path}*")
         if header.summary:
             section.heading(2, "概要")
-            section.add(header.summary)
+            section.add(escape_text(header.summary))
         section.heading(2, "インクルード")
         section.cpp(f'#include "{header.include}"')
 
@@ -475,7 +492,7 @@ class ReferenceRenderer:
             doc = groups[0][1]
             if doc.brief or doc.details:
                 section.heading(2, "概要")
-                section.add(doc.brief)
+                section.add(escape_text(doc.brief))
                 describe_paragraphs(section, doc)
             render_parameters(section, doc)
             render_result(section, doc)
@@ -485,7 +502,7 @@ class ReferenceRenderer:
         section.heading(2, "概要")
         for numbers, doc in groups:
             label = overload_label(numbers)
-            section.add(f"**{label}** {doc.brief}".strip())
+            section.add(f"**{label}** {escape_text(doc.brief)}".strip())
             describe_paragraphs(section, doc)
             section.add(doc_bullets(doc))
 
@@ -531,7 +548,7 @@ class ReferenceRenderer:
                     if len(member.overloads) > 1
                     else ""
                 )
-                section.add(f"{prefix}{doc.brief}".strip())
+                section.add(f"{prefix}{escape_text(doc.brief)}".strip())
                 describe_paragraphs(section, doc)
                 section.add(doc_bullets(doc))
             if member.members:

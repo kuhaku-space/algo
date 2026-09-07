@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -22,7 +23,11 @@ from reference.parse import (
 )
 from reference.render import (
     ReferenceRenderer,
+    Section,
     overload_groups,
+    render_notes,
+    render_parameters,
+    render_result,
     signature_block,
     slugify,
 )
@@ -241,6 +246,38 @@ class LibraryTest(unittest.TestCase):
             key = name.lower()
             self.assertNotIn(key, seen, f"{name} と {seen.get(key)} が衝突します")
             seen[key] = name
+
+    def test_prose_pipes_are_escaped(self) -> None:
+        """kramdown は `|` を含む行を表と解釈するので、地の文の `|` は退避されていること。"""
+        for name, content in self.files.items():
+            body = content.split("---\n", 2)[-1]
+            in_code = False
+            for number, line in enumerate(body.splitlines(), start=1):
+                if line.startswith("```"):
+                    in_code = not in_code
+                    continue
+                if in_code or line.startswith("|"):
+                    continue
+                # バッククォートの中の `|` は kramdown がセル区切りにしない。
+                with self.subTest(page=name, line=number):
+                    self.assertNotRegex(re.sub(r"`[^`]*`", "", line), r"(?<!\\)\|")
+
+
+class EscapeTest(unittest.TestCase):
+    def test_pipes_in_math_are_escaped(self) -> None:
+        section = Section()
+        render_result(section, doc("@complexity 初期間隔を $D=|ok-ng|$ として $O(\\log D)$"))
+        self.assertIn(r"- 初期間隔を $D=\|ok-ng\|$ として $O(\log D)$", section.render())
+
+    def test_pipes_in_a_table_cell_are_escaped(self) -> None:
+        section = Section()
+        render_parameters(section, doc("@param x $|x|$ の上限"))
+        self.assertIn(r"| `x` | $\|x\|$ の上限 |", section.render())
+
+    def test_pipes_in_a_code_span_are_kept(self) -> None:
+        section = Section()
+        render_notes(section, doc("@note `a | b` はビット和"))
+        self.assertIn("- `a | b` はビット和", section.render())
 
 
 if __name__ == "__main__":
