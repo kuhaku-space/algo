@@ -20,7 +20,7 @@ struct filtered_segment_tree {
     /// @complexity $O(N \log N)$
     filtered_segment_tree(const std::vector<K> &keys, const std::vector<T> &values)
         : n(keys.size()), values(values), leaf_indices(n) {
-        unique_keys = coordinate_compression<K>(keys);
+        unique_keys = CoordinateCompression<K>(keys);
         int num_keys = unique_keys.size();
 
         compressed_keys = unique_keys.compress(keys);
@@ -60,7 +60,7 @@ struct filtered_segment_tree {
     /// @return 対象要素の総積。存在しない場合はモノイドの単位元
     /// @complexity $O(\log N)$
     T prod(int l, int r, K key) const {
-        if (!unique_keys.exists(key)) return M::id();
+        if (!unique_keys.contains(key)) return M::id();
         int key_idx = unique_keys.get(key);
 
         const auto &positions = key_positions[key_idx];
@@ -87,7 +87,7 @@ struct filtered_segment_tree {
     int n;
     std::vector<T> values;
     std::vector<int> compressed_keys;
-    coordinate_compression<K> unique_keys;
+    CoordinateCompression<K> unique_keys;
     std::vector<int> leaf_indices;
     std::vector<std::vector<int>> key_positions;
     std::vector<int> tree_offsets;

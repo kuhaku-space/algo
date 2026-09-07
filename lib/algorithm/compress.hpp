@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <cassert>
 #include <iterator>
 #include <vector>
 
@@ -7,15 +8,15 @@
 /// @tparam T 座標の型
 /// @complexity 型宣言に実行時計算量はない
 template <class T>
-struct coordinate_compression {
+struct CoordinateCompression {
     /// @brief 空の座標圧縮器を構築する
     /// @complexity $O(1)$
-    coordinate_compression() = default;
+    CoordinateCompression() = default;
 
     /// @brief 与えた列から座標圧縮器を構築する
     /// @param _data 圧縮対象の列
     /// @complexity 要素数を $n$ として $O(n\log n)$
-    coordinate_compression(const std::vector<T> &_data) : data(_data) { build(); }
+    CoordinateCompression(const std::vector<T> &_data) : data(_data) { build(); }
 
     /// @brief 圧縮後の番号から元の値を返す
     /// @complexity $O(1)$
@@ -42,24 +43,32 @@ struct coordinate_compression {
 
     /// @brief 値が登録されているか返す
     /// @complexity $O(\log n)$
-    bool exists(T x) const {
+    bool contains(T x) const {
         auto it = std::lower_bound(data.begin(), data.end(), x);
         return it != data.end() && *it == x;
     }
 
-    /// @brief 値以上となる最初の圧縮番号を返す
+    /// @brief 登録された値の圧縮番号を返す
+    /// @details `x` は登録済みでなければならない。未登録の値を含む境界を扱うなら
+    ///          `lower_bound` / `upper_bound` を使う。
     /// @complexity $O(\log n)$
-    int get(T x) const { return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x)); }
+    int get(T x) const {
+        assert(contains(x));
+        return lower_bound(x);
+    }
 
     /// @brief 値以上となる最初の圧縮番号を返す
+    /// @details `x` は登録済みでなくてよい。半開区間の左端に使う。
     /// @complexity $O(\log n)$
     int lower_bound(T x) const { return std::distance(data.begin(), std::lower_bound(data.begin(), data.end(), x)); }
 
     /// @brief 値より大きくなる最初の圧縮番号を返す
+    /// @details `x` は登録済みでなくてよい。閉区間の右端に使う。
     /// @complexity $O(\log n)$
     int upper_bound(T x) const { return std::distance(data.begin(), std::upper_bound(data.begin(), data.end(), x)); }
 
     /// @brief 列の各値を圧縮番号へ変換する
+    /// @details 各要素は登録済みでなければならない。
     /// @complexity 入力長を $k$ として $O(k\log n)$
     std::vector<int> compress(const std::vector<T> &v) const {
         int n = v.size();
@@ -82,9 +91,5 @@ struct coordinate_compression {
 /// @complexity 要素数を $n$ として $O(n\log n)$
 template <class T>
 std::vector<int> compress(const std::vector<T> &v) {
-    coordinate_compression cps(v);
-    std::vector<int> res;
-    res.reserve(std::size(v));
-    for (auto &&x : v) res.emplace_back(cps.get(x));
-    return res;
+    return CoordinateCompression(v).compress(v);
 }

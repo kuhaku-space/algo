@@ -118,7 +118,7 @@ struct CompressedWaveletMatrix {
     /// @brief $0 \le i < r$ かつ $v_i=x$ を満たす要素数を返す
     /// @complexity $O(L+\log n)$
     int rank(int r, T x) const {
-        auto pos = cps.get(x);
+        auto pos = cps.lower_bound(x);
         if (pos == cps.size() || cps[pos] != x) return 0;
         return mat.rank(r, pos);
     }
@@ -137,19 +137,19 @@ struct CompressedWaveletMatrix {
 
     /// @brief 区間 $[l,r)$ にある `upper` 未満の要素数を返す
     /// @complexity $O(L+\log n)$
-    int range_freq(int l, int r, T upper) const { return mat.range_freq(l, r, cps.get(upper)); }
+    int range_freq(int l, int r, T upper) const { return mat.range_freq(l, r, cps.lower_bound(upper)); }
 
     /// @brief 区間 $[l,r)$ にある $[lower,upper)$ 内の要素数を返す
     /// @complexity $O(L+\log n)$
     int range_freq(int l, int r, T lower, T upper) const {
-        return mat.range_freq(l, r, cps.get(lower), cps.get(upper));
+        return mat.range_freq(l, r, cps.lower_bound(lower), cps.lower_bound(upper));
     }
 
     /// @brief 区間 $[l,r)$ にある `upper` 未満の最大値を返す
     /// @details 該当する値がなければ `T(-1)` を返す。
     /// @complexity $O(L+\log n)$
     T prev_value(int l, int r, T upper) const {
-        auto res = mat.prev_value(l, r, cps.get(upper));
+        auto res = mat.prev_value(l, r, cps.lower_bound(upper));
         return res == -1 ? T(-1) : cps[res];
     }
 
@@ -157,11 +157,11 @@ struct CompressedWaveletMatrix {
     /// @details 該当する値がなければ `T(-1)` を返す。
     /// @complexity $O(L+\log n)$
     T next_value(int l, int r, T lower) const {
-        auto res = mat.next_value(l, r, cps.get(lower));
+        auto res = mat.next_value(l, r, cps.lower_bound(lower));
         return res == -1 ? T(-1) : cps[res];
     }
 
   private:
     WaveletMatrix<int, L> mat;
-    coordinate_compression<T> cps;
+    CoordinateCompression<T> cps;
 };
