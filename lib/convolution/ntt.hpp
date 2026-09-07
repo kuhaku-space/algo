@@ -46,7 +46,7 @@ static constexpr int CONVOLUTION_NAIVE_THRESHOLD = 60;
 /// @tparam mint NTT-friendly な static modint (mod - 1 が畳み込み長で割り切れること)
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<mint> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @return `std::vector<mint>` a と b の畳み込み (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N \log N)$
 template <internal::static_modint_c mint>
 std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint> &b) {
@@ -65,7 +65,7 @@ std::vector<mint> convolution(const std::vector<mint> &a, const std::vector<mint
 /// @details a を自身と畳み込む。順変換を 1 回に削減できるため convolution(a, a) より速い。
 /// @tparam mint NTT-friendly な static modint
 /// @param a 入力多項式の係数列
-/// @return std::vector<mint> a と a の畳み込み (長さ 2 * a.size() - 1)
+/// @return `std::vector<mint>` a と a の畳み込み (長さ `2 * a.size() - 1`)
 /// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348
 /// @complexity 出力長を $N$ として $O(N \log N)$
 template <internal::static_modint_c mint>
@@ -85,7 +85,7 @@ std::vector<mint> convolution_square(const std::vector<mint> &a) {
 /// @tparam T 整数型 (std::integral)
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
+/// @return `std::vector<T>` a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N \log N)$
 template <unsigned int mod = 998244353, std::integral T>
 std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
@@ -113,7 +113,7 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
 /// @tparam mint NTT-friendly な static modint
 /// @param a 長さ $n$ の係数列
 /// @param b 長さ $m$（$m \le n$）の係数列
-/// @return std::vector<mint> $c_i = \sum_j a_{i+j} b_j$（長さ $n-m+1$）
+/// @return `std::vector<mint>` $c_i = \sum_j a_{i+j} b_j$（長さ $n-m+1$）
 /// @see https://noshi91.hatenablog.com/entry/2023/12/10/163348
 /// @complexity $n = |a|$ として $O(n \log n)$
 template <internal::static_modint_c mint>
@@ -134,7 +134,7 @@ std::vector<mint> middle_product(const std::vector<mint> &a, const std::vector<m
 /// @note 畳み込み後の長さは $2^{24}$（約 $1.6 \times 10^7$）以下でなければならない。
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<std::int64_t> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @return `std::vector<std::int64_t>` a と b の畳み込み (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N \log N)$
 std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a, const std::vector<std::int64_t> &b) {
     int n = int(a.size()), m = int(b.size());
@@ -177,7 +177,7 @@ std::vector<std::int64_t> convolution_ll(const std::vector<std::int64_t> &a, con
 /// @note 畳み込み後の長さは $2^{24}$（約 $1.6 \times 10^7$）以下でなければならない。
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<std::int64_t> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @return `std::vector<std::int64_t>` a と b の畳み込み (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N \log N)$
 std::vector<std::int64_t> convolution_ll2(const std::vector<std::int64_t> &a, const std::vector<std::int64_t> &b) {
     int n = int(a.size()), m = int(b.size());
@@ -215,7 +215,7 @@ std::vector<std::int64_t> convolution_ll2(const std::vector<std::int64_t> &a, co
 /// @tparam T 整数型 (std::integral)
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
+/// @return `std::vector<T>` a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
 /// @see https://math314.hateblo.jp/entry/2015/05/07/014908
 /// @see https://asako.growi.cloud/compro/NTT
 /// @complexity 出力長を $N$ として $O(N \log N)$

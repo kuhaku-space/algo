@@ -192,7 +192,7 @@ struct DynamicSequence {
         root = merge3(a, b, c);
     }
 
-    /// @brief prod(i) < key <= prod(i + 1) となる i（すべての i で prod(i) < key なら size()）
+    /// @brief `prod(i) < key <= prod(i + 1)` となる i（すべての i で `prod(i) < key` なら `size()`）
     /// @complexity 償却 $O(\log n)$
     int lower_bound(T key) {
         if (!(S::id() < key)) return 0;

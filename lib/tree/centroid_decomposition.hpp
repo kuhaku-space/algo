@@ -159,7 +159,7 @@ struct centroid_decomposition {
 
 /// @brief 重心分解木の親配列だけを返す簡易版。
 /// @param g 木
-/// @return std::vector<int> 重心分解木における各頂点の親（根は -1）
+/// @return `std::vector<int>` 重心分解木における各頂点の親（根は -1）
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
 /// @complexity $O(n\log n)$
 template <graph_type G>

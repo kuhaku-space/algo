@@ -196,7 +196,7 @@ constexpr std::int64_t pow_mod_constexpr(std::int64_t x, std::int64_t n, int m) 
 }
 
 /// @param b `1 <= b`
-/// @return pair(g, x) s.t. g = gcd(a, b), xa = g (mod b), 0 <= x < b/g
+/// @return pair(g, x) s.t. g = gcd(a, b), xa = g (mod b), `0 <= x < b/g`
 constexpr std::pair<std::int64_t, std::int64_t> inv_gcd(std::int64_t a, std::int64_t b) {
     a = safe_mod(a, b);
     if (a == 0) return {b, 0};

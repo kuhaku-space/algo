@@ -19,14 +19,14 @@ struct WaveletMatrixCore {
     }
     T operator[](int k) const { return access(k); }
 
-    /// count i s.t. (0 <= i < r) && v[i] == x
+    /// count i s.t. `(0 <= i < r) && v[i] == x`
     int rank(int r, T x) const {
         int l = 0;
         for (int level = L - 1; level >= 0; --level) std::tie(l, r) = succ((x >> level) & 1, l, r, level);
         return r - l;
     }
 
-    /// count i s.t. (l <= i < r) && v[i] == x
+    /// count i s.t. `(l <= i < r) && v[i] == x`
     int rank(int l, int r, T x) const { return rank(r, x) - rank(l, x); }
 
     /// k-th smallest number in v[l ... r-1]
@@ -48,7 +48,7 @@ struct WaveletMatrixCore {
     /// k-th largest number in v[l ... r-1]
     T kth_largest(int l, int r, int k) const { return kth_smallest(l, r, r - l - k - 1); }
 
-    /// count i s.t. (l <= i < r) && (v[i] < upper)
+    /// count i s.t. `(l <= i < r) && (v[i] < upper)`
     int range_freq(int l, int r, T upper) const {
         int res = 0;
         for (int level = L - 1; level >= 0; --level) {
@@ -59,16 +59,16 @@ struct WaveletMatrixCore {
         return res;
     }
 
-    /// count i s.t. (l <= i < r) && (lower <= v[i] < upper)
+    /// count i s.t. `(l <= i < r) && (lower <= v[i] < upper)`
     int range_freq(int l, int r, T lower, T upper) const { return range_freq(l, r, upper) - range_freq(l, r, lower); }
 
-    /// max v[i] s.t. (l <= i < r) && (v[i] < upper)
+    /// max v[i] s.t. `(l <= i < r) && (v[i] < upper)`
     T prev_value(int l, int r, T upper) const {
         int cnt = range_freq(l, r, upper);
         return cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1);
     }
 
-    /// min v[i] s.t. (l <= i < r) && (lower <= v[i])
+    /// min v[i] s.t. `(l <= i < r) && (lower <= v[i])`
     T next_value(int l, int r, T lower) const {
         int cnt = range_freq(l, r, lower);
         return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);
