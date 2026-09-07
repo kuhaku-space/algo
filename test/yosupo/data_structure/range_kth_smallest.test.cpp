@@ -2,7 +2,6 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
-#include "data_structure/compressed_wavelet_matrix.hpp"
 #include "data_structure/wavelet_matrix.hpp"
 
 int main(void) {
