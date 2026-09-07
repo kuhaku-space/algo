@@ -7,8 +7,10 @@ on:
       - main
   pull_request:
   schedule:
-    # Weekly re-verification; also keeps the result cache warm.
-    - cron: "0 18 * * 0"
+    # Twice weekly re-verification; also keeps the caches warm. A 7-day interval
+    # has no slack against the 7-day cache eviction window, and scheduled runs
+    # are delayed by up to a few hours. Off the top of the hour to reduce delay.
+    - cron: "35 18 * * 0,3"
   workflow_dispatch:
     inputs:
       ignore_prev_result:
