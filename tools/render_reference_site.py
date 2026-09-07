@@ -19,7 +19,7 @@ import sys
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, NamedTuple
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DOCS_DIR = ROOT / ".verify-helper" / "docs"
@@ -336,6 +336,14 @@ def copy_plain_markdown(root: Path, destination: Path) -> None:
         )
 
 
+class SiteCounts(NamedTuple):
+    """組み立てたページ数。CLI のログとジョブサマリーに出す。"""
+
+    header_pages: int
+    entity_pages: int
+    verification_pages: int
+
+
 def build_site(
     *,
     root: Path,
@@ -344,7 +352,7 @@ def build_site(
     destination: Path,
     verify_files_path: Path | None,
     verify_result_path: Path | None,
-) -> tuple[int, int]:
+) -> SiteCounts:
     if verify_files_path is None or verify_result_path is None:
         verify_input, verify_result = synthesize_verify_input(root)
     else:
@@ -558,17 +566,30 @@ def build_site(
         encoding="utf-8",
     )
 
+    return SiteCounts(
+        header_pages=len(header_pages),
+        entity_pages=len(reference_pages) - len(header_pages),
+        verification_pages=len(test_files),
+    )
+
+
+def write_step_summary(counts: SiteCounts, destination: Path) -> None:
+    """GitHub Actions のジョブサマリーに組み立て結果を残す。
+
+    テストからの `build_site()` 呼び出しでサマリーが汚れないよう、
+    書き込みは CLI 実行時だけに限る。
+    """
     summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
-    if summary_path:
-        with Path(summary_path).open("a", encoding="utf-8") as summary:
-            summary.write(
-                "### Reference documentation\n\n"
-                f"- Header pages: {len(header_pages)}\n"
-                f"- Entity pages: {len(reference_pages) - len(header_pages)}\n"
-                f"- Verification pages: {len(test_files)}\n"
-                f"- Destination: `{destination}`\n"
-            )
-    return len(reference_pages), len(test_files)
+    if not summary_path:
+        return
+    with Path(summary_path).open("a", encoding="utf-8") as summary:
+        summary.write(
+            "### Reference documentation\n\n"
+            f"- Header pages: {counts.header_pages}\n"
+            f"- Entity pages: {counts.entity_pages}\n"
+            f"- Verification pages: {counts.verification_pages}\n"
+            f"- Destination: `{destination}`\n"
+        )
 
 
 def main() -> int:
@@ -588,12 +609,13 @@ def main() -> int:
     if not args.offline and (args.verify_files is None or args.verify_result is None):
         parser.error("--verify-files と --verify-result、または --offline が必要です")
 
+    destination = args.destination.resolve()
     try:
-        reference_count, verification_count = build_site(
+        counts = build_site(
             root=ROOT,
             docs_dir=args.docs_dir.resolve(),
             generated_dir=args.generated_dir.resolve(),
-            destination=args.destination.resolve(),
+            destination=destination,
             verify_files_path=None if args.offline else args.verify_files.resolve(),
             verify_result_path=None if args.offline else args.verify_result.resolve(),
         )
@@ -601,9 +623,10 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
         return 1
     print(
-        f"reference site: {reference_count} reference pages / "
-        f"{verification_count} verification pages"
+        f"reference site: {counts.header_pages + counts.entity_pages} reference pages / "
+        f"{counts.verification_pages} verification pages"
     )
+    write_step_summary(counts, destination)
     return 0
 
 
