@@ -224,12 +224,13 @@ struct BigInt {
         res.sign = false;
         return res;
     }
-    /// |*this| < |rhs| を返す。
+    /// @brief 絶対値の比較 `|*this| < |rhs|` を返す
     /// @complexity $O(n)$
     bool abs_less(const BigInt &rhs) const { return abs_less_data(data, rhs.data); }
 
-    /// 商と余りを同時に返す ({*this / rhs, *this % rhs})。除算を 1 回で済ませられる。
-    /// 余りは被除数 (*this) と同符号 (truncation 方向、operator% と同じ規約)。
+    /// @brief 商と余りを同時に返す
+    /// @details `{*this / rhs, *this % rhs}` を返す。除算を 1 回で済ませられる。
+    ///          余りは被除数 `*this` と同符号（truncation 方向、`operator%` と同じ規約）。
     /// @complexity $O(M(n)\log n)$
     std::pair<BigInt, BigInt> div_mod(const BigInt &rhs) const { return divmod(*this, rhs); }
 

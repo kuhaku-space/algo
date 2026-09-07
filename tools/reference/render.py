@@ -76,8 +76,12 @@ MEMBER_GROUPS = (
 # 実装詳細と提出用テンプレート。リンク先としてページは作るが、一覧では最後に置く。
 SUPPORTING_CATEGORIES = ("internal", "template")
 
-# バッククォートで囲まれた部分。表のセル区切りの判定から外れる。
-CODE_SPAN_RE = re.compile(r"(`[^`]*`)")
+# 地の文・コードスパン・数式の切り分け。奇数番目がコードスパンか数式になる。
+SEGMENT_RE = re.compile(r"(`[^`]*`|\$[^$\n]*\$)")
+
+# 数式の中で kramdown が別の意味に取る文字。`\` は `\_` のように次の文字ごと
+# 食われるので、常に二重にして MathJax へ原文のまま渡す。
+MATH_SPECIAL_RE = re.compile(r"([\\_*<>|`'\"])")
 
 HEADER_GROUPS = (
     ("クラス", ("class",)),
@@ -105,15 +109,32 @@ def slugify(name: str) -> str:
     return name
 
 
-def escape_text(text: str) -> str:
-    """本文の `|` を退避する。kramdown は `|` を含む行を表と解釈する。
+def escape_prose(text: str) -> str:
+    """地の文を退避する。`|` は表のセル区切り、`<` は HTML タグとして解釈される。"""
+    return text.replace("|", r"\|").replace("<", r"\<")
 
-    バッククォートの中は kramdown がセル区切りとして扱わないため、そのまま残す。
+
+def escape_math(span: str) -> str:
+    r"""数式を退避する。kramdown が触ると MathJax に渡る前に原文が変わってしまう。
+
+    `\_` のバックスラッシュ、強調になる `_`・`*`、HTML タグになる `<`、
+    スマートクォートになる `'` などが対象。
     """
-    return "".join(
-        part if index % 2 else part.replace("|", r"\|")
-        for index, part in enumerate(CODE_SPAN_RE.split(text))
-    )
+    return "$" + MATH_SPECIAL_RE.sub(r"\\\1", span[1:-1]) + "$"
+
+
+def escape_text(text: str) -> str:
+    """本文を kramdown が誤解釈しないように退避する。
+
+    バッククォートの中は kramdown がそのまま通すので触らない。
+    """
+    parts = SEGMENT_RE.split(text)
+    for index, part in enumerate(parts):
+        if index % 2 == 0:
+            parts[index] = escape_prose(part)
+        elif part.startswith("$"):
+            parts[index] = escape_math(part)
+    return "".join(parts)
 
 
 def escape_cell(text: str) -> str:
@@ -313,7 +334,8 @@ def column_values(groups: list[tuple[list[int], DocBlock]], select) -> str:
     unique = {text for _, text in labelled}
     if len(unique) == 1:
         return escape_cell(labelled[0][1])
-    return escape_cell("<br>".join(f"{label} {text}" for label, text in labelled))
+    # `<br>` は退避の対象なので、セルの中身を退避してから連結する。
+    return "<br>".join(f"{label} {escape_cell(text)}" for label, text in labelled)
 
 
 
@@ -390,7 +412,7 @@ class ReferenceRenderer:
 
     def render_header(self, header: Header) -> str:
         section = Section()
-        section.heading(1, header.title)
+        section.heading(1, escape_text(header.title))
         section.add(f"*{header.relative_path}*")
         if header.summary:
             section.heading(2, "概要")
@@ -461,7 +483,7 @@ class ReferenceRenderer:
         section.heading(1, entity.name)
         section.add(
             f"*{KIND_LABELS.get(entity.kind, entity.kind)}* · "
-            f"[{header.title}](../{header.stem}.md)"
+            f"[{escape_text(header.title)}](../{header.stem}.md)"
         )
         section.cpp(signature_block(entity))
         self.render_description(section, entity)

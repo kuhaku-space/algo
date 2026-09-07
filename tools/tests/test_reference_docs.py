@@ -3,12 +3,13 @@ from __future__ import annotations
 import re
 import sys
 import unittest
+from collections.abc import Iterator
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from reference.check import load_config, unformatted_math
-from reference.model import DocBlock, Entity, Overload
+from reference.model import DocBlock, Entity, Header, Overload
 from reference.parse import (
     extract_entities,
     format_signature,
@@ -22,8 +23,10 @@ from reference.parse import (
     symbol_and_kind,
 )
 from reference.render import (
+    SEGMENT_RE,
     ReferenceRenderer,
     Section,
+    escape_text,
     overload_groups,
     render_notes,
     render_parameters,
@@ -31,6 +34,69 @@ from reference.render import (
     signature_block,
     slugify,
 )
+
+# kramdown が出力時に取り除くエスケープ（ESCAPED_CHARS）。
+KRAMDOWN_ESCAPED = re.compile(r"\\([\\.*_+`<>()\[\]{}#!:|\"'$=-])")
+
+
+def kramdown_unescape(text: str) -> str:
+    """kramdown のエスケープ解除を模す。コードスパンの中は解除されない。"""
+    parts = SEGMENT_RE.split(text)
+    for index, part in enumerate(parts):
+        if index % 2 == 0 or part.startswith("$"):
+            parts[index] = KRAMDOWN_ESCAPED.sub(r"\1", part)
+    return "".join(parts)
+
+
+def doc_texts(header: Header) -> Iterator[str]:
+    """ヘッダに書かれた本文（例と署名を除く）をすべて並べる。"""
+    blocks = [header.doc]
+    for entity in header.entities:
+        for item in entity.iter_all():
+            blocks.extend(overload.doc for overload in item.overloads)
+    for block in blocks:
+        yield block.brief
+        yield from block.details
+        yield from (text for _, text in block.tparams)
+        yield from (text for _, text in block.params)
+        yield from block.returns
+        yield from block.complexities
+        yield from block.preconditions
+        yield from block.notes
+        yield from block.warnings
+        yield from block.references
+
+
+def split_cells(line: str) -> list[str]:
+    """表の行をセルに分ける。コードスパンの中の `|` は区切りにならない。"""
+    cells: list[str] = []
+    current = ""
+    for index, part in enumerate(SEGMENT_RE.split(line)):
+        if index % 2:
+            current += part
+            continue
+        pieces = re.split(r"(?<!\\)\|", part)
+        current += pieces[0]
+        for piece in pieces[1:]:
+            cells.append(current)
+            current = piece
+    cells.append(current)
+    return cells[1:-1]
+
+
+def escapable_chunks(page: str) -> Iterator[str]:
+    """ページのうち、退避済みでなければならない断片（地の文・表のセル）。"""
+    body = page.split("---\n", 2)[-1]
+    in_code = False
+    for line in body.splitlines():
+        if line.startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code or line.startswith("#"):
+            continue
+        for cell in split_cells(line) if line.startswith("|") else [line]:
+            # `<br>` はセルの中身を退避したあとに挟むので、区切りとして扱う。
+            yield from cell.split("<br>")
 
 
 def doc(text: str) -> DocBlock:
@@ -247,27 +313,28 @@ class LibraryTest(unittest.TestCase):
             self.assertNotIn(key, seen, f"{name} と {seen.get(key)} が衝突します")
             seen[key] = name
 
-    def test_prose_pipes_are_escaped(self) -> None:
-        """kramdown は `|` を含む行を表と解釈するので、地の文の `|` は退避されていること。"""
+    def test_pages_are_escaped_for_kramdown(self) -> None:
+        """生成ページの地の文・表のセルが過不足なく退避されていること。"""
         for name, content in self.files.items():
-            body = content.split("---\n", 2)[-1]
-            in_code = False
-            for number, line in enumerate(body.splitlines(), start=1):
-                if line.startswith("```"):
-                    in_code = not in_code
-                    continue
-                if in_code or line.startswith("|"):
-                    continue
-                # バッククォートの中の `|` は kramdown がセル区切りにしない。
-                with self.subTest(page=name, line=number):
-                    self.assertNotRegex(re.sub(r"`[^`]*`", "", line), r"(?<!\\)\|")
+            if not name.endswith(".md"):
+                continue
+            for chunk in escapable_chunks(content):
+                with self.subTest(page=name, chunk=chunk):
+                    self.assertEqual(escape_text(kramdown_unescape(chunk)), chunk)
+
+    def test_escaping_round_trips_for_every_doc_text(self) -> None:
+        """退避した本文は kramdown が元に戻す（MathJax に原文が届く）。"""
+        for header in self.headers:
+            for text in (header.title, header.summary, *doc_texts(header)):
+                with self.subTest(header=header.include, text=text):
+                    self.assertEqual(kramdown_unescape(escape_text(text)), text)
 
 
 class EscapeTest(unittest.TestCase):
     def test_pipes_in_math_are_escaped(self) -> None:
         section = Section()
         render_result(section, doc("@complexity 初期間隔を $D=|ok-ng|$ として $O(\\log D)$"))
-        self.assertIn(r"- 初期間隔を $D=\|ok-ng\|$ として $O(\log D)$", section.render())
+        self.assertIn(r"- 初期間隔を $D=\|ok-ng\|$ として $O(\\log D)$", section.render())
 
     def test_pipes_in_a_table_cell_are_escaped(self) -> None:
         section = Section()
@@ -278,6 +345,31 @@ class EscapeTest(unittest.TestCase):
         section = Section()
         render_notes(section, doc("@note `a | b` はビット和"))
         self.assertIn("- `a | b` はビット和", section.render())
+
+    def test_backslashes_in_math_are_doubled(self) -> None:
+        section = Section()
+        render_result(section, doc(r"@complexity $O(\log \mathrm{max\_denominator})$"))
+        self.assertIn(r"- $O(\\log \\mathrm{max\\\_denominator})$", section.render())
+
+    def test_quotes_and_tags_in_math_are_escaped(self) -> None:
+        section = Section()
+        render_notes(section, doc(r"@note $\int h' / h \, dx$ と $a < b$"))
+        self.assertIn(r"- $\\int h\' / h \\, dx$ と $a \< b$", section.render())
+
+    def test_type_arguments_in_prose_are_escaped(self) -> None:
+        section = Section()
+        render_result(section, doc("@return std::vector<mint> 逆元"))
+        self.assertIn(r"std::vector\<mint> 逆元", section.render())
+
+    def test_escaping_round_trips(self) -> None:
+        for text in (
+            r"$O(n \log n)$ と `a | b` と std::vector<mint>",
+            r"$\{0, \ldots, n-1\}$ の $|x|$",
+            r"$2^{\mathrm{FFT\_MAX\_LOG}}$",
+            "**強調** と [リンク](https://example.com)",
+        ):
+            with self.subTest(text=text):
+                self.assertEqual(kramdown_unescape(escape_text(text)), text)
 
 
 if __name__ == "__main__":
