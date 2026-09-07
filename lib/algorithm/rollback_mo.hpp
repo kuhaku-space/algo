@@ -8,10 +8,10 @@
 /// @brief Mo's algorithm (rollback)
 /// @see https://ei1333.hateblo.jp/entry/2017/09/11/211011
 /// @see https://snuke.hatenablog.com/entry/2016/07/01/000000
-struct rollback_mo {
+struct RollbackMo {
     /// @brief 長さnの列に対するrollback Moを構築する
     /// @complexity $O(1)$
-    rollback_mo(int n) : _left(), _right(), _order(), _size(n) {}
+    RollbackMo(int n) : _left(), _right(), _order(), _size(n) {}
 
     /// @brief 標準入力からq個の区間を追加する
     /// @complexity $O(q)$
@@ -41,14 +41,14 @@ struct rollback_mo {
     /// @complexity クエリ数を $q$ として、整列は $O(q\log q)$、
     /// コールバック呼び出しは $O((n+q)\sqrt q)$ 回
     template <class F, class G, class H, class I>
-    void solve(F rem, G save, H load, I add) {
-        return solve(rem, save, load, add, add);
+    void solve(F answer, G save, H load, I add) {
+        return solve(answer, save, load, add, add);
     }
     /// @brief 左右別の追加処理とロールバックで全クエリを実行する
     /// @complexity クエリ数を $q$ として、整列は $O(q\log q)$、
     /// コールバック呼び出しは $O((n+q)\sqrt q)$ 回
     template <class F, class G, class H, class I, class J>
-    void solve(F rem, G save, H load, I addl, J addr) {
+    void solve(F answer, G save, H load, I add_left, J add_right) {
         int q = _left.size();
         int width = std::max(1, int(_size / std::sqrt(q)));
         _order.resize(q);
@@ -58,12 +58,12 @@ struct rollback_mo {
             return _right[a] < _right[b];
         });
 
-        auto reset = save();
+        auto initial = save();
         for (auto &&idx : _order) {
             if (_right[idx] - _left[idx] < width) {
-                for (int i = _left[idx]; i < _right[idx]; i++) addr(i);
-                rem(idx);
-                load(reset);
+                for (int i = _left[idx]; i < _right[idx]; i++) add_right(i);
+                answer(idx);
+                load(initial);
             }
         }
 
@@ -72,14 +72,14 @@ struct rollback_mo {
             if (_right[idx] - _left[idx] < width) continue;
             int block = _left[idx] / width;
             if (block != last_block) {
-                load(reset);
+                load(initial);
                 last_block = block;
                 right = (block + 1) * width;
             }
-            while (right < _right[idx]) addr(right++);
+            while (right < _right[idx]) add_right(right++);
             auto snapshot = save();
-            for (int j = (block + 1) * width - 1; j >= _left[idx]; --j) addl(j);
-            rem(idx);
+            for (int j = (block + 1) * width - 1; j >= _left[idx]; --j) add_left(j);
+            answer(idx);
             load(snapshot);
         }
     }

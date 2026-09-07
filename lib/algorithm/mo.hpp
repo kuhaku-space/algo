@@ -11,7 +11,7 @@
 struct Mo {
     /// @brief 長さnの列に対するMoを構築する
     /// @complexity $O(1)$
-    Mo(int n) : _left(), _right(), _order(), _size(n), _nl(0), _nr(0) {}
+    Mo(int n) : _left(), _right(), _order(), _size(n), _cur_left(0), _cur_right(0) {}
 
     /// @brief 標準入力からq個の区間を追加する
     /// @complexity $O(q)$
@@ -41,35 +41,35 @@ struct Mo {
     /// @complexity クエリ数を $q$ として、整列は $O(q\log q)$、
     /// コールバック呼び出しは $O((n+q)\sqrt q)$ 回
     template <class F, class G, class H>
-    void solve(F add, G del, H rem) {
+    void solve(F add, G del, H answer) {
         build();
         for (int idx : _order) {
-            while (_nl > _left[idx]) add(--_nl);
-            while (_nr < _right[idx]) add(_nr++);
-            while (_nl < _left[idx]) del(_nl++);
-            while (_nr > _right[idx]) del(--_nr);
-            rem(idx);
+            while (_cur_left > _left[idx]) add(--_cur_left);
+            while (_cur_right < _right[idx]) add(_cur_right++);
+            while (_cur_left < _left[idx]) del(_cur_left++);
+            while (_cur_right > _right[idx]) del(--_cur_right);
+            answer(idx);
         }
     }
 
     /// @brief 左右別の追加・削除処理で全クエリを実行する
     /// @complexity クエリ数を $q$ として、整列は $O(q\log q)$、
     /// コールバック呼び出しは $O((n+q)\sqrt q)$ 回
-    template <class F, class G, class H, class I, class K>
-    void solve(F addl, G addr, H dell, I delr, K rem) {
+    template <class F, class G, class H, class I, class J>
+    void solve(F add_left, G add_right, H del_left, I del_right, J answer) {
         build();
         for (int idx : _order) {
-            while (_nl > _left[idx]) addl(--_nl);
-            while (_nr < _right[idx]) addr(_nr++);
-            while (_nl < _left[idx]) dell(_nl++);
-            while (_nr > _right[idx]) delr(--_nr);
-            rem(idx);
+            while (_cur_left > _left[idx]) add_left(--_cur_left);
+            while (_cur_right < _right[idx]) add_right(_cur_right++);
+            while (_cur_left < _left[idx]) del_left(_cur_left++);
+            while (_cur_right > _right[idx]) del_right(--_cur_right);
+            answer(idx);
         }
     }
 
   private:
     std::vector<int> _left, _right, _order;
-    int _size, _nl, _nr;
+    int _size, _cur_left, _cur_right;
 
     void build() {
         int q = _left.size();
