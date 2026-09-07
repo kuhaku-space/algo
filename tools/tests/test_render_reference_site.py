@@ -13,6 +13,7 @@ from render_reference_site import (
     TEST_ACCEPTED,
     TEST_WAITING_JUDGE,
     TEST_WRONG_ANSWER,
+    SiteCounts,
     build_site,
     embedded_code,
     library_icon,
@@ -77,7 +78,7 @@ class EmbeddedCodeTest(unittest.TestCase):
 
 
 class BuildSiteTest(unittest.TestCase):
-    def build(self, root: Path) -> tuple[int, int]:
+    def build(self, root: Path) -> SiteCounts:
         (root / "lib" / "ds").mkdir(parents=True)
         (root / "test").mkdir()
         (root / "docs" / "generated" / "ds" / "sample").mkdir(parents=True)
@@ -204,9 +205,9 @@ class BuildSiteTest(unittest.TestCase):
     def test_builds_pages_from_verification_json(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            reference_count, verification_count = self.build(root)
+            counts = self.build(root)
 
-            self.assertEqual((reference_count, verification_count), (2, 1))
+            self.assertEqual(counts, (1, 1, 1))
             header_page = (root / "_jekyll" / "reference" / "ds" / "sample.md").read_text(
                 encoding="utf-8"
             )
@@ -236,7 +237,7 @@ class BuildSiteTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             self.build(root)
-            reference_count, verification_count = build_site(
+            counts = build_site(
                 root=root,
                 docs_dir=root / "site-config",
                 generated_dir=root / "docs" / "generated",
@@ -244,7 +245,7 @@ class BuildSiteTest(unittest.TestCase):
                 verify_files_path=None,
                 verify_result_path=None,
             )
-            self.assertEqual((reference_count, verification_count), (2, 1))
+            self.assertEqual(counts, (1, 1, 1))
 
 
 if __name__ == "__main__":
