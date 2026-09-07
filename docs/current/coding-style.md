@@ -45,7 +45,7 @@ title: コーディング規約
 ### 「付随データなし」の型引数 `void`
 
 本体は部分特殊化で分けず `std::conditional_t<is_void_v<V>, std::monostate, V>` に正規化して
-1 本化する（API は `if constexpr`、空メンバは `[[no_unique_address]]`）。例: `radix_heap`、`doubling`。
+1 本化する（API は `if constexpr`、空メンバは `[[no_unique_address]]`）。例: `radix_heap`、`Doubling`。
 
 ただし `void` で**別のデータ構造**を選ぶ場合（`matrix_graph<void>` の `vector<vector<bool>>` 等）は
 部分特殊化のままにする。理由は

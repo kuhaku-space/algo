@@ -12,8 +12,8 @@ int main(void) {
     for (auto &e : p) std::cin >> e;
     std::vector<int> to(n);
     for (int i = 0; i < n; ++i) to[i] = (i + p[i]) % n;
-    doubling<30, Add<std::int64_t>> db(to, p);
-    for (int i = 0; i < n; ++i) std::cout << i + 1 + db.solve(i, k).second << '\n';
+    Doubling<30, Add<std::int64_t>> db(to, p);
+    for (int i = 0; i < n; ++i) std::cout << i + 1 + db.jump(i, k).second << '\n';
 
     return 0;
 }

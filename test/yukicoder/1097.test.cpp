@@ -12,13 +12,13 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<int> to(n);
     for (int i = 0; i < n; ++i) to[i] = (i + a[i]) % n;
-    doubling<40, Add<std::int64_t>> db(to, a);
+    Doubling<40, Add<std::int64_t>> db(to, a);
     int q;
     std::cin >> q;
     while (q--) {
         std::int64_t k;
         std::cin >> k;
-        std::cout << db.solve(0, k).second << '\n';
+        std::cout << db.jump(0, k).second << '\n';
     }
 
     return 0;

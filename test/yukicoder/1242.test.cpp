@@ -21,17 +21,17 @@ int main(void) {
         to[bit] = ((bit << 1) | f) & ((1 << 6) - 1);
     }
     functional_graph fg(to);
-    doubling<60> db(to);
+    Doubling<60> db(to);
     int cur = 1, cur_db = 1;
     for (int i = 0; i < k - 1; ++i) {
         cur = fg.jump(cur, a[i] - a[i + 1]);
         cur |= 1;
-        cur_db = db.solve(cur_db, a[i] - a[i + 1]);
+        cur_db = db.jump(cur_db, a[i] - a[i + 1]);
         cur_db |= 1;
         assert(cur == cur_db);
     }
     int last = fg.jump(cur, a.back() - 1);
-    assert(last == db.solve(cur_db, a.back() - 1));
+    assert(last == db.jump(cur_db, a.back() - 1));
     std::cout << ((last & 1) ? "No\n" : "Yes\n");
 
     return 0;

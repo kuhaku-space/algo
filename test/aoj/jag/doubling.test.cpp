@@ -42,7 +42,7 @@ int main(void) {
         }
 
         std::string dir = "NESW";
-        doubling<64> db(to);
+        Doubling<64> db(to);
         int x, y, d;
         for (int i = 0; i < h; ++i) {
             for (int j = 0; j < w; ++j) {
@@ -52,7 +52,7 @@ int main(void) {
             }
         }
 
-        int ans = db.solve(flatten(x, y, d), l);
+        int ans = db.jump(flatten(x, y, d), l);
         x = ans / w / 4;
         ans %= w * 4;
         y = ans / 4;

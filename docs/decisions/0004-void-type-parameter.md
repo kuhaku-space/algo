@@ -8,7 +8,7 @@ title: 決定 0004 「付随データなし」の void を monostate に正規�
 
 「付随データなし」を表す型引数 `void` は、部分特殊化で本体を分けず
 `std::conditional_t<std::is_void_v<V>, std::monostate, V>` に正規化して実装を 1 本化する。
-API の差は `if constexpr`、空メンバは `[[no_unique_address]]` で吸収する。例: `radix_heap`、`doubling`。
+API の差は `if constexpr`、空メンバは `[[no_unique_address]]` で吸収する。例: `radix_heap`、`Doubling`。
 
 ただし `void` で**別のデータ構造**を選ぶ場合は部分特殊化のままにする
 （`matrix_graph<void>` が `std::vector<std::vector<bool>>` を持つなど）。
