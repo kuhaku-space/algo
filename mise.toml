@@ -2,14 +2,15 @@
 # docs/current/toolchain.md にまとめてある。
 
 [tools]
+clang-format = "latest"              # .githooks/pre-commit が使う
 jq = "latest"
+ruff = "latest"                      # 設定は ruff.toml
 uv = "latest"                        # pipx バックエンドの実体
+# 以下は pipx（実体は uv）で入れる Python CLI。
+"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"  # daily
 # oj / oj-bundle / oj-verify。setuptools<81 のピンは必須（理由はドキュメント参照）。
 "pipx:online-judge-tools" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
 "pipx:online-judge-verify-helper" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
-"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"  # daily
-clang-format = "latest"              # .githooks/pre-commit が使う
-ruff = "latest"                      # 設定は ruff.toml
 
 [tasks.lint]
 description = "tools/ の Python を ruff で検査する"
@@ -22,26 +23,26 @@ run = "python3 tools/reference_docs.py build"
 [tasks.docs-check]
 description = "日本語リファレンスを生成し、網羅率と例を検査する"
 run = [
-    "python3 tools/reference_docs.py check",
-    "python3 -m unittest discover -s tools/tests -p 'test_*.py'",
+  "python3 tools/reference_docs.py check",
+  "python3 -m unittest discover -s tools/tests -p 'test_*.py'",
 ]
 
 [tasks.docs-site]
 description = "検証結果なしでサイトのソースを _jekyll/ に組み立てる（見た目の確認用）"
 run = [
-    "python3 tools/reference_docs.py build",
-    "python3 tools/render_reference_site.py --offline --destination _jekyll",
+  "python3 tools/reference_docs.py build",
+  "python3 tools/render_reference_site.py --offline --destination _jekyll",
 ]
 
 [tasks.setup]
 description = "Setup project（ツール・oj-tools・shim を一括導入）"
 run = [
-    "mise install",
-    # CLI でしか入らないシステムパッケージ。
-    "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
-    "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
-    "git config core.hooksPath .githooks",
-    "mise run install-shims",
+  "mise install",
+  # CLI でしか入らないシステムパッケージ。
+  "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
+  "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
+  "git config core.hooksPath .githooks",
+  "mise run install-shims",
 ]
 
 [tasks.install-shims]
@@ -70,15 +71,15 @@ dir = "{{config_root}}/workspace"
 run = """
 #!/bin/bash
 if command -v xclip > /dev/null; then
-    CONTENT=$(xclip -selection clipboard -o)
+  CONTENT=$(xclip -selection clipboard -o)
 else
-    echo "エラー: クリップボード取得コマンドが見つかりません (xclipをインストールしてください)"
-    exit 1
+  echo "エラー: クリップボード取得コマンドが見つかりません (xclipをインストールしてください)"
+  exit 1
 fi
 # JSONのバリデーション
 if ! echo "$CONTENT" | jq empty 2>/dev/null; then
-    echo "Error: Clipboard does not contain valid JSON."
-    exit 1
+  echo "Error: Clipboard does not contain valid JSON."
+  exit 1
 fi
 
 mkdir -p test
@@ -88,10 +89,10 @@ rm -f test/*
 length=$(echo "$CONTENT" | jq '. | length')
 
 for ((i=0; i<$length; i++)); do
-    num=$((i+1))
-    echo "$CONTENT" | jq -r ".[$i].input" > "test/sample-${num}.in"
-    echo "$CONTENT" | jq -r ".[$i].output" > "test/sample-${num}.out"
-    echo "  - sample-${num}.in / sample-${num}.out を作成しました。"
+  num=$((i+1))
+  echo "$CONTENT" | jq -r ".[$i].input" > "test/sample-${num}.in"
+  echo "$CONTENT" | jq -r ".[$i].output" > "test/sample-${num}.out"
+  echo "  - sample-${num}.in / sample-${num}.out を作成しました。"
 done
 """
 
