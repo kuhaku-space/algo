@@ -40,3 +40,13 @@ title: リポジトリの全体像
 - 既存の例外は `segtree/`・`heap/`・`persistent_ds/` の 3 つだけ
   （永続・部分永続版は名前に `persistent` が入るものすべて `persistent_ds/`）。
 - 理由は [decisions/0001-data-structure-directories.md](../decisions/0001-data-structure-directories.md)。
+
+ヘッダ 1 つの粒度も同じ考え方で決める。
+
+- **既存実装への転送だけのアダプタは、その実装と同じヘッダに置く**。公開 API が
+  1:1 で対応し常に一緒に直すものを別ファイルにすると、追随漏れが diff に出ない。
+  例: `CompressedWaveletMatrix`（`data_structure/wavelet_matrix.hpp`）、
+  `string_suffix_automaton`（`string/suffix_automaton.hpp`）、
+  `static_modint`・`dynamic_modint`（`number_theory/modint.hpp`）。
+- **独自の構築処理や状態を持つ variant は別ヘッダにする**。
+  例: `DynamicWaveletMatrix`、`WaveletMatrixRectangleSum`。
