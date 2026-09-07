@@ -224,12 +224,13 @@ struct BigInt {
         res.sign = false;
         return res;
     }
-    /// |*this| < |rhs| を返す。
+    /// @brief 絶対値の比較 `|*this| < |rhs|` を返す
     /// @complexity $O(n)$
     bool abs_less(const BigInt &rhs) const { return abs_less_data(data, rhs.data); }
 
-    /// 商と余りを同時に返す ({*this / rhs, *this % rhs})。除算を 1 回で済ませられる。
-    /// 余りは被除数 (*this) と同符号 (truncation 方向、operator% と同じ規約)。
+    /// @brief 商と余りを同時に返す
+    /// @details `{*this / rhs, *this % rhs}` を返す。除算を 1 回で済ませられる。
+    ///          余りは被除数 `*this` と同符号（truncation 方向、`operator%` と同じ規約）。
     /// @complexity $O(M(n)\log n)$
     std::pair<BigInt, BigInt> div_mod(const BigInt &rhs) const { return divmod(*this, rhs); }
 
@@ -241,7 +242,7 @@ struct BigInt {
     std::vector<int> data;
     bool sign;
 
-    /// 絶対値 (data 同士) の < 比較。
+    /// 絶対値 (data 同士) の `<` 比較。
     static bool abs_less_data(const std::vector<int> &a, const std::vector<int> &b) {
         if (a.size() != b.size()) return a.size() < b.size();
         for (int i = (int)a.size() - 1; i >= 0; --i) {
@@ -274,7 +275,7 @@ struct BigInt {
         }
         trim(a);
     }
-    /// a *= b (絶対値同士の乗算)。畳み込みは真値を返す convolution を使う。
+    /// `a *= b` (絶対値同士の乗算)。畳み込みは真値を返す `convolution` を使う。
     /// 畳み込み長が MUL_2PRIME_MAX_LEN 以下なら 2 素数版 (convolution_ll2) で十分速く、
     /// それを超える巨大乗算のみ 3 素数版 (convolution_ll) へフォールバックする。
     static void mul(std::vector<int> &a, const std::vector<int> &b) {
@@ -525,7 +526,7 @@ struct BigInt {
         return {qhat, r};
     }
 
-    /// data /= k (0 < k < BASE のスカラ除算、絶対値)。余りを返す。
+    /// data /= k (`0 < k < BASE` のスカラ除算、絶対値)。余りを返す。
     static int div_small(std::vector<int> &data, int k) {
         std::int64_t rem = 0;
         for (int i = (int)data.size() - 1; i >= 0; --i) {

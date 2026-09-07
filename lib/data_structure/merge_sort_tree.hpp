@@ -25,11 +25,11 @@ struct merge_sort_tree {
         }
     }
 
-    /// count i s.t. (0 <= i < r) && v[i] == x
+    /// count i s.t. `(0 <= i < r) && v[i] == x`
     /// @complexity $O(\log^2 n)$
     int rank(int r, T x) const { return rank(0, r, x); }
 
-    /// count i s.t. (l <= i < r) && v[i] == x
+    /// count i s.t. `(l <= i < r) && v[i] == x`
     /// @complexity $O(\log^2 n)$
     int rank(int l, int r, T x) const {
         int res = 0;
@@ -48,7 +48,7 @@ struct merge_sort_tree {
         return res;
     }
 
-    /// count i s.t. (l <= i < r) && (v[i] < upper)
+    /// count i s.t. `(l <= i < r) && (v[i] < upper)`
     /// @complexity $O(\log^2 n)$
     int range_freq(int l, int r, T upper) const {
         int res = 0;
@@ -65,7 +65,7 @@ struct merge_sort_tree {
         return res;
     }
 
-    /// count i s.t. (l <= i < r) && (lower <= v[i] < upper)
+    /// count i s.t. `(l <= i < r) && (lower <= v[i] < upper)`
     /// @complexity $O(\log^2 n)$
     int range_freq(int l, int r, T lower, T upper) const { return range_freq(l, r, upper) - range_freq(l, r, lower); }
 

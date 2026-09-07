@@ -68,7 +68,7 @@ void _fft(std::vector<std::complex<double>> &a, bool inv) {
 /// @tparam T 算術型 (整数型なら結果を最近接整数へ丸める)
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<T> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @return `std::vector<T>` a と b の畳み込み (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N\log N)$
 template <class T>
 requires std::is_arithmetic_v<T>
@@ -100,7 +100,7 @@ std::vector<T> convolution(const std::vector<T> &a, const std::vector<T> &b) {
 /// @param a 入力多項式の係数列（$[0, \mathrm{mod})$ を想定）
 /// @param b 入力多項式の係数列 ([0, mod) を想定)
 /// @param mod 出力を取る法 (NTT-friendly でなくてよい)
-/// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
+/// @return `std::vector<T>` a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N\log N)$
 template <std::integral T>
 std::vector<T> convolution_mod(const std::vector<T> &a, const std::vector<T> &b, T mod) {

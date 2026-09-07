@@ -20,7 +20,7 @@ inline bool has_avx2() {
 }  // namespace internal
 
 /// @brief Montgomery + AVX2 による NTT 畳み込み (NTT-friendly な 32bit 素数 mod 専用)
-/// @details 値を [0, 2*mod) の Montgomery 表現で 8 レーン (u32x8) 同時に処理する。
+/// @details 値を `[0, 2*mod)` の Montgomery 表現で 8 レーン (u32x8) 同時に処理する。
 ///          通常の `convolution` より定数倍が小さい（$\mathrm{mod} = 998244353$、$N = 2^{20}$ で約 1.5 倍速）。
 ///          AVX2 が使えない CPU では実行時に通常の convolution へフォールバックする。
 /// @note `mod` は $2 < \mathrm{mod} < 2^{30}$ の NTT-friendly 素数であること（Montgomery 簡約・
@@ -30,7 +30,7 @@ inline bool has_avx2() {
 /// @tparam T 整数型 (std::integral)
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<T> a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
+/// @return `std::vector<T>` a と b の畳み込みを mod で取った値 (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N\log N)$
 template <unsigned int mod = 998244353, std::integral T>
 std::vector<T> convolution_avx2(const std::vector<T> &a, const std::vector<T> &b) {
@@ -62,7 +62,7 @@ std::vector<T> convolution_avx2(const std::vector<T> &a, const std::vector<T> &b
 /// @tparam mint NTT-friendly な static modint（$\mathrm{mod} < 2^{30}$）
 /// @param a 入力多項式の係数列
 /// @param b 入力多項式の係数列
-/// @return std::vector<mint> a と b の畳み込み (長さ a.size() + b.size() - 1)
+/// @return `std::vector<mint>` a と b の畳み込み (長さ a.size() + b.size() - 1)
 /// @complexity 出力長を $N$ として $O(N\log N)$
 template <internal::static_modint_c mint>
 std::vector<mint> convolution_avx2(const std::vector<mint> &a, const std::vector<mint> &b) {

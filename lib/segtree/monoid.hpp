@@ -63,7 +63,7 @@ struct Mul {
     /// @brief 乗法単位元1を返す
     /// @complexity $O(1)$
     static constexpr T id() noexcept { return T(1); }
-    /// @brief lhs*rhsを返す
+    /// @brief `lhs * rhs` を返す
     /// @complexity $O(1)$
     static constexpr T op(const T &lhs, const T &rhs) noexcept { return lhs * rhs; }
 
@@ -276,7 +276,7 @@ struct Update {
 };
 
 /// @brief アフィン変換モノイド
-/// @details f(x) = a * x + b を [a, b] で表す。op(g, h) は「先に g、次に h を適用」した合成。
+/// @details $f(x) = ax + b$ を `[a, b]` で表す。op(g, h) は「先に g、次に h を適用」した合成。
 /// @tparam T 係数の型
 /// @complexity 各演算 $O(1)$
 template <class T>

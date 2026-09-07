@@ -47,7 +47,8 @@ std::vector<std::uint64_t> divisors(std::uint64_t x) {
 }
 
 /// @brief 乗法的分割
-/// @return x = f_1 * f_2 * ... * f_k (2 <= f_1 <= f_2 <= ... <= f_k) を満たす (f_1, ..., f_k) をすべて列挙したもの
+/// @return $x = f_1 f_2 \cdots f_k$（$2 \le f_1 \le f_2 \le \cdots \le f_k$）を満たす
+///         $(f_1, \ldots, f_k)$ をすべて列挙したもの
 /// @complexity 出力数と再帰中の約数列挙に比例
 std::vector<std::vector<std::uint64_t>> multiplicative_partitions(std::uint64_t x) {
     std::vector<std::vector<std::uint64_t>> res;
