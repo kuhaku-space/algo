@@ -29,3 +29,17 @@ When sources conflict, use this priority unless a task says otherwise:
 5. Make the change.
 6. Run the relevant checks from `docs/commands.md`.
 7. Update documentation only if the documented behavior changed.
+
+## Commit messages
+
+- Subject: `<type>: <summary>`, e.g. `refactor: doubling を Doubling に改名し命名を規約に揃える`.
+- `<type>` is one of `feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `ci`, `chore`.
+- Write `<summary>` in Japanese as a plain-form sentence of what the commit does (`〜する`, `〜を追加する`), with no trailing period.
+- Do not write the PR number `(#123)`; squash merge appends it.
+- Body (optional): in Japanese, explain why and what changed; use `-` bullets for multiple points.
+
+## Branch names
+
+- Format: `<type>/<kebab-case-summary>` in lowercase English, e.g. `feat/static-segment-tree-2d`, `fix/reference-pipe-escape`.
+- `<type>` uses the same set as commit messages (not `feature/` or other prefixes).
+- See `docs/current/git-workflow.md` for where to branch from and when to commit or open PRs.

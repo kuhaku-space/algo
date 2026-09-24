@@ -4,6 +4,8 @@ title: Git・PR 運用
 
 # Git・PR 運用
 
+コミットメッセージとブランチ名の書式は [AGENTS.md](../../AGENTS.md) にある。
+
 ## ブランチ
 
 - **`main` に直接コミットしない**（保護されており push が弾かれる）。`git switch -c <branch>` で作業する。
