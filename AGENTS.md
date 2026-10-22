@@ -34,3 +34,8 @@
 - Format: `<type>/<kebab-case-summary>` in lowercase English, e.g. `feat/static-segment-tree-2d`, `fix/reference-pipe-escape`.
 - `<type>` uses the same set as commit messages (not `feature/` or other prefixes).
 - See `docs/current/git-workflow.md` for where to branch from and when to commit or open PRs.
+
+## Pull requests
+
+- Enable auto-merge whenever you open a PR: `gh pr create --fill && gh pr merge --auto --squash`.
+- See `docs/current/git-workflow.md` for details.
