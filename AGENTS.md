@@ -1,42 +1,33 @@
 # Agent Instructions
 
-## Core rules
+## Documentation
 
-- Read `docs/INDEX.md` before loading project documentation.
-- Load only the documents relevant to the current task.
-- Do not recursively read all files under `docs/`.
-- Do not read `docs/archive/` unless historical context is explicitly required.
-- Prefer current source code over stale documentation when they conflict.
-- When behavior, architecture, commands, or conventions change, update the smallest relevant document.
+### Reading
 
-## Source priority
+- Read only documentation relevant to the current task.
+- Access known files directly; use `docs/INDEX.md` only when locating documentation.
+- Prefer targeted searches and relevant sections over entire files.
+- Reuse information already available in the current context.
+- Check related documentation when changes may affect other components.
+- Prioritize current specifications and source code over outdated documentation.
 
-When sources conflict, use this priority unless a task says otherwise:
+### Writing
 
-1. Explicit user/task instructions
-2. `docs/current/`
-3. Relevant project documentation referenced by `docs/INDEX.md`
-4. Source code and tests
-5. `docs/decisions/`
-6. `docs/archive/`
+- Keep documentation concise, accurate, and nonredundant.
+- Organize documents by topic with descriptive headings.
+- Maintain a single source of truth; link instead of duplicating content.
+- Separate current specifications from historical decisions.
+- Update the relevant documentation when behavior, architecture, commands, or conventions change.
+- Update `docs/INDEX.md` when the documentation structure changes.
 
-## Working procedure
+## Checks
 
-1. Read `docs/INDEX.md`.
-2. Identify the minimum set of relevant documents.
-3. Read those documents only.
-4. Inspect the relevant source files.
-5. Make the change.
-6. Run the relevant checks from `docs/commands.md`.
-7. Update documentation only if the documented behavior changed.
+- Run the relevant checks from `docs/commands.md` after making changes.
 
 ## Commit messages
 
-- Subject: `<type>: <summary>`, e.g. `refactor: doubling を Doubling に改名し命名を規約に揃える`.
-- `<type>` is one of `feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `ci`, `chore`.
-- Write `<summary>` in Japanese as a plain-form sentence of what the commit does (`〜する`, `〜を追加する`), with no trailing period.
-- Do not write the PR number `(#123)`; squash merge appends it.
-- Body (optional): in Japanese, explain why and what changed; use `-` bullets for multiple points.
+- Follow Conventional Commits without scope, using types `feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `ci`, `chore`.
+- Write the description and body in Japanese plain form (`〜する`), with no trailing period or PR number.
 
 ## Branch names
 
