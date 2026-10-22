@@ -40,7 +40,7 @@ run = [
   "mise install",
   # CLI でしか入らないシステムパッケージ。
   "which xclip > /dev/null || (sudo apt update -qq && sudo apt install -qq xclip)",
-  "which g++-14 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-14)",
+  "which g++-15 > /dev/null || (sudo apt update -qq && sudo apt install -qq g++-15)",
   "git config core.hooksPath .githooks",
   "mise run install-shims",
 ]
@@ -177,7 +177,7 @@ oj_compile() {
   if [[ "$usage_debug" == "true" ]]; then
     opt_args=(-O1 -g -fsanitize=address,undefined -D_GLIBCXX_DEBUG)
   fi
-  g++-14 "$1" \\
+  g++-15 "$1" \\
     -DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS \\
     -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER \\
     -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\
@@ -273,7 +273,7 @@ oj_bundle() {
     | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
 }
 oj_compile() {
-  g++-14 "$1" \\
+  g++-15 "$1" \\
     -DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS \\
     -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER \\
     -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\

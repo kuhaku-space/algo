@@ -13,7 +13,7 @@ title: 開発ツールの構成
 setup がやることは 4 つ。
 
 1. `mise install`（`[tools]` の宣言をすべて導入）
-2. CLI でしか入らないシステムパッケージ（`xclip`・`g++-14`）を apt で導入
+2. CLI でしか入らないシステムパッケージ（`xclip`・`g++-15`）を apt で導入
 3. `git config core.hooksPath .githooks`（pre-commit フックの有効化。リポジトリ毎のローカル設定）
 4. `mise run install-shims`
 
