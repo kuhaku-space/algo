@@ -28,7 +28,7 @@ int main(void) {
         }
         auto f = [&](std::uint64_t x) {
             __uint128_t q = 1;
-            for (int i = 0; i < k; ++i) {
+            for (std::uint64_t i = 0; i < k; ++i) {
                 q *= x;
                 if (q > a) break;
             }

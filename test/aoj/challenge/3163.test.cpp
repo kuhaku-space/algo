@@ -12,7 +12,7 @@ struct Monoid {
     static constexpr T op(const T &lhs, const T &rhs) { return {lhs.first + rhs.first, lhs.second + rhs.second}; }
 
     template <class U>
-    static constexpr T f(const T &v, U u) {
+    static constexpr T f(const T &v, U) {
         return {v.first + v.second, v.second};
     }
 

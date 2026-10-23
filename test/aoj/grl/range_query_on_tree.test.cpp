@@ -29,7 +29,7 @@ int main(void) {
         if (t == 0) {
             int v, w;
             std::cin >> v >> w;
-            auto f = [&](int a, int b) { ft.add(a, w); };
+            auto f = [&](int a, int) { ft.add(a, w); };
             hld.for_each_edge(hld.get_parent(v), v, f);
         } else {
             int v;
