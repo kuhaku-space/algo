@@ -56,18 +56,18 @@ struct PartiallyPersistentArray {
 
     /// @brief n 個の val を時刻 0 の状態として作る
     /// @complexity $O(n)$
-    PartiallyPersistentArray(int n, T val = T()) : _now(0), _data(n, std::vector<std::pair<int, T>>(1, {0, val})) {}
+    PartiallyPersistentArray(int n, T val = T()) : _now(0), data(n, std::vector<std::pair<int, T>>(1, {0, val})) {}
 
     /// @brief 列 v を時刻 0 の状態として作る
     /// @complexity $O(n)$
     template <class U>
-    PartiallyPersistentArray(const std::vector<U> &v) : _now(0), _data(v.size()) {
-        for (int i = 0; i < (int)v.size(); ++i) _data[i].emplace_back(0, T(v[i]));
+    PartiallyPersistentArray(const std::vector<U> &v) : _now(0), data(v.size()) {
+        for (int i = 0; i < (int)v.size(); ++i) data[i].emplace_back(0, T(v[i]));
     }
 
     /// @brief 要素数を返す
     /// @complexity $O(1)$
-    int size() const { return _data.size(); }
+    int size() const { return data.size(); }
 
     /// @brief 現在時刻を返す
     /// @complexity $O(1)$
@@ -88,7 +88,7 @@ struct PartiallyPersistentArray {
     T get(int k, int t) const {
         assert(0 <= k && k < size());
         assert(0 <= t);
-        const auto &history = _data[k];
+        const auto &history = data[k];
         return std::prev(std::ranges::upper_bound(history, t, {}, &std::pair<int, T>::first))->second;
     }
     /// @brief `get(k, t)` の別名
@@ -110,7 +110,7 @@ struct PartiallyPersistentArray {
         assert(0 <= k && k < size());
         assert(_now <= t);
         _now = t;
-        _data[k].emplace_back(t, val);
+        data[k].emplace_back(t, val);
     }
 
     /// @brief 現在時刻における配列全体を返す
@@ -127,5 +127,5 @@ struct PartiallyPersistentArray {
 
   private:
     int _now;
-    std::vector<std::vector<std::pair<int, T>>> _data;
+    std::vector<std::vector<std::pair<int, T>>> data;
 };

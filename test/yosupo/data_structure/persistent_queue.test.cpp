@@ -6,7 +6,7 @@
 int main(void) {
     int q;
     std::cin >> q;
-    std::vector<persistent_queue<int>> qs;
+    std::vector<PersistentQueue<int>> qs;
     qs.emplace_back();
     while (q--) {
         int t;

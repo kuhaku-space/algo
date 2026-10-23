@@ -11,7 +11,7 @@
 /// @tparam F 作用素モノイド（op が作用素の合成、f が値への作用）。`void` なら遅延伝播なし
 ///           （`apply`/`copy` は提供せず、`prod`/`get` は push を伴わない const な読み取りになる）。
 /// @note `void` は内部で `std::monostate` に正規化し、本体を 1 つに保つ。遅延伝播ありの場合、
-///       `prod` は経路上の push 結果を `_root` にキャッシュするため非 const になる。
+///       `prod` は経路上の push 結果を `root` にキャッシュするため非 const になる。
 /// @complexity 構築は $O(n)$、更新・作用・区間積・区間copyは $O(\log n)$
 template <class S, class F = void>
 requires monoid<S> && (std::is_void_v<F> || (monoid<F> && acts_on<F, typename S::value_type>))
@@ -19,10 +19,10 @@ struct PersistentSegmentTree {
   private:
     using T = typename S::value_type;
     static constexpr bool use_lazy = !std::is_void_v<F>;
-    struct void_monoid {
+    struct VoidMonoid {
         using value_type = std::monostate;
     };
-    using U = typename std::conditional_t<use_lazy, F, void_monoid>::value_type;
+    using U = typename std::conditional_t<use_lazy, F, VoidMonoid>::value_type;
 
     struct Node {
         using pointer = Node *;
@@ -48,20 +48,20 @@ struct PersistentSegmentTree {
 
     /// @brief 空の木を構築する
     /// @complexity $O(1)$
-    constexpr PersistentSegmentTree() : _size(), _root() {}
+    constexpr PersistentSegmentTree() : n(), root() {}
 
     /// @brief 既存の根からn要素のversionを構築する
     /// @complexity $O(1)$
-    constexpr PersistentSegmentTree(int n, node_ptr _root) : _size(n), _root(_root) {}
+    constexpr PersistentSegmentTree(int _n, node_ptr _root) : n(_n), root(_root) {}
 
     /// @brief n要素をeで初期化する
     /// @complexity $O(n)$
-    PersistentSegmentTree(int n, T e = S::id()) : _size(n), _root(build(0, n, e)) {}
+    PersistentSegmentTree(int _n, T e = S::id()) : n(_n), root(build(0, _n, e)) {}
 
     /// @brief 列vから構築する
     /// @complexity $O(n)$
     template <class V>
-    PersistentSegmentTree(const std::vector<V> &v) : _size(v.size()), _root(build(0, v.size(), v)) {}
+    PersistentSegmentTree(const std::vector<V> &v) : n(v.size()), root(build(0, v.size(), v)) {}
 
     /// @brief 遅延なしの木でi番目の値を返す
     /// @complexity $O(\log n)$
@@ -114,8 +114,8 @@ struct PersistentSegmentTree {
     /// @brief k番目をvalへ変更した新しいversionを返す
     /// @complexity $O(\log n)$
     PersistentSegmentTree set(int k, T val) const {
-        assert(0 <= k && k < _size);
-        return PersistentSegmentTree(_size, set(0, _size, k, val, _root));
+        assert(0 <= k && k < n);
+        return PersistentSegmentTree(n, set(0, n, k, val, root));
     }
 
     /// @brief k番目を単位元へ戻した新しいversionを返す
@@ -134,7 +134,7 @@ struct PersistentSegmentTree {
     PersistentSegmentTree apply(int a, int b, U f) const
     requires use_lazy
     {
-        return PersistentSegmentTree(_size, apply(0, _size, a, b, f, _root));
+        return PersistentSegmentTree(n, apply(0, n, a, b, f, root));
     }
 
     /// @brief v[a ... b-1] を cp の同区間で置き換えた版を返す
@@ -142,20 +142,20 @@ struct PersistentSegmentTree {
     PersistentSegmentTree copy(int a, int b, PersistentSegmentTree cp) const
     requires use_lazy
     {
-        return PersistentSegmentTree(_size, copy(0, _size, a, b, cp._root, _root));
+        return PersistentSegmentTree(n, copy(0, n, a, b, cp.root, root));
     }
 
     /// @brief 全要素の積を返す
     /// @complexity $O(1)$
-    T all_prod() const { return _root->val; }
+    T all_prod() const { return root->val; }
 
     /// @brief 遅延なしの木で半開区間[a,b)の積を返す
     /// @complexity $O(\log n)$
     T prod(int a, int b) const
     requires(!use_lazy)
     {
-        assert(0 <= a && b <= _size);
-        return prod_readonly(0, _size, a, b, _root);
+        assert(0 <= a && b <= n);
+        return prod_readonly(0, n, a, b, root);
     }
 
     /// @brief 遅延ありの木で半開区間[a,b)の積を返す
@@ -163,15 +163,15 @@ struct PersistentSegmentTree {
     T prod(int a, int b)
     requires use_lazy
     {
-        assert(0 <= a && b <= _size);
-        auto [val, node] = prod_and_push(0, _size, a, b, _root);
-        _root = node;
+        assert(0 <= a && b <= n);
+        auto [val, node] = prod_and_push(0, n, a, b, root);
+        root = node;
         return val;
     }
 
   private:
-    int _size;
-    node_ptr _root;
+    int n;
+    node_ptr root;
 
     static node_ptr merge(node_ptr left, node_ptr right) {
         if (left == nullptr) return right;

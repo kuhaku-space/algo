@@ -7,31 +7,31 @@
 /// @tparam T
 /// @complexity 追加・先頭取得は $O(\log n)$、削除・サイズ取得は $O(1)$
 template <class T>
-struct persistent_queue {
+struct PersistentQueue {
   private:
-    struct _node {
-        using pointer = _node *;
+    struct Node {
+        using pointer = Node *;
         T val;
         std::vector<pointer> prev;
 
-        constexpr _node(const T &_val) : val(_val), prev() {}
-        constexpr _node(T &&_val) : val(std::move(_val)), prev() {}
+        constexpr Node(const T &_val) : val(_val), prev() {}
+        constexpr Node(T &&_val) : val(std::move(_val)), prev() {}
         template <typename... Args>
-        constexpr _node(Args &&...args) : val(std::forward<Args>(args)...), prev() {}
+        constexpr Node(Args &&...args) : val(std::forward<Args>(args)...), prev() {}
     };
 
   public:
     /// @brief 内部ノードへのpointer型
     /// @complexity 型エイリアスで実行時計算量はない
-    using node_ptr = typename _node::pointer;
+    using node_ptr = typename Node::pointer;
 
     /// @brief 空のqueueを構築する
     /// @complexity $O(1)$
-    constexpr persistent_queue() : _size(), root() {}
+    constexpr PersistentQueue() : _size(), root() {}
 
     /// @brief 既存の根からサイズnのversionを構築する
     /// @complexity $O(1)$
-    constexpr persistent_queue(int n, node_ptr _root) : _size(n), root(_root) {}
+    constexpr PersistentQueue(int n, node_ptr _root) : _size(n), root(_root) {}
 
     /// @brief 要素数を返す
     /// @complexity $O(1)$
@@ -60,38 +60,38 @@ struct persistent_queue {
 
     /// @brief 末尾にvalを追加した新しいversionを返す
     /// @complexity $O(\log n)$
-    persistent_queue push(const T &val) const {
-        node_ptr new_node = new _node(val);
+    PersistentQueue push(const T &val) const {
+        node_ptr new_node = new Node(val);
         return push_node(new_node);
     }
 
     /// @brief 末尾にvalをmoveして追加した新しいversionを返す
     /// @complexity $O(\log n)$
-    persistent_queue push(T &&val) const {
-        node_ptr new_node = new _node(std::move(val));
+    PersistentQueue push(T &&val) const {
+        node_ptr new_node = new Node(std::move(val));
         return push_node(new_node);
     }
 
     /// @brief 末尾に要素を直接構築した新しいversionを返す
     /// @complexity $O(\log n)$
     template <typename... Args>
-    persistent_queue emplace(Args &&...args) const {
-        node_ptr new_node = new _node(std::forward<Args>(args)...);
+    PersistentQueue emplace(Args &&...args) const {
+        node_ptr new_node = new Node(std::forward<Args>(args)...);
         return push_node(new_node);
     }
 
     /// @brief 先頭を削除した新しいversionを返す
     /// @complexity $O(1)$
-    persistent_queue pop() const {
+    PersistentQueue pop() const {
         assert(!empty());
-        return persistent_queue(_size - 1, root);
+        return PersistentQueue(_size - 1, root);
     }
 
   private:
     int _size;
     node_ptr root;
 
-    persistent_queue push_node(node_ptr new_node) const {
+    PersistentQueue push_node(node_ptr new_node) const {
         node_ptr node = root;
         new_node->prev.emplace_back(node);
         int k = 0;
@@ -100,6 +100,6 @@ struct persistent_queue {
             else node = nullptr;
             new_node->prev.emplace_back(node);
         }
-        return persistent_queue(_size + 1, new_node);
+        return PersistentQueue(_size + 1, new_node);
     }
 };
