@@ -7,7 +7,7 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    lazy_segment_tree<Min<std::int64_t>, Add<std::int64_t>> st(n, 0);
+    LazySegmentTree<Min<std::int64_t>, Add<std::int64_t>> st(n, 0);
     while (q--) {
         int com;
         std::cin >> com;

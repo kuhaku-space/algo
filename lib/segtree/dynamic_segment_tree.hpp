@@ -9,32 +9,32 @@
 /// @brief 動的セグメント木
 /// @complexity 点更新・区間積は領域長を $n$ として $O(\log n)$
 template <monoid M>
-struct dynamic_segment_tree {
+struct DynamicSegmentTree {
   private:
     using T = typename M::value_type;
 
-    struct _node {
+    struct Node {
         std::int64_t index;
         int left, right;
         T value, product;
 
-        constexpr _node() = default;
-        constexpr _node(std::int64_t _index, T _value)
+        constexpr Node() = default;
+        constexpr Node(std::int64_t _index, T _value)
             : index(_index), left(-1), right(-1), value(_value), product(_value) {}
     };
 
   public:
     /// @brief 添字領域[0,n)の空の木を構築する
     /// @complexity $O(1)$
-    dynamic_segment_tree(std::int64_t n) : data(), _size(n) {}
+    DynamicSegmentTree(std::int64_t _n) : data(), n(_n) {}
 
     /// @brief k番目の値を返す
     /// @complexity $O(\log n)$
     T operator[](std::int64_t k) const {
-        assert(0 <= k && k < _size);
+        assert(0 <= k && k < n);
         if (data.empty()) return M::id();
         int idx = 0;
-        std::int64_t l = 0, r = _size;
+        std::int64_t l = 0, r = n;
         while (idx != -1) {
             if (k == data[idx].index) return data[idx].value;
             std::int64_t m = (l + r) >> 1;
@@ -52,37 +52,37 @@ struct dynamic_segment_tree {
     /// @complexity $O(\log n)$
     T get(std::int64_t k) const { return operator[](k); }
 
-    /// @brief k番目をxへ変更する
+    /// @brief k番目をvalへ変更する
     /// @complexity $O(\log n)$
-    void set(std::int64_t k, T x) {
-        assert(0 <= k && k < _size);
+    void set(std::int64_t k, T val) {
+        assert(0 <= k && k < n);
         if (data.empty()) {
-            data.emplace_back(k, x);
+            data.emplace_back(k, val);
             return;
         }
         int idx = 0;
         std::vector<int> nodes;
-        std::int64_t l = 0, r = _size;
+        std::int64_t l = 0, r = n;
         while (true) {
             nodes.emplace_back(idx);
             if (k == data[idx].index) {
-                data[idx].value = x;
+                data[idx].value = val;
                 break;
             }
             std::int64_t m = (l + r) >> 1;
             if (k < m) {
-                if (data[idx].index < k) std::swap(k, data[idx].index), std::swap(x, data[idx].value);
+                if (data[idx].index < k) std::swap(k, data[idx].index), std::swap(val, data[idx].value);
                 if (data[idx].left == -1) {
                     data[idx].left = data.size();
-                    data.emplace_back(k, x);
+                    data.emplace_back(k, val);
                     break;
                 }
                 r = m, idx = data[idx].left;
             } else {
-                if (k < data[idx].index) std::swap(k, data[idx].index), std::swap(x, data[idx].value);
+                if (k < data[idx].index) std::swap(k, data[idx].index), std::swap(val, data[idx].value);
                 if (data[idx].right == -1) {
                     data[idx].right = data.size();
-                    data.emplace_back(k, x);
+                    data.emplace_back(k, val);
                     break;
                 }
                 l = m, idx = data[idx].right;
@@ -108,15 +108,15 @@ struct dynamic_segment_tree {
     /// @brief 半開区間[a,b)の積を返す
     /// @complexity $O(\log n)$
     T prod(std::int64_t a, std::int64_t b) const {
-        assert(0 <= a && a <= _size);
-        assert(0 <= b && b <= _size);
+        assert(0 <= a && a <= n);
+        assert(0 <= b && b <= n);
         if (data.empty()) return M::id();
-        return prod(a, b, 0, 0, _size);
+        return prod(a, b, 0, 0, n);
     }
 
   private:
-    std::vector<_node> data;
-    std::int64_t _size;
+    std::vector<Node> data;
+    std::int64_t n;
 
     T prod(std::int64_t a, std::int64_t b, int idx, std::int64_t l, std::int64_t r) const {
         if (idx == -1 || r <= a || b <= l) return M::id();

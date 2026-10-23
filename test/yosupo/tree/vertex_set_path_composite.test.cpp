@@ -11,7 +11,7 @@ using M = Affine<Mint>;
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    segment_tree_on_tree<M> st(n);
+    SegmentTreeOnTree<M> st(n);
     std::vector<std::pair<Mint, Mint>> p(n);
     for (int i = 0; i < n; ++i) std::cin >> p[i].first >> p[i].second;
     for (int i = 0; i < n - 1; ++i) {

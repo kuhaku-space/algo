@@ -6,7 +6,7 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    lazy_segment_tree<Min<int>, Update<int>> st(n, std::numeric_limits<int>::max());
+    LazySegmentTree<Min<int>, Update<int>> st(n, std::numeric_limits<int>::max());
     while (q--) {
         int com;
         std::cin >> com;

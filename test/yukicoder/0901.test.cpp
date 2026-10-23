@@ -13,7 +13,7 @@ int main(void) {
     edge_input<std::int64_t> ei(n - 1, 0);
     auto g = ei.to_undirected(n);
     heavy_light_decomposition hld(g);
-    segment_tree<Add<std::int64_t>> st(n);
+    SegmentTree<Add<std::int64_t>> st(n);
     auto f = [&](auto self, int x, int p) -> void {
         for (auto e : g[x]) {
             if (e.to() == p) continue;

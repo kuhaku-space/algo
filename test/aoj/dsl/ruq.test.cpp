@@ -6,7 +6,7 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    dual_segment_tree<Update<int>> st(n, std::numeric_limits<int>::max());
+    DualSegmentTree<Update<int>> st(n, std::numeric_limits<int>::max());
     while (q--) {
         int com;
         std::cin >> com;

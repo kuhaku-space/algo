@@ -46,7 +46,7 @@ int main(void) {
         if (c == 'G') v[et.left(i)] = S{1, 0};
         else v[et.left(i)] = S{0, 1};
     }
-    lazy_segment_tree<M, F> lst(v);
+    LazySegmentTree<M, F> lst(v);
     while (q--) {
         int x;
         std::cin >> x;

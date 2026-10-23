@@ -12,29 +12,29 @@
 /// @complexity 点更新・区間作用・区間積は領域長を $n$ として $O(\log n)$
 template <class S, class F>
 requires monoid<S> && monoid<F> && acts_on<F, typename S::value_type>
-struct dynamic_lazy_segment_tree {
+struct DynamicLazySegmentTree {
   private:
     using T = typename S::value_type;
     using U = typename F::value_type;
 
-    struct _node {
+    struct Node {
         T value;
         U lazy;
         int left, right;
 
-        constexpr _node() : value(), lazy(F::id()), left(-1), right(-1) {}
-        constexpr _node(T _value) : value(_value), lazy(F::id()), left(-1), right(-1) {}
+        constexpr Node() : value(), lazy(F::id()), left(-1), right(-1) {}
+        constexpr Node(T _value) : value(_value), lazy(F::id()), left(-1), right(-1) {}
     };
 
   public:
     /// @brief 添字領域[0,n)の空の木を構築する
     /// @complexity $O(1)$
-    dynamic_lazy_segment_tree(std::int64_t n) : data(), _size(n) {}
+    DynamicLazySegmentTree(std::int64_t _n) : data(), n(_n) {}
 
     /// @brief k番目の値を返す
     /// @complexity $O(\log n)$
     T operator[](std::int64_t k) {
-        assert(0 <= k && k < _size);
+        assert(0 <= k && k < n);
         return prod(k, k + 1);
     }
 
@@ -46,11 +46,11 @@ struct dynamic_lazy_segment_tree {
     /// @complexity $O(\log n)$
     T get(std::int64_t k) { return operator[](k); }
 
-    /// @brief k番目をxへ変更する
+    /// @brief k番目をvalへ変更する
     /// @complexity $O(\log n)$
-    void set(std::int64_t k, T x) {
-        assert(0 <= k && k < _size);
-        set(k, x, data.empty() ? -1 : 0, 0, _size);
+    void set(std::int64_t k, T val) {
+        assert(0 <= k && k < n);
+        set(k, val, data.empty() ? -1 : 0, 0, n);
     }
 
     /// @brief k番目を単位元へ戻す
@@ -60,34 +60,34 @@ struct dynamic_lazy_segment_tree {
     /// @brief 半開区間[a,b)にfを作用する
     /// @complexity $O(\log n)$
     void apply(std::int64_t a, std::int64_t b, U f) {
-        assert(0 <= a && a <= b && b <= _size);
-        apply(a, b, f, data.empty() ? -1 : 0, 0, _size);
+        assert(0 <= a && a <= b && b <= n);
+        apply(a, b, f, data.empty() ? -1 : 0, 0, n);
     }
 
     /// @brief 全要素の積を返す
     /// @complexity $O(1)$
-    T all_prod() const { return data.empty() ? S::id(_size) : data[0].value; }
+    T all_prod() const { return data.empty() ? S::id(n) : data[0].value; }
 
     /// @brief 半開区間[a,b)の積を返す
     /// @complexity $O(\log n)$
     T prod(std::int64_t a, std::int64_t b) {
-        assert(0 <= a && a <= _size);
-        assert(0 <= b && b <= _size);
-        if (data.empty()) return S::id(_size);
-        return prod(a, b, 0, 0, _size);
+        assert(0 <= a && a <= n);
+        assert(0 <= b && b <= n);
+        if (data.empty()) return S::id(n);
+        return prod(a, b, 0, 0, n);
     }
 
   private:
-    std::vector<_node> data;
-    std::int64_t _size;
+    std::vector<Node> data;
+    std::int64_t n;
 
-    int set(std::int64_t k, T x, int idx, std::int64_t l, std::int64_t r) {
+    int set(std::int64_t k, T val, int idx, std::int64_t l, std::int64_t r) {
         if (l + 1 == r) {
             if (idx == -1) {
                 idx = data.size();
-                data.emplace_back(x);
+                data.emplace_back(val);
             } else {
-                data[idx].value = x;
+                data[idx].value = val;
             }
             return idx;
         }
@@ -97,8 +97,8 @@ struct dynamic_lazy_segment_tree {
             data.emplace_back(S::id(r - l));
         }
         push(idx, l, r);
-        if (k < m) data[idx].left = set(k, x, data[idx].left, k, x, l, m);
-        else data[idx].right = set(k, x, data[idx].right, m, r);
+        if (k < m) data[idx].left = set(k, val, data[idx].left, k, val, l, m);
+        else data[idx].right = set(k, val, data[idx].right, m, r);
         return update(idx, l, r);
     }
 

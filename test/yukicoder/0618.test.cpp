@@ -33,7 +33,7 @@ int main(void) {
 
     s = 0;
     CoordinateCompression cps(a);
-    segment_tree<M> st(cps.size());
+    SegmentTree<M> st(cps.size());
     std::vector<std::int64_t> c;
     for (int i = 0; i < q; ++i) {
         if (t[i] == 1) {

@@ -7,7 +7,7 @@
 #include "segtree/monoid.hpp"
 
 /// @file
-/// @brief セグメント木 (segment_tree)
+/// @brief セグメント木 (SegmentTree)
 /// @details モノイドで表せる区間積と点更新を $O(\log n)$ で処理する。和・最小値・最大値に加え、
 ///          行列積や関数合成のような非可換演算にも利用できる。
 /// @details `max_right` / `min_left` により、「区間積が条件を満たす境界」を二分探索なしで求められる。
@@ -26,14 +26,14 @@
 ///
 /// int main() {
 ///     std::vector<long long> a = {2, 1, 4, 3};
-///     segment_tree<Add<long long>> seg(a);
+///     SegmentTree<Add<long long>> seg(a);
 ///     std::cout << seg.prod(1, 4) << '\n';  // 1 + 4 + 3
 ///
 ///     seg.set(2, 10);
 ///     seg[0] = 5;                           // set(0, 5) と同じ
 ///     std::cout << seg.all_prod() << '\n';
 ///
-///     segment_tree<Max<long long>> mx(4, 0);
+///     SegmentTree<Max<long long>> mx(4, 0);
 ///     chmax(mx[1], 5);                      // v[1] = max(v[1], 5)
 ///     std::cout << mx.prod(0, 4) << '\n';
 /// }
@@ -43,7 +43,7 @@
 /// @see https://noshi91.hatenablog.com/entry/2020/04/22/212649
 /// @complexity 構築は $O(n)$、更新・区間積・境界探索は $O(\log n)$
 template <monoid M>
-struct segment_tree {
+struct SegmentTree {
   private:
     using T = typename M::value_type;
 
@@ -52,11 +52,11 @@ struct segment_tree {
     /// @complexity 値の取得は $O(1)$、代入は $O(\log n)$
     struct Reference {
       private:
-        segment_tree<M> &self;
+        SegmentTree<M> &self;
         int k;
 
       public:
-        Reference(segment_tree<M> &self, int k) : self(self), k(k) {}
+        Reference(SegmentTree<M> &self, int k) : self(self), k(k) {}
         Reference(const Reference &) = default;
         // 参照の張り替えではなく値の代入(std::vector<bool>::referenceと同じ)
         Reference &operator=(const Reference &x) { return *this = T(x); }
@@ -82,38 +82,38 @@ struct segment_tree {
   public:
     /// @brief 空の木を構築する
     /// @complexity $O(1)$
-    segment_tree() : segment_tree(0) {}
+    SegmentTree() : SegmentTree(0) {}
 
     /// @brief n要素をeで初期化する
     /// @complexity $O(n)$
-    explicit segment_tree(int n, T e = M::id()) : segment_tree(std::vector<T>(n, e)) {}
+    explicit SegmentTree(int _n, T e = M::id()) : SegmentTree(std::vector<T>(_n, e)) {}
 
     /// @brief 列vから構築する
     /// @complexity $O(n)$
     template <class U>
-    explicit segment_tree(const std::vector<U> &v) : _n(v.size()) {
-        _size = std::bit_ceil<unsigned>(_n);
-        _log = std::countr_zero<unsigned>(_size);
-        data = std::vector<T>(_size << 1, M::id());
-        for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
-        for (int i = _size - 1; i >= 1; --i) update(i);
+    explicit SegmentTree(const std::vector<U> &v) : n(v.size()) {
+        size = std::bit_ceil<unsigned>(n);
+        log = std::countr_zero<unsigned>(size);
+        data = std::vector<T>(size << 1, M::id());
+        for (int i = 0; i < n; ++i) data[size + i] = T(v[i]);
+        for (int i = size - 1; i >= 1; --i) update(i);
     }
 
     /// @brief 確保済み領域を保ったままn要素をeで埋め直す
     /// @complexity $O(n)$
-    void assign(int n, T e = M::id()) {
-        assert(n <= _size);
-        _n = n;
+    void assign(int _n, T e = M::id()) {
+        assert(_n <= size);
+        n = _n;
         std::fill(data.begin(), data.end(), M::id());
         if (e != M::id()) {
-            std::fill(data.begin() + _size, data.begin() + _size + _n, e);
-            for (int i = _size - 1; i >= 1; --i) update(i);
+            std::fill(data.begin() + size, data.begin() + size + n, e);
+            for (int i = size - 1; i >= 1; --i) update(i);
         }
     }
 
     /// @brief k番目の値をconst参照で返す
     /// @complexity $O(1)$
-    const T &operator[](int k) const { return data[k + _size]; }
+    const T &operator[](int k) const { return data[k + size]; }
 
     /// @brief k番目を参照・代入できるproxyを返す
     /// @complexity 取得は $O(1)$、代入は $O(\log n)$
@@ -121,19 +121,19 @@ struct segment_tree {
 
     /// @brief k番目の値を返す
     /// @complexity $O(1)$
-    T at(int k) const { return data[k + _size]; }
+    T at(int k) const { return data[k + size]; }
 
     /// @brief k番目の値を返す
     /// @complexity $O(1)$
-    T get(int k) const { return data[k + _size]; }
+    T get(int k) const { return data[k + size]; }
 
     /// @brief k番目をvalへ変更する
     /// @complexity $O(\log n)$
     void set(int k, T val) {
-        assert(0 <= k && k < _n);
-        k += _size;
+        assert(0 <= k && k < n);
+        k += size;
         data[k] = std::move(val);
-        for (int i = 1; i <= _log; ++i) update(k >> i);
+        for (int i = 1; i <= log; ++i) update(k >> i);
     }
 
     /// @brief k番目を単位元へ戻す
@@ -147,9 +147,9 @@ struct segment_tree {
     /// @brief 半開区間[a,b)の積を返す
     /// @complexity $O(\log n)$
     T prod(int a, int b) const {
-        assert(0 <= a && b <= _n);
+        assert(0 <= a && b <= n);
         T l = M::id(), r = M::id();
-        for (a += _size, b += _size; a < b; a >>= 1, b >>= 1) {
+        for (a += size, b += size; a < b; a >>= 1, b >>= 1) {
             if (a & 1) l = M::op(l, data[a++]);
             if (b & 1) r = M::op(data[--b], r);
         }
@@ -167,57 +167,57 @@ struct segment_tree {
     /// @complexity $O(\log n)$
     template <class F>
     int max_right(int l, F f) const {
-        assert(0 <= l && l <= _n);
+        assert(0 <= l && l <= n);
         assert(f(M::id()));
-        if (l == _n) return _n;
-        l += _size;
+        if (l == n) return n;
+        l += size;
         T sm = M::id();
         do {
             while (l % 2 == 0) l >>= 1;
             if (!f(M::op(sm, data[l]))) {
-                while (l < _size) {
+                while (l < size) {
                     l = (2 * l);
                     if (f(M::op(sm, data[l]))) {
                         sm = M::op(sm, data[l]);
                         l++;
                     }
                 }
-                return l - _size;
+                return l - size;
             }
             sm = M::op(sm, data[l]);
             l++;
         } while ((l & -l) != l);
-        return _n;
+        return n;
     }
 
     /// @brief nから左へ述語fが真である最小境界を返す
     /// @complexity $O(\log n)$
     template <class F>
     int min_left(F f) const {
-        return min_left(_n, f);
+        return min_left(n, f);
     }
 
     /// @brief rから左へ述語fが真である最小境界を返す
     /// @complexity $O(\log n)$
     template <class F>
     int min_left(int r, F f) const {
-        assert(0 <= r && r <= _n);
+        assert(0 <= r && r <= n);
         assert(f(M::id()));
         if (r == 0) return 0;
-        r += _size;
+        r += size;
         T sm = M::id();
         do {
             r--;
             while (r > 1 && (r % 2)) r >>= 1;
             if (!f(M::op(data[r], sm))) {
-                while (r < _size) {
+                while (r < size) {
                     r = (2 * r + 1);
                     if (f(M::op(data[r], sm))) {
                         sm = M::op(data[r], sm);
                         r--;
                     }
                 }
-                return r + 1 - _size;
+                return r + 1 - size;
             }
             sm = M::op(data[r], sm);
         } while ((r & -r) != r);
@@ -225,7 +225,7 @@ struct segment_tree {
     }
 
   private:
-    int _n, _size, _log;
+    int n, size, log;
     std::vector<T> data;
 
     void update(int k) { data[k] = M::op(data[2 * k], data[2 * k + 1]); }
