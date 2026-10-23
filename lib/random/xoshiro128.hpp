@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <limits>
 #include <utility>
-#include "random/split_mix_64.hpp"
+#include "random/split_mix64.hpp"
 
 /// @brief 疑似乱数生成器 xoshiro128++
 /// @complexity すべての操作が $O(1)$
