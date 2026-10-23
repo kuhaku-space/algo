@@ -7,27 +7,27 @@
 /// @brief 双対セグメント木
 /// @complexity 構築は $O(n)$、点取得・区間作用は $O(\log n)$
 template <monoid M>
-struct dual_segment_tree {
+struct DualSegmentTree {
   private:
     using T = typename M::value_type;
 
   public:
     /// @brief 空の木を構築する
     /// @complexity $O(1)$
-    dual_segment_tree() : dual_segment_tree(0) {}
+    DualSegmentTree() : DualSegmentTree(0) {}
 
     /// @brief n要素をeで初期化する
     /// @complexity $O(n)$
-    explicit dual_segment_tree(int n, T e = M::id()) : dual_segment_tree(std::vector<T>(n, e)) {}
+    explicit DualSegmentTree(int _n, T e = M::id()) : DualSegmentTree(std::vector<T>(_n, e)) {}
 
     /// @brief 列vから構築する
     /// @complexity $O(n)$
     template <class U>
-    explicit dual_segment_tree(const std::vector<U> &v) : _n(v.size()) {
-        _size = std::bit_ceil<unsigned>(_n);
-        _log = std::countr_zero<unsigned>(_size);
-        data = std::vector<T>(_size << 1, M::id());
-        for (int i = 0; i < _n; ++i) data[_size + i] = T(v[i]);
+    explicit DualSegmentTree(const std::vector<U> &v) : n(v.size()) {
+        size = std::bit_ceil<unsigned>(n);
+        log = std::countr_zero<unsigned>(size);
+        data = std::vector<T>(size << 1, M::id());
+        for (int i = 0; i < n; ++i) data[size + i] = T(v[i]);
     }
 
     /// @brief k番目の値を返す
@@ -37,9 +37,9 @@ struct dual_segment_tree {
     /// @brief k番目の値を返す
     /// @complexity $O(\log n)$
     T get(int k) {
-        assert(0 <= k && k < _n);
-        k += _size;
-        for (int i = _log; i >= 1; --i) push(k >> i);
+        assert(0 <= k && k < n);
+        k += size;
+        for (int i = log; i >= 1; --i) push(k >> i);
         return data[k];
     }
 
@@ -50,10 +50,10 @@ struct dual_segment_tree {
     /// @brief 半開区間[a,b)にvalを作用する
     /// @complexity $O(\log n)$
     void apply(int a, int b, T val) {
-        assert(0 <= a && a <= _n);
-        assert(0 <= b && b <= _n);
-        a += _size, b += _size;
-        for (int i = _log; i >= 1; --i) {
+        assert(0 <= a && a <= n);
+        assert(0 <= b && b <= n);
+        a += size, b += size;
+        for (int i = log; i >= 1; --i) {
             if (((a >> i) << i) != a) push(a >> i);
             if (((b >> i) << i) != b) push((b - 1) >> i);
         }
@@ -65,7 +65,7 @@ struct dual_segment_tree {
     }
 
   private:
-    int _n, _size, _log;
+    int n, size, log;
     std::vector<T> data;
 
     void all_apply(int k, T val) { data[k] = M::op(val, data[k]); }

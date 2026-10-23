@@ -10,8 +10,8 @@
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    range_tree<Add<std::int64_t>> rt;
-    segment_tree_2d<Add<std::int64_t>> st(1000000001, 1000000001);
+    RangeTree<Add<std::int64_t>> rt;
+    SegmentTree2D<Add<std::int64_t>> st(1000000001, 1000000001);
 
     std::vector<std::tuple<int, int, int>> points(n);
     for (auto &[x, y, z] : points) {

@@ -32,7 +32,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<std::pair<Mint, Mint>> p(n);
     for (int i = 0; i < n; ++i) p[i] = {a[i], 1};
-    lazy_segment_tree<M1, M2> st(p);
+    LazySegmentTree<M1, M2> st(p);
 
     while (q--) {
         int c;

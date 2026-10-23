@@ -19,7 +19,7 @@ std::vector<std::int64_t> solve_euler_tour(int n, const std::vector<int> &a, con
     for (int i = 0; i < n - 1; ++i) ei.emplace(i + 1, p[i]);
     auto g = ei.to_undirected(n);
     euler_tour et(g);
-    segment_tree<Add<std::int64_t>> st(n);
+    SegmentTree<Add<std::int64_t>> st(n);
     for (int i = 0; i < n; ++i) st.set(et.left(i), a[i]);
 
     std::vector<std::int64_t> ans;

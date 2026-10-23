@@ -11,7 +11,7 @@
 /// @complexity 構築は $O(n)$、更新・作用・区間積・境界探索は $O(\log n)$
 template <class S, class F>
 requires monoid<S> && monoid<F> && acts_on<F, typename S::value_type>
-struct lazy_segment_tree {
+struct LazySegmentTree {
   private:
     using T = typename S::value_type;
     using U = typename F::value_type;
@@ -19,101 +19,101 @@ struct lazy_segment_tree {
   public:
     /// @brief 空の木を構築する
     /// @complexity $O(1)$
-    lazy_segment_tree() : lazy_segment_tree(0) {}
+    LazySegmentTree() : LazySegmentTree(0) {}
 
     /// @brief n要素をeで初期化する
     /// @complexity $O(n)$
-    explicit lazy_segment_tree(int n, T e = S::id()) : lazy_segment_tree(std::vector<T>(n, e)) {}
+    explicit LazySegmentTree(int _n, T e = S::id()) : LazySegmentTree(std::vector<T>(_n, e)) {}
 
     /// @brief 列vから構築する
     /// @complexity $O(n)$
-    explicit lazy_segment_tree(const std::vector<T> &v) : _n(int(v.size())) {
-        _size = std::bit_ceil<unsigned>(_n);
-        _log = std::countr_zero<unsigned>(_size);
-        data = std::vector<T>(2 * _size, S::id());
-        lazy = std::vector<U>(_size, F::id());
-        for (int i = 0; i < _n; i++) data[_size + i] = v[i];
-        for (int i = _size - 1; i >= 1; --i) update(i);
+    explicit LazySegmentTree(const std::vector<T> &v) : n(int(v.size())) {
+        size = std::bit_ceil<unsigned>(n);
+        log = std::countr_zero<unsigned>(size);
+        data = std::vector<T>(2 * size, S::id());
+        lazy = std::vector<U>(size, F::id());
+        for (int i = 0; i < n; i++) data[size + i] = v[i];
+        for (int i = size - 1; i >= 1; --i) update(i);
     }
 
-    /// @brief p番目をxへ変更する
+    /// @brief k番目をvalへ変更する
     /// @complexity $O(\log n)$
-    void set(int p, T x) {
-        assert(0 <= p && p < _n);
-        p += _size;
-        for (int i = _log; i >= 1; --i) push(p >> i);
-        data[p] = x;
-        for (int i = 1; i <= _log; ++i) update(p >> i);
+    void set(int k, T val) {
+        assert(0 <= k && k < n);
+        k += size;
+        for (int i = log; i >= 1; --i) push(k >> i);
+        data[k] = val;
+        for (int i = 1; i <= log; ++i) update(k >> i);
     }
 
-    /// @brief p番目の値を返す
+    /// @brief k番目の値を返す
     /// @complexity $O(\log n)$
-    T at(int p) { return get(p); }
+    T at(int k) { return get(k); }
 
-    /// @brief p番目の値を返す
+    /// @brief k番目の値を返す
     /// @complexity $O(\log n)$
-    T get(int p) {
-        assert(0 <= p && p < _n);
-        p += _size;
-        for (int i = _log; i >= 1; --i) push(p >> i);
-        return data[p];
+    T get(int k) {
+        assert(0 <= k && k < n);
+        k += size;
+        for (int i = log; i >= 1; --i) push(k >> i);
+        return data[k];
     }
 
-    /// @brief p番目にfを作用する
+    /// @brief k番目にfを作用する
     /// @complexity $O(\log n)$
-    void apply(int p, U f) {
-        assert(0 <= p && p < _n);
-        p += _size;
-        for (int i = _log; i >= 1; --i) push(p >> i);
-        data[p] = F::f(f, data[p]);
-        for (int i = 1; i <= _log; ++i) update(p >> i);
+    void apply(int k, U f) {
+        assert(0 <= k && k < n);
+        k += size;
+        for (int i = log; i >= 1; --i) push(k >> i);
+        data[k] = F::f(f, data[k]);
+        for (int i = 1; i <= log; ++i) update(k >> i);
     }
 
-    /// @brief 半開区間[l,r)にfを作用する
+    /// @brief 半開区間[a,b)にfを作用する
     /// @complexity $O(\log n)$
-    void apply(int l, int r, U f) {
-        assert(0 <= l && l <= r && r <= _n);
-        if (l == r) return;
+    void apply(int a, int b, U f) {
+        assert(0 <= a && a <= b && b <= n);
+        if (a == b) return;
 
-        l += _size, r += _size;
+        a += size, b += size;
 
-        for (int i = _log; i >= 1; --i) {
-            if (((l >> i) << i) != l) push(l >> i);
-            if (((r >> i) << i) != r) push((r - 1) >> i);
+        for (int i = log; i >= 1; --i) {
+            if (((a >> i) << i) != a) push(a >> i);
+            if (((b >> i) << i) != b) push((b - 1) >> i);
         }
 
-        int l2 = l, r2 = r;
-        while (l < r) {
-            if (l & 1) all_apply(l++, f);
-            if (r & 1) all_apply(--r, f);
-            l >>= 1, r >>= 1;
+        int a2 = a, b2 = b;
+        while (a < b) {
+            if (a & 1) all_apply(a++, f);
+            if (b & 1) all_apply(--b, f);
+            a >>= 1, b >>= 1;
         }
-        l = l2, r = r2;
+        a = a2, b = b2;
 
-        for (int i = 1; i <= _log; i++) {
-            if (((l >> i) << i) != l) update(l >> i);
-            if (((r >> i) << i) != r) update((r - 1) >> i);
+        for (int i = 1; i <= log; i++) {
+            if (((a >> i) << i) != a) update(a >> i);
+            if (((b >> i) << i) != b) update((b - 1) >> i);
         }
     }
 
-    /// @brief 半開区間[l,r)の積を返す
+    /// @brief 半開区間[a,b)の積を返す
     /// @complexity $O(\log n)$
-    T prod(int l, int r) {
-        assert(0 <= l && l <= r && r <= _n);
-        if (l == r) return S::id();
+    T prod(int a, int b) {
+        assert(0 <= a && a <= b && b <= n);
+        if (a == b) return S::id();
 
-        l += _size, r += _size;
+        a += size, b += size;
 
-        for (int i = _log; i >= 1; --i) {
-            if (((l >> i) << i) != l) push(l >> i);
-            if (((r >> i) << i) != r) push((r - 1) >> i);
+        for (int i = log; i >= 1; --i) {
+            if (((a >> i) << i) != a) push(a >> i);
+            if (((b >> i) << i) != b) push((b - 1) >> i);
         }
 
         T sml = S::id(), smr = S::id();
-        while (l < r) {
-            if (l & 1) sml = S::op(sml, data[l++]);
-            if (r & 1) smr = S::op(data[--r], smr);
-            l >>= 1, r >>= 1;
+        while (a < b) {
+            if (a & 1) sml = S::op(sml, data[a++]);
+            if (b & 1) smr = S::op(data[--b], smr);
+            a >>= 1, b >>= 1;
         }
 
         return S::op(sml, smr);
@@ -134,16 +134,16 @@ struct lazy_segment_tree {
     /// @complexity $O(\log n)$
     template <class G>
     int max_right(int l, G g) {
-        assert(0 <= l && l <= _n);
+        assert(0 <= l && l <= n);
         assert(g(S::id()));
-        if (l == _n) return _n;
-        l += _size;
-        for (int i = _log; i >= 1; i--) push(l >> i);
+        if (l == n) return n;
+        l += size;
+        for (int i = log; i >= 1; i--) push(l >> i);
         T sm = S::id();
         do {
             while (l % 2 == 0) l >>= 1;
             if (!g(S::op(sm, data[l]))) {
-                while (l < _size) {
+                while (l < size) {
                     push(l);
                     l = (2 * l);
                     if (g(S::op(sm, data[l]))) {
@@ -151,36 +151,36 @@ struct lazy_segment_tree {
                         l++;
                     }
                 }
-                return l - _size;
+                return l - size;
             }
             sm = S::op(sm, data[l]);
             l++;
         } while ((l & -l) != l);
-        return _n;
+        return n;
     }
 
-    /// @brief lへ向かって積がval以下である最小境界を返す
+    /// @brief rから左へ積がval以下である最小境界を返す
     /// @complexity $O(\log n)$
-    int min_left(int l, T val) {
+    int min_left(int r, T val) {
         auto f = [&val](T v) { return !(val < v); };
-        return min_left(l, f);
+        return min_left(r, f);
     }
 
     /// @brief rから左へ述語gが真である最小境界を返す
     /// @complexity $O(\log n)$
     template <class G>
     int min_left(int r, G g) {
-        assert(0 <= r && r <= _n);
+        assert(0 <= r && r <= n);
         assert(g(S::id()));
         if (r == 0) return 0;
-        r += _size;
-        for (int i = _log; i >= 1; i--) push((r - 1) >> i);
-        S sm = S::id();
+        r += size;
+        for (int i = log; i >= 1; i--) push((r - 1) >> i);
+        T sm = S::id();
         do {
             r--;
             while (r > 1 && (r % 2)) r >>= 1;
             if (!g(S::op(data[r], sm))) {
-                while (r < _size) {
+                while (r < size) {
                     push(r);
                     r = (2 * r + 1);
                     if (g(S::op(data[r], sm))) {
@@ -188,7 +188,7 @@ struct lazy_segment_tree {
                         r--;
                     }
                 }
-                return r + 1 - _size;
+                return r + 1 - size;
             }
             sm = S::op(data[r], sm);
         } while ((r & -r) != r);
@@ -196,14 +196,14 @@ struct lazy_segment_tree {
     }
 
   private:
-    int _n, _size, _log;
+    int n, size, log;
     std::vector<T> data;
     std::vector<U> lazy;
 
     void update(int k) { data[k] = S::op(data[2 * k], data[2 * k + 1]); }
     void all_apply(int k, U f) {
         data[k] = F::f(f, data[k]);
-        if (k < _size) lazy[k] = F::op(f, lazy[k]);
+        if (k < size) lazy[k] = F::op(f, lazy[k]);
     }
     void push(int k) {
         all_apply(2 * k, lazy[k]);

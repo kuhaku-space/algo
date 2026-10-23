@@ -10,7 +10,7 @@ int main(void) {
     for (auto &e : a) std::cin >> e;
     std::vector<std::pair<int, int>> b(n);
     for (int i = 0; i < n; ++i) b[i] = {a[i], i};
-    segment_tree<Max<std::pair<int, int>>> seg(b);
+    SegmentTree<Max<std::pair<int, int>>> seg(b);
     while (q--) {
         int c, x;
         std::cin >> c >> x;

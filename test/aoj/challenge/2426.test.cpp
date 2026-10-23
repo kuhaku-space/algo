@@ -13,7 +13,7 @@ int main(void) {
     for (int i = 0; i < n; ++i) std::cin >> x[i] >> y[i];
 
     // 2 次元 range tree をオンラインに使う版。
-    range_tree<Add<int>> rt;
+    RangeTree<Add<int>> rt;
     for (int i = 0; i < n; ++i) rt.add(x[i], y[i]);
     rt.build();
     for (int i = 0; i < n; ++i) rt.set(x[i], y[i], rt.get(x[i], y[i]) + 1);

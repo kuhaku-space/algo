@@ -20,7 +20,7 @@ title: コーディング規約
 
 | 対象 | ケース | 例 |
 | --- | --- | --- |
-| 型（`struct`/`class`、データ構造・モノイド・値型） | PascalCase | `SegmentTree`、`UnionFind`、`Add`/`Min`/`BitXor`、`Matrix` |
+| 型（`struct`/`class`、データ構造・モノイド・値型） | PascalCase | `SegmentTree`、`UnionFind`、`Add`/`Min`/`Xor`、`Matrix` |
 | `namespace`・`concept`（std 流の述語）・関数・メンバ型エイリアス・変数 | snake_case | `value_type`、`graph_type`、`shortest_path` |
 | テンプレート引数 | 短い大文字か PascalCase | `M`/`S`/`F`/`Comp` |
 
@@ -36,7 +36,7 @@ title: コーディング規約
 - 同じ役割の引数は構造をまたいで同じ名前・同じ順序にする（`Mo`・`RollbackMo` の
   `solve` は追加・削除系のコールバックを先に、答えを記録する `answer` を最後に置く）。
 - 移行は段階的に行う。一括改名はせず、**そのライブラリを変更するついでに型名を PascalCase 化し、
-  `lib/`・`test/` の参照も同時に追随**させる（旧 `segment_tree` 等の名残がある）。
+  `lib/`・`test/` の参照も同時に追随**させる（旧 `li_chao_tree` 等の名残がある）。
 
 ## ドメイン別の規約
 

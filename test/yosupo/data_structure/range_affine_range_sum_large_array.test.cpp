@@ -29,7 +29,7 @@ struct F {
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    dynamic_lazy_segment_tree<S, F> st(n);
+    DynamicLazySegmentTree<S, F> st(n);
     while (q--) {
         int c;
         std::cin >> c;

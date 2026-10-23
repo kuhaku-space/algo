@@ -25,7 +25,7 @@ struct M2 {
 int main(void) {
     int n, q;
     std::cin >> n >> q;
-    lazy_segment_tree<M1, M2> st(n, {0, 1});
+    LazySegmentTree<M1, M2> st(n, {0, 1});
     while (q--) {
         int com;
         std::cin >> com;
