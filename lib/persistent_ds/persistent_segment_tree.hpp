@@ -41,18 +41,12 @@ struct PersistentSegmentTree {
             : val(_val), lazy(_lazy), left(_left), right(_right) {}
     };
 
-  public:
-    /// @brief 内部ノードへのpointer型
-    /// @complexity 型エイリアスで実行時計算量はない
     using node_ptr = typename Node::pointer;
 
+  public:
     /// @brief 空の木を構築する
     /// @complexity $O(1)$
     constexpr PersistentSegmentTree() : n(), root() {}
-
-    /// @brief 既存の根からn要素のversionを構築する
-    /// @complexity $O(1)$
-    constexpr PersistentSegmentTree(int _n, node_ptr _root) : n(_n), root(_root) {}
 
     /// @brief n要素をeで初期化する
     /// @complexity $O(n)$
@@ -115,7 +109,7 @@ struct PersistentSegmentTree {
     /// @complexity $O(\log n)$
     PersistentSegmentTree set(int k, T val) const {
         assert(0 <= k && k < n);
-        return PersistentSegmentTree(n, set(0, n, k, val, root));
+        return with_root(set(0, n, k, val, root));
     }
 
     /// @brief k番目を単位元へ戻した新しいversionを返す
@@ -134,7 +128,7 @@ struct PersistentSegmentTree {
     PersistentSegmentTree apply(int a, int b, U f) const
     requires use_lazy
     {
-        return PersistentSegmentTree(n, apply(0, n, a, b, f, root));
+        return with_root(apply(0, n, a, b, f, root));
     }
 
     /// @brief v[a ... b-1] を cp の同区間で置き換えた版を返す
@@ -142,7 +136,7 @@ struct PersistentSegmentTree {
     PersistentSegmentTree copy(int a, int b, PersistentSegmentTree cp) const
     requires use_lazy
     {
-        return PersistentSegmentTree(n, copy(0, n, a, b, cp.root, root));
+        return with_root(copy(0, n, a, b, cp.root, root));
     }
 
     /// @brief 全要素の積を返す
@@ -172,6 +166,12 @@ struct PersistentSegmentTree {
   private:
     int n;
     node_ptr root;
+
+    PersistentSegmentTree with_root(node_ptr _root) const {
+        PersistentSegmentTree res = *this;
+        res.root = _root;
+        return res;
+    }
 
     static node_ptr merge(node_ptr left, node_ptr right) {
         if (left == nullptr) return right;

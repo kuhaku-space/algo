@@ -19,18 +19,12 @@ struct PersistentDualSegmentTree {
         constexpr Node(T _val, pointer _left, pointer _right) : val(_val), left(_left), right(_right) {}
     };
 
-  public:
-    /// @brief 内部ノードへのpointer型
-    /// @complexity 型エイリアスで実行時計算量はない
     using node_ptr = typename Node::pointer;
 
+  public:
     /// @brief 空の木を構築する
     /// @complexity $O(1)$
     constexpr PersistentDualSegmentTree() : n(), root() {}
-
-    /// @brief 既存の根からn要素のversionを構築する
-    /// @complexity $O(1)$
-    constexpr PersistentDualSegmentTree(int _n, node_ptr _root) : n(_n), root(_root) {}
 
     /// @brief n要素をeで初期化する
     /// @complexity $O(n)$
@@ -61,12 +55,18 @@ struct PersistentDualSegmentTree {
     /// @complexity $O(\log n)$
     PersistentDualSegmentTree apply(int a, int b, T val) const {
         assert(0 <= a && b <= n);
-        return PersistentDualSegmentTree(n, apply(0, n, a, b, val, M::id(), root));
+        return with_root(apply(0, n, a, b, val, M::id(), root));
     }
 
   private:
     int n;
     node_ptr root;
+
+    PersistentDualSegmentTree with_root(node_ptr _root) const {
+        PersistentDualSegmentTree res = *this;
+        res.root = _root;
+        return res;
+    }
 
     static node_ptr merge(node_ptr left, node_ptr right) { return new Node(M::op(left->val, right->val), left, right); }
 
