@@ -1,5 +1,6 @@
 /.devcontainer/
-/.vscode/
+/.vscode/*
+!/.vscode/c_cpp_properties.json
 /Doxyfile/
 /docs/generated/
 /__pycache__/
