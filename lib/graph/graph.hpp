@@ -37,24 +37,27 @@ struct Unweighted {
     friend constexpr bool operator>(Unweighted, Unweighted) { return false; }
 };
 
-/// @brief 隣接リスト形式の重み付きグラフ
+namespace internal {
+
+/// @brief `list_graph<T>` / `csr_graph<T>` の共通部分（CRTP）
+/// @details 辺型・辺 ID の採番・ID 順の辺リスト・標準入力からの辺の読み込みを持つ。
+///          派生型は隣接構造へ有向辺を 1 本格納する `store_edge(e)` を持つ。
+///          入力の前後に呼ばれる `begin_input(num_edges, edge_count)` / `end_input()` は
+///          既定で何もせず、必要な派生型だけが上書きする。
+/// @tparam Derived 派生型
 /// @tparam T 辺の重みの型。`void` を指定すると重みなしグラフ（重み 1 固定）になる。
-///
-/// 各頂点の隣接辺を可変長 vector で保持する。動的な辺追加に強く、
-/// 連続領域に詰める `csr_graph<T>` と参照系 API は共通。
-/// @complexity 構築は $O(V)$、辺追加は償却 $O(1)$、参照は $O(1)$
-template <class T>
-struct list_graph {
+template <class Derived, class T>
+struct GraphBase {
   private:
     /// 重みの実体型: `void` は `Unweighted` に正規化する
     using weight_type = std::conditional_t<std::is_void_v<T>, Unweighted, T>;
 
-    struct _edge {
-        constexpr _edge() : _from(), _to(), _id(-1), _weight() {}
-        constexpr _edge(int from, int to, weight_type weight, int id = -1)
+    struct Edge {
+        constexpr Edge() : _from(), _to(), _id(-1), _weight() {}
+        constexpr Edge(int from, int to, weight_type weight, int id = -1)
             : _from(from), _to(to), _id(id), _weight(weight) {}
-        constexpr bool operator<(const _edge &rhs) const { return weight() < rhs.weight(); }
-        constexpr bool operator>(const _edge &rhs) const { return rhs < *this; }
+        constexpr bool operator<(const Edge &rhs) const { return weight() < rhs.weight(); }
+        constexpr bool operator>(const Edge &rhs) const { return rhs < *this; }
 
         constexpr int from() const { return _from; }
         constexpr int to() const { return _to; }
@@ -69,15 +72,138 @@ struct list_graph {
   public:
     /// @brief このグラフが返す辺型
     /// @complexity 型エイリアスで実行時計算量はない
-    using edge_type = typename list_graph<T>::_edge;
+    using edge_type = Edge;
+
+    /// @brief 頂点数を返す
+    /// @complexity $O(1)$
+    constexpr int size() const { return _size; }
+
+    /// @brief 格納された有向辺数（無向辺は 2 本としてカウントされる）
+    /// @complexity $O(1)$
+    constexpr int edge_count() const { return _edge_count; }
+
+    /// @brief 辺 ID の個数（add_edge / add_edges の呼び出し回数）
+    /// @complexity $O(1)$
+    constexpr int num_edges() const { return _num_edges; }
+
+    /// @brief ID から辺を取得する（無向辺は from→to 側を返す）
+    /// @complexity $O(1)$
+    const edge_type &get_edge(int id) const {
+        assert(0 <= id && id < _num_edges);
+        return edge_list[id];
+    }
+
+    /// @brief 有向辺を追加する。重みは e のものを使い、ID は新たに振り直す。
+    /// @complexity 償却 $O(1)$
+    void add_edge(const edge_type &e) { add_edge(e.from(), e.to(), e.weight()); }
+
+    /// @brief 有向辺を追加する。
+    /// @complexity 償却 $O(1)$
+    void add_edge(int from, int to, weight_type weight = weight_type(1)) {
+        assert(0 <= from && from < _size);
+        assert(0 <= to && to < _size);
+        int id = _num_edges++;
+        edge_type e(from, to, weight, id);
+        derived().store_edge(e);
+        edge_list.emplace_back(e);
+        ++_edge_count;
+    }
+
+    /// @brief 無向辺を追加する。往復 2 本（from→to, to→from）には同じ ID を振る。
+    /// @note 「add_edges 1 回 = 論理辺 1 個 = ID 1 個」で、ID は入力辺番号に一致する
+    ///       （ACL mf_graph が add_edge 1 回に 1 ID を割り当てるのと同じ思想）。
+    ///       この方式により無向グラフの辺 ID アルゴリズムが正しく成立する:
+    ///       - 橋・閉路検出の出力を入力辺番号でそのまま返せる
+    ///       - 多重辺は別 ID になるため長さ 2 の閉路として検出される
+    ///       - 単一辺の往復は同 ID なので「来た辺そのもの」として親辺除外できる
+    /// @complexity 償却 $O(1)$
+    void add_edges(int from, int to, weight_type weight = weight_type(1)) {
+        assert(0 <= from && from < _size);
+        assert(0 <= to && to < _size);
+        int id = _num_edges++;
+        derived().store_edge(edge_type(from, to, weight, id));
+        derived().store_edge(edge_type(to, from, weight, id));
+        edge_list.emplace_back(from, to, weight, id);
+        _edge_count += 2;
+    }
+
+    /// @brief 標準入力からm本の有向辺を追加する
+    /// @details `csr_graph<T>` では読み込み後に `build()` まで行う。
+    /// @complexity $O(m)$（`csr_graph<T>` は構築を含めて $O(V+m)$）
+    void input_edge(int m, int origin = 1) {
+        derived().begin_input(m, m);
+        for (int i = 0; i < m; ++i) {
+            int from, to;
+            std::cin >> from >> to;
+            if constexpr (std::is_void_v<T>) {
+                add_edge(from - origin, to - origin);
+            } else {
+                T weight;
+                std::cin >> weight;
+                add_edge(from - origin, to - origin, weight);
+            }
+        }
+        derived().end_input();
+    }
+
+    /// @brief 標準入力からm本の無向辺を追加する
+    /// @details `csr_graph<T>` では読み込み後に `build()` まで行う。
+    /// @complexity $O(m)$（`csr_graph<T>` は構築を含めて $O(V+m)$）
+    void input_edges(int m, int origin = 1) {
+        derived().begin_input(m, 2 * m);
+        for (int i = 0; i < m; ++i) {
+            int from, to;
+            std::cin >> from >> to;
+            if constexpr (std::is_void_v<T>) {
+                add_edges(from - origin, to - origin);
+            } else {
+                T weight;
+                std::cin >> weight;
+                add_edges(from - origin, to - origin, weight);
+            }
+        }
+        derived().end_input();
+    }
+
+  protected:
+    int _size, _edge_count, _num_edges;
+    std::vector<edge_type> edge_list;  // ID 順の辺リスト（ID→辺の逆引き）
+
+    GraphBase() : _size(), _edge_count(), _num_edges(), edge_list() {}
+    explicit GraphBase(int v) : _size(v), _edge_count(), _num_edges(), edge_list() {}
+
+    void begin_input(int, int) {}
+    void end_input() {}
+
+  private:
+    Derived &derived() { return static_cast<Derived &>(*this); }
+};
+
+}  // namespace internal
+
+/// @brief 隣接リスト形式の重み付きグラフ
+/// @tparam T 辺の重みの型。`void` を指定すると重みなしグラフ（重み 1 固定）になる。
+///
+/// 各頂点の隣接辺を可変長 vector で保持する。動的な辺追加に強く、
+/// 連続領域に詰める `csr_graph<T>` と参照系 API は共通。
+/// @complexity 構築は $O(V)$、辺追加は償却 $O(1)$、参照は $O(1)$
+template <class T>
+struct list_graph : internal::GraphBase<list_graph<T>, T> {
+  private:
+    using Base = internal::GraphBase<list_graph<T>, T>;
+    using Base::_size;
+    friend Base;
+
+  public:
+    using typename Base::edge_type;
 
     /// @brief 頂点を持たないグラフを構築する
     /// @complexity $O(1)$
-    list_graph() : _size(), _edge_count(), _num_edges(), edges(), edge_list_() {}
+    list_graph() : Base(), edges() {}
 
     /// @brief v頂点のグラフを構築する
     /// @complexity $O(V)$
-    explicit list_graph(int v) : _size(v), _edge_count(), _num_edges(), edges(v), edge_list_() {}
+    explicit list_graph(int v) : Base(v), edges(v) {}
 
     /// @brief 頂点iの隣接辺列を取得する
     /// @complexity $O(1)$
@@ -109,25 +235,6 @@ struct list_graph {
     /// @complexity $O(1)$
     auto end() { return edges.end(); }
 
-    /// @brief 頂点数を返す
-    /// @complexity $O(1)$
-    constexpr int size() const { return _size; }
-
-    /// @brief 格納された有向辺数（無向辺は 2 本としてカウントされる）
-    /// @complexity $O(1)$
-    constexpr int edge_count() const { return _edge_count; }
-
-    /// @brief 辺 ID の個数（add_edge / add_edges の呼び出し回数）
-    /// @complexity $O(1)$
-    constexpr int num_edges() const { return _num_edges; }
-
-    /// @brief ID から辺を取得する（無向辺は from→to 側を返す）
-    /// @complexity $O(1)$
-    const edge_type &get_edge(int id) const {
-        assert(0 <= id && id < _num_edges);
-        return edge_list_[id];
-    }
-
     /// @brief 全辺を平坦に走査する view
     /// @complexity viewの構築は $O(1)$、走査は $O(E)$
     auto all_edges() const { return edges | std::views::join; }
@@ -143,75 +250,10 @@ struct list_graph {
         edges[from].reserve(degree);
     }
 
-    /// @brief 有向辺を追加する。重みは e のものを使い、ID は新たに振り直す。
-    /// @complexity 償却 $O(1)$
-    void add_edge(const edge_type &e) { add_edge(e.from(), e.to(), e.weight()); }
-
-    /// @brief 有向辺を追加する。
-    /// @complexity 償却 $O(1)$
-    void add_edge(int from, int to, weight_type weight = weight_type(1)) {
-        assert(0 <= from && from < _size);
-        assert(0 <= to && to < _size);
-        int id = _num_edges++;
-        edge_type e(from, to, weight, id);
-        edges[from].emplace_back(e);
-        edge_list_.emplace_back(e);
-        ++_edge_count;
-    }
-    /// @brief 無向辺を追加する。往復 2 本（from→to, to→from）には同じ ID を振る。
-    /// @note 「add_edges 1 回 = 論理辺 1 個 = ID 1 個」で、ID は入力辺番号に一致する
-    ///       （ACL mf_graph が add_edge 1 回に 1 ID を割り当てるのと同じ思想）。
-    ///       この方式により無向グラフの辺 ID アルゴリズムが正しく成立する:
-    ///       - 橋・閉路検出の出力を入力辺番号でそのまま返せる
-    ///       - 多重辺は別 ID になるため長さ 2 の閉路として検出される
-    ///       - 単一辺の往復は同 ID なので「来た辺そのもの」として親辺除外できる
-    /// @complexity 償却 $O(1)$
-    void add_edges(int from, int to, weight_type weight = weight_type(1)) {
-        assert(0 <= from && from < _size);
-        assert(0 <= to && to < _size);
-        int id = _num_edges++;
-        edges[from].emplace_back(from, to, weight, id);
-        edges[to].emplace_back(to, from, weight, id);
-        edge_list_.emplace_back(from, to, weight, id);
-        _edge_count += 2;
-    }
-
-    /// @brief 標準入力からm本の有向辺を追加する
-    /// @complexity $O(m)$
-    void input_edge(int m, int origin = 1) {
-        for (int i = 0; i < m; ++i) {
-            int from, to;
-            std::cin >> from >> to;
-            if constexpr (std::is_void_v<T>) {
-                add_edge(from - origin, to - origin);
-            } else {
-                T weight;
-                std::cin >> weight;
-                add_edge(from - origin, to - origin, weight);
-            }
-        }
-    }
-
-    /// @brief 標準入力からm本の無向辺を追加する
-    /// @complexity $O(m)$
-    void input_edges(int m, int origin = 1) {
-        for (int i = 0; i < m; ++i) {
-            int from, to;
-            std::cin >> from >> to;
-            if constexpr (std::is_void_v<T>) {
-                add_edges(from - origin, to - origin);
-            } else {
-                T weight;
-                std::cin >> weight;
-                add_edges(from - origin, to - origin, weight);
-            }
-        }
-    }
-
   private:
-    int _size, _edge_count, _num_edges;
     std::vector<std::vector<edge_type>> edges;
-    std::vector<edge_type> edge_list_;  // ID 順の辺リスト（ID→辺の逆引き）
+
+    void store_edge(const edge_type &e) { edges[e.from()].emplace_back(e); }
 };
 
 /// @brief CSR（Compressed Sparse Row）形式の重み付きグラフ
@@ -226,32 +268,15 @@ struct list_graph {
 /// `internal::Csr` とは異なり重み・辺 ID を保持する公開グラフ型である。
 /// @complexity 構築と辺追加は償却 $O(1)$、`build` は $O(V+E)$、参照は $O(1)$
 template <class T>
-struct csr_graph {
+struct csr_graph : internal::GraphBase<csr_graph<T>, T> {
   private:
-    /// 重みの実体型: `void` は `Unweighted` に正規化する
-    using weight_type = std::conditional_t<std::is_void_v<T>, Unweighted, T>;
-
-    struct _edge {
-        constexpr _edge() : _from(), _to(), _id(-1), _weight() {}
-        constexpr _edge(int from, int to, weight_type weight, int id = -1)
-            : _from(from), _to(to), _id(id), _weight(weight) {}
-        constexpr bool operator<(const _edge &rhs) const { return weight() < rhs.weight(); }
-        constexpr bool operator>(const _edge &rhs) const { return rhs < *this; }
-
-        constexpr int from() const { return _from; }
-        constexpr int to() const { return _to; }
-        constexpr int id() const { return _id; }
-        constexpr weight_type weight() const { return _weight; }
-
-      private:
-        int _from, _to, _id;
-        [[no_unique_address]] weight_type _weight;
-    };
+    using Base = internal::GraphBase<csr_graph<T>, T>;
+    using Base::_size;
+    using Base::edge_list;
+    friend Base;
 
   public:
-    /// @brief このグラフが返す辺型
-    /// @complexity 型エイリアスで実行時計算量はない
-    using edge_type = typename csr_graph<T>::_edge;
+    using typename Base::edge_type;
 
     /// @brief 頂点 v の隣接辺を走査する軽量 view（CSR の連続領域を指す）
     /// @note `list_graph<T>::operator[]` が返す `std::vector<edge_type>` と同様に、
@@ -303,12 +328,11 @@ struct csr_graph {
 
     /// @brief 頂点を持たないグラフを構築する
     /// @complexity $O(1)$
-    csr_graph() : _size(), _edge_count(), _num_edges(), _built(false), start(1), elist(), edge_list_() {}
+    csr_graph() : Base(), _built(false), start(1), buf(), elist() {}
 
     /// @brief v頂点のグラフを構築する
     /// @complexity $O(V)$
-    explicit csr_graph(int v)
-        : _size(v), _edge_count(), _num_edges(), _built(false), start(v + 1), elist(), edge_list_() {}
+    explicit csr_graph(int v) : Base(v), _built(false), start(v + 1), buf(), elist() {}
 
     /// @brief 頂点iの隣接辺viewを返す
     /// @complexity $O(1)$
@@ -316,25 +340,6 @@ struct csr_graph {
         assert(_built);
         assert(0 <= i && i < _size);
         return adjacency(std::next(elist.begin(), start[i]), std::next(elist.begin(), start[i + 1]));
-    }
-
-    /// @brief 頂点数を返す
-    /// @complexity $O(1)$
-    constexpr int size() const { return _size; }
-
-    /// @brief 格納された有向辺数（無向辺は 2 本としてカウントされる）
-    /// @complexity $O(1)$
-    constexpr int edge_count() const { return _edge_count; }
-
-    /// @brief 辺 ID の個数（add_edge / add_edges の呼び出し回数）
-    /// @complexity $O(1)$
-    constexpr int num_edges() const { return _num_edges; }
-
-    /// @brief ID から辺を取得する（無向辺は from→to 側を返す）
-    /// @complexity $O(1)$
-    const edge_type &get_edge(int id) const {
-        assert(0 <= id && id < _num_edges);
-        return edge_list_[id];
     }
 
     /// @brief 全辺を平坦に走査する（CSR の連続領域をそのまま返す）
@@ -353,40 +358,7 @@ struct csr_graph {
     /// @complexity 再確保が起きる場合は現在の辺数を $E$ として $O(E)$
     void reserve_edges(int num_edges, int edge_count) {
         buf.reserve(edge_count);
-        edge_list_.reserve(num_edges);
-    }
-
-    /// @brief 有向辺を追加する。重みは e のものを使い、ID は新たに振り直す。
-    /// @complexity 償却 $O(1)$
-    void add_edge(const edge_type &e) { add_edge(e.from(), e.to(), e.weight()); }
-
-    /// @brief 有向辺を追加する。
-    /// @complexity 償却 $O(1)$
-    void add_edge(int from, int to, weight_type weight = weight_type(1)) {
-        assert(0 <= from && from < _size);
-        assert(0 <= to && to < _size);
-        int id = _num_edges++;
-        buf.emplace_back(from, to, weight, id);
-        edge_list_.emplace_back(from, to, weight, id);
-        ++start[from + 1];
-        ++_edge_count;
-        _built = false;
-    }
-    /// @brief 無向辺を追加する。往復 2 本（from→to, to→from）には同じ ID を振る。
-    /// @note 「add_edges 1 回 = 論理辺 1 個 = ID 1 個」で、ID は入力辺番号に一致する。
-    ///       `list_graph<T>::add_edges` と同じ ID 付与方式（往復に同一 ID）に従う。
-    /// @complexity 償却 $O(1)$
-    void add_edges(int from, int to, weight_type weight = weight_type(1)) {
-        assert(0 <= from && from < _size);
-        assert(0 <= to && to < _size);
-        int id = _num_edges++;
-        buf.emplace_back(from, to, weight, id);
-        buf.emplace_back(to, from, weight, id);
-        edge_list_.emplace_back(from, to, weight, id);
-        ++start[from + 1];
-        ++start[to + 1];
-        _edge_count += 2;
-        _built = false;
+        edge_list.reserve(num_edges);
     }
 
     /// @brief 蓄積した辺を CSR の連続領域に詰めて参照系 API を有効化する
@@ -399,49 +371,19 @@ struct csr_graph {
         _built = true;
     }
 
-    /// @brief 標準入力からm本の有向辺を追加してCSRを構築する
-    /// @complexity $O(V+m)$
-    void input_edge(int m, int origin = 1) {
-        reserve_edges(m, m);
-        for (int i = 0; i < m; ++i) {
-            int from, to;
-            std::cin >> from >> to;
-            if constexpr (std::is_void_v<T>) {
-                add_edge(from - origin, to - origin);
-            } else {
-                T weight;
-                std::cin >> weight;
-                add_edge(from - origin, to - origin, weight);
-            }
-        }
-        build();
-    }
-
-    /// @brief 標準入力からm本の無向辺を追加してCSRを構築する
-    /// @complexity $O(V+m)$
-    void input_edges(int m, int origin = 1) {
-        reserve_edges(m, 2 * m);
-        for (int i = 0; i < m; ++i) {
-            int from, to;
-            std::cin >> from >> to;
-            if constexpr (std::is_void_v<T>) {
-                add_edges(from - origin, to - origin);
-            } else {
-                T weight;
-                std::cin >> weight;
-                add_edges(from - origin, to - origin, weight);
-            }
-        }
-        build();
-    }
-
   private:
-    int _size, _edge_count, _num_edges;
     bool _built;
-    std::vector<int> start;             // CSR の境界（start[v]..start[v+1]）
-    std::vector<edge_type> buf;         // build() 前に蓄積する辺（from でソート前）
-    std::vector<edge_type> elist;       // CSR 本体（from 昇順に詰めた有向辺）
-    std::vector<edge_type> edge_list_;  // ID 順の辺リスト（ID→辺の逆引き）
+    std::vector<int> start;        // CSR の境界（start[v]..start[v+1]）
+    std::vector<edge_type> buf;    // build() 前に蓄積する辺（from でソート前）
+    std::vector<edge_type> elist;  // CSR 本体（from 昇順に詰めた有向辺）
+
+    void store_edge(const edge_type &e) {
+        buf.emplace_back(e);
+        ++start[e.from() + 1];
+        _built = false;
+    }
+    void begin_input(int num_edges, int edge_count) { reserve_edges(num_edges, edge_count); }
+    void end_input() { build(); }
 };
 
 // ---- グラフの concept（list_graph<T> / csr_graph<T> を共通の契約で扱う） ----
