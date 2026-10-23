@@ -12,7 +12,7 @@
 /// @brief 疑似乱数生成器 SplitMix64
 /// @details 周期：$2^64-1$
 /// @complexity すべての操作が $O(1)$、長さNのseed列生成は $O(N)$
-struct split_mix_64 {
+struct SplitMix64 {
     /// @brief 内部状態の型
     /// @complexity 型エイリアスで実行時計算量はない
     using state_type = std::uint64_t;
@@ -23,11 +23,11 @@ struct split_mix_64 {
 
     /// @brief 既定seedで構築する
     /// @complexity $O(1)$
-    constexpr split_mix_64() noexcept : state(1234567890) {}
+    constexpr SplitMix64() noexcept : state(1234567890) {}
 
     /// @brief 指定seedで構築する
     /// @complexity $O(1)$
-    constexpr split_mix_64(std::uint64_t seed) noexcept : state(seed) {}
+    constexpr SplitMix64(std::uint64_t seed) noexcept : state(seed) {}
 
     /// @brief 生成しうる最小値を返す
     /// @complexity $O(1)$
@@ -71,7 +71,7 @@ struct split_mix_64 {
     /// @return uint64_t [a, b]
     /// @complexity $O(1)$
     std::uint64_t rand_range(std::uint64_t a, std::uint64_t b) {
-        if (a == split_mix_64::min() && b == split_mix_64::max()) return operator()();
+        if (a == SplitMix64::min() && b == SplitMix64::max()) return operator()();
         return a + operator()() % (b - a + 1);
     }
 

@@ -8,7 +8,7 @@
 namespace internal {
 
 template <typename T>
-concept Hashable = std::equality_comparable<T> && requires(const T &a) {
+concept hashable = std::equality_comparable<T> && requires(const T &a) {
     { std::hash<T>{}(a) } -> std::convertible_to<std::size_t>;
 };
 
@@ -21,10 +21,10 @@ concept Hashable = std::equality_comparable<T> && requires(const T &a) {
 ///          - XOR で合成（`Xor<result_type>` 相当）: 集合の要素の有無を表すハッシュ。
 ///            同じ値をもう一度 XOR すれば打ち消せるため要素の追加・削除を $O(1)$ で反映できるが、
 ///            同じ値が偶数回現れると消えてしまうため多重集合の区別には使えない。
-/// @tparam T 値の型（Hashable であること）
+/// @tparam T 値の型（hashable であること）
 /// @tparam UniformRandomBitGenerator 乱数生成器
 /// @complexity 値ごとの取得は期待 $O(1)$
-template <internal::Hashable T, std::uniform_random_bit_generator UniformRandomBitGenerator = xoroshiro128>
+template <internal::hashable T, std::uniform_random_bit_generator UniformRandomBitGenerator = Xoroshiro128>
 struct ZobristHash {
     /// @brief ハッシュ値の型
     /// @complexity 型エイリアスで実行時計算量はない

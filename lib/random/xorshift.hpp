@@ -4,7 +4,7 @@
 #include <limits>
 #include <utility>
 
-/// @brief 擬似乱数生成器 Xorshift
+/// @brief 疑似乱数生成器 Xorshift
 /// @complexity すべての操作が $O(1)$
 struct Xorshift {
     /// @brief 内部状態の型

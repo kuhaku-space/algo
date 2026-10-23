@@ -8,7 +8,7 @@
 
 /// @brief 疑似乱数生成器 xoshiro128++
 /// @complexity すべての操作が $O(1)$
-struct xoshiro128 {
+struct Xoshiro128 {
     /// @brief 内部状態の型
     /// @complexity 型エイリアスで実行時計算量はない
     using state_type = std::array<std::uint32_t, 4>;
@@ -19,15 +19,15 @@ struct xoshiro128 {
 
     /// @brief 既定seedで構築する
     /// @complexity $O(1)$
-    constexpr xoshiro128() : state() {
-        split_mix_64 split_mix{};
+    constexpr Xoshiro128() : state() {
+        SplitMix64 split_mix{};
         for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());
     }
 
     /// @brief 指定seedで構築する
     /// @complexity $O(1)$
-    constexpr xoshiro128(std::uint64_t seed) noexcept : state() {
-        split_mix_64 split_mix{seed};
+    constexpr Xoshiro128(std::uint64_t seed) noexcept : state() {
+        SplitMix64 split_mix{seed};
         for (auto &s : state) s = static_cast<std::uint32_t>(split_mix());
     }
 
@@ -55,11 +55,11 @@ struct xoshiro128 {
 
     /// @brief 状態が等しいか返す
     /// @complexity $O(1)$
-    bool operator==(const xoshiro128 &rhs) noexcept { return (state == rhs.state); }
+    bool operator==(const Xoshiro128 &rhs) noexcept { return (state == rhs.state); }
 
     /// @brief 状態が異なるか返す
     /// @complexity $O(1)$
-    bool operator!=(const xoshiro128 &rhs) noexcept { return (state != rhs.state); }
+    bool operator!=(const Xoshiro128 &rhs) noexcept { return (state != rhs.state); }
 
     /// @brief 現在の状態を返す
     /// @complexity $O(1)$
@@ -77,7 +77,7 @@ struct xoshiro128 {
     /// @return uint32_t [a, b]
     /// @complexity $O(1)$
     std::uint32_t rand_range(std::uint32_t a, std::uint32_t b) {
-        if (a == xoshiro128::min() && b == xoshiro128::max()) return operator()();
+        if (a == Xoshiro128::min() && b == Xoshiro128::max()) return operator()();
         return a + operator()() % (b - a + 1);
     }
 
