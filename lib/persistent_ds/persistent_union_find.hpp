@@ -5,16 +5,16 @@
 /// @brief 各バージョンを保持する完全永続 Union-Find
 /// @details 併合は元の状態を変更せず、新しい Union-Find を返す。
 /// @complexity 代表・連結判定・サイズ取得・併合は $O(\log^2 n)$
-struct persistent_union_find {
+struct PersistentUnionFind {
     /// @brief 空の Union-Find を作る
     /// @complexity $O(1)$
-    constexpr persistent_union_find() : data() {}
+    constexpr PersistentUnionFind() : data() {}
     /// @brief 永続配列 `_data` を内部状態とする Union-Find を作る
     /// @complexity $O(1)$
-    persistent_union_find(const persistent_array<int> &_data) : data(_data) {}
+    PersistentUnionFind(const PersistentArray<int> &_data) : data(_data) {}
     /// @brief `n` 個の単集合を作る
     /// @complexity $O(n\log n)$
-    persistent_union_find(int n) : data(n, -1) {}
+    PersistentUnionFind(int n) : data(n, -1) {}
 
     /// @brief `x` の代表を返す
     /// @complexity $O(\log^2 n)$
@@ -32,12 +32,12 @@ struct persistent_union_find {
 
     /// @brief `x`, `y` を併合した新しいバージョンを返す
     /// @complexity $O(\log^2 n)$
-    persistent_union_find unite(int x, int y) {
+    PersistentUnionFind unite(int x, int y) {
         x = root(x), y = root(y);
         if (x == y) return *this;
         int a = data[x], b = data[y];
         if (a > b) std::swap(x, y);
-        return persistent_union_find(data.set(x, a + b).set(y, x));
+        return PersistentUnionFind(data.set(x, a + b).set(y, x));
     }
 
     /// @brief `x` が属する集合の要素数を返す
@@ -55,5 +55,5 @@ struct persistent_union_find {
     bool is_same(int x, int y) const { return same(x, y); }
 
   private:
-    persistent_array<int> data;
+    PersistentArray<int> data;
 };

@@ -17,7 +17,7 @@ int main(void) {
     std::reverse(queries.begin(), queries.end());
     std::set<std::pair<int, int>> st(queries.begin(), queries.end());
 
-    partially_persistent_union_find uf(n);
+    PartiallyPersistentUnionFind uf(n);
     for (auto [a, b] : es) {
         if (!st.count({a, b})) uf.unite(a - 1, b - 1);
     }

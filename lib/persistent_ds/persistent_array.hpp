@@ -8,36 +8,36 @@
 /// @see https://37zigen.com/persistent-array/
 /// @complexity 参照・更新は添字上限を $n$ として $O(\log_{2^B}n)$
 template <class T, int B = 4>
-struct persistent_array {
+struct PersistentArray {
   private:
     static constexpr int MASK = (1 << B) - 1;
 
-    struct _node {
-        using pointer = _node *;
+    struct Node {
+        using pointer = Node *;
         T val;
         pointer ch[1 << B] = {};
     };
-    using node_ptr = typename _node::pointer;
+    using node_ptr = typename Node::pointer;
 
   public:
     /// @brief 空の配列を構築する
     /// @complexity $O(1)$
-    constexpr persistent_array() : root() {}
+    constexpr PersistentArray() : root() {}
 
     /// @brief 既存の根から配列versionを構築する
     /// @complexity $O(1)$
-    constexpr persistent_array(node_ptr _root) : root(_root) {}
+    constexpr PersistentArray(node_ptr _root) : root(_root) {}
 
     /// @brief n要素をvalで初期化する
     /// @complexity $O(n\log_{2^B}n)$
-    constexpr persistent_array(int n, T val) : root() {
+    constexpr PersistentArray(int n, T val) : root() {
         for (int i = 0; i < n; ++i) { root = set(i, val, root); }
     }
 
     /// @brief 列vから構築する
     /// @complexity $O(n\log_{2^B}n)$
     template <class U>
-    constexpr persistent_array(const std::vector<U> &v) : root() {
+    constexpr PersistentArray(const std::vector<U> &v) : root() {
         for (int i = 0; i < (int)v.size(); ++i) { root = set(i, v[i], root); }
     }
 
@@ -62,13 +62,13 @@ struct persistent_array {
 
     /// @brief k番目をvalに変更した新しいversionを返す
     /// @complexity $O(\log_{2^B}k)$
-    persistent_array set(int k, T val) const noexcept { return persistent_array(set(k, val, root)); }
+    PersistentArray set(int k, T val) const noexcept { return PersistentArray(set(k, val, root)); }
 
   private:
     node_ptr root;
 
     node_ptr set(int k, T val, node_ptr node) const noexcept {
-        node_ptr res = new _node();
+        node_ptr res = new Node();
         if (node) {
             res->val = node->val;
             std::memcpy(res->ch, node->ch, sizeof(node->ch));

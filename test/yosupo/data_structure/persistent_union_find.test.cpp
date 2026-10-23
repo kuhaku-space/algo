@@ -10,7 +10,7 @@
 
 // 真の永続配列で、クエリを与えられた順のままオンラインに処理する版。
 std::vector<bool> solve_persistent(int n, const std::vector<std::tuple<int, int, int, int>> &queries) {
-    std::vector<persistent_union_find> ufs;
+    std::vector<PersistentUnionFind> ufs;
     ufs.emplace_back(n);
     std::vector<bool> ans;
     for (auto &[t, k, u, v] : queries) {

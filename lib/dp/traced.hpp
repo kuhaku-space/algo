@@ -69,7 +69,7 @@ struct Traced {
     using label_type = Label;
     /// @brief 経路を保持する永続スタックの型
     /// @complexity 型エイリアスで実行時計算量はない
-    using path_type = persistent_stack<Label>;
+    using path_type = PersistentStack<Label>;
 
     /// @brief 比較に使うコスト
     /// @complexity $O(1)$ で参照可能
