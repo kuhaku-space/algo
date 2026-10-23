@@ -345,6 +345,10 @@ def inline_description(doc: DocBlock) -> str:
     return escape_cell(text) or "—"
 
 
+def inherited_note(entity: Entity) -> str:
+    return f"（基底 `{entity.inherited_from}` から継承）"
+
+
 def member_anchor(entity: Entity) -> str:
     return f"member-{slugify(entity.name)}"
 
@@ -548,10 +552,13 @@ class ReferenceRenderer:
                     name = f"[{code(display)}](#{member_anchor(member)})"
                 else:
                     name = code(display)
+                description = column_values(groups, lambda doc: doc.brief)
+                if member.inherited_from:
+                    description += "<br>" + escape_cell(inherited_note(member))
                 rows.append(
                     [
                         name,
-                        column_values(groups, lambda doc: doc.brief),
+                        description,
                         column_values(groups, lambda doc: doc.complexities),
                     ]
                 )
@@ -564,6 +571,8 @@ class ReferenceRenderer:
             display = "(constructor)" if member.kind == "constructor" else member.name
             section.heading(3, display, member_anchor(member))
             section.cpp(signature_block(member))
+            if member.inherited_from:
+                section.add(escape_text(inherited_note(member)))
             for numbers, doc in overload_groups(member):
                 prefix = (
                     f"**{overload_label(numbers)}** "

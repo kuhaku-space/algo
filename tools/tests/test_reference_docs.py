@@ -17,6 +17,8 @@ from reference.parse import (
     parse_doc_block,
     parse_header,
     problem_index,
+    public_bases,
+    resolve_inherited_members,
     scope_contexts,
     split_requires_clause,
     split_template_prefix,
@@ -230,6 +232,81 @@ struct Public {
         )
         self.assertEqual([entity.name for entity in entities], ["Silent"])
         self.assertEqual([m.name for m in entities[0].members], ["value"])
+
+
+class InheritanceTest(unittest.TestCase):
+    SOURCE = """\
+namespace internal {
+/// @brief 共通部分
+template <class Derived>
+struct Base {
+    /// @brief 基底の構築
+    Base();
+    /// @brief 引き継ぐ
+    int shared();
+    /// @brief 派生側で隠される
+    int hidden();
+
+  protected:
+    /// @brief 見せない
+    int state();
+};
+}  // namespace internal
+
+/// @brief 派生
+template <int m>
+requires(m >= 1)
+struct Derived : internal::Base<Derived<m>> {
+    /// @brief 派生側の定義
+    int hidden();
+};
+
+/// @brief private 継承
+struct Hidden : private internal::Base<Hidden> {};
+"""
+
+    def entities(self) -> dict[str, Entity]:
+        _, entities = extract_entities(self.SOURCE)
+        header = Header(
+            path=Path("x.hpp"),
+            relative_path="lib/x.hpp",
+            include="x.hpp",
+            category="x",
+            stem="x",
+            doc=DocBlock(),
+            entities=entities,
+            title="x",
+        )
+        resolve_inherited_members([header])
+        return {entity.name: entity for entity in entities}
+
+    def test_public_bases_drop_template_arguments_and_non_public_bases(self) -> None:
+        self.assertEqual(
+            public_bases("struct A : B<int, C<D>>, private E, public ::F<G> {"),
+            ["B", "F"],
+        )
+        self.assertEqual(public_bases("class A : G, public H"), ["H"])
+        self.assertEqual(public_bases("struct A::B"), [])
+
+    def test_base_clause_after_a_requires_clause_is_kept(self) -> None:
+        derived = self.entities()["Derived"]
+        self.assertIn(": internal::Base<Derived<m>>", derived.signatures[0])
+        self.assertEqual(derived.bases, ["internal::Base"])
+
+    def test_public_members_of_a_public_base_are_inherited(self) -> None:
+        derived = self.entities()["Derived"]
+        members = {member.name: member for member in derived.members}
+        self.assertEqual(set(members), {"hidden", "shared"})
+        self.assertEqual(members["hidden"].doc.brief, "派生側の定義")
+        self.assertEqual(members["shared"].inherited_from, "internal::Base")
+
+    def test_inherited_members_are_counted_on_the_base_only(self) -> None:
+        derived = self.entities()["Derived"]
+        names = [item.name for item in derived.iter_all()]
+        self.assertEqual(names, ["Derived", "hidden"])
+
+    def test_private_inheritance_exposes_nothing(self) -> None:
+        self.assertEqual(self.entities()["Hidden"].members, [])
 
 
 class OverloadTest(unittest.TestCase):

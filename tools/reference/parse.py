@@ -7,7 +7,7 @@ docs/current/reference-pipeline.md を参照。
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from .model import DocBlock, Entity, Header, Overload
@@ -252,6 +252,9 @@ def append_continuation(target: list, text: str) -> None:
 
 
 def strip_constructor_initializer(signature: str) -> str:
+    # クラスの基底指定子の `:` を初期化子と取り違えない（requires 節の括弧を引数と誤認しうる）
+    if re.match(r"^(?:struct|class)\b", split_template_prefix(signature)[1]):
+        return signature
     depth = 0
     saw_parameters = False
     for index, character in enumerate(signature):
@@ -423,6 +426,91 @@ def symbol_and_kind(declaration: str, owner: str) -> tuple[str, str, bool] | Non
     return None
 
 
+def split_top_level(text: str, separator: str) -> list[str]:
+    """括弧・山括弧の外にある `separator` で分ける。"""
+    parts: list[str] = []
+    depth = 0
+    start = 0
+    for index, character in enumerate(text):
+        if character in "<([":
+            depth += 1
+        elif character in ">)]":
+            depth -= 1
+        elif character == separator and depth == 0:
+            parts.append(text[start:index])
+            start = index + 1
+    parts.append(text[start:])
+    return parts
+
+
+def public_bases(declaration: str) -> list[str]:
+    """クラス宣言から public な基底の名前（テンプレート引数を除く）を返す。"""
+    _, work = split_template_prefix(declaration)
+    match = re.match(
+        r"^(struct|class)\s+[A-Za-z_][A-Za-z0-9_]*(?:\s+final)?\s*:(?!:)\s*(.*)$", work
+    )
+    if match is None:
+        return []
+    default_access = "public" if match.group(1) == "struct" else "private"
+    bases: list[str] = []
+    for part in split_top_level(match.group(2), ","):
+        words = part.split()
+        access = default_access
+        while words and words[0] in ("public", "protected", "private", "virtual"):
+            if words[0] != "virtual":
+                access = words[0]
+            words = words[1:]
+        name = " ".join(words).split("<", 1)[0].strip().removeprefix("::")
+        if access == "public" and name:
+            bases.append(name)
+    return bases
+
+
+def resolve_inherited_members(headers: list[Header]) -> None:
+    """public な基底のメンバを派生クラスの `members` へ引き継ぐ。
+
+    派生側に同名のメンバがあれば C++ の名前隠蔽と同じく基底側を出さない。
+    コンストラクタ・デストラクタは引き継がない。
+    """
+    classes: dict[str, Entity] = {}
+    for header in headers:
+        for entity in header.iter_entities():
+            if entity.kind == "class":
+                classes.setdefault(entity.qualified_name, entity)
+
+    resolved: set[int] = set()
+
+    def lookup(entity: Entity, name: str) -> Entity | None:
+        scopes = [part for part in (entity.namespace, entity.owner) if part]
+        for length in range(len(scopes), -1, -1):
+            candidate = "::".join([*scopes[:length], name])
+            if candidate in classes:
+                return classes[candidate]
+        return None
+
+    def resolve(entity: Entity, visiting: frozenset[int]) -> None:
+        if id(entity) in resolved or id(entity) in visiting:
+            return
+        hidden = {member.name for member in entity.members}
+        for name in entity.bases:
+            base = lookup(entity, name)
+            if base is None or base is entity:
+                continue
+            resolve(base, visiting | {id(entity)})
+            for member in base.members:
+                if member.kind in ("constructor", "destructor"):
+                    continue
+                if member.name in hidden:
+                    continue
+                inherited_from = member.inherited_from or base.qualified_name
+                entity.members.append(replace(member, inherited_from=inherited_from))
+                hidden.add(member.name)
+        resolved.add(id(entity))
+
+    for entity in classes.values():
+        resolve(entity, frozenset())
+
+
 def format_signature(declaration: str) -> str:
     """cpprefjp 風に、テンプレート宣言部を改行して見せる。"""
     if "\n" in declaration:
@@ -496,6 +584,7 @@ def extract_entities(source: str) -> tuple[DocBlock, list[Entity]]:
             namespace=scope.namespace,
             owner="::".join(scope.class_path),
             is_static=is_static,
+            bases=public_bases(declaration) if kind == "class" else [],
         )
         by_path[key] = entity
         parent = by_path.get(parent_key) if scope.class_path else None

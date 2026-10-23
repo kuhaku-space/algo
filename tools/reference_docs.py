@@ -34,6 +34,7 @@ from reference.parse import (
     library_headers,
     parse_header,
     problem_index,
+    resolve_inherited_members,
 )
 from reference.render import ReferenceRenderer, write_files
 
@@ -42,7 +43,9 @@ DESTINATION = ROOT / "docs" / "generated"
 
 def collect_headers(config: Config) -> list[Header]:
     problems = problem_index()
-    return [parse_header(path, problems) for path in library_headers()]
+    headers = [parse_header(path, problems) for path in library_headers()]
+    resolve_inherited_members(headers)
+    return headers
 
 
 def example_sources(headers: list[Header]) -> list[tuple[str, str, str]]:

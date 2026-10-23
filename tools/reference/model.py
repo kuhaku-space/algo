@@ -82,6 +82,8 @@ class Entity:
     owner: str = ""
     is_static: bool = False
     members: list[Entity] = field(default_factory=list)
+    bases: list[str] = field(default_factory=list)
+    inherited_from: str = ""
 
     @property
     def doc(self) -> DocBlock:
@@ -113,9 +115,11 @@ class Entity:
         return values
 
     def iter_all(self):
+        """自身と、自身で宣言したメンバを辿る（継承したメンバは基底側で数える）。"""
         yield self
         for member in self.members:
-            yield from member.iter_all()
+            if not member.inherited_from:
+                yield from member.iter_all()
 
 
 @dataclass
