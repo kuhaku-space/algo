@@ -97,7 +97,7 @@ struct DynamicLazySegmentTree {
             data.emplace_back(S::id(r - l));
         }
         push(idx, l, r);
-        if (k < m) data[idx].left = set(k, val, data[idx].left, k, val, l, m);
+        if (k < m) data[idx].left = set(k, val, data[idx].left, l, m);
         else data[idx].right = set(k, val, data[idx].right, m, r);
         return update(idx, l, r);
     }

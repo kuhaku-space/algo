@@ -175,7 +175,7 @@ struct LazySegmentTree {
         if (r == 0) return 0;
         r += size;
         for (int i = log; i >= 1; i--) push((r - 1) >> i);
-        S sm = S::id();
+        T sm = S::id();
         do {
             r--;
             while (r > 1 && (r % 2)) r >>= 1;
