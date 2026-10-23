@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <cassert>
 #include <concepts>
 #include <iostream>
@@ -362,8 +363,11 @@ struct csr_graph : internal::GraphBase<csr_graph<T>, T> {
     }
 
     /// @brief 蓄積した辺を CSR の連続領域に詰めて参照系 API を有効化する
+    /// @details 呼ぶたびにそれまでに追加した全辺から作り直すので、辺を足したあとに何度呼んでもよい。
     /// @complexity $O(V+E)$
     void build() {
+        std::fill(start.begin(), start.end(), 0);
+        for (auto &e : buf) ++start[e.from() + 1];
         for (int i = 0; i < _size; ++i) start[i + 1] += start[i];
         auto counter = start;
         elist.assign(buf.size(), edge_type());
@@ -374,12 +378,11 @@ struct csr_graph : internal::GraphBase<csr_graph<T>, T> {
   private:
     bool _built;
     std::vector<int> start;        // CSR の境界（start[v]..start[v+1]）
-    std::vector<edge_type> buf;    // build() 前に蓄積する辺（from でソート前）
+    std::vector<edge_type> buf;    // 追加した全有向辺（追加順）
     std::vector<edge_type> elist;  // CSR 本体（from 昇順に詰めた有向辺）
 
     void store_edge(const edge_type &e) {
         buf.emplace_back(e);
-        ++start[e.from() + 1];
         _built = false;
     }
     void begin_input(int num_edges, int edge_count) { reserve_edges(num_edges, edge_count); }
