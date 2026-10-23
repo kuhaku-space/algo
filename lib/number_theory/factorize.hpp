@@ -10,7 +10,7 @@
 namespace internal {
 
 std::uint64_t pollard_rho(std::uint64_t n) {
-    static xoroshiro128 rnd;
+    static Xoroshiro128 rnd;
     if (~n & 1) return 2;
     if (internal::is_prime_constexpr(n)) return n;
     std::uint64_t r = 0, g = 1;

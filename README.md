@@ -50,7 +50,7 @@ g++ -std=c++23 -I lib your_solution.cpp
 | [`lib/tree/`](lib/tree/)                     | HLD・LCA・重心分解・Euler Tour・Link-Cut Tree・全方位木 DP・Static Top Tree など          |
 | [`lib/string/`](lib/string/)                 | Suffix Array・Z-algorithm・KMP・Aho-Corasick・Rolling Hash（ハッシュ用整数）・回文木 など |
 | [`lib/geometry/`](lib/geometry/)             | 2D / 3D 幾何・凸包・kd-tree                                                               |
-| [`lib/random/`](lib/random/)                 | xorshift・xoroshiro128・xoshiro128・SplitMix64                                            |
+| [`lib/random/`](lib/random/)                 | xorshift128・xoroshiro128・xoshiro128・SplitMix64                                            |
 | [`lib/internal/`](lib/internal/)             | 他ヘッダから利用する内部ユーティリティ（bit vector・CSR・型特性 など）                    |
 | [`lib/template/`](lib/template/)             | 提出用テンプレート（マクロ・高速入出力 など）                                             |
 

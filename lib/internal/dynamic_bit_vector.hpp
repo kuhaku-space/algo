@@ -11,7 +11,7 @@ namespace internal {
 /// @brief 動的完備辞書
 struct dynamic_bit_vector {
   private:
-    using priority_type = xoroshiro128::result_type;
+    using priority_type = Xoroshiro128::result_type;
 
     struct node_t {
         using pointer = node_t *;
@@ -68,7 +68,7 @@ struct dynamic_bit_vector {
 
   private:
     node_ptr root;
-    xoroshiro128 gen;
+    Xoroshiro128 gen;
 
     bool insert_without_split(unsigned int k, bool f) {
         return false;
