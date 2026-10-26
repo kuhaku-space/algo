@@ -12,6 +12,11 @@ uv = "latest"                        # pipx バックエンドの実体
 "pipx:online-judge-tools" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
 "pipx:online-judge-verify-helper" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
 
+# workspace/ でのコンパイルフラグ。PCH はこれと同じフラグでないと使われないので一箇所にまとめる。
+[vars]
+cxx_flags = "-DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP -Wall -Wextra -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152 -march=native -pthread -std=gnu++23 -fopenmp"
+cxx_release_flags = "-O2 -ftrivial-auto-var-init=zero"
+
 [tasks.lint]
 description = "tools/ の Python を ruff で検査する"
 run = "ruff check tools"
@@ -167,28 +172,86 @@ arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
 run = """
 #!/bin/bash
 LIB="{{config_root}}/lib"
+PCH="{{config_root}}/workspace/.pch"
 oj_bundle() {
   oj-bundle -I "$LIB" "$1" 2>/dev/null \\
     | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
 }
+# bits/stdc++.h の include より前にある #pragma GCC optimize を同じ意味のフラグにする
+# （GCC と同じく "O3" は -O3、"unroll-loops" は -funroll-loops と読む）。
+pragma_flags() {
+  local opts opt flags=()
+  IFS=, read -ra opts < <(sed -n '/^#include <bits\\/stdc++\\.h>/q; s/^#pragma GCC optimize("\\(.*\\)")$/\\1/p' | paste -sd,)
+  for opt in "${opts[@]}"; do
+    case "$opt" in
+      -*) flags+=("$opt") ;;
+      O*) flags+=("-$opt") ;;
+      *) flags+=("-f$opt") ;;
+    esac
+  done
+  echo "${flags[*]}"
+}
 oj_compile() {
-  # デバッグ時は最適化を外しサニタイザを足す。
-  local opt_args=(-O2 -ftrivial-auto-var-init=zero)
+  # デバッグ時は最適化を外しサニタイザを足す。引数は最後に置き、-O を上書きできるようにする。
+  local opt_args=({{vars.cxx_release_flags}})
   if [[ "$usage_debug" == "true" ]]; then
     opt_args=(-O1 -g -fsanitize=address,undefined -D_GLIBCXX_DEBUG)
   fi
-  g++-15 "$1" \\
-    -DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS \\
-    -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER \\
-    -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\
-    -Wall -Wextra "${opt_args[@]}" \\
-    -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152 \\
-    -march=native -pthread \\
-    -std=gnu++23 -Wl,--as-needed -fopenmp
+  g++-15 {{vars.cxx_flags}} "${opt_args[@]}" -Wl,--as-needed "$@"
 }
 [[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
 oj_bundle "$usage_src" >main.cpp || exit 1
-oj_compile main.cpp
+# include より前に optimize pragma があると PCH（mise run pch）は使われない。pragma のフラグが
+# PCH 作成時と一致するときだけ、pragma を空行にして同じ意味のフラグで渡す。提出する main.cpp は
+# 書き換えず、#line で診断のファイル名と行番号を main.cpp に揃える。
+pch_flags=$(pragma_flags <main.cpp)
+if [[ "$usage_debug" != "true" && -f "$PCH/bits/stdc++.h.gch" \\
+      && "$pch_flags" == "$(cat "$PCH/flags" 2>/dev/null)" ]]; then
+  read -ra pch_args <<<"$pch_flags"
+  { echo '#line 1 "main.cpp"'; sed '/^#include <bits\\/stdc++\\.h>/,$!s/^#pragma GCC optimize(.*//' main.cpp; } \\
+    | oj_compile -I "$PCH" -Winvalid-pch "${pch_args[@]}" -x c++ -
+else
+  oj_compile main.cpp
+fi
+"""
+
+[tasks.pch]
+description = "build を速くする bits/stdc++.h の PCH を workspace/.pch に作る（g++ やフラグを変えたら作り直す）"
+dir = "{{config_root}}/workspace"
+run = """
+#!/bin/bash
+LIB="{{config_root}}/lib"
+PCH="{{config_root}}/workspace/.pch"
+oj_bundle() {
+  oj-bundle -I "$LIB" "$1" 2>/dev/null \\
+    | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
+}
+# bits/stdc++.h の include より前にある #pragma GCC optimize を同じ意味のフラグにする
+# （GCC と同じく "O3" は -O3、"unroll-loops" は -funroll-loops と読む）。
+pragma_flags() {
+  local opts opt flags=()
+  IFS=, read -ra opts < <(sed -n '/^#include <bits\\/stdc++\\.h>/q; s/^#pragma GCC optimize("\\(.*\\)")$/\\1/p' | paste -sd,)
+  for opt in "${opts[@]}"; do
+    case "$opt" in
+      -*) flags+=("$opt") ;;
+      O*) flags+=("-$opt") ;;
+      *) flags+=("-f$opt") ;;
+    esac
+  done
+  echo "${flags[*]}"
+}
+# テンプレートの optimize pragma と同じフラグで作る。build はフラグが一致するときだけ使う。
+flags=$(oj_bundle template/template.cpp | pragma_flags)
+read -ra flag_args <<<"$flags"
+header=$(echo "#include <bits/stdc++.h>" | g++-15 -std=gnu++23 -x c++ -H -fsyntax-only - 2>&1 | awk 'NR == 1 { print $2 }')
+[[ -f "$header" ]] || { echo "bits/stdc++.h が見つかりません" >&2; exit 1; }
+rm -f "$PCH/flags"
+# 元のヘッダも隣に置き、PCH が使えないときはそれが読まれるようにする。
+mkdir -p "$PCH/bits" && cp "$header" "$PCH/bits/stdc++.h" || exit 1
+g++-15 {{vars.cxx_flags}} {{vars.cxx_release_flags}} "${flag_args[@]}" \\
+  -x c++-header "$PCH/bits/stdc++.h" -o "$PCH/bits/stdc++.h.gch" || exit 1
+echo "$flags" >"$PCH/flags"
+echo "PCH を作成しました: $PCH（optimize pragma 由来のフラグ: ${flags:-なし}）"
 """
 
 [tasks.test]
@@ -273,14 +336,7 @@ oj_bundle() {
     | grep -v "^#line " | grep -v "^#pragma once" | tr -s "\\n"
 }
 oj_compile() {
-  g++-15 "$1" \\
-    -DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS \\
-    -DUSE_BOP -DUSE_CBC -DUSE_CLP -DUSE_GLOP -DUSE_LP_PARSER \\
-    -DUSE_MATH_OPT -DUSE_PDLP -DUSE_SCIP \\
-    -O2 -Wall -Wextra \\
-    -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152 \\
-    -ftrivial-auto-var-init=zero -march=native -pthread \\
-    -std=gnu++23 -Wl,--as-needed -fopenmp
+  g++-15 {{vars.cxx_flags}} {{vars.cxx_release_flags}} -Wl,--as-needed "$1"
 }
 [[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
 oj_bundle "$usage_src" >main.cpp || exit 1

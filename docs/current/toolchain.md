@@ -50,7 +50,7 @@ setup がやることは 4 つ。
 `workspace/` で問題を解くための `oj` 系タスクは、ライブラリ開発とは別系統のもの。
 
 - **正名は動詞**（`download` / `new` / `build` / `test` / `submit` / `test-clip` / `random-check` /
-  `clean` / `gen-tests`）。旧エイリアス互換の短縮名（`ojd` 等）は `alias` で併設し、shim は短縮名で作る。
+  `clean` / `gen-tests`。名詞の `pch` は例外）。旧エイリアス互換の短縮名（`ojd` 等）は `alias` で併設し、shim は短縮名で作る。
 - mise タスクはタスク定義位置ではなく **`dir` で指定したディレクトリ**で実行される。
   `oj` 系は `workspace/` で動かす前提なので、各タスクに `dir = "{{config_root}}/workspace"` を置く。
 - bundle・compile は**各タスク内にヘルパ関数としてインライン定義**する。CWD をまたぐネストした
@@ -63,6 +63,24 @@ setup がやることは 4 つ。
   `oj t` や checker が fork/exec するバイナリにも効く。
 - `submit` は既定で提出前にローカルテストを走らせ、落ちたら止める（誤提出ガード）。`-f` で省略できる。
 - `build -g` はデバッグビルド。最適化を落として ASan/UBSan と `_GLIBCXX_DEBUG` を足す。
+- コンパイルフラグは `[vars]` の `cxx_flags` / `cxx_release_flags` に一本化する。PCH は作成時と
+  フラグが一致しないと使われないため。
+
+### PCH（`mise run pch`）
+
+ビルド時間の大半は `bits/stdc++.h` の解析なので、`pch` で `workspace/.pch/` に PCH を作り、
+`build`（`-g` 以外）がそれを使う。g++ やフラグを変えたら作り直す（古いと `-Winvalid-pch` が警告する）。
+
+- テンプレートは `#pragma GCC optimize(...)` を `#include <bits/stdc++.h>` より前に置いており、
+  この並びだと GCC は PCH を使わない。そこで `build` は pragma を GCC と同じ規則でフラグ
+  （`"Ofast"` → `-Ofast`、`"fast-math"` → `-ffast-math`）に直し、pragma を空行にしたソースを
+  そのフラグ付きでコンパイルする。pragma は先頭にあって全関数に効くので結果はほぼ同じだが、
+  IPA など関数単位でない最適化はコマンドライン側にしか効かないため、提出先と完全には一致しない。
+- PCH は `oj-bundle` した `template/template.cpp` の pragma 由来のフラグで作り、`.pch/flags` に記録する。
+  `main.cpp` の pragma 由来のフラグがこれと違うときは PCH を使わず従来どおりコンパイルする。
+- 提出する `main.cpp` は書き換えない。標準入力から `#line 1 "main.cpp"` を付けて渡し、
+  診断のファイル名と行番号を `main.cpp` に揃える。
+- `.pch/bits/` には元のヘッダの複製も置き、PCH が無効なときはそれが読まれる。
 
 ## pre-commit フック
 
