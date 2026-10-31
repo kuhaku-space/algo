@@ -33,7 +33,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - name: Generate reference pages
         run: python3 tools/reference_docs.py build
@@ -45,13 +45,13 @@ jobs:
         run: python3 tools/reference_docs.py check
 
       - name: Set up competitive-verifier
-        uses: competitive-verifier/actions/setup@v2
+        uses: competitive-verifier/actions/setup@v2.2.0
         with:
           cache-pip: true
 
       # Initialize your own environment for resolving.
       - name: oj-resolve
-        uses: competitive-verifier/actions/oj-resolve@v2
+        uses: competitive-verifier/actions/oj-resolve@v2.2.0
         with:
           output-path: verify_files.json
           # Specify patterns
@@ -63,12 +63,12 @@ jobs:
           # If you have config.toml
           config: .verify-helper/config.toml
       - name: parse-doxygen
-        uses: competitive-verifier/actions/parse-doxygen@v2
+        uses: competitive-verifier/actions/parse-doxygen@v2.2.0
         with:
           verify-files: verify_files.json
 
       - name: Upload verify_files.json
-        uses: competitive-verifier/actions/upload-verify-artifact@v2
+        uses: competitive-verifier/actions/upload-verify-artifact@v2.2.0
         with:
           file: verify_files.json
 
@@ -98,7 +98,7 @@ jobs:
         index:
           ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09"]
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 2147483647
 
@@ -127,15 +127,15 @@ jobs:
             ${{ runner.os }}-verify-problems-${{ matrix.index }}-
 
       - name: Download verify_files.json
-        uses: competitive-verifier/actions/download-verify-artifact@v2
+        uses: competitive-verifier/actions/download-verify-artifact@v2.2.0
 
       - name: Set up competitive-verifier
-        uses: competitive-verifier/actions/setup@v2
+        uses: competitive-verifier/actions/setup@v2.2.0
         with:
           cache-pip: true
 
       - name: Verify
-        uses: competitive-verifier/actions/verify@v2
+        uses: competitive-verifier/actions/verify@v2.2.0
         with:
           destination: ${{runner.temp}}/result.json
           split-size: ${{ env.SPLIT_SIZE }}
@@ -175,7 +175,7 @@ jobs:
           echo "verify ジョブが success ではありません: ${{ needs.verify.result }}"
           exit 1
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 2147483647
 
@@ -195,7 +195,7 @@ jobs:
 
       - name: Download verify_files.json and all artifacts
         id: all-artifacts
-        uses: competitive-verifier/actions/download-verify-artifact@v2
+        uses: competitive-verifier/actions/download-verify-artifact@v2.2.0
         with:
           download-all: true
           artifact-root: .artifacts/
@@ -214,12 +214,12 @@ jobs:
           SRCDIR: .artifacts/Bundled-${{ runner.os }}
 
       - name: Set up competitive-verifier
-        uses: competitive-verifier/actions/setup@v2
+        uses: competitive-verifier/actions/setup@v2.2.0
         with:
           cache-pip: true
 
       - name: Merge results
-        uses: competitive-verifier/actions/merge-result@v2
+        uses: competitive-verifier/actions/merge-result@v2.2.0
         with:
           result-files: ${{ steps.all-artifacts.outputs.artifacts-root }}/Result-*/result.json
           output-path: ${{github.workspace}}/merged-result.json
@@ -379,20 +379,20 @@ jobs:
           key: ${{ runner.os }}-verify-result-${{ github.ref_name }}-${{ github.sha }}
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v6.0.0
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+        uses: actions/jekyll-build-pages@v1.0.13
         with:
           source: _jekyll
           destination: _site
       - name: Upload artifact
         id: upload-pages
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: _site
 
       - name: Check
-        uses: competitive-verifier/actions/check@v2
+        uses: competitive-verifier/actions/check@v2.2.0
         with:
           verify-result: ${{ steps.all-artifacts.outputs.artifacts-root }}/Result-*/result.json
   deploy:
@@ -405,4 +405,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v5.0.1

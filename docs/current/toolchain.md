@@ -112,3 +112,13 @@ clang-format は mise の `[tools]` 管理なので、PATH に shim が無い環
   バグ検出（B）、簡約（SIM/C4/PIE/FURB）、ruff 固有（RUF）を足している。
 - `ignore = ["RUF001", "RUF002", "RUF003"]` — 全角の括弧・記号は日本語のコメントやメッセージとして
   意図的に使っている。
+
+## GitHub Actions の lockfile
+
+workflow が使う action は `.github/workflows/actions.lock` で commit に固定している（直接・推移的依存とも）。
+`uses:` は SHA ではなくタグのまま書く。
+
+- workflow を足したり `uses:` を変えたりしたら `gh actions-lock` を再実行し、`actions.lock` も一緒にコミットする
+  （拡張は `gh extension install github/gh-actions-lock`）。
+- 鮮度は `verify-lockfile.yml` が `gh actions-lock --verify` で検査する。
+- Dependabot の更新 PR は lockfile も同時に更新する。

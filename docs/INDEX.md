@@ -23,7 +23,7 @@ title: ドキュメント索引
 | API を壊す変更をする | [current/change-policy.md](current/change-policy.md) |
 | コミット・PR を作る | [current/git-workflow.md](current/git-workflow.md) |
 | CI の失敗を追う | [current/ci.md](current/ci.md) |
-| ツールの設定を触る（mise・clang-format・ruff・フック） | [current/toolchain.md](current/toolchain.md) |
+| ツールの設定を触る（mise・clang-format・ruff・フック・Actions の lockfile） | [current/toolchain.md](current/toolchain.md) |
 | `tools/` のリファレンス生成を直す | [current/reference-pipeline.md](current/reference-pipeline.md) |
 | `.github/workflows/verify.yml` を直す | [current/verify-workflow.md](current/verify-workflow.md) |
 
