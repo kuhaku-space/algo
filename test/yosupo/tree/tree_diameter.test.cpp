@@ -11,10 +11,11 @@ int main(void) {
     std::cin >> n;
     edge_input<int> ei(n - 1, 0);
     auto g = ei.to_undirected(n);
-    auto d = tree_dist<csr_graph<int>, std::int64_t>(g, 0);
+    auto d = tree_info<std::int64_t>(g, 0).dist;
     int st = std::max_element(d.begin(), d.end()) - d.begin();
-    d = tree_dist<csr_graph<int>, std::int64_t>(g, st);
-    auto p = tree_parent(g, st);
+    auto t = tree_info<std::int64_t>(g, st);
+    d = t.dist;
+    auto &p = t.parent;
     int gl = std::max_element(d.begin(), d.end()) - d.begin();
     std::vector<int> ans;
     while (gl != -1) {
