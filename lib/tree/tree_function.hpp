@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
@@ -142,5 +143,92 @@ std::vector<int> tree_subtree(const G &g, int r = 0) {
             if (p != -1) res[p] += res[v];
         }
     }
+    return res;
+}
+
+/// @brief 木の中心と、各頂点から最も近い中心
+/// @details 直径を辺の本数で数えたときの中心を表す。直径 $D$ が偶数なら中心は 1 頂点、
+/// 奇数なら隣接する 2 頂点で、どちらも任意の頂点からの最大距離（離心数）を最小にする。
+struct TreeCenter {
+    /// @brief 直径（辺の本数）
+    int diameter;
+    /// @brief 中心の頂点番号。直径が偶数なら 1 個、奇数なら隣接する 2 個
+    std::vector<int> centers;
+    /// @brief `nearest[v]` は頂点 `v` から最も近い中心
+    std::vector<int> nearest;
+    /// @brief `dist[v]` は頂点 `v` から最も近い中心までの距離（辺の本数）
+    std::vector<int> dist;
+    /// @brief `branch[v]` は `nearest[v]` から `v` へのパスで中心の次に通る頂点。中心自身は $-1$
+    std::vector<int> branch;
+};
+
+/// @brief 木の中心と、各頂点から最も近い中心とその距離を求める
+/// @details 辺の重みは無視し、辺の本数を距離とする。中心が 2 頂点のとき、各頂点の最も近い
+/// 中心は一意に定まる（2 中心を結ぶ辺のどちら側にあるかで決まる）。
+/// 頂点 `v` が直径の端点になるのは `dist[v] == diameter / 2` のときに限る。
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @param g 木。頂点数は $1$ 以上
+/// @complexity $O(V)$
+/// @code
+/// #include <iostream>
+/// #include "graph/graph.hpp"
+/// #include "tree/tree_function.hpp"
+///
+/// int main() {
+///     // 0 - 1 - 2 - 3
+///     list_graph<void> g(4);
+///     g.add_edges(0, 1);
+///     g.add_edges(1, 2);
+///     g.add_edges(2, 3);
+///     auto tc = tree_center(g);
+///     std::cout << tc.diameter << ' ' << tc.centers.size() << '\n';
+///     for (int v = 0; v < 4; ++v) std::cout << tc.nearest[v] << ' ' << tc.dist[v] << '\n';
+/// }
+/// @endcode
+template <graph_type G>
+TreeCenter tree_center(const G &g) {
+    int n = g.size();
+    std::vector<int> d(n), par(n);
+    // 頂点群 srcs からの多始点 BFS。d に距離、par に BFS 木の親を入れ、訪問順を返す
+    auto bfs = [&](const std::vector<int> &srcs) {
+        std::fill(d.begin(), d.end(), -1);
+        std::vector<int> que(srcs);
+        que.reserve(n);
+        for (int s : srcs) d[s] = 0, par[s] = -1;
+        for (int i = 0; i < (int)que.size(); ++i) {
+            int v = que[i];
+            for (auto &e : g[v]) {
+                int to = e.to();
+                if (d[to] != -1) continue;
+                d[to] = d[v] + 1;
+                par[to] = v;
+                que.emplace_back(to);
+            }
+        }
+        return que;
+    };
+    int s = bfs({0}).back();
+    int t = bfs({s}).back();
+    TreeCenter res;
+    res.diameter = d[t];
+    // t から s へ diameter / 2 歩進んだ頂点が中心。奇数ならその次の頂点も中心
+    int c = t;
+    for (int i = 0; i < res.diameter / 2; ++i) c = par[c];
+    res.centers.emplace_back(c);
+    if (res.diameter % 2 == 1) res.centers.emplace_back(par[c]);
+    auto order = bfs(res.centers);
+    res.nearest.resize(n);
+    res.branch.resize(n);
+    // BFS 順に親から伝播する
+    for (int v : order) {
+        if (par[v] == -1) {
+            res.nearest[v] = v;
+            res.branch[v] = -1;
+        } else {
+            res.nearest[v] = res.nearest[par[v]];
+            res.branch[v] = par[par[v]] == -1 ? v : res.branch[par[v]];
+        }
+    }
+    res.dist = std::move(d);
     return res;
 }
