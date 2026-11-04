@@ -146,6 +146,45 @@ std::vector<int> tree_subtree(const G &g, int r = 0) {
     return res;
 }
 
+/// @brief 木の各辺に中点を追加した木を返す
+/// @details 辺 ID が `i` の辺 $(u, v)$ を、新しい頂点 $n + i$ を挟んだ 2 本の辺
+/// $(u, n + i)$・$(n + i, v)$ に置き換える。元の頂点の番号は変わらない。
+/// 2 頂点間の距離（辺の本数）はちょうど 2 倍になるので、直径は必ず偶数になり、
+/// `tree_center` で求まる中心は常に 1 頂点になる。辺の重みは無視する。
+/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
+/// @param g 頂点数 $n$ の木。無向辺として追加され、辺 ID が $0, 1, \dots, n - 2$ であること
+/// @return 頂点数 $2n - 1$ の重みなしの木
+/// @complexity $O(n)$
+/// @code
+/// #include <iostream>
+/// #include "graph/graph.hpp"
+/// #include "tree/tree_function.hpp"
+///
+/// int main() {
+///     // 0 - 1 - 2 - 3（直径 3、中心は 2 頂点）
+///     list_graph<void> g(4);
+///     g.add_edges(0, 1);
+///     g.add_edges(1, 2);
+///     g.add_edges(2, 3);
+///     // 0 - 4 - 1 - 5 - 2 - 6 - 3（直径 6、中心は辺 1 の中点 5）
+///     auto tc = tree_center(tree_subdivide(g));
+///     std::cout << tc.diameter << ' ' << tc.centers[0] << '\n';
+/// }
+/// @endcode
+template <graph_type G>
+list_graph<void> tree_subdivide(const G &g) {
+    int n = g.size();
+    list_graph<void> res(2 * n - 1);
+    for (int v = 0; v < n; ++v) {
+        for (auto &e : g[v]) {
+            if (v > e.to()) continue;
+            res.add_edges(v, n + e.id());
+            res.add_edges(n + e.id(), e.to());
+        }
+    }
+    return res;
+}
+
 /// @brief 木の中心と、各頂点から最も近い中心
 /// @details 直径を辺の本数で数えたときの中心を表す。直径 $D$ が偶数なら中心は 1 頂点、
 /// 奇数なら隣接する 2 頂点で、どちらも任意の頂点からの最大距離（離心数）を最小にする。
