@@ -6,6 +6,6 @@ excluded_directories = ["internal", "template"]
 
 # 現在値を下限として、説明の削除や未文書 API の増加を防ぐ。
 minimum_documented_headers = 166
-minimum_entity_pages = 346
-minimum_documented_complexities = 1162
+minimum_entity_pages = 344
+minimum_documented_complexities = 1159
 maximum_undocumented_entities = 0

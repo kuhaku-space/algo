@@ -1,39 +1,136 @@
 #pragma once
 #include <algorithm>
+#include <type_traits>
 #include <utility>
 #include <vector>
 #include "graph/graph.hpp"
 
 /// @file
 /// @brief 木の基本関数
-/// @details 木の高さ、直径、中心、重心など、木全体に対する基本的な問い合わせを提供する。
+/// @details 根付き木の親・深さ・部分木の大きさなどの一括構築と、木の中心を提供する。
 
-/// @brief 根rからのBFS順を返す
+namespace internal {
+
+/// @brief `tree_info` の距離の型を決める
+/// @details `U` が `void` でなければ `U`。`void` なら実重み付きグラフは辺重みの型、それ以外は `int`。
+/// @complexity コンパイル時に評価し実行時計算量はない
+template <class U, class G>
+consteval auto tree_info_dist_type() {
+    if constexpr (!std::is_void_v<U>) return std::type_identity<U>{};
+    else if constexpr (properly_weighted_graph_type<G>)
+        return std::type_identity<std::remove_cvref_t<graph_weight_t<G>>>{};
+    else return std::type_identity<int>{};
+}
+
+}  // namespace internal
+
+/// @brief 根付き木の基本情報
+/// @details 根から到達できない頂点は `parent` と `depth` が $-1$、`size` が $0$ で、
+/// `preorder` と `bfs_order` に含まれない。
+/// @tparam U 根からの距離の型
+template <class U>
+struct TreeInfo {
+    /// @brief 根
+    int root;
+    /// @brief `parent[v]` は頂点 `v` の親。根は $-1$
+    std::vector<int> parent;
+    /// @brief `depth[v]` は根から頂点 `v` までの辺の本数
+    std::vector<int> depth;
+    /// @brief `dist[v]` は根から頂点 `v` までの辺の重みの和。重みなしなら `depth` と等しい
+    std::vector<U> dist;
+    /// @brief `size[v]` は頂点 `v` を根とする部分木の頂点数
+    std::vector<int> size;
+    /// @brief DFS の行きがけ順。子は隣接リストの順に訪れる
+    std::vector<int> preorder;
+    /// @brief BFS 順。同じ深さの頂点は `preorder` の順に並ぶ
+    std::vector<int> bfs_order;
+};
+
+/// @brief 根 `r` の根付き木の親・深さ・距離・部分木の大きさ・DFS 順・BFS 順を一括で求める
+/// @details 反復 DFS 1 回で構築するので、深い木でもスタックオーバーフローしない。
+/// @tparam U 距離の型。省略すると実重み付きグラフでは辺重みの型、重みなしでは `int`。
+/// 和があふれるときは `tree_info<std::int64_t>(g, r)` のように指定する
 /// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
-/// @complexity $O(V+E)$
-template <graph_type G>
-std::vector<int> tree_bfs(const G &g, int r = 0) {
-    int pos = 0;
-    std::vector<int> res;
-    std::vector<bool> visited(g.size());
-    res.emplace_back(r);
-    visited[r] = true;
-    while (pos < (int)res.size()) {
-        auto index = res[pos++];
-        for (auto &e : g[index]) {
-            if (visited[e.to()]) continue;
-            res.emplace_back(e.to());
-            visited[e.to()] = true;
+/// @param g 木
+/// @param r 根
+/// @complexity $O(V)$
+/// @code
+/// #include <iostream>
+/// #include "graph/graph.hpp"
+/// #include "tree/tree_function.hpp"
+///
+/// int main() {
+///     // 1 -(5)- 0 -(1)- 2 -(2)- 3
+///     list_graph<int> g(4);
+///     g.add_edges(0, 1, 5);
+///     g.add_edges(0, 2, 1);
+///     g.add_edges(2, 3, 2);
+///     auto t = tree_info(g, 0);
+///     for (int v = 0; v < 4; ++v)
+///         std::cout << t.parent[v] << ' ' << t.depth[v] << ' ' << t.dist[v] << ' ' << t.size[v] << '\n';
+///     for (int v : t.preorder) std::cout << v << ' ';
+///     std::cout << '\n';
+///     for (int v : t.bfs_order) std::cout << v << ' ';
+///     std::cout << '\n';
+/// }
+/// @endcode
+template <class U = void, graph_type G>
+auto tree_info(const G &g, int r = 0) {
+    using W = typename decltype(internal::tree_info_dist_type<U, G>())::type;
+    int n = g.size();
+    TreeInfo<W> res;
+    res.root = r;
+    res.parent.assign(n, -1);
+    res.depth.assign(n, -1);
+    res.dist.assign(n, W());
+    res.size.assign(n, 0);
+    res.preorder.reserve(n);
+    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）
+    std::vector<int> stk;
+    stk.reserve(n);
+    stk.emplace_back(r);
+    res.depth[r] = 0;
+    while (!stk.empty()) {
+        int v = stk.back();
+        stk.pop_back();
+        res.preorder.emplace_back(v);
+        int top = stk.size();
+        for (auto &&e : g[v]) {
+            int to = e.to();
+            if (res.depth[to] != -1) continue;
+            res.parent[to] = v;
+            res.depth[to] = res.depth[v] + 1;
+            if constexpr (weighted_graph_type<G>) res.dist[to] = res.dist[v] + static_cast<W>(e.weight());
+            else res.dist[to] = res.dist[v] + 1;
+            stk.emplace_back(to);
         }
+        // 子を隣接リストの順に訪れるため、積んだ分を逆順にする
+        std::reverse(stk.begin() + top, stk.end());
     }
+    // 帰りがけ順に部分木の大きさを親へ加算する
+    for (int i = (int)res.preorder.size() - 1; i >= 0; --i) {
+        int v = res.preorder[i];
+        ++res.size[v];
+        if (res.parent[v] != -1) res.size[res.parent[v]] += res.size[v];
+    }
+    // 行きがけ順を深さで安定に数え上げソートすると BFS 順になる
+    int max_depth = 0;
+    for (int v : res.preorder) max_depth = std::max(max_depth, res.depth[v]);
+    std::vector<int> cnt(max_depth + 2);
+    for (int v : res.preorder) ++cnt[res.depth[v] + 1];
+    for (int d = 0; d <= max_depth; ++d) cnt[d + 1] += cnt[d];
+    res.bfs_order.resize(res.preorder.size());
+    for (int v : res.preorder) res.bfs_order[cnt[res.depth[v]]++] = v;
     return res;
 }
 
-/// @brief 親配列が表す木のBFS順を返す
+/// @brief 親配列が表す根付き木の基本情報を求める
+/// @param parents `parents[v]` は頂点 `v` の親。根は $-1$ か自分自身
 /// @complexity $O(V)$
-std::vector<int> tree_bfs(const std::vector<int> &parents) {
+inline TreeInfo<int> tree_info(const std::vector<int> &parents) {
     int n = parents.size();
-    list_graph<void> g(n);
+    csr_graph<void> g(n);
+    if (n > 0) g.reserve_edges(n - 1, 2 * (n - 1));
     int r = 0;
     for (int i = 0; i < n; ++i) {
         if (parents[i] == -1 || parents[i] == i) {
@@ -42,108 +139,8 @@ std::vector<int> tree_bfs(const std::vector<int> &parents) {
         }
         g.add_edges(i, parents[i]);
     }
-    return tree_bfs(g, r);
-}
-
-/// @brief 根rからのDFS行きがけ順を返す
-/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
-/// @complexity $O(V+E)$
-template <graph_type G>
-std::vector<int> tree_dfs(const G &g, int r = 0) {
-    std::vector<int> res;
-    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
-    // 行きがけ順を保つため (頂点, 親) を積み、子は左から処理する。
-    std::vector<std::pair<int, int>> stk;
-    stk.reserve(g.size());
-    stk.emplace_back(r, -1);
-    while (!stk.empty()) {
-        auto [index, parent] = stk.back();
-        stk.pop_back();
-        res.emplace_back(index);
-        // 元の左→右の行きがけ順にするため逆順に積む
-        for (auto it = g[index].rbegin(); it != g[index].rend(); ++it) {
-            if (it->to() == parent) continue;
-            stk.emplace_back(it->to(), index);
-        }
-    }
-    return res;
-}
-
-/// @brief 木の距離を求める
-/// @tparam G 重み付きグラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
-/// @complexity $O(V+E)$
-template <weighted_graph_type G, class U = graph_weight_t<G>>
-std::vector<U> tree_dist(const G &g, int r = 0) {
-    std::vector<U> res(g.size(), -1);
-    std::vector<int> stk;
-    stk.reserve(g.size());
-    res[r] = 0;
-    stk.emplace_back(r);
-    while (!stk.empty()) {
-        auto index = stk.back();
-        stk.pop_back();
-        for (auto &e : g[index]) {
-            if (res[e.to()] != -1) continue;
-            res[e.to()] = res[index] + e.weight();
-            stk.emplace_back(e.to());
-        }
-    }
-    return res;
-}
-
-/// @brief 木の頂点の親を求める
-/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
-/// @complexity $O(V+E)$
-template <graph_type G>
-std::vector<int> tree_parent(const G &g, int r = 0) {
-    std::vector<int> res(g.size(), -1);
-    std::vector<int> stk;
-    stk.reserve(g.size());
-    res[r] = r;
-    stk.emplace_back(r);
-    while (!stk.empty()) {
-        auto index = stk.back();
-        stk.pop_back();
-        for (auto &e : g[index]) {
-            if (res[e.to()] != -1) continue;
-            res[e.to()] = index;
-            stk.emplace_back(e.to());
-        }
-    }
-    res[r] = -1;
-    return res;
-}
-
-/// @brief 部分木の大きさを求める
-/// @tparam G グラフ型（`list_graph<T>` / `csr_graph<T>` のいずれでも可）
-/// @complexity $O(V+E)$
-template <graph_type G>
-std::vector<int> tree_subtree(const G &g, int r = 0) {
-    std::vector<int> res(g.size());
-    // 反復 DFS（再帰だと深い木でスタックオーバーフローしうる）。
-    // 各フレームは (頂点, 親, 隣接走査位置)。隣接の再走査を避けるため位置を保持し、
-    // 帰りがけに子の部分木サイズを親へ加算する。
-    struct frame {
-        int v, parent, idx;
-    };
-    std::vector<frame> stk;
-    stk.reserve(g.size());
-    stk.push_back({r, -1, 0});
-    res[r] = 1;
-    while (!stk.empty()) {
-        frame &f = stk.back();
-        if (f.idx < (int)g[f.v].size()) {
-            int to = g[f.v][f.idx++].to();
-            if (to == f.parent) continue;
-            res[to] = 1;
-            stk.push_back({to, f.v, 0});
-        } else {
-            int v = f.v, p = f.parent;
-            stk.pop_back();
-            if (p != -1) res[p] += res[v];
-        }
-    }
-    return res;
+    g.build();
+    return tree_info(g, r);
 }
 
 /// @brief 木の中心と、各頂点から最も近い中心

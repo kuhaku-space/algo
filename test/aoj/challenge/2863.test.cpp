@@ -48,8 +48,7 @@ Mint solve_aho_corasick(int m, const std::vector<std::string> &t, const std::str
     }
     aho.build();
     auto failure = aho.failures();
-    auto bfs = tree_bfs(failure);
-    for (auto x : bfs) {
+    for (auto x : tree_info(failure).bfs_order) {
         int y = failure[x];
         std::vector<int> v;
         std::set_union(correct[x].begin(), correct[x].end(), correct[y].begin(), correct[y].end(),
