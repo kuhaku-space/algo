@@ -1,0 +1,5 @@
+self-hosted-runner:
+  # actionlint の既知ラベル一覧に GitHub-hosted の ubuntu-26.04 がまだ無いため明示する。
+  # actionlint が対応したら削除する。
+  labels:
+    - ubuntu-26.04
