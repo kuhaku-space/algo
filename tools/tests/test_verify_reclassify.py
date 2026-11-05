@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from verify_reclassify import (
     DOWNLOAD_FAILURE_WINDOW,
+    Result,
     failed_paths,
     propagate,
     reclassify,
@@ -35,16 +36,16 @@ def download_failure(path: str) -> str:
     return f"ERROR Failed to download: problem='https://onlinejudge.u-aizu.ac.jp/x' file='{path}'"
 
 
-def result(statuses: dict[str, list[str]]) -> dict[str, object]:
+def result(statuses: dict[str, list[str]]) -> Result:
     return {
         "files": {
-            path: {"verifications": [{"status": s, "elapsed": 1.0} for s in ss]}
+            path: {"verifications": [{"status": s} for s in ss]}
             for path, ss in statuses.items()
         }
     }
 
 
-def statuses(data: dict[str, object]) -> dict[str, list[str]]:
+def statuses(data: Result) -> dict[str, list[str]]:
     return {
         path: [v["status"] for v in fr["verifications"]] for path, fr in data["files"].items()
     }
@@ -127,11 +128,11 @@ class RunTest(unittest.TestCase):
         self.merged = self.dir / "merged.json"
         self.shards = [self.dir / "shard0.json", self.dir / "shard1.json"]
 
-    def write(self, path: Path, data: dict[str, object]) -> None:
-        path.write_text(json.dumps(data))
+    def write(self, path: Path, data: Result) -> None:
+        path.write_text(json.dumps(data), encoding="utf-8")
 
     def read(self, path: Path) -> dict[str, list[str]]:
-        return statuses(json.loads(path.read_text()))
+        return statuses(json.loads(path.read_text(encoding="utf-8")))
 
     def run_quietly(self, logs: list[str | None]) -> list[str]:
         with contextlib.redirect_stdout(io.StringIO()):
@@ -165,9 +166,9 @@ class RunTest(unittest.TestCase):
 
     def test_leaves_files_untouched_without_timeouts(self) -> None:
         original = json.dumps(result({"test/a.test.cpp": ["failure"]}))
-        self.merged.write_text(original)
+        self.merged.write_text(original, encoding="utf-8")
         self.assertEqual(self.run_quietly(["Wrong Answer"]), [])
-        self.assertEqual(self.merged.read_text(), original)
+        self.assertEqual(self.merged.read_text(encoding="utf-8"), original)
 
 
 if __name__ == "__main__":

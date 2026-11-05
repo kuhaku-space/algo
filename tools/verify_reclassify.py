@@ -17,7 +17,7 @@ import subprocess
 import sys
 from collections.abc import Callable, Iterable
 from pathlib import Path
-from typing import Any
+from typing import TypedDict
 
 FAILURE = "failure"
 SKIPPED = "skipped"
@@ -36,7 +36,20 @@ DOWNLOAD_FAILURE_WINDOW = 30
 VERIFY_JOB_PREFIX = "verify ("
 
 
-def failed_paths(result: dict[str, Any]) -> set[str]:
+# Only the keys read here; the rest of result.json is carried through untouched.
+class Verification(TypedDict, total=False):
+    status: str
+
+
+class FileResult(TypedDict, total=False):
+    verifications: list[Verification]
+
+
+class Result(TypedDict, total=False):
+    files: dict[str, FileResult]
+
+
+def failed_paths(result: Result) -> set[str]:
     return {
         path
         for path, file_result in result.get("files", {}).items()
@@ -47,7 +60,7 @@ def failed_paths(result: dict[str, Any]) -> set[str]:
 def timeout_paths(log: str) -> set[str]:
     """Test files whose download failed right after an AOJ timeout in ``log``."""
     lines = log.splitlines()
-    paths = set()
+    paths: set[str] = set()
     for i, line in enumerate(lines):
         if not TIMEOUT_PATTERN.search(line):
             continue
@@ -57,7 +70,7 @@ def timeout_paths(log: str) -> set[str]:
     return paths
 
 
-def reclassify(result: dict[str, Any], paths: Iterable[str]) -> list[str]:
+def reclassify(result: Result, paths: Iterable[str]) -> list[str]:
     """Turn failures of ``paths`` into skips in place; return the changed paths."""
     files = result.get("files", {})
     changed = []
@@ -71,7 +84,7 @@ def reclassify(result: dict[str, Any], paths: Iterable[str]) -> list[str]:
     return changed
 
 
-def propagate(merged: dict[str, Any], shard: dict[str, Any]) -> None:
+def propagate(merged: Result, shard: Result) -> None:
     """Overwrite the shard's entries with the merged ones, in place."""
     merged_files = merged.get("files", {})
     shard_files = shard.get("files", {})
@@ -117,14 +130,13 @@ def collect_timeout_paths(logs: Iterable[str | None]) -> set[str]:
     return paths
 
 
-def load(path: Path) -> dict[str, Any]:
-    with path.open() as f:
-        return json.load(f)
+def load(path: Path) -> Result:
+    data: Result = json.loads(path.read_text(encoding="utf-8"))
+    return data
 
 
-def dump(path: Path, data: dict[str, Any]) -> None:
-    with path.open("w") as f:
-        json.dump(data, f)
+def dump(path: Path, data: Result) -> None:
+    path.write_text(json.dumps(data), encoding="utf-8")
 
 
 def run(
