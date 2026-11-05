@@ -2,12 +2,17 @@
 #include <algorithm>
 #include <cassert>
 #include <limits>
+#include <queue>
+#include <utility>
 #include <vector>
 #include "internal/internal_csr.hpp"
 
 /// @brief 最小費用流
-/// @details 非負コストの有向辺からなるグラフに対し、最小費用流と
-/// 流量・最小費用の折れ線を計算する。
+/// @details 有向辺からなるグラフに対し、最小費用流と流量・最小費用の折れ線を逐次最短路法で計算する。
+/// 負コストの辺も扱える（負閉路は不可）。`flow`・`slope` は何回でも呼べ、2回目以降は
+/// その時点の流れを保ったまま追加で流した量と追加の費用を返す。
+/// @note 残余グラフに負コストの辺があるとき（負コスト辺がある、または既に流している）は、
+/// 呼び出しごとに初期ポテンシャルを Bellman-Ford 法で求めるため $O(nm)$ が加わる。
 /// @tparam Cap 容量の型
 /// @tparam Cost コストの型
 template <class Cap, class Cost>
@@ -30,14 +35,13 @@ struct MinCostFlow {
     /// @param from 始点。$0\le from<n$
     /// @param to 終点。$0\le to<n$
     /// @param cap 非負の容量
-    /// @param cost 非負の単位コスト
+    /// @param cost 単位コスト。負でもよいが、負閉路を作ってはならない
     /// @return 追加した辺のID
     /// @complexity 償却 $O(1)$
     int add_edge(int from, int to, Cap cap, Cost cost) {
         assert(0 <= from && from < n);
         assert(0 <= to && to < n);
         assert(0 <= cap);
-        assert(0 <= cost);
         int m = int(_edges.size());
         _edges.emplace_back(from, to, cap, 0, cost);
         return m;
@@ -87,43 +91,40 @@ struct MinCostFlow {
     /// @brief sからtへ流せるだけ流し、流量と最小費用を返す
     /// @param s 始点
     /// @param t 終点。sとは異なる頂点
-    /// @return 流した量と最小費用の組
-    /// @warning `flow` と `slope` は合わせて1インスタンスにつき1回だけ呼べる。
+    /// @return 追加で流した量と追加の最小費用の組
     /// @complexity 流量を $F$、頂点数を $n$、辺数を $m$ として
-    /// $O(F(n+m)\log(n+m))$
+    /// $O(F(n+m)\log(n+m))$。残余グラフに負コストの辺があれば $O(nm)$ が加わる
     std::pair<Cap, Cost> flow(int s, int t) { return flow(s, t, std::numeric_limits<Cap>::max()); }
 
     /// @brief sからtへ上限まで流し、流量と最小費用を返す
     /// @param s 始点
     /// @param t 終点。sとは異なる頂点
     /// @param flow_limit 流量の上限
-    /// @return 流した量と最小費用の組
-    /// @warning `flow` と `slope` は合わせて1インスタンスにつき1回だけ呼べる。
+    /// @return 追加で流した量と追加の最小費用の組
     /// @complexity 実際の流量を $F$、頂点数を $n$、辺数を $m$ として
-    /// $O(F(n+m)\log(n+m))$
+    /// $O(F(n+m)\log(n+m))$。残余グラフに負コストの辺があれば $O(nm)$ が加わる
     std::pair<Cap, Cost> flow(int s, int t, Cap flow_limit) { return slope(s, t, flow_limit).back(); }
 
     /// @brief 流量と最小費用の関係を表す折れ線を返す
     /// @details 最初の要素は $(0,0)$。連続する3点が同一直線上にならないよう圧縮される。
-    /// 最後の要素は最大流量とその最小費用である。
+    /// 最後の要素は最大流量とその最小費用である。流量・費用はこの呼び出しで追加した分を表す。
     /// @param s 始点
     /// @param t 終点。sとは異なる頂点
     /// @return 折れ線の頂点を流量・最小費用の組で並べた列
-    /// @warning `flow` と `slope` は合わせて1インスタンスにつき1回だけ呼べる。
     /// @complexity 最大流量を $F$、頂点数を $n$、辺数を $m$ として
-    /// $O(F(n+m)\log(n+m))$
+    /// $O(F(n+m)\log(n+m))$。残余グラフに負コストの辺があれば $O(nm)$ が加わる
     std::vector<std::pair<Cap, Cost>> slope(int s, int t) { return slope(s, t, std::numeric_limits<Cap>::max()); }
 
     /// @brief 流量上限までの流量と最小費用の関係を表す折れ線を返す
     /// @details 最初の要素は $(0,0)$。連続する3点が同一直線上にならないよう圧縮される。
     /// 最後の要素は最大流量とflow_limitの小さい方に対する最小費用である。
+    /// 流量・費用はこの呼び出しで追加した分を表す。
     /// @param s 始点
     /// @param t 終点。sとは異なる頂点
     /// @param flow_limit 流量の上限
     /// @return 折れ線の頂点を流量・最小費用の組で並べた列
-    /// @warning `flow` と `slope` は合わせて1インスタンスにつき1回だけ呼べる。
     /// @complexity 実際の流量を $F$、頂点数を $n$、辺数を $m$ として
-    /// $O(F(n+m)\log(n+m))$
+    /// $O(F(n+m)\log(n+m))$。残余グラフに負コストの辺があれば $O(nm)$ が加わる
     std::vector<std::pair<Cap, Cost>> slope(int s, int t, Cap flow_limit) {
         assert(0 <= s && s < n);
         assert(0 <= t && t < n);
@@ -177,6 +178,40 @@ struct MinCostFlow {
         constexpr InternalEdge(int _to, int _rev, Cap _cap, Cost _cost) : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
     };
 
+    // 残余グラフに負コストの辺があれば、s からの最短距離で双対変数を初期化する。
+    // 双対変数は dual[t] = 0 となるよう正規化する。t に到達できなければ false を返す。
+    bool init_dual(const internal::Csr<InternalEdge> &g, int s, int t, std::vector<std::pair<Cost, Cost>> &dual_dist) {
+        if (std::none_of(g.elist.begin(), g.elist.end(), [](const InternalEdge &e) { return e.cap && e.cost < 0; }))
+            return true;
+        constexpr Cost inf = std::numeric_limits<Cost>::max();
+        std::vector<Cost> dist(n, inf);
+        std::vector<int> depth(n);
+        std::vector<bool> in_queue(n);
+        std::queue<int> que;
+        dist[s] = 0;
+        que.push(s);
+        in_queue[s] = true;
+        while (!que.empty()) {
+            int v = que.front();
+            que.pop();
+            in_queue[v] = false;
+            for (int i = g.start[v]; i < g.start[v + 1]; ++i) {
+                const auto &e = g.elist[i];
+                if (!e.cap || dist[v] + e.cost >= dist[e.to]) continue;
+                dist[e.to] = dist[v] + e.cost;
+                depth[e.to] = depth[v] + 1;
+                assert(depth[e.to] < n && "negative cycle");
+                if (!in_queue[e.to]) {
+                    in_queue[e.to] = true;
+                    que.push(e.to);
+                }
+            }
+        }
+        if (dist[t] == inf) return false;
+        for (int v = 0; v < n; ++v) dual_dist[v].first = dist[v] == inf ? Cost(0) : dist[v] - dist[t];
+        return true;
+    }
+
     std::vector<std::pair<Cap, Cost>> slope(internal::Csr<InternalEdge> &g, int s, int t, Cap flow_limit) {
         std::vector<std::pair<Cost, Cost>> dual_dist(n);
         std::vector<int> prev_e(n);
@@ -189,6 +224,7 @@ struct MinCostFlow {
         };
         std::vector<int> que_min;
         std::vector<Q> que;
+        if (!init_dual(g, s, t, dual_dist)) return {{Cap(0), Cost(0)}};
         auto dual_ref = [&]() {
             for (int i = 0; i < n; ++i) dual_dist[i].second = std::numeric_limits<Cost>::max();
             std::fill(vis.begin(), vis.end(), false);
@@ -240,7 +276,8 @@ struct MinCostFlow {
             return true;
         };
         Cap flow = 0;
-        Cost cost = 0, prev_cost_per_flow = -1;
+        Cost cost = 0, prev_cost_per_flow = 0;
+        bool first = true;
         std::vector<std::pair<Cap, Cost>> result = {{Cap(0), Cost(0)}};
         while (flow < flow_limit) {
             if (!dual_ref()) break;
@@ -254,9 +291,10 @@ struct MinCostFlow {
             Cost d = -dual_dist[s].first;
             flow += c;
             cost += c * d;
-            if (prev_cost_per_flow == d) result.pop_back();
+            if (!first && prev_cost_per_flow == d) result.pop_back();
             result.emplace_back(flow, cost);
             prev_cost_per_flow = d;
+            first = false;
         }
         return result;
     }
