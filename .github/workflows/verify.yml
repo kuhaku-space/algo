@@ -31,7 +31,7 @@ concurrency:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
 
@@ -85,7 +85,7 @@ jobs:
           retention-days: 1
 
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [setup]
     env:
       # SPLIT_SIZE must equal the number of matrix indices below.
@@ -161,7 +161,7 @@ jobs:
           retention-days: 1
 
   docs-and-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [verify]
     # 必須チェック。verify が失敗しても走らせ、失敗をこのジョブの結論に集約する。
     if: always()
@@ -401,7 +401,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
