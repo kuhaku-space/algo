@@ -99,8 +99,8 @@ done
 """
 
 # ここから下は workspace/ で問題を解くための oj 系タスク（ライブラリ開発とは別系統）。
-# 正名は動詞、短縮名（ojd/ojb/ojt/...）は alias で併設。bundle/compile などの共通処理と
-# コンパイルフラグは tools/oj.sh にある。命名・dir 指定の理由は docs/current/toolchain.md を参照。
+# 正名は動詞、短縮名（ojd/ojb/ojt/...）は alias で併設。build / pch / random-check の中身と
+# コンパイルフラグは tools/oj.py にある。命名・dir 指定の理由は docs/current/toolchain.md を参照。
 
 [tasks.download]
 description = "workspace でテストケースをダウンロード（oj d、-a でシステムテスト）"
@@ -168,42 +168,15 @@ arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
 '''
 run = """
 #!/bin/bash
-source "{{config_root}}/tools/oj.sh"
-OJ_DEBUG="$usage_debug"
-[[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
-oj_bundle "$usage_src" >main.cpp || exit 1
-# include より前に optimize pragma があると PCH（mise run pch）は使われない。pragma のフラグが
-# PCH 作成時と一致するときだけ、pragma を空行にして同じ意味のフラグで渡す。提出する main.cpp は
-# 書き換えず、#line で診断のファイル名と行番号を main.cpp に揃える。
-pch_flags=$(oj_pragma_flags <main.cpp)
-if [[ "$OJ_DEBUG" != "true" && -f "$OJ_PCH/bits/stdc++.h.gch" \\
-      && "$pch_flags" == "$(cat "$OJ_PCH/flags" 2>/dev/null)" ]]; then
-  read -ra pch_args <<<"$pch_flags"
-  { echo '#line 1 "main.cpp"'; sed '/^#include <bits\\/stdc++\\.h>/,$!s/^#pragma GCC optimize(.*//' main.cpp; } \\
-    | oj_compile -I "$OJ_PCH" -Winvalid-pch "${pch_args[@]}" -x c++ -
-else
-  oj_compile main.cpp
-fi
+args=()
+[[ "$usage_debug" == "true" ]] && args+=(--debug)
+exec python3 "{{config_root}}/tools/oj.py" build "${args[@]}" "$usage_src"
 """
 
 [tasks.pch]
 description = "build を速くする bits/stdc++.h の PCH を workspace/.pch に作る（g++ やフラグを変えたら作り直す）"
 dir = "{{config_root}}/workspace"
-run = """
-#!/bin/bash
-source "{{config_root}}/tools/oj.sh"
-# テンプレートの optimize pragma と同じフラグで作る。build はフラグが一致するときだけ使う。
-flags=$(oj_bundle template/template.cpp | oj_pragma_flags)
-read -ra flag_args <<<"$flags"
-header=$(echo "#include <bits/stdc++.h>" | g++-15 -std=gnu++23 -x c++ -H -fsyntax-only - 2>&1 | awk 'NR == 1 { print $2 }')
-[[ -f "$header" ]] || { echo "bits/stdc++.h が見つかりません" >&2; exit 1; }
-rm -f "$OJ_PCH/flags"
-# 元のヘッダも隣に置き、PCH が使えないときはそれが読まれるようにする。
-mkdir -p "$OJ_PCH/bits" && cp "$header" "$OJ_PCH/bits/stdc++.h" || exit 1
-g++-15 "${OJ_CXX_FLAGS[@]}" "${OJ_CXX_RELEASE_FLAGS[@]}" "${flag_args[@]}" -x c++-header "$OJ_PCH/bits/stdc++.h" -o "$OJ_PCH/bits/stdc++.h.gch" || exit 1
-echo "$flags" >"$OJ_PCH/flags"
-echo "PCH を作成しました: $OJ_PCH（optimize pragma 由来のフラグ: ${flags:-なし}）"
-"""
+run = 'python3 "{{config_root}}/tools/oj.py" pch'
 
 [tasks.test]
 description = "ソース（既定 a.cpp）を bundle・compile して oj t（-e で誤差ジャッジ）"
@@ -215,9 +188,9 @@ arg "<src>" help="ソースファイル（省略時 a.cpp）" default="a.cpp"
 '''
 run = """
 #!/bin/bash
-source "{{config_root}}/tools/oj.sh"
 mise run build "$usage_src" || exit 1
-oj_raise_stack_limit
+# 再帰の深い解法がローカルでだけ SIGSEGV しないようスタックを広げる（子に継承される）。
+ulimit -s unlimited 2>/dev/null || ulimit -s 1048576
 
 oj_args=(-N)
 [[ "$usage_error" == "true" ]] && oj_args+=(-e 1e-9)
@@ -278,19 +251,4 @@ dir = "{{config_root}}/workspace"
 usage = '''
 arg "<src>" help="解答ソースファイル（省略時 a.cpp）" default="a.cpp"
 '''
-run = """
-#!/bin/bash
-source "{{config_root}}/tools/oj.sh"
-[[ -f "$usage_src" ]] || { echo "$usage_src が見つかりません" >&2; exit 1; }
-oj_bundle "$usage_src" >main.cpp || exit 1
-oj_compile main.cpp || exit 1
-oj_raise_stack_limit
-(
-  cd checker || exit 1
-  [[ -f test.cpp ]] || exit 1
-  oj_bundle test.cpp >test/main.cpp || exit 1
-  cd test || exit 1
-  oj_compile main.cpp || exit 1
-  ./a.out
-)
-"""
+run = 'python3 "{{config_root}}/tools/oj.py" random-check "$usage_src"'
