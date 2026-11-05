@@ -4,7 +4,7 @@ title: 開発ツールの構成
 
 # 開発ツールの構成
 
-設定は `mise.toml`・`ruff.toml`・`.clang-format`・`.githooks/pre-commit` にある。
+設定は `mise.toml`・`ruff.toml`・`ty.toml`・`.clang-format`・`.githooks/pre-commit` にある。
 ここにはその**設定意図**を書く。コマンドそのものは [commands.md](../commands.md)。
 
 ## mise が単一の入口
@@ -16,6 +16,31 @@ setup がやることは 4 つ。
 2. CLI でしか入らないシステムパッケージ（`xclip`・`g++-15`）を apt で導入
 3. `git config core.hooksPath .githooks`（pre-commit フックの有効化。リポジトリ毎のローカル設定）
 4. `mise run install-shims`
+
+## バージョンは固定する
+
+`[tools]` のバージョンは固定し、`latest` は使わない。
+
+- `latest` だと導入した時期によって環境が変わり、ツールの更新だけで結果が変わる。
+  特に clang-format は版ごとに整形結果が変わり、pre-commit フックが無関係な差分を出す。
+  ruff・ty も版ごとに診断が増減し、`mise run lint` が無関係な変更で落ちる。
+- 固定する桁は、**挙動が変わりうる桁まで**にする。それより下は前方一致にして、バグ修正は
+  `mise up` で範囲内の最新に上がるようにする（入っている版が範囲内なら `mise install` は何もしない）。
+
+  | ツール | 指定 | 理由 |
+  | --- | --- | --- |
+  | ty | `0.0.97` | 1.0 前で、パッチ版ごとに診断が増減する |
+  | ruff | `0.17` | 破壊的変更はマイナー版で入る。パッチ版はバグ修正と preview の変更が中心 |
+  | clang-format | `23` | LLVM のパッチ版はバグ修正のみ |
+  | jq・uv | `1.8`・`0.13` | パッチ版で出力や挙動は変わらない |
+  | oj 系・daily | 完全一致 | 更新がほぼ無い／自前のツールなので、上げたいときに上げる |
+
+- `mise.lock` はユーザ設定（グローバル gitignore）の都合でコミットしていないので、固定は
+  `mise.toml` で行う。
+- Dependabot は mise に対応していないので、範囲そのものを上げる更新は手動。`mise outdated --bump` で新しい版を確認し、
+  `mise.toml` を書き換えて `mise install` する。clang-format を上げたら `lib`・`test` に当てて
+  差分が出ないかを確かめ（出たら同じコミットで整形し直す）、ruff・ty を上げたら `mise run lint` を通す。
+- `daily-problems-cli` は git+ でインストールしているが、GitHub Release のタグ名（`0.2.1` など）で固定できる。
 
 ## Python CLI は pipx（実体は uv）で入れる
 
@@ -112,6 +137,15 @@ clang-format は mise の `[tools]` 管理なので、PATH に shim が無い環
   バグ検出（B）、簡約（SIM/C4/PIE/FURB）、ruff 固有（RUF）を足している。
 - `ignore = ["RUF001", "RUF002", "RUF003"]` — 全角の括弧・記号は日本語のコメントやメッセージとして
   意図的に使っている。
+
+## ty の設定
+
+`ty.toml` は `tools/` の Python の型検査用。実行は ruff と同じく `mise run lint`。
+
+- 1.0 前で版ごとの診断の変化が特に大きい。バージョン固定の方針は[上記](#バージョンは固定する)。
+- `python-version = "3.12"` — ruff の `target-version` に合わせる。
+- mypy ではなく ty にしたのは、ruff と同じく mise で単体バイナリを入れるだけで動き、`tools/` 全体を
+  0.1 秒未満で検査できるため。mypy `--strict` より検査は緩い（`no-any-return` などは出ない）。
 
 ## GitHub Actions の lockfile
 

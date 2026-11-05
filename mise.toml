@@ -1,16 +1,18 @@
 # ツールの選定理由（pipx バックエンド・setuptools のピン・shim・タスクの dir 指定など）は
 # docs/current/toolchain.md にまとめてある。
 
+# バージョンは固定する。範囲の決め方と上げ方はドキュメント参照。
 [tools]
-clang-format = "latest"              # .githooks/pre-commit が使う
-jq = "latest"
-ruff = "latest"                      # 設定は ruff.toml
-uv = "latest"                        # pipx バックエンドの実体
+clang-format = "23"                  # .githooks/pre-commit が使う
+jq = "1.8"
+ruff = "0.17"                        # 設定は ruff.toml
+ty = "0.0.97"                        # 設定は ty.toml
+uv = "0.13"                          # pipx バックエンドの実体
 # 以下は pipx（実体は uv）で入れる Python CLI。
-"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"  # daily
+"pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "0.2.1"  # daily
 # oj / oj-bundle / oj-verify。setuptools<81 のピンは必須（理由はドキュメント参照）。
-"pipx:online-judge-tools" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
-"pipx:online-judge-verify-helper" = { version = "latest", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
+"pipx:online-judge-tools" = { version = "11.5.1", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
+"pipx:online-judge-verify-helper" = { version = "5.6.0", uvx_args = "--with setuptools<81", pipx_args = "--preinstall setuptools<81" }
 
 # workspace/ でのコンパイルフラグ。PCH はこれと同じフラグでないと使われないので一箇所にまとめる。
 [vars]
@@ -18,8 +20,8 @@ cxx_flags = "-DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS -DUSE
 cxx_release_flags = "-O2 -ftrivial-auto-var-init=zero"
 
 [tasks.lint]
-description = "tools/ の Python を ruff で検査する"
-run = "ruff check tools"
+description = "tools/ の Python を ruff と ty で検査する"
+run = ["ruff check tools", "ty check tools"]
 
 [tasks.docs]
 description = "日本語リファレンスを docs/generated/ に生成する"

@@ -37,7 +37,7 @@ mise run docs-site   # 検証結果なしでサイトのソースを _jekyll/ �
 ## Lint
 
 ```sh
-mise run lint        # tools/ の Python を ruff で検査する（設定は ruff.toml）
+mise run lint        # tools/ の Python を ruff と ty で検査する（設定は ruff.toml・ty.toml）
 ```
 
 ## セットアップ
