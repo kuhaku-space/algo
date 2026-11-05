@@ -5,6 +5,7 @@
 clang-format = "latest"              # .githooks/pre-commit が使う
 jq = "latest"
 ruff = "latest"                      # 設定は ruff.toml
+ty = "0.0.97"                        # 設定は ty.toml。1.0 前なので固定する
 uv = "latest"                        # pipx バックエンドの実体
 # 以下は pipx（実体は uv）で入れる Python CLI。
 "pipx:git+https://github.com/kuhaku-space/daily-problems-cli.git" = "latest"  # daily
@@ -18,8 +19,8 @@ cxx_flags = "-DNOMINMAX -DONLINE_JUDGE -DOR_PROTO_DLL= -DPROTOBUF_USE_DLLS -DUSE
 cxx_release_flags = "-O2 -ftrivial-auto-var-init=zero"
 
 [tasks.lint]
-description = "tools/ の Python を ruff で検査する"
-run = "ruff check tools"
+description = "tools/ の Python を ruff と ty で検査する"
+run = ["ruff check tools", "ty check tools"]
 
 [tasks.docs]
 description = "日本語リファレンスを docs/generated/ に生成する"

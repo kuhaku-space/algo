@@ -1,0 +1,5 @@
+# tools/ の Python 用の型検査設定（実行は `mise run lint`）。
+# 理由は docs/current/toolchain.md を参照。
+
+[environment]
+python-version = "3.12"

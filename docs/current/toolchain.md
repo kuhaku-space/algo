@@ -4,7 +4,7 @@ title: 開発ツールの構成
 
 # 開発ツールの構成
 
-設定は `mise.toml`・`ruff.toml`・`.clang-format`・`.githooks/pre-commit` にある。
+設定は `mise.toml`・`ruff.toml`・`ty.toml`・`.clang-format`・`.githooks/pre-commit` にある。
 ここにはその**設定意図**を書く。コマンドそのものは [commands.md](../commands.md)。
 
 ## mise が単一の入口
@@ -112,6 +112,16 @@ clang-format は mise の `[tools]` 管理なので、PATH に shim が無い環
   バグ検出（B）、簡約（SIM/C4/PIE/FURB）、ruff 固有（RUF）を足している。
 - `ignore = ["RUF001", "RUF002", "RUF003"]` — 全角の括弧・記号は日本語のコメントやメッセージとして
   意図的に使っている。
+
+## ty の設定
+
+`ty.toml` は `tools/` の Python の型検査用。実行は ruff と同じく `mise run lint`。
+
+- **バージョンを固定する**（`mise.toml` の `ty = "0.0.97"`）。1.0 前で、更新のたびに診断が増減しうるので、
+  `latest` にすると無関係な変更で lint が落ちる。上げるときは `ty check tools` を通してから。
+- `python-version = "3.12"` — ruff の `target-version` に合わせる。
+- mypy ではなく ty にしたのは、ruff と同じく mise で単体バイナリを入れるだけで動き、`tools/` 全体を
+  0.1 秒未満で検査できるため。mypy `--strict` より検査は緩い（`no-any-return` などは出ない）。
 
 ## GitHub Actions の lockfile
 
