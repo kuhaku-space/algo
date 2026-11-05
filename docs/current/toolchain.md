@@ -78,17 +78,20 @@ setup がやることは 4 つ。
   `clean` / `gen-tests`。名詞の `pch` は例外）。旧エイリアス互換の短縮名（`ojd` 等）は `alias` で併設し、shim は短縮名で作る。
 - mise タスクはタスク定義位置ではなく **`dir` で指定したディレクトリ**で実行される。
   `oj` 系は `workspace/` で動かす前提なので、各タスクに `dir = "{{config_root}}/workspace"` を置く。
-- bundle・compile は**各タスク内にヘルパ関数としてインライン定義**する。CWD をまたぐネストした
-  `mise run` を避けるため（`random-check` は `checker/` 配下でも同じ処理を使う）。
+- `build` / `pch` / `random-check` の中身は **`tools/oj.py`** に置き、タスクはそれを呼ぶだけにする。
+  pragma の解釈や PCH を使うかの判定はシェルだと壊れやすいので、Python にして ruff・ty・unittest
+  （`tools/tests/test_oj.py`）の対象にする。`download` / `new` / `clean` などコマンドを呼ぶだけの短い
+  タスクはシェルのまま。
 - `new` は `a.cpp` を常にテンプレートで上書きする（新しい問題を始める前提）。テストだけ取り直したい
   ときは `download` を使う。URL の埋め込みは sed のメタ文字で壊れないよう awk で行い、
   サンプル取得に成功してから `test/` を差し替える。
-- `test` / `random-check` は先頭で **`ulimit -s`** を上げる。システム既定（多くの Linux で 8MB）だと
-  再帰の深い解法がローカルでだけ SIGSEGV しうるため。`ulimit` は子プロセスに継承されるので、
+- `test` / `random-check` は解答を動かす前に**スタック上限**を上げる（`test` は `ulimit -s`、
+  `random-check` は `resource.setrlimit`）。システム既定（多くの Linux で 8MB）だと
+  再帰の深い解法がローカルでだけ SIGSEGV しうるため。どちらも子プロセスに継承されるので、
   `oj t` や checker が fork/exec するバイナリにも効く。
 - `submit` は既定で提出前にローカルテストを走らせ、落ちたら止める（誤提出ガード）。`-f` で省略できる。
 - `build -g` はデバッグビルド。最適化を落として ASan/UBSan と `_GLIBCXX_DEBUG` を足す。
-- コンパイルフラグは `[vars]` の `cxx_flags` / `cxx_release_flags` に一本化する。PCH は作成時と
+- コンパイルフラグは `tools/oj.py` の `CXX_FLAGS` / `RELEASE_FLAGS` に一本化する。PCH は作成時と
   フラグが一致しないと使われないため。
 
 ### PCH（`mise run pch`）
@@ -130,7 +133,7 @@ clang-format は mise の `[tools]` 管理なので、PATH に shim が無い環
 
 ## ruff の設定
 
-`ruff.toml` は `tools/` の Python（リファレンス生成・CI 集計スクリプト）用。実行は `mise run lint`。
+`ruff.toml` は `tools/` の Python（リファレンス生成・CI 集計・`oj` 系タスク）用。実行は `mise run lint`。
 
 - `line-length = 100` — 日本語コメントは**全角幅で数えられる**ので、実測の最長行に合わせた値。
 - `select` — 既定（F・E4/E7/E9）に、import 順（I）、行長・空白（E5/W）、非推奨構文の置き換え（UP）、
