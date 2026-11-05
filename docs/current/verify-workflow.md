@@ -71,8 +71,8 @@ Actions のキャッシュは**アクセスが無いまま 7 日**で退避さ�
 
 ## AOJ の一時的なタイムアウトを skipped に読み替える
 
-`Reclassify transient AOJ timeouts as skipped` ステップが、verify ジョブのログを読み、
-タイムアウト由来のダウンロード失敗を `failure` から `skipped` に書き換える。
+`Reclassify transient AOJ timeouts as skipped` ステップ（`tools/verify_reclassify.py`）が、
+verify ジョブのログを読み、タイムアウト由来のダウンロード失敗を `failure` から `skipped` に書き換える。
 
 - 対象は **AOJ（`judgedat.u-aizu.ac.jp`）だけ**。read/connect timeout が実際に観測されたのはここだけで、
   観測していないパターンまで一般化すると、本物の失敗を黙って握り潰す危険がある。
@@ -83,7 +83,8 @@ Actions のキャッシュは**アクセスが無いまま 7 日**で退避さ�
 - 取得できないと一時的なタイムアウトを判別できず Check が落ちるので、失敗は握り潰さず
   `::warning::` で必ず可視化する。
 
-書き換えた結果は各 shard の `result.json` にも反映してから Check に渡す。
+書き換えた結果は各 shard の `result.json` にも反映する（Check は merged ではなく shard 側を読む）。
+ログ判定と書き換えは `tools/tests/test_verify_reclassify.py` でテストしている。
 
 ## 参考情報として出すもの
 
