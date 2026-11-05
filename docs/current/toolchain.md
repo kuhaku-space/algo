@@ -17,6 +17,20 @@ setup がやることは 4 つ。
 3. `git config core.hooksPath .githooks`（pre-commit フックの有効化。リポジトリ毎のローカル設定）
 4. `mise run install-shims`
 
+## バージョンは固定する
+
+`[tools]` のバージョンはすべて固定し、`latest` は使わない。
+
+- `latest` だと導入した時期によって環境が変わり、ツールの更新だけで結果が変わる。
+  特に clang-format は版ごとに整形結果が変わり、pre-commit フックが無関係な差分を出す。
+  ruff・ty も版ごとに診断が増減し、`mise run lint` が無関係な変更で落ちる。
+- `mise.lock` はユーザ設定（グローバル gitignore）の都合でコミットしていないので、固定は
+  `mise.toml` で行う。
+- Dependabot は mise に対応していないので、更新は手動。`mise outdated` で新しい版を確認し、
+  `mise.toml` を書き換えて `mise install` する。clang-format を上げたら `lib`・`test` に当てて
+  差分が出ないかを確かめ（出たら同じコミットで整形し直す）、ruff・ty を上げたら `mise run lint` を通す。
+- `daily-problems-cli` は git+ でインストールしているが、GitHub Release のタグ名（`0.2.1` など）で固定できる。
+
 ## Python CLI は pipx（実体は uv）で入れる
 
 `oj` / `oj-bundle` / `oj-verify` / `daily` は**import するライブラリではなく CLI アプリ**なので、
@@ -117,8 +131,7 @@ clang-format は mise の `[tools]` 管理なので、PATH に shim が無い環
 
 `ty.toml` は `tools/` の Python の型検査用。実行は ruff と同じく `mise run lint`。
 
-- **バージョンを固定する**（`mise.toml` の `ty = "0.0.97"`）。1.0 前で、更新のたびに診断が増減しうるので、
-  `latest` にすると無関係な変更で lint が落ちる。上げるときは `ty check tools` を通してから。
+- 1.0 前で版ごとの診断の変化が特に大きい。バージョン固定の方針は[上記](#バージョンは固定する)。
 - `python-version = "3.12"` — ruff の `target-version` に合わせる。
 - mypy ではなく ty にしたのは、ruff と同じく mise で単体バイナリを入れるだけで動き、`tools/` 全体を
   0.1 秒未満で検査できるため。mypy `--strict` より検査は緩い（`no-any-return` などは出ない）。
