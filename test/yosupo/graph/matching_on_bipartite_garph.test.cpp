@@ -12,7 +12,7 @@ int main(void) {
     std::vector<std::pair<int, int>> p(m);
     for (auto &[a, b] : p) std::cin >> a >> b;
 
-    mf_graph<int> mf(l + r + 2);
+    MaxFlow<int> mf(l + r + 2);
     int s = l + r, g = s + 1;
     for (auto &&x : p) mf.add_edge(x.first, l + x.second, 1);
     for (int i = 0; i < l; ++i) mf.add_edge(s, i, 1);

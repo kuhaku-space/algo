@@ -6,7 +6,7 @@ int main(void) {
     int n, m;
     std::cin >> n >> m;
 
-    mf_graph<int> mf(n);
+    MaxFlow<int> mf(n);
     for (int i = 0; i < m; ++i) {
         int a, b, c;
         std::cin >> a >> b >> c;

@@ -6,7 +6,7 @@
 #include <vector>
 
 /// @file
-/// @brief 最大流 (mf_graph)
+/// @brief 最大流 (MaxFlow)
 /// @details Dinic 法で有向グラフの最大流を求める。辺追加時に返る ID から容量・現在流量を取得または
 ///          変更でき、最大流計算後の残余グラフから最小カットも復元できる。
 /// @note 容量は非負、`change_edge` では `0 <= flow <= cap` が必要。
@@ -18,7 +18,7 @@
 /// #include "flow/max_flow.hpp"
 ///
 /// int main() {
-///     mf_graph<long long> graph(4);
+///     MaxFlow<long long> graph(4);
 ///     graph.add_edge(0, 1, 3);
 ///     graph.add_edge(0, 2, 2);
 ///     graph.add_edge(1, 3, 2);
@@ -33,8 +33,8 @@
 namespace internal {
 
 template <class T>
-struct simple_queue {
-    simple_queue() : payload(), pos() {}
+struct SimpleQueue {
+    SimpleQueue() : payload(), pos() {}
     void reserve(int n) { payload.reserve(n); }
     int size() const { return int(payload.size()) - pos; }
     bool empty() const { return pos == int(payload.size()); }
@@ -53,24 +53,24 @@ struct simple_queue {
 
 /// @brief 最大流
 template <class Cap>
-struct mf_graph {
+struct MaxFlow {
     /// @brief 0頂点のグラフを構築する
     /// @complexity $O(1)$
-    mf_graph() : _n(0) {}
+    MaxFlow() : n(0) {}
 
     /// @brief n頂点0辺のグラフを構築する
     /// @complexity $O(n)$
-    explicit mf_graph(int n) : _n(n), g(n) {}
+    explicit MaxFlow(int _n) : n(_n), g(n) {}
 
     /// @brief 頂点数を返す
     /// @complexity $O(1)$
-    int size() const { return _n; }
+    int size() const { return n; }
 
     /// @brief 容量capの有向辺を追加して辺IDを返す
     /// @complexity 償却 $O(1)$
     int add_edge(int from, int to, Cap cap) {
-        assert(0 <= from && from < _n);
-        assert(0 <= to && to < _n);
+        assert(0 <= from && from < n);
+        assert(0 <= to && to < n);
         assert(0 <= cap);
         int m = int(pos.size());
         pos.emplace_back(from, int(g[from].size()));
@@ -84,7 +84,7 @@ struct mf_graph {
 
     /// @brief 追加した辺の現在状態
     /// @complexity 各フィールドへのアクセスは $O(1)$
-    struct edge {
+    struct Edge {
         /// @brief 辺の始点と終点
         /// @complexity $O(1)$ で参照可能
         int from, to;
@@ -95,18 +95,18 @@ struct mf_graph {
 
     /// @brief 指定した辺の現在状態を返す
     /// @complexity $O(1)$
-    edge get_edge(int i) {
+    Edge get_edge(int i) const {
         int m = int(pos.size());
         assert(0 <= i && i < m);
         auto _e = g[pos[i].first][pos[i].second];
         auto _re = g[_e.to][_e.rev];
-        return edge{pos[i].first, _e.to, _e.cap + _re.cap, _re.cap};
+        return Edge{pos[i].first, _e.to, _e.cap + _re.cap, _re.cap};
     }
     /// @brief 全辺の現在状態を追加順で返す
     /// @complexity 辺数を $E$ として $O(E)$
-    std::vector<edge> edges() {
+    std::vector<Edge> edges() const {
         int m = int(pos.size());
-        std::vector<edge> result;
+        std::vector<Edge> result;
         for (int i = 0; i < m; ++i) result.emplace_back(get_edge(i));
         return result;
     }
@@ -129,12 +129,12 @@ struct mf_graph {
     /// @brief sからtへflow_limitまで流して追加流量を返す
     /// @complexity $O(V^2E)$
     Cap flow(int s, int t, Cap flow_limit) {
-        assert(0 <= s && s < _n);
-        assert(0 <= t && t < _n);
+        assert(0 <= s && s < n);
+        assert(0 <= t && t < n);
         assert(s != t);
 
-        std::vector<int> level(_n), iter(_n);
-        internal::simple_queue<int> que;
+        std::vector<int> level(n), iter(n);
+        internal::SimpleQueue<int> que;
         auto bfs = [&]() {
             std::fill(level.begin(), level.end(), -1);
             level[s] = 0;
@@ -156,7 +156,7 @@ struct mf_graph {
             Cap res = 0;
             int level_v = level[v];
             for (int &i = iter[v]; i < int(g[v].size()); ++i) {
-                _edge &e = g[v][i];
+                InternalEdge &e = g[v][i];
                 if (level_v <= level[e.to] || g[e.to][e.rev].cap == 0) continue;
                 Cap d = self(self, e.to, std::min(up - res, g[e.to][e.rev].cap));
                 if (d <= 0) continue;
@@ -165,7 +165,7 @@ struct mf_graph {
                 res += d;
                 if (res == up) return res;
             }
-            level[v] = _n;
+            level[v] = n;
             return res;
         };
 
@@ -183,9 +183,9 @@ struct mf_graph {
 
     /// @brief 残余グラフでsから到達可能な頂点集合を返す
     /// @complexity $O(V+E)$
-    std::vector<bool> min_cut(int s) {
-        std::vector<bool> visited(_n);
-        internal::simple_queue<int> que;
+    std::vector<bool> min_cut(int s) const {
+        std::vector<bool> visited(n);
+        internal::SimpleQueue<int> que;
         que.push(s);
         while (!que.empty()) {
             int p = que.front();
@@ -202,13 +202,13 @@ struct mf_graph {
     }
 
   private:
-    int _n;
-    struct _edge {
+    int n;
+    struct InternalEdge {
         int to, rev;
         Cap cap;
 
-        constexpr _edge(int _to, int _rev, Cap _cap) : to(_to), rev(_rev), cap(_cap) {}
+        constexpr InternalEdge(int _to, int _rev, Cap _cap) : to(_to), rev(_rev), cap(_cap) {}
     };
     std::vector<std::pair<int, int>> pos;
-    std::vector<std::vector<_edge>> g;
+    std::vector<std::vector<InternalEdge>> g;
 };

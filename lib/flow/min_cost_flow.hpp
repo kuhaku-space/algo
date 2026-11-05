@@ -11,21 +11,20 @@
 /// @tparam Cap 容量の型
 /// @tparam Cost コストの型
 template <class Cap, class Cost>
-struct mcf_graph {
-    /// @brief 頂点数を指定せずデフォルト構築する
-    /// @details 頂点数は未設定である。各演算を呼ぶ前に `mcf_graph(n)` で構築した値を代入する。
+struct MinCostFlow {
+    /// @brief 0頂点のグラフを構築する
     /// @complexity $O(1)$
-    mcf_graph() {}
+    MinCostFlow() : n(0) {}
 
     /// @brief n頂点0辺のグラフを構築する
     /// @param n 頂点数
     /// @complexity $O(1)$
-    explicit mcf_graph(int n) : _n(n) {}
+    explicit MinCostFlow(int _n) : n(_n) {}
 
     /// @brief 頂点数を返す
     /// @return 頂点数
     /// @complexity $O(1)$
-    int size() const { return _n; }
+    int size() const { return n; }
 
     /// @brief 容量と単位流量あたりのコストを持つ有向辺を追加する
     /// @param from 始点。$0\le from<n$
@@ -35,8 +34,8 @@ struct mcf_graph {
     /// @return 追加した辺のID
     /// @complexity 償却 $O(1)$
     int add_edge(int from, int to, Cap cap, Cost cost) {
-        assert(0 <= from && from < _n);
-        assert(0 <= to && to < _n);
+        assert(0 <= from && from < n);
+        assert(0 <= to && to < n);
         assert(0 <= cap);
         assert(0 <= cost);
         int m = int(_edges.size());
@@ -48,7 +47,7 @@ struct mcf_graph {
     /// @details `from`、`to`、容量 `cap`、現在の流量 `flow`、
     /// 単位流量あたりのコスト `cost` を保持する。
     /// @complexity 構築・各フィールドへのアクセスは $O(1)$
-    struct edge {
+    struct Edge {
         /// @brief 辺の始点と終点
         /// @complexity $O(1)$ で参照可能
         int from, to;
@@ -66,7 +65,7 @@ struct mcf_graph {
         /// @param _flow 現在の流量
         /// @param _cost 単位流量あたりのコスト
         /// @complexity $O(1)$
-        constexpr edge(int _from, int _to, Cap _cap, Cap _flow, Cost _cost)
+        constexpr Edge(int _from, int _to, Cap _cap, Cap _flow, Cost _cost)
             : from(_from), to(_to), cap(_cap), flow(_flow), cost(_cost) {}
     };
 
@@ -74,7 +73,7 @@ struct mcf_graph {
     /// @param i `add_edge` が返した辺ID
     /// @return i番目に追加した辺の現在状態
     /// @complexity $O(1)$
-    edge get_edge(int i) {
+    Edge get_edge(int i) const {
         int m = int(_edges.size());
         assert(0 <= i && i < m);
         return _edges[i];
@@ -83,7 +82,7 @@ struct mcf_graph {
     /// @brief 全辺の現在状態を追加順で返す
     /// @return 辺状態の列
     /// @complexity 追加した辺数を $m$ として $O(m)$
-    std::vector<edge> edges() { return _edges; }
+    std::vector<Edge> edges() const { return _edges; }
 
     /// @brief sからtへ流せるだけ流し、流量と最小費用を返す
     /// @param s 始点
@@ -126,25 +125,25 @@ struct mcf_graph {
     /// @complexity 実際の流量を $F$、頂点数を $n$、辺数を $m$ として
     /// $O(F(n+m)\log(n+m))$
     std::vector<std::pair<Cap, Cost>> slope(int s, int t, Cap flow_limit) {
-        assert(0 <= s && s < _n);
-        assert(0 <= t && t < _n);
+        assert(0 <= s && s < n);
+        assert(0 <= t && t < n);
         assert(s != t);
 
         int m = int(_edges.size());
         std::vector<int> edge_idx(m);
 
         auto g = [&]() {
-            std::vector<int> degree(_n), redge_idx(m);
-            std::vector<std::pair<int, _edge>> elist;
+            std::vector<int> degree(n), redge_idx(m);
+            std::vector<std::pair<int, InternalEdge>> elist;
             elist.reserve(2 * m);
             for (int i = 0; i < m; ++i) {
                 auto e = _edges[i];
                 edge_idx[i] = degree[e.from]++;
                 redge_idx[i] = degree[e.to]++;
-                elist.emplace_back(e.from, _edge(e.to, -1, e.cap - e.flow, e.cost));
-                elist.emplace_back(e.to, _edge(e.from, -1, e.flow, -e.cost));
+                elist.emplace_back(e.from, InternalEdge(e.to, -1, e.cap - e.flow, e.cost));
+                elist.emplace_back(e.to, InternalEdge(e.from, -1, e.flow, -e.cost));
             }
-            auto _g = internal::Csr<_edge>(_n, elist);
+            auto _g = internal::Csr<InternalEdge>(n, elist);
             for (int i = 0; i < m; ++i) {
                 auto e = _edges[i];
                 edge_idx[i] += _g.start[e.from];
@@ -166,22 +165,22 @@ struct mcf_graph {
     }
 
   private:
-    int _n;
-    std::vector<edge> _edges;
+    int n;
+    std::vector<Edge> _edges;
 
-    struct _edge {
+    struct InternalEdge {
         int to, rev;
         Cap cap;
         Cost cost;
 
-        constexpr _edge() : to(), rev(), cap(), cost() {}
-        constexpr _edge(int _to, int _rev, Cap _cap, Cost _cost) : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
+        constexpr InternalEdge() : to(), rev(), cap(), cost() {}
+        constexpr InternalEdge(int _to, int _rev, Cap _cap, Cost _cost) : to(_to), rev(_rev), cap(_cap), cost(_cost) {}
     };
 
-    std::vector<std::pair<Cap, Cost>> slope(internal::Csr<_edge> &g, int s, int t, Cap flow_limit) {
-        std::vector<std::pair<Cost, Cost>> dual_dist(_n);
-        std::vector<int> prev_e(_n);
-        std::vector<bool> vis(_n);
+    std::vector<std::pair<Cap, Cost>> slope(internal::Csr<InternalEdge> &g, int s, int t, Cap flow_limit) {
+        std::vector<std::pair<Cost, Cost>> dual_dist(n);
+        std::vector<int> prev_e(n);
+        std::vector<bool> vis(n);
         struct Q {
             Cost key;
             int to;
@@ -191,7 +190,7 @@ struct mcf_graph {
         std::vector<int> que_min;
         std::vector<Q> que;
         auto dual_ref = [&]() {
-            for (int i = 0; i < _n; ++i) dual_dist[i].second = std::numeric_limits<Cost>::max();
+            for (int i = 0; i < n; ++i) dual_dist[i].second = std::numeric_limits<Cost>::max();
             std::fill(vis.begin(), vis.end(), false);
             que_min.clear();
             que.clear();
@@ -234,7 +233,7 @@ struct mcf_graph {
             }
             if (!vis[t]) return false;
 
-            for (int v = 0; v < _n; ++v) {
+            for (int v = 0; v < n; ++v) {
                 if (!vis[v]) continue;
                 dual_dist[v].first -= dual_dist[t].second - dual_dist[v].second;
             }
