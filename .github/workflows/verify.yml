@@ -223,118 +223,20 @@ jobs:
         with:
           result-files: ${{ steps.all-artifacts.outputs.artifacts-root }}/Result-*/result.json
           output-path: ${{github.workspace}}/merged-result.json
+      # 書き換えは各 shard の result.json にも反映する（Check はそちらを読む）。
       - name: Reclassify transient AOJ timeouts as skipped
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGED: ${{github.workspace}}/merged-result.json
+          ARTIFACTS_ROOT: ${{ steps.all-artifacts.outputs.artifacts-root }}
           RUN_ID: ${{ github.run_id }}
           REPO: ${{ github.repository }}
-        run: |
-          python3 <<'PY'
-          import json, os, re, subprocess, sys
-
-          merged_path = os.environ["MERGED"]
-          run_id = os.environ["RUN_ID"]
-          repo = os.environ["REPO"]
-
-          with open(merged_path) as f:
-              merged = json.load(f)
-
-          failed_files = {
-              p for p, fr in merged.get("files", {}).items()
-              if any(v.get("status") == "failure" for v in fr.get("verifications", []))
-          }
-          if not failed_files:
-              print("No failures; nothing to reclassify.")
-              sys.exit(0)
-
-          jobs = json.loads(subprocess.check_output(
-              ["gh", "api", "--paginate",
-               f"repos/{repo}/actions/runs/{run_id}/jobs"]
-          ))["jobs"]
-          verify_jobs = [j for j in jobs if j["name"].startswith("verify (")]
-
-          # AOJ only, on purpose: generalizing to unobserved patterns would
-          # risk silently skipping real failures.
-          timeout_pattern = re.compile(
-              r"judgedat\.u-aizu\.ac\.jp.*(?:Read timed out|"
-              r"timed out\. \(connect timeout=\d+\))|"
-              r"handshake operation timed out"
-          )
-          failure_pattern = re.compile(
-              r"Failed to download:.*'(test/[^']+\.test\.cpp)'"
-          )
-          # "Failed to download" follows the timeout line within a few lines.
-          DOWNLOAD_FAILURE_WINDOW = 30
-
-          def fetch_job_log(job_id):
-              # 新しい gh は --allow-escape-sequences なしだと ANSI 色付きの
-              # ログを拒否する。古い gh には無いフラグなので順に試す。
-              path = f"repos/{repo}/actions/jobs/{job_id}/logs"
-              stderr = ""
-              for args in (["--allow-escape-sequences", path], [path]):
-                  proc = subprocess.run(
-                      ["gh", "api", *args],
-                      capture_output=True, text=True, errors="replace",
-                  )
-                  if proc.returncode == 0:
-                      return proc.stdout
-                  stderr = proc.stderr.strip().replace("\n", " ")
-              # 握り潰すと transient なタイムアウトを判別できないので可視化する。
-              print(f"::warning::Failed to fetch log of job {job_id}: {stderr}")
-              return None
-
-          timeout_files = set()
-          for job in verify_jobs:
-              log = fetch_job_log(job["id"])
-              if log is None:
-                  continue
-              lines = log.splitlines()
-              for i, line in enumerate(lines):
-                  if not timeout_pattern.search(line):
-                      continue
-                  for j in range(i, min(i + DOWNLOAD_FAILURE_WINDOW, len(lines))):
-                      m = failure_pattern.search(lines[j])
-                      if m:
-                          timeout_files.add(m.group(1))
-
-          reclassified = []
-          for p in sorted(failed_files & timeout_files):
-              changed = False
-              for v in merged["files"][p]["verifications"]:
-                  if v.get("status") == "failure":
-                      v["status"] = "skipped"
-                      changed = True
-              if changed:
-                  reclassified.append(p)
-
-          if reclassified:
-              with open(merged_path, "w") as f:
-                  json.dump(merged, f)
-              print(f"Reclassified {len(reclassified)} timeout failures as skipped:")
-              for p in reclassified:
-                  print(f"  - {p}")
-          else:
-              print("No transient AOJ timeouts detected.")
-          PY
-      - name: Re-emit per-job result.json with reclassification
-        env:
-          ARTIFACTS_ROOT: ${{ steps.all-artifacts.outputs.artifacts-root }}
-          MERGED: ${{github.workspace}}/merged-result.json
-        run: |
-          python3 <<'PY'
-          import json, os, glob
-
-          merged = json.load(open(os.environ["MERGED"]))
-          merged_files = merged.get("files", {})
-          for path in glob.glob(os.path.join(os.environ["ARTIFACTS_ROOT"], "Result-*/result.json")):
-              data = json.load(open(path))
-              for p, fr in data.get("files", {}).items():
-                  if p in merged_files:
-                      data["files"][p] = merged_files[p]
-              with open(path, "w") as f:
-                  json.dump(data, f)
-          PY
+        run: >-
+          python3 tools/verify_reclassify.py
+          --merged "$MERGED"
+          --repo "$REPO"
+          --run-id "$RUN_ID"
+          --shard "$ARTIFACTS_ROOT"/Result-*/result.json
       # Rendering is repository-owned (see docs/current/reference-pipeline.md).
       - name: Generate reference site
         uses: ./.github/actions/generate-docs
