@@ -122,3 +122,8 @@ workflow が使う action は `.github/workflows/actions.lock` で commit に固
   （拡張は `gh extension install github/gh-actions-lock`）。
 - 鮮度は `verify-lockfile.yml` が `gh actions-lock --verify` で検査する。
 - Dependabot の更新 PR は lockfile も同時に更新する。
+
+## actionlint の設定
+
+`.github/actionlint.yaml` は、actionlint がまだ認識しない GitHub-hosted ランナーのラベル（`ubuntu-26.04`）を
+`self-hosted-runner.labels` で許可するためのもの。actionlint の既知ラベルに追加されたら削除する。
