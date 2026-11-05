@@ -6,7 +6,7 @@ int main(void) {
     int n, m, f;
     std::cin >> n >> m >> f;
 
-    mcf_graph<int, int> mf(n);
+    MinCostFlow<int, int> mf(n);
     for (int i = 0; i < m; ++i) {
         int a, b, c, d;
         std::cin >> a >> b >> c >> d;

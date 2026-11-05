@@ -7,7 +7,7 @@
 int main(void) {
     int x, y, e;
     std::cin >> x >> y >> e;
-    mf_graph<int> mf(x + y + 2);
+    MaxFlow<int> mf(x + y + 2);
     BipartiteMatching bm(x, y);
     while (e--) {
         int s, t;

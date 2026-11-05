@@ -46,7 +46,7 @@ g++ -std=c++23 -I lib your_solution.cpp
 | [`lib/linalg/`](lib/linalg/)                 | 行列・Berlekamp-Massey・きたまさ法（線形漸化式）                                          |
 | [`lib/convolution/`](lib/convolution/)       | FFT・NTT・形式的冪級数・subset convolution・Garner                                        |
 | [`lib/graph/`](lib/graph/)                   | Dijkstra・Bellman-Ford・SCC・2-SAT・最小全域木・functional graph・トポロジカルソート など |
-| [`lib/flow/`](lib/flow/)                     | 最大流・最小費用流・Hopcroft-Karp                                                         |
+| [`lib/flow/`](lib/flow/)                     | 最大流・下限付き最大流・最小費用流・Hopcroft-Karp                                         |
 | [`lib/tree/`](lib/tree/)                     | HLD・LCA・重心分解・Euler Tour・Link-Cut Tree・全方位木 DP・Static Top Tree など          |
 | [`lib/string/`](lib/string/)                 | Suffix Array・Z-algorithm・KMP・Aho-Corasick・Rolling Hash（ハッシュ用整数）・回文木 など |
 | [`lib/geometry/`](lib/geometry/)             | 2D / 3D 幾何・凸包・kd-tree                                                               |
